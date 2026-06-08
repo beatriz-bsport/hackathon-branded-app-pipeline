@@ -41,6 +41,7 @@ export const PERMISSIONS_PATHS: Record<
   pack: ["navigationMenu.products.packs"],
   pass: ["navigationMenu.products.paymentPack"],
   payout: ["navigationMenu.settings.subscription"],
+  subscriptionFinance: ["navigationMenu.payments.billings"],
   payroll: ["navigationMenu.payments.teachers"],
   performanceTracking: ["navigationMenu.myClub.programs"],
   playlist: ["navigationMenu.digitalOffer.playlists"],

@@ -2,7 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import {
   type FetchAppointmentPassesParams,
-  appointmentPassesQueryOptions,
+  fetchAppointmentPassesQueryOptions,
 } from "@bsport/api-buyables/appointment-pass";
 import { DEFAULT_PAGE_SIZE_PASS_OPTIONS } from "@bsport/api-cdp/smartlist";
 
@@ -36,5 +36,5 @@ export const useAppointmentPassesQuery = (
     params.disabled = false;
   }
 
-  return useSuspenseQuery(appointmentPassesQueryOptions(fetch, params));
+  return useSuspenseQuery(fetchAppointmentPassesQueryOptions(fetch, params));
 };

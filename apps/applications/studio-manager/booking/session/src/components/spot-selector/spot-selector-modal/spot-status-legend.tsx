@@ -208,7 +208,7 @@ export const SpotStatusLegend: React.FC<SpotStatusLegendProps> = ({
           {t("spotSelector.legend.free")}
         </Body>
         <Body size="sm" weight="weak" color="weak">
-          {freeCount}
+          {t("spotSelector.legend.count", { count: freeCount })}
         </Body>
       </div>
 
@@ -226,7 +226,7 @@ export const SpotStatusLegend: React.FC<SpotStatusLegendProps> = ({
           {t("spotSelector.legend.taken")}
         </Body>
         <Body size="sm" weight="weak" color="weak">
-          {takenCount}
+          {t("spotSelector.legend.count", { count: takenCount })}
         </Body>
       </div>
 

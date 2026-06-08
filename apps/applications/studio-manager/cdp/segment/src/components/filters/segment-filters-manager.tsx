@@ -11,6 +11,15 @@ import { ActivePassesFilterCardSkeleton } from "./active-passes-filter/component
 import { createDefaultActivePassesFilter } from "./active-passes-filter/default-value";
 import { mapActivePassesFilterToFormValue } from "./active-passes-filter/mappers/api-to-form-value";
 import type { ActivePassesFilterFormValue } from "./active-passes-filter/types";
+import { AppointmentPassFilterCardSkeleton } from "./appointment-pass-filter/components/appointment-pass-filter-card-skeleton";
+import { AppointmentPassFilterCardWithData } from "./appointment-pass-filter/components/appointment-pass-filter-card-with-data";
+import { createDefaultAppointmentPassFilter } from "./appointment-pass-filter/default-value";
+import { mapPrivatePassFilterToFormValue } from "./appointment-pass-filter/mappers/api-to-form-value";
+import type { AppointmentPassFilterFormValue } from "./appointment-pass-filter/types";
+import { BasketAbandonmentFilterCard } from "./basket-abandonment-filter/components/basket-abandonment-filter-card";
+import { createDefaultBasketAbandonmentFilter } from "./basket-abandonment-filter/default-value";
+import { mapBasketAbandonmentFilterToFormValue } from "./basket-abandonment-filter/mappers/api-to-form-value";
+import type { BasketAbandonmentFilterFormValue } from "./basket-abandonment-filter/types";
 import { BookingMilestoneFilterCard } from "./booking-milestone/components/booking-milestone-filter-card";
 import { BookingMilestoneFilterCardSkeleton } from "./booking-milestone/components/booking-milestone-filter-card-skeleton";
 import { createDefaultBookingMilestoneFilter } from "./booking-milestone/default-value";
@@ -36,6 +45,14 @@ import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filt
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
+import { HasPhoneFilterCard } from "./has-phone-filter/components/has-phone-filter-card";
+import { createDefaultHasPhoneFilter } from "./has-phone-filter/default-value";
+import { mapHasPhoneFilterToFormValue } from "./has-phone-filter/mappers/api-to-form-value";
+import type { HasPhoneFilterFormValue } from "./has-phone-filter/types";
+import { LastBookingFilterCard } from "./last-booking-filter/components/last-booking-filter-card";
+import { createDefaultLastBookingFilter } from "./last-booking-filter/default-value";
+import { mapLastBookingFilterToFormValue } from "./last-booking-filter/mappers/api-to-form-value";
+import type { LastBookingFilterFormValue } from "./last-booking-filter/types";
 import { MarketingNotificationFilterCard } from "./marketing-notification-filter/components/marketing-notification-filter-card";
 import { createDefaultMarketingNotificationFilter } from "./marketing-notification-filter/default-value";
 import { mapMarketingNotificationFilterToFormValue } from "./marketing-notification-filter/mappers/api-to-form-value";
@@ -78,44 +95,33 @@ const FILTER_TYPES = SMARTLIST_FILTERS_MANAGER_FILTER_TYPES;
 
 type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
+  creditAccount: CreditAccountFilterFormValue;
   gender: GenderFilterFormValue;
+  tags: TagFilterFormValue;
   memberSignUpDate: MemberSignUpDateFilterFormValue;
   passes: PassesFilterFormValue;
-  totalBookingNumber: TotalBookingNumberFilterFormValue;
-  totalAppointmentsNumber: TotalAppointmentsNumberFilterFormValue;
   bookingMilestone: BookingMilestoneFilterFormValue;
-  tags: TagFilterFormValue;
+  totalBookingNumber: TotalBookingNumberFilterFormValue;
+  appointmentPass: AppointmentPassFilterFormValue;
+  totalAppointmentsNumber: TotalAppointmentsNumberFilterFormValue;
   activePasses: ActivePassesFilterFormValue;
   firstPurchase: FirstPurchaseFilterFormValue;
-  creditAccount: CreditAccountFilterFormValue;
+  basketAbandonment: BasketAbandonmentFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
+  hasPhone: HasPhoneFilterFormValue;
+  lastBooking: LastBookingFilterFormValue;
 };
 
 type DraftFilter =
   | {
       clientId: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
+    }
+  | {
+      clientId: string;
       filterType: "gender";
       value: FilterValueByType["gender"];
-    }
-  | {
-      clientId: string;
-      filterType: "memberSignUpDate";
-      value: FilterValueByType["memberSignUpDate"];
-    }
-  | {
-      clientId: string;
-      filterType: "totalBookingNumber";
-      value: FilterValueByType["totalBookingNumber"];
-    }
-  | {
-      clientId: string;
-      filterType: "totalAppointmentsNumber";
-      value: FilterValueByType["totalAppointmentsNumber"];
-    }
-  | {
-      clientId: string;
-      filterType: "bookingMilestone";
-      value: FilterValueByType["bookingMilestone"];
     }
   | {
       clientId: string;
@@ -124,8 +130,8 @@ type DraftFilter =
     }
   | {
       clientId: string;
-      filterType: "activePasses";
-      value: FilterValueByType["activePasses"];
+      filterType: "memberSignUpDate";
+      value: FilterValueByType["memberSignUpDate"];
     }
   | {
       clientId: string;
@@ -134,8 +140,43 @@ type DraftFilter =
     }
   | {
       clientId: string;
+      filterType: "bookingMilestone";
+      value: FilterValueByType["bookingMilestone"];
+    }
+  | {
+      clientId: string;
+      filterType: "totalBookingNumber";
+      value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      clientId: string;
+      filterType: "appointmentPass";
+      value: FilterValueByType["appointmentPass"];
+    }
+  | {
+      clientId: string;
+      filterType: "totalAppointmentsNumber";
+      value: FilterValueByType["totalAppointmentsNumber"];
+    }
+  | {
+      clientId: string;
+      filterType: "activePasses";
+      value: FilterValueByType["activePasses"];
+    }
+  | {
+      clientId: string;
       filterType: "firstPurchase";
       value: FilterValueByType["firstPurchase"];
+    }
+  | {
+      clientId: string;
+      filterType: "marketingNotification";
+      value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      clientId: string;
+      filterType: "basketAbandonment";
+      value: FilterValueByType["basketAbandonment"];
     }
   | {
       clientId: string;
@@ -144,15 +185,30 @@ type DraftFilter =
     }
   | {
       clientId: string;
-      filterType: "marketingNotification";
-      value: FilterValueByType["marketingNotification"];
+      filterType: "hasPhone";
+      value: FilterValueByType["hasPhone"];
+    }
+  | {
+      clientId: string;
+      filterType: "lastBooking";
+      value: FilterValueByType["lastBooking"];
     };
 
 type SavedFilter =
   | {
       key: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
+    }
+  | {
+      key: string;
       filterType: "gender";
       value: FilterValueByType["gender"];
+    }
+  | {
+      key: string;
+      filterType: "tags";
+      value: FilterValueByType["tags"];
     }
   | {
       key: string;
@@ -166,23 +222,23 @@ type SavedFilter =
     }
   | {
       key: string;
-      filterType: "totalBookingNumber";
-      value: FilterValueByType["totalBookingNumber"];
-    }
-  | {
-      key: string;
-      filterType: "totalAppointmentsNumber";
-      value: FilterValueByType["totalAppointmentsNumber"];
-    }
-  | {
-      key: string;
       filterType: "bookingMilestone";
       value: FilterValueByType["bookingMilestone"];
     }
   | {
       key: string;
-      filterType: "tags";
-      value: FilterValueByType["tags"];
+      filterType: "totalBookingNumber";
+      value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      key: string;
+      filterType: "appointmentPass";
+      value: FilterValueByType["appointmentPass"];
+    }
+  | {
+      key: string;
+      filterType: "totalAppointmentsNumber";
+      value: FilterValueByType["totalAppointmentsNumber"];
     }
   | {
       key: string;
@@ -196,13 +252,28 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "marketingNotification";
+      value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      key: string;
+      filterType: "basketAbandonment";
+      value: FilterValueByType["basketAbandonment"];
+    }
+  | {
+      key: string;
       filterType: "creditAccount";
       value: FilterValueByType["creditAccount"];
     }
   | {
       key: string;
-      filterType: "marketingNotification";
-      value: FilterValueByType["marketingNotification"];
+      filterType: "hasPhone";
+      value: FilterValueByType["hasPhone"];
+    }
+  | {
+      key: string;
+      filterType: "lastBooking";
+      value: FilterValueByType["lastBooking"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -235,21 +306,26 @@ export const SegmentFiltersManager = ({
     isLoading,
     isError,
   } = useSmartlistFiltersQuery(smartlistId);
+  const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
   const genderFilters = smartlistFilters?.genderFilters ?? [];
+  const tagFilters = smartlistFilters?.tagFilters ?? [];
   const memberDateJoinedFilters =
     smartlistFilters?.memberDateJoinedFilters ?? [];
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
-  const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
-  const totalAppointmentsFilters =
-    smartlistFilters?.totalAppointmentsFilters ?? [];
   const bookingMilestoneFilters =
     smartlistFilters?.bookingMilestoneFilters ?? [];
-  const tagFilters = smartlistFilters?.tagFilters ?? [];
+  const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
+  const privatePassFilters = smartlistFilters?.privatePassFilters ?? [];
+  const totalAppointmentsFilters =
+    smartlistFilters?.totalAppointmentsFilters ?? [];
   const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
   const firstPurchaseFilters = smartlistFilters?.firstPurchaseFilters ?? [];
-  const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
+  const basketAbandonmentFilters =
+    smartlistFilters?.basketAbandonmentFilters ?? [];
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
+  const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
+  const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -268,9 +344,28 @@ export const SegmentFiltersManager = ({
   const renderFilterCardByType: {
     [Key in FilterType]: (params: RenderFilterParams<Key>) => React.JSX.Element;
   } = {
+    creditAccount: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <CreditAccountFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     gender: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary key={key} loadingFallback={<GenderFilterCardSkeleton />}>
         <GenderFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
+    tags: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary key={key} loadingFallback={<TagFilterCardSkeleton />}>
+        <TagFilterCard
           smartlistId={smartlistId}
           filterValue={value}
           onDeleteUnsavedFilter={onDeleteUnsavedFilter}
@@ -302,6 +397,23 @@ export const SegmentFiltersManager = ({
         />
       </QueryBoundary>
     ),
+    bookingMilestone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) =>
+      typeof companyId === "number" && companyId > 0 ? (
+        <QueryBoundary
+          key={key}
+          loadingFallback={<BookingMilestoneFilterCardSkeleton />}
+        >
+          <BookingMilestoneFilterCard
+            smartlistId={smartlistId}
+            companyId={companyId}
+            filterValue={value}
+            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+            onSaveSuccess={onSaveSuccess}
+          />
+        </QueryBoundary>
+      ) : (
+        <BookingMilestoneFilterCardSkeleton key={key} />
+      ),
     totalBookingNumber: ({
       key,
       value,
@@ -324,6 +436,19 @@ export const SegmentFiltersManager = ({
       ) : (
         <TotalBookingFilterCardSkeleton key={key} />
       ),
+    appointmentPass: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary
+        key={key}
+        loadingFallback={<AppointmentPassFilterCardSkeleton />}
+      >
+        <AppointmentPassFilterCardWithData
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
     totalAppointmentsNumber: ({
       key,
       value,
@@ -346,33 +471,6 @@ export const SegmentFiltersManager = ({
       ) : (
         <TotalAppointmentsFilterCardSkeleton key={key} />
       ),
-    bookingMilestone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) =>
-      typeof companyId === "number" && companyId > 0 ? (
-        <QueryBoundary
-          key={key}
-          loadingFallback={<BookingMilestoneFilterCardSkeleton />}
-        >
-          <BookingMilestoneFilterCard
-            smartlistId={smartlistId}
-            companyId={companyId}
-            filterValue={value}
-            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-            onSaveSuccess={onSaveSuccess}
-          />
-        </QueryBoundary>
-      ) : (
-        <BookingMilestoneFilterCardSkeleton key={key} />
-      ),
-    tags: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <QueryBoundary key={key} loadingFallback={<TagFilterCardSkeleton />}>
-        <TagFilterCard
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
-    ),
     activePasses: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary
         key={key}
@@ -399,8 +497,13 @@ export const SegmentFiltersManager = ({
         />
       </QueryBoundary>
     ),
-    creditAccount: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <CreditAccountFilterCard
+    basketAbandonment: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) => (
+      <BasketAbandonmentFilterCard
         key={key}
         smartlistId={smartlistId}
         filterValue={value}
@@ -422,15 +525,43 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    hasPhone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <HasPhoneFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
+    lastBooking: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <LastBookingFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
     [Key in FilterType]: () => DraftFilter;
   } = {
+    creditAccount: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.creditAccount),
+      filterType: FILTER_TYPES.creditAccount,
+      value: createDefaultCreditAccountFilter(smartlistNumericId),
+    }),
     gender: () => ({
       clientId: createDraftClientId(FILTER_TYPES.gender),
       filterType: FILTER_TYPES.gender,
       value: createDefaultGenderFilter(smartlistNumericId),
+    }),
+    tags: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.tags),
+      filterType: FILTER_TYPES.tags,
+      value: createDefaultTagFilterFormValue(smartlistNumericId),
     }),
     memberSignUpDate: () => ({
       clientId: createDraftClientId(FILTER_TYPES.memberSignUpDate),
@@ -442,25 +573,25 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.passes,
       value: createDefaultPassesFilter(smartlistNumericId),
     }),
-    totalBookingNumber: () => ({
-      clientId: createDraftClientId(FILTER_TYPES.totalBookingNumber),
-      filterType: FILTER_TYPES.totalBookingNumber,
-      value: createDefaultTotalBookingNumberFilter(smartlistNumericId),
-    }),
-    totalAppointmentsNumber: () => ({
-      clientId: createDraftClientId(FILTER_TYPES.totalAppointmentsNumber),
-      filterType: FILTER_TYPES.totalAppointmentsNumber,
-      value: createDefaultTotalAppointmentsNumberFilter(smartlistNumericId),
-    }),
     bookingMilestone: () => ({
       clientId: createDraftClientId(FILTER_TYPES.bookingMilestone),
       filterType: FILTER_TYPES.bookingMilestone,
       value: createDefaultBookingMilestoneFilter(smartlistNumericId),
     }),
-    tags: () => ({
-      clientId: createDraftClientId(FILTER_TYPES.tags),
-      filterType: FILTER_TYPES.tags,
-      value: createDefaultTagFilterFormValue(smartlistNumericId),
+    totalBookingNumber: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.totalBookingNumber),
+      filterType: FILTER_TYPES.totalBookingNumber,
+      value: createDefaultTotalBookingNumberFilter(smartlistNumericId),
+    }),
+    appointmentPass: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.appointmentPass),
+      filterType: FILTER_TYPES.appointmentPass,
+      value: createDefaultAppointmentPassFilter(smartlistNumericId),
+    }),
+    totalAppointmentsNumber: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.totalAppointmentsNumber),
+      filterType: FILTER_TYPES.totalAppointmentsNumber,
+      value: createDefaultTotalAppointmentsNumberFilter(smartlistNumericId),
     }),
     activePasses: () => ({
       clientId: createDraftClientId(FILTER_TYPES.activePasses),
@@ -472,15 +603,25 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.firstPurchase,
       value: createDefaultFirstPurchaseFilter(smartlistNumericId),
     }),
-    creditAccount: () => ({
-      clientId: createDraftClientId(FILTER_TYPES.creditAccount),
-      filterType: FILTER_TYPES.creditAccount,
-      value: createDefaultCreditAccountFilter(smartlistNumericId),
+    basketAbandonment: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.basketAbandonment),
+      filterType: FILTER_TYPES.basketAbandonment,
+      value: createDefaultBasketAbandonmentFilter(smartlistNumericId),
     }),
     marketingNotification: () => ({
       clientId: createDraftClientId(FILTER_TYPES.marketingNotification),
       filterType: FILTER_TYPES.marketingNotification,
       value: createDefaultMarketingNotificationFilter(smartlistNumericId),
+    }),
+    hasPhone: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.hasPhone),
+      filterType: FILTER_TYPES.hasPhone,
+      value: createDefaultHasPhoneFilter(smartlistNumericId),
+    }),
+    lastBooking: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.lastBooking),
+      filterType: FILTER_TYPES.lastBooking,
+      value: createDefaultLastBookingFilter(smartlistNumericId),
     }),
   };
 
@@ -497,9 +638,21 @@ export const SegmentFiltersManager = ({
   const addableFilterOptions = useMemo<FilterSelectorOption[]>(
     () => [
       {
+        id: FILTER_TYPES.creditAccount,
+        label: t("filters.1.title"),
+        description: t("filterSelector.options.creditAccount.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
         id: FILTER_TYPES.gender,
         label: t("filters.5.title"),
         description: t("filterSelector.options.gender.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
+        id: FILTER_TYPES.tags,
+        label: t("filters.11.title"),
+        description: t("filterSelector.options.tags.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
@@ -520,6 +673,14 @@ export const SegmentFiltersManager = ({
         description: t("filterSelector.options.totalBookingNumber.description"),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
+
+      {
+        id: FILTER_TYPES.appointmentPass,
+        label: t("filters.25.title"),
+        description: t("filterSelector.options.appointmentPass.description"),
+        category: FILTER_SELECTOR_CATEGORIES.passes,
+      },
+
       {
         id: FILTER_TYPES.totalAppointmentsNumber,
         label: t("filters.26.title"),
@@ -528,18 +689,7 @@ export const SegmentFiltersManager = ({
         ),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
-      {
-        id: FILTER_TYPES.bookingMilestone,
-        label: t("filters.21.title"),
-        description: t("filterSelector.options.bookingMilestone.description"),
-        category: FILTER_SELECTOR_CATEGORIES.bookings,
-      },
-      {
-        id: FILTER_TYPES.tags,
-        label: t("filters.11.title"),
-        description: t("filterSelector.options.tags.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
+
       {
         id: FILTER_TYPES.activePasses,
         label: t("filters.27.title"),
@@ -553,10 +703,10 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.payments,
       },
       {
-        id: FILTER_TYPES.creditAccount,
-        label: t("filters.1.title"),
-        description: t("filterSelector.options.creditAccount.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        id: FILTER_TYPES.basketAbandonment,
+        label: t("filters.20.title"),
+        description: t("filterSelector.options.basketAbandonment.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
       },
       {
         id: FILTER_TYPES.marketingNotification,
@@ -566,15 +716,31 @@ export const SegmentFiltersManager = ({
         ),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
+      {
+        id: FILTER_TYPES.hasPhone,
+        label: t("filters.106.title"),
+        description: t("filterSelector.options.hasPhone.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
 
   const savedFilters: SavedFilter[] = [
+    ...creditAccountFilters.map((creditAccountFilter) => ({
+      key: `saved-credit-account-${creditAccountFilter.id}`,
+      filterType: FILTER_TYPES.creditAccount,
+      value: mapCreditAccountFilterToFormValue(creditAccountFilter),
+    })),
     ...genderFilters.map((genderFilter) => ({
       key: `saved-gender-${genderFilter.id}`,
       filterType: FILTER_TYPES.gender,
       value: mapGenderFilterToFormValue(genderFilter),
+    })),
+    ...tagFilters.map((tagFilter) => ({
+      key: `saved-tags-${tagFilter.id}`,
+      filterType: FILTER_TYPES.tags,
+      value: mapTagFilterToFormValue(tagFilter),
     })),
     ...memberDateJoinedFilters.map((memberDateJoinedFilter) => ({
       key: `saved-member-sign-up-date-${memberDateJoinedFilter.id}`,
@@ -586,25 +752,25 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.passes,
       value: mapPaymentPackFilterToFormValue(paymentPackFilter),
     })),
-    ...totalBookingFilters.map((totalBookingFilter) => ({
-      key: `saved-total-booking-number-${totalBookingFilter.id}`,
-      filterType: FILTER_TYPES.totalBookingNumber,
-      value: mapTotalBookingFilterToFormValue(totalBookingFilter),
-    })),
-    ...totalAppointmentsFilters.map((totalAppointmentsFilter) => ({
-      key: `saved-total-appointments-number-${totalAppointmentsFilter.id}`,
-      filterType: FILTER_TYPES.totalAppointmentsNumber,
-      value: mapTotalAppointmentsFilterToFormValue(totalAppointmentsFilter),
-    })),
     ...bookingMilestoneFilters.map((bookingMilestoneFilter) => ({
       key: `saved-booking-milestone-${bookingMilestoneFilter.id}`,
       filterType: FILTER_TYPES.bookingMilestone,
       value: mapBookingMilestoneFilterToFormValue(bookingMilestoneFilter),
     })),
-    ...tagFilters.map((tagFilter) => ({
-      key: `saved-tags-${tagFilter.id}`,
-      filterType: FILTER_TYPES.tags,
-      value: mapTagFilterToFormValue(tagFilter),
+    ...totalBookingFilters.map((totalBookingFilter) => ({
+      key: `saved-total-booking-number-${totalBookingFilter.id}`,
+      filterType: FILTER_TYPES.totalBookingNumber,
+      value: mapTotalBookingFilterToFormValue(totalBookingFilter),
+    })),
+    ...privatePassFilters.map((privatePassFilter) => ({
+      key: `saved-appointment-pass-${privatePassFilter.id}`,
+      filterType: FILTER_TYPES.appointmentPass,
+      value: mapPrivatePassFilterToFormValue(privatePassFilter),
+    })),
+    ...totalAppointmentsFilters.map((totalAppointmentsFilter) => ({
+      key: `saved-total-appointments-number-${totalAppointmentsFilter.id}`,
+      filterType: FILTER_TYPES.totalAppointmentsNumber,
+      value: mapTotalAppointmentsFilterToFormValue(totalAppointmentsFilter),
     })),
     ...activePassesFilters.map((activePassesFilter) => ({
       key: `saved-active-passes-${activePassesFilter.id}`,
@@ -616,10 +782,10 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.firstPurchase,
       value: mapFirstPurchaseFilterToFormValue(firstPurchaseFilter),
     })),
-    ...creditAccountFilters.map((creditAccountFilter) => ({
-      key: `saved-credit-account-${creditAccountFilter.id}`,
-      filterType: FILTER_TYPES.creditAccount,
-      value: mapCreditAccountFilterToFormValue(creditAccountFilter),
+    ...basketAbandonmentFilters.map((basketAbandonmentFilter) => ({
+      key: `saved-basket-abandonment-${basketAbandonmentFilter.id}`,
+      filterType: FILTER_TYPES.basketAbandonment,
+      value: mapBasketAbandonmentFilterToFormValue(basketAbandonmentFilter),
     })),
     ...marketingNotificationFilters.map((marketingNotificationFilter) => ({
       key: `saved-marketing-notification-${marketingNotificationFilter.id}`,
@@ -627,6 +793,16 @@ export const SegmentFiltersManager = ({
       value: mapMarketingNotificationFilterToFormValue(
         marketingNotificationFilter,
       ),
+    })),
+    ...hasPhoneFilters.map((hasPhoneFilter) => ({
+      key: `saved-has-phone-${hasPhoneFilter.id}`,
+      filterType: FILTER_TYPES.hasPhone,
+      value: mapHasPhoneFilterToFormValue(hasPhoneFilter),
+    })),
+    ...lastBookingFilters.map((lastBookingFilter) => ({
+      key: `saved-last-booking-${lastBookingFilter.id}`,
+      filterType: FILTER_TYPES.lastBooking,
+      value: mapLastBookingFilterToFormValue(lastBookingFilter),
     })),
   ];
 

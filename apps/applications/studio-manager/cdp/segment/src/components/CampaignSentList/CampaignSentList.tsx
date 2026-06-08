@@ -12,6 +12,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
 import { useTranslation } from "#src/utils/i18n";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 import { CampaignSentPreviewModal } from "./campaign-sent-preview-modal";
 import { useCampaignSentTableColumns } from "./use-campaign-sent-table-columns";
@@ -27,7 +28,7 @@ type CampaignSentListTargetProps =
       segmentIdentifier?: never;
     }
   | {
-      segmentIdentifier: string;
+      segmentIdentifier: PrebuiltSegmentId;
       smartlistId?: never;
     };
 

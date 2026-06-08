@@ -224,14 +224,15 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         {
           onSuccess: (offers) => {
             if (
-              offers.results.map((o) => o.group).filter((o) => !!o).length > 0
+              (offers?.results?.map((o) => o.group)?.filter((o) => !!o)
+                ?.length || 0) > 0
             ) {
               fetchGroupsOfferBulk(
-                offers.results.map((o) => o.group).filter((o) => !!o),
+                offers?.results?.map((o) => o.group).filter((o) => !!o),
                 {
                   onSuccess: (groups) => {
                     fetchOfferBulkBatched(
-                      groups.flatMap((group) => group.offers),
+                      groups?.flatMap((group) => group.offers) || [],
                     );
                   },
                 },
@@ -272,8 +273,8 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   useEffect(() => {
     fetchWorkshopList(metaActivityFilter, {
-      onSuccess: async (_workshops: MetaActivity[]) => {
-        getCompatibleWorkshops(_workshops)
+      onSuccess: async (_workshops: MetaActivity[] | undefined) => {
+        getCompatibleWorkshops(_workshops || [])
           .slice(0, displayedWorkshops)
           .map((m) => fetchOfferByMetaActivity(m.id));
       },
@@ -306,6 +307,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchEstablishments,
     fetchAssociatedCoachesList,
     filters,
+    onlineFilter,
     theme,
     username,
     refreshTrigger,
@@ -509,7 +511,7 @@ export default compose(
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
-      messageType: 'bsport:calendar:filter:update',
+      messageType: 'bsport:workshop:filter:update',
     },
   ]),
   withPostMessageToUpdateProps<Props>([

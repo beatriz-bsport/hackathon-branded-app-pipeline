@@ -18,8 +18,6 @@ type AddressAutocompleteTextfieldProps = Omit<
 };
 
 export type AddressAutocompleteRawProps = {
-  /** Google Maps Geocoding API key. In Studio Manager use `getRuntimeGoogleMapsApiKey()` from `@bsport/fetch`. */
-  apiKey: string;
   /** Controlled selected address. Pass `null` to clear the field. */
   value?: AddressSuggestion | null;
   /** Called with the full `AddressSuggestion` on selection, or `null` when the field is cleared. */
@@ -38,7 +36,6 @@ export type AddressAutocompleteRawProps = {
 >;
 
 export const AddressAutocompleteRaw: FC<AddressAutocompleteRawProps> = ({
-  apiKey,
   value,
   onChange,
   textfieldProps,
@@ -50,7 +47,6 @@ export const AddressAutocompleteRaw: FC<AddressAutocompleteRawProps> = ({
 
   const { items, isLoading, getSuggestion } = useAddressSuggestions({
     searchText,
-    apiKey,
   });
 
   const selectedIds = value ? [value.place_id] : [];

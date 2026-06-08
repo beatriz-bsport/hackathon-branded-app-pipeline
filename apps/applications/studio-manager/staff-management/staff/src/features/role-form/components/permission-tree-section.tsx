@@ -57,13 +57,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
 
   if (!isTree) {
     return (
-      <div
-        className={cx(
-          level === DEFAULT_DEPTH
-            ? "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0"
-            : "py-xs pl-lg",
-        )}
-      >
+      <div className={cx(level === DEFAULT_DEPTH ? "p-md" : "py-xs pl-lg")}>
         <Checkbox
           id={getInputId(path)}
           label={label}
@@ -80,8 +74,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
       id={getInputId(path)}
       initiallyOpen={false}
       className={cx({
-        "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0":
-          level === DEFAULT_DEPTH,
+        "p-md": level === DEFAULT_DEPTH,
         "pl-lg pr-md border-l-stroke-thin border-l-stroke-main":
           level > DEFAULT_DEPTH,
       })}
@@ -103,16 +96,18 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
               </Body>
             </button>
             <div className="flex items-center gap-xs">
-              <Checkbox
-                id={`${getInputId(path)}-select-all`}
-                label={t("formFields.navigationMenu.selectAll.label")}
-                value={checkboxValue}
-                disabled={disabled}
-                onChange={() => {
-                  toggleValue();
-                  setIsCollapseOpen(true);
-                }}
-              />
+              {level === DEFAULT_DEPTH && (
+                <Checkbox
+                  id={`${getInputId(path)}-select-all`}
+                  label={t("formFields.navigationMenu.selectAll.label")}
+                  value={checkboxValue}
+                  disabled={disabled}
+                  onChange={() => {
+                    toggleValue();
+                    setIsCollapseOpen(true);
+                  }}
+                />
+              )}
               <Button
                 kind="icon-button"
                 intent="flat"

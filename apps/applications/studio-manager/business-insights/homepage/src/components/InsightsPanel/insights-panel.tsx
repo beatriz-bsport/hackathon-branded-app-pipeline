@@ -26,6 +26,7 @@ export const InsightsPanel: FC = () => {
   return (
     <HomepageSection title={t("insightsPanel.title")}>
       <Dashboard
+        clipContentToLoadingHeight
         errorContent={<InsightsPanelErrorState />}
         errorMessage={t("insightsPanel.unavailable")}
         iframeLoadingHeight={690}

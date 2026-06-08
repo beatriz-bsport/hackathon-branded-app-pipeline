@@ -1,7 +1,9 @@
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
   ActivePassesFilter,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
+  type BasketAbandonmentFilter,
   BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   CreditAccountFilter,
@@ -9,14 +11,20 @@ import {
   FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   GenderFilter,
+  HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPhoneFilter,
+  LAST_BOOKING_FILTER_IDENTIFIER,
+  type LastBookingFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
   MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
   PaymentPackFilter,
   PrivateBookingsFilter,
+  PrivatePassFilter,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   TagFilter,
@@ -30,14 +38,18 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   gender: "gender",
   memberSignUpDate: "memberSignUpDate",
   passes: "passes",
+  appointmentPass: "appointmentPass",
   totalBookingNumber: "totalBookingNumber",
   totalAppointmentsNumber: "totalAppointmentsNumber",
   bookingMilestone: "bookingMilestone",
   tags: "tags",
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
+  basketAbandonment: "basketAbandonment",
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
+  hasPhone: "hasPhone",
+  lastBooking: "lastBooking",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -52,14 +64,30 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.appointmentPass ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalAppointmentsNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.basketAbandonment ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
+
+export const isBasketAbandonmentFilter = (
+  value: unknown,
+): value is BasketAbandonmentFilter =>
+  hasFilterIdentifier(value, BASKET_ABANDONMENT_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "basket_value") &&
+  hasNumber(value, "basket_value_second") &&
+  hasBoolean(value, "date_filter_active");
 
 export const isCreditAccountFilter = (
   value: unknown,
@@ -133,6 +161,17 @@ export const isPaymentPackFilter = (
   hasBoolean(value, "has_pack") &&
   hasBoolean(value, "select_all_payment_packs") &&
   hasNumberArray(value, "payment_packs");
+
+export const isPrivatePassFilter = (
+  value: unknown,
+): value is PrivatePassFilter =>
+  hasFilterIdentifier(value, PRIVATE_PASS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "has_pack") &&
+  hasBoolean(value, "select_all_private_passes") &&
+  hasNumberArray(value, "private_passes");
 
 export const isTotalBookingFilter = (
   value: unknown,
@@ -211,3 +250,19 @@ export const isMarketingNotificationFilter = (
   hasBoolean(value, "is_condition_and") &&
   hasBoolean(value, "is_v2") &&
   hasBoolean(value, "all_filters_must_be_right");
+
+export const isHasPhoneFilter = (value: unknown): value is HasPhoneFilter =>
+  hasFilterIdentifier(value, HAS_PHONE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "value");
+
+export const isLastBookingFilter = (
+  value: unknown,
+): value is LastBookingFilter =>
+  hasFilterIdentifier(value, LAST_BOOKING_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "value");

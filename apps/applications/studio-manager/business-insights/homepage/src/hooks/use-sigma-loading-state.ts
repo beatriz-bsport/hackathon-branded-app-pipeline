@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useEffectEvent, useState } from "react";
 
 import type { DashboardType } from "@bsport/api-business-insights/embedded-analytics";
 import {
   isSigmaEventWorkbookDataloaded,
   isSigmaEventWorkbookError,
+  isSigmaEventWorkbookLoaded,
 } from "@bsport/api-business-insights/sigma";
 
 import { usePresignedUrl } from "./usePresignedUrl";
@@ -22,12 +23,29 @@ export const useSigmaLoadingState = (
 ): UseSigmaLoadingState => {
   const { error, iframeUrl, isLoading } = usePresignedUrl(dashboardType);
   const [status, setStatus] = useState<SigmaLoadingStatus>("loading");
+  const [hasWorkbookLoaded, setHasWorkbookLoaded] = useState(false);
+
+  const forceLoaded = useEffectEvent(() => {
+    if (status === "loading") {
+      setStatus("loaded");
+    }
+  });
 
   useEffect(() => {
-    if (isLoading || iframeUrl) {
+    if (isLoading || !iframeUrl) {
       setStatus("loading");
+      setHasWorkbookLoaded(false);
     }
   }, [iframeUrl, isLoading]);
+
+  useEffect(() => {
+    if (isLoading || !iframeUrl || !hasWorkbookLoaded) return;
+
+    const timeout = setTimeout(forceLoaded, 5_000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [hasWorkbookLoaded, iframeUrl, isLoading]);
 
   useEffect(() => {
     if (error) {
@@ -38,6 +56,11 @@ export const useSigmaLoadingState = (
   const onSigmaMessage = useCallback((eventData: unknown) => {
     if (isSigmaEventWorkbookDataloaded(eventData)) {
       setStatus("loaded");
+      return;
+    }
+
+    if (isSigmaEventWorkbookLoaded(eventData)) {
+      setHasWorkbookLoaded(true);
       return;
     }
 

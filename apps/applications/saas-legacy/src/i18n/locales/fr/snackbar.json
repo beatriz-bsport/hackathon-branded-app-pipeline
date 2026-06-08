@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-    "emailAlreadyExists": "Cette e-mail est déjà utilisée. Vous l’avez peut-être utilisée pour vous inscrire dans un autre studio. Connectez-vous ou réinitialisez votre mot de passe pour continuer.",
+    "emailAlreadyExists": "Cette adresse Email est déjà utilisée. Vous l'avez peut-être utilisée pour vous inscrire dans un autre studio. Veuillez vous connecter ou réinitialiser votre mot de passe pour continuer.",
     "changeWorkspaceError": "Une erreur est survenue dans le changement de compte"
   },
   "paymentRuleGroups": {
@@ -957,9 +957,11 @@
     "signupViaCustomForm": {
       "errors": {
         "84101": "Des champs obligatoires n'ont pas été remplis",
-        "84102": "Cet email est déjà utilisé",
+        "84102": "Cette adresse Email est déjà utilisée. Vous l'avez peut-être utilisée pour vous inscrire dans un autre studio. Veuillez vous connecter ou réinitialiser votre mot de passe pour continuer.",
         "84103": "Le sexe spécifié n'est pas valide",
-        "84104": "Le numéro de téléphone n'est pas valide"
+        "84104": "Le numéro de téléphone n'est pas valide",
+        "84106": "Votre mot de passe doit contenir au moins 12 caractères",
+        "84107": "Les liens et le code HTML ne sont pas autorisés dans les champs de texte"
       },
       "error": "Erreur lors de l'inscription, veuillez réessayer",
       "success": "Inscription validée"

@@ -149,10 +149,6 @@
 
 /* COMMITMENT PERIOD SECTION */
 
-.bs-consumer__subscription-details-card__commitment_period__section--hidden {
-  display: none;
-}
-
 .bs-consumer__subscription-details-card__commitment_period__section {
   display: flex;
   flex-direction: row;

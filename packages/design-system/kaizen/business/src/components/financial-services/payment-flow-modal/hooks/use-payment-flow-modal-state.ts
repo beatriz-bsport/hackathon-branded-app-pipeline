@@ -15,7 +15,6 @@ import { paymentMethodKeys } from "@bsport/api-financial-services/payment-method
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
-import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
 import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
 import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
 import {
@@ -51,6 +50,7 @@ import {
   isInstallmentsSelectionSupportedForScheduling,
 } from "./installments-payment-utils";
 import { useConfirmPayment } from "./use-confirm-payment";
+import { useFetchAvailableGiftcards } from "./use-fetch-available-giftcards";
 import { useFetchInvoice } from "./use-fetch-invoice";
 import { useFetchMember } from "./use-fetch-member";
 import { useFetchStripeReaders } from "./use-fetch-stripe-readers";
@@ -127,9 +127,7 @@ export const usePaymentFlowModalState = ({
   const [clientSecretEngine, setClientSecretEngine] =
     useState<PaymentClientSecretEngine | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [availableGiftCards, setAvailableGiftCards] = useState<
-    PaymentFlowGiftCard[]
-  >([]);
+
   const formId = `payment-flow-modal-${useId()}`;
   const cardPaymentRef = useRef<StripePaymentMethodHandle>(null);
   const sepaPaymentRef = useRef<StripePaymentMethodHandle>(null);
@@ -347,6 +345,18 @@ export const usePaymentFlowModalState = ({
     accountBalance >= invoiceRemainingAmount;
   const hasStripeReaders = stripeReaders.length > 0;
 
+  const isGiftCardPaymentMethodSelected =
+    isOpen &&
+    selectedPaymentMethod?.kind ===
+      PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL &&
+    selectedPaymentMethod.id === ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE;
+
+  const { giftcards: availableGiftCards } = useFetchAvailableGiftcards({
+    fetch,
+    memberId,
+    enabled: isGiftCardPaymentMethodSelected,
+  });
+
   const renderers = usePaymentMethodRenderers({
     fetch,
     memberId,
@@ -362,7 +372,6 @@ export const usePaymentFlowModalState = ({
     hasStripeReaders,
     cardPaymentRef,
     sepaPaymentRef,
-    onGiftCardsChange: setAvailableGiftCards,
     companyTheme,
   });
 
@@ -707,7 +716,6 @@ export const usePaymentFlowModalState = ({
     setSelectedPaymentMethod(null);
     setClientSecretEngine(null);
     setSubmitError(null);
-    setAvailableGiftCards([]);
   }, [invoiceRemainingAmountCts, methods]);
 
   const closeModal = useCallback(() => {

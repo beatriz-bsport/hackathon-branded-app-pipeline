@@ -9,7 +9,6 @@ import type { AutocompleteItems } from "@bsport/kaizen-primitive-core";
 
 export const useAddressSuggestions = (params: {
   searchText: string;
-  apiKey: string;
 }): {
   items: AutocompleteItems;
   isLoading: boolean;

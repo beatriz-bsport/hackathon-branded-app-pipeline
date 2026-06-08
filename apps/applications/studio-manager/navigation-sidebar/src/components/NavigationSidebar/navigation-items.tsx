@@ -112,6 +112,7 @@ export const useNavigationElements = ({
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isInvoiceListEnabled = useNavFlag(NavFlags.INVOICE_LIST_PAGE);
   const isPayoutsEnabled = useNavFlag(NavFlags.PAYOUTS_PAGE);
+  const isSubscriptionPageEnabled = useNavFlag(NavFlags.FS_SUBSCRIPTION_PAGE);
   const isInboxRevampEnabled = useNavFlag(NavFlags.INBOX_REVAMP);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
@@ -431,6 +432,12 @@ export const useNavigationElements = ({
               }),
             },
             {
+              id: "subscription-finance",
+              label: t("menus.finance.subscription"),
+              hidden: !isSubscriptionPageEnabled,
+              ...navigationUrls.subscriptionFinance,
+            },
+            {
               id: "direct-debits",
               label: t("menus.finance.directDebits"),
               ...navigationUrls.directDebit,
@@ -681,6 +688,7 @@ export const useNavigationElements = ({
     isOnDemandRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
+    isSubscriptionPageEnabled,
     isSmartfillEnabled,
     isNewWebshopEnabled,
     isTeacherViewSettingsEnabled,

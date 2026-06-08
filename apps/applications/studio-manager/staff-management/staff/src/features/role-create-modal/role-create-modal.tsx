@@ -19,7 +19,8 @@ import { RoleFormDescription } from "../role-form/components/role-form-descripti
 import { RoleFormName } from "../role-form/components/role-form-name";
 import { RoleFormStarterRole } from "../role-form/components/role-form-starter-role";
 import {
-  DEFAULT_PERMISSIONS,
+  EMPTY_OBJECT_LEVEL_PERMISSIONS,
+  EMPTY_PERMISSIONS,
   ROLE_FORM_DEFAULTS,
   getObjectLevelPermissionsWithDefaults,
 } from "../role-form/constants";
@@ -93,29 +94,33 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
       return;
     }
 
+    const isFromScratch = !starterRoleId;
+
     methods.setValue(
       "permissions",
-      deepClone(starterRole?.permissions ?? DEFAULT_PERMISSIONS),
+      deepClone(isFromScratch ? EMPTY_PERMISSIONS : starterRole!.permissions),
       {
-        shouldDirty: Boolean(starterRoleId),
+        shouldDirty: !isFromScratch,
         shouldValidate: true,
       },
     );
     methods.setValue(
       "objectLevelPermissions",
-      getObjectLevelPermissionsWithDefaults(
-        starterRole?.object_level_permissions,
-      ),
+      isFromScratch
+        ? deepClone(EMPTY_OBJECT_LEVEL_PERMISSIONS)
+        : getObjectLevelPermissionsWithDefaults(
+            starterRole!.object_level_permissions,
+          ),
       {
-        shouldDirty: Boolean(starterRoleId),
+        shouldDirty: !isFromScratch,
         shouldValidate: true,
       },
     );
     methods.setValue(
       "hasBookingOverrideControl",
-      starterRole?.has_booking_override_control ?? false,
+      isFromScratch ? false : starterRole!.has_booking_override_control,
       {
-        shouldDirty: Boolean(starterRoleId),
+        shouldDirty: !isFromScratch,
         shouldValidate: true,
       },
     );

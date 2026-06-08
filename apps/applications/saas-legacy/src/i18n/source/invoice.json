@@ -461,6 +461,7 @@
       "bill": "Take payment",
       "basketWasInconsistent": "Your basket has changed. You have not been charged, please attempt the payment again.",
       "basketInconsistent": "Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.",
+      "basketBelowStripeMinimum": "The total amount of your cart is below the minimum allowed for online payments, being {{ minimum }}. Please modify your cart before validating your payment.",
       "billByInstalment": "Instalments",
       "paymentLink": "Payment link",
       "generatePaymentLink": "Generate a payment link"

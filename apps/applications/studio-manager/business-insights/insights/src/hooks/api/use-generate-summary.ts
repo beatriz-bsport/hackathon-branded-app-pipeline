@@ -22,15 +22,15 @@ const RESULT_CACHE_MS = 60 * 60 * 1000; // 1h
 
 interface UseGenerateSummaryParams {
   insightKey: string;
-  variables?: Record<string, string>;
-  pageId?: string;
+  elementIds: string[];
+  controls?: Record<string, string>;
   enabled?: boolean;
 }
 
 export const useGenerateSummary = ({
   insightKey,
-  variables,
-  pageId,
+  elementIds,
+  controls,
   enabled = false,
 }: UseGenerateSummaryParams) => {
   const { t } = useTranslation("insights");
@@ -38,8 +38,8 @@ export const useGenerateSummary = ({
 
   const taskIdOpts = aiSummaryTaskIdQueryOptions(fetch, {
     insightKey,
-    variables,
-    pageId,
+    elementIds,
+    controls,
   });
 
   const {

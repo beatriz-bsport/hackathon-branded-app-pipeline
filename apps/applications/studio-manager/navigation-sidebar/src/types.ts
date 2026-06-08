@@ -48,6 +48,7 @@ export type Urls = {
   // --- Finance ---
   invoice: string;
   payout: string;
+  subscriptionFinance: string;
   directDebit: string;
   expense: string;
   payroll: string;
@@ -99,5 +100,5 @@ export type Urls = {
 
 export type LegacyUrls = Omit<
   Urls,
-  "homepage" | "onDemand" | "settings_permissions"
+  "homepage" | "onDemand" | "settings_permissions" | "subscriptionFinance"
 >;

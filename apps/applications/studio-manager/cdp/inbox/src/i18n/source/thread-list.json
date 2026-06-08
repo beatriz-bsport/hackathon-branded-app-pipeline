@@ -7,5 +7,9 @@
     "markAsRead": "Mark as read",
     "markAsUnread": "Mark as unread",
     "moreActionsLabel": "More actions"
+  },
+  "threadList": {
+    "empty": "No conversations yet",
+    "loadingError": "Couldn't load conversations"
   }
 }

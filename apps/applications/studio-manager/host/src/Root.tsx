@@ -47,6 +47,9 @@ const TeacherView = lazy(() => import("@bsport/sm-teacher-view"));
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
 const Payout = lazy(() => import("@bsport/sm-payout"));
+const SubscriptionFinance = lazy(
+  () => import("@bsport/sm-subscription-finance"),
+);
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
@@ -252,6 +255,7 @@ const AuthenticatedRoutes = () => {
   const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
   const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
   const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
+  const isSubscriptionPageEnabled = useNavFlag(NavFlags.FS_SUBSCRIPTION_PAGE);
 
   /**
    * Add configs to the Host Router.
@@ -304,6 +308,11 @@ const AuthenticatedRoutes = () => {
     /* ----- Financial Services ----- */
     { url: urls.invoice, element: <Invoice /> },
     { url: urls.payout, element: <Payout /> },
+    {
+      url: urls.subscriptionFinance,
+      element: <SubscriptionFinance />,
+      hidden: !isSubscriptionPageEnabled,
+    },
 
     /* ----- Customer Data Platform ----- */
     { url: urls.customForm, element: <CustomForm /> },

@@ -96,6 +96,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   homepage: "/",
   invoice: "/invoice",
   payout: "/payout",
+  subscriptionFinance: "/subscription-finance",
   marketingNotification: "/marketing/notifications",
   smartfill: "/marketing/smartfill",
   member: "/member",
@@ -134,6 +135,7 @@ export const REVAMP_URLS_PRODUCTION = {
   giftcard: REVAMP_URLS_DEVELOPMENT.giftcard,
   pack: REVAMP_URLS_DEVELOPMENT.pack,
   payout: REVAMP_URLS_DEVELOPMENT.payout,
+  subscriptionFinance: REVAMP_URLS_DEVELOPMENT.subscriptionFinance,
   smartfill: REVAMP_URLS_DEVELOPMENT.smartfill,
   segment: "/segment",
   smartlist: "/smartlist",
@@ -153,6 +155,7 @@ const REVAMP_ONLY_KEYS: Array<string> = [
   "homepage",
   "onDemand",
   "settings_permissions",
+  "subscriptionFinance",
 ] satisfies Array<keyof Urls>;
 
 export const LEGACY_DEFAULT_PAGE = LEGACY_URLS.calendar;

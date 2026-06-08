@@ -3,10 +3,12 @@ import { useEffect, useMemo } from "react";
 
 import {
   type Pass,
-  type PassCategory,
-  passCategoriesInfiniteQueryOptions,
   passesInfiniteQueryOptions,
-} from "@bsport/api-buyables";
+} from "@bsport/api-buyables/pass";
+import {
+  type PassCategory,
+  fetchPassCategoriesInfiniteQueryOptions,
+} from "@bsport/api-buyables/pass-category";
 
 import {
   COMPATIBLE_PASSES_CATEGORIES_PAGE_SIZE,
@@ -95,7 +97,7 @@ export const useCompatiblePasses = (
     isFetchingNextPage: isFetchingNextCategoriesPage,
     isFetchNextPageError: isFetchNextCategoriesPageError,
   } = useSuspenseInfiniteQuery(
-    passCategoriesInfiniteQueryOptions(fetch, {
+    fetchPassCategoriesInfiniteQueryOptions(fetch, {
       page_size: COMPATIBLE_PASSES_CATEGORIES_PAGE_SIZE,
     }),
   );

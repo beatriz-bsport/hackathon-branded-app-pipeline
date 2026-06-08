@@ -1,9 +1,9 @@
 import { Result } from "typescript-result";
 
+import { fetchAppointmentPassCategoriesAPI } from "@bsport/api-buyables/appointment-pass-category";
 import { createErrorWithContext } from "@bsport/store-base";
 import type { Action, PaginatedResponse } from "@bsport/store-base";
 
-import { fetchAppointmentPassCategoriesAPI } from "#src/api/appointment-pass-category";
 import type {
   AppointmentPassCategory,
   FetchAppointmentPassCategoriesParams,
@@ -15,11 +15,9 @@ export const fetchAppointmentPassCategoriesAction: Action<
   FetchAppointmentPassCategoriesParams,
   PaginatedResponse<AppointmentPassCategory>
 > = async (fetch, params) => {
-  const [uri, init] = fetchAppointmentPassCategoriesAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchAppointmentPassCategoriesAPI(fetch, params);
 
       setAppointmentPassCategories({
         categories: data.results,

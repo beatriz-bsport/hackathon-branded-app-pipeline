@@ -1,6 +1,7 @@
 import type { PaginatedResponse } from "@bsport/store-base";
 
 import type { CommunicationKind } from "#src/automated-campaign/types";
+import type { PrebuiltSegmentId } from "#src/constants";
 import type {
   CommunicationChannel,
   CommunicationRecipientStatus,
@@ -44,6 +45,7 @@ export type CampaignScheduled = {
   id: number;
   company: number | null;
   smartlist: number | null;
+  segment_identifier: string | null;
   communication_kind: CommunicationKind;
   text: string | null;
   email_design: number | null;
@@ -61,7 +63,7 @@ type FetchCampaignSentTarget =
       segment_identifier?: never;
     }
   | {
-      segment_identifier: string;
+      segment_identifier: PrebuiltSegmentId;
       smartlist?: never;
     };
 
@@ -94,9 +96,9 @@ type SmartlistSendCampaignContext = {
 type PrebuiltSegmentSendCampaignContext = {
   context_identifier: number;
   context_object_id?: never;
-  context_segment_identifier: string;
+  context_segment_identifier: PrebuiltSegmentId;
   member_filters: {
-    segment_identifier: string;
+    segment_identifier: PrebuiltSegmentId;
     smartlist?: never;
   };
 };
@@ -147,8 +149,20 @@ export type LegacySendCampaignPayload = {
   sms?: string;
 };
 
-export type ScheduleCampaignPayload = {
+type SmartlistScheduleCampaignTarget = {
   smartlist: number;
+  segment_identifier?: never;
+};
+
+type PrebuiltSegmentScheduleCampaignTarget = {
+  segment_identifier: PrebuiltSegmentId;
+  smartlist?: never;
+};
+
+export type ScheduleCampaignPayload = (
+  | SmartlistScheduleCampaignTarget
+  | PrebuiltSegmentScheduleCampaignTarget
+) & {
   communication_kind: CommunicationKind;
   title: string;
   datetime_scheduled: string;
@@ -210,7 +224,7 @@ export type CommunicationPreviewRecipientsRequest =
   | {
       channel: CommunicationChannel;
       is_marketing: boolean;
-      target: { type: "segment"; segment_identifier: string };
+      target: { type: "segment"; segment_identifier: PrebuiltSegmentId };
     };
 
 export type FetchCommunicationRecipientsPreviewParams = {

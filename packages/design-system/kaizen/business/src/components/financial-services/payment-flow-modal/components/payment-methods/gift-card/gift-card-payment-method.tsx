@@ -1,4 +1,4 @@
-import { type FC, useEffect } from "react";
+import { type FC } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import type { Fetch } from "@bsport/fetch";
@@ -9,14 +9,12 @@ import { i18nInstance, useTranslation } from "#src/i18n";
 import { formatDate } from "#src/utils/date";
 
 import { AddGiftCardCode } from "./add-gift-card-code";
-import type { PaymentFlowGiftCard } from "./types";
 
 type GiftCardPaymentMethodProps = {
   fetch: Fetch;
   memberId: number;
   selectedGiftCardId: number | null;
   onSelectedGiftCardIdChange: (giftCardId: number | null) => void;
-  onGiftCardsChange: (giftCards: PaymentFlowGiftCard[]) => void;
 };
 
 const formatExpirationDate = (value: string | null): string => {
@@ -35,7 +33,6 @@ export const GiftCardPaymentMethod: FC<GiftCardPaymentMethodProps> = ({
   memberId,
   selectedGiftCardId,
   onSelectedGiftCardIdChange,
-  onGiftCardsChange,
 }) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const {
@@ -49,10 +46,6 @@ export const GiftCardPaymentMethod: FC<GiftCardPaymentMethodProps> = ({
     memberId,
     enabled: true,
   });
-
-  useEffect(() => {
-    onGiftCardsChange(giftcards);
-  }, [giftcards, onGiftCardsChange]);
 
   const giftCardsGridClassName =
     giftcards.length === 1 ? "grid-cols-1" : "grid-cols-2";

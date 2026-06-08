@@ -102,3 +102,20 @@ export const USER_REGISTRATION_RESPONSE_QUERY_PARAM =
 
 export const USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY =
   'latest_user_registration_response';
+
+/**
+ * Stripe minimum amount in cents by currency.
+ * Currencies not listed default to 50 cents.
+ * @see https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts
+ */
+export const STRIPE_MINIMUM_AMOUNT_CTS_BY_CURRENCY: Record<string, number> = {
+  default: 50,
+  gbp: 30,
+  aed: 200,
+  czk: 1500,
+  dkk: 250,
+  mxn: 1000,
+  nok: 300,
+  ron: 200,
+  sek: 300,
+};

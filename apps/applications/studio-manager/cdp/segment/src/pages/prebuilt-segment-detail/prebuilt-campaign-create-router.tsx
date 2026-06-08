@@ -4,11 +4,20 @@ import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
 
 import { useUpsellChecker } from "#src/hooks/use-upsell-checker";
 import { CreateEmailCampaignContent } from "#src/pages/EmailCampaign/create-email-campaign";
-import { formatSendPrebuiltSegmentEmailCampaignPayload } from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
+import {
+  formatSchedulePrebuiltSegmentEmailCampaignPayload,
+  formatSendPrebuiltSegmentEmailCampaignPayload,
+} from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
 import { CreatePushCampaignContent } from "#src/pages/push-campaign/create-push-campaign";
-import { formatSendPrebuiltSegmentPushCampaignPayload } from "#src/pages/push-campaign/utils/format-push-campaign-payload";
+import {
+  formatSchedulePrebuiltSegmentPushCampaignPayload,
+  formatSendPrebuiltSegmentPushCampaignPayload,
+} from "#src/pages/push-campaign/utils/format-push-campaign-payload";
 import { CreateSmsCampaignContent } from "#src/pages/sms-campaign/create-sms-campaign";
-import { formatSendPrebuiltSegmentSmsCampaignPayload } from "#src/pages/sms-campaign/utils/format-sms-campaign-payload";
+import {
+  formatSchedulePrebuiltSegmentSmsCampaignPayload,
+  formatSendPrebuiltSegmentSmsCampaignPayload,
+} from "#src/pages/sms-campaign/utils/format-sms-campaign-payload";
 import {
   CAMPAIGN_CHANNEL_EMAIL,
   CAMPAIGN_CHANNEL_PUSH,
@@ -16,8 +25,7 @@ import {
   SMARTLIST_APP_LINKS,
 } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
-
-import { isPrebuiltSegmentId } from "./constants";
+import { isPrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 export const PrebuiltCampaignCreateRouter = () => {
   const { t } = useTranslation(["list", "campaign"]);
@@ -76,6 +84,13 @@ export const PrebuiltCampaignCreateRouter = () => {
               data,
             })
           }
+          formatSchedulePayload={({ data, datetimeScheduled }) =>
+            formatSchedulePrebuiltSegmentEmailCampaignPayload({
+              segmentIdentifier: prebuiltSegmentId,
+              data,
+              datetimeScheduled,
+            })
+          }
         />
       );
     case CAMPAIGN_CHANNEL_SMS:
@@ -96,6 +111,13 @@ export const PrebuiltCampaignCreateRouter = () => {
               data,
             })
           }
+          formatSchedulePayload={({ data, datetimeScheduled }) =>
+            formatSchedulePrebuiltSegmentSmsCampaignPayload({
+              segmentIdentifier: prebuiltSegmentId,
+              data,
+              datetimeScheduled,
+            })
+          }
         />
       );
     case CAMPAIGN_CHANNEL_PUSH:
@@ -110,6 +132,13 @@ export const PrebuiltCampaignCreateRouter = () => {
             formatSendPrebuiltSegmentPushCampaignPayload({
               segmentIdentifier: prebuiltSegmentId,
               data,
+            })
+          }
+          formatSchedulePayload={({ data, datetimeScheduled }) =>
+            formatSchedulePrebuiltSegmentPushCampaignPayload({
+              segmentIdentifier: prebuiltSegmentId,
+              data,
+              datetimeScheduled,
             })
           }
         />

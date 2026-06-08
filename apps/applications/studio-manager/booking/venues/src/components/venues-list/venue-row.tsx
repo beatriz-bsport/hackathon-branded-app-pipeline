@@ -64,8 +64,8 @@ export const buildVenueListItem = (
     id: String(venue.id),
     title: venue.title,
     avatar: venue.cover
-      ? { src: venue.cover, shape: "squared", size: "lg" }
-      : { initials: getInitials(venue.title), shape: "squared", size: "lg" },
+      ? { src: venue.cover, shape: "squared", size: "sm" }
+      : { initials: getInitials(venue.title), shape: "squared", size: "sm" },
     chips: showGroupChip
       ? [
           {

@@ -1,10 +1,13 @@
-import { type FC } from "react";
+import { type FC, useMemo } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import { Body, Divider, Loader, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { isSpotElement } from "#src/components/spot-selector/spot-canvas/canvas-transformer";
+import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label";
+import { useSpotSelectorData } from "#src/components/spot-selector/spot-selector-modal/use-spot-selector-data";
 import { useMemberPasses } from "#src/hooks/booking/fetch/use-member-passes";
 import { useRetrievePass } from "#src/hooks/buyables/fetch/use-retrieve-pass";
 import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member";
@@ -12,6 +15,7 @@ import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-se
 import { setNotifyMember } from "#src/stores/booking-flow/actions";
 import { getDiscountedPrice } from "#src/stores/booking-flow/get-discounted-price";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
+import { fetch } from "#src/utils/fetch";
 import { getPassPrice } from "#src/utils/get-pass-price";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -55,6 +59,7 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
     paymentPackId !== null && !selectedConsumerPaymentPackId;
 
   const keepCredits = useBookingFlowStore((state) => state.keepCredits);
+  const spotIndex = useBookingFlowStore((state) => state.spotIndex);
   const creditPrice = getCreditsDividedValue(
     session.credit_price_override ?? session.credit_price,
   );
@@ -91,6 +96,32 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
 
   const notifyMember = useBookingFlowStore((state) => state.notifyMember);
 
+  // Spot label resolution — the session query is already cached from the
+  // spot-selection step so this triggers no extra network request.
+  const spotData = useSpotSelectorData({
+    sessionId,
+    fetch,
+    enabled: spotIndex !== null,
+  });
+
+  const spotLabel = useMemo(() => {
+    if (spotIndex === null || !spotData.roomBlueprint) return null;
+    for (const element of spotData.roomBlueprint.canvas.elements ?? []) {
+      if (isSpotElement(element) && element.data.index === spotIndex) {
+        const spotType = spotData.spotTypes.find(
+          (s) => s.id === element.data.spotTypeId,
+        );
+        return composeLabel(
+          spotType?.prefix,
+          element.data.indexType,
+          spotIndex,
+          spotType?.suffix,
+        );
+      }
+    }
+    return String(spotIndex);
+  }, [spotIndex, spotData.roomBlueprint, spotData.spotTypes]);
+
   if (
     memberIsLoading ||
     compatiblePasses.isLoading ||
@@ -106,6 +137,20 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
   return (
     <div className="flex flex-col gap-lg w-full">
       {member && <MemberCard member={member} />}
+
+      {spotLabel !== null && (
+        <>
+          <div className="flex flex-col gap-xs">
+            <Body size="sm" weight="strong" color="weaker">
+              {t("bookingFlow.confirmation.sessionDetails").toUpperCase()}
+            </Body>
+            <Body size="lg" weight="weak" color="default">
+              {t("bookingFlow.confirmation.spotLabel", { label: spotLabel })}
+            </Body>
+          </div>
+          <Divider weight="extra-thin" orientation="horizontal" />
+        </>
+      )}
 
       {isNewPassRoute && selectedNewPass ? (
         <div className="flex flex-col gap-xs">

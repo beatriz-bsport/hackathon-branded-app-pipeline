@@ -113,13 +113,7 @@ export const ObjectLevelPermissionSection: FC<
 
   if (!isTree) {
     return (
-      <div
-        className={cx(
-          level === ROOT_LEVEL
-            ? "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0"
-            : "py-xs pl-lg",
-        )}
-      >
+      <div className={cx(level === ROOT_LEVEL ? "p-md" : "py-xs")}>
         <Checkbox
           id={getInputId(path)}
           label={label}
@@ -136,8 +130,7 @@ export const ObjectLevelPermissionSection: FC<
       id={getInputId(path)}
       initiallyOpen={false}
       className={cx(
-        level === ROOT_LEVEL &&
-          "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0",
+        level === ROOT_LEVEL && "p-md",
         level > ROOT_LEVEL &&
           "pl-lg pr-md border-l-stroke-thin border-l-stroke-main",
       )}
@@ -159,16 +152,18 @@ export const ObjectLevelPermissionSection: FC<
               </Body>
             </button>
             <div className="flex items-center gap-xs">
-              <Checkbox
-                id={`${getInputId(path)}-select-all`}
-                label={t("formFields.navigationMenu.selectAll.label")}
-                value={checkboxValue}
-                disabled={disabled || disabledByDependency}
-                onChange={() => {
-                  toggleValue();
-                  setIsCollapseOpen(true);
-                }}
-              />
+              {level === ROOT_LEVEL && (
+                <Checkbox
+                  id={`${getInputId(path)}-select-all`}
+                  label={t("formFields.navigationMenu.selectAll.label")}
+                  value={checkboxValue}
+                  disabled={disabled || disabledByDependency}
+                  onChange={() => {
+                    toggleValue();
+                    setIsCollapseOpen(true);
+                  }}
+                />
+              )}
               <Button
                 kind="icon-button"
                 intent="flat"

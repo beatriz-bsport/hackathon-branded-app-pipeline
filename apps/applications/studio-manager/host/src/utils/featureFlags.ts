@@ -14,4 +14,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   SETTINGS_STAFF_PAGE: "revamp_settings_staff_page",
   SETTINGS_ROLE_PAGE: "revamp_settings_role_page",
   BOOKING_VENUES_PAGE: "booking_venues_page",
+  FS_SUBSCRIPTION_PAGE: "fs_subscription_page",
 } as const);

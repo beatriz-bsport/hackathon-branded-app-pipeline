@@ -7,5 +7,4 @@ window.__SM_RUNTIME__ = {
     "default:production.71464c7970fcbcc8392a28909f14b0eb221b9c21577f2c3ee611beb2",
   UNLEASH_ENVIRONMENT: "production",
   MIXPANEL_TOKEN: "158e3cc9e8192baf80fe38352eb2e693",
-  GOOGLE_MAPS_API_KEY: "AIzaSyCz0gy4ESe5awksepoS0ENTBTf1sKytIjI",
 };

@@ -99,5 +99,56 @@
       "insights-marketing": "Insights — Marketing Performance",
       "insights-franchise": "Insights — Franchise"
     }
+  },
+  "addons": {
+    "loading": "Loading addons...",
+    "error": "Unable to load addons.",
+    "retry": "Try again",
+    "your-addons": "Your Addons",
+    "your-addons-subtitle_zero": "You do not have any Addons yet. Pick one below to extend your plan.",
+    "your-addons-subtitle_one": "You have 1 Addon subscribed.",
+    "your-addons-subtitle_other": "You have {{count}} Addons subscribed.",
+    "available-addons": "Available Addons",
+    "available-addons-subtitle": "Contact your account manager to subscribe.",
+    "available-addons-all-subscribed": "You have subscribed to every available Addon.",
+    "request": "Request",
+    "request-removal": "Request removal",
+    "learn-more": "Learn more",
+    "per-month": "per month",
+    "per-month-per-location": "per month · per location",
+    "categories": {
+      "communications": "Communications",
+      "digital": "Digital",
+      "integrations": "Integrations",
+      "growth": "Growth",
+      "compliance": "Compliance"
+    },
+    "packs": {
+      "bi-connect": {
+        "name": "BI Connect",
+        "description": "Stream your bsport data into your BI warehouse.",
+        "features": ["Snowflake connector", "BigQuery connector", "Daily sync"]
+      },
+      "data-as-a-service": {
+        "name": "Data as a Service",
+        "description": "Custom data exports run by bsport analysts.",
+        "features": ["Quarterly report", "Custom dashboards"]
+      },
+      "access-control": {
+        "name": "Access Control",
+        "description": "Role-based access and permissions for your organisation.",
+        "features": ["Roles", "Permissions", "Audit trail"]
+      },
+      "fiskaly-twint": {
+        "name": "Fiskaly / Twint",
+        "description": "Swiss fiscal signing & Twint payment.",
+        "features": ["Fiskaly signing", "Twint"]
+      },
+      "branded-app": {
+        "name": "Branded App",
+        "description": "Your own app, on the App Store and Google Play.",
+        "features": ["iOS app", "Android app", "Custom branding"]
+      }
+    }
   }
 }

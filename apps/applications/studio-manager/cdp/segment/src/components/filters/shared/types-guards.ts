@@ -7,6 +7,8 @@ import {
   BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   CreditAccountFilter,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
@@ -46,6 +48,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
   basketAbandonment: "basketAbandonment",
+  purchaseHistory: "purchaseHistory",
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
@@ -72,6 +75,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.basketAbandonment ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.purchaseHistory ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
@@ -237,6 +241,19 @@ export const isFirstPurchaseFilter = (
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&
   hasBoolean(value, "first_payment_is_done");
+
+export const isExpensesCompleteFilter = (
+  value: unknown,
+): value is ExpensesCompleteFilter =>
+  hasFilterIdentifier(value, EXPENSES_COMPLETE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second") &&
+  hasNumberArray(value, "buyable_identifiers") &&
+  hasBoolean(value, "date_filter_active");
 
 export const isMarketingNotificationFilter = (
   value: unknown,

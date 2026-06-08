@@ -2,6 +2,7 @@ export * from "../filter/active-passes/constants";
 export * from "../filter/basket-abandonment/constants";
 export * from "../filter/booking-milestone/constants";
 export * from "../filter/credit-account/constants";
+export * from "../filter/expenses-complete/constants";
 export * from "../filter/first-purchase/constants";
 export * from "../filter/gender/constants";
 export * from "../filter/has-phone/constants";

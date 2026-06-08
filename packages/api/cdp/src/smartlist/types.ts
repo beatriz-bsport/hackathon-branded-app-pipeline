@@ -4,6 +4,8 @@ export * from "./filter/active-passes/types";
 export * from "./filter/basket-abandonment/types";
 export * from "./filter/booking-milestone/types";
 export * from "./filter/credit-account/types";
+export * from "./filter/expenses-complete/buyable-identifiers";
+export * from "./filter/expenses-complete/types";
 export * from "./filter/first-purchase/types";
 export * from "./filter/gender/types";
 export * from "./filter/has-phone/types";

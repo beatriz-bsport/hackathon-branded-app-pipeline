@@ -3,6 +3,7 @@ export * from "./filter/active-passes/api";
 export * from "./filter/basket-abandonment/api";
 export * from "./filter/booking-milestone/api";
 export * from "./filter/credit-account/api";
+export * from "./filter/expenses-complete/api";
 export * from "./filter/first-purchase/api";
 export * from "./filter/gender/api";
 export * from "./filter/has-phone/api";

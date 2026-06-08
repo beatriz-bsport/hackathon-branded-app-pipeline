@@ -9,6 +9,8 @@ import {
   type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   type CreditAccountFilter,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
@@ -40,6 +42,7 @@ import {
   isBasketAbandonmentFilter,
   isBookingMilestoneFilter,
   isCreditAccountFilter,
+  isExpensesCompleteFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
   isHasPhoneFilter,
@@ -66,6 +69,7 @@ type SmartlistFiltersQueryData = {
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
   basketAbandonmentFilters: BasketAbandonmentFilter[];
+  purchaseHistoryFilters: ExpensesCompleteFilter[];
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
@@ -230,6 +234,20 @@ const mapBasketAbandonmentFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapPurchaseHistoryFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ExpensesCompleteFilter[] => {
+  const purchaseHistoryFiltersMap =
+    payload?.[EXPENSES_COMPLETE_FILTER_IDENTIFIER];
+  if (!purchaseHistoryFiltersMap) {
+    return [];
+  }
+
+  return Object.values(purchaseHistoryFiltersMap)
+    .filter(isExpensesCompleteFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapMarketingNotificationFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): MarketingNotificationFilter[] => {
@@ -289,6 +307,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       basketAbandonmentFilters: mapBasketAbandonmentFilters(data),
+      purchaseHistoryFilters: mapPurchaseHistoryFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),

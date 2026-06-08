@@ -258,6 +258,9 @@ const icons = {
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),
   ),
+  "phone-02": React.lazy(
+    async () => await import("./assets/phone-02.svg?react"),
+  ),
   "pin-01-solid": React.lazy(
     async () => await import("./assets/pin-01-solid.svg?react"),
   ),

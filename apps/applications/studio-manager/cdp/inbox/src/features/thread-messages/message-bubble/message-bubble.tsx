@@ -1,9 +1,9 @@
 import { Body, cva, cx } from "@bsport/kaizen-primitive-core";
 
 import { Channel, type ChannelType } from "#src/components/channel/channel";
+import { BULLET } from "#src/features/thread-messages/constants";
+import { MessageBody } from "#src/features/thread-messages/message-body";
 import { useTranslation } from "#src/utils/i18n";
-
-import { MessageBody } from "./message-body";
 
 export type MessageSender = "studio" | "member";
 export type MessageStatus = "sent" | "failed";
@@ -101,7 +101,7 @@ export function MessageBubble({
         )}
         {showStatus && (
           <>
-            {!isFailed && <span aria-hidden>&bull;</span>}
+            {!isFailed && <span aria-hidden>{BULLET}</span>}
             <Body htmlVariant="span" color="inherit" className="text-body-xs">
               {t(`status.${status}`)}
             </Body>

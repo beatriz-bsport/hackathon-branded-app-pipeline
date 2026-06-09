@@ -7,7 +7,7 @@ import Body from "#src/components/Body";
 import Icon, { type IconName } from "#src/components/Icon";
 import Loader from "#src/components/Loader";
 import Menu from "#src/components/Menu";
-import { Item } from "#src/components/Menu/types";
+import { Item, MenuOption, TextItem } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import { Label } from "#src/components/label";
 import { Placements } from "#src/hooks/placement-classes.hook";
@@ -89,7 +89,7 @@ export type SelectProps = Omit<
  * @param props.status Status of the select. Can be "default", "critical", or "positive".
  * @param props.value Controlled selected value. The value should be equal to the id of one of the options. Use this prop to manage the selected value externally.
  * @param props.defaultValue Default selected value (uncontrolled). Use this prop to initialize the selected value internally.
- * @param props.items List of selectable items. Each item should include an `id` and `label`.
+ * @param props.items List of selectable items. Each item should include an `id` and `label`. Items may also include a `rightSlot` that is shown in both the menu and the collapsed trigger.
  * @param props.iconLeft Icon displayed on the left side of the select button.
  * @param props.disabled Whether the select is disabled or not. Disabled state prevents user interaction.
  * @param props.helperText Text below the select to provide additional information.
@@ -158,12 +158,17 @@ const Select: React.FC<SelectProps> = ({
   // The displayed value depends on whether it's controlled or uncontrolled
   const selectedValueId = isControlled ? value : internalValue;
 
-  // Find the selected item, ensure it's not a DividerItem (which lacks 'label')
-  const selectedItem = items.find(
-    (item): item is { id: string; label: string } =>
-      "id" in item && item.id === selectedValueId && "label" in item,
-  );
+  // Find the selected item, ensure it's not a DividerItem or TitleItem
+  const selectedItem = items.find((item): item is MenuOption | TextItem => {
+    if (!("id" in item) || item.id !== selectedValueId) return false;
+    if (!("label" in item)) return false;
+    if ("type" in item) {
+      return item.type === "text" || item.type === null;
+    }
+    return true;
+  });
   const selectedValue = selectedItem?.label ?? "";
+  const selectedRightSlot = selectedItem?.rightSlot;
 
   const handleSelect = useCallback(
     (optionId: string) => {
@@ -225,12 +230,16 @@ const Select: React.FC<SelectProps> = ({
                 >
                   {iconLeft && <Icon icon={iconLeft} size="sm" />}
                   <span
-                    className={classNames("w-full text-left leading-xs", {
-                      "text-body-md": size === "sm",
-                      "text-body-lg": size === "md",
-                    })}
+                    className={classNames(
+                      "flex-1 min-w-0 flex items-center justify-between gap-xs text-left leading-xs",
+                      {
+                        "text-body-md": size === "sm",
+                        "text-body-lg": size === "md",
+                      },
+                    )}
                   >
-                    {selectedValue}
+                    <span className="truncate">{selectedValue}</span>
+                    {selectedRightSlot}
                   </span>
                   <Icon icon="chevron-down" size="sm" />
                 </button>

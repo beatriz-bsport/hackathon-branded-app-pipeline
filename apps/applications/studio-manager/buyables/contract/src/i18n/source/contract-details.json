@@ -94,14 +94,16 @@
     "month_other": "Months",
     "year": "",
     "year_one": "Year",
-    "year_other": "Years"
+    "year_other": "Years",
+    "everyInterval": "Every {{ interval }}"
   },
   "formSections": {
     "price": "Price",
     "billingCycle": "Billing Cycle",
     "contractLength": "Contract length",
     "termsAndConditions": "Terms & Conditions",
-    "visibility": "Visibility"
+    "visibility": "Visibility",
+    "benefits": "What's included in this subscription"
   },
   "editor": {
     "submit": {
@@ -130,6 +132,13 @@
         "paused": "Member's contract is currently on pause",
         "ended": "Member's contract billing cycle has ended."
       }
+    },
+    "panel": {
+      "title": "Subscription Details",
+      "yes": "Yes",
+      "no": "No",
+      "noneCommitmentPeriod": "None",
+      "tagsAfterPurchase": "Tags after purchase"
     }
   }
 }

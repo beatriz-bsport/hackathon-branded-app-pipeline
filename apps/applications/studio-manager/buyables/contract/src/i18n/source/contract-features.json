@@ -68,5 +68,20 @@
       }
     },
     "toastSuccess": "Subscription {{ name }} paused"
+  },
+  "benefitsCard": {
+    "kinds": {
+      "pass": "Pass",
+      "appointmentPass": "Appointment Pass",
+      "universalPass": "Universal Pass"
+    },
+    "hasAccessToOnDemand": "Access to On-Demand",
+    "editBenefit": "Edit Benefit",
+    "credits": {
+      "nbOfCredits": "",
+      "nbOfCredits_one": "{{ count }} credit",
+      "nbOfCredits_other": "{{ count }} credits",
+      "unlimited": "Unlimited"
+    }
   }
 }

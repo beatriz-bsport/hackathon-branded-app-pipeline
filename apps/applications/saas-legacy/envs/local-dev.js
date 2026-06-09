@@ -1,0 +1,62 @@
+window.runtime = window.runtime || { env: {} };
+var env = window.runtime.env;
+
+// ENV
+env.REACT_APP_SENTRY_DSN = ''
+env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
+env.REACT_APP_STRIPE_PK_KEY_US = 'pk_test_f40unREf611uut2oTtz4Qqfl00UCO6tZr5';
+env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyCz0gy4ESe5awksepoS0ENTBTf1sKytIjI';
+
+env.REACT_APP_BASE_URI = 'http://localhost:8000'
+
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_BUYABLE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BUYABLE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_BOOK_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BOOK_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_COMMUNICATE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_COMMUNICATE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_CORE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_CORE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_CDP_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_CDP_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_PLATFORM_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_PLATFORM_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 = 'http://localhost:8000/api/v1'
+
+env.REACT_APP_API_URI = 'http://localhost:8000/api-v0'
+env.REACT_APP_ZOOM_CLIENT_ID = 'ayAjSMV0SiOR383VkR3I4Q';
+env.REACT_APP_PAYPAL_CLIENT_ID = 'ATa5xeGsb_BcK-5GLJiX4T99DL0k0P6D1oigrlPccXjuqF4yMyV7vJWlPhlRkfR1rkEIebfemhKst-7n';
+env.REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID = 'FLAVORsb-msvgw29137952_MP';
+
+
+env.REACT_APP_SENTRY_ENVIRONMENT = 'local';
+env.PUBLIC_URL = 'https://backoffice.local.bsport.io';
+
+env.REACT_APP_RECAPTCHA_V3 = '6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf';
+env.REACT_APP_RECAPTCHA_V2 = '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
+env.REACT_APP_CDN_DOMAIN = 'localhost:3100';
+env.I18N_TRANSLATION_DOMAIN = 'https://backoffice.local.bsport.io';
+
+env.REACT_APP_QUICKBOOKS_CLIENT_ID = 'ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';
+env.REACT_APP_SEGMENT_API_KEY = 'yH7opuCLYbkx3SmUBi2zE3qltVkiTfL7'
+
+env.REACT_APP_RUDDERSTACK_KEY = '2BqaPHzewHdMLGPEhd2ZJXoMDdp'
+env.REACT_APP_RUDDERSTACK_DATAPLANEURL = 'https://bsportteczue.dataplane.rudderstack.com'
+
+env.REACT_APP_MIXPANEL_TOKEN_B2B = 'c073ac4687e65e8ef64898760c6e32c8'
+env.REACT_APP_MIXPANEL_TOKEN_B2C = '3c71ed90ce76e0c66c74b696a34febba'
+
+env.REACT_APP_DIDOMI_API_KEY = 'b262349d-3421-4579-8f14-fa3d8d67f825';
+env.REACT_APP_DIDOMI_NOTICE_ID = 'FT99WiD7';
+
+env.REACT_APP_UNLAYER_PROJECT_ID = '4736';
+
+env.REACT_APP_UNLEASH_PROXY_URL = 'https://unleash.tooling.bsport.io/api/frontend'
+env.REACT_APP_UNLEASH_CLIENT_KEY = 'default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864'

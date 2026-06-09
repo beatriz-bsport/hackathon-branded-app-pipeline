@@ -1,7 +1,7 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -9,7 +9,10 @@ import {
   type PurchaseHistorySubFilterId,
   purchaseHistorySubFilterFieldMap,
 } from "../sub-filters/purchase-history-sub-filter-id";
-import { REGISTERED_PURCHASE_HISTORY_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_PURCHASE_HISTORY_SUB_FILTERS,
+  REGISTERED_PURCHASE_HISTORY_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import type { PurchaseHistoryFilterFormValue } from "../types";
 
 type PurchaseHistorySubFiltersAreaProps = {
@@ -51,7 +54,7 @@ export const PurchaseHistorySubFiltersArea = ({
       { shouldDirty: true },
     );
     const fieldToReset = purchaseHistorySubFilterFieldMap[subFilterId];
-    setValue(fieldToReset, defaultDateFilterValue, {
+    setValue(fieldToReset, createDefaultDateFilterValue(), {
       shouldDirty: true,
     });
   };
@@ -63,9 +66,8 @@ export const PurchaseHistorySubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_PURCHASE_HISTORY_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_PURCHASE_HISTORY_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

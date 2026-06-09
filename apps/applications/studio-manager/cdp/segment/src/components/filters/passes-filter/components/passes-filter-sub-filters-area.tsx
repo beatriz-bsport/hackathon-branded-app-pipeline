@@ -1,7 +1,7 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,7 +10,10 @@ import {
   type PassSubFilterId,
   passSubFilterFielMap,
 } from "../sub-filters/pass-sub-filter-id";
-import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_PASS_SUB_FILTERS,
+  REGISTERED_PASS_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import type { PassesFilterFormValue } from "../types";
 
 type PassesFilterSubFiltersAreaProps = {
@@ -58,7 +61,7 @@ export const PassesFilterSubFiltersArea = ({
     const resetValue =
       fieldToReset === "creditLeft"
         ? defaultNumericComparatorFilterValue
-        : defaultDateFilterValue;
+        : createDefaultDateFilterValue();
     setValue(fieldToReset, resetValue, {
       shouldDirty: true,
     });
@@ -71,9 +74,8 @@ export const PassesFilterSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const passSubFilterModule = REGISTERED_PASS_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const passSubFilterModule =
+          REGISTERED_PASS_SUB_FILTERS_BY_ID[subFilterId];
         if (!passSubFilterModule) {
           return null;
         }

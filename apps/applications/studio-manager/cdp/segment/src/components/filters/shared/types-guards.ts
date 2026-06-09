@@ -1,20 +1,20 @@
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
   AGE_FILTER_IDENTIFIER,
-  ActivePassesFilter,
+  type ActivePassesFilter,
   type AgeFilter,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
-  BookingMilestoneFilter,
+  type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-  CreditAccountFilter,
+  type CreditAccountFilter,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
-  FirstPurchaseFilter,
+  type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
-  GenderFilter,
+  type GenderFilter,
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
@@ -24,21 +24,23 @@ import {
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
-  MemberDateJoinedFilter,
+  type MemberDateJoinedFilter,
+  NOTES_FILTER_IDENTIFIER,
+  type NotesFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
-  PaymentPackFilter,
-  PrivateBookingsFilter,
-  PrivatePassFilter,
+  type PaymentPackFilter,
+  type PrivateBookingsFilter,
+  type PrivatePassFilter,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
   TAG_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
-  TagFilter,
+  type TagFilter,
   type TermsAndConditionsFilter,
-  TotalBookingFilter,
+  type TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
 /**
@@ -65,6 +67,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   termsAndConditions: "termsAndConditions",
   liabilityWaiver: "liabilityWaiver",
   lastBooking: "lastBooking",
+  internalNotes: "internalNotes",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -95,7 +98,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.termsAndConditions ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.liabilityWaiver ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes;
 
 export const isBasketAbandonmentFilter = (
   value: unknown,
@@ -339,3 +343,10 @@ export const isLastBookingFilter = (
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&
   hasNumber(value, "value");
+
+export const isNotesFilter = (value: unknown): value is NotesFilter =>
+  hasFilterIdentifier(value, NOTES_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "date_filter_active");

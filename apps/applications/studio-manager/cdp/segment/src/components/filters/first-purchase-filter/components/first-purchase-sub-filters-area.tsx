@@ -1,7 +1,7 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,7 +10,10 @@ import {
   type FirstPurchaseSubFilterId,
   firstPurchaseSubFilterFieldMap,
 } from "../sub-filters/first-purchase-sub-filter-id";
-import { REGISTERED_FIRST_PURCHASE_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_FIRST_PURCHASE_SUB_FILTERS,
+  REGISTERED_FIRST_PURCHASE_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import type { FirstPurchaseFilterFormValue } from "../types";
 
 type FirstPurchaseSubFiltersAreaProps = {
@@ -55,7 +58,7 @@ export const FirstPurchaseSubFiltersArea = ({
     const resetValue =
       fieldToReset === "purchaseAmount"
         ? defaultNumericComparatorFilterValue
-        : defaultDateFilterValue;
+        : createDefaultDateFilterValue();
     setValue(fieldToReset, resetValue, {
       shouldDirty: true,
     });
@@ -68,9 +71,8 @@ export const FirstPurchaseSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_FIRST_PURCHASE_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_FIRST_PURCHASE_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

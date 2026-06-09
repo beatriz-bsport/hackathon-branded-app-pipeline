@@ -3,7 +3,7 @@ import {
   buyableIdsFromHydration,
 } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import { REGISTERED_PURCHASE_HISTORY_SUB_FILTERS } from "../sub-filters/registry";
 import type { PurchaseHistoryFilterFormValue } from "../types";
@@ -32,6 +32,6 @@ export const mapPurchaseHistoryFilterToFormValue = (
     totalSpent: toFormTotalSpentSection(filter),
     spentOn: buyableIdsFromHydration(filter.buyable_identifiers),
     subFilters,
-    purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
+    purchaseDate: partialForm.purchaseDate ?? createDefaultDateFilterValue(),
   };
 };

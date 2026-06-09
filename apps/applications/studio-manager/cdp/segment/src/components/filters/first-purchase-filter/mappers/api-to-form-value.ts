@@ -1,6 +1,6 @@
 import type { FirstPurchaseFilter } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { firstPurchaseStatusFromApi } from "../constants";
@@ -31,7 +31,7 @@ export const mapFirstPurchaseFilterToFormValue = (
       filter.first_payment_is_done,
     ),
     subFilters,
-    purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
+    purchaseDate: partialForm.purchaseDate ?? createDefaultDateFilterValue(),
     purchaseAmount:
       partialForm.purchaseAmount ?? defaultNumericComparatorFilterValue,
   };

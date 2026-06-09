@@ -53,6 +53,10 @@ import { HasPhoneFilterCard } from "./has-phone-filter/components/has-phone-filt
 import { createDefaultHasPhoneFilter } from "./has-phone-filter/default-value";
 import { mapHasPhoneFilterToFormValue } from "./has-phone-filter/mappers/api-to-form-value";
 import type { HasPhoneFilterFormValue } from "./has-phone-filter/types";
+import { InternalNotesFilterCard } from "./internal-notes-filter/components/internal-notes-filter-card";
+import { createDefaultInternalNotesFilter } from "./internal-notes-filter/default-value";
+import { mapInternalNotesFilterToFormValue } from "./internal-notes-filter/mappers/api-to-form-value";
+import type { InternalNotesFilterFormValue } from "./internal-notes-filter/types";
 import { LastBookingFilterCard } from "./last-booking-filter/components/last-booking-filter-card";
 import { createDefaultLastBookingFilter } from "./last-booking-filter/default-value";
 import { mapLastBookingFilterToFormValue } from "./last-booking-filter/mappers/api-to-form-value";
@@ -137,6 +141,7 @@ type FilterValueByType = {
   termsAndConditions: TermsAndConditionsFilterFormValue;
   liabilityWaiver: LiabilityWaiverFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
+  internalNotes: InternalNotesFilterFormValue;
 };
 
 type DraftFilter =
@@ -244,6 +249,11 @@ type DraftFilter =
       clientId: string;
       filterType: "lastBooking";
       value: FilterValueByType["lastBooking"];
+    }
+  | {
+      clientId: string;
+      filterType: "internalNotes";
+      value: FilterValueByType["internalNotes"];
     };
 
 type SavedFilter =
@@ -356,6 +366,11 @@ type SavedFilter =
       key: string;
       filterType: "lastBooking";
       value: FilterValueByType["lastBooking"];
+    }
+  | {
+      key: string;
+      filterType: "internalNotes";
+      value: FilterValueByType["internalNotes"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -414,6 +429,7 @@ export const SegmentFiltersManager = ({
     smartlistFilters?.termsAndConditionsFilters ?? [];
   const liabilityWaiverFilters = smartlistFilters?.liabilityWaiverFilters ?? [];
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
+  const internalNotesFilters = smartlistFilters?.internalNotesFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -689,6 +705,15 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    internalNotes: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <InternalNotesFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -793,6 +818,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.lastBooking),
       filterType: FILTER_TYPES.lastBooking,
       value: createDefaultLastBookingFilter(smartlistNumericId),
+    }),
+    internalNotes: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.internalNotes),
+      filterType: FILTER_TYPES.internalNotes,
+      value: createDefaultInternalNotesFilter(smartlistNumericId),
     }),
   };
 
@@ -906,6 +936,12 @@ export const SegmentFiltersManager = ({
         description: t(
           "filterSelector.options.marketingNotification.description",
         ),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
+        id: FILTER_TYPES.internalNotes,
+        label: t("filters.104.title"),
+        description: t("filterSelector.options.internalNotes.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
@@ -1043,6 +1079,11 @@ export const SegmentFiltersManager = ({
       key: `saved-last-booking-${lastBookingFilter.id}`,
       filterType: FILTER_TYPES.lastBooking,
       value: mapLastBookingFilterToFormValue(lastBookingFilter),
+    })),
+    ...internalNotesFilters.map((internalNotesFilter) => ({
+      key: `saved-internal-notes-${internalNotesFilter.id}`,
+      filterType: FILTER_TYPES.internalNotes,
+      value: mapInternalNotesFilterToFormValue(internalNotesFilter),
     })),
   ];
 

@@ -13,5 +13,6 @@ export * from "../filter/member-date-joined/constants";
 export * from "../filter/payment-pack/constants";
 export * from "../filter/private-bookings/constants";
 export * from "../filter/private-pass/constants";
+export * from "../filter/referred-members/constants";
 export * from "../filter/tag/constants";
 export * from "../filter/total-booking/constants";

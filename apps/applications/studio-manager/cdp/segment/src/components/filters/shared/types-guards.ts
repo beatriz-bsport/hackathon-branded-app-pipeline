@@ -29,6 +29,8 @@ import {
   PaymentPackFilter,
   PrivateBookingsFilter,
   PrivatePassFilter,
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  type ReferredMemberFilter,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   TagFilter,
@@ -52,6 +54,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   firstPurchase: "firstPurchase",
   basketAbandonment: "basketAbandonment",
   purchaseHistory: "purchaseHistory",
+  referredMembers: "referredMembers",
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
@@ -80,6 +83,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.basketAbandonment ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.purchaseHistory ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.referredMembers ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
@@ -267,6 +271,19 @@ export const isExpensesCompleteFilter = (
   hasNumber(value, "value_second") &&
   hasNumberArray(value, "buyable_identifiers") &&
   hasBoolean(value, "date_filter_active");
+
+export const isReferredMemberFilter = (
+  value: unknown,
+): value is ReferredMemberFilter =>
+  hasFilterIdentifier(value, REFERRED_MEMBERS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "is_referred") &&
+  hasBoolean(value, "money_obtained_active") &&
+  hasNumber(value, "money_obtained_comparator") &&
+  hasNumber(value, "money_obtained") &&
+  hasNumber(value, "money_obtained_second");
 
 export const isMarketingNotificationFilter = (
   value: unknown,

@@ -20,7 +20,9 @@ import {
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
+  LIABILITY_WAIVER_FILTER_IDENTIFIER,
   type LastBookingFilter,
+  type LiabilityWaiverFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
@@ -54,6 +56,7 @@ import {
   isGenderFilter,
   isHasPhoneFilter,
   isLastBookingFilter,
+  isLiabilityWaiverFilter,
   isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
@@ -85,6 +88,7 @@ type SmartlistFiltersQueryData = {
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
   termsAndConditionsFilters: TermsAndConditionsFilter[];
+  liabilityWaiverFilters: LiabilityWaiverFilter[];
   lastBookingFilters: LastBookingFilter[];
 };
 
@@ -326,6 +330,20 @@ const mapTermsAndConditionsFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapLiabilityWaiverFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): LiabilityWaiverFilter[] => {
+  const liabilityWaiverFiltersMap =
+    payload?.[LIABILITY_WAIVER_FILTER_IDENTIFIER];
+  if (!liabilityWaiverFiltersMap) {
+    return [];
+  }
+
+  return Object.values(liabilityWaiverFiltersMap)
+    .filter(isLiabilityWaiverFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapLastBookingFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): LastBookingFilter[] => {
@@ -365,6 +383,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),
       termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
+      liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
     }),
   });

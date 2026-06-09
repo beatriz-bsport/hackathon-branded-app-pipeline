@@ -35,8 +35,10 @@ import {
   type ReferredMemberFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   type TagFilter,
+  type TermsAndConditionsFilter,
   type TotalBookingFilter,
   smartlistFiltersQueryOptions,
 } from "@bsport/api-cdp/smartlist";
@@ -59,6 +61,7 @@ import {
   isPrivatePassFilter,
   isReferredMemberFilter,
   isTagFilter,
+  isTermsAndConditionsFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
@@ -81,6 +84,7 @@ type SmartlistFiltersQueryData = {
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
+  termsAndConditionsFilters: TermsAndConditionsFilter[];
   lastBookingFilters: LastBookingFilter[];
 };
 
@@ -308,6 +312,20 @@ const mapHasPhoneFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapTermsAndConditionsFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): TermsAndConditionsFilter[] => {
+  const termsAndConditionsFiltersMap =
+    payload?.[TERMS_AND_CONDITIONS_FILTER_IDENTIFIER];
+  if (!termsAndConditionsFiltersMap) {
+    return [];
+  }
+
+  return Object.values(termsAndConditionsFiltersMap)
+    .filter(isTermsAndConditionsFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapLastBookingFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): LastBookingFilter[] => {
@@ -346,6 +364,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),
+      termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
     }),
   });

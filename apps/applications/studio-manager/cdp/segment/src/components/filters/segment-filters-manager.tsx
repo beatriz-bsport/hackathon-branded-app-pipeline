@@ -90,6 +90,10 @@ import { TagFilterCardSkeleton } from "./tag-filter/components/tag-filter-card-s
 import { createDefaultTagFilterFormValue } from "./tag-filter/default-value";
 import { mapTagFilterToFormValue } from "./tag-filter/mappers/api-to-form-value";
 import type { TagFilterFormValue } from "./tag-filter/types";
+import { TermsAndConditionsFilterCard } from "./terms-and-conditions-filter/components/terms-and-conditions-filter-card";
+import { createDefaultTermsAndConditionsFilter } from "./terms-and-conditions-filter/default-value";
+import { mapTermsAndConditionsFilterToFormValue } from "./terms-and-conditions-filter/mappers/api-to-form-value";
+import type { TermsAndConditionsFilterFormValue } from "./terms-and-conditions-filter/types";
 import { TotalAppointmentsFilterCardSkeleton } from "./total-appointments/components/total-appointments-filter-card-skeleton";
 import { TotalAppointmentsNumberFilterCard } from "./total-appointments/components/total-appointments-number-filter-card";
 import { createDefaultTotalAppointmentsNumberFilter } from "./total-appointments/default-value";
@@ -126,6 +130,7 @@ type FilterValueByType = {
   referredMembers: ReferredMembersFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
   hasPhone: HasPhoneFilterFormValue;
+  termsAndConditions: TermsAndConditionsFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
 };
 
@@ -219,6 +224,11 @@ type DraftFilter =
       clientId: string;
       filterType: "hasPhone";
       value: FilterValueByType["hasPhone"];
+    }
+  | {
+      clientId: string;
+      filterType: "termsAndConditions";
+      value: FilterValueByType["termsAndConditions"];
     }
   | {
       clientId: string;
@@ -324,6 +334,11 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "termsAndConditions";
+      value: FilterValueByType["termsAndConditions"];
+    }
+  | {
+      key: string;
       filterType: "lastBooking";
       value: FilterValueByType["lastBooking"];
     };
@@ -380,6 +395,8 @@ export const SegmentFiltersManager = ({
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
   const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
+  const termsAndConditionsFilters =
+    smartlistFilters?.termsAndConditionsFilters ?? [];
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
@@ -624,6 +641,20 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    termsAndConditions: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) => (
+      <TermsAndConditionsFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     lastBooking: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <LastBookingFilterCard
         key={key}
@@ -722,6 +753,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.hasPhone),
       filterType: FILTER_TYPES.hasPhone,
       value: createDefaultHasPhoneFilter(smartlistNumericId),
+    }),
+    termsAndConditions: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.termsAndConditions),
+      filterType: FILTER_TYPES.termsAndConditions,
+      value: createDefaultTermsAndConditionsFilter(smartlistNumericId),
     }),
     lastBooking: () => ({
       clientId: createDraftClientId(FILTER_TYPES.lastBooking),
@@ -849,6 +885,12 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
+        id: FILTER_TYPES.termsAndConditions,
+        label: t("filters.107.title"),
+        description: t("filterSelector.options.termsAndConditions.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
         id: FILTER_TYPES.lastBooking,
         label: t("filters.501.title"),
         description: t("filterSelector.options.lastBooking.description"),
@@ -950,6 +992,11 @@ export const SegmentFiltersManager = ({
       key: `saved-has-phone-${hasPhoneFilter.id}`,
       filterType: FILTER_TYPES.hasPhone,
       value: mapHasPhoneFilterToFormValue(hasPhoneFilter),
+    })),
+    ...termsAndConditionsFilters.map((termsAndConditionsFilter) => ({
+      key: `saved-terms-and-conditions-${termsAndConditionsFilter.id}`,
+      filterType: FILTER_TYPES.termsAndConditions,
+      value: mapTermsAndConditionsFilterToFormValue(termsAndConditionsFilter),
     })),
     ...lastBookingFilters.map((lastBookingFilter) => ({
       key: `saved-last-booking-${lastBookingFilter.id}`,

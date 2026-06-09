@@ -10,6 +10,7 @@ import {
   CONTEXT_PREBUILT_SEGMENT,
   CONTEXT_SMARTLIST,
 } from "#src/utils/constants";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 type EmailPayloadContent =
   | {
@@ -84,7 +85,7 @@ export const formatSendPrebuiltSegmentEmailCampaignPayload = ({
   segmentIdentifier,
   data,
 }: {
-  segmentIdentifier: string;
+  segmentIdentifier: PrebuiltSegmentId;
   data: EmailCampaignFormData;
 }): SendEmailCampaignPayload => {
   const content = getEmailContent(data);
@@ -111,6 +112,37 @@ export const formatScheduleEmailCampaignPayload = ({
   const { subject, emailTemplateId, body } = resolveEmailPayloadContent(data);
   const basePayload = {
     smartlist: smartlistId,
+    communication_kind: CommunicationKind.EMAIL,
+    title: subject,
+    datetime_scheduled: datetimeScheduled,
+  } as const;
+
+  if (emailTemplateId != null) {
+    return {
+      ...basePayload,
+      email_design: emailTemplateId,
+      text: "",
+    };
+  }
+
+  return {
+    ...basePayload,
+    text: body,
+  };
+};
+
+export const formatSchedulePrebuiltSegmentEmailCampaignPayload = ({
+  segmentIdentifier,
+  data,
+  datetimeScheduled,
+}: {
+  segmentIdentifier: PrebuiltSegmentId;
+  data: EmailCampaignFormData;
+  datetimeScheduled: string;
+}): ScheduleEmailCampaignPayload => {
+  const { subject, emailTemplateId, body } = resolveEmailPayloadContent(data);
+  const basePayload = {
+    segment_identifier: segmentIdentifier,
     communication_kind: CommunicationKind.EMAIL,
     title: subject,
     datetime_scheduled: datetimeScheduled,

@@ -10,11 +10,13 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
+import { usePrebuiltSegmentDefinition } from "#src/api/use-prebuilt-segment";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
-
-import { type PrebuiltSegmentId, isPrebuiltSegmentId } from "./constants";
-import { usePrebuiltSegmentDefinition } from "./prebuilt-segment-mocks";
+import {
+  type PrebuiltSegmentId,
+  isPrebuiltSegmentId,
+} from "#src/utils/prebuilt-segment";
 
 export type PrebuiltSegmentDetailOutletContext = {
   prebuiltSegmentId: PrebuiltSegmentId;
@@ -30,7 +32,7 @@ export const usePrebuiltSegmentPageHeader = (
   prebuiltSegmentId: PrebuiltSegmentId,
 ) => {
   const { t } = useTranslation("list");
-  const definition = usePrebuiltSegmentDefinition(prebuiltSegmentId);
+  const { data: definition } = usePrebuiltSegmentDefinition(prebuiltSegmentId);
 
   const tabsConfig: TabsProps = {
     TabsItems: [
@@ -77,7 +79,7 @@ export const usePrebuiltSegmentPageHeader = (
   ];
 
   const pageTitle = t(`prebuilt.segments.${prebuiltSegmentId}.title`, {
-    defaultValue: definition.fallback_title,
+    defaultValue: definition?.fallback_title ?? "",
   });
 
   return {

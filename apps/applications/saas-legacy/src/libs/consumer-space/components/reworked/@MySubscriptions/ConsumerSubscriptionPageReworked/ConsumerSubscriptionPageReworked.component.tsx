@@ -198,7 +198,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
 
   const handleStopSubscriptionFromMemberProfile = useCallback(
     (options?: OptionCallback) => {
-      if (!selectedSubscription?.id) {
+      if (!displayStopSubscriptionFromMemberSide || !selectedSubscription?.id) {
         return;
       }
 
@@ -224,6 +224,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       });
     },
     [
+      displayStopSubscriptionFromMemberSide,
       fetchExpiredSubscriptionsList,
       fetchFutureSubscriptionsList,
       fetchActiveSubscriptionsList,
@@ -370,7 +371,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           termsContent={selectedSubscription.contract_terms}
         />
       )}
-      {selectedSubscription && (
+      {selectedSubscription && displayStopSubscriptionFromMemberSide && (
         <ConsumerSubscriptionCommitmentPeriodPortal
           displayBottomDrawer={isMobile}
           hasSubscriptionStarted={

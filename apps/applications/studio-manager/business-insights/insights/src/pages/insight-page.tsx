@@ -1,8 +1,7 @@
-import { type ReactNode } from "react";
+import { Activity, type ReactNode } from "react";
 import { Link, Navigate } from "react-router";
 
 import {
-  Alert,
   Breadcrumbs,
   DetailsLayout,
   Loader,
@@ -10,9 +9,11 @@ import {
 
 import { DashboardIframe } from "#src/components/DashboardIframe";
 import { AiSummaryPanel } from "#src/components/ai-summary-panel";
+import { InsightDetailErrorState } from "#src/components/insight-detail-error-state";
+import { InsightDetailLoadingState } from "#src/components/insight-detail-loading-state";
 import type { InsightRegistryItem } from "#src/constants";
-import { usePresignedUrl } from "#src/hooks/api/usePresignedUrl";
 import { useAiSummary } from "#src/hooks/use-ai-summary";
+import { useSigmaLoadingState } from "#src/hooks/use-sigma-loading-state";
 import { URLS } from "#src/urls";
 import { type InsightId, useInsightGate } from "#src/utils/access";
 import { useTranslation } from "#src/utils/i18n";
@@ -32,11 +33,10 @@ export const InsightPage = ({
   const { isAllowed, isLoading: isGateLoading } = useInsightGate(
     id as InsightId,
   );
-  const {
-    iframeUrl,
-    isLoading: iframeLoading,
-    error,
-  } = usePresignedUrl(dashboardType, { enabled: isAllowed });
+  const { iframeUrl, status, onSigmaMessage } = useSigmaLoadingState(
+    dashboardType,
+    { enabled: isAllowed },
+  );
   const { handleVariablesChange, handleCreateSummary, summaryLayoutProps } =
     useAiSummary(dashboardType);
   const { detailsLayoutProps, withPanel, summaryKey, summaryPanelProps } =
@@ -71,31 +71,54 @@ export const InsightPage = ({
     return <Navigate to=".." replace />;
   }
 
+  const isLoading = status === "loading";
+  const isError = status === "error";
+
+  const loadingContent = (
+    <InsightDetailLoadingState
+      loadingMessage={t("detail.loading.message", { title }) as string}
+    />
+  );
+  const errorContent = <InsightDetailErrorState />;
+
   const renderContent = (): ReactNode => {
-    if (iframeLoading) {
-      return (
-        <div className="flex justify-center items-center h-full">
-          <Loader size="lg" />
-        </div>
-      );
+    // No URL yet: never mount the iframe — show loading or error placeholder only.
+    if (!iframeUrl) {
+      return isLoading ? loadingContent : errorContent;
     }
 
-    if (error) {
-      return (
-        <div className="flex justify-center items-center h-full p-md">
-          <Alert status="critical" title={error} />
-        </div>
-      );
+    // Sigma reported an error.
+    if (isError) {
+      return errorContent;
     }
 
-    return iframeUrl ? (
-      <DashboardIframe
-        src={iframeUrl}
-        title={title}
-        onVariablesChange={handleVariablesChange}
-        onCreateSummary={handleCreateSummary}
-      />
-    ) : null;
+    // URL available: keep iframe mounted in a stable branch so React never
+    // unmounts/remounts it. Switching branches causes a second request with
+    // the same JWT, which Sigma rejects. The loader is overlaid via CSS and
+    // Activity; only visibility changes, the iframe element stays alive.
+    return (
+      <div className={isLoading ? "relative w-full h-full" : "w-full"}>
+        <Activity mode={isLoading ? "visible" : "hidden"}>
+          {loadingContent}
+        </Activity>
+        <div
+          aria-hidden={isLoading}
+          className={
+            isLoading
+              ? "absolute inset-0 pointer-events-none opacity-0 overflow-hidden"
+              : "w-full"
+          }
+        >
+          <DashboardIframe
+            src={iframeUrl}
+            title={title}
+            onSigmaMessage={onSigmaMessage}
+            onVariablesChange={handleVariablesChange}
+            onCreateSummary={handleCreateSummary}
+          />
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -106,7 +129,7 @@ export const InsightPage = ({
       />
       <div
         style={{ gridArea: "content" }}
-        className="w-full h-full p-0 overflow-hidden"
+        className="w-full h-full p-0 overflow-y-auto"
       >
         {renderContent()}
       </div>

@@ -24,6 +24,7 @@ import {
   PAYMENT_METHOD_BRAND_NAME_MAP,
   PAYMENT_METHOD_PNG_MAP,
   PaymentMethodBrands,
+  STRIPE_MINIMUM_AMOUNT_CTS_BY_CURRENCY,
 } from '#src/libs/payment/constants';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
@@ -266,4 +267,16 @@ export const openPaymentFlowFromLegacy = ({
 
   pushRouter(path);
   return true;
+};
+
+/**
+ * Returns the minimum amount in cents that Stripe requires for the current currency.
+ * @returns The minimum amount in cents.
+ */
+export const getStripeMinimumAmountCts = (): number => {
+  const currency = getCurrencyCode().toLowerCase();
+  return (
+    STRIPE_MINIMUM_AMOUNT_CTS_BY_CURRENCY[currency] ??
+    STRIPE_MINIMUM_AMOUNT_CTS_BY_CURRENCY.default
+  );
 };

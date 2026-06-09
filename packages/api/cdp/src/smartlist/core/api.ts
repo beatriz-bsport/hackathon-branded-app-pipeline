@@ -5,6 +5,7 @@ import {
   GenerateReportParams,
   GenerateReportResult,
 } from "#src/communicate";
+import { QUERY_KEY_MAIN } from "#src/constants";
 
 import { SMARTLIST_API_V1 } from "../constants";
 import type { SmartlistGetFiltersResponse } from "../shared/types";
@@ -16,7 +17,7 @@ import type {
 } from "./types";
 
 export const smartlistKeys = {
-  all: ["@sm-smartlist"] as const,
+  all: [QUERY_KEY_MAIN, "smartlist"] as const,
   details: () => [...smartlistKeys.all, "detail"] as const,
   detail: (id: string) => [...smartlistKeys.details(), id] as const,
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,

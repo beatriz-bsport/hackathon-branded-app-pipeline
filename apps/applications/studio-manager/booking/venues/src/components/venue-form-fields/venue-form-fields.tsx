@@ -1,6 +1,5 @@
 import { type FC, useMemo } from "react";
 
-import { getRuntimeGoogleMapsApiKey } from "@bsport/fetch";
 import { FormField, useWatch } from "@bsport/form";
 import { AddressAutocompleteFormSelector } from "@bsport/kaizen-business-components/core/address-autocomplete";
 import { FormMediaField } from "@bsport/kaizen-business-components/form/media-field";
@@ -68,7 +67,6 @@ export const VenueFormFields: FC = () => {
 
       <AddressAutocompleteFormSelector<VenueFormValues, "location">
         fieldName="location"
-        apiKey={getRuntimeGoogleMapsApiKey()}
         textfieldProps={{
           label: t("venueModal.address.label"),
           placeholder: t("venueModal.address.placeholder"),

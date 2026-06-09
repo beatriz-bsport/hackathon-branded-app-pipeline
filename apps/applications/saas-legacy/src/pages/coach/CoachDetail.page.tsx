@@ -35,6 +35,7 @@ import {
 } from '#src/libs/associated-coach/actions';
 import { fetchDisciplineGroupList as fetchDisciplineGroupListAction } from '#src/libs/replacement-request/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
+import { fetchAllPrivateServices as fetchAllPrivateServicesAction } from '#src/libs/private-service/actions';
 import CoachDetail from '#src/libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '#src/libs/associated-coach/components/CoachDeleteModal.component';
 import type {
@@ -97,6 +98,7 @@ export class Coach extends React.Component<Props> {
     this.props.fetchDisciplineGroupList();
     this.props.fetchEstablishments();
     this.props.fetchAllEstablishmentGroup(this.props.companyId);
+    this.props.fetchAllPrivateServices();
   }
 
   handleDelete = () => {
@@ -239,6 +241,8 @@ const connector = connect(
     updateAssociatedCoachReplacementPreferences,
     fetchEstablishments: fetchEstablishmentsAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
+    fetchAllPrivateServices: () =>
+      fetchAllPrivateServicesAction({ mine: true }),
   },
 );
 

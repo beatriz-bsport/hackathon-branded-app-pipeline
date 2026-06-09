@@ -1,7 +1,7 @@
 import { type FC, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { type PassCategory } from "@bsport/api-buyables";
+import type { PassCategory } from "@bsport/api-buyables/pass-category";
 import { List, useEmptyState } from "@bsport/kaizen-primitive-core";
 
 import { CompatiblePassDetailDrawer } from "#src/components/class-detail/compatible-pass-detail-drawer";

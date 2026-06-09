@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { bookingKeys } from "@bsport/api-book";
+import { bookingKeys, sessionKeys } from "@bsport/api-book";
 import { consumerPaymentPackKeys } from "@bsport/api-buyables";
 import { memberKeys } from "@bsport/api-cdp";
 import {
@@ -31,6 +31,7 @@ export const useQuickInvoice = ({
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
       queryClient.invalidateQueries({ queryKey: consumerPaymentPackKeys.all });
       queryClient.invalidateQueries({ queryKey: memberKeys.all });
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
       toast({
         status: "default",
         icon: "check",

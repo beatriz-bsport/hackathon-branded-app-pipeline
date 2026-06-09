@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Unable to create your account at the moment, please try again in a few minutes",
-    "emailAlreadyExists": "This email is already in use. You may have used it to sign up at another studio. Please log in or reset your password to continue.",
+    "emailAlreadyExists": "This email address is already being used by another studio that uses bsport as its booking system. Please sign in or reset your password to continue.",
     "changeWorkspaceError": "An error occurred while changing the account"
   },
   "paymentRuleGroups": {
@@ -957,7 +957,7 @@
     "signupViaCustomForm": {
       "errors": {
         "84101": "The mandatory fields must be completed",
-        "84102": "This email is already in use.",
+        "84102": "This email is already in use. You may have used it to sign up at another studio. Please log in or reset your password to continue.",
         "84103": "This specific gender isn't valid",
         "84104": "This phone number isn't valid",
         "84106": "Your password must contain at least 12 characters",

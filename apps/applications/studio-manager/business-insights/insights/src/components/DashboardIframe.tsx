@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   buildLocalizedIframeUrl,
@@ -6,19 +6,21 @@ import {
   isSigmaEventCreateSummary,
   isSigmaEventWorkbookChartError,
   isSigmaEventWorkbookError,
+  isSigmaEventWorkbookPageheightOnchange,
   isSigmaEventWorkbookVariablesOnchange,
 } from "@bsport/api-business-insights/sigma";
 import { captureException } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
-interface DashboardIframeProps {
+export interface DashboardIframeProps {
   src: string;
   title: string;
+  onSigmaMessage?: (eventData: unknown) => void;
   onVariablesChange?: (variables: Record<string, string>) => void;
   onCreateSummary?: (values: {
-    "page-id"?: string;
     "documentation-url"?: string;
+    "element-ids"?: string[][];
   }) => void;
 }
 
@@ -30,17 +32,22 @@ interface DashboardIframeProps {
 export const DashboardIframe = ({
   src,
   title,
+  onSigmaMessage,
   onVariablesChange,
   onCreateSummary,
 }: DashboardIframeProps) => {
   const { i18n } = useTranslation();
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [iframeHeight, setIframeHeight] = useState<number | undefined>(
+    undefined,
+  );
 
   const localizedSrc = useMemo(() => {
     return buildLocalizedIframeUrl({
       baseIframeUrl: src,
       language: i18n.language,
+      additionalParams: { ":responsive_height": "true" },
     });
   }, [src, i18n.language]);
 
@@ -57,6 +64,12 @@ export const DashboardIframe = ({
       }
 
       const eventData = event.data;
+
+      onSigmaMessage?.(eventData);
+
+      if (isSigmaEventWorkbookPageheightOnchange(eventData)) {
+        setIframeHeight(eventData.pageHeight);
+      }
 
       if (isSigmaEventWorkbookChartError(eventData)) {
         captureException(buildSigmaError(eventData));
@@ -89,13 +102,14 @@ export const DashboardIframe = ({
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, [onVariablesChange, onCreateSummary]);
+  }, [onSigmaMessage, onVariablesChange, onCreateSummary]);
 
   return (
     <iframe
       ref={iframeRef}
       src={localizedSrc}
-      className="w-full h-full border-0"
+      className="w-full border-0"
+      style={{ height: iframeHeight, overflow: "hidden" }}
       title={title}
       allowFullScreen
       loading="lazy"

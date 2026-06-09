@@ -24,10 +24,12 @@ import {
 import { getCurrencyCode, getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { getStripeMinimumAmountCts } from '#src/libs/payment/utils';
 import { useBasketPaymentContext } from './BasketPaymentContext';
 import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePayment';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 type StripeExpressCheckoutElementProps = {
   allowedWallets?: { applePay: boolean; googlePay: boolean };
@@ -149,6 +151,25 @@ const StripeExpressCheckoutElementInner: React.FC<
       if (!basketItemsChecked) {
         setIsExpressPayLoading(false);
         onError?.();
+        return;
+      }
+
+      const isBasketBelowStripeMinimum =
+        !!basketTotalPriceCts &&
+        basketTotalPriceCts < getStripeMinimumAmountCts();
+
+      if (isBasketBelowStripeMinimum) {
+        setIsExpressPayLoading(false);
+
+        window.alert(
+          t('paymentPanel.actions.basketBelowStripeMinimum', {
+            minimum: getCurrencyDisplayWithPrice(
+              getStripeMinimumAmountCts() / 100,
+            ),
+            ns: 'invoice',
+          }),
+        );
+        window.location.reload();
         return;
       }
 

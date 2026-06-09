@@ -64,6 +64,16 @@
     "generateSummaryFailed": "An error occurred while generating the summary. Please try again.",
     "generateSummaryTimeout": "The summary generation timed out. Please try again."
   },
+  "detail": {
+    "loading": {
+      "message": "Loading {{title}}..."
+    },
+    "error": {
+      "title": "Insights are temporarily unavailable",
+      "help": "We're working to fix this. In the meantime, use Reports to check your data.",
+      "goToReports": "Go to reports"
+    }
+  },
   "aiSummary": {
     "title": "Analysis summary",
     "overview": "Overview",

@@ -81,6 +81,10 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
   ],
 
+  // Serves the MSW service worker (public/mockServiceWorker.js) so stories can
+  // mock network requests in the browser.
+  staticDirs: ["../public"],
+
   framework: {
     name: "@storybook/react-vite",
     options: {},

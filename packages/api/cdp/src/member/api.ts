@@ -4,6 +4,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { QUERY_KEY_MAIN } from "#src/constants";
 import type {
   GetMemberParams,
   Member,
@@ -18,7 +19,7 @@ const API_URL = "customer-data-platform/v1/member";
 export const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const memberKeys = {
-  all: ["@api-cdp", "member"] as const,
+  all: [QUERY_KEY_MAIN, "member"] as const,
 
   listScope: () => [...memberKeys.all, "list"] as const,
 

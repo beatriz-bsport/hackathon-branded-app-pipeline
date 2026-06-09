@@ -69,7 +69,7 @@ export const useStaffTableColumns = () => {
           <Chip
             label={row.roleName}
             type="weak"
-            color={row.roleIsDefault ? "info" : "default"}
+            color="default"
             size="lg"
             iconLeft={row.roleIsDefault ? "lock-01" : undefined}
             title={tooltip}

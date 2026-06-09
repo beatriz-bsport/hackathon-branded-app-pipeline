@@ -3,7 +3,7 @@ import type {
   ObjectLevelPermissions,
 } from "@bsport/api-staff-management";
 
-import { mergeWithDefaults } from "./permission-tree-utils";
+import { mergeWithDefaults, setBooleanLeaves } from "./permission-tree-utils";
 import type { RoleFormData } from "./types";
 
 export const FIELD_CONSTRAINTS = {
@@ -93,7 +93,11 @@ const createDefaultReportPermissions = (): ObjectLevelPermissions["report"] =>
   ) as unknown as ObjectLevelPermissions["report"];
 
 // Mirrors getDefaultPermissions() in the legacy CreateRoleDialog.component.tsx.
-// Keep in sync when new permission keys are added server-side.
+// Used as the merge base in getObjectLevelPermissionsWithDefaults() to fill in
+// any permission keys missing from a role loaded off the server (e.g. keys that
+// were added server-side after the role was originally created). All leaves are
+// true so that missing keys are granted by default, preventing staff from being
+// silently locked out of new features. Keep in sync when permission keys change.
 export const DEFAULT_PERMISSIONS: CompanyRolePermissions = {
   navigationMenu: {
     dashboard: true,
@@ -192,7 +196,11 @@ export const DEFAULT_PERMISSIONS: CompanyRolePermissions = {
 };
 
 // Mirrors DEFAULT_OBJECT_LEVEL_PERMISSIONS in the legacy CreateRoleDialog.
-// Keep in sync when server-side object-level permission keys change.
+// Same purpose as DEFAULT_PERMISSIONS above: used as the merge base when loading
+// an existing role so that any object-level permission keys absent from the server
+// response (added server-side after the role was created) are filled in as true
+// (granted) rather than silently denied. Keep in sync when server-side
+// object-level permission keys change.
 export const DEFAULT_OBJECT_LEVEL_PERMISSIONS = {
   session: {
     activity: {
@@ -408,12 +416,31 @@ export const SET_NESTED_FORM_VALUE_OPTIONS = {
   shouldValidate: true,
 } as const;
 
+export const EMPTY_PERMISSIONS: CompanyRolePermissions = {
+  navigationMenu: setBooleanLeaves(
+    DEFAULT_PERMISSIONS.navigationMenu as unknown as never,
+    false,
+  ) as unknown as CompanyRolePermissions["navigationMenu"],
+  appbarButtons: setBooleanLeaves(
+    DEFAULT_PERMISSIONS.appbarButtons as unknown as never,
+    false,
+  ) as unknown as CompanyRolePermissions["appbarButtons"],
+  navigation: false,
+  checkin: false,
+  restrictedPaths: [],
+};
+
+export const EMPTY_OBJECT_LEVEL_PERMISSIONS = setBooleanLeaves(
+  DEFAULT_OBJECT_LEVEL_PERMISSIONS as unknown as never,
+  false,
+) as unknown as ObjectLevelPermissions;
+
 export const ROLE_FORM_DEFAULTS: RoleFormData = {
   name: "",
   description: "",
   starterRoleId: "",
-  permissions: DEFAULT_PERMISSIONS,
-  objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
+  permissions: EMPTY_PERMISSIONS,
+  objectLevelPermissions: EMPTY_OBJECT_LEVEL_PERMISSIONS,
   hasBookingOverrideControl: false,
 };
 

@@ -9,8 +9,8 @@ import { useGenerateSummary } from "#src/hooks/api";
 import type { AiSummaryResult } from "#src/hooks/api";
 
 interface SummaryParams {
-  variables: Record<string, string>;
-  pageId?: string;
+  elementIds: string[];
+  controls: Record<string, string>;
   documentationUrl?: string;
 }
 
@@ -25,8 +25,8 @@ export interface SummaryPanelProps {
 export interface UseAiSummaryReturn {
   handleVariablesChange: (vars: Record<string, string>) => void;
   handleCreateSummary: (values: {
-    "page-id"?: string;
     "documentation-url"?: string;
+    "element-ids"?: string[][];
   }) => void;
   summaryLayoutProps: {
     detailsLayoutProps: UseDetailsLayoutReturnType["detailsLayoutProps"];
@@ -46,7 +46,8 @@ export const useAiSummary = (insightKey: string): UseAiSummaryReturn => {
   const [summaryEnabled, setSummaryEnabled] = useState(false);
   const [summaryKey, setSummaryKey] = useState(0);
   const [summaryParams, setSummaryParams] = useState<SummaryParams>({
-    variables: {},
+    elementIds: [],
+    controls: {},
   });
   const latestVariablesRef = useRef<Record<string, string>>({});
 
@@ -55,10 +56,10 @@ export const useAiSummary = (insightKey: string): UseAiSummaryReturn => {
   }, []);
 
   const handleCreateSummary = useCallback(
-    (values: { "page-id"?: string; "documentation-url"?: string }) => {
+    (values: { "documentation-url"?: string; "element-ids"?: string[][] }) => {
       setSummaryParams({
-        variables: { ...latestVariablesRef.current },
-        pageId: values["page-id"],
+        elementIds: (values["element-ids"] ?? []).flat(),
+        controls: { ...latestVariablesRef.current },
         documentationUrl: values["documentation-url"],
       });
       setSummaryEnabled(true);
@@ -74,8 +75,8 @@ export const useAiSummary = (insightKey: string): UseAiSummaryReturn => {
     error: exportError,
   } = useGenerateSummary({
     insightKey,
-    variables: summaryParams.variables,
-    pageId: summaryParams.pageId,
+    elementIds: summaryParams.elementIds,
+    controls: summaryParams.controls,
     enabled: summaryEnabled,
   });
 

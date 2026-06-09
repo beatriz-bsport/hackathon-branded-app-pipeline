@@ -10,7 +10,7 @@ import {
 import { useSearchParams } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
-import { type PassCategory } from "@bsport/api-buyables";
+import type { PassCategory } from "@bsport/api-buyables/pass-category";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
   Body,

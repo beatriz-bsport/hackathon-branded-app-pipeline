@@ -1,3 +1,9 @@
+import { API_V1 } from "#src/constants";
+
+export type { PrebuiltSegmentId } from "#src/constants";
+
+export const PREBUILT_SEGMENT_API_URL = `${API_V1}/prebuilt-segments`;
+
 export const ActiveTrialStatusId = {
   PURCHASED: 0,
   BOOKED: 1,

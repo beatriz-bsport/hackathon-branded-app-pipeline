@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
-    "emailAlreadyExists": "Dit e-mailadres is al in gebruik. Je hebt het mogelijk gebruikt om je aan te melden bij een andere studio. Log in of reset je wachtwoord om door te gaan.",
+    "emailAlreadyExists": "Dit e-mailadres is al in gebruik. Je hebt het mogelijk gebruikt om je aan te melden bij een andere studio. Log in of reset je wachtwoord om verder te gaan.",
     "changeWorkspaceError": "Fout tijdens het wisselen van account"
   },
   "paymentRuleGroups": {
@@ -957,9 +957,11 @@
     "signupViaCustomForm": {
       "errors": {
         "84101": "De verplichte velden moeten worden voltooid",
-        "84102": "Dit e-mailadres is al in gebruik.",
+        "84102": "Dit e-mailadres is al in gebruik. Je hebt het mogelijk gebruikt om je aan te melden bij een andere studio. Log in of reset je wachtwoord om verder te gaan.",
         "84103": "Het opgegeven geslacht is niet geldig",
-        "84104": "Dit telefoonnummer is ongeldig"
+        "84104": "Dit telefoonnummer is ongeldig",
+        "84106": "Je wachtwoord moet minimaal 12 tekens bevatten.",
+        "84107": "Links en HTML zijn niet toegestaan in tekstvelden"
       },
       "error": "Fout tijdens het inschrijven",
       "success": "Je hebt je succesvol ingeschreven!"

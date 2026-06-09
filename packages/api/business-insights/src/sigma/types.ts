@@ -11,14 +11,14 @@ export type SigmaEventActionOutbound = {
 
 /**
  * Narrowed type for the `create-summary` outbound action.
- * Sigma button must emit `action:outbound` with name=`create-summary` and
- * values containing `page-id`.
+ * Sigma button must emit `action:outbound` with name=`create-summary`.
  */
 export type SigmaEventCreateSummary = SigmaEventActionOutbound & {
   name: "create-summary";
   values: {
-    "page-id"?: string;
     "documentation-url"?: string;
+    /** Array of element ID groups — flatten to get the full list of element IDs */
+    "element-ids"?: string[][];
   };
 };
 

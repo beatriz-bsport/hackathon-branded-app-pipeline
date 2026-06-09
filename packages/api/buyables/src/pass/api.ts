@@ -1,63 +1,76 @@
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
   type Fetch,
   type PaginatedResponse,
+  type SearchResponse,
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_V1_URL } from "#src/constants";
+import { API_V1_URL_PAYMENT_PACK, QUERY_KEY_MAIN } from "#src/constants";
+import {
+  createAPI,
+  createInfiniteQueryOptions,
+  createQueryOptions,
+} from "#src/shared";
 
-import type {
-  FetchPassCategoriesParams,
-  FetchPassesParams,
-  Pass,
-  PassCategory,
-} from "./types";
+import type { FetchPassesParams, Pass, SearchPassesParams } from "./types";
 
-const PASS_API_URL = `${API_V1_URL}/payment-pack`;
-const PASS_CATEGORY_API_URL = `${PASS_API_URL}/payment-pack-category`;
+// ----------------------------------------------------------------------------
 
-const PASS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+const PASS_API_URL = `${API_V1_URL_PAYMENT_PACK}/payment-pack`;
 
 export const passKeys = {
-  all: ["@api-buyables", "pass"] as const,
-  detail: (id: number) => [...passKeys.all, "detail", id] as const,
+  all: [QUERY_KEY_MAIN, "pass"] as const,
+
   lists: () => [...passKeys.all, "list"] as const,
   list: (params: FetchPassesParams) => [...passKeys.lists(), params] as const,
+
+  details: () => [...passKeys.all, "detail"] as const,
+  detail: (id: number) => [...passKeys.details(), id] as const,
+
+  infinites: () => [...passKeys.lists(), "infinite"] as const,
   infinite: (params: FetchPassesParams) =>
-    [...passKeys.lists(), "infinite", params] as const,
+    [...passKeys.infinites(), params] as const,
+
+  searches: () => [...passKeys.lists(), "search"] as const,
+  search: (params: SearchPassesParams) =>
+    [...passKeys.searches(), params] as const,
 } as const;
 
-const fetchPassesAPIConfig = (params: FetchPassesParams): ApiConfig => {
-  return [`${PASS_API_URL}/payment-pack/${buildUrlParams(params)}`];
-};
+// ----------------------------------------------------------------------------
 
-export const fetchPassesAPI = async (
-  fetch: Fetch<PaginatedResponse<Pass>>,
-  params: FetchPassesParams,
-): Promise<PaginatedResponse<Pass>> => {
-  const [uri, init] = fetchPassesAPIConfig(params);
-  const { data } = await fetch(uri, init);
-  return data;
-};
+// Used in store/buyables/pass
+export const fetchPassesAPI = createAPI<
+  PaginatedResponse<Pass>,
+  FetchPassesParams
+>((params) => [`${PASS_API_URL}/${buildUrlParams(params)}`]);
 
-export const passesQueryOptions = (
-  fetch: Fetch<PaginatedResponse<Pass>>,
-  params: FetchPassesParams,
-) => {
-  const queryFn = fetchPassesAPI.bind(null, fetch, params);
-  return queryOptions({
-    queryKey: passKeys.list(params),
-    queryFn,
-    staleTime: PASS_STALE_TIME,
-  });
-};
+export const passesQueryOptions = createQueryOptions<
+  PaginatedResponse<Pass>,
+  FetchPassesParams
+>(
+  (params) => [`${PASS_API_URL}/${buildUrlParams(params)}`],
+  (params) => passKeys.list(params),
+);
 
+export const fetchPassesInfiniteQueryOptions = createInfiniteQueryOptions<
+  PaginatedResponse<Pass>,
+  FetchPassesParams
+>(
+  (params) => [`${PASS_API_URL}/${buildUrlParams(params)}`],
+  (params) => passKeys.infinite(params),
+);
+
+// ----------------------------------------------------------------------------
+
+/**
+ * @todo Clean this dirty code that does not type properly search returns
+ */
 export const passesInfiniteQueryOptions = (
   fetch: Fetch<PaginatedResponse<Pass>>,
-  params: FetchPassesParams,
+  params: FetchPassesParams | SearchPassesParams,
 ) => {
   const fetchPage = (pageParam: number) =>
     fetchPassesAPI(fetch, { ...params, page: pageParam });
@@ -65,17 +78,17 @@ export const passesInfiniteQueryOptions = (
   const fetchSearchPage = (pageParam: number) =>
     fetchPassesSearchAPI(fetch, {
       ...params,
-      q: params.q as string,
+      q: "q" in params ? params.q : "",
       page: pageParam,
     });
 
   return infiniteQueryOptions({
     queryKey: passKeys.infinite(params),
     queryFn: ({ pageParam }) =>
-      params.q ? fetchSearchPage(pageParam) : fetchPage(pageParam),
+      "q" in params ? fetchSearchPage(pageParam) : fetchPage(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
-    staleTime: PASS_STALE_TIME,
+    staleTime: 2 * 60 * 1_000,
   });
 };
 
@@ -84,70 +97,31 @@ const fetchPassesSearchAPI = async (
   params: FetchPassesParams & { q: string },
 ): Promise<PaginatedResponse<Pass>> => {
   const [uri, init]: ApiConfig = [
-    `${PASS_API_URL}/payment-pack/search/${buildUrlParams(params)}`,
+    `${PASS_API_URL}/search/${buildUrlParams(params)}`,
   ];
   const { data } = await fetch(uri, init);
   return data;
 };
 
-export const passCategoryKeys = {
-  all: ["@api-buyables", "pass-category"] as const,
-  lists: () => [...passCategoryKeys.all, "list"] as const,
-  list: (params: FetchPassCategoriesParams) =>
-    [...passCategoryKeys.lists(), params] as const,
-  infinite: (params: FetchPassCategoriesParams) =>
-    [...passCategoryKeys.lists(), "infinite", params] as const,
-} as const;
+// ----------------------------------------------------------------------------
 
-const fetchPassCategoriesAPI = async (
-  fetch: Fetch<PaginatedResponse<PassCategory>>,
-  params: FetchPassCategoriesParams,
-): Promise<PaginatedResponse<PassCategory>> => {
-  const [uri, init]: ApiConfig = [
-    `${PASS_CATEGORY_API_URL}/${buildUrlParams(params)}`,
-  ];
-  const { data } = await fetch(uri, init);
-  return data;
-};
+// Used in store/buyables/pass
+export const searchPassesAPI = createAPI<
+  SearchResponse<Pass>,
+  SearchPassesParams
+>((params) => [`${PASS_API_URL}/search/${buildUrlParams(params ?? {})}`]);
 
-export const passCategoriesQueryOptions = (
-  fetch: Fetch<PaginatedResponse<PassCategory>>,
-  params: FetchPassCategoriesParams = {},
-) => {
-  const queryFn = fetchPassCategoriesAPI.bind(null, fetch, params);
-  return queryOptions({
-    queryKey: passCategoryKeys.list(params),
-    queryFn,
-    staleTime: PASS_STALE_TIME,
-  });
-};
+export const searchPassesQueryOptions = createQueryOptions<
+  SearchResponse<Pass>,
+  SearchPassesParams
+>(
+  (params) => [`${PASS_API_URL}/search/${buildUrlParams(params ?? {})}`],
+  (params) => passKeys.search(params),
+);
 
-export const passCategoriesInfiniteQueryOptions = (
-  fetch: Fetch<PaginatedResponse<PassCategory>>,
-  params: FetchPassCategoriesParams = {},
-) => {
-  const fetchCategories = fetchPassCategoriesAPI.bind(null, fetch);
-  return infiniteQueryOptions({
-    queryKey: passCategoryKeys.infinite(params),
-    queryFn: ({ pageParam }) => fetchCategories({ ...params, page: pageParam }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
-    staleTime: PASS_STALE_TIME,
-  });
-};
+// ----------------------------------------------------------------------------
 
-export const retrievePassAPI = async (
-  fetch: Fetch<Pass>,
-  id: number,
-): Promise<Pass> => {
-  const { data } = await fetch(`${PASS_API_URL}/payment-pack/${id}/`);
-  return data;
-};
-
-export const retrievePassQueryOptions = (fetch: Fetch<Pass>, id: number) => {
-  const queryFn = retrievePassAPI.bind(null, fetch, id);
-  return queryOptions({
-    queryKey: passKeys.detail(id),
-    queryFn,
-  });
-};
+export const retrievePassQueryOptions = createQueryOptions<Pass, number>(
+  (id) => [`${PASS_API_URL}/${id}/`],
+  (id) => passKeys.detail(id),
+);

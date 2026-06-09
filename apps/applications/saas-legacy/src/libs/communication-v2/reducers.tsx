@@ -35,6 +35,10 @@ import {
   fetchMessagesActions,
   FetchMessagesSuccessActionInput,
   CreateMessageSuccessActionInput,
+  fetchConversationLastActivityActions,
+  FetchConversationLastActivitySuccessActionInput,
+  FetchConversationLastActivityLoadingActionInput,
+  FetchConversationLastActivityErrorActionInput,
 } from '#src/libs/communication-v2/actions';
 
 import type {
@@ -989,6 +993,48 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
           { deep: true },
         );
     },
+    [fetchConversationLastActivityActions.loading.toString()]: (
+      state,
+      { payload }: { payload: FetchConversationLastActivityLoadingActionInput },
+    ) => {
+      return state.setIn(
+        [
+          'messages',
+          'moreMessagesByConversationId',
+          payload.conversationUuid,
+          'loading',
+        ],
+        payload.loading,
+      );
+    },
+    [fetchConversationLastActivityActions.error.toString()]: (
+      state,
+      { payload }: { payload: FetchConversationLastActivityErrorActionInput },
+    ) => {
+      return state.setIn(
+        [
+          'messages',
+          'moreMessagesByConversationId',
+          payload.conversationUuid,
+          'error',
+        ],
+        payload.error,
+      );
+    },
+    [fetchConversationLastActivityActions.success.toString()]: (
+      state,
+      { payload }: { payload: FetchConversationLastActivitySuccessActionInput },
+    ) => {
+      return state.setIn(
+        [
+          'messages',
+          'moreMessagesByConversationId',
+          payload.conversationUuid,
+          'lastActivityMessageId',
+        ],
+        payload.response.last_message_id,
+      );
+    },
     [createMessageActions.loading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -1013,11 +1059,11 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
                 ...(state.messages.allMessageIdsByConversationId[
                   payload.conversationUuid
                 ] || []),
-                payload.id,
+                payload.response.id,
               ],
             },
             allMessagesById: {
-              [payload.id]: payload,
+              [payload.response.id]: payload.response,
             },
           },
         },
@@ -1046,7 +1092,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
     ) => {
       // right now we are only pulling older messages
       // transform message array to dictionary
-      const messagesById = payload.messages.reduce<{
+      const messagesById = payload.response.messages.reduce<{
         [id: number]: ConversationMessage;
       }>((acc, message) => {
         acc[message.id] = message;
@@ -1054,7 +1100,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
       }, {});
 
       // get list of message ids, without dups and sorted
-      const messageIds = payload.messages.map((message) => message.id);
+      const messageIds = payload.response.messages.map((message) => message.id);
       const conversationMessageIdsSet = new Set([
         ...messageIds,
         ...(state.messages.allMessageIdsByConversationId[
@@ -1085,6 +1131,27 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
         currentNewestMessageId,
       );
 
+      // are there older messages?
+      // are there newer messages?
+      const requestedNewerMessages = payload.params?.direction === 'newer'; // default is older messages
+      const olderMessages = requestedNewerMessages
+        ? state.messages.moreMessagesByConversationId?.[
+            payload.conversationUuid
+          ]?.older
+        : payload.response.more_messages;
+      const newerMessages = requestedNewerMessages
+        ? payload.response.more_messages
+        : state.messages.moreMessagesByConversationId?.[
+            payload.conversationUuid
+          ]?.newer;
+
+      let moreMessages = {
+        oldestPulledMessageId: oldestPulledMessageId,
+        newestPulledMessageId: newestPulledMessageId,
+        older: olderMessages,
+        newer: newerMessages,
+      };
+
       return state.merge(
         {
           messages: {
@@ -1096,12 +1163,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
               ...messagesById,
             },
             moreMessagesByConversationId: {
-              [payload.conversationUuid]: {
-                older: payload.more_messages,
-                oldestPulledMessageId: oldestPulledMessageId,
-                newer: false,
-                newestPulledMessageId: newestPulledMessageId,
-              },
+              [payload.conversationUuid]: moreMessages,
             },
           },
         },

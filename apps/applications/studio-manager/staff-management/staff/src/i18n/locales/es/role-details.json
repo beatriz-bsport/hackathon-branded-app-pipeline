@@ -1,6 +1,6 @@
 {
   "breadcrumbs": {
-    "roles": "Papeles"
+    "roles": "Papeles disponibles"
   },
   "actions": {
     "deleteRole": "Eliminar el nivel de acceso"

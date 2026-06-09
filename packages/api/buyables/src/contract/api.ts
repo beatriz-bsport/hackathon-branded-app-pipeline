@@ -1,6 +1,10 @@
-import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import { buildUrlParams } from "@bsport/store-base";
 
-import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
+import {
+  createAPI,
+  createMutationOptions,
+  createQueryOptions,
+} from "#src/shared";
 
 import {
   API_V0_URL_CONTRACT,
@@ -19,156 +23,69 @@ import type {
 
 // ----------------------------------------------------------------------------
 
-const fetchContractsAPIConfig = (params: FetchContractsParams): ApiConfig => {
-  return [`${API_V0_URL_CONTRACT}/${buildUrlParams(params)}`];
-};
-
-const fetchContractsAPI = async (
-  fetch: Fetch<Contract[]>,
-  params: FetchContractsParams,
-): Promise<Contract[]> => {
-  const [uri, init] = fetchContractsAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
-
-export const fetchContractsQueryOptions = (
-  fetch: Fetch<Contract[]>,
-  params: FetchContractsParams,
-) =>
-  queryOptions({
-    queryKey: queryKeys.list(params),
-    queryFn: () => fetchContractsAPI(fetch, params),
-  });
+export const fetchContractsQueryOptions = createQueryOptions<
+  Contract[],
+  FetchContractsParams
+>(
+  (params) => [`${API_V0_URL_CONTRACT}/${buildUrlParams(params)}`],
+  (params) => queryKeys.list(params),
+);
 
 // ----------------------------------------------------------------------------
 
-const fetchContractAPIConfig = (params: FetchContractParams): ApiConfig => {
-  return [`${API_V0_URL_CONTRACT}/${params.id}/`];
-};
-
-const fetchContractAPI = async (
-  fetch: Fetch<Contract>,
-  params: FetchContractParams,
-): Promise<Contract> => {
-  const [uri, init] = fetchContractAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
-
-export const fetchContractQueryOptions = (
-  fetch: Fetch<Contract>,
-  params: FetchContractParams,
-) =>
-  queryOptions({
-    queryKey: queryKeys.detail(params.id),
-    queryFn: () => fetchContractAPI(fetch, params),
-  });
+export const fetchContractQueryOptions = createQueryOptions<
+  Contract,
+  FetchContractParams
+>(
+  (params) => [`${API_V0_URL_CONTRACT}/${params.id}/`],
+  (params) => queryKeys.detail(params.id),
+);
 
 // ----------------------------------------------------------------------------
 
-const updateContractAPIConfig = (params: UpdateContractParams): ApiConfig => {
-  return [
+export const updateContractAPI = createAPI<Contract, UpdateContractParams>(
+  (params) => [
     `${API_V1_URL_CONTRACT}/${params.id}/`,
     {
       method: "PUT",
       body: JSON.stringify(params),
     },
-  ];
-};
-
-export const updateContractAPI = async (
-  fetch: Fetch<Contract>,
-  params: UpdateContractParams,
-): Promise<Contract> => {
-  const [uri, init] = updateContractAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
+  ],
+);
 
 // ----------------------------------------------------------------------------
 
-const updateLegacyContractAPIConfig = (
-  params: UpdateLegacyContractParams,
-): ApiConfig => {
-  return [
-    `${API_V0_URL_CONTRACT}/${params.id}/`,
-    {
-      method: "PATCH",
-      body: JSON.stringify(params),
-    },
-  ];
-};
-
-export const updateLegacyContractAPI = async (
-  fetch: Fetch<Contract>,
-  params: UpdateLegacyContractParams,
-): Promise<Contract> => {
-  const [uri, init] = updateLegacyContractAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
+export const updateLegacyContractAPI = createAPI<
+  Contract,
+  UpdateLegacyContractParams
+>((params) => [
+  `${API_V0_URL_CONTRACT}/${params.id}/`,
+  {
+    method: "PATCH",
+    body: JSON.stringify(params),
+  },
+]);
 
 // ----------------------------------------------------------------------------
 
-const restoreContractAPIConfig = (params: RestoreContractParams): ApiConfig => {
-  return [
-    `${API_V0_URL_CONTRACT}/${params.id}/restore/`,
-    {
-      method: "PUT",
-    },
-  ];
-};
-
-const restoreContractAPI = async (
-  fetch: Fetch<Contract>,
-  params: RestoreContractParams,
-): Promise<Contract> => {
-  const [uri, init] = restoreContractAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
-
-export const restoreContractMutationOptions = (fetch: Fetch<Contract>) =>
-  mutationOptions({
-    mutationFn: (params: RestoreContractParams) =>
-      restoreContractAPI(fetch, params),
-  });
+export const restoreContractMutationOptions = createMutationOptions<
+  Contract,
+  RestoreContractParams
+>((params) => [
+  `${API_V0_URL_CONTRACT}/${params.id}/restore/`,
+  {
+    method: "PUT",
+  },
+]);
 
 // ----------------------------------------------------------------------------
 
-const archiveContractAPIConfig = (params: ArchiveContractParams): ApiConfig => {
-  return [
-    `${API_V0_URL_CONTRACT}/${params.id}/`,
-    {
-      method: "DELETE",
-    },
-  ];
-};
-
-const archiveContractAPI = async (
-  fetch: Fetch<Contract>,
-  params: ArchiveContractParams,
-): Promise<Contract> => {
-  const [uri, init] = archiveContractAPIConfig(params);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
-
-export const archiveContractMutationOptions = (fetch: Fetch<Contract>) =>
-  mutationOptions({
-    mutationFn: (params: ArchiveContractParams) =>
-      archiveContractAPI(fetch, params),
-  });
+export const archiveContractMutationOptions = createMutationOptions<
+  Contract,
+  ArchiveContractParams
+>((params) => [
+  `${API_V0_URL_CONTRACT}/${params.id}/`,
+  {
+    method: "DELETE",
+  },
+]);

@@ -1,6 +1,6 @@
 {
   "breadcrumbs": {
-    "roles": "Ruoli"
+    "roles": "Ruoli autorizzati"
   },
   "actions": {
     "deleteRole": "Cancellazione del ruolo"

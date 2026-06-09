@@ -1,5 +1,3 @@
-import type { DateTime } from "@bsport/datetime-manipulation";
-
 /**
  * Kinds of global alerts, in display priority order.
  * - First blocking kind wins; lower entries are less urgent
@@ -25,6 +23,6 @@ export type NonBlockingGlobalAlertSeverity = Exclude<
 
 export type GlobalAlertEntry = {
   severity: GlobalAlertSeverity;
-  /** Optional deadline by which the user must complete the action. */
-  dueDate?: DateTime;
+  /** Optional deadline by which the user must complete the action. ISO 8601 date or datetime string (e.g. `"2025-06-01"` or `"2025-06-01T14:30:00Z"`). */
+  dueDate?: string;
 };

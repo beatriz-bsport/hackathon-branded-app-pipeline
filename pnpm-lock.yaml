@@ -3372,6 +3372,9 @@ importers:
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../packages/utils/i18n
+      '@bsport/intercom':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/intercom
       '@bsport/kaizen-business-components':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/business
@@ -4291,6 +4294,12 @@ importers:
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../api/financial-services
+      '@bsport/api-member-experience':
+        specifier: workspace:*
+        version: link:../../../api/member-experience
+      '@bsport/api-platform':
+        specifier: workspace:*
+        version: link:../../../api/platform
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../utils/currency
@@ -4370,6 +4379,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../tools/config/eslint-react
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../../tools/config/vitest
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../tokens

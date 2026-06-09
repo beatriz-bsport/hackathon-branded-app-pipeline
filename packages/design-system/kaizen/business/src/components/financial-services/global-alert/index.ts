@@ -7,3 +7,8 @@ export {
   type GlobalAlertKind,
   type GlobalAlertSeverity,
 } from "#src/components/financial-services/global-alert/types";
+export {
+  useFetchGlobalAlerts,
+  type UseFetchGlobalAlertsParams,
+  type UseFetchGlobalAlertsResult,
+} from "#src/components/financial-services/global-alert/hooks/use-fetch-global-alerts";

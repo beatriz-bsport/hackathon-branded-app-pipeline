@@ -40,6 +40,8 @@
     "pre-commit": "sh ./scripts/pre-commit.sh",
     "storybook:build": "pnpm exec storybook build",
     "storybook:dev": "pnpm exec storybook dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
@@ -48,6 +50,8 @@
     "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/api-financial-services": "workspace:*",
+    "@bsport/api-member-experience": "workspace:*",
+    "@bsport/api-platform": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/permissions": "workspace:*",
@@ -69,6 +73,7 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
     "@nx/vite": "21.6.10",

@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { DateTime } from "@bsport/datetime-manipulation";
 import { Modal } from "@bsport/kaizen-primitive-core";
 
 import { redirectUrls } from "#src/components/financial-services/global-alert/constants";
@@ -9,7 +10,7 @@ import { useAlertContent } from "#src/components/financial-services/global-alert
 
 type BlockingModalProps = {
   kind: GlobalAlertKind;
-  dueDate?: string;
+  dueDate?: DateTime;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
 };

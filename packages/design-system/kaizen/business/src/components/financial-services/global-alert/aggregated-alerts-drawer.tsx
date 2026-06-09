@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import type { DateTime } from "@bsport/datetime-manipulation";
 import {
   Alert,
   Body,
@@ -27,7 +28,7 @@ type NonBlockingEntry = GlobalAlertEntry & {
 type AlertDrawerItemProps = {
   kind: GlobalAlertKind;
   severity: NonBlockingGlobalAlertSeverity;
-  dueDate?: string;
+  dueDate?: DateTime;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
 };
@@ -50,7 +51,7 @@ const AlertDrawerItem: React.FC<AlertDrawerItemProps> = ({
       : () => onNavigate(redirectUrls[kind]);
 
   return (
-    <div className="flex flex-col gap-xs">
+    <div className="space-y-m">
       <div className="flex items-center gap-xs">
         <Title htmlVariant="h4" weight="strong">
           {title}
@@ -108,7 +109,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 m-sm">
+      <div className="fixed top-0 left-0 right-0 z-50">
         <Alert
           status={bannerStatus}
           type="strong"
@@ -127,7 +128,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
         isOpen={isDrawerOpen}
         onClose={handleDrawerClose}
       >
-        <div className="flex flex-col gap-xs">
+        <div className="space-y-m">
           <Title htmlVariant="h3" weight="strong">
             {t("globalAlertModal.aggregate.drawerTitle")}
           </Title>

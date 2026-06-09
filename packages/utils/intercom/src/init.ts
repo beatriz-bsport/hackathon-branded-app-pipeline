@@ -259,65 +259,6 @@ export const initIntercomWidget = ({
 };
 
 /**
- * Opens a new Intercom conversation, optionally pre-populated with a message.
- * @param message: Optional message to pre-populate the new conversation input.
- * @returns A boolean that indicates if the operation was successful or not.
- */
-export const openIntercomConversation = (message?: string) => {
-  const logger = getLogger(true);
-
-  if (!window) {
-    logger.error("Cannot find a valid window reference");
-    return false;
-  }
-
-  if (!window.Intercom) {
-    logger.error("Intercom is not initialized, cannot open conversation.");
-    return false;
-  }
-
-  try {
-    window.Intercom("showNewMessage", message);
-    return true;
-  } catch (err) {
-    logger.error(
-      err instanceof Error
-        ? err.message
-        : "Failed to open Intercom conversation",
-    );
-    return false;
-  }
-};
-
-/**
- * Closes the Intercom widget.
- * @returns A boolean that indicates if the operation was successful or not.
- */
-export const closeIntercom = () => {
-  const logger = getLogger(true);
-
-  if (!window) {
-    logger.error("Cannot find a valid window reference");
-    return false;
-  }
-
-  if (!window.Intercom) {
-    logger.info("Intercom is not initialized, nothing to close.");
-    return true;
-  }
-
-  try {
-    window.Intercom("hide");
-    return true;
-  } catch (err) {
-    logger.error(
-      err instanceof Error ? err.message : "Failed to close Intercom widget",
-    );
-    return false;
-  }
-};
-
-/**
  * Shuts down the Intercom widget and clears the session.
  * @returns A boolean that indicates if the shutdown was successful or not.
  */

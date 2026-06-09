@@ -1,2 +1,1 @@
-export * from "./adp-modal";
-export * from "./mobile-app";
+export * from "./mobile_app";

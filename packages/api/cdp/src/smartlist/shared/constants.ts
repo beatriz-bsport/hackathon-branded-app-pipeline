@@ -8,6 +8,7 @@ export * from "../filter/first-purchase/constants";
 export * from "../filter/gender/constants";
 export * from "../filter/has-phone/constants";
 export * from "../filter/last-booking/constants";
+export * from "../filter/liability-waiver/constants";
 export * from "../filter/marketing-notification/constants";
 export * from "../filter/member-date-joined/constants";
 export * from "../filter/payment-pack/constants";

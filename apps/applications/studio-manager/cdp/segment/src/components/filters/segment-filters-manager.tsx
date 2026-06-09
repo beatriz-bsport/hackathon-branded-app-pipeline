@@ -57,6 +57,10 @@ import { LastBookingFilterCard } from "./last-booking-filter/components/last-boo
 import { createDefaultLastBookingFilter } from "./last-booking-filter/default-value";
 import { mapLastBookingFilterToFormValue } from "./last-booking-filter/mappers/api-to-form-value";
 import type { LastBookingFilterFormValue } from "./last-booking-filter/types";
+import { LiabilityWaiverFilterCard } from "./liability-waiver-filter/components/liability-waiver-filter-card";
+import { createDefaultLiabilityWaiverFilter } from "./liability-waiver-filter/default-value";
+import { mapLiabilityWaiverFilterToFormValue } from "./liability-waiver-filter/mappers/api-to-form-value";
+import type { LiabilityWaiverFilterFormValue } from "./liability-waiver-filter/types";
 import { MarketingNotificationFilterCard } from "./marketing-notification-filter/components/marketing-notification-filter-card";
 import { createDefaultMarketingNotificationFilter } from "./marketing-notification-filter/default-value";
 import { mapMarketingNotificationFilterToFormValue } from "./marketing-notification-filter/mappers/api-to-form-value";
@@ -131,6 +135,7 @@ type FilterValueByType = {
   marketingNotification: MarketingNotificationFilterFormValue;
   hasPhone: HasPhoneFilterFormValue;
   termsAndConditions: TermsAndConditionsFilterFormValue;
+  liabilityWaiver: LiabilityWaiverFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
 };
 
@@ -229,6 +234,11 @@ type DraftFilter =
       clientId: string;
       filterType: "termsAndConditions";
       value: FilterValueByType["termsAndConditions"];
+    }
+  | {
+      clientId: string;
+      filterType: "liabilityWaiver";
+      value: FilterValueByType["liabilityWaiver"];
     }
   | {
       clientId: string;
@@ -339,6 +349,11 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "liabilityWaiver";
+      value: FilterValueByType["liabilityWaiver"];
+    }
+  | {
+      key: string;
       filterType: "lastBooking";
       value: FilterValueByType["lastBooking"];
     };
@@ -397,6 +412,7 @@ export const SegmentFiltersManager = ({
   const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
   const termsAndConditionsFilters =
     smartlistFilters?.termsAndConditionsFilters ?? [];
+  const liabilityWaiverFilters = smartlistFilters?.liabilityWaiverFilters ?? [];
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
@@ -655,6 +671,15 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    liabilityWaiver: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <LiabilityWaiverFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     lastBooking: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <LastBookingFilterCard
         key={key}
@@ -758,6 +783,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.termsAndConditions),
       filterType: FILTER_TYPES.termsAndConditions,
       value: createDefaultTermsAndConditionsFilter(smartlistNumericId),
+    }),
+    liabilityWaiver: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.liabilityWaiver),
+      filterType: FILTER_TYPES.liabilityWaiver,
+      value: createDefaultLiabilityWaiverFilter(smartlistNumericId),
     }),
     lastBooking: () => ({
       clientId: createDraftClientId(FILTER_TYPES.lastBooking),
@@ -891,6 +921,12 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
+        id: FILTER_TYPES.liabilityWaiver,
+        label: t("filters.410.title"),
+        description: t("filterSelector.options.liabilityWaiver.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
         id: FILTER_TYPES.lastBooking,
         label: t("filters.501.title"),
         description: t("filterSelector.options.lastBooking.description"),
@@ -997,6 +1033,11 @@ export const SegmentFiltersManager = ({
       key: `saved-terms-and-conditions-${termsAndConditionsFilter.id}`,
       filterType: FILTER_TYPES.termsAndConditions,
       value: mapTermsAndConditionsFilterToFormValue(termsAndConditionsFilter),
+    })),
+    ...liabilityWaiverFilters.map((liabilityWaiverFilter) => ({
+      key: `saved-liability-waiver-${liabilityWaiverFilter.id}`,
+      filterType: FILTER_TYPES.liabilityWaiver,
+      value: mapLiabilityWaiverFilterToFormValue(liabilityWaiverFilter),
     })),
     ...lastBookingFilters.map((lastBookingFilter) => ({
       key: `saved-last-booking-${lastBookingFilter.id}`,

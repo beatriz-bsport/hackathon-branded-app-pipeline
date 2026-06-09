@@ -18,7 +18,9 @@ import {
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
+  LIABILITY_WAIVER_FILTER_IDENTIFIER,
   type LastBookingFilter,
+  type LiabilityWaiverFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
@@ -61,6 +63,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
   termsAndConditions: "termsAndConditions",
+  liabilityWaiver: "liabilityWaiver",
   lastBooking: "lastBooking",
 } as const;
 
@@ -91,6 +94,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.termsAndConditions ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.liabilityWaiver ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
 
 export const isBasketAbandonmentFilter = (
@@ -316,6 +320,15 @@ export const isTermsAndConditionsFilter = (
   hasNumber(value, "id") &&
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company") &&
+  hasBoolean(value, "value");
+
+export const isLiabilityWaiverFilter = (
+  value: unknown,
+): value is LiabilityWaiverFilter =>
+  hasFilterIdentifier(value, LIABILITY_WAIVER_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
   hasBoolean(value, "value");
 
 export const isLastBookingFilter = (

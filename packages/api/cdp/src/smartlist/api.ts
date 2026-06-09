@@ -18,3 +18,4 @@ export * from "./filter/tag/api";
 export * from "./filter/terms-and-conditions/api";
 export * from "./filter/total-booking/api";
 export * from "./filter/last-booking/api";
+export * from "./filter/liability-waiver/api";

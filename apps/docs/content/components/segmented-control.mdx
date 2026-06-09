@@ -1,0 +1,379 @@
+---
+title: Segmented control
+description: A compact single-select switcher for mutually exclusive views or filters within the same screen
+status: stable
+category: components
+tags: [navigation, filters, selection]
+source: "packages/design-system/kaizen/primitive/core/src/components/SegmentedControl"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Segmented control lets users pick one option from a small, equally weighted set
+and updates the content below without leaving the current page. It behaves like
+radio buttons with a pill layout — ideal for second-level switching inside a
+panel, drawer, or card. Use [Tabs](/components/tabs) when each option is a
+different route or URL.
+
+<StorybookEmbed
+  id="primitive-components-segmentedcontrol--basic"
+  mode="playground"
+  height={1000}
+  stories={[
+    {
+      id: "primitive-components-segmentedcontrol--basic",
+      label: "Basic",
+    },
+    {
+      id: "primitive-components-segmentedcontrol--with-icons",
+      label: "With icons",
+    },
+    {
+      id: "primitive-components-segmentedcontrol--with-icons-and-badge",
+      label: "With badges",
+    },
+    {
+      id: "primitive-components-segmentedcontrol--interactive-example",
+      label: "Content switching",
+    },
+    {
+      id: "primitive-components-segmentedcontrol--solo-icons",
+      label: "Icon only",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Inline list filters** — switch between _Past_ and _Upcoming_ sessions on the
+  same list without changing the page route.
+- **View modes** — toggle _List_ / _Grid_ on a catalog or member table while
+  staying on the same screen.
+- **Drawer sub-views** — move between _Tagged_ and _Untagged_ members inside a
+  detail drawer.
+- **Time granularity** — pick _Day_ / _Week_ / _Month_ on a calendar or
+  analytics block scoped to one object.
+- **Status slices** — filter transactional notifications or inbox items by _All_
+  / _Active_ / _Archived_ when each slice updates inline content.
+
+## Guidelines
+
+- **Local context** — reserve segmented control for mutually exclusive views
+  scoped to one object or surface; route-level navigation belongs on Tabs.
+- **Small option sets** — aim for 2–5 segments; beyond six options the layout
+  clutters and [Select](/components/select) reads better.
+- **Equal weight** — every option should be a peer alternative, not a primary
+  action; system-wide actions belong on Button or a toolbar.
+- **Single selection** — one active segment at a time; multi-select patterns
+  belong on [Checkbox group](/components/checkbox-group).
+- **Compact copy** — keep labels short (one to three words) so segments stay
+  scannable in drawers and cards.
+- **Badges for counts** — pass `badge` on an option when a tally helps the
+  choice (e.g. unread count); avoid badges on every segment when only one count
+  matters.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Switch content in place below the control — the page title and breadcrumbs stay the same." />
+  <Do caption="Use parallel labels with the same grammar across segments — all nouns or all short verbs." />
+  <Do caption="Disable individual segments when an option is temporarily unavailable, with context nearby if the reason is not obvious." />
+  <Dont caption="Route-level navigation between peer pages belongs on Tabs — segmented control does not replace URL-based section switching." />
+  <Dont caption="More than six options crowd the bar — a Select dropdown scales better for long enumerations." />
+  <Dont caption="Mixing labeled and icon-only segments in one control breaks scan rhythm — pick one pattern per control." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+Optional `urlQueryParamName` syncs the selection to a query parameter for
+shareable filter state. Use it when bookmarking or back/forward should restore a
+view — not as a substitute for Tabs or primary app navigation. For switching
+inside a drawer or modal, keep selection in local state.
+
+</Callout>
+
+#### fullWidth
+
+<DoDont>
+  <Do caption="Stretch segments evenly when the control spans a toolbar or card header and each label is similarly short." />
+  <Dont caption="Full width with long labels forces truncation — shorten copy or drop fullWidth so each segment sizes to content." />
+</DoDont>
+
+#### Icon-only options
+
+<DoDont>
+  <Do caption="Provide a `label` on every option even when only the icon shows — it becomes the accessible name." />
+  <Dont caption="Icon-only segments without labels leave screen readers with generic 'Option {value}' fallbacks." />
+</DoDont>
+
+### Content rules
+
+Labels are short, parallel, and sentence case. Name the view or filter directly
+— no trailing punctuation.
+
+**View switch**
+
+> List
+
+> Grid
+
+**Time scope**
+
+> Day
+
+> Week
+
+> Month
+
+**Filter slice with count** — optional `badge` on the option.
+
+> Active
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Container",
+      description:
+        'Elevated pill track (`role="radiogroup"`) that holds all segments; optional `fullWidth` distributes segments evenly.',
+    },
+    {
+      label: "Segment",
+      description:
+        'Individual selectable option (`role="radio"`) with active, hover, and pressed surface states.',
+    },
+    {
+      label: "Icon",
+      description: "Optional leading glyph on a segment via `option.icon`.",
+    },
+    {
+      label: "Label",
+      description: "Option text; truncates with ellipsis when space is tight.",
+    },
+    {
+      label: "Badge",
+      description:
+        "Optional count or status pill on a segment via `option.badge` (Badge props).",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable
+  component="SegmentedControl"
+  overrides={{
+    options: {
+      type: "SegmentedOption[]",
+      description:
+        "Segments to render. Each option needs a unique `value`. Minimum 2 options; console warns above 6.",
+    },
+    value: {
+      type: "string",
+      description:
+        "Selected value in controlled mode. When set, parent owns selection state.",
+    },
+    defaultValue: {
+      type: "string",
+      description:
+        "Initial selection in uncontrolled mode. Falls back to the first option when omitted.",
+    },
+    onChangeValue: {
+      type: "(value: string) => void",
+      description:
+        "Fires when the user selects a segment or when URL sync restores a valid query value.",
+    },
+    fullWidth: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "When true, segments grow to fill the container width equally. When false, each segment caps at 140px.",
+    },
+    disabled: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "Disables every segment and blocks pointer and keyboard selection.",
+    },
+    label: {
+      type: "string",
+      description:
+        "Accessible name for the radiogroup via `aria-label`. Required when no visible group label exists.",
+    },
+    urlQueryParamName: {
+      type: "string",
+      description:
+        "When set, reads and writes this query parameter with `history.replaceState`. Invalid values are ignored. Responds to browser back/forward via `popstate`.",
+    },
+    id: {
+      type: "string",
+      description:
+        "Required DOM `id` on the container. Use a stable, unique value per instance on the page.",
+    },
+  }}
+/>
+
+**SegmentedOption** (each entry in `options`):
+
+- **`value`** (`string`, required) — unique identifier for the segment.
+- **`label`** (`string`) — visible text; also used as the segment's accessible
+  name.
+- **`icon`** (`IconName`) — optional icon before the label.
+- **`badge`** (`BadgeProps`) — optional count or status badge beside the label.
+- **`disabled`** (`boolean`) — disables this segment only.
+
+### Behaviors
+
+#### Selection
+
+Clicking a segment selects it and calls `onChangeValue` with its `value`.
+Controlled parents pass `value`; uncontrolled usage relies on `defaultValue` and
+internal state. Disabled segments and a disabled control ignore clicks.
+
+#### URL synchronization
+
+When `urlQueryParamName` is set, the component reads the matching query value on
+mount, updates the URL on each selection without a full reload, and listens for
+`popstate` so back/forward restore a valid option. On unmount it removes its
+query parameter from the URL. Omit `urlQueryParamName` for purely local state
+(e.g. inside drawers).
+
+#### Responsiveness
+
+With `fullWidth={false}`, segments size to content up to `max-w-[140px]`; long
+labels truncate with ellipsis. With `fullWidth={true}`, segments share the row
+evenly — best when labels are short and the bar spans the container.
+
+### Edge cases
+
+#### Fewer than two options
+
+Console warns; the control still renders but does not meet the intended pattern.
+
+#### More than six options
+
+Console suggests Select — layout and scan cost grow quickly.
+
+#### Invalid URL query value
+
+Ignored; selection falls back to `defaultValue` or the first option.
+
+#### Icon-only segment
+
+Renders without visible text; `label` should still be provided for
+`aria-label`. Without it, the fallback is `Option {value}`.
+
+#### All segments disabled
+
+Prefer `disabled` on the whole control instead of disabling every option
+individually.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+- **`role="radiogroup"`** on the container — groups related segments.
+- **`role="radio"`** on each segment — single-select semantics.
+- **`aria-checked`** — `true` on the active segment, `false` on others.
+- **`aria-label`** — on the radiogroup from the `label` prop; required when no
+  visible group label is present.
+- **Per-segment `aria-label`** — from `option.label`, or `Option {value}` when
+  label is omitted.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Move focus between segments." },
+    {
+      keys: ["ArrowRight", "ArrowDown"],
+      description: "Select the next enabled segment and move focus to it.",
+    },
+    {
+      keys: ["ArrowLeft", "ArrowUp"],
+      description: "Select the previous enabled segment and move focus to it.",
+    },
+    { keys: ["Home"], description: "Select the first enabled segment." },
+    { keys: ["End"], description: "Select the last enabled segment." },
+  ]}
+/>
+
+Disabled segments are skipped when moving with arrow keys. Click still works for
+pointer users on enabled segments.
+
+### Screen reader behavior
+
+Announces the group label (when provided) and each segment as a radio button
+with its checked state. Selection changes update `aria-checked` on the affected
+segments. Badge text inside a segment is exposed as part of the segment content.
+
+### Focus management
+
+Focus stays on the segment the user activated. Arrow-key navigation moves focus
+to the newly selected segment. Focus is not trapped — users tab into and out of
+the control freely.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — active and inactive segment text and surfaces
+  use on-surface and action tokens.
+- **2.1.1 Keyboard** — operable with Tab and arrow keys; Home and End jump to
+  ends of the set.
+- **4.1.2 Name, Role, Value** — radiogroup and radio roles with checked state;
+  names from `label` and option labels.
+
+## Resources
+
+### Storybook
+
+[Open Segmented control in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-segmentedcontrol--basic)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/SegmentedControl`
+
+### Related components
+
+- **[Tabs](/components/tabs)** — route-level navigation between URLs; not an
+  in-place view switcher.
+- **[Select](/components/select)** — single choice from many options in a
+  dropdown when the set exceeds roughly six items.
+- **[Form radio group](/components/form-radio-group)** — labeled radio lists in
+  forms where the segmented pill chrome is not appropriate.
+- **[Toggle button](/components/toggle-button)** — toolbar-style toggles for
+  related tools or modes with a different visual treatment.
+- **[Badge](/components/badge)** — count and status pills; composed on segments
+  via `option.badge`.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Design vs URL sync** — product guidance treats segmented control as a local
+  view switcher; the component optionally writes query parameters via
+  `urlQueryParamName`. Docs recommend local state for drawers; URL sync only
+  when shareable page state is intentional.
+- **Container `disabled` styling** — `disabled` blocks interaction on segments
+  but does not apply the container-level disabled variant from the style
+  definition (opacity / pointer-events on the track).
+- **Unmount clears query param** — leaving a page removes the control's query
+  parameter on unmount, which can surprise deep-link flows.
+- **Roving tabindex** — every enabled segment uses `tabIndex={0}`; a single
+  tab stop with arrow-key roving focus inside the group would better match
+  radiogroup keyboard patterns.
+
+<Callout type="info">
+
+Supernova does not yet publish a Segmented control documentation page; this page
+and Storybook are the canonical web references for Kaizen.
+
+</Callout>

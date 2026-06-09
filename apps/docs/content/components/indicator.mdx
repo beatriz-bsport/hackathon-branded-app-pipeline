@@ -1,42 +1,29 @@
 ---
 title: Indicator
-description: A small visual signal attached to a host element that communicates state or quantity.
+description: A small visual signal for counts or presence, anchored to a host or placed inline beside content
+status: stable
 category: components
+tags: [display, metadata, notification]
 source: "packages/design-system/kaizen/primitive/core/src/components/Indicator"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Indicators are non-interactive signals anchored to a host — they have no meaning without it.
-
-Indicator is a non-interactive, non-dismissible signal that draws attention to a specific location. It is always anchored to a host element like a button, avatar, or nav item. It comes in sizes sm and md with colors default, main, critical, success, warning, and info.
-
-### Choosing between Badge, Chip, and Indicator
-
-| Aspect           | Badge                  | Chip                                     | Indicator                     |
-| ---------------- | ---------------------- | ---------------------------------------- | ----------------------------- |
-| Purpose          | Supplementary metadata | Semantic token (tag/filter/status)       | Attention/notification signal |
-| Dismissible      | No                     | Yes (optional)                           | No                            |
-| Anchored to host | No                     | No                                       | Yes (top-right/bottom-right)  |
-| Typical use      | Side labels            | Tags, filters, categories, object status | Counts, status dots           |
-| Appearance       | Text in a pill         | Container with label (and optional icon) | Dot or numbers                |
-
-Use Indicator for non-dismissible status signals anchored to a UI element — for example, an unread notification dot on an avatar or an active status dot on a profile picture. It relies on color and placement rather than text labels.
-
-## Guidelines
-
-### Examples
+Indicator is a non-interactive signal for unread counts, active filters, or
+presence markers. It renders as a dot or a compact number pill and never
+carries actions on its own — meaning comes from the host element or the
+surrounding row it qualifies.
 
 <StorybookEmbed
   id="primitive-components-indicator--indicator-dot"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
     {
       id: "primitive-components-indicator--indicator-dot",
@@ -53,33 +40,286 @@ Use Indicator for non-dismissible status signals anchored to a UI element — fo
   ]}
 />
 
+### Use cases
+
+- **Notification counts** — show unread alert totals on the notifications bell
+  in the navigation sidebar (`value` + `color="critical"`).
+- **Filter activity** — wrap a filter icon button and surface how many filters
+  are applied (`children` + `value`).
+- **Presence dots** — mark a nav item or avatar with a dot when something is
+  new or active (omit `value`).
+- **Inline tallies** — place a compact count beside a timestamp or label in a
+  list row when overlay anchoring is not needed.
+- **Feature highlights** — add a `main` dot on a menu entry to draw attention
+  without changing the nav label copy.
+
+Not sure whether Badge, Chip, or Indicator fits? See
+[Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator).
+
+## Guidelines
+
+- **Attention, not metadata** — use Indicator when you need a count or presence
+  signal on or beside a host; use [Badge](/components/badge) for inline
+  qualifiers like "New" or "Beta".
+- **Non-dismissible** — users cannot clear an Indicator; use
+  [Chip](/components/chip) when the token must be removed or filtered out.
+- **Two placement modes** — wrap a host in `children` for top-right or
+  bottom-right overlay anchoring; render without `children` and pass the result
+  as an `endSlot` or inline sibling when the layout already positions the
+  signal beside content.
+- **Dot vs count** — omit `value` for presence-only signals; pass `value` when
+  the exact or capped count matters.
+- **Color for urgency** — reserve `critical` for alerts that need immediate
+  attention; use `main` for product highlights and `default` for neutral tallies.
+
 ### Best practices
 
+#### General
+
 <DoDont>
-  <Do
-    caption={
-      "Use when a non-dismissible status signal needs to be anchored to a UI element such as a button, avatar, or nav item."
-    }
-  />
-  <Dont
-    caption={
-      "Avoid using Indicator for tokens that need to be dismissed by the user (use Chip instead)."
-    }
-  />
-  <Dont
-    caption={
-      "Avoid using Indicator for standalone labels without a host element (use Badge instead)."
-    }
-  />
+  <Do caption="Wrap an icon button or avatar in children when the signal should sit on the corner of the host — for example, applied filters on a filter button." />
+  <Do caption="Pass value for actionable counts (unread messages, active filters) so users know whether attention is needed before they click." />
+  <Do caption="Use size sm in navigation and dense lists; size lg when the host is larger or the count must read more clearly." />
+  <Dont caption="Removable tags, filters, and object statuses belong on Chip, not Indicator." />
+  <Dont caption="Standalone text labels without a host belong on Badge beside copy, not Indicator." />
+  <Dont caption="Critical meaning needs more than color — pair color critical with a numeric value or ensure the parent label names the alert." />
 </DoDont>
 
-## Code & Specs
+<Callout type="warning" title="Caution">
+
+Avoid stacking multiple Indicators on one host. One signal per element keeps
+scanning predictable. When several counts apply, aggregate them into a single
+`value` or surface detail after navigation.
+
+</Callout>
+
+#### Dot mode (no value)
+
+<DoDont>
+  <Do caption="Use a dot to signal presence or novelty when the exact count is unknown or unnecessary — for example, a new analytics section in the sidebar." />
+  <Dont caption="When the count matters, pass value instead of a dot so the number is visible." />
+</DoDont>
+
+#### critical color
+
+<DoDont>
+  <Do caption="Reserve for alert or error counts that should pull attention before the user opens the destination — for example, unread system notifications." />
+  <Dont caption="Neutral tallies like applied filter counts read calmer on default or main than on critical." />
+</DoDont>
+
+### Content rules
+
+Indicator copy is numeric only — there is no text prop. Counts cap at **99+**
+automatically; you cannot override the cap.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Wrapper (`div`)",
+      description:
+        "Relative inline container. Receives native div attributes and wraps both the optional host and the indicator mark.",
+    },
+    {
+      label: "Host (`children`)",
+      description:
+        "Optional element the signal qualifies — commonly an icon button, avatar, or icon. When present, the indicator overlays the host's right edge.",
+    },
+    {
+      label: "Indicator mark",
+      description:
+        "The visible dot or number pill. Renders as a filled dot when value is omitted, or as a bordered circle with centered numerals when value is set.",
+    },
+    {
+      label: "Count label (`value`)",
+      description:
+        "Optional number rendered inside the pill. Values above 99 display as 99+.",
+    },
+  ]}
+/>
 
 ### Props
 
-<PropsTable component="Indicator" />
+<PropsTable
+  component="Indicator"
+  overrides={{
+    value: {
+      type: "number",
+      description:
+        "Count shown inside the pill. Omit for dot-only mode. Values greater than 99 render as 99+. Zero or negative values render as a dot.",
+    },
+    position: {
+      type: '"top" | "bottom"',
+      description:
+        "Vertical anchor on the host's right edge when children are provided. top places the mark on the upper-right; bottom on the lower-right. Ignored when children are omitted.",
+    },
+    size: {
+      type: '"sm" | "lg"',
+      description:
+        "sm for navigation, lists, and icon buttons; lg for larger hosts or when the count must be more legible.",
+    },
+    color: {
+      type: '"default" | "main" | "critical"',
+      description:
+        "default for neutral tallies, main for product highlights, critical for urgent alert counts.",
+    },
+    children: {
+      type: "ReactNode",
+      description:
+        "Host element to anchor the indicator against. When omitted, the mark renders inline without absolute positioning.",
+    },
+    className: {
+      type: "string",
+      description:
+        "Additional class names applied to the indicator mark element.",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Dot vs count rendering
+
+When `value` is omitted, undefined, or zero, Indicator renders a solid dot with
+no numerals. When `value` is a positive integer, it renders a pill with the
+number centered inside. Values above 99 always display as `99+`; the cap is not
+configurable.
+
+#### Anchored placement
+
+When `children` are provided, the indicator mark is absolutely positioned on
+the right side of the host — `position="top"` on the upper-right corner,
+`position="bottom"` on the lower-right. The host should be a single, clearly
+bounded element so the overlay does not clip or misalign.
+
+#### Inline placement
+
+When `children` are omitted, the indicator renders in normal document flow. This
+pattern suits `endSlot` on navigation items or counts placed beside timestamps
+in list rows. The `position` prop has no visual effect in this mode.
+
+#### Persistence
+
+Indicator is presentational. Visibility, counts, and dismissal are entirely
+controlled by the parent — clearing a count means unmounting or updating
+`value` from the consumer, not from user interaction on the Indicator itself.
+
+### Edge cases
+
+#### value is 0
+
+Renders dot mode — zero is treated as no count to display.
+
+#### value greater than 99
+
+Always displays `99+`; the exact number is not shown.
+
+#### Indicator without children
+
+Supported — renders inline. Prefer this for navigation `endSlot` or flex rows;
+prefer wrapping `children` when the signal must sit on a corner of an icon or
+avatar.
+
+#### Multiple indicators on one host
+
+Not managed by the component. Avoid stacking; aggregate counts or pick the
+single most important signal.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Indicator renders as a `div` with no implicit ARIA role. It is decorative when
+the host or surrounding copy already conveys meaning. The component does not
+set `aria-label`, `aria-live`, or `role` automatically.
+
+Consumers must ensure the combined host + indicator is understandable:
+
+- For icon-only hosts, include the count in the host's `aria-label` or
+  `label` prop (for example, `label="Filters, 3 applied"` on an icon button).
+- For navigation items, the visible menu label plus the numeric pill should
+  together communicate the state; consider augmenting the item label when counts
+  are dynamic and critical.
+- Do not rely on dot color alone — pair with a count or explicit label text
+  when the information is essential.
+
+### Keyboard navigation
+
+Indicator is not focusable and has no keyboard interactions of its own. Focus
+and activation belong to the host element (button, link, or nav item).
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Moves focus to the host element when the Indicator wraps an interactive child.",
+    },
+  ]}
+  notes="Indicator does not participate in the tab order. Screen reader users encounter the count as part of the host's name or as adjacent text when rendered inline."
+/>
+
+### Screen reader behavior
+
+On mount, screen readers do not announce the Indicator independently. When
+`value` is set, the number is visible text inside the mark — it may be read when
+the user navigates to the parent control or when exploring the surrounding line
+in a list.
+
+There is no live-region behavior. If counts change while the user stays on the
+page, update the host's accessible name or use a separate status mechanism
+(for example, [Toast](/components/toast)) when the change must be announced
+immediately.
+
+### Focus management
+
+Indicator does not trap or receive focus. When it wraps an interactive host,
+focus stays on the host. When rendered inline beside content, focus order
+follows the surrounding layout.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — dot and pill colors use semantic surface
+  tokens; verify contrast on both default and strong backgrounds where the host
+  sits.
+- **2.1.1 Keyboard** — not applicable to Indicator itself; the host must remain
+  fully keyboard operable.
+- **4.1.2 Name, Role, Value** — consumers must expose an accessible name on
+  interactive hosts that includes count or status when the Indicator alone would
+  be insufficient.
+- **4.1.3 Status Messages** — not applicable; Indicator is not a live region.
+  Announce dynamic count changes via the host label or a dedicated status
+  component.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Indicator`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Indicator in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-indicator--indicator-dot)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Indicator`
+
+### Related components
+
+- [Badge](/components/badge) — inline supplementary labels and qualifiers that
+  do not anchor to a host corner.
+- [Chip](/components/chip) — dismissible semantic tokens for tags, filters, and
+  object statuses.
+- [Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator) — decision
+  guide for choosing between the three marking components.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Pattern page lists unavailable variants** — [Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator) mentions sizes `sm`/`md` and colors `success`, `warning`, and `info`. The component only supports `sm`/`lg` and `default`/`main`/`critical`.
+- **No built-in accessible naming** — numeric and dot indicators do not expose `aria-label`; consumers must enrich the host element's name when the count is essential.
+- **`position` required in types without children** — TypeScript requires `position` even in inline mode where it has no effect.
+
+#### Design or API debt
+
+- **Limited semantic palette** — unlike Chip, Indicator has no `success`, `warning`, or `info` colors; use `main` or `critical` and rely on context copy for nuance.
+- **99+ cap is fixed** — large counts cannot show exact values or a custom overflow string.

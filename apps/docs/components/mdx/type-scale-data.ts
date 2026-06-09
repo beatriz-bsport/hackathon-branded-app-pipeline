@@ -8,26 +8,25 @@ export const TITLE_SCALE: TypeScaleItem[] = [
     weightPath: "font.weight.strong",
     sample: "Page title",
     component: "Title htmlVariant=h1",
-    usage:
-      "One per page when maximum prominence is needed. Most Back Office screens use h2 instead.",
+    usage: "Page title — one h1 per view. Used by Header layout.",
   },
   {
     label: "title / lg",
     sizePath: "font.size.title-lg",
     lineHeightPath: "line-height.xl",
     weightPath: "font.weight.strong",
-    sample: "Page header",
+    sample: "Page section",
     component: "Title htmlVariant=h2",
-    usage: "Default page title in the Back Office.",
+    usage: "Major sections on a page, below the h1 page title.",
   },
   {
     label: "title / md",
     sizePath: "font.size.title-md",
     lineHeightPath: "line-height.md",
     weightPath: "font.weight.strong",
-    sample: "Page section",
+    sample: "Subsection",
     component: "Title htmlVariant=h3",
-    usage: "Section headings on the page.",
+    usage: "Subsections within a page section.",
   },
   {
     label: "title / sm",
@@ -43,10 +42,10 @@ export const TITLE_SCALE: TypeScaleItem[] = [
     sizePath: "font.size.title-xs",
     lineHeightPath: "line-height.sm",
     weightPath: "font.weight.weak",
-    sample: "Menu group label",
+    sample: "Nested section label",
     component: "Title htmlVariant=h5",
     usage:
-      "Menu group labels and compact section headings. Typically weight=weak, color=weaker.",
+      "Subsections inside modal body or other dense containers — below the h4 modal title.",
   },
 ];
 

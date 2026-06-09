@@ -1,0 +1,296 @@
+---
+title: Title
+description: Semantic headings that structure pages, sections, and containers with token-backed size and weight
+status: stable
+category: components
+tags: [typography, text, headings]
+source: "packages/design-system/kaizen/primitive/core/src/components/Title"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Title renders real heading elements (`h1`–`h5`) with Kaizen title tokens — size,
+line height, weight, and colour tied to the heading level you choose. It
+separates content hierarchy from body copy so pages stay scannable for studio
+managers and assistive tech alike. Pair with [Body](/components/body) for
+descriptions and supporting text.
+
+<StorybookEmbed
+  id="primitive-components-title--primary"
+  mode="playground"
+  height={700}
+  stories={[{ id: "primitive-components-title--primary", label: "Title" }]}
+/>
+
+### Use cases
+
+- **Page header** — primary screen name in
+  [Header layout](/components/header-layout) (`htmlVariant="h1"`,
+  `weight="stronger"`).
+- **Section heading** — divide a long settings or detail page with
+  `htmlVariant="h2"`.
+- **Modal title** — set via the `title` prop on [Modal](/components/modal) or
+  [Alert](/components/alert); Kaizen renders it as `h4` automatically.
+- **Detail drawer header** — name the open record in
+  [Detail drawer](/components/detail-drawer) with `h2`; step down inside the
+  drawer body.
+- **Card title** — `htmlVariant="h4"` on cards, panels, and nested form
+  sections.
+
+## Guidelines
+
+- **Size follows semantics** — pick `htmlVariant` for the heading level you need;
+  you cannot set title size independently of the element.
+- **Page titles use `default`** — `color="inherit"` is the component default,
+  but page and card titles should set `color="default"` for full contrast on
+  standard surfaces.
+- **One clear peak** — reserve the largest heading on a view for the primary
+  title; step down for sections instead of stacking multiple `h1` elements.
+- **Sentence case** — headings read faster in dense back-office UI when you
+  avoid title case.
+- **No interactive colour** — Title does not expose `main`; interactive text
+  belongs on [Link](/components/link) or [Body](/components/body).
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Match htmlVariant to the real outline — h1 for the page name, h2 for sections and drawer record names, h4 for modal titles and cards." />
+  <Do caption="Set color=default on page and card titles so contrast stays at onsurface-default, not inherited muted tones." />
+  <Do caption="Use weight=strong or stronger on page, modal, and drawer titles; weak only for de-emphasised supporting labels." />
+  <Dont caption="Skipping heading levels for styling alone breaks the document outline — pick the correct htmlVariant instead." />
+  <Dont caption="Stronger weight on every heading in a view removes hierarchy — keep one level visually dominant." />
+  <Dont caption="Long paragraphs belong on Body — Title is for short labels that name a section or surface." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+`htmlVariant` bundles semantic level and visual size. There should be **one
+`h1` per page** — the page title. Do not use `h1` inside cards or modals
+because you want larger text; step down to `h4` and let weight carry emphasis.
+
+</Callout>
+
+### Modals and detail drawers
+
+Overlays sit on top of a page that already has an `h1`. Do not add another
+`h1` inside a modal or drawer.
+
+#### Modal
+
+[Modal](/components/modal) and [Alert](/components/alert) own the header title.
+They render `Title htmlVariant="h4" weight="stronger"` and wire
+`aria-labelledby` to it — pass copy through the `title` prop, not a custom Title
+in the header.
+
+The modal title names the decision or task (`Cancel session?`, `Delete gift
+card?`). The page `h1` remains in the document underneath. For structure inside
+modal body content, use `h5` or emphasised [Body](/components/body) — Title has
+no `h6`. See [Modal — Titles](/components/modal) for copy patterns.
+
+#### Detail drawer
+
+[Detail drawer](/components/detail-drawer) has **no built-in title** — you
+compose the header and body. Continue the page outline: the list or board behind
+the drawer still owns the `h1`.
+
+| Drawer part        | Level | Example                          |
+| ------------------ | ----- | -------------------------------- |
+| Record name        | `h2`  | Member name, order ID, ticket    |
+| Section in drawer  | `h3`  | Contact information, line items  |
+| Subsection / group | `h4`  | Quick actions, payment breakdown |
+
+Use `color="default"` and `weight="strong"` or `stronger` on the record name.
+Avoid using modal's `h4` for the primary drawer title — that level is for dialog
+chrome and nested containers, not the main object you are inspecting.
+
+### Content rules
+
+Keep titles short and specific — name the section or object, not the action.
+Avoid trailing punctuation unless the title is a question.
+
+**Page title** — `htmlVariant="h1"`, `weight="stronger"`, `color="default"`.
+
+> Gift cards
+
+**Page section** — `htmlVariant="h2"`, `weight="strong"`, `color="default"`.
+
+> Active cards
+
+**Modal title** — via Modal `title` prop (rendered as `h4` by Kaizen).
+
+> Cancel session?
+
+**Drawer record name** — `htmlVariant="h2"`, `weight="strong"`, `color="default"`.
+
+> Jane Doe
+
+**Card title** — `htmlVariant="h4"`, `weight="strong"`, `color="default"`.
+
+> Payment method
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Root (`h1`–`h5`)",
+      description:
+        "Semantic heading element selected by `htmlVariant`. Size and line-height tokens are derived from the variant, not set separately.",
+    },
+    {
+      label: "Children",
+      description:
+        "Short heading text. Long strings wrap; consumers often add `line-clamp-*` or truncation classes via `className`.",
+    },
+  ]}
+/>
+
+### Type scale
+
+Each `htmlVariant` maps to a fixed title token. See
+[Typography](/foundations/typography) for the full ramp and when to use each
+level.
+
+<TitleTypeScale />
+
+### Props
+
+<PropsTable
+  component="Title"
+  overrides={{
+    htmlVariant: {
+      type: '"h1" | "h2" | "h3" | "h4" | "h5"',
+      description:
+        "Required. Chooses the heading element and bundles `text-title-*` plus matching `leading-*` classes.",
+    },
+    color: {
+      type: '"default" | "weak" | "weaker" | "info" | "positive" | "critical" | "warning" | "onstrong" | "disabled" | "inherit"',
+      defaultValue: "inherit",
+      description:
+        "Semantic text colour. Set `default` explicitly on page and card titles; `inherit` when nested inside a parent that already sets colour.",
+    },
+    weight: {
+      type: '"weaker" | "weak" | "strong" | "stronger"',
+      description:
+        "Font weight token. No default — set `strong` or `stronger` for headings, `weak` for de-emphasised labels.",
+    },
+    className: {
+      type: "string",
+      description:
+        "Additional classes on the root heading (for example `line-clamp-2` in page headers).",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Variant and styling
+
+`htmlVariant` is the sole control for title size — there is no separate `size`
+prop. `color` and `weight` layer on top without changing the type ramp step.
+
+#### Responsiveness
+
+Title does not switch variants at breakpoints. Truncate or clamp long titles at
+the consumer when horizontal space is tight (Header layout uses
+`line-clamp-2`).
+
+### Edge cases
+
+- **Default `color="inherit"`** — without an explicit `default`, titles inside
+  tinted parents may render lower contrast than page-level guidance expects.
+- **Very long titles** — wrap by default; add `className` truncation or
+  hyphenation when the header row is space-constrained.
+- **Missing `weight`** — only variant size and colour apply; the heading renders
+  at the inherited font weight of the page until you set `weight`.
+- **No `main` colour** — interactive styling is out of scope; use Link or
+  Body for clickable inline text near a title.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Title renders a native heading element (`h1`–`h5`) with
+`data-component="Kaizen-Title"`. The component also sets `role="heading"` on the
+same element — redundant with native semantics but harmless for assistive tech.
+
+Kaizen does not set `aria-level`; the browser derives level from the tag name.
+Pass additional `aria-*` attributes through DOM props when needed.
+
+### Keyboard navigation
+
+Title is static text — it is not focusable unless you wrap it in an interactive
+parent (generally avoid).
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Skips the heading; focus moves to the next interactive control.",
+    },
+  ]}
+/>
+
+Screen reader users navigate by heading — keep levels sequential and descriptive.
+
+### Screen reader behavior
+
+Headings appear in the document outline and rotor / heading navigation lists.
+Announcements follow the visible text in `children`. Do not hide titles with
+`aria-hidden` when they are the only label for a section.
+
+### Focus management
+
+Title does not receive or trap focus in default usage.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — page and card titles should use
+  `color="default"` on standard surfaces; `weak` and `weaker` are for
+  de-emphasis only when contrast still passes.
+- **2.4.6 Headings and Labels** — heading text must describe the section topic.
+- **2.1.1 Keyboard** — not applicable for default static usage.
+- **4.1.2 Name, Role, Value** — name comes from visible `children`; role and
+  level come from `htmlVariant`.
+
+## Resources
+
+### Storybook
+
+[Open Title in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-title--primary)
+
+### Related components
+
+- [Body](/components/body) — descriptions, helper text, and table cell copy
+  beneath or beside titles.
+- [Header layout](/components/header-layout) — composes Title for page names,
+  subtitles, and actions.
+- [Typography](/foundations/typography) — page hierarchy table, weight tokens,
+  and colour roles shared across Title and Body.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Redundant `role="heading"`** — set on native `h1`–`h5` elements; no
+  practical impact, but the attribute is unnecessary.
+- **Default `color="inherit"`** — differs from the documented recommendation to
+  pass `color="default"` on page titles; consumers must set it explicitly.
+
+#### Design or API debt
+
+- **No `main` colour** — by design; interactive headings should not use Title.
+- **Display scale not on Title** — hero-scale type uses display tokens outside
+  `htmlVariant`; see [Typography — Display](/foundations/typography) and
+  [KAI-492](https://linear.app/bsport/issue/KAI-492/typography-display).

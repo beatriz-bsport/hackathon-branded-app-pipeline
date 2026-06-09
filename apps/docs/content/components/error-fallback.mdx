@@ -1,0 +1,173 @@
+---
+title: Error fallback [LLM]
+description: A centered error state with illustration, copy, and optional recovery action
+status: stable
+category: components
+tags: [feedback, error]
+source: "packages/design-system/kaizen/primitive/core/src/components/ErrorFallback"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Error fallback replaces a failed view with a consistent recovery screen: illustration,
+title, explanation, and an optional action (reload, retry, or feedback). Use it at
+route boundaries, data error boundaries, and module federation failures — not for
+inline field validation.
+
+<StorybookEmbed
+  id="primitive-components-errorfallback--default"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-errorfallback--default", label: "Default" },
+    {
+      id: "primitive-components-errorfallback--with-action-button",
+      label: "With action",
+    },
+    {
+      id: "primitive-components-errorfallback--network-error",
+      label: "Network error",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Route crash** — React error boundary around a Studio Manager micro-frontend.
+- **Failed fetch** — full-page replacement when list data cannot load.
+- **Network outage** — tailored copy with retry when offline.
+- **Permission denied** — custom title when the user lacks access to a module.
+- **Feedback loop** — `onSendFeedback` opens crash report modal for support tickets.
+
+## Guidelines
+
+- **Full region replacement** — center in the content area; do not stack inside a table row.
+- **Action matches recovery** — reload for transient errors; navigate home for dead routes.
+- **Human copy** — default i18n strings are approachable; override for domain context.
+- **Not for validation** — field errors belong on inputs, not Error fallback.
+- **Optional feedback** — enable crash report only when product captures diagnostics.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Place Error fallback in the main content slot when the entire view fails to load." />
+  <Do caption="Offer one clear primary action — Retry or Reload — before secondary links." />
+  <Do caption="Override title and subtitle for known cases like network or permission errors." />
+  <Dont caption="Inline form errors in Error fallback — use field helpers instead." />
+  <Dont caption="Generic error copy when you know the failure — payment timeout deserves specific guidance." />
+  <Dont caption="Multiple stacked error fallbacks from nested boundaries — hoist to one boundary." />
+</DoDont>
+
+### Content rules
+
+Tone stays calm and actionable:
+
+> Connection lost
+
+> We couldn't reach our servers. Check your network and try again.
+
+> Reload page
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Illustration",
+      description: "Default error spot art from Illustration set.",
+    },
+    {
+      name: "Title and subtitle",
+      description: "Stacked Title components with i18n defaults.",
+    },
+    { name: "Description", description: "Optional Body instructions." },
+    {
+      name: "Action button",
+      description:
+        "Optional Button; defaults to reload when actionProps omitted in some stories.",
+    },
+    {
+      name: "Crash report modal",
+      description: "Optional feedback flow when onSendFeedback is set.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ErrorFallback" />
+
+### Behaviors
+
+#### Action button
+
+`actionProps` configures the primary Button. Default story behavior reloads the
+window when you omit custom handlers.
+
+#### Persistence
+
+Remains until navigation or successful retry replaces the failed subtree.
+
+### Edge cases
+
+- **Empty subtitle** — layout still renders title block; avoid leaving both title and subtitle blank.
+- **Custom children** — some stories replace inner content; keep heading hierarchy.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Root is a `div` with `data-component="Kaizen-ErrorFallback"`. Title uses heading
+levels from [Title](/components/title).
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves to action button and feedback links when present.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Activates the primary recovery button.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces title and description in document order on mount. Not a live region —
+user navigated to a new error state.
+
+### Focus management
+
+Consider moving focus to the primary action or page title when the fallback replaces content.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — action button fully operable.
+- **3.3.1 Error Identification** — describe what failed in plain language.
+- **4.1.2 Name, Role, Value** — button labels describe recovery.
+
+## Resources
+
+### Storybook
+
+[Open Error fallback in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-errorfallback--default)
+
+### Related components
+
+- **[Illustration](/components/illustration)** — artwork slot inside the layout.
+- **[Alert](/components/alert)** — inline recoverable warnings without replacing the view.
+- **[Loader](/components/loader)** — precedes error when fetch is still pending.

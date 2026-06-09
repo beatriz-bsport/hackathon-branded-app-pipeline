@@ -1,0 +1,144 @@
+---
+title: Analytic card [LLM]
+description: KPI tile with metric, trend, and optional info popover for campaign analytics
+status: stable
+category: components
+tags: [data, display]
+source: "packages/design-system/kaizen/primitive/core/src/components/AnalyticCard"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Analytic card surfaces a single KPI — delivery rate, open rate, revenue — with
+title, optional subtitle, trend indicator, and info popover for definitions. Use
+in marketing and finance dashboards where metrics sit in a grid of [Card](/components/card)-like tiles.
+
+<StorybookEmbed
+  id="primitive-components-analyticcard--default"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-analyticcard--default", label: "Default" },
+    {
+      id: "primitive-components-analyticcard--with-info-popover",
+      label: "With info",
+    },
+    {
+      id: "primitive-components-analyticcard--campaign-performance",
+      label: "Campaign",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Email campaign stats** — delivery, open, and click rates in a row.
+- **Finance snapshot** — monthly revenue vs prior period on insights pages.
+- **Booking fill rate** — occupancy percentage on session analytics.
+- **Marketing funnel** — conversion step with trend arrow.
+- **Tooltip definitions** — info icon explains how metric is calculated.
+
+## Guidelines
+
+- **One metric per card** — do not stack unrelated numbers in one tile.
+- **Subtitle adds context** — absolute counts beside percentages ("99 emails delivered").
+- **Trend direction** — use consistent color semantics with [Indicator](/components/indicator) status tokens.
+- **Full width sparingly** — `fullWidth` for hero KPI; grid of equal cards otherwise.
+- **Popover for methodology** — long definitions belong in info popover, not title.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Title names the metric in plain language users already use in reports." />
+  <Do caption="Show comparison period in subtitle when trend arrow is present." />
+  <Do caption="Link to detail report when card is clickable in product designs." />
+  <Dont caption="Six decimal precision on percentages — round for scan." />
+  <Dont caption="Critical alerts styled only as analytic cards — use Alert for action." />
+  <Dont caption="Identical titles with different filters without subtitle disambiguation." />
+</DoDont>
+
+### Content rules
+
+> Delivery rate
+
+> 99 emails delivered
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Title", description: "Metric name." },
+    { name: "Value", description: "Primary number or percentage." },
+    { name: "Subtitle", description: "Supporting count or period." },
+    {
+      name: "Info control",
+      description: "Optional popover trigger for definition.",
+    },
+    { name: "Trend", description: "Optional directional indicator." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="AnalyticCard" />
+
+### Behaviors
+
+#### Responsiveness
+
+`fullWidth` stretches in grid; default sizes to content width in flex rows.
+
+### Edge cases
+
+- **Missing data** — show em dash and subtitle explaining unavailable metric.
+- **Zero denominator** — handle divide-by-zero in data layer before display.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Info button needs `aria-label` describing popover content topic.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses info button when present." },
+    { keys: ["Enter", "Space"], description: "Opens info popover." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce metric value as text in document order; popover content readable when opened.
+
+### Focus management
+
+Popover focus trap per [Popover](/components/popover) behavior.
+
+### WCAG criteria
+
+- **1.4.1 Use of Color** — trend not color-only; include direction text or arrow label.
+- **4.1.2 Name, Role, Value** — info button labeled.
+
+## Resources
+
+### Storybook
+
+[Open Analytic card in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-analyticcard--default)
+
+### Related components
+
+- **[Card](/components/card)** — general content container without KPI semantics.
+- **[Indicator](/components/indicator)** — small status signals, not full metrics.
+- **[Title](/components/title)** — page-level headings above card grids.

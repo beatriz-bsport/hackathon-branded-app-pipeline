@@ -1,0 +1,161 @@
+---
+title: Copy to clipboard [LLM]
+description: A button that copies a value and confirms with toast feedback
+status: stable
+category: components
+tags: [actions, utility]
+source: "packages/design-system/kaizen/primitive/core/src/components/CopyToClipboard"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Copy to clipboard wraps a [Button](/components/button) with clipboard logic and
+[Toast](/components/toast) confirmation. Use it when users need to copy IDs,
+payment references, share links, or API keys without selecting text manually.
+
+<StorybookEmbed
+  id="primitive-components-copytoclipboard--basic"
+  mode="playground"
+  height={400}
+  stories={[
+    { id: "primitive-components-copytoclipboard--basic", label: "Primary" },
+    {
+      id: "primitive-components-copytoclipboard--disabled",
+      label: "Disabled",
+    },
+    {
+      id: "primitive-components-copytoclipboard--custom-label-and-color",
+      label: "Custom",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Invoice references** — copy payment ID from finance detail drawers.
+- **Member email** — flat button beside read-only contact fields.
+- **Webhook URLs** — copy integration endpoint from settings with tooltip hint.
+- **Share links** — marketing campaign URLs in analytics views.
+- **Support diagnostics** — copy error correlation IDs from [Error fallback](/components/error-fallback) actions.
+
+## Guidelines
+
+- **Label the action** — button `label` states what is copied ("Copy invoice ID").
+- **value vs label** — pass `value` for the clipboard payload when it differs from button text.
+- **Toast confirms success** — default i18n message; override `toastMessage` for domain copy.
+- **Tooltip on hover** — defaults to "Click to copy"; customize for long values.
+- **Disable when empty** — omit the component or disable when there is nothing to copy.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use a specific label — Copy member ID — instead of a generic Copy button." />
+  <Do caption="Pass value when the displayed label is shortened but the full string should copy." />
+  <Do caption="Keep flat intent so copy sits beside read-only fields without competing with primaries." />
+  <Dont caption="Copy buttons on every table cell — offer row-level copy for the primary identifier." />
+  <Dont caption="Sensitive secrets without access control — copy does not replace permission checks." />
+  <Dont caption="Relying on toast alone for failure — clipboard denial should surface error toast automatically." />
+</DoDont>
+
+### Content rules
+
+Button and toast copy stay short:
+
+> Copy link
+
+> Copied to clipboard
+
+> Unable to copy. Try selecting the text manually.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Tooltip", description: "Wraps the button with hover hint." },
+    {
+      name: "Button",
+      description: "Triggers copy on click; inherits Button props.",
+    },
+    {
+      name: "Toast",
+      description: "Success or error feedback via useCopyToClipboard.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="CopyToClipboard" />
+
+### Behaviors
+
+#### Action button
+
+Click copies `value ?? label` to the system clipboard, prevents default navigation,
+and shows toast on success or failure.
+
+#### Persistence
+
+Toast auto-dismisses per Toast settings. Clipboard content persists in the OS buffer.
+
+### Edge cases
+
+- **Missing value and label** — component returns `null`.
+- **Disabled** — copy does not run; toast suppressed.
+- **Nested in links** — click stops propagation to avoid navigation.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Inherits button semantics from [Button](/components/button). Tooltip provides
+supplementary description on hover/focus.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses the copy button." },
+    {
+      keys: ["Enter", "Space"],
+      description: "Copies value and announces toast.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Button label is announced on focus. Toast content should use a live region (via
+Toast) so success is perceptible.
+
+### Focus management
+
+Focus remains on the button after copy.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — fully operable via keyboard.
+- **4.1.3 Status Messages** — toast communicates copy result.
+- **4.1.2 Name, Role, Value** — button label describes the action.
+
+## Resources
+
+### Storybook
+
+[Open Copy to clipboard in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-copytoclipboard--basic)
+
+### Related components
+
+- **[Button](/components/button)** — base control for styling and intents.
+- **[Toast](/components/toast)** — confirmation channel after copy.
+- **[Tooltip](/components/tooltip)** — hover hint for abbreviated labels.

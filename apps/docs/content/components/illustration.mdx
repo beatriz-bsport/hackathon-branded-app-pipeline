@@ -1,0 +1,147 @@
+---
+title: Illustration [LLM]
+description: Branded spot artwork for empty states, onboarding, and error pages
+status: stable
+category: components
+tags: [display, imagery]
+source: "packages/design-system/kaizen/primitive/core/src/components/Illustration"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Illustration renders curated spot artwork from the Kaizen illustration set. Unlike
+[Icon](/components/icon), illustrations are expressive and larger — they support
+empty states, error fallbacks, and onboarding moments where a neutral icon would
+feel too sparse.
+
+<StorybookEmbed
+  id="primitive-components-illustration--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-illustration--primary", label: "Illustration" },
+    {
+      id: "primitive-components-illustration--all-illustrations",
+      label: "All illustrations",
+    },
+    {
+      id: "primitive-components-illustration--different-sizes",
+      label: "Sizes",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Empty lists** — no members, passes, or templates yet in Studio Manager tables.
+- **Error fallback** — paired with [Error fallback](/components/error-fallback) artwork slots.
+- **Onboarding panels** — first-run education beside [Title](/components/title) and CTA buttons.
+- **Success moments** — completion screens after imports or setup wizards.
+- **Marketing-style modals** — hero art above form content when emotion helps adoption.
+
+## Guidelines
+
+- **One illustration per view** — a single focal artwork; multiple compete for attention.
+- **Match name to scenario** — pick illustrations designed for the empty or error case.
+- **Size to layout** — use documented size tokens; avoid stretching beyond max bounds.
+- **Always pair with copy** — illustration supports the message; Title and Body carry meaning.
+- **Decorative by default** — mark as decorative unless it is the only content on screen.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Center illustration above title and body in empty states with consistent vertical rhythm." />
+  <Do caption="Choose artwork that matches the scenario — empty inbox vs connection error." />
+  <Do caption="Keep accompanying copy actionable with a primary next step." />
+  <Dont caption="Illustrations on every table row dilute scan speed — reserve for zero-data views." />
+  <Dont caption="Replacing Alert icons with illustrations for inline warnings breaks severity patterns." />
+  <Dont caption="Custom raster images bypass token sizing — use Media for photos instead." />
+</DoDont>
+
+### Content rules
+
+Headlines stay short; body explains what happened and what to do next:
+
+> No email templates yet
+
+> Create a template to contact members faster.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "SVG artwork",
+      description: "Named illustration from the registry.",
+    },
+    {
+      name: "Size wrapper",
+      description: "Constrains max dimensions per size prop.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Illustration" />
+
+### Behaviors
+
+#### Responsiveness
+
+Illustrations scale down within their max size container; center in flexible layouts.
+
+### Edge cases
+
+- **Unknown illustration name** — verify against Storybook "All illustrations" list before shipping.
+- **Dark mode** — confirm artwork reads on both themes when used on `surface-default`.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Follow Storybook accessibility examples: decorative illustrations should use
+`aria-hidden="true"` when adjacent text conveys the message.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[{ keys: ["Tab"], description: "Illustration is not focusable." }]}
+/>
+
+### Screen reader behavior
+
+Do not rely on illustration alone to communicate errors or empty states — visible
+and programmatic headings must repeat the message.
+
+### Focus management
+
+Move focus to the primary action button after empty-state render when it is the
+main exit from the dead end.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — text paired with illustration still must meet contrast.
+- **4.1.2 Name, Role, Value** — headings label the state, not the artwork.
+
+## Resources
+
+### Storybook
+
+[Open Illustration in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-illustration--primary)
+
+### Related components
+
+- **[Error fallback](/components/error-fallback)** — layout shell that often hosts illustrations.
+- **[Media](/components/media)** — photos and uploads, not spot SVG art.
+- **[Icon](/components/icon)** — small functional glyphs beside labels.

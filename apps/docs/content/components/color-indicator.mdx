@@ -1,0 +1,148 @@
+---
+title: Color indicator [LLM]
+description: A small color swatch for categories, tags, or calendar color coding
+status: stable
+category: components
+tags: [display, metadata]
+source: "packages/design-system/kaizen/primitive/core/src/components/ColorIndicator"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Color indicator renders a solid color sample as either a vertical line or a
+rounded block. It encodes category color, room color, or tag color beside labels
+in lists and filters — the color carries meaning only when explained in adjacent text.
+
+<StorybookEmbed
+  id="primitive-components-colorindicator--primary"
+  mode="playground"
+  height={400}
+  stories={[
+    {
+      id: "primitive-components-colorindicator--primary",
+      label: "Color indicator",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Activity categories** — line indicator at the start of a list row in scheduling.
+- **Room or resource color** — block swatch beside venue name in booking settings.
+- **Tag color preview** — in tag management before saving a hex value.
+- **Legend entries** — paired with category name in filter sidebars.
+- **Calendar list items** — via [List item](/components/list-item) `color` prop.
+
+## Guidelines
+
+- **Never color alone** — always show the category or tag name beside the swatch.
+- **Line in rows** — `type="line"` fills row height in dense lists.
+- **Block in forms** — `type="block"` for picker previews and legends.
+- **Valid CSS colors** — pass hex or token-backed values the design system allows.
+- **Consistent mapping** — one color per category across calendar, list, and filters.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+Relying on color alone fails WCAG 1.4.1 — pair every swatch with a text label or icon.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Repeat the category name next to the swatch in every list row." />
+  <Do caption="Use line type in full-height list items for quick scanning." />
+  <Do caption="Keep hex values in sync with backend category color fields." />
+  <Dont caption="Different colors for the same category in calendar vs list views." />
+  <Dont caption="Tiny block swatches as the only filter label in a toolbar." />
+  <Dont caption="Critical status encoded only with red/green swatches — use Badge or Alert." />
+</DoDont>
+
+### Content rules
+
+Labels carry meaning; the swatch reinforces:
+
+> Strength
+
+> Room A — Main studio
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Swatch",
+      description: "div with inline backgroundColor from the color prop.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ColorIndicator" />
+
+### Behaviors
+
+#### Responsiveness
+
+Line type stretches to container height. Block type uses fixed token dimensions per size.
+
+### Edge cases
+
+- **Invalid color string** — browser may ignore; validate hex on save in forms.
+- **Transparent colors** — may disappear on weak surfaces; avoid alpha-only values.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Decorative when redundant with visible text — use `aria-hidden="true"`. If color
+is the only differentiator, add visible text or `aria-label` on the parent row.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Not focusable alone; follows parent list item.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Screen readers do not announce background color — the adjacent title must include
+the category name.
+
+### Focus management
+
+Not applicable.
+
+### WCAG criteria
+
+- **1.4.1 Use of Color** — require text labels alongside swatches.
+- **1.4.3 Contrast (Minimum)** — swatch border against surface if needed for visibility.
+- **4.1.2 Name, Role, Value** — row accessible name includes category text.
+
+## Resources
+
+### Storybook
+
+[Open Color indicator in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-colorindicator--primary)
+
+### Related components
+
+- **[List](/components/list)** — passes color into list items for category stripes.
+- **[Chip](/components/chip)** — text labels with optional customColor for named tags.
+- **[Badge](/components/badge)** — textual status when color coding is insufficient.

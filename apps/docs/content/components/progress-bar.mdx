@@ -1,0 +1,157 @@
+---
+title: Progress bar [LLM]
+description: A determinate bar for known completion percentage with optional label and message
+status: stable
+category: components
+tags: [feedback, status]
+source: "packages/design-system/kaizen/primitive/core/src/components/ProgressBar"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Progress bar visualizes completion from 0 to 100 when you know how far an operation
+has advanced — imports, uploads, campaign sends, or onboarding checklists. Pair
+`label` and `message` for context; use [Loader](/components/loader) when duration
+is unknown.
+
+<StorybookEmbed
+  id="primitive-components-progressbar--progress-bar-transition"
+  mode="playground"
+  height={500}
+  stories={[
+    {
+      id: "primitive-components-progressbar--progress-bar-transition",
+      label: "Transition",
+    },
+    {
+      id: "primitive-components-progressbar--progress-bar-with-label",
+      label: "With label",
+    },
+    {
+      id: "primitive-components-progressbar--progress-bar-lg-critical",
+      label: "Critical",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **CSV import** — rows processed count during member import.
+- **File upload** — byte progress in [File upload](/components/file-upload) handoff views.
+- **Email campaign** — delivery progress in marketing analytics.
+- **Setup wizard** — checklist completion on studio onboarding.
+- **Quota usage** — subscription limit consumption with `status="critical"` near cap.
+
+## Guidelines
+
+- **Clamp values** — component clamps to 0–100; pass accurate percentages from backend.
+- **Status matches tone** — `main` default, `positive` success path, `critical` risk or failure.
+- **Size by prominence** — `sm` inline, `md` in cards, `lg` for hero progress moments.
+- **Label when space allows** — percent or step name helps scanning.
+- **Transition smoothly** — abrupt jumps unsettle users on fast polling — debounce updates.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Update value from real job progress, not fake timers." />
+  <Do caption="Switch to success state or navigate away when value reaches 100." />
+  <Do caption="Use critical status when the user must act before hitting a hard limit." />
+  <Dont caption="Indeterminate waits belong in Loader, not a stuck 0% bar." />
+  <Dont caption="Progress bars that run backward without explanation." />
+  <Dont caption="Multiple bars for the same job in header and body." />
+</DoDont>
+
+### Content rules
+
+Labels are short; messages add detail:
+
+> 48%
+
+> Importing members — 240 of 500 rows
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Track", description: "Weak status-colored background rail." },
+    { name: "Fill", description: "Width set by value percentage." },
+    {
+      name: "Label and message",
+      description: "Optional Body text above or beside the bar.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ProgressBar" />
+
+### Behaviors
+
+#### Responsiveness
+
+Bar is full width of container; height from size token.
+
+### Edge cases
+
+- **value 0** — empty fill; show message explaining work not started.
+- **value over 100** — clamped to 100.
+- **Missing label** — bar alone is acceptable when adjacent copy explains context.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Consider `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`
+on the container — verify implementation in source when auditing.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Progress bar is not focusable unless wrapped in interactive UI.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce percentage changes via `aria-live="polite"` on the region when value updates frequently.
+
+### Focus management
+
+Not applicable for static display.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — fill vs track uses status weak surfaces.
+- **4.1.2 Name, Role, Value** — expose value programmatically when progress is essential.
+
+## Resources
+
+### Storybook
+
+[Open Progress bar in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-progressbar--progress-bar-transition)
+
+### Related components
+
+- **[Loader](/components/loader)** — indeterminate wait.
+- **[Analytic card](/components/analytic-card)** — KPI display without continuous progress.
+- **[Toast](/components/toast)** — completion notice after bar reaches 100%.
+
+## TO CLARIFY
+
+- Confirm whether Kaizen should add native `role="progressbar"` attributes on the root element.

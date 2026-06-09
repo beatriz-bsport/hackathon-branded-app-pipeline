@@ -15,5 +15,19 @@
   {
     "group": "Reference",
     "items": ["tokens", "icons"]
+  },
+  {
+    "group": "Content",
+    "href": "content",
+    "items": [
+      "content/principles",
+      "content/voice-and-tone",
+      "content/style",
+      "content/grammar",
+      "content/inclusive-language",
+      "content/accessibility",
+      "content/localisation",
+      "content/locale-guides"
+    ]
   }
 ]

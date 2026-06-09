@@ -1,0 +1,174 @@
+---
+title: Accordion [LLM]
+description: Stacked expandable sections with one or more panels open at a time
+status: stable
+category: components
+tags: [layout, disclosure]
+source: "packages/design-system/kaizen/primitive/core/src/components/Accordion"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Accordion groups related content into expandable sections. Each
+`Accordion.Item` has a header trigger, optional header actions, and collapsible
+body content built on [Collapse](/components/collapse). Use it for FAQs, dense
+settings pages, and multi-part forms where users need progressive disclosure.
+
+<StorybookEmbed
+  id="primitive-components-accordion--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-accordion--primary", label: "Accordion" },
+    {
+      id: "primitive-components-accordion--with-header-actions",
+      label: "Header actions",
+    },
+    {
+      id: "primitive-components-accordion--with-set-open-ref",
+      label: "Programmatic open",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Settings clusters** — billing, notifications, and integrations on one page.
+- **FAQ blocks** — help content in marketing or onboarding drawers.
+- **Filter education** — explain advanced filters collapsed by default.
+- **Inspection panels** — optional detail under a summary row in finance exports.
+- **Multi-section create flows** — on-page instead of [Stepper](/components/stepper) when steps are optional.
+
+## Guidelines
+
+- **ariaLabel on every item** — required accessible name for the header trigger.
+- **Meaningful headers** — header slot shows title and metadata; chevron is automatic.
+- **Header actions are real buttons** — separate from the expand trigger to avoid nested buttons.
+- **Initially open sparingly** — expand the first or most critical section only.
+- **Prefer Accordion over many Collapse** — consistent spacing and chevron behavior.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+Accordion is marked unvalidated in source — confirm visual spec with design before marketing-facing pages.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Write ariaLabel that matches the visible header text for screen readers." />
+  <Do caption="Keep header actions secondary — edit or menu — separate from expand hit target." />
+  <Do caption="Use initiallyOpen on the section users most likely need first." />
+  <Dont caption="Ten accordion items with no search — long pages need tabs or split routes." />
+  <Dont caption="Critical warnings hidden in a collapsed panel users may never open." />
+  <Dont caption="Nesting accordions more than one level — flatten or use a drill-in page." />
+</DoDont>
+
+### Content rules
+
+Header titles are scannable nouns; body copy can be longer:
+
+> Payout settings
+
+> Choose how often we transfer funds to your bank account.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Accordion root",
+      description: "Vertical stack with gap-lg between items.",
+    },
+    {
+      name: "Item header",
+      description: "Button trigger with chevron and optional headerActions.",
+    },
+    { name: "Item content", description: "Collapse body revealed when open." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Accordion" />
+
+### Behaviors
+
+#### Dismissal
+
+Sections toggle independently unless you coordinate state externally via `setOpenRef`.
+
+#### Action button
+
+`headerActions` render between label and chevron — clicks do not toggle collapse when using real buttons.
+
+### Edge cases
+
+- **setOpenRef** — parent can open/close programmatically for deep links to a section.
+- **Long content** — body scrolls inside page scroll; no max-height enforced by default.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Header uses `role="button"` with `aria-expanded` and `aria-controls` wired through Collapse. Each item requires `ariaLabel`.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves through header triggers and header action controls.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Toggles section open state on the header trigger.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Expanded state is announced via `aria-expanded`. Panel content is linked by `id`.
+
+### Focus management
+
+Focus remains on trigger after toggle unless you move it programmatically.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — expand/collapse without pointer.
+- **4.1.2 Name, Role, Value** — ariaLabel on each item.
+
+## Resources
+
+### Storybook
+
+[Open Accordion in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-accordion--primary)
+
+### Related components
+
+- **[Collapse](/components/collapse)** — lower-level primitive Accordion builds on.
+- **[Tabs](/components/tabs)** — mutual exclusive sections with always-visible labels.
+- **[Details layout](/components/details-layout)** — page shell with persistent panel.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Design validation** — Component JSDoc notes `@unvalidated`; treat spacing and chevron as subject to design review.
+
+## TO CLARIFY
+
+- Confirm whether only one section should be open at a time (exclusive mode) for certain product flows.

@@ -1,0 +1,149 @@
+---
+title: Blanket [LLM]
+description: The dimmed overlay scrim behind modals and blocking overlays
+status: stable
+category: components
+tags: [overlays, layout]
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Blanket is not a standalone React component in Kaizen — it is the **surface token**
+(`surface-blanket`) applied behind [Modal](/components/modal), [Detail drawer](/components/detail-drawer),
+and private `Dialog` overlays. The scrim dims the page, signals modality, and captures
+pointer events outside the foreground panel.
+
+The blanket layer is a full-viewport semi-transparent fill between page content and
+the overlay panel. Users understand that interaction is temporarily scoped to the
+dialog until they dismiss it or complete the task.
+
+### Use cases
+
+- **Modal dialogs** — confirm delete, edit forms, multi-step [Stepper](/components/stepper).
+- **Detail drawer** — partial-height panel over list views.
+- **Crash report modal** — secondary layer from [Error fallback](/components/error-fallback).
+- **Blocking maintenance** — rare full-screen system messages (prefer [Alert](/components/alert) banner when non-modal).
+- **Nested overlays** — second blanket darkens further only when product allows stacking.
+
+## Guidelines
+
+- **Do not hand-roll scrims** — use Modal/Drawer components that apply `bg-surface-blanket`.
+- **One blocking layer** — avoid triple-stacked blankets; refactor flow to single modal.
+- **Click outside** — blanket click may close dismissible dialogs; destructive flows disable it.
+- **Motion** — fade in/out with panel open transition (~default duration token).
+- **Not for hover** — blankets block the page; popovers use lighter overlays.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use Modal or Drawer primitives so blanket z-index and focus trap stay consistent." />
+  <Do caption="Match blanket opacity to design token — do not hardcode rgba values." />
+  <Do caption="Close on blanket click only when data loss is impossible or confirmed." />
+  <Dont caption="Custom fixed divs with arbitrary opacity — breaks theme and dark mode." />
+  <Dont caption="Blanket on non-blocking tooltips or menus." />
+  <Dont caption="Leaving blanket mounted after panel closes — causes invisible click blocking." />
+</DoDont>
+
+### Content rules
+
+Blanket has no text — all copy lives in the foreground panel.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Scrim",
+      description: "Fixed inset-0 layer using surface-blanket token.",
+    },
+    {
+      name: "Foreground panel",
+      description: "Modal, drawer, or dialog above z-index stack.",
+    },
+  ]}
+/>
+
+### Props
+
+No public props — consumed internally by overlay components. Token reference:
+
+- CSS: `--kz-color-surface-blanket`
+- Tailwind: `bg-surface-blanket`
+
+### Behaviors
+
+#### Dismissal
+
+Pointer click on scrim propagates to parent dialog close handler when enabled.
+
+#### Persistence
+
+Mounted while `open={true}` on parent overlay; unmounts with panel.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Scrim is typically `pointer-events` only; inert background via `aria-hidden` on page content when modal uses inert polyfill or focus trap.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Escape"],
+      description: "Closes overlay when parent supports escape dismiss.",
+    },
+    {
+      keys: ["Tab"],
+      description: "Focus trapped in foreground panel, not on scrim.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Background content should be inert or hidden while modal is open.
+
+### Focus management
+
+Focus moves to panel on open; returns to trigger on close.
+
+### WCAG criteria
+
+- **2.4.3 Focus Order** — focus trap in modal.
+- **1.4.3 Contrast (Minimum)** — panel content contrast independent of scrim.
+
+## Resources
+
+### Storybook
+
+See overlay components that implement the blanket:
+
+[Open Modal in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-modal--modal-short)
+
+### Related components
+
+- **[Modal](/components/modal)** — primary dialog with blanket.
+- **[Detail drawer](/components/detail-drawer)** — side panel overlay.
+- **[Popover](/components/popover)** — non-blocking; no full blanket.
+
+### Known issues
+
+#### Implementation gaps
+
+- **No exported Blanket primitive** — docs page describes token + pattern; engineers must not duplicate scrim markup.
+
+## TO CLARIFY
+
+- Whether a dedicated `Blanket` primitive should be exported for custom overlays or remain internal to Dialog/Modal.

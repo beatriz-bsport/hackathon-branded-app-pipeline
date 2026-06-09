@@ -4,7 +4,7 @@ const DEFAULT_BASE = "https://docs.infra.bsport.io/storybook/kaizen/dev";
 const STORYBOOK_BASE =
   import.meta.env.VITE_STORYBOOK_BASE_URL?.trim() || DEFAULT_BASE;
 const DEFAULT_MODE = "playground";
-const DEFAULT_HEIGHT = 520;
+const DEFAULT_HEIGHT = 700;
 const STORYBOOK_THEME = "light";
 
 type StorybookEmbedMode = "playground" | "preview";

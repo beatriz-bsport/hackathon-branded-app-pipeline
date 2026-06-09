@@ -1,0 +1,146 @@
+---
+title: Layout [LLM]
+description: Page shells that structure header, content, and side panels in Studio Manager
+status: stable
+category: components
+tags: [layout, structure]
+source: "packages/design-system/kaizen/primitive/core/src/components/ListLayout"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Layout in Kaizen docs refers to the **page shell composables** that frame Studio
+Manager views — not a single `Layout` primitive. Use [List layout](/components/list-layout)
+for collection pages, [Details layout](/components/details-layout) for master-detail,
+and [Header layout](/components/header-layout) for title and action bars.
+
+<StorybookEmbed
+  id="primitive-components-listlayout--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-listlayout--primary",
+      label: "List layout",
+    },
+    {
+      id: "primitive-components-detailslayout--primary",
+      label: "Details layout",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Standard list page** — `ListLayout` + [List](/components/list) + filters.
+- **Record detail** — `DetailsLayout` with panel for related entities.
+- **Settings form page** — `HeaderLayout` + form sections without side panel.
+- **Federated SM apps** — each micro-frontend exports content into shell slots.
+- **Drawer complement** — list layout with [Detail drawer](/components/detail-drawer) on narrow widths.
+
+## Guidelines
+
+- **Pick shell by job** — list vs detail vs settings, not one generic wrapper.
+- **Header actions consistent** — primary action top-right per Header layout spec.
+- **Panel optional** — Details layout panel toggles for secondary context.
+- **Respect federation bridge** — local dev injects navigation sidebar via `dev:watch`.
+- **Do not nest shells** — one layout component per route root.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use ListLayout when the primary task is browsing a collection." />
+  <Do caption="Use DetailsLayout when users edit one record with related side context." />
+  <Do caption="Keep page title in HeaderLayout synchronized with document title." />
+  <Dont caption="Custom page padding that fights layout gutters — use layout slots." />
+  <Dont caption="Multiple competing headers from layout and ad-hoc Title stacks." />
+  <Dont caption="Details panel for primary form fields — main content owns the form." />
+</DoDont>
+
+### Content rules
+
+Page titles in header:
+
+> Members
+
+> Pass settings
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Header region",
+      description: "Title, breadcrumbs, actions from HeaderLayout.",
+    },
+    { name: "Content region", description: "Primary scrollable work area." },
+    {
+      name: "Panel region",
+      description: "Optional side context in DetailsLayout.",
+    },
+  ]}
+/>
+
+### Props
+
+See dedicated layout component pages for props — `ListLayout`, `DetailsLayout`, `HeaderLayout`.
+
+### Behaviors
+
+#### Responsiveness
+
+Details panel may collapse to drawer on narrow breakpoints per Details layout behavior.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Use `main` landmark for content; `nav` for side navigation from shell.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Follows header → content → panel order." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Single `h1` per page from layout header.
+
+### Focus management
+
+Route transitions focus main heading.
+
+### WCAG criteria
+
+- **2.4.1 Bypass Blocks** — skip link in app shell.
+- **2.4.6 Headings and Labels** — one clear page `h1`.
+
+## Resources
+
+### Storybook
+
+[Open List layout in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-listlayout--primary)
+
+### Related components
+
+- **[List layout](/components/list-layout)** — list collection shell.
+- **[Details layout](/components/details-layout)** — master-detail shell.
+- **[Header layout](/components/header-layout)** — title and actions bar.
+- **[Panel](/components/panel)** — details layout side panel documentation alias.
+
+## TO CLARIFY
+
+- Whether `layout.mdx` should redirect to a pattern page vs documenting shells collectively (current approach).

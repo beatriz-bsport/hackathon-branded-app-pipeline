@@ -12,7 +12,10 @@ import {
   BOOKING_HOUR_RANGE_DEFAULT_HOUR,
   BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
 } from "../constants";
-import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_TOTAL_BOOKING_SUB_FILTERS,
+  REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import {
   TOTAL_BOOKING_SUB_FILTER_IDS,
   type TotalBookingSubFilterField,
@@ -145,9 +148,8 @@ export const TotalBookingSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_TOTAL_BOOKING_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

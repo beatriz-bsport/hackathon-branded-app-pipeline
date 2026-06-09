@@ -1,6 +1,6 @@
 import type { BasketAbandonmentFilter } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import { REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS } from "../sub-filters/registry";
 import type { BasketAbandonmentFilterFormValue } from "../types";
@@ -28,6 +28,7 @@ export const mapBasketAbandonmentFilterToFormValue = (
     smartlist: filter.smartlist,
     subFilters,
     basketValue: toFormBasketValueSection(filter),
-    abandonmentDate: partialForm.abandonmentDate ?? defaultDateFilterValue,
+    abandonmentDate:
+      partialForm.abandonmentDate ?? createDefaultDateFilterValue(),
   };
 };

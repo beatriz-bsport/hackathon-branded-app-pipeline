@@ -1,6 +1,6 @@
 import { EXPENSES_COMPLETE_BUYABLE_DISPLAY_ORDER } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 import type { PurchaseHistoryFilterFormValue } from "./types";
@@ -20,5 +20,5 @@ export const createDefaultPurchaseHistoryFilter = (
   },
   spentOn: [...EXPENSES_COMPLETE_BUYABLE_DISPLAY_ORDER],
   subFilters: [],
-  purchaseDate: defaultDateFilterValue,
+  purchaseDate: createDefaultDateFilterValue(),
 });

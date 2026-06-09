@@ -21,3 +21,5 @@ export * from "./filter/referred-members/types";
 export * from "./filter/tag/types";
 export * from "./filter/terms-and-conditions/types";
 export * from "./filter/total-booking/types";
+export * from "./filter/internal-notes/constants";
+export * from "./filter/internal-notes/types";

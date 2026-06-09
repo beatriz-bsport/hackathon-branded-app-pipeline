@@ -9,7 +9,10 @@ import {
   type ReferredMembersSubFilterId,
   referredMembersSubFilterFieldMap,
 } from "../sub-filters/referred-members-sub-filter-id";
-import { REGISTERED_REFERRED_MEMBERS_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_REFERRED_MEMBERS_SUB_FILTERS,
+  REGISTERED_REFERRED_MEMBERS_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import type { ReferredMembersFilterFormValue } from "../types";
 
 type ReferredMembersSubFiltersAreaProps = {
@@ -63,9 +66,8 @@ export const ReferredMembersSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_REFERRED_MEMBERS_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_REFERRED_MEMBERS_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

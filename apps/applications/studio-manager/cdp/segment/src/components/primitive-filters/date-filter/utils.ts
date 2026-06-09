@@ -18,7 +18,10 @@ import type {
   RelativeDateOperator,
 } from "./types";
 
-export const defaultDateFilterValue: DateFilterValue = {
+/**
+ * Returns a fresh default date filter value for form state (avoids shared mutable references).
+ */
+export const createDefaultDateFilterValue = (): DateFilterValue => ({
   dateType: DATE_FILTER_TYPES.absolute,
   absolute: {
     operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
@@ -30,7 +33,7 @@ export const defaultDateFilterValue: DateFilterValue = {
     firstDays: null,
     secondDays: null,
   },
-};
+});
 
 /**
  * Safely parses an ISO date and returns null if parsing fails.

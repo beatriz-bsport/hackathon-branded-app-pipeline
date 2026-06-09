@@ -80,6 +80,9 @@
       },
       "liabilityWaiver": {
         "description": "Filter members by whether they accepted the liability waiver."
+      },
+      "internalNotes": {
+        "description": "Filter members by whether they have internal notes, optionally by note type and creation date."
       }
     }
   },
@@ -674,6 +677,38 @@
         "saveSuccess": "Liability waiver filter saved.",
         "deleteError": "Unable to delete liability waiver filter.",
         "invalidFilter": "Invalid filter."
+      }
+    },
+    "104": {
+      "title": "Has internal notes",
+      "actions": {
+        "deleteFilter": "Delete internal notes filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "noteType": {
+          "essential": "Essential Note",
+          "medical": "Medical Note",
+          "both": "Both"
+        }
+      },
+      "subFilters": {
+        "noteCreationDate": "Note creation date"
+      },
+      "toasts": {
+        "saveError": "Unable to save internal notes filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete internal notes filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "noteCreationDateRequired": "Select a note creation date.",
+        "noteCreationDateBetweenRequired": "Select both dates for the between range.",
+        "noteCreationDateDurationRequired": "Enter a number of days.",
+        "noteCreationDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
     "106": {

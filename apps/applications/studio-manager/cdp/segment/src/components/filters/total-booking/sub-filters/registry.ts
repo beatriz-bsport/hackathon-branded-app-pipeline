@@ -6,6 +6,7 @@ import { coachTotalBookingSubFilterModule } from "./coach/module";
 import { establishmentTotalBookingSubFilterModule } from "./establishment/module";
 import { levelTotalBookingSubFilterModule } from "./level/module";
 import { paymentPackTotalBookingSubFilterModule } from "./payment-pack/module";
+import type { TotalBookingSubFilterId } from "./total-booking-sub-filter-id";
 import type { TotalBookingSubFilterModule } from "./total-booking-sub-filter-module-contract";
 
 export const REGISTERED_TOTAL_BOOKING_SUB_FILTERS = [
@@ -18,3 +19,12 @@ export const REGISTERED_TOTAL_BOOKING_SUB_FILTERS = [
   bookingHourRangeTotalBookingSubFilterModule,
   levelTotalBookingSubFilterModule,
 ] as const satisfies readonly TotalBookingSubFilterModule[];
+
+export const REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID =
+  REGISTERED_TOTAL_BOOKING_SUB_FILTERS.reduce(
+    (accumulator, subFilterModule) => {
+      accumulator[subFilterModule.id] = subFilterModule;
+      return accumulator;
+    },
+    {} as Record<TotalBookingSubFilterId, TotalBookingSubFilterModule>,
+  );

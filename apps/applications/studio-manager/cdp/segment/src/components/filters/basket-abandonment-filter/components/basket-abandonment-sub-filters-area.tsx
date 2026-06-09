@@ -1,7 +1,7 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -9,7 +9,10 @@ import {
   type BasketAbandonmentSubFilterId,
   basketAbandonmentSubFilterFieldMap,
 } from "../sub-filters/basket-abandonment-sub-filter-id";
-import { REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS,
+  REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import type { BasketAbandonmentFilterFormValue } from "../types";
 
 type BasketAbandonmentSubFiltersAreaProps = {
@@ -52,7 +55,7 @@ export const BasketAbandonmentSubFiltersArea = ({
       { shouldDirty: true },
     );
     const fieldToReset = basketAbandonmentSubFilterFieldMap[subFilterId];
-    setValue(fieldToReset, defaultDateFilterValue, {
+    setValue(fieldToReset, createDefaultDateFilterValue(), {
       shouldDirty: true,
     });
   };
@@ -64,9 +67,8 @@ export const BasketAbandonmentSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

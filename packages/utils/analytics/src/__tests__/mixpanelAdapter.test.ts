@@ -36,6 +36,37 @@ describe("MixpanelAdapter", () => {
     );
   });
 
+  it("routes data to Mixpanel EU servers by default", () => {
+    const spy = vi.spyOn(adapter.instance, "init");
+
+    adapter.configure(BASE_CONFIG);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({
+        api_host: "https://api-eu.mixpanel.com",
+      }),
+      instanceName,
+    );
+  });
+
+  it("allows overriding api_host via configure", () => {
+    const spy = vi.spyOn(adapter.instance, "init");
+
+    adapter.configure({
+      ...BASE_CONFIG,
+      api_host: "https://api.mixpanel.com",
+    });
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({
+        api_host: "https://api.mixpanel.com",
+      }),
+      instanceName,
+    );
+  });
+
   it("tracks an event after init", () => {
     adapter.configure(BASE_CONFIG);
     const spy = vi.spyOn(adapter.instance, "track");

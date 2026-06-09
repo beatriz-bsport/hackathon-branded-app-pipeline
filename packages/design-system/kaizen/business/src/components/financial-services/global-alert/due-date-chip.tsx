@@ -1,14 +1,13 @@
 import React from "react";
 
-import { getDaysUntil } from "@bsport/datetime-manipulation";
-import type { DateTime } from "@bsport/datetime-manipulation";
+import { fromIsoString, getDaysUntil } from "@bsport/datetime-manipulation";
 import { Chip } from "@bsport/kaizen-primitive-core";
 
 import type { GlobalAlertSeverity } from "#src/components/financial-services/global-alert/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 type DueDateChipProps = {
-  dueDate: DateTime;
+  dueDate: string;
   severity: GlobalAlertSeverity;
 };
 
@@ -28,7 +27,7 @@ export const DueDateChip: React.FC<DueDateChipProps> = ({
 }) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
 
-  const diffDays = getDaysUntil(dueDate);
+  const diffDays = getDaysUntil(fromIsoString(dueDate));
 
   if (diffDays < 0) return null;
 

@@ -1,0 +1,149 @@
+---
+title: Drag and drop [LLM]
+description: Kanban-style boards for dragging items between columns or categories
+status: stable
+category: components
+tags: [interaction, layout]
+source: "packages/design-system/kaizen/primitive/core/src/components/DragAndDrop"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Drag and drop provides column-based boards where users drag cards between categories —
+task status, pipeline stages, or grouping workflows. It complements [Sortable list](/components/sortable-list)
+for two-dimensional moves rather than linear reorder.
+
+<StorybookEmbed
+  id="primitive-components-draganddrop--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-draganddrop--primary",
+      label: "Drag and drop",
+    },
+    {
+      id: "primitive-components-draganddrop--accessible-drag-and-drop",
+      label: "Accessible variant",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Internal task boards** — move items between In progress and Done columns.
+- **Lead pipeline** — sales stages in CRM-style admin tools.
+- **Content staging** — draft vs published groupings.
+- **Category assignment** — drag activities into schedule groups.
+- **Workshop planning** — optional admin layouts (not member-facing mobile).
+
+## Guidelines
+
+- **Column titles visible** — each drop zone labeled.
+- **Empty columns** — show drop target affordance when column has zero items.
+- **Persist on drop** — API update with optimistic UI and error toast on failure.
+- **Accessible variant** — use accessible story patterns; do not rely on drag alone.
+- **Not for long lists** — paginated tables need different interaction models.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use AccessibleDragAndDrop patterns when shipping to keyboard-only users." />
+  <Do caption="Highlight valid drop zones during drag." />
+  <Do caption="Limit column count to what fits without horizontal scroll on laptop." />
+  <Dont caption="Drag-and-drop as the only path to change critical billing state." />
+  <Dont caption="Tiny drag handles on mobile breakpoints without alternative UI." />
+  <Dont caption="Mixing drag board with real-time multi-user edits without conflict handling." />
+</DoDont>
+
+### Content rules
+
+Column headers name state clearly:
+
+> In progress
+
+> Completed
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Columns", description: "Category containers with titles." },
+    { name: "Draggable cards", description: "Items with drag sensors." },
+    {
+      name: "Drop indicators",
+      description: "Visual feedback for valid targets.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="DragAndDrop" />
+
+### Behaviors
+
+#### Persistence
+
+Parent updates item `category` on drop; rollback on API error.
+
+### Edge cases
+
+- **Drag cancelled** — item snaps back to origin column.
+- **Same column reorder** — may delegate to sortable within column if supported.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Accessible variant should expose keyboard move actions; verify AccessibleDragAndDrop story implementation.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Focuses move controls in accessible variant.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce column changes when keyboard move completes.
+
+### Focus management
+
+Focus follows moved item when using keyboard alternatives.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — accessible variant required for compliance-sensitive flows.
+- **4.1.2 Name, Role, Value** — columns and items named.
+
+## Resources
+
+### Storybook
+
+[Open Drag and drop in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-draganddrop--primary)
+
+### Related components
+
+- **[Sortable list](/components/sortable-list)** — one-dimensional reorder.
+- **[Nested sortable list](/components/nested-sortable-list)** — hierarchical lists.
+- **[Card](/components/card)** — card content inside draggable tiles.
+
+## TO CLARIFY
+
+- Product scope for drag-and-drop vs sortable-only in Studio Manager modules.

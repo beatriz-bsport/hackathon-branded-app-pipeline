@@ -1,0 +1,153 @@
+---
+title: Filter [LLM]
+description: Chip-based filter bar with categories, values, and reset for list views
+status: stable
+category: components
+tags: [forms, data]
+source: "packages/design-system/kaizen/primitive/core/src/components/Filter"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Filter renders a horizontal bar of filter categories and applied values as
+[Chip](/components/chip) tokens. Users add constraints from dropdowns, see active
+filters at a glance, and reset the set. It targets Studio Manager list pages —
+members, passes, sessions — not global search.
+
+<StorybookEmbed
+  id="primitive-components-filter--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-filter--primary", label: "Filter" },
+    { id: "primitive-components-filter--reset-filters", label: "Reset" },
+    {
+      id: "primitive-components-filter--filter-with-search",
+      label: "With search",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Member list** — status, tag, and location facets.
+- **Session calendar list** — coach, venue, and activity filters.
+- **Finance transactions** — date range and payment method chips.
+- **Marketing campaigns** — channel and state filters.
+- **Empty result recovery** — reset clears chips to broaden results.
+
+## Guidelines
+
+- **Reflect URL or store** — sync filters with query params for shareable list URLs.
+- **Reset is visible** — one control clears all active filters.
+- **Category labels** — name facets ("Status", "Coach") before values.
+- **Avoid duplicate search** — separate [Text field](/components/text-field) search from facet chips when both exist.
+- **Single-choice facets** — use single-select mode per category when only one value applies.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Persist filters in the URL so refresh and share links keep context." />
+  <Do caption="Show count of active filters on mobile collapse if bar wraps." />
+  <Do caption="Remove one chip at a time via dismiss on the chip." />
+  <Dont caption="Twenty categories without grouping — split into advanced panel." />
+  <Dont caption="Filters that do not affect the list — every chip must trigger query." />
+  <Dont caption="Reset that also clears unrelated search text without warning." />
+</DoDont>
+
+### Content rules
+
+Chip values stay short:
+
+> Active
+
+> Coach: Emma
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Category triggers",
+      description: "Open menus to pick filter values.",
+    },
+    { name: "Active chips", description: "Applied filters with dismiss." },
+    { name: "Reset control", description: "Clears all filters." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Filter" />
+
+### Behaviors
+
+#### Dismissal
+
+Per-chip dismiss removes one constraint; reset clears all.
+
+#### Persistence
+
+Should mirror parent filter state; remount restores from URL if synced.
+
+### Edge cases
+
+- **Zero results** — pair list empty state with suggestion to reset filters.
+- **Single category** — still show reset for consistency.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Category buttons need accessible names; chips need dismiss labels ("Remove Status: Active").
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves through category buttons, chips, and reset.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Opens category menu or activates chip dismiss.",
+    },
+    { keys: ["Escape"], description: "Closes open filter menus." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce filter changes when list updates; consider polite live region on result count.
+
+### Focus management
+
+Return focus to category trigger after menu selection when possible.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — operate filters without pointer.
+- **4.1.2 Name, Role, Value** — chip and button names describe filters.
+
+## Resources
+
+### Storybook
+
+[Open Filter in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-filter--primary)
+
+### Related components
+
+- **[Chip](/components/chip)** — visual token for applied values.
+- **[Dropdown menu](/components/dropdown-menu)** — category value picking.
+- **[List](/components/list)** — primary consumer of filtered data.

@@ -1,216 +1,415 @@
 ---
 title: Alert
-description: Inform users about important information, changes in status, or required actions.
+description: A persistent inline banner for important messages that need attention while the user stays on the page
+status: stable
 category: components
+tags: [feedback, status]
 source: "packages/design-system/kaizen/primitive/core/src/components/Alert"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Alerts communicate feedback on user actions, system events, or contextual information that requires attention.
-
-Alerts are used to inform users about important information, changes in status, or required actions. They effectively communicate feedback on user actions, system events, or contextual information, ensuring users are aware of key messages or warnings within the application .Communicate critical information that requires user attention (e.g. warnings, errors, system messages).
-
-### Use cases
-
-- _Success confirmations:_ Show success messages for important operations like saves or sync.
-- _Warnings_: Alert users of potential issues like missing configuration or feature limitations
-- _Error messages:_ Display prominent error messages that require user's attention
-
-## Guidelines
-
-### Examples
+Alert is a persistent inline banner that surfaces important feedback, system
+events, or contextual warnings while the user remains on the page. It stays in
+the layout until you remove it or the user dismisses it — unlike
+[Toast](/components/toast), which is transient and viewport-fixed. Use Alert
+when the message should stay visible, may need an action, or blocks part of the
+workflow until acknowledged.
 
 <StorybookEmbed
   id="primitive-components-alert--primary"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
-    {
-      id: "primitive-components-alert--primary",
-      label: "Alert",
-    },
+    { id: "primitive-components-alert--primary", label: "Alert" },
     {
       id: "primitive-components-alert--no-title-short-children",
-      label: "No title, short children",
+      label: "Body only",
     },
     {
       id: "primitive-components-alert--inline-layout",
       label: "Inline layout",
     },
+    {
+      id: "primitive-components-alert--title-no-children",
+      label: "Title only",
+    },
   ]}
 />
 
+### Use cases
+
+- **Platform-wide block** — global outage, scheduled maintenance, or account
+  suspension across the product (`type="strong"` only; see Guidelines).
+- **Page-level warning** — flag missing payout configuration at the top of a
+  finance view before the user exports data (`type="weak"`).
+- **Persistent success** — replace a syncing banner with a success state the user
+  should re-read before leaving (e.g. "Billing switches to the new plan on 1
+  April"), not a momentary "settings synced" acknowledgment.
+- **Blocking error** — surface a payment or integration failure with a Retry
+  action while the rest of the page stays read-only.
+- **Contextual info** — explain a feature limitation or read-only mode inline
+  above the affected form section.
+- **Inline callout** — use `layout="inline"` for a compact warning beside a
+  specific field group or card.
+
+For lightweight post-action feedback that auto-dismisses, prefer
+[Toast](/components/toast). See [Confirmation](/patterns/confirmation) for when
+to choose toast, inline success, or no feedback at all.
+
+### Alert vs Toast for success
+
+Brief success when the outcome is off-screen or not obvious — e.g. a settings
+sync completed but updated values live on another tab — belongs in
+[Toast](/components/toast), not Alert. Toast auto-dismisses and keeps momentum;
+the user does not need the message to stay in the layout.
+
+Use a **positive** Alert only when success must **persist** in the page:
+
+- You are replacing an in-progress or syncing **banner** with a success banner on
+  the same slot.
+- The message includes **follow-up detail** the user should re-read (effective
+  date, scope of change, what happens next).
+- Dismissal should be **explicit** (`onClearClick`) because the state matters
+  until the user acknowledges it.
+
+| Situation                                                    | Pattern                    |
+| ------------------------------------------------------------ | -------------------------- |
+| Settings synced; user can keep working                       | [Toast](/components/toast) |
+| Sync finished; user must note an effective date or next step | Alert (`positive`)         |
+| Save visible immediately in the UI                           | No confirmation            |
+
+## Guidelines
+
+- **Match severity to status** — reserve `critical` and `warning` for messages
+  that need real attention; use `default` or `info` for routine context.
+- **Persistent by design** — Alert does not auto-dismiss; remove it when the
+  underlying issue is resolved or the user dismisses it.
+- **One message per alert** — keep each instance focused; consolidate related
+  points instead of stacking many banners.
+- **Pair action with intent** — show `buttonLabel` only when a clear next step
+  exists; use `onClearClick` when dismissal alone is enough.
+- **Pick layout for context** — `banner` spans the content width; `inline` fits
+  the message for contextual callouts.
+- **Weak by default** — use `type="weak"` for page- and section-level alerts.
+  Reserve `type="strong"` for messages that block the **whole platform** (e.g.
+  global outage, maintenance, account suspended across the product).
+
 ### Best practices
+
+<Callout type="warning" title="Caution">
+
+Overusing alerts — especially `critical` — trains users to ignore them. Reserve
+strong statuses for outcomes that genuinely need intervention.
+
+</Callout>
 
 #### General
 
 <DoDont>
-  <Do
-    caption={
-      "Use alerts to convey important messages that users need to be aware of immediately."
-    }
-  />
-  <Do
-    caption={
-      "Match the alert type to the message's severity to help users prioritise their attention."
-    }
-  />
-  <Dont
-    caption={
-      "Do not use alerts for routine messages that do not require user attention or action."
-    }
-  />
-  <Dont
-    caption={
-      "Avoid using overly complex language or technical jargon in alert messages."
-    }
-  />
+  <Do caption="Place a banner Alert at the top of the affected view so the message is visible before the user scrolls to the problem area." />
+  <Do caption="Match status to severity — use critical for failed operations, warning for risks, positive for confirmed success." />
+  <Do caption="Provide onClearClick when the user can safely dismiss the message after reading it." />
+  <Dont caption="Routine save confirmations that auto-resolve belong in Toast, not Alert." />
+  <Dont caption="More than two alerts on one screen dilute urgency — consolidate copy or fix the root cause." />
+  <Dont caption="Color alone is not enough — include a title or body that states the issue in plain language." />
 </DoDont>
 
-<Callout type="warning" title="Caution">
-
-- Avoid overusing alerts, which can lead big cognitive load on the user.
-- Multiple alerts should be stacked vertically with consistent spacing. Avoid showing more than 2 alerts simultaneously — if context allows, consolidate messages.
-
-</Callout>
-
-#### Status
-
-##### Default
+#### weak type
 
 <DoDont>
-  <Do
-    caption={
-      "Use for non-critical notifications that inform users about routine updates or actions. Suitable for general messages that do not require immediate attention."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use the default alert for urgent situations. If the message requires immediate user intervention, use Warning or Critical instead."
-    }
-  />
+  <Do caption="Use type=weak for every in-app banner — page warnings, form errors, section callouts, and persistent success states." />
+  <Dont caption="Avoid reaching for type=strong inside a single view — stronger color or status already signals severity." />
 </DoDont>
 
-##### Info
+#### strong type
 
 <DoDont>
-  <Do
-    caption={
-      "Use to provide general information about a feature or state that doesn't require immediate action."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use Info alerts for errors or destructive outcomes. If something has gone wrong, use Critical."
-    }
-  />
+  <Do caption="Use type=strong only when the alert blocks the whole platform and must read as a global interrupt (outage, maintenance window, platform-wide suspension)." />
+  <Dont caption="Page-level and feature-level messages stay type=weak, even when status is critical." />
 </DoDont>
 
-##### Success
+#### default status
 
 <DoDont>
-  <Do
-    caption={
-      "Use to indicate successful completion of a task or action, reinforcing positive feedback. Can be used after successful form submissions or data updates."
-    }
-  />
-  <Dont
-    caption={
-      "Don't show a Success alert for background or automatic processes users didn't trigger. Reserve it for actions the user intentionally completed."
-    }
-  />
+  <Do caption="Use for neutral system messages or routine updates that do not imply risk or failure." />
+  <Dont caption="Urgent failures read more clearly on critical or warning than on default." />
 </DoDont>
 
-##### Warning
+#### info status
 
 <DoDont>
-  <Do
-    caption={
-      "Use to highlight cautionary information that users should be aware of. It alerts users to potential issues that do not immediately disrupt workflow but should be considered."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use Warning to communicate errors that have already occurred. Use Critical for confirmed failures that require immediate resolution."
-    }
-  />
+  <Do caption="Use to explain how a feature works or why the UI is in a particular state." />
+  <Dont caption="Confirmed failures belong on critical, not info." />
 </DoDont>
 
-##### Critical
+#### positive status
 
 <DoDont>
-  <Do
-    caption={
-      "Use to communicate urgent issues that require immediate user attention or intervention, such as failed operations or system errors."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use Critical for informational or low-priority messages. Overusing this status dilutes the urgency it's meant to convey."
-    }
-  />
+  <Do caption="Use when success must stay visible in the layout — e.g. replacing a syncing banner or surfacing an effective date the user should re-read." />
+  <Dont caption="Brief settings sync or save acknowledgments belong in Toast when that is enough — see Alert vs Toast for success above." />
 </DoDont>
 
-#### Content
+#### warning status
 
-##### 1. Informational alert (no action)
+<DoDont>
+  <Do caption="Use when something may go wrong but the user can still proceed or fix it proactively." />
+  <Dont caption="Operations that already failed read better on critical than warning." />
+</DoDont>
 
-Use when you need to surface a neutral message with no user action required. Set `has-actions: false`, `is-clearable: false`, `color: info`.
+#### critical status
 
-> _Example: "Your account is set to read-only mode. Contact your admin for access changes."_
+<DoDont>
+  <Do caption="Use when an operation failed or data is at risk and the user must act before continuing." />
+  <Dont caption="Informational copy on critical dilutes urgency across the product." />
+</DoDont>
 
-##### 2. Success confirmation with dismiss
+### Content rules
 
-Use after a user successfully completes an operation. Set `color: positive`, `is-clearable: true`, `has-actions: false`.
+Keep titles short and scannable; put detail in the body. Write in second person,
+present tense, and avoid technical jargon unless the audience expects it.
 
-> Example: "Changes saved. Your settings have been updated successfully."
+**Informational (no action)**
 
-##### 3. Warning with action
+> Your account is in read-only mode. Contact your admin to restore edit access.
 
-Use when a potential issue exists but the user can resolve it. Set `color: warning`, `has-actions: true`, `buttonLabel: "Review"`.
+**Success with dismiss**
 
-> Example: "Paypal is not included in this payout list. Please check Paypal page for more details."
+> Changes saved. Your payout settings have been updated.
 
-##### 4. Critical error, non-dismissible
+**Warning with action**
 
-Use for blocking errors that require immediate resolution. Set `color: critical`, `is-clearable: false`, `has-actions: true`, `buttonLabel: "Retry"`.
+> PayPal is not included in this payout. Review PayPal settings to include it in the next export.
 
-> Example: "Payment processing failed. Please check your billing details and try again."
+**Critical with retry**
 
-## Code & Specs
+> Payment processing failed. Check billing details and try again.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Container (`<div>`)",
+      description:
+        "Root banner with status-driven background, border, padding, and layout (`banner` or `inline`).",
+    },
+    {
+      label: "Status icon",
+      description:
+        "Leading icon mapped to `status`, overridable via `customIcon`. Always rendered today.",
+    },
+    {
+      label: "Title (`title`)",
+      description:
+        "Optional heading (`Title` h4). Wired to `aria-labelledby` when `title` or `titleSuffix` is set.",
+    },
+    {
+      label: "Title suffix (`titleSuffix`)",
+      description:
+        "Optional slot beside the title for supplementary elements such as a Chip — rendered outside the labelled title node.",
+    },
+    {
+      label: "Body (`children`)",
+      description:
+        "Supporting copy as a string (rendered in `Body`) or custom React nodes.",
+    },
+    {
+      label: "Action button (`buttonLabel`)",
+      description:
+        "Optional small Button when `buttonLabel` is provided; fires `onButtonClick`.",
+    },
+    {
+      label: "Dismiss button",
+      description:
+        "Icon button shown when `onClearClick` is provided; label comes from i18n (`alert.clear`).",
+    },
+  ]}
+/>
 
 ### Props
 
-<PropsTable component="Alert" />
+<PropsTable
+  component="Alert"
+  overrides={{
+    status: {
+      description:
+        "Semantic severity: `default`, `info`, `positive`, `warning`, or `critical`. Drives icon, color, and body text color.",
+    },
+    type: {
+      description:
+        "`weak` (default) for all page- and section-level alerts. `strong` — solid status backgrounds — is reserved in product for platform-wide blocking messages only.",
+    },
+    layout: {
+      description:
+        "`banner` (default) spans full width of the parent; `inline` sizes to content for contextual callouts.",
+    },
+    titleSuffix: {
+      description:
+        "Supplementary node beside the title (e.g. a Chip). Not included in `aria-labelledby`.",
+    },
+    onClearClick: {
+      description:
+        "When provided, renders the dismiss icon button. There is no separate `isClearable` prop.",
+    },
+    customIcon: {
+      description:
+        "Overrides the default status icon. The leading icon slot is always rendered.",
+    },
+  }}
+/>
 
-### Behavior
+### Behaviors
 
-##### Action button
+#### Dismissal
 
-When `has-actions` is `true`, an inline button is rendered using the `buttonLabel` prop. Clicking it fires `onButtonClick`. If no label or handler is provided, the button should not be rendered regardless of the prop value.
+Alerts are persistent — they do not auto-dismiss. Provide `onClearClick` to
+render a dismiss control; without it, the banner stays until you unmount it or
+navigate away. For transient feedback, use [Toast](/components/toast).
 
-##### Persistence
+#### Action button
 
-Alerts are persistent by default — they do not auto-dismiss. Auto-dismiss behavior (e.g. after a timeout) must be implemented at the product level if needed. For transient feedback, use the Toast component instead.
+When `buttonLabel` is set, a small default Button appears in the trailing
+actions area. Clicking it fires `onButtonClick` only — it does not dismiss the
+alert unless your handler removes it.
+
+#### Persistence
+
+Alerts survive re-renders and remain in the document until removed. They are not
+queued or stacked by Kaizen — product code owns placement and count.
+
+#### Responsiveness
+
+The banner uses a horizontal flex row (icon, content, actions). On narrow
+viewports, long action labels can crowd the trailing area — keep button copy
+short or plan for a column layout (tracked in Linear).
 
 ### Edge cases
 
-##### Long body text
+- **Long body text** — string `children` wrap inside the container. Prefer under
+  four lines; longer copy may belong in a [Modal](/components/modal) or
+  [Panel](/components/panel).
+- **Title only** — valid; `aria-labelledby` still targets the title.
+- **Body only** — valid when `title` is omitted; no `aria-labelledby` is set.
+- **Custom `children` nodes** — non-string children skip automatic `Body`
+  styling; you own typography and color.
+- **Multiple instances** — stack vertically with layout spacing; avoid more than
+  two simultaneous banners on one view.
 
-Body text wraps naturally inside the container. Avoid exceeding 4 lines of body copy — if the message is longer, consider a Modal or Panel instead.
+## Accessibility
 
-##### No icon (left slot off)
+### ARIA roles & attributes
 
-When `has-left-slot: false`, the alert renders without a leading icon. Only use this in contexts where the color and title already communicate the severity clearly.
+The root element is a `<div>` with:
+
+- `role="alert"` — set on every Alert regardless of `status`.
+- `aria-live="assertive"` — announcements interrupt immediately.
+- `aria-labelledby` — set when `title` or `titleSuffix` is present; points at
+  the title element id only (suffix content is not included).
+
+Kaizen does not expose a prop to downgrade live-region politeness for low-severity
+messages.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Move focus to the action or dismiss Button when those controls are rendered.",
+    },
+    {
+      keys: ["Shift", "Tab"],
+      description: "Move focus to the previous focusable control on the page.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Activate the focused action or dismiss button.",
+    },
+  ]}
+/>
+
+The alert container itself is not focusable — only trailing Buttons participate
+in the tab order.
+
+### Screen reader behavior
+
+On mount, assertive live regions announce the alert. Screen readers typically
+read the labelled title and visible body text in document order. The status icon
+is decorative in practice — do not rely on icon shape alone to convey severity.
+
+Provide a `title` or body copy that states the outcome explicitly (e.g.
+"Payment failed" not only "Error").
+
+### Focus management
+
+Alert does not move focus on mount and does not trap focus. When the user
+dismisses via `onClearClick`, focus is not restored automatically — return focus
+to a logical control (e.g. the field that triggered the error) in product code.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — token pairings for `type` and `status` meet
+  design-system contrast targets.
+- **1.4.1 Use of Color** — pair status colors with explicit title or body text.
+- **2.1.1 Keyboard** — action and dismiss controls are operable via keyboard
+  when rendered as Buttons.
+- **4.1.2 Name, Role, Value** — role and live region are set automatically;
+  name comes from `title` and body content.
+- **4.1.3 Status Messages** — `role="alert"` and `aria-live="assertive"` expose
+  new messages to assistive tech on mount.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Alert`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Alert in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-alert--primary)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Alert`
+
+### Related components
+
+- [Toast](/components/toast) — short, auto-dismissing feedback after an action
+  when the user can keep working.
+- [Button](/components/button) — powers optional alert actions and the dismiss
+  control.
+- [Chip](/components/chip) — optional `titleSuffix` content for supplementary
+  tokens beside the alert title.
+- [Confirmation](/patterns/confirmation) — decision pattern for toast vs inline
+  vs silent success feedback.
+
+### Known issues
+
+#### Tracked in Linear
+
+Open items under [KAI-90 Alert](https://linear.app/bsport/issue/KAI-90/kz-component-alert) on the
+[Kaizen component board](https://linear.app/bsport/project/kaizen-component-board-e9084e83ba8c/view/backlog-2e1fdd31dafd):
+
+- [KAI-678](https://linear.app/bsport/issue/KAI-678/add-column-variant-of-alert) — Add column variant of alert (Scoping)
+- [KAI-679](https://linear.app/bsport/issue/KAI-679/responsiveness-move-actions-to-column-layout-when-below-breakpoint) — Responsiveness: move actions to column layout when below breakpoint (Scoping)
+- [KAI-643](https://linear.app/bsport/issue/KAI-643/body-can-include-links) — Body can include links (Scoping)
+
+#### Implementation gaps
+
+- **Assertive for all severities** — every Alert uses `role="alert"` and
+  `aria-live="assertive"`, including `default` and `info`. Low-priority messages
+  may interrupt more aggressively than guidelines suggest.
+- **Icon cannot be hidden** — there is no prop to omit the leading icon; only
+  `customIcon` overrides the default.
+- **`titleSuffix` outside accessible name** — supplementary nodes beside the
+  title are not referenced by `aria-labelledby`.
+- **No focus management on dismiss** — removing an alert does not move focus;
+  consumers must handle focus return for keyboard users.
+
+#### Design or API debt
+
+- **Strong scoped to platform blocks** — product convention limits `type="strong"` to whole-platform interrupts; the API still accepts `strong` on any alert. [KAI-680](https://linear.app/bsport/issue/KAI-680/deprecate-strong-variant) tracks whether to remove the variant entirely.

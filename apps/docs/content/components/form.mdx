@@ -1,0 +1,159 @@
+---
+title: Form [LLM]
+description: Form integration patterns with labels, validation, and Kaizen field wrappers
+status: stable
+category: components
+tags: [forms, patterns]
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Form documentation covers how Studio Manager wires **@bsport/form** (and related
+schemas) to Kaizen inputs — [Text field](/components/text-field), [Select](/components/select),
+business `Form*` fields, and submit/error handling. There is no single `Form`
+primitive; composition happens in app and business component layers.
+
+<StorybookEmbed
+  id="business-form-formtoggle--default"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "business-form-formtoggle--default", label: "Form toggle field" },
+    {
+      id: "business-form-formnumberfield--default",
+      label: "Form number field",
+    },
+    {
+      id: "business-form-formmediafield--default",
+      label: "Form media field",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Create pass wizard** — zod schema + FormTextField + FormPriceField.
+- **Member edit drawer** — validate email and phone before PATCH.
+- **Settings page** — single form with section headings and save bar.
+- **Modal forms** — short schema inside [Modal](/components/modal) footer submit.
+- **Multi-step** — [Stepper](/components/stepper) with per-step schema validation.
+
+## Guidelines
+
+- **Schema is source of truth** — zod (or equivalent) drives validation messages.
+- **Field components bind state** — use `Form*` wrappers instead of raw inputs in SM apps.
+- **Errors at field** — show below control; form-level summary only for non-field errors.
+- **Disable submit while invalid** — or validate on submit with focus first error.
+- **i18n** — user strings through translation namespaces per app.
+
+See [Shared form guidelines](/components/shared-form-guidelines) for cross-field rules.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Reuse business Form* components before wiring primitives manually." />
+  <Do caption="Match validation copy to Label text for the same field." />
+  <Do caption="Reset dirty state after successful save and show Toast confirmation." />
+  <Dont caption="Browser alert() for validation — use inline field errors." />
+  <Dont caption="Submitting untouched optional fields that overwrite null with empty string unintentionally." />
+  <Dont caption="Mixing uncontrolled and controlled fields in one form without documentation." />
+</DoDont>
+
+### Content rules
+
+Validation messages are specific:
+
+> Enter a valid email address.
+
+> Price must be at least €1.00.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Form provider", description: "@bsport/form context and schema." },
+    {
+      name: "Field wrappers",
+      description: "Connect inputs to form state and errors.",
+    },
+    {
+      name: "Actions",
+      description: "Submit, cancel, reset in header or footer.",
+    },
+  ]}
+/>
+
+### Props
+
+Field-level props documented on each input component. Business form fields live under
+`packages/design-system/kaizen/business/src/components/form/`.
+
+### Behaviors
+
+#### Persistence
+
+Dirty state local until submit; optimistic updates only when API pattern supports.
+
+### Edge cases
+
+- **Server validation errors** — map API field errors onto form fields.
+- **Partial save** — split schemas per step in stepper flows.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Associate errors via `aria-describedby` and `aria-invalid` on invalid fields.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Moves through fields in logical order." },
+    {
+      keys: ["Enter"],
+      description: "Submits when focused on submit button, not in textarea.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce field errors when they appear (live region or focus move to first error).
+
+### Focus management
+
+On submit failure, focus first invalid field.
+
+### WCAG criteria
+
+- **3.3.1 Error Identification** — describe errors in text.
+- **3.3.2 Labels or Instructions** — every field labeled.
+- **4.1.2 Name, Role, Value** — invalid state exposed.
+
+## Resources
+
+### Storybook
+
+[Open Form toggle field in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/business-form-formtoggle--default)
+
+### Related components
+
+- **[Shared form guidelines](/components/shared-form-guidelines)** — canonical form UX rules.
+- **[Label](/components/label)** — accessible field names.
+- **[Text field](/components/text-field)** — common bound control.
+- **[Stepper](/components/stepper)** — multi-step form container.
+
+## TO CLARIFY
+
+- Single docs entry point for `@bsport/form` API vs per-field business component pages.

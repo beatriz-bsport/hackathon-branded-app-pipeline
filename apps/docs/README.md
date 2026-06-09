@@ -238,7 +238,7 @@ Live previews are Storybook iframes. To embed a story:
    <StorybookEmbed id="primitive-components-button--primary" />
    ```
 
-   Optional props: `height` (default `360`), `title` (overrides the iframe
+   Optional props: `height` (default `700`), `title` (overrides the iframe
    `aria-label`).
 
 If the gallery you want doesn't exist yet, add a small `render`-based story

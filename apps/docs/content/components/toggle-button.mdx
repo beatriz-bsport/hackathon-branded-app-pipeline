@@ -1,0 +1,144 @@
+---
+title: Toggle button [LLM]
+description: A button that stays pressed to show on-off or single selection within a group
+status: stable
+category: components
+tags: [actions, selection]
+source: "packages/design-system/kaizen/primitive/core/src/components/ToggleButton"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Toggle button looks like [Button](/components/button) but retains a pressed state
+to show selection — view mode switches, formatting toggles, or toolbar filters.
+Use [Segmented control](/components/segmented-control) when options are mutually
+exclusive segments; use standalone toggle buttons for independent on-off tools.
+
+<StorybookEmbed
+  id="primitive-components-togglebutton--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-togglebutton--primary", label: "Primary" },
+    {
+      id: "primitive-components-togglebutton--with-icons",
+      label: "With icons",
+    },
+    {
+      id: "primitive-components-togglebutton--controlled-vs-uncontrolled",
+      label: "Controlled",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **List density** — compact vs comfortable row height toggle.
+- **Map vs list** — view switcher on scheduling pages.
+- **Pin sidebar** — persist navigation panel open state.
+- **Show archived** — include inactive records in table.
+- **Toolbar bold** — formatting in rich text toolbars (when exposed).
+
+## Guidelines
+
+- **Pressed state visible** — rely on token background, not color alone.
+- **Icon + label** — icon-only toggles need `aria-pressed` and tooltip.
+- **Controlled when synced** — parent owns state tied to URL or store.
+- **Group related toggles** — use `role="group"` when multiple affect one view.
+- **Not for form booleans** — long-lived settings use [Toggle](/components/toggle).
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use aria-pressed so screen readers announce toggled state." />
+  <Do caption="Pair icon toggles with Tooltip describing the mode." />
+  <Do caption="Use Segmented control for 2–4 exclusive view modes in one bar." />
+  <Dont caption="Toggle button for submit actions — use Button intent call-to-action." />
+  <Dont caption="Ambiguous pressed state — users must see what mode is active." />
+  <Dont caption="Mixing toggle buttons and tabs for the same navigation job." />
+</DoDont>
+
+### Content rules
+
+Labels name the mode when active or inactive:
+
+> Show map
+
+> Compact view
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Button surface",
+      description: "Button styling with pressed variant.",
+    },
+    { name: "Icon or label", description: "Content showing the tool or mode." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ToggleButton" />
+
+### Behaviors
+
+#### Persistence
+
+Pressed state follows controlled `pressed` prop or internal state until toggled.
+
+### Edge cases
+
+- **Disabled while pressed** — show pressed styling and explain disable reason nearby.
+- **Exclusive group** — only one pressed; manage at parent like radio behavior.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Use `aria-pressed="true|false"` on the button element.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses each toggle in the toolbar." },
+    { keys: ["Enter", "Space"], description: "Toggles pressed state." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces label and pressed state on focus.
+
+### Focus management
+
+Focus stays on control after toggle.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — toggle without pointer.
+- **4.1.2 Name, Role, Value** — pressed state programmatic.
+
+## Resources
+
+### Storybook
+
+[Open Toggle button in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-togglebutton--primary)
+
+### Related components
+
+- **[Segmented control](/components/segmented-control)** — exclusive multi-option switcher.
+- **[Toggle](/components/toggle)** — form boolean switch.
+- **[Button](/components/button)** — one-shot actions without latched state.

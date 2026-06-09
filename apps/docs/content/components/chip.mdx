@@ -1,117 +1,363 @@
 ---
 title: Chip
-description: A standalone container representing a discrete value such as a status, attribute, filter, or selected entity.
+description: A standalone pill for semantic tokens such as tags, categories, statuses, or removable selections
+status: stable
 category: components
+tags: [display, metadata, tags]
 source: "packages/design-system/kaizen/primitive/core/src/components/Chip"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Chips carry semantic meaning, can be dismissed, and often appear in groups as tags, filters, or statuses.
+Chip is a compact pill that names a discrete value — a tag, category, or object
+status. It carries semantic meaning through color and optional icons, and can be
+dismissed when the user removes a tag or other removable selection. Unlike
+[Badge](/components/badge), Chip stands on its own as the token itself, not as
+side metadata beside another label. For building or displaying list query
+filters (field, operator, values), use **Filter** — not Chip.
 
-### Variants
-
-- _Weak:_ Subtle style with lighter emphasis.
-- _Strong:_ Bold style with stronger visual emphasis.
-
-#### Size
-
-- _sm:_ 24px height, suitable for use inside Dense forms.
-- _lg:_ 32px height, used as the default density.
-
-#### Colour
-
-- `default` and `main` are used as main colours for tags.
-- Status colours are used for status messages.
-- `custom` is used for colours set-up by users.
-
-##### Related Components
-
-- _Badge:_ A component similar in size but often used for status indicators.
-
-## Guidelines
-
-### Examples
+Not sure whether Chip, Badge, or Indicator fits? See
+[Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator).
 
 <StorybookEmbed
   id="primitive-components-chip--primary"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
+    { id: "primitive-components-chip--primary", label: "Chip" },
+    { id: "primitive-components-chip--custom-color", label: "Custom color" },
+  ]}
+/>
+
+### Use cases
+
+- **Object status** — surface order, invoice, or booking state in a table cell
+  (e.g. "Paid", "Cancelled", "Open").
+- **Tags and categories** — display member tags, activity types, or segment
+  rules with user-defined colors via `customColor`.
+- **Removable selections** — show a chosen tag, weekday, or rule the user can
+  clear with `dismissible` inside a form (e.g. referral tag picker, recurrence
+  weekdays).
+- **Session metadata** — group contextual chips such as activity name and
+  "Recurring" beside session details.
+- **Multi-select toggles** — wrap chips in a `<button>` when the whole pill
+  should toggle a value (e.g. enabling a partnership aggregator on a session).
+
+## Guidelines
+
+- **Semantic token** — Chip names the value itself; use
+  [Badge](/components/badge) when the pill only qualifies adjacent content.
+- **Not for list filtering** — use **Filter** to compose query constraints on
+  tables and lists; Chip does not replace field/operator/value filter UI.
+- **Dismiss when removable** — set `dismissible` and handle `onClick` when the
+  user can remove a tag or other selection from a form.
+- **Group related chips** — lay chips in a flex row with consistent `gap`; use
+  `ChipList` when a collection may overflow.
+- **Match color to meaning** — reserve status colors (`positive`, `warning`,
+  `critical`, `info`) for states; use `default` or `main` for neutral tags.
+- **Pick density** — `size="sm"` in dense tables and forms; `size="lg"` as the
+  default in page headers and detail panels.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use dismissible chips when a form captures removable tags or selections the user should clear individually." />
+  <Do caption="Pair status colors with short, human-readable labels in table cells — color reinforces the word, not replaces it." />
+  <Do caption="Wrap chips in ChipList when a tag set may exceed the visible row and needs an overflow popover." />
+  <Dont caption='Compact side labels like "New" or "Beta" beside nav items belong on Badge, not Chip.' />
+  <Dont caption="Table and list query filters belong on Filter — field, operator, and value constraints need that pattern." />
+  <Dont caption="Strong-type chips across an entire row flatten emphasis — reserve type=strong for the one value that needs it." />
+</DoDont>
+
+#### weak type
+
+<DoDont>
+  <Do caption="Use for tags and table statuses where the chip sits among other content without dominating the layout." />
+  <Dont caption="Values that need immediate attention in an alert or banner belong on type=strong or a dedicated status pattern, not weak." />
+</DoDont>
+
+#### strong type
+
+<DoDont>
+  <Do caption="Use sparingly to emphasize one high-salience status or category in a group." />
+  <Dont caption="Strong styling on every chip in a list removes contrast — something in the group should stay visually quieter." />
+</DoDont>
+
+#### customColor
+
+<DoDont>
+  <Do caption="Pass a hex value for user-defined tag colors; the component derives accessible text and border contrast automatically." />
+  <Dont caption="System status semantics should use built-in status colors, not customColor, so meaning stays consistent across products." />
+</DoDont>
+
+### Content rules
+
+Keep labels short, specific, and in sentence case. Name the value or state
+directly — avoid prefixes like "Status:" when the surrounding table column
+already provides context.
+
+**Status in a table** — `type="weak"`, status `color`, `size="lg"`.
+
+> Paid
+
+> Cancelled
+
+**Selected tag** — `dismissible`, `size="lg"`, `color="main"`.
+
+> Morning yoga
+
+**User tag** — `customColor` with the tag hex, `rounded="lg"` when matching
+rounded tag pickers.
+
+> VIP
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
     {
-      id: "primitive-components-chip--primary",
-      label: "Chip",
+      label: "Root container (`<div>`)",
+      description:
+        "The pill wrapper that receives layout props, token colors, and optional inline styles for custom colors.",
     },
     {
-      id: "primitive-components-chip--custom-color",
-      label: "Custom color",
+      label: "Icon left (`iconLeft`)",
+      description:
+        "Optional leading icon that reinforces category or state (e.g. refresh icon for recurring sessions).",
+    },
+    {
+      label: "Label (`label`)",
+      description:
+        "Visible text naming the token; rendered in a `<span>` when provided.",
+    },
+    {
+      label: "Dismiss control",
+      description:
+        "Optional trailing `x` icon shown when `dismissible={true}`; triggers `onClick` and removes the chip from the DOM.",
     },
   ]}
 />
 
-### Best practices
-
-<DoDont>
-  <Do
-    caption={
-      "Use the appropriate colour to match the context (e.g., critical for errors)."
-    }
-  />
-</DoDont>
-
-<Callout type="warning" title="Caution">
-
-- Don't use strong variants for every chip; reserve them for emphasis.
-
-</Callout>
-
-<DoDont>
-  <Do
-    caption={
-      "Use a chip for user-managed selections (e.g., tags, applied filters)."
-    }
-  />
-  <Do
-    caption={
-      'Use a badge for static text labels that add context (e.g., "Beta", "Exclusive").'
-    }
-  />
-  <Do
-    caption={
-      "Use an indicator for numeric or dot-based status signals (e.g., unread messages, online status)."
-    }
-  />
-</DoDont>
-
-##### Chips - Status subcategories
-
-_Chips used for status because: _
-Chips have more colour variations
-Have hover function
-
-Broadly speaking, Status Chips should fall into one these subcategories:
-
-## Code & Specs
-
 ### Props
 
-<PropsTable component="Chip" />
+<PropsTable
+  component="Chip"
+  overrides={{
+    type: {
+      type: '"weak" | "strong"',
+      description:
+        "Visual weight. `weak` for most tags and table statuses; `strong` for high-emphasis tokens.",
+    },
+    color: {
+      type: '"default" | "main" | "info" | "positive" | "warning" | "critical" | "onstrong"',
+      description:
+        "Semantic palette paired with `type`. Use status colors for object states; `default` and `main` for neutral tags.",
+    },
+    size: {
+      type: '"sm" | "lg"',
+      description:
+        "`sm` for dense surfaces; `lg` as the default density in headers and detail panels.",
+    },
+    label: {
+      type: "string",
+      description: "Visible text for the token.",
+    },
+    iconLeft: {
+      type: "IconName",
+      description:
+        "Optional leading icon; scales to `xs` on `sm` chips and `sm` on `lg` chips.",
+    },
+    dismissible: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "When true, renders a dismiss icon and enables `onClick` on dismiss.",
+    },
+    customColor: {
+      type: "string",
+      description:
+        "Hex color (e.g. `#7C3AED`) for user-defined tag colors. Invalid values are ignored and token colors apply.",
+    },
+    rounded: {
+      type: '"lg" | undefined',
+      defaultValue: "undefined",
+      description:
+        'Border radius override; omit for `rounded-sm`, pass `"lg"` for rounder tag pills.',
+    },
+    onClick: {
+      type: "() => void",
+      description:
+        "Callback fired when the user dismisses the chip. Only runs when `dismissible={true}`.",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Dismissal
+
+When `dismissible={true}`, a trailing `x` icon appears. Clicking it sets internal
+dismissed state, unmounts the chip, and calls `onClick`. Dismissal is optional —
+static status chips omit `dismissible` and stay in the layout.
+
+#### Action button
+
+Chip has no primary action slot. `onClick` is dismiss-only and requires
+`dismissible={true}`. For whole-chip interactions (toggle, navigate, open menu),
+wrap the chip in a `<button>` or link and keep `dismissible` separate.
+
+#### Persistence
+
+The component tracks dismissal internally. Once dismissed, it returns `null` until
+remounted. Parent views should own tag/selection state and remove items from
+their data model when `onClick` fires.
+
+#### Responsiveness
+
+Chips flow inline and wrap naturally inside flex containers. Long labels expand
+the pill width; prefer shorter copy or truncation at the layout level in narrow
+columns.
+
+### Edge cases
+
+#### Empty or missing label
+
+When `label` is omitted, the chip still renders if an `iconLeft` or dismiss
+control is present; otherwise you get an empty pill — always pass `label` for
+text tokens.
+
+#### Invalid customColor
+
+Non-hex `customColor` values are ignored silently; the chip falls back to token
+colors from `type` and `color`.
+
+#### onClick without dismissible
+
+`onClick` is ignored when `dismissible={false}` and a console warning is emitted
+in development.
+
+#### Multiple instances
+
+Stack chips in a flex row with gap tokens, or use `ChipList` to cap visible chips
+and surface overflow in a popover.
 
 ## Accessibility
 
+### ARIA roles & attributes
+
+The root element is a non-interactive `<div>` with `data-component="Kaizen-Chip"`.
+Kaizen does not set `role`, `aria-live`, or accessible names automatically.
+
+- **Label text** — visible `label` content is exposed as static text in document
+  order.
+- **Dismiss control** — the dismiss icon is a clickable `<svg>` without a native
+  button role or default `aria-label`; consumers must provide context or wrap
+  dismissible chips in a labeled group.
+- **Interactive wrappers** — when the whole chip is toggled via a parent
+  `<button>`, the button owns the accessible name and keyboard behavior.
+
+### Keyboard navigation
+
 <Accessibility
-  notes={
-    "Make sure the dismiss button is focusable and accessible via keyboard. Provide appropriate ARIA labels for the dismiss button and left slot content."
-  }
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Skips a static chip; focuses a parent `<button>` wrapper when the whole pill is interactive.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description:
+        "Activate a parent `<button>` wrapper for toggle or selection patterns.",
+    },
+  ]}
 />
+
+The built-in dismiss icon is pointer-only today — it is not keyboard-focusable
+and has no `Enter` / `Space` handler. Treat this as a known gap when shipping
+dismissible tag pickers; consider managing removal from a labeled parent control
+until the dismiss affordance is a proper button.
+
+### Screen reader behavior
+
+Screen readers announce `label` text as static content in reading order. The chip
+is not a live region — do not use it to announce dynamic system messages; use
+[Toast](/components/toast) or [Alert](/components/alert) instead.
+
+For dismissible chips, announce removal by updating the surrounding form or
+selection summary so the change is perceptible without relying on the chip alone.
+
+### Focus management
+
+Chip does not trap or move focus. Dismissal unmounts the chip without restoring
+focus — parent views should move focus to the next logical control (e.g. the
+tag search field) when removing the last selected tag.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — token pairings use design-system surfaces;
+  `customColor` runs through contrast derivation targeting WCAG AA (4.5:1) on
+  the tinted background.
+- **1.4.1 Use of Color** — pair status colors with explicit label text; do not
+  rely on hue alone in tables.
+- **2.1.1 Keyboard** — default chip is not operable by keyboard; interactive
+  patterns must use a focusable wrapper or an improved dismiss control.
+- **4.1.2 Name, Role, Value** — name comes from visible `label` or the parent
+  interactive wrapper; dismiss control lacks a dedicated accessible name today.
+- **4.1.3 Status Messages** — not applicable for static chips; dynamic outcomes
+  belong in Toast or Alert.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Chip`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Chip in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-chip--primary)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Chip`
+
+### Related components
+
+- [Badge](/components/badge) — compact supplementary metadata beside labels or
+  nav items; non-dismissible and not meant as a standalone token.
+- [Indicator](/components/indicator) — notification dots or counts anchored to a
+  host element such as an avatar or icon button.
+- [Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator) — decision
+  pattern for choosing between the three mark components.
+- **Filter** — query-builder for table and list constraints (field, operator,
+  values); does not use Chip internally
+  (`packages/design-system/kaizen/primitive/core/src/components/Filter`).
+- **ChipList** — organism for grouped chips with overflow popover (`packages/design-system/kaizen/primitive/core/src/components/organisms/chip-list`).
+
+### Known issues
+
+#### Implementation gaps
+
+- **Dismiss control is not a button** — the `x` icon uses `onClick` on an SVG
+  with no `aria-label`, `role="button"`, or keyboard handlers. Docs recommend
+  dismissible selections, but keyboard-only users cannot operate the built-in
+  dismiss affordance.
+- **`onClick` is dismiss-only** — the prop fires on dismiss, not on whole-chip
+  click; toggle patterns require wrapping the chip in a `<button>` (see session
+  partnership chips in Studio Manager).
+- **Internal dismiss state** — the chip unmounts itself on dismiss; parents must
+  sync external state in `onClick` because there is no controlled `open` prop.
+- **Invalid customColor fails silently** — bad hex values fall back to token
+  colors without surfacing an error to the consumer.
+
+#### Design or API debt
+
+- **No hover or pressed styles** — unlike some legacy chip patterns, the Kaizen
+  primitive has no hover feedback; interactive affordance must come from a
+  wrapper or dismiss icon cursor.
+- **No `md` size** — only `sm` and `lg` exist; some older docs reference a
+  middle density that is not in the API.

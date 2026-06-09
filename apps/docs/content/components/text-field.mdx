@@ -1,39 +1,30 @@
 ---
 title: Text field
-description: Collects text-based information in forms and interfaces.
+description: A single-line input for text, numbers, dates, and other typed values in forms
+status: stable
 category: components
+tags: [forms, input, text]
 source: "packages/design-system/kaizen/primitive/core/src/components/TextField"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Text fields collect short text-based input in forms and interfaces — including
-plain text, passwords, numbers, dates, emails, URLs, and telephone numbers.
-
-### Use cases
-
-- **Short text input:** Capture names, titles, search queries, and other brief
-  strings.
-- **Formatted input:** Use typed inputs for email, URL, tel, date, time, and
-  number values with built-in validation hints.
-- **Sensitive data:** Use password fields when masking input is required.
-- **Form validation:** Pair with helper and error text to guide input and
-  surface validation feedback.
-
-## Guidelines
-
-### Examples
+TextField collects one line of user input — names, search queries, amounts,
+emails, and other typed values. It supports prefixes, suffixes, icons, clear
+actions, and validation status. Use [Autocomplete](/components/autocomplete)
+when the user picks from suggestions; use TextArea (primitive) for multi-line
+copy.
 
 <StorybookEmbed
   id="primitive-components-textfield--text-field-basic"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
     {
       id: "primitive-components-textfield--text-field-basic",
@@ -46,84 +37,251 @@ plain text, passwords, numbers, dates, emails, URLs, and telephone numbers.
   ]}
 />
 
-#### Type
+### Use cases
 
-1. _Text input_ — Designed for short pieces of text.
+- **Names and titles** — class name, staff display name, gift card title.
+- **Search** — `type=\"search\"` in toolbars and filter rows (hides native clear
+  buttons for consistent styling).
+- **Typed formats** — `email`, `tel`, `url`, `date`, `time`, `number` with
+  browser validation hints.
+- **Amounts and codes** — price or discount fields with prefix/suffix (`€`, `%`).
+- **Sensitive values** — `password` fields with masked input.
 
-1. _Password input_ — Masks the input to prevent others from seeing the entered text.
+## Guidelines
 
-1. _Number input_ — Accepts numeric values and can include min/max values and step increments.
+- **Labels always** — pass `label` and matching `id`; placeholders supplement,
+  never replace labels.
+- **Errors on interaction** — set `status=\"error\"` and `statusText` after blur
+  or submit, not on initial render.
+- **Full width in forms** — `fullWidth` in column layouts; default max width in
+  compact toolbars.
+- **Right type** — use native `type` for format hints; still validate on the
+  server.
+- **Clear affordance** — provide `onClear` when a filled search field should
+  reset the list.
 
-1. _Date input_ — Provides a date picker interface; can be typed or picked from a calendar.
+### Best practices
 
-1. _Time input_ — Allows users to select a time, often with a time picker interface.
+#### General
 
-1. _Email input_ — Validates that the input follows an email address format.
+<DoDont>
+  <Do caption="Use helperText for format hints — 'Use the email on the member profile' — before the user types." />
+  <Do caption="Pass inputRef when a modal should autofocus the first field on open." />
+  <Do caption="Use prefix or suffix for units — '€', 'kg' — instead of baking units into the label." />
+  <Dont caption="Placeholder alone disappears once filled — always pair it with a visible label." />
+  <Dont caption="Error status on empty fields before submit or blur frustrates users who have not finished typing." />
+  <Dont caption="One field should not carry multiple unrelated hints split across helper and error text." />
+</DoDont>
 
-1. _URL input_ — Validates that the input follows a URL format.
+#### status error
 
-1. _Tel input_ — Accepts and validates telephone numbers.
+<DoDont>
+  <Do caption="Pair status='error' with a specific statusText — 'Enter a valid phone number'." />
+  <Dont caption="Neutral warnings belong outside error styling — reserve error for failed validation." />
+</DoDont>
 
-### Live preview
+#### status positive
+
+<DoDont>
+  <Do caption="Use positive status sparingly to confirm a valid async check — username available." />
+  <Dont caption="Positive feedback on every keystroke adds noise without aiding completion." />
+</DoDont>
+
+### Content rules
+
+Labels are nouns or short phrases. Placeholders show an example, not the label.
+
+**Label**
+
+> Invoice reference
+
+**Placeholder**
+
+> e.g. INV-2024-0042
+
+**Helper**
+
+> Shown on the PDF sent to the member.
+
+**Error**
+
+> Reference must be at least 6 characters.
+
+## Reference
+
+### Anatomy
 
 <Anatomy
   parts={[
     {
-      label: "Container",
-      description: "Holds the input and associated label.",
-    },
-    {
       label: "Label",
-      description: "Describes the option the input represents.",
+      description: "Field label with optional required asterisk.",
     },
     {
-      label: "Placeholder",
-      description: "(Optional) Displays when the input is empty.",
+      label: "Input container",
+      description:
+        "Bordered region with focus ring; hosts prefix, input, suffix, icons.",
     },
     {
-      label: "Helper Text",
-      description: "(Optional) Provides additional context or guidance.",
+      label: "Prefix / suffix",
+      description:
+        "Text, icon, or colour swatch attached inside the container edges.",
     },
     {
-      label: "Error Text",
-      description: "(Optional) Displays when there is an issue with the input.",
+      label: "Input",
+      description: "Native `<input>`; type driven by `type` prop.",
+    },
+    {
+      label: "Icons",
+      description:
+        "Optional `iconLeft` / `iconRight`; search type adds search icon.",
+    },
+    {
+      label: "Clear control",
+      description:
+        "Rendered when `onClear` is provided and value is non-empty.",
+    },
+    {
+      label: "Helper / status text",
+      description: "`helperText` or `statusText` below the container.",
+    },
+    {
+      label: "customNode",
+      description:
+        "Optional slot beside the input row — tooltip trigger, extra action.",
     },
   ]}
 />
-
-### Best practices
-
-<DoDont>
-  <Dont caption="Don't overload the input with unnecessary information or complex interactions. Keep the design focused on text input." />
-  <Dont caption="Do not use ambiguous labels or placeholder text that could confuse the user about what to input." />
-  <Dont caption="Avoid excessive use of helper text that could distract from the primary purpose of the field." />
-  <Dont caption="Do not show error states for valid input or in cases where the user has not interacted with the field yet." />
-</DoDont>
-
-## Code & Specs
 
 ### Props
 
 <PropsTable component="TextField" />
 
-### Behavior
+### Input types
 
-- _state (rest, focused, error):_ Reflects the current visual state of the input.
-- _value (string):_ The current text value of the input.
-- _placeholder (string):_ Provides a hint or example of what type of input is expected.
-- _label (string):_ The label describing the purpose of the input.
-- _is-required (boolean):_ Indicates if the field is mandatory.
-- _has-helper-text (boolean):_ Specifies if there is additional helper text.
-- _helper-text (string):_ Provides guidance or instructions related to the input.
-- _has-error (boolean):_ Indicates if the input is in an error state.
-- _error-text (string):_ Provides error messaging when validation fails.
-- _disabled (boolean):_ Indicates if the input is non-interactive.
+Set `type` to match the data you collect. Browser validation and keyboards adapt
+per type; always validate on the server too.
+
+- **`text`** — short free text (names, titles, references).
+- **`password`** — masked entry for secrets; pair with `autocomplete` where
+  password managers apply.
+- **`number`** — numeric values; optional `min`, `max`, and `step`.
+- **`email`** — email-shaped input with mobile email keyboard hints.
+- **`tel`** — telephone numbers; format in helper text or `statusText` on error.
+- **`date`** — date values; native picker where supported, typed entry elsewhere.
+- **`datetime-local`** — combined date and time in one control.
+- **`time`** — time-of-day values.
+- **`search`** — toolbar or filter queries; native clear button hidden — use
+  `onClear`.
+- **`color`** — hex colour entry with swatch UI; prefer dedicated colour
+  pickers for complex flows.
+
+For multi-line copy, use **TextArea** instead of stretching TextField.
+
+### Behaviors
+
+#### Focus and clear
+
+Focus ring appears on the container when the input is focused (`shadow-focused`).
+`onClear` wipes the value and should reset parent state.
+
+#### Status
+
+`status`: `default` | `positive` | `error`. Error uses critical border; positive
+uses positive border. `statusText` renders below with matching colour.
+
+#### Responsiveness
+
+Without `fullWidth`, max width is `max-w-element-4xl`. With `fullWidth`, the
+field stretches to the parent column.
+
+### Edge cases
+
+#### type color
+
+Colour picker uses a split text + swatch UI with hex validation — prefer the
+dedicated colour patterns in product flows when possible.
+
+#### type search
+
+Native browser clear buttons are hidden via CSS; use `onClear` for explicit reset.
+
+#### Very long values
+
+Input uses `text-ellipsis` — for long free text use TextArea.
 
 ## Accessibility
 
-<Accessibility notes="Make sure the Input is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the input state, especially for has-error and disabled states. Ensure labels are clearly associated with their respective inputs for accessible form controls." />
+### ARIA roles & attributes
+
+- Native text input with implicit role.
+- `aria-invalid` when `status=\"error\"` and `statusText` is set.
+- Label association via `Label` + `htmlFor` / `id`.
+- `autocomplete` prop forwards to the native attribute for password managers.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focus the input." },
+    { keys: ["Shift + Tab"], description: "Move to the previous field." },
+    {
+      keys: ["Type"],
+      description: "Enter text; native type constraints apply.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces label, required, placeholder, and value. Error `statusText` is read
+when present in the DOM below the field.
+
+### Focus management
+
+Use `inputRef` to focus on mount in modals. Clear button should be keyboard
+reachable when implemented via `onClear`.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — text, border, and error colours on default surfaces.
+- **2.1.1 Keyboard** — fully keyboard operable.
+- **3.3.1 Error Identification** — errors described in `statusText`.
+- **4.1.2 Name, Role, Value** — name from label; value from input.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/TextField`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Text field in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-textfield--text-field-basic)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/TextField`
+
+### Related components
+
+- [Autocomplete](/components/autocomplete) — searchable selection built on TextField.
+- [Select](/components/select) — pick one option from a fixed list without typing.
+- [Shared form guidelines](/components/shared-form-guidelines) — shared field
+  anatomy.
+- **TextArea** — multi-line text (`packages/design-system/kaizen/primitive/core/src/components/TextArea`).
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-285](https://linear.app/bsport/issue/KAI-285/outline-and-textfield-border-should-appear-on-top-of-prefixsufix) — Outline and textfield border should appear on top of prefix/suffix (Scoping).
+- [KAI-284](https://linear.app/bsport/issue/KAI-284/numeric-input-wrong-arrow-placement) — Numeric input wrong arrow placement (Scoping).
+- [KAI-644](https://linear.app/bsport/issue/KAI-644/align-prefsuf-text-size-with-figma) — Align pref/suf text size with Figma (Scoping).
+
+#### Implementation gaps
+
+- **Prefix/suffix border stacking** — focus outline can sit behind prefix/suffix
+  panels (KAI-285).
+- **`status` uses `error` not `critical`** — differs from Select naming; same
+  visual intent.
+
+#### Design or API debt
+
+- **Colour type in TextField** — colour input logic lives inside TextField with
+  a TODO to split a dedicated component.
+- **Readonly** — planned across form controls ([KAI-453](https://linear.app/bsport/issue/KAI-453)).

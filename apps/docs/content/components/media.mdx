@@ -1,0 +1,149 @@
+---
+title: Media [LLM]
+description: A responsive image frame with aspect ratio and loading placeholders
+status: stable
+category: components
+tags: [display, imagery]
+source: "packages/design-system/kaizen/primitive/core/src/components/Media"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Media displays photos and cover images with consistent rounding, aspect ratio, and
+fade-in loading. It handles broken or missing sources with a neutral placeholder
+and icon — use it for pass covers, venue photos, and marketing tiles instead of
+raw `img` tags.
+
+<StorybookEmbed
+  id="primitive-components-media--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-media--primary", label: "Media" },
+    { id: "primitive-components-media--empty-source", label: "Empty source" },
+    { id: "primitive-components-media--broken-source", label: "Broken source" },
+  ]}
+/>
+
+### Use cases
+
+- **Pass and product cards** — cover image with `ratio="16:9"` in buyables lists.
+- **Venue thumbnails** — `size="sm"` beside location names in booking views.
+- **Member-uploaded assets** — preview in [File upload](/components/file-upload) flows.
+- **Detail headers** — `size="lg"` hero image on pass or class detail panels.
+- **Gallery grids** — square `ratio="1:1"` tiles in media pickers.
+
+## Guidelines
+
+- **Alt text is required** — describe the image content, not the filename.
+- **Pick ratio for layout** — lock aspect ratio in grids; use `aspect-auto` only
+  when height is content-driven.
+- **Size token over custom CSS** — `sm` through `xl` align with element scale.
+- **Placeholder is not content** — empty or broken states need retry or upload actions nearby.
+- **Photos vs illustrations** — use [Illustration](/components/illustration) for branded empties, Media for real assets.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Set meaningful alt text for every promotional or venue photo." />
+  <Do caption="Match ratio to the grid cell so rows align without cropping surprises." />
+  <Do caption="Fade-in respects loaded state — avoid swapping src rapidly during carousel flicker." />
+  <Dont caption="Stretching Media with arbitrary CSS defeats object-cover — pick the right ratio." />
+  <Dont caption="Decorative thumbnails without alt when they convey product identity." />
+  <Dont caption="Using Media for icons or spot illustrations — wrong component family." />
+</DoDont>
+
+### Content rules
+
+Alt text examples:
+
+> Yoga class studio interior
+
+> Summer pass cover image
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Image",
+      description: "object-cover img with opacity transition on load.",
+    },
+    {
+      name: "Placeholder",
+      description: "Weak surface with image icon when src fails or is empty.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Media" />
+
+### Behaviors
+
+#### Responsiveness
+
+`object-cover` crops to the ratio box. Parents control width; height derives from
+aspect ratio tokens.
+
+### Edge cases
+
+- **Empty src** — placeholder renders immediately.
+- **Broken URL** — onError shows placeholder; offer re-upload in product UI.
+- **Slow load** — opacity animates from transparent to visible when loaded.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Uses native `img` with required `alt`. Placeholder state has no image — ensure
+adjacent text explains missing media.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Skips static Media unless wrapped in a link or button.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces `alt` when image loads. Empty placeholder should not pretend to be
+meaningful content.
+
+### Focus management
+
+When Media is the sole content of a clickable card, focus stays on the card wrapper.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — text on top of images needs scrim or placement outside the photo.
+- **1.1.1 Non-text Content** — meaningful `alt` for informative images.
+- **4.1.2 Name, Role, Value** — interactive wrappers name the destination.
+
+## Resources
+
+### Storybook
+
+[Open Media in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-media--primary)
+
+### Related components
+
+- **[File upload](/components/file-upload)** — source of uploaded files previewed with Media.
+- **[Avatar](/components/avatar)** — circular people photos, not rectangular media tiles.
+- **[Card](/components/card)** — common parent layout for media + metadata.

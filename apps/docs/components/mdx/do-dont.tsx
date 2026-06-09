@@ -1,4 +1,9 @@
-import type { ReactNode } from "react";
+import {
+  Children,
+  type ReactElement,
+  type ReactNode,
+  isValidElement,
+} from "react";
 
 import { resolveAssetUrl } from "#src/lib/asset-url";
 import { cx } from "#src/lib/cx";
@@ -6,10 +11,6 @@ import { cx } from "#src/lib/cx";
 export type DoDontProps = {
   children: ReactNode;
 };
-
-export function DoDont({ children }: DoDontProps) {
-  return <div className="my-4 grid gap-3 md:grid-cols-2">{children}</div>;
-}
 
 export type DoDontItemProps = {
   caption: string;
@@ -119,5 +120,49 @@ export function Dont({ caption, figma, image, alt }: DoDontItemProps) {
       alt={alt}
       imageSrc={imageSrc}
     />
+  );
+}
+
+function isDoChild(child: ReactElement): boolean {
+  return child.type === Do;
+}
+
+function isDontChild(child: ReactElement): boolean {
+  return child.type === Dont;
+}
+
+function partitionDoDontChildren(children: ReactNode): {
+  dos: ReactNode[];
+  donts: ReactNode[];
+} {
+  const dos: ReactNode[] = [];
+  const donts: ReactNode[] = [];
+
+  Children.forEach(children, (child) => {
+    if (!isValidElement(child)) return;
+
+    if (isDontChild(child)) {
+      donts.push(child);
+      return;
+    }
+
+    if (isDoChild(child)) {
+      dos.push(child);
+    }
+  });
+
+  return { dos, donts };
+}
+
+export function DoDont({ children }: DoDontProps) {
+  const { dos, donts } = partitionDoDontChildren(children);
+
+  return (
+    <div className="my-4 flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-3">
+      {dos.length > 0 ? <div className="flex flex-col gap-3">{dos}</div> : null}
+      {donts.length > 0 ? (
+        <div className="flex flex-col gap-3">{donts}</div>
+      ) : null}
+    </div>
   );
 }

@@ -1,0 +1,289 @@
+---
+title: Body
+description: Semantic body text for readable copy, labels, and inline content across dense Back Office surfaces
+status: stable
+category: components
+tags: [typography, text]
+source: "packages/design-system/kaizen/primitive/core/src/components/Body"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Body renders token-backed paragraph and inline text — table cells, form
+descriptions, alert copy, and helper lines. It binds size, line height, weight,
+and semantic colour so copy stays consistent without hand-picking utility classes.
+Use [Title](/components/title) for headings and [Link](/components/link) for
+navigation; Body carries everything the user reads in flow.
+
+<StorybookEmbed
+  id="primitive-components-body--primary"
+  mode="playground"
+  height={700}
+  stories={[{ id: "primitive-components-body--primary", label: "Body" }]}
+/>
+
+### Use cases
+
+- **Table cells** — `htmlVariant="span"` with `size="md"` for the 14px base UI
+  size in [Table](/components/table) rows.
+- **Alert and modal copy** — multi-line explanation text beneath a [Title](/components/title)
+  heading inside [Alert](/components/alert) or [Modal](/components/modal).
+- **Form helpers** — secondary hints, validation messages, and field descriptions
+  at `size="sm"` with `color="weak"`.
+- **Page subtitles** — supporting line under a page title in
+  [Header layout](/components/header-layout) (`size="lg"` when prose-length).
+- **Status inline copy** — `color="critical"`, `warning`, `info`, or `positive`
+  inside a component when the surrounding layout already signals context.
+
+## Guidelines
+
+- **Base UI size** — `size="md"` (14px) is the default choice for tables, forms,
+  and dense layouts; see [Typography](/foundations/typography).
+- **Semantic element** — render as `p` for blocks and `span` for inline table
+  cells or labels; do not swap elements for styling alone.
+- **Colour carries meaning** — `default` for primary copy, `weak` / `weaker`
+  for de-emphasis, `main` only when inline text is interactive (prefer
+  [Link](/components/link) for real navigation).
+- **Weight sparingly** — no default weight is applied; use `strong` or
+  `stronger` for short emphasis, not whole paragraphs.
+- **Stay on the scale** — no `size="xs"` on Body; use the `text-body-xs` utility
+  in extremely tight surfaces (badges, avatars).
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Reach for size=md in tables and forms — it matches buttons, labels, and the rest of the dense Back Office UI." />
+  <Do caption="Switch to htmlVariant=span when Body sits inside a table cell or inline label so you avoid invalid paragraph nesting." />
+  <Do caption="Pair weak or weaker colour with supporting metadata — timestamps, helper lines, and secondary labels." />
+  <Dont caption="Page and section headings belong on Title — Body cannot replace heading semantics." />
+  <Dont caption="Interactive navigation belongs on Link, not Body with color=main, unless you are composing a one-off inline pattern inside another component." />
+  <Dont caption="Strong or stronger weight across an entire paragraph flattens scanability — reserve emphasis for a phrase or callout line." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+When `htmlVariant="p"`, block children such as lists or other paragraphs
+produce invalid HTML (`<ul>` inside `<p>`). Pass a React node as children only
+when the structure is plain text or inline elements, or choose a different
+wrapper at the parent level.
+
+</Callout>
+
+#### size md
+
+<DoDont>
+  <Do caption="Use for table cells, form labels, menu item labels, and any surface where 14px is the workhorse size." />
+  <Dont caption="Long-form reading blocks at md feel cramped — step up to size=lg when the user reads multiple sentences in a panel or empty state." />
+</DoDont>
+
+#### color main
+
+<DoDont>
+  <Do caption="Reserve main for inline interactive affordances inside composite components when Link is not yet wired." />
+  <Dont caption="Standalone hyperlinks in copy belong on Link — main on Body does not add underline, focus ring, or keyboard affordances." />
+</DoDont>
+
+### Content rules
+
+Write in sentence case, present tense, and plain language. Keep helper text
+actionable — say what happened and what to do next.
+
+**Table cell** — `size="md"`, `color="default"`.
+
+> Active until 12 Jun 2026
+
+**Validation hint** — `size="sm"`, `color="critical"`.
+
+> Enter a valid email address.
+
+**Supporting description** — `size="lg"`, `color="weak"`.
+
+> Members without a pack cannot book this activity.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Root (`p` or `span`)",
+      description:
+        "Semantic text element selected by `htmlVariant`. Receives typography utility classes from `size`, `color`, and `weight`.",
+    },
+    {
+      label: "Children",
+      description:
+        "Text or inline nodes. When `size` is set and children are block-level siblings, vertical `space-y-*` rhythm is applied between direct children.",
+    },
+  ]}
+/>
+
+### Type scale
+
+Token-backed sizes `lg`, `md`, and `sm` map to the body ramp. Larger
+`display` and `xl` sizes exist for in-component emphasis (for example metric
+figures). There is no `size="xs"` — see [Typography](/foundations/typography).
+
+<BodyTypeScale />
+
+### Props
+
+<PropsTable
+  component="Body"
+  overrides={{
+    size: {
+      type: '"display" | "xl" | "lg" | "md" | "sm"',
+      description:
+        "Token-backed text size and line height. Also applies `space-y-*` between direct block children when set. `md` is the base UI size (14px).",
+    },
+    htmlVariant: {
+      type: '"p" | "span"',
+      defaultValue: "p",
+      description:
+        "`p` for block copy; `span` for inline table cells, labels, and nested text inside other components.",
+    },
+    color: {
+      type: '"default" | "main" | "weak" | "weaker" | "info" | "positive" | "critical" | "warning" | "onstrong" | "disabled" | "inherit"',
+      defaultValue: "default",
+      description:
+        "Semantic `onsurface-*` text colour. `main` marks interactive inline text; status colours should stay inside components, not page layouts.",
+    },
+    weight: {
+      type: '"weaker" | "weak" | "strong" | "stronger"',
+      description:
+        "Font weight token. No default — omit for regular reading weight or set explicitly for emphasis.",
+    },
+    className: {
+      type: "string",
+      description: "Additional classes merged onto the root element.",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Vertical rhythm
+
+When `size` is set, Body adds a `space-y-*` utility matching the size step
+(`space-y-md` for `display` / `xl` / `lg`, `space-y-sm` for `md`,
+`space-y-xs` for `sm`) between **direct** block children. Inline text and a
+single child are unaffected.
+
+#### Responsiveness
+
+Body does not change size at breakpoints — pick the size that fits the
+container. In narrow panels, prefer `md` or `sm` and let wrapping handle
+overflow.
+
+### Edge cases
+
+- **`htmlVariant="p"` with block children** — nesting lists, divs, or other
+  paragraphs inside `p` is invalid HTML and triggers hydration warnings. Keep
+  children to text and inline elements, or lift structure to the parent.
+- **Missing `size`** — only colour and weight classes apply; line height and
+  font size fall back to inherited styles. Kaizen primitives usually pass an
+  explicit `size`.
+- **Very long text** — wraps naturally; no built-in truncation. Truncate at the
+  parent layout (for example `line-clamp-*` on a wrapper) when space is fixed.
+- **`color="inherit"`** — takes colour from the parent; useful inside tinted
+  surfaces or composite components that already set text colour.
+- **No `size="xs"`** — use `text-body-xs` and `leading-2xs` utilities where
+  space is extremely tight.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Body renders a native `<p>` or `<span>` with `data-component="Kaizen-Body"`.
+Kaizen does not add `role`, `aria-live`, or `aria-label` automatically.
+
+- **`htmlVariant="p"`** — use for meaningful paragraphs in reading order.
+- **`htmlVariant="span"`** — use inside table cells, labels, or phrases where a
+  paragraph would break semantics.
+- **Consumer responsibility** — pass `aria-*` attributes through standard DOM
+  props when the text is part of a labelled control (for example
+  `aria-describedby` on a [Text field](/components/text-field)).
+
+### Keyboard navigation
+
+Body is static text — it is not focusable and has no keyboard interactions.
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Skips Body text; focus moves to the next interactive control in page order.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Screen readers announce Body content as static text in document order. Status
+colours are visual only — do not rely on `color="critical"` or similar without
+the words carrying the meaning.
+
+Body is not a live region. Dynamic status changes belong in
+[Toast](/components/toast) or [Alert](/components/alert).
+
+### Focus management
+
+Body does not receive or trap focus.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — `default`, `weak`, `weaker`, and status
+  pairings use `onsurface-*` tokens; verify contrast on non-standard
+  backgrounds.
+- **1.4.1 Use of Color** — pair status colours with explicit wording; colour
+  alone must not be the only signal.
+- **2.1.1 Keyboard** — not applicable for default static usage.
+- **4.1.2 Name, Role, Value** — role comes from the chosen HTML element;
+  paragraph and span semantics are exposed automatically.
+
+## Resources
+
+### Storybook
+
+[Open Body in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-body--primary)
+
+### Related components
+
+- [Title](/components/title) — heading hierarchy for pages, sections, and card
+  headers; pair Title + Body for structured blocks.
+- [Link](/components/link) — inline and standalone navigation with proper focus
+  and underline affordances.
+- [Typography](/foundations/typography) — full type ramp, weight tokens, colour
+  roles, and page hierarchy conventions.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-643 — Body can include links](https://linear.app/bsport/issue/KAI-643/body-can-include-links) (Scoping) — first-class pattern for inline links inside Body copy is not yet defined in code or docs.
+
+#### Implementation gaps
+
+- **Stale JSDoc on `size` and `weight`** — source comments list only `sm` /
+  `md` / `lg` and `weak` / `strong`, but the component also supports `display`,
+  `xl`, and `weaker` / `stronger`.
+- **`p` wrapper in composite components** — some parents (for example Modal
+  body slots) always wrap children in `Body htmlVariant="p"`, which breaks when
+  children contain block elements.
+
+#### Design or API debt
+
+- **`display` and `xl` sizes** — available on Body but not part of the primary
+  body ramp; hero-scale type remains token-only until [Display component
+  work](https://linear.app/bsport/issue/KAI-492/typography-display) lands.
+- **No `size="xs"`** — extremely small copy uses raw utilities, not a Body prop.

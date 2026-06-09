@@ -1,0 +1,150 @@
+---
+title: Collapse [LLM]
+description: A composable show-hide container with animated expand and collapse
+status: stable
+category: components
+tags: [layout, disclosure]
+source: "packages/design-system/kaizen/primitive/core/src/components/Collapse"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Collapse provides context and subcomponents (`Controller`, `Content`) to build
+expandable regions. Unlike [Accordion](/components/accordion), it is compositional —
+you control the trigger UI and placement. Use it for optional detail blocks,
+filter panels, and custom disclosure patterns.
+
+<StorybookEmbed
+  id="primitive-components-collapse--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-collapse--primary", label: "Collapse" },
+    { id: "primitive-components-collapse--controlled", label: "Controlled" },
+    {
+      id: "primitive-components-collapse--controller-in-content",
+      label: "Controller in content",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Advanced filters** — reveal secondary filter fields behind "More filters".
+- **Inline help** — expand guidance under a form section title.
+- **Nested detail** — show line-item breakdown under a summary row.
+- **Custom accordion** — when [Accordion](/components/accordion) header chrome is too rigid.
+- **Self-toggle content** — controller rendered inside content for "Show less" links.
+
+## Guidelines
+
+- **Controller owns toggle** — use `Collapse.Controller` render prop for `isOpen` and `toggle`.
+- **Initially closed by default** — expand only when users need the content immediately.
+- **Animate with care** — ~200ms transition; avoid collapsing primary actions.
+- **Id for a11y** — pass `id` when wiring `aria-controls` from custom triggers.
+- **Do not hide required fields** — required inputs must be visible or clearly marked in the header.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Label the controller with clear show/hide text or an icon plus visible text." />
+  <Do caption="Use controlled mode when URL query or parent state must own open state." />
+  <Do caption="Keep collapsed content in the DOM for SEO only when necessary — prefer unmount for heavy widgets." />
+  <Dont caption="Collapsing the only submit path on a form without an open indicator." />
+  <Dont caption="Multiple nested Collapse layers without indentation — users lose context." />
+  <Dont caption="Using Collapse for modal dialogs — use Modal or Detail drawer." />
+</DoDont>
+
+### Content rules
+
+Toggle labels state the outcome:
+
+> Show advanced options
+
+> Hide details
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Root", description: "Provider for open state and optional id." },
+    {
+      name: "Controller",
+      description: "Render prop trigger receiving open state and toggle.",
+    },
+    { name: "Content", description: "Animated region shown when open." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Collapse" />
+
+### Behaviors
+
+#### Dismissal
+
+Toggle via controller; no automatic close on outside click.
+
+#### Persistence
+
+Internal state resets on remount unless controlled from parent.
+
+### Edge cases
+
+- **Controller inside content** — supported pattern for reciprocal hide links.
+- **Computed children** — dynamic content height animates after layout settle.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Wire `aria-expanded` and `aria-controls` on custom triggers to the content `id`
+when you do not use Accordion's built-in header.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses custom controller elements." },
+    {
+      keys: ["Enter", "Space"],
+      description: "Toggles when controller is a button.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce expanded/collapsed state on the trigger, not on every inner field.
+
+### Focus management
+
+When collapsing, avoid trapping focus inside hidden content — disable tab stops or unmount.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — controller must be keyboard operable.
+- **4.1.2 Name, Role, Value** — trigger has accessible name.
+
+## Resources
+
+### Storybook
+
+[Open Collapse in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-collapse--primary)
+
+### Related components
+
+- **[Accordion](/components/accordion)** — opinionated multi-section layout.
+- **[Expandable content](/components/expandable-content)** — legacy pattern; prefer Collapse in Studio Manager.
+- **[Filter](/components/filter)** — may collapse advanced filter rows.

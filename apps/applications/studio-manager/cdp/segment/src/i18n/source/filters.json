@@ -74,6 +74,9 @@
       },
       "referredMembers": {
         "description": "Filter members by whether they were referred by another member, optionally by referral discount on first purchase."
+      },
+      "termsAndConditions": {
+        "description": "Filter members by whether they accepted the studio terms and conditions."
       }
     }
   },
@@ -667,6 +670,25 @@
         "saveError": "Unable to save has phone filter.",
         "saveSuccess": "Has phone filter saved.",
         "deleteError": "Unable to delete has phone filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "107": {
+      "title": "Terms and conditions",
+      "actions": {
+        "deleteFilter": "Delete terms and conditions filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "accepted": "Accepted",
+        "notAccepted": "Not accepted"
+      },
+      "toasts": {
+        "saveError": "Unable to save terms and conditions filter.",
+        "saveSuccess": "Terms and conditions filter saved.",
+        "deleteError": "Unable to delete terms and conditions filter.",
         "invalidFilter": "Invalid filter."
       }
     },

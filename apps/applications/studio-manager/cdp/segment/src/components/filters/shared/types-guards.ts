@@ -32,8 +32,10 @@ import {
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
   TAG_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   TagFilter,
+  type TermsAndConditionsFilter,
   TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
@@ -58,6 +60,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
+  termsAndConditions: "termsAndConditions",
   lastBooking: "lastBooking",
 } as const;
 
@@ -87,6 +90,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.termsAndConditions ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
 
 export const isBasketAbandonmentFilter = (
@@ -300,6 +304,15 @@ export const isMarketingNotificationFilter = (
 
 export const isHasPhoneFilter = (value: unknown): value is HasPhoneFilter =>
   hasFilterIdentifier(value, HAS_PHONE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "value");
+
+export const isTermsAndConditionsFilter = (
+  value: unknown,
+): value is TermsAndConditionsFilter =>
+  hasFilterIdentifier(value, TERMS_AND_CONDITIONS_FILTER_IDENTIFIER) &&
   hasNumber(value, "id") &&
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company") &&

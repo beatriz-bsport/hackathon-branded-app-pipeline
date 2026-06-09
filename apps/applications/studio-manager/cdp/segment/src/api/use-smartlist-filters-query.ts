@@ -31,6 +31,8 @@ import {
   type PaymentPackFilter,
   type PrivateBookingsFilter,
   type PrivatePassFilter,
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  type ReferredMemberFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
@@ -55,6 +57,7 @@ import {
   isPaymentPackFilter,
   isPrivateBookingsFilter,
   isPrivatePassFilter,
+  isReferredMemberFilter,
   isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
@@ -74,6 +77,7 @@ type SmartlistFiltersQueryData = {
   firstPurchaseFilters: FirstPurchaseFilter[];
   basketAbandonmentFilters: BasketAbandonmentFilter[];
   purchaseHistoryFilters: ExpensesCompleteFilter[];
+  referredMemberFilters: ReferredMemberFilter[];
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
@@ -263,6 +267,20 @@ const mapPurchaseHistoryFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapReferredMemberFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ReferredMemberFilter[] => {
+  const referredMemberFiltersMap =
+    payload?.[REFERRED_MEMBERS_FILTER_IDENTIFIER];
+  if (!referredMemberFiltersMap) {
+    return [];
+  }
+
+  return Object.values(referredMemberFiltersMap)
+    .filter(isReferredMemberFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapMarketingNotificationFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): MarketingNotificationFilter[] => {
@@ -324,6 +342,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       basketAbandonmentFilters: mapBasketAbandonmentFilters(data),
       purchaseHistoryFilters: mapPurchaseHistoryFilters(data),
+      referredMemberFilters: mapReferredMemberFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),

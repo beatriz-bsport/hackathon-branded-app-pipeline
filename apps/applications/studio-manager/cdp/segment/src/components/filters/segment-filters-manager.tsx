@@ -75,6 +75,11 @@ import { PurchaseHistoryFilterCardSkeleton } from "./purchase-history-filter/com
 import { createDefaultPurchaseHistoryFilter } from "./purchase-history-filter/default-value";
 import { mapPurchaseHistoryFilterToFormValue } from "./purchase-history-filter/mappers/api-to-form-value";
 import type { PurchaseHistoryFilterFormValue } from "./purchase-history-filter/types";
+import { ReferredMembersFilterCard } from "./referred-members-filter/components/referred-members-filter-card";
+import { ReferredMembersFilterCardSkeleton } from "./referred-members-filter/components/referred-members-filter-card-skeleton";
+import { createDefaultReferredMembersFilter } from "./referred-members-filter/default-value";
+import { mapReferredMemberFilterToFormValue } from "./referred-members-filter/mappers/api-to-form-value";
+import type { ReferredMembersFilterFormValue } from "./referred-members-filter/types";
 import {
   SMARTLIST_FILTERS_MANAGER_FILTER_TYPES,
   type SmartlistFiltersManagerFilterType,
@@ -118,6 +123,7 @@ type FilterValueByType = {
   firstPurchase: FirstPurchaseFilterFormValue;
   basketAbandonment: BasketAbandonmentFilterFormValue;
   purchaseHistory: PurchaseHistoryFilterFormValue;
+  referredMembers: ReferredMembersFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
   hasPhone: HasPhoneFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
@@ -128,6 +134,11 @@ type DraftFilter =
       clientId: string;
       filterType: "age";
       value: FilterValueByType["age"];
+    }
+  | {
+      clientId: string;
+      filterType: "referredMembers";
+      value: FilterValueByType["referredMembers"];
     }
   | {
       clientId: string;
@@ -283,6 +294,16 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "referredMembers";
+      value: FilterValueByType["referredMembers"];
+    }
+  | {
+      key: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
+    }
+  | {
+      key: string;
       filterType: "basketAbandonment";
       value: FilterValueByType["basketAbandonment"];
     }
@@ -355,6 +376,7 @@ export const SegmentFiltersManager = ({
   const basketAbandonmentFilters =
     smartlistFilters?.basketAbandonmentFilters ?? [];
   const purchaseHistoryFilters = smartlistFilters?.purchaseHistoryFilters ?? [];
+  const referredMemberFilters = smartlistFilters?.referredMemberFilters ?? [];
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
   const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
@@ -553,6 +575,19 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    referredMembers: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary
+        key={key}
+        loadingFallback={<ReferredMembersFilterCardSkeleton />}
+      >
+        <ReferredMembersFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
     purchaseHistory: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary
         key={key}
@@ -673,6 +708,11 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.purchaseHistory,
       value: createDefaultPurchaseHistoryFilter(smartlistNumericId),
     }),
+    referredMembers: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.referredMembers),
+      filterType: FILTER_TYPES.referredMembers,
+      value: createDefaultReferredMembersFilter(smartlistNumericId),
+    }),
     marketingNotification: () => ({
       clientId: createDraftClientId(FILTER_TYPES.marketingNotification),
       filterType: FILTER_TYPES.marketingNotification,
@@ -739,19 +779,35 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.passes,
       },
       {
+        id: FILTER_TYPES.basketAbandonment,
+        label: t("filters.20.title"),
+        description: t("filterSelector.options.basketAbandonment.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
+      },
+      {
+        id: FILTER_TYPES.bookingMilestone,
+        label: t("filters.21.title"),
+        description: t("filterSelector.options.bookingMilestone.description"),
+        category: FILTER_SELECTOR_CATEGORIES.bookings,
+      },
+      {
         id: FILTER_TYPES.totalBookingNumber,
         label: t("filters.22.title"),
         description: t("filterSelector.options.totalBookingNumber.description"),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
-
+      {
+        id: FILTER_TYPES.purchaseHistory,
+        label: t("filters.24.title"),
+        description: t("filterSelector.options.purchaseHistory.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
+      },
       {
         id: FILTER_TYPES.appointmentPass,
         label: t("filters.25.title"),
         description: t("filterSelector.options.appointmentPass.description"),
         category: FILTER_SELECTOR_CATEGORIES.passes,
       },
-
       {
         id: FILTER_TYPES.totalAppointmentsNumber,
         label: t("filters.26.title"),
@@ -760,7 +816,6 @@ export const SegmentFiltersManager = ({
         ),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
-
       {
         id: FILTER_TYPES.activePasses,
         label: t("filters.27.title"),
@@ -774,16 +829,10 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.payments,
       },
       {
-        id: FILTER_TYPES.basketAbandonment,
-        label: t("filters.20.title"),
-        description: t("filterSelector.options.basketAbandonment.description"),
-        category: FILTER_SELECTOR_CATEGORIES.payments,
-      },
-      {
-        id: FILTER_TYPES.purchaseHistory,
-        label: t("filters.24.title"),
-        description: t("filterSelector.options.purchaseHistory.description"),
-        category: FILTER_SELECTOR_CATEGORIES.payments,
+        id: FILTER_TYPES.referredMembers,
+        label: t("filters.30.title"),
+        description: t("filterSelector.options.referredMembers.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
         id: FILTER_TYPES.marketingNotification,
@@ -798,6 +847,12 @@ export const SegmentFiltersManager = ({
         label: t("filters.106.title"),
         description: t("filterSelector.options.hasPhone.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
+        id: FILTER_TYPES.lastBooking,
+        label: t("filters.501.title"),
+        description: t("filterSelector.options.lastBooking.description"),
+        category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
     ],
     [t],
@@ -873,6 +928,11 @@ export const SegmentFiltersManager = ({
       key: `saved-purchase-history-${purchaseHistoryFilter.id}`,
       filterType: FILTER_TYPES.purchaseHistory,
       value: mapPurchaseHistoryFilterToFormValue(purchaseHistoryFilter),
+    })),
+    ...referredMemberFilters.map((referredMemberFilter) => ({
+      key: `saved-referred-members-${referredMemberFilter.id}`,
+      filterType: FILTER_TYPES.referredMembers,
+      value: mapReferredMemberFilterToFormValue(referredMemberFilter),
     })),
     ...creditAccountFilters.map((creditAccountFilter) => ({
       key: `saved-credit-account-${creditAccountFilter.id}`,

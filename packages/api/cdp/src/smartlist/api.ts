@@ -13,6 +13,7 @@ export * from "./filter/member-date-joined/api";
 export * from "./filter/payment-pack/api";
 export * from "./filter/private-bookings/api";
 export * from "./filter/private-pass/api";
+export * from "./filter/referred-members/api";
 export * from "./filter/tag/api";
 export * from "./filter/total-booking/api";
 export * from "./filter/last-booking/api";

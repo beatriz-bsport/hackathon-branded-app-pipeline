@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import type { ReactNode } from "react";
 
+import { LuxonDateTime } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 
 import { GlobalAlert } from "#src/components/financial-services/global-alert/global-alert";
@@ -28,7 +29,7 @@ Available actions: \`unpaid-invoice\`, \`disputed-invoice\`, \`stripe-not-config
 | \`"warning"\` | Dismissible floating banner — communicates urgency |
 | \`"blocking"\` | Non-dismissible full-screen modal — user must act on the CTA to regain access |
 
-An optional \`dueDate\` (ISO date string) shows a deadline chip:
+An optional \`dueDate\` (Luxon \`DateTime\`) shows a deadline chip:
 days remaining → critical · weeks → warning · months → default.`,
       },
     },
@@ -119,7 +120,7 @@ export const UnpaidInvoiceWarning: Story = {
     alerts: {
       "unpaid-invoice": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ days: 5 }),
       },
     },
   },
@@ -155,7 +156,7 @@ export const DisputedInvoiceWarning: Story = {
     alerts: {
       "disputed-invoice": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ days: 12 }),
       },
     },
   },
@@ -222,7 +223,7 @@ export const StripeNotConfiguredWarning: Story = {
     alerts: {
       "stripe-not-configured": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ months: 2 }),
       },
     },
   },
@@ -344,11 +345,11 @@ export const MultipleWarningAlerts: Story = {
     alerts: {
       "unpaid-invoice": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ days: 3 }),
       },
       "missing-vat-number": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ days: 20 }),
       },
     },
   },
@@ -419,7 +420,7 @@ export const MixedInfoAndWarningAlerts: Story = {
     alerts: {
       "unpaid-invoice": {
         severity: "warning",
-        dueDate: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: LuxonDateTime.now().plus({ days: 8 }),
       },
       "apple-developer-program-enrollment": { severity: "info" },
     },

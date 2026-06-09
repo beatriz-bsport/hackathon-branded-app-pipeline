@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { DateTime } from "@bsport/datetime-manipulation";
 import { Alert } from "@bsport/kaizen-primitive-core";
 
 import { redirectUrls } from "#src/components/financial-services/global-alert/constants";
@@ -13,7 +14,7 @@ import { useAlertContent } from "#src/components/financial-services/global-alert
 type SingleAlertBannerProps = {
   kind: GlobalAlertKind;
   severity: NonBlockingGlobalAlertSeverity;
-  dueDate?: string;
+  dueDate?: DateTime;
   onDismiss?: () => void;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
@@ -38,7 +39,7 @@ export const SingleAlertBanner: React.FC<SingleAlertBannerProps> = ({
       : () => onNavigate(redirectUrls[kind]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 m-sm">
+    <div className="fixed top-0 left-0 right-0 z-50">
       <Alert
         status={severity}
         type="strong"

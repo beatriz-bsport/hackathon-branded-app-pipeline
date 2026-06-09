@@ -1,5 +1,4 @@
 export * from "./bookkeeping-account";
-export * from "./customer-entity";
 export * from "./internal-payment";
 export * from "./invoice";
 export * from "./invoice-bulk-export";
@@ -10,8 +9,6 @@ export * from "./payment-group";
 export * from "./payment-method";
 export * from "./payout";
 export * from "./platform-billing";
-export * from "./stripe-account";
-export * from "./subscription-payment-status";
 export * from "./teacher-payment-rules";
 export * from "./terminal";
 export * from "./types";

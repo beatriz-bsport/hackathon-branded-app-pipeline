@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
+import Badge from "#src/components/Badge";
+import Body from "#src/components/Body";
 import { icons } from "#src/components/Icon";
 import { Placements } from "#src/hooks/placement-classes.hook";
 
@@ -147,5 +149,44 @@ export const ControlledValue: Story = {
     onChange: (option) => console.log(`Selected option: ${option}`),
     label: "Select an option",
     required: true,
+  },
+};
+
+/**
+ * Demonstrates `rightSlot` on items appearing in both the dropdown menu and the collapsed trigger.
+ */
+export const WithRightSlot: Story = {
+  name: "With right slot",
+  render: (args) => {
+    const [value, setValue] = useState(args.defaultValue ?? "mango");
+
+    return <Select {...args} value={value} onChange={setValue} fullWidth />;
+  },
+  args: {
+    id: "select-right-slot",
+    name: "select-right-slot",
+    size: "md",
+    status: "default",
+    defaultValue: "mango",
+    label: "Select a fruit",
+    items: [
+      {
+        id: "mango",
+        label: "Mango",
+        rightSlot: (
+          <Body htmlVariant="span" size="lg" color="weaker">
+            In season
+          </Body>
+        ),
+      },
+      {
+        id: "banana",
+        label: "Banana",
+        rightSlot: <Badge color="default" size="sm" text="Popular" />,
+      },
+      { id: "orange", label: "Orange" },
+    ],
+    disabled: false,
+    fullWidth: true,
   },
 };

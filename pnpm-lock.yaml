@@ -1591,6 +1591,9 @@ importers:
       '@bsport/api-buyables':
         specifier: workspace:*
         version: link:../../../../../packages/api/buyables
+      '@bsport/api-cdp':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/cdp
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency

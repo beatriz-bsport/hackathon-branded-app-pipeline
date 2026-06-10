@@ -140,19 +140,19 @@
       "placeholder": "Search for an appointment",
       "loadingMessage": "Loading appointments…",
       "list": {
-        "compatibleWithAll": "Compatible with all sessions",
+        "compatibleWithAll": "Compatible with all classes",
         "compatibleWith": "Compatible with: {{ slotNames }}",
-        "noSessionsAvailable": "No sessions available",
+        "noSessionsAvailable": "No classes available",
         "removeAction": "Remove",
-        "editAction": "Edit compatible sessions"
+        "editAction": "Edit compatible classes"
       },
       "editModal": {
         "selectAll": "Select all",
-        "helperText": "Members can use this pass for the selected sessions only.",
-        "noSessionsAlert": "All eligible sessions have been removed. This subscription is no longer compatible with any {{ appointmentName }} sessions.",
+        "helperText": "Clients can use this pass for the selected classes only",
+        "noSessionsAlert": "This subscription is no longer compatible with {{ appointmentName }} appointments.",
         "cancel": "Cancel",
         "save": "Save",
-        "emptyState": "This appointment has no session yet."
+        "emptyState": "This appointment has no time slot yet."
       }
     }
   },

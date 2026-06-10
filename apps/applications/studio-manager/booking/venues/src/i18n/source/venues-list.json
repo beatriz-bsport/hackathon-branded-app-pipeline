@@ -160,7 +160,7 @@
     "errors": {
       "hasUpcomingOffers": "Some upcoming classes take place in this venue. Please cancel and delete them before archiving.",
       "hasUpcomingPrivateBookings": "Some upcoming appointments take place in this venue. Please cancel and delete them before archiving.",
-      "hasExclusiveBillingGroup": "This venue is the last one of its billing group. Please delete or update this billing group before archiving.",
+      "hasExclusiveBillingGroup": "This venue is tied to a billing location. Delete or update this billing location before archiving this venue. ",
       "exclusiveEstablishmentGroups": "This venue will be removed from the following location(s): {{names}}. Please update them before archiving.",
       "exclusivePaymentPacks": "The following passes {{names}} are only usable in this venue. Please update their restrictions before archiving.",
       "hasExclusiveMarketplaceComponentConfigs": "This venue has exclusive marketplace component configurations. Please update them before archiving.",
@@ -168,7 +168,7 @@
     },
     "warnings": {
       "title": "Archiving this venue will affect the following:",
-      "hasBillingGroup": "This venue belongs to billing group {{name}}.",
+      "hasBillingGroup": "This venue belongs to billing location {{name}}.",
       "exclusivePrivateServices": "The following private service(s) are exclusively assigned to this venue: {{names}}.",
       "relatedPaymentPacks": "The following passes {{names}} are assigned to this venue.",
       "hasExclusiveStaffConfigurations": "Some staff are exclusively configured for this venue.",

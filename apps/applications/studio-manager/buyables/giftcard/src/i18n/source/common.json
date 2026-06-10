@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "No gift cards yet",
-      "subtitle": "Create gift cards for members to share with friends and family"
+      "subtitle": "Create gift cards for clients to share with friends and family"
     },
     "archiveModal": {
       "title": "Archive gift card?",
       "description": {
-        "lineOne": "'{{ name }}' won't be visible to members any more but current or previous purchases won't be affected.",
+        "lineOne": "'{{ name }}' won't be visible to clients any more but current or previous purchases won't be affected.",
         "lineTwo": "You can restore this gift card at any time from your archive."
       },
       "buttons": {
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Image library",
     "uploadButton": "Upload image",
-    "description": "Add custom images to your library so your members can personalize their gift cards",
+    "description": "Add custom images to your library so your clients can personalize their gift cards",
     "selectImage": "Select an image to preview it in the gift card design",
     "emptyList": "No custom images yet"
   }

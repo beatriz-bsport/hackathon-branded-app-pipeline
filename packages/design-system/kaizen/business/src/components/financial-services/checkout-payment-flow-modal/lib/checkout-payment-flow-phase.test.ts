@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  CHECKOUT_PAYMENT_FLOW_MODE,
-  CHECKOUT_PAYMENT_FLOW_PHASE,
-} from "#src/components/financial-services/checkout-payment-flow-modal/types";
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "#src/components/financial-services/checkout-payment-flow-modal/constants";
+import { CHECKOUT_PAYMENT_FLOW_PHASE } from "#src/components/financial-services/checkout-payment-flow-modal/types";
 
 import {
   INVOICE_CREATED_FLOW_ACTION,

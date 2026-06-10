@@ -14,13 +14,13 @@ import { usePaymentFlowModalState } from "#src/components/financial-services/pay
 import { i18nInstance, useTranslation } from "#src/i18n";
 import { useGuardedModalClose } from "#src/utils/use-guarded-modal-close";
 
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
 import {
   INVOICE_CREATED_FLOW_ACTION,
   getInitialCheckoutPaymentFlowPhase,
   resolveInvoiceCreatedFlowAction,
 } from "./lib/checkout-payment-flow-phase";
 import {
-  CHECKOUT_PAYMENT_FLOW_MODE,
   CHECKOUT_PAYMENT_FLOW_PHASE,
   type CheckoutPaymentFlowModalProps,
   type CheckoutPaymentFlowPhase,

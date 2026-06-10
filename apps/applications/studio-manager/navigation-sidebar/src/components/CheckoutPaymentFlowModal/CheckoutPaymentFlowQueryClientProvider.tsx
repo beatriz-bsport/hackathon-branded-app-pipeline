@@ -6,8 +6,8 @@ import {
 import type { ReactNode } from "react";
 import { useContext, useState } from "react";
 
-/** Provides QueryClient for PaymentFlowModal (kaizen uses react-query as peer). */
-export function PaymentFlowModalQueryClientProvider({
+/** Provides QueryClient for CheckoutPaymentFlowModal (kaizen uses react-query as peer). */
+export function CheckoutPaymentFlowQueryClientProvider({
   children,
 }: {
   children: ReactNode;

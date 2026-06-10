@@ -124,7 +124,7 @@
         "subtitle": "Members who subscribe to this contract will appear here."
       },
       "actions": {
-        "viewBillingPlan": "View billing plan"
+        "viewBillingPlan": "Billing"
       },
       "statusTooltips": {
         "valid": "Member's contract is active and billing normally.",

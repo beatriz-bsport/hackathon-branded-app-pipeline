@@ -9,7 +9,7 @@
   },
   "inactiveEmptyState": {
     "title": "SmartFill is not active",
-    "subtitle": "SmartFill spots your low-attendance sessions, finds the members most likely to book, and lets you reach them in one click — then tracks who booked as a result."
+    "subtitle": "Smartfill spots your low-attendance classes, finds the members most likely to book, and lets you reach them in one click — then tracks who booked as a result."
   },
   "error": {
     "title": "Something went wrong",
@@ -19,7 +19,7 @@
   "targetedOffersList": {
     "columns": {
       "date": "Date",
-      "session": "Session",
+      "session": "Class",
       "analytics": "Analytics"
     },
     "unknownSession": "Offer #{{offerId}}",
@@ -31,7 +31,7 @@
     }
   },
   "targetedOfferDetail": {
-    "openOffer": "Open session"
+    "openOffer": "Open class"
   },
   "notifications": {
     "title": "Clients contacted ({{count}})",

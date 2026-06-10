@@ -1,4 +1,11 @@
-import { type FC, useCallback, useMemo, useRef } from "react";
+import {
+  type FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
@@ -6,7 +13,10 @@ import { useRegisterBooking } from "#src/hooks/booking/actions/use-register-book
 import { useRetrievePass } from "#src/hooks/buyables/fetch/use-retrieve-pass";
 import { useQuickInvoice } from "#src/hooks/invoice/actions/use-quick-invoice";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import { resetBookingFlow } from "#src/stores/booking-flow/actions";
+import {
+  resetBookingFlow,
+  setSessionIds,
+} from "#src/stores/booking-flow/actions";
 import { getDiscountedPrice } from "#src/stores/booking-flow/get-discounted-price";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { getPassPrice } from "#src/utils/get-pass-price";
@@ -16,6 +26,7 @@ import { ConfirmationStep } from "./confirmation-step";
 import { MemberSelectionStep } from "./member-selection-step";
 import { hasDiscountErrors } from "./new-pass-form/get-discount-errors";
 import { PassSelectionStep } from "./pass-selection-step";
+import { SessionSelectionStep } from "./session-selection-step";
 import { SpotSelectionStep } from "./spot-selection-step";
 
 type BookingFlowModalProps = {
@@ -55,6 +66,7 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   const spotIndex = useBookingFlowStore((state) => state.spotIndex);
   const discount = useBookingFlowStore((state) => state.discount);
   const billingGroupId = useBookingFlowStore((state) => state.billingGroupId);
+  const storeSessionIds = useBookingFlowStore((state) => state.sessionIds);
 
   const { data: session } = useRetrieveSession(sessionId);
   const hasBlueprint = session.room_blueprint != null;
@@ -62,6 +74,29 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   const isNewPassRoute = paymentPackId !== null && !consumerPaymentPackId;
 
   const { data: selectedNewPass } = useRetrievePass(paymentPackId);
+
+  // Multi-session booking state
+  const [isBookMultiSessionsSelected, setIsBookMultiSessionsSelected] =
+    useState(false);
+
+  // Initialize sessionIds with the current session on mount
+  useEffect(() => {
+    if (isOpen && sessionId && storeSessionIds.length === 0) {
+      setSessionIds([sessionId]);
+    }
+  }, [isOpen, sessionId, storeSessionIds.length]);
+
+  const handleSelectBookMultiSessions = useCallback(
+    (checked: boolean) => {
+      setIsBookMultiSessionsSelected(checked);
+      if (!checked) {
+        setSessionIds([sessionId]);
+      }
+    },
+    [sessionId],
+  );
+
+  const isMultiSession = storeSessionIds.length > 1;
 
   const handleClose = useCallback(() => {
     if (isPending) return; // Prevent closing if there's an ongoing booking registration
@@ -86,7 +121,11 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
         label: t("bookingFlow.steps.passSelection"),
         content:
           memberId !== null ? (
-            <PassSelectionStep sessionId={sessionId} />
+            <PassSelectionStep
+              sessionId={sessionId}
+              isBookMultiSessionsSelected={isBookMultiSessionsSelected}
+              onSelectBookMultiSessions={handleSelectBookMultiSessions}
+            />
           ) : null,
         validate: () => {
           if (consumerPaymentPackId !== null) return true;
@@ -97,7 +136,16 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
           return !hasDiscountErrors(discount, passPrice);
         },
       },
-      ...(hasBlueprint
+      ...(isBookMultiSessionsSelected
+        ? [
+            {
+              label: t("bookingFlow.steps.sessionSelection"),
+              content: <SessionSelectionStep currentSessionId={sessionId} />,
+              validate: () => storeSessionIds.length >= 1,
+            },
+          ]
+        : []),
+      ...(hasBlueprint && !isMultiSession
         ? [
             {
               label: t("bookingFlow.steps.spotSelection"),
@@ -120,6 +168,10 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       sessionId,
       hasBlueprint,
       spotIndex,
+      isBookMultiSessionsSelected,
+      handleSelectBookMultiSessions,
+      storeSessionIds,
+      isMultiSession,
       t,
     ],
   );
@@ -139,12 +191,14 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       createQuickInvoice({
         memberId,
         paymentPackId,
-        offers_data: [
-          {
-            offer_id: sessionId,
-            extra_data: spotIndex ? { spot_id: spotIndex } : {},
-          },
-        ],
+        offers_data: storeSessionIds.map((offerId) => ({
+          offer_id: offerId,
+          extra_data: isMultiSession
+            ? { auto_assign_spot: true }
+            : spotIndex !== null
+              ? { spot_id: spotIndex }
+              : {},
+        })),
         ...(discount?.enabled
           ? { voucher: discountAmount, voucher_reason: discount?.reason }
           : {}),
@@ -161,10 +215,12 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       {
         consumerPaymentPackId,
         payload: {
-          offer: sessionId,
+          offer: isMultiSession ? storeSessionIds : storeSessionIds[0],
           keep_credits: keepCredits,
           notify_member: notifyMember,
-          spot_id: spotIndex,
+          ...(isMultiSession
+            ? { auto_assign_spot: true }
+            : { spot_id: spotIndex }),
         },
       },
       {
@@ -182,10 +238,11 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
     discount,
     billingGroupId,
     consumerPaymentPackId,
-    sessionId,
     keepCredits,
     notifyMember,
     spotIndex,
+    isMultiSession,
+    storeSessionIds,
     createQuickInvoice,
     registerBooking,
     handleClose,

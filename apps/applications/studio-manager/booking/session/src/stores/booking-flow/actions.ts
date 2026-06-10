@@ -10,11 +10,19 @@ export const setMember = (memberId: number) => {
 };
 
 export const setPass = (consumerPaymentPackId: number) => {
-  bookingFlowStore.setState({ consumerPaymentPackId, paymentPackId: null });
+  bookingFlowStore.setState({
+    consumerPaymentPackId,
+    paymentPackId: null,
+    sessionIds: [],
+  });
 };
 
 export const setNewPass = (paymentPackId: number | null) => {
-  bookingFlowStore.setState({ paymentPackId, consumerPaymentPackId: null });
+  bookingFlowStore.setState({
+    paymentPackId,
+    consumerPaymentPackId: null,
+    sessionIds: [],
+  });
 };
 
 export const setSessionIds = (sessionIds: number[]) => {

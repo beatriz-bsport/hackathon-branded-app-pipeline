@@ -40,6 +40,11 @@ export {
   type CheckboxGroupProps,
 } from "./components/CheckboxGroup";
 export { default as Chip, type ChipProps } from "./components/Chip";
+export {
+  ChipList,
+  type ChipListProps,
+  type ChipItem as ChipListItem,
+} from "./components/organisms/chip-list";
 export { default as Collapse, type CollapseProps } from "./components/Collapse";
 export {
   default as ColorIndicator,

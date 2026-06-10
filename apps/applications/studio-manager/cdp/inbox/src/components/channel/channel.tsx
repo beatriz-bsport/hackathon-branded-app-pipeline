@@ -2,7 +2,9 @@ import { Body, Icon, type IconName, cx } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-export type ChannelType = "email" | "sms" | "push" | "chat";
+import { type ChannelType } from "./constants";
+
+export type { ChannelType };
 
 const CHANNEL_ICON: Record<ChannelType, IconName> = {
   email: "mail-01",

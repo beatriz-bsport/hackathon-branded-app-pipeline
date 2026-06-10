@@ -70,11 +70,18 @@ export const refineSmartlistDateSubFilter = ({
   const { firstDays, secondDays } = dateValue.relative;
 
   if (dateFilterType === SmartlistDateFilterType.DURATION_BETWEEN) {
-    if (firstDays === null || secondDays === null) {
+    if (secondDays === null) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         path: [fieldPath, "relative", "secondDays"],
         message: messages.durationBetweenRequired,
+      });
+    }
+    if (firstDays === null) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: [fieldPath, "relative", "firstDays"],
+        message: messages.durationRequired,
       });
     }
     return;

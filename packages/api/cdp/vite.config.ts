@@ -37,6 +37,7 @@ export default defineConfig({
     dts({
       rollupTypes: false, // Don't emit extra .d.ts files
       insertTypesEntry: true, // Generates a types entry file
+      exclude: ["src/**/__tests__/**"],
     }),
   ],
   build: {

@@ -38,3 +38,22 @@ Deploy Production:
   variables:
     TARGET_BRANCH: "production"
     ENV: "production"
+
+Deploy Backoffice Dev Local:
+  stage: deploy
+  needs:
+    - Build Artifact Dev
+  extends:
+    - .ci-runner-small
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: "never"
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: "on_success"
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: "on_success"
+  script:
+    - echo "🔱 Deploying dev artifact on backoffice local"
+    - bash tools/scripts/deploy-dev-local.sh

@@ -1,0 +1,148 @@
+---
+title: Pagination [LLM]
+description: Page controls for long collections with page size and total count
+status: stable
+category: components
+tags: [data, navigation]
+source: "packages/design-system/kaizen/primitive/core/src/components/private/Pagination"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Pagination navigates paged data sets — members, transactions, templates. It shows
+current page, next/previous controls, and handles large totals (including 1000+ items).
+Embed at the bottom of [List](/components/list) or [Table](/components/table) views.
+
+<StorybookEmbed
+  id="primitive-components-private-pagination--pagination"
+  mode="playground"
+  height={400}
+  stories={[
+    {
+      id: "primitive-components-private-pagination--pagination",
+      label: "Pagination",
+    },
+    {
+      id: "primitive-components-private-pagination--more-than-a-thousand-items",
+      label: "Large totals",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Member list footer** — page through thousands of profiles.
+- **Invoice history** — finance table pagination with stable sort.
+- **Audit logs** — sequential pages of immutable events.
+- **Search results** — sync page index with URL query param.
+- **Modal pickers** — compact pagination in selector dialogs.
+
+## Guidelines
+
+- **Sync with data fetch** — changing page triggers new query with offset/limit.
+- **Show total when helpful** — users gauge result set size.
+- **Disable during load** — prevent double page jumps while fetching.
+- **Preserve sort and filters** — page changes must not reset facet state.
+- **Default page size** — match API default; offer size change only if product supports it.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Reset to page 1 when filters change materially." />
+  <Do caption="Scroll list header into view after page change on long pages." />
+  <Do caption="Disable prev/next at boundaries instead of hiding controls." />
+  <Dont caption="Infinite scroll plus pagination on the same list." />
+  <Dont caption="Page numbers that do not match backend total count." />
+  <Dont caption="Pagination on sets smaller than one page — hide control." />
+</DoDont>
+
+### Content rules
+
+Controls use familiar labels:
+
+> Previous
+
+> Next
+
+> Page 3 of 12
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Previous control",
+      description: "Goes to prior page when available.",
+    },
+    { name: "Page indicator", description: "Current page and total pages." },
+    { name: "Next control", description: "Advances when more data exists." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Pagination" />
+
+### Behaviors
+
+#### Persistence
+
+Page index should live in URL or store for back-navigation recovery.
+
+### Edge cases
+
+- **More than 1000 items** — formatting and abbreviated totals per story behavior.
+- **Empty page after delete** — jump to last valid page when current becomes empty.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Nav region with `aria-label` "Pagination"; current page indicated programmatically.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Focuses previous, page info, and next controls.",
+    },
+    { keys: ["Enter", "Space"], description: "Activates page change buttons." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce new page content when list region updates (polite live region optional).
+
+### Focus management
+
+Optional: move focus to list heading after page change.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — change pages without pointer.
+- **4.1.2 Name, Role, Value** — buttons name destination (Next page).
+
+## Resources
+
+### Storybook
+
+[Open Pagination in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-private-pagination--pagination)
+
+### Related components
+
+- **[List](/components/list)** — common parent with built-in pagination slot.
+- **[Table](/components/table)** — tabular paging.
+- **[Filter](/components/filter)** — changing filters resets page index.

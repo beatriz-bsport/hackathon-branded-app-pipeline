@@ -11,7 +11,7 @@ import type {
   DateFilterValue,
   RelativeDateOperator,
 } from "#src/components/primitive-filters/date-filter/types";
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import {
   ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
@@ -76,26 +76,28 @@ const mapApiDateTypeToFormValue = (
   dateFilterType: SmartlistDateFilterType,
   firstDuration?: number | null,
 ): DateFilterValue => {
+  const defaultDate = createDefaultDateFilterValue();
+
   if (isAbsoluteSmartlistDateFilterType(dateFilterType)) {
     const absoluteDateFilterType = dateFilterType;
     return {
-      ...defaultDateFilterValue,
+      ...defaultDate,
       dateType: DATE_FILTER_TYPE_ABSOLUTE,
       absolute: {
-        ...defaultDateFilterValue.absolute,
+        ...defaultDate.absolute,
         operator:
           ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE[
             absoluteDateFilterType
-          ] ?? defaultDateFilterValue.absolute.operator,
+          ] ?? defaultDate.absolute.operator,
       },
     };
   }
 
   return {
-    ...defaultDateFilterValue,
+    ...defaultDate,
     dateType: DATE_FILTER_TYPE_RELATIVE,
     relative: {
-      ...defaultDateFilterValue.relative,
+      ...defaultDate.relative,
       operator: getRelativeDateOperatorBySmartlistDateFilterType({
         dateFilterType,
         firstDuration,

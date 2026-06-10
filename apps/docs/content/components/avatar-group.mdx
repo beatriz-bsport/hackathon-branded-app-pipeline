@@ -1,0 +1,159 @@
+---
+title: Avatar group [LLM]
+description: Overlapping avatars with overflow count and popover for additional members
+status: stable
+category: components
+tags: [display, identity]
+source: "packages/design-system/kaizen/primitive/core/src/components/AvatarGroup"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Avatar group shows several people in a compact overlapping stack — class attendees,
+assigned coaches, or collaborators. It displays up to three [Avatar](/components/avatar)
+images, then a "+N" tile that opens a [Popover](/components/popover) menu listing the rest.
+
+<StorybookEmbed
+  id="primitive-components-avatargroup--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    {
+      id: "primitive-components-avatargroup--primary",
+      label: "Avatar group",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Session roster preview** — coaches and assistants on a class row.
+- **Project collaborators** — shared admin resources with many assignees.
+- **Attendance modal** — compact member stack before expanding full list.
+- **Comment thread faces** — few recent authors with overflow.
+- **List row compact mode** — alongside title in [List item](/components/list-item).
+
+## Guidelines
+
+- **Max three visible** — additional members appear only via +N popover.
+- **Consistent size and shape** — match single Avatar rules (`round` for people).
+- **Meaningful names in data** — `name` drives initials fallback and menu labels.
+- **Cap overflow display** — shows up to 99 extra in the counter label.
+- **Read-only stack** — avatars in group use `pointer-events-none`; navigate via popover items.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Pass stable id per avatar for keys and menu item identity." />
+  <Do caption="Use round shape for people; squared only when matching product thumbnails." />
+  <Do caption="Open popover menu to let users jump to individual profiles when items are links." />
+  <Dont caption="Avatar group as the only way to see full roster — link to full list." />
+  <Dont caption="Single person — use Avatar alone without +0 overflow." />
+  <Dont caption="Mixing photo and generic icons without names in popover." />
+</DoDont>
+
+### Content rules
+
+Overflow tile shows count:
+
+> +4
+
+Popover lists full names:
+
+> Emma Johnson
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Visible avatars",
+      description: "First three Avatar instances overlapped.",
+    },
+    { name: "Overflow tile", description: "+N count triggering popover." },
+    { name: "Popover menu", description: "Menu of remaining members." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="AvatarGroup" />
+
+### Behaviors
+
+#### Dismissal
+
+Popover closes on outside click per Popover defaults.
+
+#### Responsiveness
+
+Negative margin overlap scales with `size` token.
+
+### Edge cases
+
+- **Fewer than four members** — no overflow tile; only avatars shown.
+- **Missing src** — initials from `name` via getInitials helper.
+- **More than 102 total** — counter caps display at +99 pattern.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Overflow trigger needs accessible name ("4 more members"). Menu items should be focusable links or buttons.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses overflow trigger when present." },
+    {
+      keys: ["Enter", "Space"],
+      description: "Opens member menu from overflow.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce total count in overflow button label, not only "+4".
+
+### Focus management
+
+Popover traps focus while open; return to trigger on close.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — reach overflow menu.
+- **4.1.2 Name, Role, Value** — overflow button named with member context.
+
+## Resources
+
+### Storybook
+
+[Open Avatar group in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-avatargroup--primary)
+
+### Related components
+
+- **[Avatar](/components/avatar)** — single identity tile.
+- **[List](/components/list)** — compact list of avatar rows alternative.
+- **[Popover](/components/popover)** — overflow panel host.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Status on avatars** — same gap as Avatar; no built-in attendance badge on group tiles yet (Notion: extend Avatar with Indicator).
+
+## TO CLARIFY
+
+- Whether popover menu items should navigate to profiles by default or remain display-only.

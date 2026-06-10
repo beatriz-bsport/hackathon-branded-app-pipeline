@@ -1,4 +1,4 @@
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { OWNERSHIP_OPTIONS } from "./constants";
@@ -20,7 +20,7 @@ export const createDefaultPassesFilter = (
   selectAllPaymentPacks: false,
   selectedPaymentPackIds: [],
   subFilters: [],
-  purchaseDate: defaultDateFilterValue,
-  expirationDate: defaultDateFilterValue,
+  purchaseDate: createDefaultDateFilterValue(),
+  expirationDate: createDefaultDateFilterValue(),
   creditLeft: defaultNumericComparatorFilterValue,
 });

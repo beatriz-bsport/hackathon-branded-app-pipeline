@@ -1,0 +1,65 @@
+---
+title: Content accessibility
+description: Writing practices aligned with WCAG 2.1 and 2.2.
+category: foundations
+---
+
+These guidelines follow
+[Web Content Accessibility Guidelines (WCAG) 2.1 and 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/glance/)
+— the industry standard for accessible web content. They complement component
+accessibility docs, which cover roles, keyboard behaviour, and focus management.
+
+## Perceivable
+
+- Provide text alternatives for non-text content (icons, images, charts).
+- Provide captions and alternatives for multimedia.
+- Structure content so it can be presented in different ways — including by
+  assistive technologies — without losing meaning.
+- Make it easier to see and hear content (sufficient contrast is a visual
+  token concern; copy should not rely on colour alone to convey meaning).
+
+## Operable
+
+- Ensure all functionality is available from a keyboard.
+- Give users enough time to read and use content — avoid auto-dismissing
+  messages before people can finish reading.
+- Do not use content that causes seizures or physical reactions (flashing
+  text, rapid animation).
+- Help users navigate and find content with clear headings and link text.
+- Support inputs beyond keyboard where the platform allows.
+
+## Understandable
+
+- Make text readable and understandable — plain language, consistent terms,
+  one idea per sentence in instructions.
+- Make content appear and operate in predictable ways — reuse patterns and
+  label actions consistently.
+- Help users avoid and correct mistakes — pair errors with specific recovery
+  steps, not generic failure messages.
+
+<DoDont>
+  <Do caption="Enter a valid email address." />
+  <Dont caption="Invalid input." />
+  <Do caption="Password must be at least 8 characters." />
+  <Dont caption="Error in field." />
+</DoDont>
+
+## Robust
+
+Maximise compatibility with current and future user tools. Semantic HTML,
+meaningful link text, and proper heading hierarchy help assistive technology
+parse content reliably.
+
+### Link and button text
+
+Link and button labels should make sense out of context. Screen reader users
+often jump between interactive elements without surrounding prose.
+
+<DoDont>
+  <Do caption="Download invoice (PDF)" />
+  <Dont caption="Click here" />
+  <Do caption="Edit member profile" />
+  <Dont caption="Edit" />
+</DoDont>
+
+Use **Edit** alone only when the row or card heading already names the object.

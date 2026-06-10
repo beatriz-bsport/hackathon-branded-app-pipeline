@@ -23,7 +23,7 @@ export const FirstPurchaseFilterCardSkeleton = () => {
               label={t("filters.28.actions.deleteFilter")}
               intent="flat"
               color="default"
-              disabled={true}
+              disabled
             />
           </div>
 
@@ -34,7 +34,7 @@ export const FirstPurchaseFilterCardSkeleton = () => {
               { value: "notDone", label: t("filters.28.status.notDone") },
             ]}
             value="done"
-            disabled={true}
+            disabled
             onChange={() => undefined}
           />
 
@@ -45,7 +45,7 @@ export const FirstPurchaseFilterCardSkeleton = () => {
               color="main"
               intent="default"
               iconLeft="check"
-              disabled={true}
+              disabled
             />
           </div>
         </div>

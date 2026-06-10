@@ -68,7 +68,7 @@ Titles separate sections of content. Size is chosen through **`htmlVariant`**
 
 <DoDont>
   <Do caption="Use titles and subtitles to create a clear text hierarchy." />
-  <Do caption="Choose sizes and weights based on context — page title vs card title vs menu group label." />
+  <Do caption="Choose sizes and weights based on context — page title vs drawer record vs modal dialog." />
   <Dont caption="Skip heading levels for styling — pick the correct htmlVariant instead." />
   <Dont caption="Overuse strong weights or large sizes — they flatten hierarchy instead of clarifying it." />
 </DoDont>
@@ -97,19 +97,19 @@ dense UI. They are **not** wired to `Title` `htmlVariant` values.
 
 ### Full scale reference
 
-| Token                  | Size             | Kaizen usage                                              |
-| ---------------------- | ---------------- | --------------------------------------------------------- |
-| `font.size.display-lg` | 5.375rem (86px)  | Hero / marketing only                                     |
-| `font.size.display-sm` | 2.5rem (40px)    | Secondary hero headings                                   |
-| `font.size.title-xl`   | 1.75rem (28px)   | `Title` `htmlVariant="h1"` — one per page, rare           |
-| `font.size.title-lg`   | 1.5rem (24px)    | `Title` `htmlVariant="h2"` — typical page title           |
-| `font.size.title-md`   | 1.25rem (20px)   | `Title` `htmlVariant="h3"` — page sections                |
-| `font.size.title-sm`   | 1.1rem (~17.6px) | `Title` `htmlVariant="h4"` — cards, drawers, modals       |
-| `font.size.title-xs`   | 1rem (16px)      | `Title` `htmlVariant="h5"` — menu group labels            |
-| `font.size.body-lg`    | 1rem (16px)      | `Body` `size="lg"` — primary prose blocks                 |
-| `font.size.body-md`    | 0.875rem (14px)  | `Body` `size="md"` — **base UI size**                     |
-| `font.size.body-sm`    | 0.75rem (12px)   | `Body` `size="sm"` — captions, metadata                   |
-| `font.size.body-xs`    | 0.625rem (10px)  | Utility `text-body-xs` — badges, avatars (no `Body` size) |
+| Token                  | Size             | Kaizen usage                                                               |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------- |
+| `font.size.display-lg` | 5.375rem (86px)  | Hero / marketing only                                                      |
+| `font.size.display-sm` | 2.5rem (40px)    | Secondary hero headings                                                    |
+| `font.size.title-xl`   | 1.75rem (28px)   | `Title` `htmlVariant="h1"` — page title, one per view                      |
+| `font.size.title-lg`   | 1.5rem (24px)    | `Title` `htmlVariant="h2"` — major page sections                           |
+| `font.size.title-md`   | 1.25rem (20px)   | `Title` `htmlVariant="h3"` — subsections                                   |
+| `font.size.title-sm`   | 1.1rem (~17.6px) | `Title` `htmlVariant="h4"` — cards, drawers, modals                        |
+| `font.size.title-xs`   | 1rem (16px)      | `Title` `htmlVariant="h5"` — nested labels inside modals and dense layouts |
+| `font.size.body-lg`    | 1rem (16px)      | `Body` `size="lg"` — primary prose blocks                                  |
+| `font.size.body-md`    | 0.875rem (14px)  | `Body` `size="md"` — **base UI size**                                      |
+| `font.size.body-sm`    | 0.75rem (12px)   | `Body` `size="sm"` — captions, metadata                                    |
+| `font.size.body-xs`    | 0.625rem (10px)  | Utility `text-body-xs` — badges, avatars (no `Body` size)                  |
 
 ## Components
 
@@ -181,16 +181,17 @@ palette.
 
 ### Page hierarchy
 
-Most Back Office pages use **`Title htmlVariant="h2"`** (`title / lg`) as the
-page title. Reserve **`h1`** (`title / xl`) for the single top-level heading on
-a page when maximum prominence is needed.
+Each page gets **one `h1`** — the page title (`title / xl`). Step down from
+there for sections and nested surfaces.
 
 | Surface                | Title                             | Weight                 | Colour    |
 | ---------------------- | --------------------------------- | ---------------------- | --------- |
-| Page title             | `htmlVariant="h2"` (`title / lg`) | `strong` or `stronger` | `default` |
-| Page section           | `htmlVariant="h3"` (`title / md`) | `strong`               | `default` |
-| Card, drawer, or modal | `htmlVariant="h4"` (`title / sm`) | `strong`               | `default` |
-| Menu group label       | `htmlVariant="h5"` (`title / xs`) | `weak`                 | `weaker`  |
+| Page title             | `htmlVariant="h1"` (`title / xl`) | `strong` or `stronger` | `default` |
+| Page section           | `htmlVariant="h2"` (`title / lg`) | `strong`               | `default` |
+| Detail drawer record   | `htmlVariant="h2"` (`title / lg`) | `strong` or `stronger` | `default` |
+| Subsection             | `htmlVariant="h3"` (`title / md`) | `strong`               | `default` |
+| Modal or Alert title   | `htmlVariant="h4"` (`title / sm`) | `stronger`             | `default` |
+| Card or drawer section | `htmlVariant="h4"` (`title / sm`) | `strong`               | `default` |
 
 Use real heading levels — don't skip from `h2` to `h4` for styling alone.
 

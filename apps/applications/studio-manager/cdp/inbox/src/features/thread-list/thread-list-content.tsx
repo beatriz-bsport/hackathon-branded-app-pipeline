@@ -1,10 +1,9 @@
 import type { InboxConversationListItem } from "@bsport/api-cdp/inbox";
-import { Body, Loader } from "@bsport/kaizen-primitive-core";
+import { Loader } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "#src/utils/i18n";
-
-import { ThreadListStatus } from "./thread-list-status";
-import { ThreadVirtualList } from "./thread-virtual-list";
+import { ThreadListEmpty } from "#src/features/thread-list/empty/thread-list-empty";
+import { ThreadListError } from "#src/features/thread-list/error/thread-list-error";
+import { ThreadVirtualList } from "#src/features/thread-list/virtual-list/thread-virtual-list";
 
 export type ThreadListContentProps = {
   conversations: InboxConversationListItem[];
@@ -14,6 +13,7 @@ export type ThreadListContentProps = {
   hasFetchNextPageError: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => unknown;
+  refetch: () => unknown;
 };
 
 export function ThreadListContent({
@@ -24,33 +24,24 @@ export function ThreadListContent({
   hasFetchNextPageError,
   isFetchingNextPage,
   fetchNextPage,
+  refetch,
 }: ThreadListContentProps) {
-  const { t } = useTranslation("thread-list");
-
   const hasConversations = conversations.length > 0;
 
   if (hasError && !hasConversations) {
-    return (
-      <ThreadListStatus>
-        <Body color="weak">{t("threadList.loadingError")}</Body>
-      </ThreadListStatus>
-    );
+    return <ThreadListError onRetry={refetch} />;
   }
 
   if (isLoading) {
     return (
-      <ThreadListStatus>
+      <div className="flex h-full items-center justify-center p-md">
         <Loader size="lg" />
-      </ThreadListStatus>
+      </div>
     );
   }
 
   if (!hasConversations) {
-    return (
-      <ThreadListStatus>
-        <Body color="weak">{t("threadList.empty")}</Body>
-      </ThreadListStatus>
-    );
+    return <ThreadListEmpty />;
   }
 
   return (

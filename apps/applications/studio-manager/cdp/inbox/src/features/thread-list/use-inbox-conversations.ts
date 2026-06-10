@@ -25,6 +25,7 @@ export const useInboxConversations = (
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    refetch,
   } = useInfiniteQuery({
     ...inboxConversationsInfiniteQueryOptions(fetch, params),
     initialPageParam: 1,
@@ -40,5 +41,6 @@ export const useInboxConversations = (
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    refetch,
   };
 };

@@ -1,0 +1,127 @@
+---
+title: Label [LLM]
+description: Accessible field label text paired with form controls
+status: stable
+category: components
+tags: [forms, typography]
+source: "packages/design-system/kaizen/primitive/core/src/components/label"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Label associates visible text with a form control via `htmlFor`. It is the primary
+way to name inputs in Studio Manager forms — use it on every field unless the
+control is a standalone button with its own text.
+
+<StorybookEmbed
+  id="primitive-components-label--default"
+  mode="playground"
+  height={300}
+  stories={[{ id: "primitive-components-label--default", label: "Label" }]}
+/>
+
+### Use cases
+
+- **Text fields** — name the input above [Text field](/components/text-field).
+- **Checkbox and radio rows** — inline label beside the control.
+- **Required fields** — pair with required indicator in form patterns.
+- **Group legends** — section titles above [Checkbox group](/components/checkbox-group).
+- **Disabled fields** — label remains visible when input is disabled.
+
+## Guidelines
+
+- **htmlFor matches input id** — one label per control id.
+- **Sentence case** — short noun phrases, no trailing colon unless locale requires.
+- **Do not embed help** — long hints belong in helper text below the field.
+- **Clickable** — label click focuses the associated control.
+- **Not a heading** — use [Title](/components/title) for page sections, Label for fields.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Place the label immediately above or beside its control in reading order." />
+  <Do caption="Use the same wording in validation errors as in the label." />
+  <Do caption="Mark required fields consistently across the form system." />
+  <Dont caption="Placeholder text replacing labels — placeholders are not labels." />
+  <Dont caption="All-caps labels in dense forms — harder to read and scan." />
+  <Dont caption="One label spanning multiple unrelated inputs." />
+</DoDont>
+
+### Content rules
+
+> Email address
+
+> Start date
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "label element",
+      description: "Native label with Kaizen typography tokens.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Label" />
+
+### Behaviors
+
+Clicking label focuses the associated control when `htmlFor` is set correctly.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Native `<label>` — no extra role needed when `htmlFor` matches control `id`.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Focus moves to the associated control, not the label itself in most browsers.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Label text is included in the control's accessible name when associated.
+
+### Focus management
+
+Label click moves focus to control.
+
+### WCAG criteria
+
+- **1.3.1 Info and Relationships** — programmatic label association.
+- **3.3.2 Labels or Instructions** — visible labels for inputs.
+- **4.1.2 Name, Role, Value** — name via label.
+
+## Resources
+
+### Storybook
+
+[Open Label in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-label--default)
+
+### Related components
+
+- **[Text field](/components/text-field)** — primary labeled input.
+- **[Checkbox](/components/checkbox)** — inline label pattern.
+- **[Form](/components/form)** — wiring labels through form field wrappers.

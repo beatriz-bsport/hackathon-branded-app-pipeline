@@ -6,31 +6,21 @@ source: "packages/design-system/kaizen/primitive/core/src/components/DetailDrawe
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-DetailDrawer slides in from the right (desktop) or bottom (mobile) without blocking the page beneath it.
+A non-modal slide-in surface for inspecting or lightly editing a selected record without leaving the list
 
-DetailDrawer is a non-modal slide-in surface that reveals object detail without navigating the user away from their current list or board. It slides from the right on desktop and from the bottom on mobile. Because it's non-modal — no backdrop, no focus trap — the underlying page remains fully interactive, making it suited for triage, quick preview, and lightweight editing workflows where preserving list context is more important than giving the object full-screen real estate.
-
-- _List-item preview:_ Open a record from a list (issue, ticket, lead, order) to inspect or quick-edit without losing scroll position or applied filters.
-- _Triage and queue processing:_ Navigate through items with previous/next controls while the drawer stays open, reviewing and acting on each in sequence
-- _Linked record peek:_ Preview a related contact, project, or parent issue from inside another record so the user doesn't lose their place.
-
-_TBD_
-
-## Guidelines
-
-### Examples
+DetailDrawer is a transient, side-mounted container that shifts focus to one object while you stay on the current page. It slides in from the right on desktop and from the bottom on viewports ≤1024px. There is no backdrop and no focus trap — the list or board beneath stays scrollable and interactive — so you can triage, preview, and run quick edits without losing filters, scroll position, or selection context.
 
 <StorybookEmbed
   id="primitive-components-detaildrawer--primary"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
     {
       id: "primitive-components-detaildrawer--primary",
@@ -40,79 +30,255 @@ _TBD_
       id: "primitive-components-detaildrawer--with-list-integration",
       label: "With list integration",
     },
+    {
+      id: "primitive-components-detaildrawer--responsive-demo",
+      label: "Responsive behavior",
+    },
   ]}
 />
 
+### Use cases
+
+- **List-item preview** — open a member, booking, or pass from a table to inspect metadata without navigating away from the list.
+- **Triage and queue processing** — step through records with previous/next controls in `actionsConfig` while the drawer stays open.
+- **Linked record peek** — preview a related contact or parent booking from inside another record so the operator keeps their place.
+- **Quick edits** — change status, assign a tag, or toggle a setting scoped to one object (≤5 fields, under ~30 seconds).
+- **Lightweight creation follow-up** — review a record immediately after a modal create flow without a full page transition.
+
+## Guidelines
+
+- **Preserve flow** — open the drawer when the operator encounters objects in a list or queue and needs a peek, not when they intentionally navigated to a full detail page.
+- **Stay scoped** — limit content to one object and short interactions; multi-step wizards and full profile edits belong on a page.
+- **Keep context visible** — highlight the triggering row in the list and let the page behind remain interactive.
+- **Navigate in place** — wire previous/next through `actionsConfig` whenever the drawer opens from a collection.
+- **Choose the right surface** — blocking decisions use [Modal](/components/modal); persistent metadata on the current record uses [Panel](/components/panel). See [Panel vs Drawer vs Modal](/patterns/panel-vs-drawer-vs-modal) when unsure.
+
 ### Best practices
 
+#### General
+
 <DoDont>
-  <Do
-    caption={
-      "Do use when the user is encountering objects in flow — browsing a list, scanning a queue, reviewing notifications — and wants to peek without context-switching. The drawer preserves their place."
-    }
-  />
-  <Do
-    caption={
-      "Do provide previous/next navigation via `actionsConfig` whenever the drawer is opened from a list, so users can move through items without closing and reopening."
-    }
-  />
-  <Dont
-    caption={
-      "Don't stack drawers. If content inside a drawer needs to open another object, either replace the drawer's contents (with a back affordance) or navigate to a full page."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use for primary work destinations. If the user intentionally navigated to this object (rather than encountering it in flow), send them to a page."
-    }
-  />
-  <Dont caption={"Don't use for object creation - use modals instead."} />
+  <Do caption="Open the drawer when operators browse a list or queue and need to peek at a record without losing scroll position or applied filters." />
+  <Do caption="Wire previous and next navigation through actionsConfig whenever the drawer opens from a list so operators can triage without closing and reopening." />
+  <Do caption="Highlight the row or card that opened the drawer so context stays visible behind the panel." />
+  <Dont caption="Stacking drawers fragments context — replace the drawer body with a back affordance or navigate to a full page when opening a different record." />
+  <Dont caption="Primary work destinations belong on a dedicated page, not in a drawer opened from a deep link or main navigation." />
+  <Dont caption="Object creation and multi-step flows belong in Modal or on a page, not in DetailDrawer." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
 
-- Caution if users regularly spend more than a minute inside the drawer. That's a signal the object deserves a full page. Add a "promote to full page" affordance rather than expanding the drawer's scope.
+When operators routinely spend more than a minute inside the drawer, the object likely deserves a full page. Add a "View full page" affordance in the header rather than expanding the drawer's scope with tabs or nested navigation.
 
 </Callout>
 
-#### Edge cases
+### Content rules
 
-| Scenario                            | Behavior                                                                                                                                   |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| _Item deleted while drawer is open_ | Show a toast confirming deletion, auto-advance to the next item.                                                                           |
-| _Unsaved changes on close_          | The drawer itself has no built-in confirmation. The consuming component is responsible for intercepting `onClose` and prompting if needed. |
-| _Network error loading content_     | Show an error state inside the drawer body with a retry affordance. Don't close the drawer.                                                |
-| _Drawer opened with no content_     | Show a meaningful empty state, never a blank panel.                                                                                        |
+Keep copy concise and actionable. The drawer has no built-in title slot — compose a heading with [Title](/components/title) (`htmlVariant="h2"`) at the top of `children`.
 
-## Code & Specs
+**Drawer title** — name the open record.
+
+> Jane Smith
+
+**Section label** — step down inside the body.
+
+> Contact details
+
+**Quick-edit labels** — short field names, no trailing punctuation.
+
+> Status
+
+**Empty state** — never leave a blank body when data is loading or missing.
+
+> Select a member to view details.
+
+**Error state** — explain what failed and offer retry; do not close the drawer on load failure.
+
+> Unable to load booking details. Check your connection and try again.
+
+A quick edit is scoped to one object, involves at most five fields, completes in under thirty seconds, and does not change the object's core identity. Examples: change status, add a tag, assign an owner, toggle a setting, rename an item. Role changes, full profile edits, and multi-step wizards belong on a page or in a modal.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Container (`<aside>`)",
+      description:
+        "Fixed slide-in surface — right edge, min-width 420px, full height on desktop; bottom edge, full width, max 90vh on viewports ≤1024px. Elevated background, no backdrop.",
+    },
+    {
+      label: "Header",
+      description:
+        "Toolbar row with bottom border. Close control at inline-start; optional action buttons at inline-end.",
+    },
+    {
+      label: "Close button",
+      description:
+        "Icon button (chevron-right-double on desktop, chevron-down-double on mobile) that fires `onClose`. Label from i18n (`detailDrawer.tooltip.close`).",
+    },
+    {
+      label: "Action buttons",
+      description:
+        "Up to two icon or text buttons from `actionsConfig` — typically previous/next for list triage. Each supports tooltip props.",
+    },
+    {
+      label: "Body",
+      description:
+        "Scrollable content area (`children`). Kaizen does not prescribe body layout — compose Title, Body, forms, and actions as needed.",
+    },
+  ]}
+/>
 
 ### Props
 
-<PropsTable component="DetailDrawer" />
+<PropsTable
+  component="DetailDrawer"
+  overrides={{
+    isOpen: {
+      description:
+        "Required. Controls visibility. The drawer is fully controlled — it has no internal open state.",
+    },
+    id: {
+      description:
+        "Required. Unique DOM id for the drawer element. Also used as `aria-label` fallback — prefer a descriptive value (e.g. `booking-detail-drawer`).",
+    },
+    onClose: {
+      description:
+        "Required. Fired when the close button is clicked or Escape is pressed.",
+    },
+    children: {
+      description:
+        "Content rendered in the scrollable body. Cached while the close animation runs so content does not flash empty.",
+    },
+    actionsConfig: {
+      type: "[WithTooltip<ButtonProps>, WithTooltip<ButtonProps>]",
+      description:
+        "Optional tuple of up to two header action buttons (e.g. previous/next). Omitted buttons are not rendered.",
+    },
+    className: {
+      description: "Additional classes on the drawer container.",
+    },
+  }}
+/>
 
-### Behavior
+### Behaviors
 
 #### Opening and closing
 
-The drawer slides in from the right edge with a smooth CSS transition. On mobile, it slides from the bottom. Controlled entirely by `isOpen` — the drawer has no internal open/close state.
+Visibility is controlled entirely by `isOpen`. On open, the drawer mounts and plays a CSS slide-in animation (right on desktop, bottom on tablet and mobile). On close, the exit animation runs for 300ms before unmount.
 
 #### Dismissal
 
-Pressing Escape fires `onClose`. There is no click-outside dismissal because the drawer is non-modal and the page beneath it remains interactive.
+- **Close button** — fires `onClose`.
+- **Escape** — fires `onClose` via `withEscapeHandler`.
+- **Click outside** — not supported. The drawer is non-modal; clicks on the page behind do not close it.
+
+The drawer does not confirm unsaved changes. Intercept `onClose` in the consuming feature when a dirty form needs a prompt.
 
 #### Navigation controls
 
-When `actionsConfig` includes previous/next actions, the buttons appear in the header. Tooltip placement is configurable per action.
+Pass previous and next handlers as entries in `actionsConfig`. Buttons render in the header trailing area with configurable tooltips. Keyboard shortcuts (e.g. j/k) are not built in — bind them at the page level if needed.
+
+#### Persistence
+
+The drawer does not survive route changes unless the parent keeps `isOpen` true. Content inside `children` is cached during the close animation only.
 
 #### Responsiveness
 
-Desktop: slides from right, occupies a fixed-width column. Mobile: slides from bottom, full-width.
+At viewport widths ≤1024px (phones and tablets), the drawer uses bottom-sheet positioning (`h-[90vh]`, `max-h-screen`). Above that breakpoint it anchors to the right at full height with `min-w-[420px]`.
 
-#### Animation
+### Edge cases
 
-CSS transitions handle open and close. No JavaScript animation libraries required.
+- **Item deleted while drawer is open** — show a [Toast](/components/toast) confirming deletion and advance to the next list item if applicable.
+- **Unsaved changes on close** — no built-in guard; the consumer intercepts `onClose` and shows a confirmation modal when needed.
+- **Network error loading content** — render an error state inside the body with retry; keep the drawer open.
+- **Drawer opened with no content** — show a meaningful empty state, never a blank panel.
+- **Very long body content** — the body scrolls independently; keep sections short or add a link to the full page.
+- **Panel open at the same time** — supported. The panel stays in its grid column; the drawer overlays above it.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+The root element is `<aside>` with:
+
+- `role="complementary"` — non-modal side panel.
+- `aria-modal="false"` — page content remains in the accessibility tree.
+- `aria-label` — set from the `id` prop (`id || "Detail drawer"`). Pass a descriptive `id` so assistive tech announces meaningful context.
+
+Kaizen does not set `aria-hidden` on close — the drawer unmounts after the exit animation instead.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Escape"],
+      description: "Closes the drawer (fires `onClose`).",
+    },
+    {
+      keys: ["Tab"],
+      description:
+        "Moves focus forward through interactive elements inside the drawer. Focus is not trapped — tabbing past the last control returns to the page.",
+    },
+    {
+      keys: ["Shift", "Tab"],
+      description:
+        "Moves focus backward through the drawer's interactive elements.",
+    },
+  ]}
+/>
+
+Action buttons in `actionsConfig` are standard [Button](/components/button) controls and participate in normal tab order.
+
+### Screen reader behavior
+
+When the drawer opens, assistive tech reads the `aria-label` derived from `id`. Because the drawer is non-modal, content behind it stays reachable — do not rely on the drawer alone to hide sensitive information from the accessibility tree.
+
+Compose visible headings inside `children` with [Title](/components/title) so rotor and heading navigation expose the record name.
+
+### Focus management
+
+Focus is not moved into the drawer on open and is not trapped. This matches the non-modal model — operators can interact with the list and the drawer interchangeably. On close, focus is not restored automatically; manage return focus in the consumer when keyboard users opened the drawer from a specific row.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — drawer surface uses elevated default tokens; ensure custom body content meets contrast on `bg-surface-default-elevated`.
+- **2.1.1 Keyboard** — Escape closes; header buttons are keyboard-operable.
+- **2.4.3 Focus Order** — DOM order follows header then body; no focus trap.
+- **4.1.2 Name, Role, Value** — role and modal state are set; name comes from `id` / `aria-label`.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/DetailDrawer`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Detail drawer in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-detaildrawer--primary)
+
+### Related components
+
+- [Panel](/components/panel) — persistent metadata column on a detail page for the record already on screen.
+- [Modal](/components/modal) — blocking decisions, confirmations, and short mandatory forms.
+- [ListLayout](/components/list-layout) — common host layout when opening a drawer from a list.
+- [Title](/components/title) — heading for the record name inside the drawer body.
+- [Inspect an object](/patterns/inspect-an-object) — product pattern for row click, drawer vs page, and URL addressability.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-648](https://linear.app/bsport/issue/KAI-648/detaildrawer-layout) — DetailDrawer layout (Triage).
+- [KAI-293](https://linear.app/bsport/issue/KAI-293/detail-drawer-adjust-drawer-height-based-on-the-height-of-the-header) — Adjust drawer height based on the height of the header (Backlog).
+
+#### Implementation gaps
+
+- **`aria-label` from `id`** — the component uses the raw `id` string as `aria-label`, not a separate human-readable label prop. Consumers must choose descriptive ids or accept generic announcements.
+- **Tablet uses bottom sheet** — viewports ≤1024px (including tablet landscape) slide from the bottom, not only phone widths.
+- **Close control position** — the close button sits at inline-start in the header, not inline-end as some design sketches show.
+
+#### Design or API debt
+
+- **No built-in title or identity block** — header only exposes close and `actionsConfig`; record name and "View full page" live in consumer-composed `children`.
+- **Stale source JSDoc** — component comments reference `onPrevious` / `onNext` props; the shipped API is `actionsConfig` only.

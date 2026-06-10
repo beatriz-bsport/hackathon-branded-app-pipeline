@@ -4,6 +4,8 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import {
   Body,
+  Card,
+  Checkbox,
   List,
   type ListItemProps,
   Loader,
@@ -38,10 +40,14 @@ enum PassTab {
 
 type PassSelectionStepProps = {
   sessionId: number;
+  isBookMultiSessionsSelected: boolean;
+  onSelectBookMultiSessions: (value: boolean) => void;
 };
 
 export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   sessionId,
+  isBookMultiSessionsSelected,
+  onSelectBookMultiSessions,
 }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
@@ -57,6 +63,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   const keepCredits = useBookingFlowStore((state) => state.keepCredits);
 
   const { data: session } = useRetrieveSession(sessionId);
+  // memberId is guaranteed to be non-null at this point (defined at first step of the flow)
   const { compatiblePasses, incompatiblePasses } = useMemberPasses({
     memberId: memberId!,
     sessionId,
@@ -92,10 +99,13 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
         ? getCreditsDividedValue(pack.available_credits)
         : Math.max(
             0,
-            getCreditsDividedValue(pack.available_credits) -
-              getCreditsDividedValue(
-                session.credit_price_override ?? session.credit_price,
-              ),
+            Math.round(
+              (getCreditsDividedValue(pack.available_credits) -
+                getCreditsDividedValue(
+                  session.credit_price_override ?? session.credit_price,
+                )) *
+                10,
+            ) / 10,
           );
       return t("bookingFlow.passSelection.creditsLeftAfterBooking", {
         availableAfterBooking: remaining,
@@ -279,6 +289,31 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
           <NewPassForm sessionId={sessionId} />
         )}
       </div>
+      <Body size="lg">{t("bookingFlow.passSelection.moreBookingOptions")}</Body>
+      <Card
+        actionable
+        elevated={isBookMultiSessionsSelected}
+        selected={isBookMultiSessionsSelected}
+        onClick={() => onSelectBookMultiSessions(!isBookMultiSessionsSelected)}
+      >
+        <div className="flex items-center gap-md">
+          <Checkbox
+            id="book-future-dates-checkbox"
+            value={isBookMultiSessionsSelected ? "checked" : "unchecked"}
+            onChange={() =>
+              onSelectBookMultiSessions(!isBookMultiSessionsSelected)
+            }
+          />
+          <div className="flex flex-col">
+            <Body size="lg">
+              {t("bookingFlow.passSelection.bookFutureDates")}
+            </Body>
+            <Body size="md" color="weak">
+              {t("bookingFlow.passSelection.bookFutureDatesDescription")}
+            </Body>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };

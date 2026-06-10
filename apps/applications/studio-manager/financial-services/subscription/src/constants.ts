@@ -1,3 +1,4 @@
+import { Pack } from "#src/types/pack";
 import type { Feature, Plan } from "#src/types/plan";
 import type { TFunction } from "#src/utils/i18n";
 
@@ -234,3 +235,86 @@ export const RAW_FEATURES = [
     includedIn: { start: false, build: false, engage: false, elevate: true },
   },
 ] as const satisfies RawFeature[];
+
+type RawPack = Omit<Pack, "name" | "description" | "features"> & {
+  nameKey: Parameters<TFunction>[0];
+  descriptionKey: Parameters<TFunction>[0];
+  featureKeys: Parameters<TFunction>[0][];
+};
+
+export const RAW_PACKS = [
+  {
+    id: "bi-connect",
+    nameKey: "addons.packs.bi-connect.name",
+    descriptionKey: "addons.packs.bi-connect.description",
+    price: 100,
+    currency: "€",
+    perLocation: true,
+    category: "growth",
+    icon: "bar-chart-10",
+    featureKeys: [
+      "addons.packs.bi-connect.features.0",
+      "addons.packs.bi-connect.features.1",
+      "addons.packs.bi-connect.features.2",
+    ],
+  },
+  {
+    id: "data-as-a-service",
+    nameKey: "addons.packs.data-as-a-service.name",
+    descriptionKey: "addons.packs.data-as-a-service.description",
+    price: 100,
+    currency: "€",
+    perLocation: true,
+    category: "growth",
+    icon: "bar-line-chart",
+    featureKeys: [
+      "addons.packs.data-as-a-service.features.0",
+      "addons.packs.data-as-a-service.features.1",
+    ],
+  },
+  {
+    id: "access-control",
+    nameKey: "addons.packs.access-control.name",
+    descriptionKey: "addons.packs.access-control.description",
+    price: 0,
+    perLocation: false,
+    currency: "€",
+    category: "growth",
+    icon: "lock-01",
+    featureKeys: [
+      "addons.packs.access-control.features.0",
+      "addons.packs.access-control.features.1",
+      "addons.packs.access-control.features.2",
+    ],
+  },
+  {
+    id: "fiskaly-twint",
+    nameKey: "addons.packs.fiskaly-twint.name",
+    descriptionKey: "addons.packs.fiskaly-twint.description",
+    price: 20,
+    perLocation: false,
+    currency: "€",
+    category: "compliance",
+    icon: "lock-04",
+    featureKeys: [
+      "addons.packs.fiskaly-twint.features.0",
+      "addons.packs.fiskaly-twint.features.1",
+    ],
+  },
+  {
+    id: "branded-app",
+    nameKey: "addons.packs.branded-app.name",
+    descriptionKey: "addons.packs.branded-app.description",
+    price: 100,
+    perLocation: false,
+    currency: "€",
+    category: "growth",
+    icon: "phone-02",
+    featureKeys: [
+      "addons.packs.branded-app.features.0",
+      "addons.packs.branded-app.features.1",
+      "addons.packs.branded-app.features.2",
+    ],
+    learnMoreUrl: "https://app.arcade.software/share/TNfI5od7YFq1JX7PoSm5",
+  },
+] as const satisfies RawPack[];

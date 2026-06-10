@@ -1,6 +1,6 @@
 import type { PrivateBookingsFilter } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import {
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
@@ -42,7 +42,7 @@ export const mapTotalAppointmentsFilterToFormValue = (
         ? (filter.value_second ?? null)
         : null,
     subFilters,
-    bookingDate: defaultDateFilterValue,
+    bookingDate: createDefaultDateFilterValue(),
     bookingHourRange: {
       hour: filter.hour ?? APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
       hourSecond:

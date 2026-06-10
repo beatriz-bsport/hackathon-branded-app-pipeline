@@ -32,6 +32,10 @@ export const useFetchSimilarSessions = (sessionId: number, enabled = true) => {
           "effectif",
           "validated_booking_count",
           "timezone_name",
+          "credit_price",
+          "credit_price_override",
+          "coach",
+          "room_blueprint",
         ]),
       ),
   });

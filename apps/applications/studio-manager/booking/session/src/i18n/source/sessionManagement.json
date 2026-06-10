@@ -316,6 +316,7 @@
       "memberSelection": "Choose a client",
       "passSelection": "Pick a pass",
       "spotSelection": "Select a spot",
+      "sessionSelection": "Select classes",
       "confirmation": "Confirm booking"
     },
     "memberSelection": {
@@ -351,6 +352,9 @@
       "emptyIncompatible": "No incompatible passes",
       "keepCreditsLabel": "Waive credit",
       "keepCreditsDescription": "A pass is still required but no credit will be deducted from it",
+      "moreBookingOptions": "Need more booking options?",
+      "bookFutureDates": "Book future dates",
+      "bookFutureDatesDescription": "Choose specific dates from this recurring class in the next step",
       "incompatible": "Incompatible",
       "billNewPlaceholder": "Coming soon"
     },
@@ -388,12 +392,23 @@
       "newPass": "New pass",
       "paymentDueAfterBooking": "Payment due after booking",
       "spotLabel": "Spot: {{label}}",
-      "sessionDetails": "Session details"
+      "sessionDetails": "Class details",
+      "sessionsToBeBooked": "Classes to be booked ({{count}})",
+      "thisClass": "This class"
     },
     "spotSelection": {
       "title": "Select an available spot",
       "selectedSpot": "Selected: spot {{spot}}",
       "selectedNone": "Selected: none"
+    },
+    "sessionSelection": {
+      "description": "Which other classes would you like to add?",
+      "upcomingClasses": "Upcoming classes ({{count}})",
+      "selected": "{{count}} selected",
+      "creditsRemaining": "{{remaining}} credits remaining after booking",
+      "creditsExhausted": "Not enough credits to select more sessions",
+      "creditCost": "{{count}} credit",
+      "creditCost_other": "{{count}} credits"
     },
     "newPass": {
       "searchPlaceholder": "Choose pass",

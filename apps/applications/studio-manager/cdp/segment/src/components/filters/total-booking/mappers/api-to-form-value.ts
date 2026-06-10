@@ -1,6 +1,6 @@
 import type { TotalBookingFilter } from "@bsport/api-cdp/smartlist";
 
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import {
   TOTAL_BOOKING_NUMBER_TYPE,
@@ -53,7 +53,7 @@ export const mapTotalBookingFilterToFormValue = (
       selectAllPaymentPacks: false,
       selectedPaymentPackIds: [],
     },
-    bookingDate: defaultDateFilterValue,
+    bookingDate: createDefaultDateFilterValue(),
     bookingHourRange: {
       hour: "00:00",
       hourSecond: "23:59",

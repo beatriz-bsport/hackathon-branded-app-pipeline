@@ -1,4 +1,4 @@
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import {
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
@@ -18,7 +18,7 @@ export const createDefaultTotalAppointmentsNumberFilter = (
   value: 0,
   secondValue: null,
   subFilters: [],
-  bookingDate: defaultDateFilterValue,
+  bookingDate: createDefaultDateFilterValue(),
   bookingHourRange: {
     hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
     hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,

@@ -57,13 +57,13 @@ export const ContractFormBillingCycle: FC<ContractFormBillingCycleProps> = ({
             maxDigits={0}
             disabled={!!readonly}
             className="min-w-element-2xl w-min"
-          />
-
-          <ContractFormIntervalSelector<"interval">
-            fieldName="interval"
-            nbIntervals={recurrenceBasis}
-            readonly={!!readonly}
-            className="mt-[28px]" // Align with Number field input
+            customNode={
+              <ContractFormIntervalSelector<"interval">
+                fieldName="interval"
+                nbIntervals={recurrenceBasis}
+                readonly={!!readonly}
+              />
+            }
           />
         </div>
       </RadioButtonWithChildren>

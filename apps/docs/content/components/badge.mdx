@@ -1,75 +1,339 @@
 ---
 title: Badge
-description: A short text label that marks content with a category, qualifier, or version.
+description: A compact label for supplementary metadata beside content
+status: stable
 category: components
+tags: [display, metadata]
 source: "packages/design-system/kaizen/primitive/core/src/components/Badge"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Badges add compact supplementary metadata inline with content. They modify — they do not stand alone.
-
-#### Color
-
-| Color      | Description                                                |
-| ---------- | ---------------------------------------------------------- |
-| `default`  | Used for subtle visual emphasis.                           |
-| `main`     | Used for key information.                                  |
-| `critical` | High-visibility colour for urgent or critical information. |
-| `custom`   |                                                            |
-
-#### Has icon
-
-| Value  | Description                                                                       |
-| ------ | --------------------------------------------------------------------------------- |
-| `true` | Badges can include an icon alongside text or numbers for context and recognition. |
-
-### Usage Guidelines
-
-<DoDont>
-  <Do
-    caption={
-      "Badges are used as an indicator for the property of an object (e.g. 'New')"
-    }
-  />
-  <Do caption={"Used to indicate numbers (Inbox)"} />
-  <Dont
-    caption={
-      "Do not use badges for conveying critical information without additional context."
-    }
-  />
-  <Dont caption={"Never use badges in list format"} />
-</DoDont>
-
-## Guidelines
-
-### Examples
+Badge is a non-interactive pill that adds compact context next to labels, list
+items, or navigation entries. It modifies surrounding content — it does not stand
+alone or carry primary actions. When you omit `text` and `icon`, it collapses to
+a colored dot for purely visual emphasis.
 
 <StorybookEmbed
   id="primitive-components-badge--primary"
   mode="playground"
-  height={540}
-  stories={[
+  height={700}
+  stories={[{ id: "primitive-components-badge--primary", label: "Badge" }]}
+/>
+
+### Use cases
+
+- **Feature labels** — mark sidebar or menu items with qualifiers like "New" or
+  "Beta" beside the nav label.
+- **Live context** — show "Now" beside a session name when a class is in
+  progress.
+- **Overflow counts** — display compact tallies such as `3+` when a table cell
+  cannot list every value inline.
+- **Segmented control hints** — pass badge props on a tab option to surface a
+  count or label without changing the segment label itself.
+- **Color swatches** — render a dot-only badge inside a TextField prefix to
+  preview a selected color value.
+
+Not sure whether Badge, Chip, or Indicator fits? See
+[Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator).
+
+## Guidelines
+
+- **Supplementary only** — place Badge beside content it qualifies; never use it
+  as the sole label for an object or row.
+- **Non-dismissible** — users cannot remove a Badge; use [Chip](/components/chip)
+  when the token must be cleared or filtered out.
+- **Not anchored** — Badge sits inline in the layout flow; use
+  [Indicator](/components/indicator) for dots or counts on a host element
+  (avatar, icon button, nav icon).
+- **Keep copy short** — one or two words, or a compact number; long strings break
+  the pill layout.
+- **Pick color for emphasis** — `default` for neutral metadata, `main` for
+  product highlights, `critical` only when urgency is intentional.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption='Pair Badge beside a nav or list label for qualifiers like "New" or "Beta" — the parent label stays the primary readable text.' />
+  <Do caption="Use dot mode (omit text and icon) for compact color previews or purely visual markers where surrounding copy already names the value." />
+  <Do caption="Match size to density — sm in navigation and tables, lg in page headers or looser layouts." />
+  <Dont caption="Removable filters, tags, and object statuses belong on Chip, not Badge." />
+  <Dont caption="Counts and alert dots on icons or avatars belong on Indicator for consistent placement." />
+  <Dont caption="Critical meaning needs more than color — pair color=critical with explicit text when the message must land without color." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+Avoid stacking multiple Badges on one line when a single qualifier or a Chip group
+would read more clearly. Badge is for lightweight side metadata, not a list of
+properties.
+
+</Callout>
+
+#### default color
+
+<DoDont>
+  <Do caption='Use for neutral tallies and secondary metadata (e.g. "24" on a sidebar item, "3+" in a table cell).' />
+  <Dont caption='Labels that need launch attention read better on color="main" than on default.' />
+</DoDont>
+
+#### main color
+
+<DoDont>
+  <Do caption='Use for product-facing qualifiers such as "New", "Beta", or "Now" that should stand out without alarming the user.' />
+  <Dont caption="Apply main to every nav item — reserve it for entries that genuinely need extra visibility." />
+</DoDont>
+
+#### critical color
+
+<DoDont>
+  <Do caption='Reserve for urgent or high-salience metadata when the surrounding label already names the subject (e.g. "Overdue" beside an invoice title).' />
+  <Dont caption="Decorative labels and routine counts on critical read as alerts and compete with real status components." />
+</DoDont>
+
+### Content rules
+
+Write short, scannable labels in sentence case. Prefer common product words over
+internal jargon. Numbers should stay compact — use `3+` or `99+` when the exact
+count is less important than signaling overflow.
+
+#### Common labels
+
+**Feature qualifier** — `size="sm"`, `color="main"`.
+
+> New
+
+**Live state** — `size="sm"`, `color="main"`.
+
+> Now
+
+**Overflow tally** — `size="lg"`, `color="default"`.
+
+> 3+
+
+**Urgent qualifier** — `size="sm"`, `color="critical"`.
+
+> Overdue
+
+#### Badge vs Chip vs Indicator
+
+| Need                                      | Component                          |
+| ----------------------------------------- | ---------------------------------- |
+| Compact side label beside content         | Badge                              |
+| Dismissible tag, filter, or object status | [Chip](/components/chip)           |
+| Dot or count anchored to a host element   | [Indicator](/components/indicator) |
+
+Full decision guidance lives in
+[Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator).
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
     {
-      id: "primitive-components-badge--primary",
-      label: "Badge",
+      label: "Container",
+      description:
+        "Root `<div>` with pill or dot styling, border, and background tokens driven by `color` and content mode.",
+    },
+    {
+      label: "Label (`text`)",
+      description:
+        "Optional text rendered with Body. When omitted (and no icon), the badge renders in dot mode.",
+    },
+    {
+      label: "Icon (`icon`)",
+      description:
+        "Optional trailing icon after the label. Presence of text or icon switches the badge to text (pill) mode.",
     },
   ]}
 />
 
-## Code & Specs
-
 ### Props
 
-<PropsTable component="Badge" />
+<PropsTable
+  component="Badge"
+  overrides={{
+    text: {
+      type: "string",
+      description:
+        "Visible label. Omit (with no icon) for dot mode. Empty string also resolves to dot mode.",
+    },
+    size: {
+      type: '"sm" | "lg"',
+      description:
+        "`sm` for dense surfaces (navigation, tables); `lg` for headers and roomier layouts.",
+    },
+    color: {
+      type: '"default" | "main" | "critical"',
+      description:
+        "Semantic emphasis. `default` for neutral metadata, `main` for highlights, `critical` for urgent qualifiers.",
+    },
+    icon: {
+      type: "IconName",
+      description:
+        "Optional icon rendered to the right of the label. Icon alone keeps text (pill) mode.",
+    },
+    textClassName: {
+      type: "string",
+      description: "Additional class names on the inner Body label span.",
+    },
+    className: {
+      type: "string",
+      description:
+        "Additional class names on the root container. Consumers sometimes pass inline styles for custom color swatches.",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Text vs dot mode
+
+Mode is derived automatically: if `text` has length or `icon` is set, the badge
+renders as a bordered pill with horizontal padding. If both are absent, it
+renders as a small filled dot (`rounded-sm`, no label).
+
+#### Icon placement
+
+When `icon` is provided, it always appears to the **right** of the label. Icon
+size follows badge size (`xs` for `sm`, `sm` for `lg`).
+
+#### Responsiveness
+
+Badge is `w-fit` in text mode and flows inline with siblings. It does not
+truncate long `text` internally — keep labels short or override with
+`textClassName` at the consumer level.
+
+### Edge cases
+
+#### Empty `text` with no icon
+
+Renders dot mode. Ensure surrounding content supplies meaning; the dot has no
+accessible name on its own.
+
+#### Icon without `text`
+
+Renders pill mode with icon only. Provide context in the parent label or an
+`aria-label` on a wrapping element if the icon meaning is not obvious.
+
+#### Very long `text`
+
+No built-in truncation. Prefer shorter copy or handle overflow in the parent
+layout.
+
+#### `style` or `className` overrides
+
+Supported on the root element (e.g. TextField color prefix uses inline
+`backgroundColor` on a dot badge). This bypasses the `color` token — use only
+when tokens cannot represent the value (custom user colors).
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Badge renders a plain `<div>` with `data-component="Kaizen-Badge"`. Kaizen does
+not set `role`, `aria-live`, or `aria-label` automatically.
+
+- **Decorative dot mode** — treat as presentational when adjacent text already
+  conveys the same information; hide from assistive tech only when redundant
+  (`aria-hidden="true"` on the badge).
+- **Meaningful label text** — when `text` carries information not repeated
+  nearby, ensure it stays in the document reading order next to the content it
+  qualifies.
+- **Consumer responsibility** — pass `aria-label` or `title` on the root only
+  when the badge is the sole carrier of that information (rare; prefer visible
+  copy).
+
+### Keyboard navigation
+
+Badge is not focusable or interactive by default. It does not appear in the tab
+order unless you add `tabIndex` (generally avoid — Badge should not behave like
+a button).
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Skips the badge; focus moves to the next interactive control in page order.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Screen readers announce `text` content as static text in document order when the
+badge is not hidden. Dot-only badges without adjacent descriptive text may be
+skipped or announced as an empty group depending on the browser — always pair
+dot mode with a visible label or explicit accessible name on the parent.
+
+Badge is not a live region. Do not use it to announce dynamic system messages —
+use [Toast](/components/toast) or an [Alert](/components/alert) for that.
+
+### Focus management
+
+No focus trap or focus move — Badge never receives focus in default usage. When
+embedded in interactive parents (e.g. `NavigationMenu` `endSlot`), focus
+behavior is owned by the parent item.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — `default`, `main`, and `critical` pairings use
+  design tokens tested for contrast in pill mode; custom inline colors are the
+  consumer's responsibility.
+- **1.4.1 Use of Color** — do not rely on `color="critical"` or dot hue alone;
+  include explicit `text` when the state must be understood without color.
+- **2.1.1 Keyboard** — not applicable for default non-interactive usage.
+- **4.1.2 Name, Role, Value** — name comes from visible `text` or parent
+  context; no interactive role on the badge itself.
+- **4.1.3 Status Messages** — not applicable; Badge is static metadata, not a
+  status live region.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Badge`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Badge in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-badge--primary)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Badge`
+
+### Related components
+
+- [Chip](/components/chip) — use for semantic, often dismissible tokens (tags,
+  filters, statuses) instead of side metadata.
+- [Indicator](/components/indicator) — use for notification dots or counts
+  anchored to avatars, buttons, or nav icons.
+- [Chip vs Badge vs Indicator](/patterns/chip-vs-badge-vs-indicator) — decision
+  pattern for choosing between the three mark components.
+
+### Known issues
+
+#### Implementation gaps
+
+- **No `custom` color prop** — legacy docs and Figma sometimes show a custom
+  color variant; the component only supports `default`, `main`, and `critical`.
+  Ad-hoc colors require `className` or `style` on the root (see TextField color
+  prefix).
+- **Stale Storybook link in source JSDoc** — `Badge.tsx` still points at the
+  `main` branch docs URL; this page and Resources use the `dev` story path
+  instead.
+- **Empty Body in dot mode** — the inner Body span still mounts with no text in
+  dot mode; harmless visually but adds an extra DOM node.
+
+#### Design or API debt
+
+- **Limited semantic palette** — unlike Chip and Indicator, Badge has no
+  `success`, `warning`, or `info` colors; use Chip for status semantics or
+  Indicator for anchored status dots.
+- **Icon position is fixed** — only trailing icons are supported; leading icons
+  are not part of the API.

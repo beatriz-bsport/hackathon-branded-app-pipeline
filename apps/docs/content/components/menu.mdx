@@ -1,0 +1,146 @@
+---
+title: Menu [LLM]
+description: Structured list of actions and choices with sections, icons, and selection items
+status: stable
+category: components
+tags: [navigation, overlays]
+source: "packages/design-system/kaizen/primitive/core/src/components/Menu"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Menu composes [Menu item](/components/list-item) primitives into panels of actions —
+radio choices, checkboxes, titles, and dividers. Use it inside [Dropdown menu](/components/dropdown-menu),
+context panels, and filter popovers when options need richer structure than a flat button list.
+
+<StorybookEmbed
+  id="primitive-components-menu--menu"
+  mode="playground"
+  height={600}
+  stories={[
+    { id: "primitive-components-menu--menu", label: "Menu" },
+    { id: "primitive-components-menu--menu-with-icons", label: "With icons" },
+    {
+      id: "primitive-components-menu--single-menu-with-sub-categories",
+      label: "Sub categories",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Row actions** — edit, duplicate, archive on list overflow menus.
+- **Sort options** — radio items for sort direction in table headers.
+- **Bulk selection** — checkbox items in batch action panels.
+- **Filter value list** — scrollable option list inside filter dropdowns.
+- **Settings sections** — titled groups with dividers between destructive and safe actions.
+
+## Guidelines
+
+- **Destructive last** — place delete/archive below dividers at the bottom.
+- **Icons aid scan** — use consistent icons for edit, delete, export across modules.
+- **Single scroll region** — long menus scroll inside the panel, not the page.
+- **Selection items** — radio/checkbox menu items for exclusive or multi filters.
+- **Do not nest deeply** — one level of sub-categories; deeper flows use pages.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Group related actions with MenuItemTitle and MenuItemDivider." />
+  <Do caption="Keep labels verb-first — Export CSV, Archive member." />
+  <Do caption="Disable unavailable actions with tooltip reason when possible." />
+  <Dont caption="More than twelve flat actions — split or use search in dropdown." />
+  <Dont caption="Navigation to new pages mixed with instant actions without visual hierarchy." />
+  <Dont caption="Checkbox menus without Apply when changes are immediate — state confusion." />
+</DoDont>
+
+### Content rules
+
+> Archive
+
+> This cannot be undone.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Menu container", description: "Scrollable list panel." },
+    {
+      name: "MenuItem variants",
+      description: "Button, radio, checkbox, title, divider.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Menu" />
+
+### Behaviors
+
+#### Action button
+
+Menu item buttons fire `onClick` and typically close the parent popover.
+
+#### Persistence
+
+Closes on selection unless building multi-select with explicit apply.
+
+### Edge cases
+
+- **Disabled items** — skip focus or make non-interactive with explanation.
+- **Empty menu** — avoid rendering; show empty state in parent.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Menu list uses appropriate `menu`/`menuitem` or listbox patterns per item type — match MenuItem implementation.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Arrow keys"],
+      description: "Move between items when menu is focused.",
+    },
+    { keys: ["Enter", "Space"], description: "Activate focused item." },
+    { keys: ["Escape"], description: "Close parent dropdown." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce item role (action vs checkbox) and state.
+
+### Focus management
+
+Focus moves into menu on open; returns to trigger on close.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — operate all items.
+- **4.1.2 Name, Role, Value** — item labels and selected state.
+
+## Resources
+
+### Storybook
+
+[Open Menu in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-menu--menu)
+
+### Related components
+
+- **[Dropdown menu](/components/dropdown-menu)** — trigger + positioning wrapper.
+- **[Popover](/components/popover)** — alternative anchoring surface.
+- **[List](/components/list)** — full-page collections, not action menus.

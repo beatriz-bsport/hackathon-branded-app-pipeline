@@ -75,9 +75,11 @@ export class MixpanelAdapter implements AnalyticsAdapter {
 
     const mixpanelConfig: Partial<MixpanelConfig> = {
       // Override the default config to
-      // 1. prevent sending cookies with non-https requests
+      // 1. route data to Mixpanel's EU servers (EU Data Residency)
+      api_host: "https://api-eu.mixpanel.com",
+      // 2. prevent sending cookies with non-https requests
       secure_cookie: true,
-      // 2. prevent mixing cookies across bsport.io subdomains
+      // 3. prevent mixing cookies across bsport.io subdomains
       cross_subdomain_cookie: false,
       ...otherConfig,
     };

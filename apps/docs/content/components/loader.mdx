@@ -1,0 +1,157 @@
+---
+title: Loader [LLM]
+description: An animated three-dot indicator for in-progress operations
+status: stable
+category: components
+tags: [feedback, loading]
+source: "packages/design-system/kaizen/primitive/core/src/components/Loader"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Loader shows that content or an action is in progress. The three-dot animation
+fits inline beside labels, inside buttons, or centered on a page while data
+fetches. It communicates wait state without blocking interaction unless you pair
+it with a disabled shell or overlay.
+
+<StorybookEmbed
+  id="primitive-components-loader--primary"
+  mode="playground"
+  height={400}
+  stories={[{ id: "primitive-components-loader--primary", label: "Loader" }]}
+/>
+
+### Use cases
+
+- **List and table loading** — center `size="xl"` while the first page of rows
+  fetches in Studio Manager lists.
+- **Button pending state** — `size="sm"` inside a submit button during save.
+- **Panel refresh** — `size="md"` in a detail drawer while member data reloads.
+- **Inline field validation** — small loader beside an autocomplete while search
+  debounces.
+- **Route transition** — full-width centered loader on slow federated module loads.
+
+## Guidelines
+
+- **Size matches container** — `sm` inline, `md` in cards, `lg`/`xl` for page-level waits.
+- **Pair with context** — add visible text ("Loading members…") for waits longer
+  than a few seconds.
+- **Do not fake progress** — Loader is indeterminate; use [Progress bar](/components/progress-bar)
+  when you know completion percentage.
+- **Avoid duplicate spinners** — one loader per waiting region, not per cell in a table.
+- **Disable destructive actions** — while a critical save runs, disable buttons
+  even if the loader is only inline.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+A page-sized loader without copy leaves users unsure whether the app froze. Add a
+short status line when fetch times routinely exceed three seconds.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Center an xl loader in the list content area while the initial query resolves." />
+  <Do caption="Use sm inside buttons only for the duration of the submit request." />
+  <Do caption="Replace the loader with content or an empty state as soon as data arrives." />
+  <Dont caption="Multiple loaders in one viewport suggest uncoordinated fetching — consolidate loading state." />
+  <Dont caption="Loaders on static screens that never resolve train users to ignore them." />
+  <Dont caption="Long operations without cancel belong in a modal with explicit copy, not a lone dot animation." />
+</DoDont>
+
+### Content rules
+
+When you add a label near the loader, keep it short and present tense:
+
+> Loading sessions…
+
+> Saving changes…
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Wrapper",
+      description: "Flex container sized by the size variant.",
+    },
+    {
+      name: "Animation core",
+      description: "Three circles with staggered fade animation.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Loader" />
+
+### Behaviors
+
+#### Persistence
+
+Loader renders for as long as the parent keeps it mounted. Control visibility
+from loading flags in your data layer.
+
+#### Responsiveness
+
+`xl` has no fixed width — the parent centers it. Smaller sizes use fixed icon
+dimensions.
+
+### Edge cases
+
+- **Loader without loading flag** — if data is already cached, skip the loader
+  and render content immediately to avoid flash.
+- **Concurrent requests** — prefer a single parent loading boolean over per-row loaders.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Loader is a `div` with `data-component="Kaizen-Loader"`. Kaizen does not set
+`role="status"` or `aria-busy` — add them on the waiting region container.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[{ keys: ["Tab"], description: "Loader is not focusable." }]}
+/>
+
+### Screen reader behavior
+
+Announce loading by setting `aria-busy="true"` on the region and providing
+`aria-live="polite"` text when content will replace the loader. The animation
+itself is not announced.
+
+### Focus management
+
+Focus is unchanged while a loader displays. When content replaces the loader,
+move focus to the primary heading if you opened a new view.
+
+### WCAG criteria
+
+- **2.2.2 Pause, Stop, Hide** — animation is decorative; respect `prefers-reduced-motion` at app level if extended.
+- **4.1.3 Status Messages** — pair with live region text for long waits.
+
+## Resources
+
+### Storybook
+
+[Open Loader in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-loader--primary)
+
+### Related components
+
+- **[Progress bar](/components/progress-bar)** — determinate completion for uploads or multi-step tasks.
+- **[List](/components/list)** — built-in loading state for paginated collections.
+- **[Error fallback](/components/error-fallback)** — when loading fails instead of stalls.

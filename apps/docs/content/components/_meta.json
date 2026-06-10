@@ -2,15 +2,41 @@
   "index",
   {
     "group": "Actions",
-    "items": ["button"]
+    "items": ["button", "toggle-button", "copy-to-clipboard"]
   },
   {
     "group": "App navigation",
-    "items": ["app-navigation"]
+    "items": ["app-navigation", "navigation", "sidebar"]
+  },
+  {
+    "group": "Images and icons",
+    "items": [
+      "icon",
+      "illustration",
+      "avatar",
+      "avatar-group",
+      "media",
+      "color-indicator"
+    ]
+  },
+  {
+    "group": "Typography",
+    "items": ["body", "title", "label"]
   },
   {
     "group": "Data display",
-    "items": ["table", "badge", "chip", "indicator"]
+    "items": ["badge", "chip", "indicator", "card", "progress-bar"]
+  },
+  {
+    "group": "Tables and lists",
+    "items": [
+      "table",
+      "list",
+      "list-item",
+      "sortable-list",
+      "nested-sortable-list",
+      "pagination"
+    ]
   },
   {
     "group": "Feedback and status",
@@ -21,23 +47,65 @@
     "items": [
       "shared-form-guidelines",
       "checkbox",
+      "checkbox-group",
       "radio",
       "toggle",
       "text-field",
+      "text-area",
       "select",
-      "autocomplete"
+      "autocomplete",
+      "date-picker",
+      "time-picker",
+      "tag-input",
+      "form",
+      "file-upload",
+      "filter"
     ]
   },
   {
+    "group": "Layout",
+    "items": ["list-layout", "details-layout"]
+  },
+  {
     "group": "Layout and structure",
-    "items": ["header-layout", "panel"]
+    "items": [
+      "header-layout",
+      "panel",
+      "divider",
+      "collapse",
+      "expandable-content",
+      "layout"
+    ]
   },
   {
     "group": "Navigation",
-    "items": ["breadcrumbs", "link", "tabs"]
+    "items": ["breadcrumbs", "link", "tabs", "segmented-control"]
   },
   {
     "group": "Overlays",
-    "items": ["detail-drawer", "modal", "tooltip", "popover"]
+    "items": [
+      "detail-drawer",
+      "modal",
+      "tooltip",
+      "popover",
+      "blanket",
+      "dropdown-menu",
+      "stepper"
+    ]
+  },
+  {
+    "group": "Composition",
+    "items": [
+      "chip-list",
+      "dropdown-multi-select",
+      "analytic-card",
+      "form-radio-group",
+      "accordion",
+      "menu"
+    ]
+  },
+  {
+    "group": "Utilities",
+    "items": ["loader", "error-fallback", "drag-and-drop"]
   }
 ]

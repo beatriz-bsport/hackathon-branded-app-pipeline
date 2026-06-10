@@ -1,0 +1,133 @@
+---
+title: Text area [LLM]
+description: Multi-line text input for descriptions, notes, and long-form content
+status: stable
+category: components
+tags: [forms, input]
+source: "packages/design-system/kaizen/primitive/core/src/components/TextArea"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Text area collects multi-line plain text — class descriptions, email bodies, internal
+notes, and comment fields. It supports labels, helper text, error state, and
+disabled/read-only modes consistent with [Text field](/components/text-field).
+
+<StorybookEmbed
+  id="primitive-components-text-area--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-text-area--primary", label: "Text area" },
+  ]}
+/>
+
+### Use cases
+
+- **Class description** — public-facing copy in booking session setup.
+- **Email template body** — marketing message editor alongside subject field.
+- **Internal notes** — staff-only comments on member profiles.
+- **Rejection reasons** — optional explanation on approval workflows.
+- **JSON or code** — only when plain text is acceptable; rich text needs another editor.
+
+## Guidelines
+
+- **Pair with Label** — always visible label via [Label](/components/label) or `label` prop.
+- **Set expectations** — helper text for character limits or formatting rules.
+- **Resize thoughtfully** — default vertical resize; constrain height in dense layouts.
+- **Error below field** — match single-line field error placement.
+- **Not for single-line data** — names and emails belong in Text field.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="State character limits in helper text when the API enforces max length." />
+  <Do caption="Use read-only mode for displayed long text that must not edit inline." />
+  <Do caption="Preserve line breaks users type for notes and descriptions." />
+  <Dont caption="Tiny two-row text areas for content that routinely exceeds five lines." />
+  <Dont caption="Validation only on blur without inline error message." />
+  <Dont caption="Rich formatting expectations in a plain text area without a rich editor." />
+</DoDont>
+
+### Content rules
+
+Placeholder hints format, not label:
+
+> Add instructions members see when booking…
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Label", description: "Field name above the control." },
+    { name: "Textarea", description: "Native textarea with token styling." },
+    { name: "Helper or error", description: "Supporting text below." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="TextArea" />
+
+### Behaviors
+
+#### Responsiveness
+
+Grows with content when resize allowed; parent can set `rows` or max-height.
+
+### Edge cases
+
+- **Very long paste** — enforce maxLength at form layer if backend limits size.
+- **Disabled** — value visible but not editable; ensure contrast meets disabled tokens.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Associates with label via `id`/`htmlFor`. Error text should use `aria-describedby`
+when implemented in form wrappers.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Enters and leaves the textarea." },
+    { keys: ["Enter"], description: "Inserts newline inside the field." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces label, value, and error/description ids when wired.
+
+### Focus management
+
+Focus stays in field during editing.
+
+### WCAG criteria
+
+- **3.3.1 Error Identification** — describe validation failures.
+- **3.3.2 Labels or Instructions** — visible label and helpers.
+- **4.1.2 Name, Role, Value** — value updates on input.
+
+## Resources
+
+### Storybook
+
+[Open Text area in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-text-area--primary)
+
+### Related components
+
+- **[Text field](/components/text-field)** — single-line counterpart.
+- **[Form](/components/form)** — validation and submission wiring.
+- **[Label](/components/label)** — accessible naming.

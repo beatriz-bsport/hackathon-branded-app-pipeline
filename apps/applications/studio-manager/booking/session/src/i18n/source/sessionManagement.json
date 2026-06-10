@@ -20,8 +20,8 @@
       "teacher": "Teacher",
       "establishment": "Establishment",
       "status": "Status",
-      "empty": "No sessions to show",
-      "openSession": "Open session"
+      "empty": "No classes to display",
+      "openSession": "Open class"
     },
     "allOccurrencesTable": {
       "date": "Date",
@@ -31,7 +31,7 @@
       "establishment": "Establishment",
       "status": "Status",
       "empty": "No occurrences to show",
-      "openSession": "Open session"
+      "openSession": "Open class"
     }
   },
   "goToPreviousSession": "Go to previous class",
@@ -140,7 +140,7 @@
       "current": "Current spot"
     },
     "loadError": "We couldn't load the floor plan.",
-    "noBlueprint": "No floor plan configured for this session.",
+    "noBlueprint": "No spot layout set up for this class.",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "resetView": "Reset view",
@@ -180,7 +180,7 @@
     },
     "viewWaitlistMembers": {
       "title": "Waitlist members",
-      "subtitle": "Members are still on the waitlist, but it is currently paused for this session. You can reactivate it at any time and the existing order will be preserved."
+      "subtitle": "The waitlist is paused for this class, but clients are still in the queue. Reactivate it any time and their place will be saved."
     },
     "removeFromWaitlist": {
       "title": "Remove from waitlist?",
@@ -217,7 +217,7 @@
     "tags": "Tags",
     "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}",
     "positionInWaitlist": "Position in waitlist",
-    "noShowAlert": "<strong>No-show:</strong> marked absent after the session.",
+    "noShowAlert": "<strong>No-show:</strong> marked absent after the class.",
     "penaltyAlert": "Unlimited pass penalty applied."
   },
   "bookingOrdering": {
@@ -246,7 +246,7 @@
     },
     "checkCredit": {
       "title": "Require valid pass with sufficient credit",
-      "description": "Members can only join waitlist if they have a pass compatible with this session and enough credits."
+      "description": "Clients can only join the waitlist for this class if they have a compatible pass with enough credits."
     },
     "oneByOne": {
       "title": "One-by-one",
@@ -256,13 +256,13 @@
       "title": "{{autokick_delay}} notifications before removal from waitlist",
       "description": {
         "simple": "When a spot opens, members receive {{autokick_delay}} reminders spaced {{dumb_delay_minutes}} minutes apart to book before their spot goes to the next person.",
-        "smart": "When a spot opens, members receive {{autokick_delay}} reminders spaced at {{smart_delay_percentage}}% intervals of the remaining time before the session starts. "
+        "smart": "When a spot opens, clients receive {{autokick_delay}} reminders spaced at {{smart_delay_percentage}}% intervals of the remaining time before the class starts. "
       }
     },
     "autoConsumePack": {
       "title": "Auto-book from waitlist",
-      "description": "Members are automatically enrolled when a spot opens and credits are deducted from their valid pass (up to {{last_delay_before_auto_consume}} minute before the session starts)",
-      "description_other": "Members are automatically enrolled when a spot opens and credits are deducted from their valid pass (up to {{last_delay_before_auto_consume}} minutes before the session starts)"
+      "description": "Clients automatically join the waitlist when a spot opens up. Credits are deducted from their pass (up to {{last_delay_before_auto_consume}} minute before the class starts)",
+      "description_other": "Clients automatically join the waitlist when a spot opens up. Credits are deducted from their pass (up to {{last_delay_before_auto_consume}} minutes before the class starts)"
     },
     "kickIfNoPack": {
       "title": "Auto-remove without valid pass",
@@ -274,7 +274,7 @@
     }
   },
   "pausedWaitlistState": {
-    "description": "The waitlist is paused for this session",
+    "description": "The waitlist is paused for this class",
     "viewWaitlistMembers": "View waitlist members",
     "reactivateWaitlist": "Reactivate waitlist"
   },
@@ -291,8 +291,8 @@
   },
   "sessionPanel": {
     "details": {
-      "title": "Session details",
-      "editAriaLabel": "Edit session details",
+      "title": "Details",
+      "editAriaLabel": "Edit class details",
       "allLevels": "All levels",
       "levelPlaceholder": "Level {{id}}",
       "credits": "{{count}} credit",
@@ -300,9 +300,9 @@
       "recurring": "Recurring"
     },
     "hybrid": {
-      "title": "Hybrid session",
-      "body": "This on-site session is paired with an online session.",
-      "linkAriaLabel": "Open paired online session"
+      "title": "Hybrid class",
+      "body": "This in-person class is paired with an online one.",
+      "linkAriaLabel": "Open paired online class"
     },
     "tags": {
       "title": "Tags",
@@ -372,8 +372,8 @@
       "2021": "The pass is set to start on first booking and the slot is before that date",
       "2022": "The pass is set to start on first attendance, and the slot is before that date",
       "2023": "The validity period is over",
-      "2027": "The slot is outside the time slots the pass is valid for (e.g. pass only works mornings, session is in the evening)",
-      "generic": "This pass can't be used for this session"
+      "2027": "This time slot isn't covered by the selected pass. Please choose a different pass to continue.",
+      "generic": "This pass can't be used for this class"
     },
     "confirmation": {
       "pass": "Pass",
@@ -406,7 +406,7 @@
       "upcomingClasses": "Upcoming classes ({{count}})",
       "selected": "{{count}} selected",
       "creditsRemaining": "{{remaining}} credits remaining after booking",
-      "creditsExhausted": "Not enough credits to select more sessions",
+      "creditsExhausted": "Not enough credits to select more classes",
       "creditCost": "{{count}} credit",
       "creditCost_other": "{{count}} credits"
     },
@@ -416,7 +416,7 @@
       "price": "Price:",
       "priceIndicator": "Price: {{price}}",
       "loading": "Loading passes...",
-      "emptyPasses": "No passes available for this session",
+      "emptyPasses": "No passes available for this class",
       "unlimited": "Unlimited",
       "credits": "{{count}} credit",
       "credits_other": "{{count}} credits",

@@ -70,14 +70,14 @@
         "description": "Set the cut-off for free cancellations before this class starts"
       },
       "warnings": {
-        "nullFirstBookingUntil": "Warning: the opening of the booking window is set to 0. Members will not be able to book this class.",
+        "nullFirstBookingUntil": "The opening of the booking window is set to 0. Clients won't be able to book this class.",
         "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class starts. Clients may not have enough time to book.",
         "highLastBooking": "The booking window closes more than 2 hours before the class starts. Clients will need to book well in advance."
       }
     },
     "customRestrictions": {
       "title": "Booking rules by segment",
-      "toggleLabel": "Apply different booking and cancellation rules to specific member segments.",
+      "toggleLabel": "Apply different booking and cancellation rules to specific client segments.",
       "ruleTitle": "Custom restriction {{index}}",
       "remove": "Remove",
       "applyTo": "Apply restrictions to:",
@@ -96,7 +96,7 @@
       "hoursBeforeStartLabel": "Time before the class starts",
       "minBookingsSuffix": "people",
       "hoursBeforeStartSuffix": "hours",
-      "alert": "Owners, admins, teachers, and booked members are notified automatically."
+      "alert": "Owners, admins, teachers, and booked clients are notified automatically."
     },
     "timeInput": {
       "days": "d",

@@ -295,8 +295,8 @@
           "emptySelection": "Select Activities to start filtering"
         },
         "establishment": {
-          "searchPlaceholder": "Search for an Establishment",
-          "emptySelection": "Select Establishments to start filtering"
+          "searchPlaceholder": "Search for a venue",
+          "emptySelection": "Select venues to start filtering"
         },
         "coach": {
           "searchPlaceholder": "Search for a Teacher",
@@ -322,7 +322,7 @@
       },
       "subFilters": {
         "activity": "Activity",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "coach": "Teacher",
         "passes": "Passes",
         "level": "Level",
@@ -342,7 +342,7 @@
         "secondValueRequired": "Second booking number is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedActivitiesRequired": "Select at least one activity.",
-        "selectedEstablishmentsRequired": "Select at least one establishment.",
+        "selectedEstablishmentsRequired": "Select at least one venue",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
         "selectedLevelsRequired": "Select at least one level, or remove this sub-filter.",
@@ -369,8 +369,8 @@
           "emptySelection": "Select Teachers to start filtering"
         },
         "establishment": {
-          "searchPlaceholder": "Search for an Establishment",
-          "emptySelection": "Select Establishments to start filtering",
+          "searchPlaceholder": "Search for a venue",
+          "emptySelection": "Select venues to start filtering",
           "atHomePrefix": "or",
           "atHomeLabel": "Include online appointments (at home)"
         },
@@ -385,7 +385,7 @@
       },
       "subFilters": {
         "coach": "Teacher",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "appointmentPass": "Appointment pass",
         "appointment": "Appointment",
         "appointmentDate": "Appointment date",
@@ -402,7 +402,7 @@
         "secondValueRequired": "Second appointment count is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
-        "selectedEstablishmentsRequired": "Select at least one establishment, or include online appointments.",
+        "selectedEstablishmentsRequired": "Select at least one venue, or include online appointments.",
         "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
         "selectedAppointmentsRequired": "Select at least one appointment, or remove this sub-filter.",
         "appointmentDateRequired": "Select an appointment date.",

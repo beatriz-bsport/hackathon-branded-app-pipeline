@@ -1,15 +1,15 @@
 {
   "page": {
-    "title": "SmartFill",
-    "disabled": "SmartFill not activated"
+    "title": "Smartfill",
+    "disabled": "Smartfill not activated"
   },
   "activatedEmptyState": {
-    "title": "No classes promoted with SmartFill yet",
-    "subtitle": "View all classes promoted with SmartFill here, including outreach analytics, status and the number of messages sent to clients."
+    "title": "No classes promoted with Smartfill yet",
+    "subtitle": "View all classes promoted with Smartfill here, including outreach analytics, status and the number of messages sent to clients."
   },
   "inactiveEmptyState": {
-    "title": "SmartFill is not active",
-    "subtitle": "Smartfill spots your low-attendance classes, finds the members most likely to book, and lets you reach them in one click — then tracks who booked as a result."
+    "title": "Smartfill not activated yet",
+    "subtitle": "Smartfill spots your low-attendance classes, finds clients most likely to book, automatically reaches out to them, then tracks who booked as a result. "
   },
   "error": {
     "title": "Something went wrong",
@@ -35,14 +35,14 @@
   },
   "notifications": {
     "title": "Clients contacted ({{count}})",
-    "unknownMember": "Member #{{memberId}}",
+    "unknownMember": "Client #{{memberId}}",
     "subtitle": {
       "scheduled": "Email scheduled: {{date}}",
       "sent": "Message: {{date}}"
     },
     "bookedBadge": {
       "label": "Booked",
-      "tooltip": "Member booked after receiving the communication"
+      "tooltip": "Client booked after receiving the communication"
     }
   },
   "section": {
@@ -56,7 +56,7 @@
     }
   },
   "toast": {
-    "activated": "SmartFill activated",
-    "deactivated": "SmartFill deactivated"
+    "activated": "Smartfill activated",
+    "deactivated": "Smartfill deactivated"
   }
 }

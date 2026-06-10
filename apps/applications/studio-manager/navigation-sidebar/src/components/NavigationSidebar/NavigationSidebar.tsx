@@ -20,12 +20,11 @@ import {
   useAttendanceModal,
   useAttendancePermissions,
 } from "#src/components/AttendanceModal";
-import { useCheckoutModalContainer } from "#src/components/CheckoutModal";
+import { useCheckoutPaymentFlowModalContainer } from "#src/components/CheckoutPaymentFlowModal";
 import {
   NotificationsModal,
   useNotificationsModal,
 } from "#src/components/NotificationsModal";
-import { usePaymentFlowModalContainer } from "#src/components/PaymentFlowModal";
 import {
   SearchMemberModal,
   useSearchMemberModal,
@@ -106,16 +105,13 @@ const NavigationSidebarContent = ({
     company_name: companyName,
     cover: companyLogo,
   } = companyTheme ?? {};
-  const { openCheckoutModalFromNav, checkoutModalElement } =
-    useCheckoutModalContainer({
+  const { openCheckoutModalFromNav, checkoutPaymentFlowModalElement } =
+    useCheckoutPaymentFlowModalContainer({
       companyId: companyId ?? undefined,
       fetch,
       navigateInContext,
       t,
     });
-  const { paymentFlowModalElement } = usePaymentFlowModalContainer({
-    fetch,
-  });
 
   useAlerts();
 
@@ -348,13 +344,9 @@ const NavigationSidebarContent = ({
     </>
   );
 
-  const checkoutModalPortal =
-    checkoutModalElement && typeof document !== "undefined"
-      ? createPortal(checkoutModalElement, document.body)
-      : null;
-  const paymentFlowModalPortal =
-    paymentFlowModalElement && typeof document !== "undefined"
-      ? createPortal(paymentFlowModalElement, document.body)
+  const checkoutPaymentFlowModalPortal =
+    checkoutPaymentFlowModalElement && typeof document !== "undefined"
+      ? createPortal(checkoutPaymentFlowModalElement, document.body)
       : null;
 
   // Use responsive Sidebar for Studio Manager apps (isBridged = false)
@@ -365,8 +357,7 @@ const NavigationSidebarContent = ({
         <NavigationSidebarContainer>
           {sidebarContent}
         </NavigationSidebarContainer>
-        {checkoutModalPortal}
-        {paymentFlowModalPortal}
+        {checkoutPaymentFlowModalPortal}
       </>
     );
   }
@@ -384,8 +375,7 @@ const NavigationSidebarContent = ({
           {sidebarContent}
         </Sidebar>
       </SidebarProvider>
-      {checkoutModalPortal}
-      {paymentFlowModalPortal}
+      {checkoutPaymentFlowModalPortal}
     </>
   );
 };

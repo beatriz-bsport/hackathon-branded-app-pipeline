@@ -7,7 +7,7 @@ import { getFetch } from "@bsport/fetch";
 import { Button, toast } from "@bsport/kaizen-primitive-core";
 
 import { CheckoutPaymentFlowModal } from "./checkout-payment-flow-modal";
-import { CHECKOUT_PAYMENT_FLOW_MODE } from "./types";
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
 
 const COMPANY_ID = 2;
 const MEMBER_ID = 29612631;
@@ -65,7 +65,7 @@ Optional: \`companyTheme\` (\`@bsport/api-core\`) for Stripe card/SEPA in the pa
 import { CheckoutPaymentFlowModal } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
 \`\`\`
 
-Host apps typically mount this once (e.g. in the navigation sidebar) and open it via \`openCheckoutFlow\`, \`openPaymentFlow\`, or a future \`openFullPaymentFlow\`.
+Host apps typically mount this once (e.g. in the navigation sidebar) and open it via \`openCheckoutFlow\`, \`openPaymentFlow\`, or \`openFullPaymentFlow\`.
 `;
 
 type CheckoutPaymentFlowModalComponent = typeof CheckoutPaymentFlowModal;

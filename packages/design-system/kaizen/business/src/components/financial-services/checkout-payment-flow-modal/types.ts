@@ -7,6 +7,8 @@ import type {
   CheckoutFlowTrackFn,
 } from "#src/components/core/checkout-flow-modal/types";
 
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
+
 export const CHECKOUT_PAYMENT_FLOW_PHASE = {
   CHECKOUT: "checkout",
   PAYMENT: "payment",
@@ -15,20 +17,11 @@ export const CHECKOUT_PAYMENT_FLOW_PHASE = {
 export type CheckoutPaymentFlowPhase =
   (typeof CHECKOUT_PAYMENT_FLOW_PHASE)[keyof typeof CHECKOUT_PAYMENT_FLOW_PHASE];
 
-/**
- * How the unified shell behaves after checkout completes.
- * - `checkout`: close via `onCheckoutComplete` (navbar / checkout-only entry points)
- * - `payment`: open directly on payment (invoice already exists)
- * - `full`: stay open and transition checkout → payment in place
- */
-export const CHECKOUT_PAYMENT_FLOW_MODE = {
-  CHECKOUT: "checkout",
-  PAYMENT: "payment",
-  FULL: "full",
-} as const;
-
 export type CheckoutPaymentFlowMode =
   (typeof CHECKOUT_PAYMENT_FLOW_MODE)[keyof typeof CHECKOUT_PAYMENT_FLOW_MODE];
+
+export type FullPaymentFlowBasketStartTrigger =
+  CheckoutFlowStartContext["basket_start_trigger"];
 
 type CheckoutPaymentFlowModalBaseProps = {
   isOpen: boolean;

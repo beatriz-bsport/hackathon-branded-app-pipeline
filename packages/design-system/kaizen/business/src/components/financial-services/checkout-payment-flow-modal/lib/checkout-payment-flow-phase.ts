@@ -1,5 +1,5 @@
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "#src/components/financial-services/checkout-payment-flow-modal/constants";
 import {
-  CHECKOUT_PAYMENT_FLOW_MODE,
   CHECKOUT_PAYMENT_FLOW_PHASE,
   type CheckoutPaymentFlowMode,
   type CheckoutPaymentFlowPhase,

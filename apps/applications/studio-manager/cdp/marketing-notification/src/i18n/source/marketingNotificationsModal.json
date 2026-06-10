@@ -79,7 +79,7 @@
         "choices": {
           "groupActivity": "Group Activity",
           "location": "Location",
-          "establishment": "Establishment",
+          "establishment": "Venue",
           "workshop": "Workshop",
           "appointment": "Appointment",
           "pass": "Standard Pass",
@@ -115,9 +115,9 @@
           "loading": "Searching locations..."
         },
         "establishment": {
-          "label": "Establishment",
-          "placeholder": "Select an establishment",
-          "loading": "Searching establishments..."
+          "label": "Venue",
+          "placeholder": "Select a venue",
+          "loading": "Searching venues..."
         },
         "subscription": {
           "label": "Subscription",
@@ -163,10 +163,10 @@
       },
       "smartlists": {
         "included": {
-          "label": "Send notification if member is included in a Smartlist"
+          "label": "Send notification if client is included in a segment"
         },
         "excluded": {
-          "label": "Don't send notification if member is included in a Smartlist"
+          "label": "Don't send notification if client is included in a segment"
         }
       },
       "timing": {
@@ -262,13 +262,13 @@
         }
       },
       "booking": {
-        "actionLabel": "Send this notification when a member",
+        "actionLabel": "Send this notification when a client",
         "actions": {
           "makesBooking": "Makes a booking",
           "makesCancellation": "Makes a cancellation"
         },
         "statusLabel": {
-          "attendance": "Send this notification when members are marked as",
+          "attendance": "Send this notification when clients are marked as",
           "cancellation": "Send this notification when cancellation was"
         },
         "statusOptions": {
@@ -280,12 +280,12 @@
         "occurrenceLabel": "Send this notification when",
         "occurrences": {
           "anyBooking": {
-            "makesBooking": "A member makes any booking",
-            "makesCancellation": "A member makes any cancellation"
+            "makesBooking": "A client makes any booking",
+            "makesCancellation": "A client makes any cancellation"
           },
           "specificAmount": {
-            "makesBooking": "A member reaches a specific amount of bookings",
-            "makesCancellation": "A member reaches a specific amount of cancellations"
+            "makesBooking": "A client reaches a specific amount of bookings",
+            "makesCancellation": "A client reaches a specific amount of cancellations"
           }
         },
         "amountSuffix": {
@@ -293,7 +293,7 @@
           "makesCancellation": "Cancellations"
         },
         "alerts": {
-          "defaultToAbsent": "Your settings are configured to mark members as absent by default"
+          "defaultToAbsent": "Your settings are configured to mark clients as absent by default"
         },
         "timing": {
           "temporality": {
@@ -331,7 +331,7 @@
         }
       },
       "appointment": {
-        "actionLabel": "Send this notification when a member",
+        "actionLabel": "Send this notification when a client",
         "actions": {
           "attend": "Attends their booked appointment",
           "cancelOnTime": "Cancels their appointment within the cancellation window",
@@ -340,12 +340,12 @@
         "occurrenceLabel": "Send this notification when",
         "occurrences": {
           "attend": {
-            "anyBooking": "A member makes any booking",
-            "specificAmount": "A member reaches a specific amount of bookings"
+            "anyBooking": "A client makes any booking",
+            "specificAmount": "A client reaches a specific amount of bookings"
           },
           "cancel": {
-            "anyBooking": "A member makes any cancellation",
-            "specificAmount": "A member reaches a specific amount of cancellation"
+            "anyBooking": "A client makes any cancellation",
+            "specificAmount": "A client reaches a specific amount of cancellation"
           }
         },
         "amountSuffix": {
@@ -403,7 +403,7 @@
         },
         "includedInContract": {
           "label": "Choose when to send this notification",
-          "infos": "By default, this notification is sent to all members with this pass. If you select “Skip if a pass is part of a subscription”, members who hold the pass through a subscription will not receive it.",
+          "infos": "By default, this notification is sent to all clients with this pass. If you select “Skip if a pass is part of a subscription”, clients who hold the pass through a subscription will not receive it.",
           "options": {
             "everyPass": "Send to everyone with this pass",
             "outsideSubscription": "Skip if pass is part of a subscription"

@@ -1,6 +1,7 @@
 const EDITOR_SLUG = ":id";
 const OVERVIEW_SEGMENT = "overview";
 const PAUSES_SEGMENT = "pauses";
+const MEMBERSHIP_PLAN_SEGMENT = "membership-plan";
 
 export const URLS = {
   INDEX: "..",
@@ -13,6 +14,12 @@ export const URLS = {
 
   PAUSES_SLUG: `${EDITOR_SLUG}/${PAUSES_SEGMENT}`,
   PAUSES: (id: number) => `${id}/${PAUSES_SEGMENT}`,
+
+  MEMBERSHIP_PLAN_SLUG: `${EDITOR_SLUG}/${MEMBERSHIP_PLAN_SEGMENT}/:membershipPlanId`,
+  MEMBERSHIP_PLAN: (contractId: number, membershipPlanId: number) =>
+    `${contractId}/${MEMBERSHIP_PLAN_SEGMENT}/${membershipPlanId}`,
+  MEMBERSHIP_PLAN_HISTORY: (contractId: number, membershipPlanId: number) =>
+    `${contractId}/${MEMBERSHIP_PLAN_SEGMENT}/${membershipPlanId}/history`,
 } as const;
 
 export const LEGACY_URLS = {

@@ -1,0 +1,24 @@
+{
+  "header": {
+    "loading": "Loading membership plan...",
+    "breadcrumbs": {
+      "subscription": "Subscription"
+    }
+  },
+  "tabs": {
+    "billing": "Billing",
+    "history": "History"
+  },
+  "panelTabs": {
+    "details": "Details",
+    "paymentMethod": "Payment method"
+  },
+  "content": {
+    "billingPlaceholder": "Billing details will appear here.",
+    "historyPlaceholder": "Membership plan history will appear here."
+  },
+  "panel": {
+    "detailsPlaceholder": "Membership plan details will appear here.",
+    "paymentMethodPlaceholder": "Payment method details will appear here."
+  }
+}

@@ -77,6 +77,10 @@ export type BillingPlanPause = {
 
 // #region Params
 
+export type FetchBillingPlanParams = {
+  id: number;
+};
+
 export type FetchBillingPlansParams = {
   id__in?: number[];
   contract?: number;

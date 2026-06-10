@@ -15,7 +15,7 @@
       "copyPhone": "Copy phone",
       "toasts": {
         "phoneNumberCopied": "Phone number copied to clipboard",
-        "emailCopied": "Member email was copied to your clipboard"
+        "emailCopied": "Client email copied to clipboard"
       }
     }
   },

@@ -53,7 +53,7 @@
       "productManagement": "Product management",
       "reports": "Reports",
       "reservationManagement": "Reservation management",
-      "sessionManagement": "Session management"
+      "sessionManagement": "Services"
     },
     "actions": {
       "deleteRole": "Delete role"

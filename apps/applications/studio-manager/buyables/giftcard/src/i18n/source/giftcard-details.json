@@ -104,7 +104,7 @@
         },
         "code": {
           "label": "Code",
-          "tooltip": "Share the gift card code with members so they can use it for purchases"
+          "tooltip": "Share the gift card code with clients so they can use it for purchases"
         }
       },
       "sectionBuyer": {

@@ -8,6 +8,7 @@ const API_URL = `${API_V1_URL}/master-data/level/`;
 export const levelKeys = {
   all: [QUERY_KEY_MAIN, "level"] as const,
   list: (params?: LevelFilterSet) => [...levelKeys.all, params] as const,
+  detail: (id: number) => [...levelKeys.all, "detail", id] as const,
 };
 
 const fetchLevelsAPIConfig = (params: LevelFilterSet): ApiConfig => {
@@ -38,6 +39,14 @@ export const fetchLevelAPI = async (
   const { data } = await fetch(uri, init);
 
   return data;
+};
+
+export const fetchLevelQueryOptions = (fetch: Fetch<Level>, id: number) => {
+  const queryFn = fetchLevelAPI.bind(null, fetch, { id });
+  return {
+    queryKey: levelKeys.detail(id),
+    queryFn,
+  };
 };
 
 const updateLevelAPIConfig = (params: {

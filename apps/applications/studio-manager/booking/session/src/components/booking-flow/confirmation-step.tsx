@@ -18,6 +18,7 @@ import { useMemberPasses } from "#src/hooks/booking/fetch/use-member-passes";
 import { useSessionCredits } from "#src/hooks/booking/fetch/use-session-credits";
 import { useRetrievePass } from "#src/hooks/buyables/fetch/use-retrieve-pass";
 import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member";
+import { useFetchSessionsInGroup } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { setNotifyMember } from "#src/stores/booking-flow/actions";
@@ -44,13 +45,23 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
   const storeSessionIds = useBookingFlowStore((state) => state.sessionIds);
 
   const isMultiSession = storeSessionIds.length > 1;
+  const isSeries = session.group !== null;
 
   const { data: similarSessions } = useFetchSimilarSessions(
     sessionId,
-    isMultiSession,
+    isMultiSession && !isSeries,
   );
 
-  const sessions = isMultiSession ? similarSessions : [session];
+  const { data: groupSessions } = useFetchSessionsInGroup(
+    session.group,
+    {
+      available: true,
+    },
+    isMultiSession && isSeries,
+  );
+
+  const multiSessions = isSeries ? groupSessions : similarSessions;
+  const sessions = isMultiSession ? multiSessions : [session];
   const {
     totalCreditsUsed,
     remainingCredits,
@@ -133,8 +144,8 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
   }, [spotIndex, spotData.roomBlueprint, spotData.spotTypes]);
 
   const sessionsToBookItems = useMemo((): ListItemProps[] => {
-    if (!similarSessions) return [];
-    return similarSessions
+    if (!multiSessions) return [];
+    return multiSessions
       .filter((session) => storeSessionIds.includes(session.id))
       .map((session) => {
         const startDate = formatDateTime(
@@ -162,13 +173,7 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
           ),
         };
       });
-  }, [
-    similarSessions,
-    storeSessionIds,
-    i18n.language,
-    getSessionCreditCost,
-    t,
-  ]);
+  }, [multiSessions, storeSessionIds, i18n.language, getSessionCreditCost, t]);
 
   if (
     memberIsLoading ||

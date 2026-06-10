@@ -418,12 +418,25 @@
     },
     "sessionSelection": {
       "description": "Which other classes would you like to add?",
+      "seriesDescription": "Select the classes to book",
       "upcomingClasses": "Upcoming classes ({{count}})",
-      "selected": "{{count}} selected",
+      "classesInSeries": "Classes ({{count}})",
+      "selected": "{{count}} class",
+      "selected_other": "{{count}} classes",
       "creditsRemaining": "{{remaining}} credits remaining after booking",
       "creditsExhausted": "Not enough credits to select more classes",
       "creditCost": "{{count}} credit",
-      "creditCost_other": "{{count}} credits"
+      "creditCost_other": "{{count}} credits",
+      "series": "Series",
+      "classTemplate": "Class template",
+      "level": "Level",
+      "seriesRule": "Series rule for clients",
+      "fullSeries": "All classes are booked at once. If Series is already started, clients can’t book anymore.",
+      "openSeries": "Clients can join after the series starts and are booked into all remaining classes at once.",
+      "flexibleSeries": "Each class is booked independently. No commitment to the full series.",
+      "past": "Past",
+      "upcoming": "Upcoming",
+      "partialSeriesWarning": "You’re overriding the series booking rule. Clients are expected to book all eligible classes together. Booking fewer classes may leave gaps and block other clients from booking the series."
     },
     "newPass": {
       "searchPlaceholder": "Choose pass",

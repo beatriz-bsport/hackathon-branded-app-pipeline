@@ -45,9 +45,11 @@ export const retrieveGroupSession = async (
 export const retrieveGroupSessionQueryOption = (
   fetch: Fetch<GroupSession>,
   groupSessionId: number,
-) =>
-  queryOptions({
+) => {
+  const queryFn = retrieveGroupSession.bind(null, fetch, groupSessionId);
+  return queryOptions({
     queryKey: groupSessionKeys.detail(groupSessionId),
-    queryFn: () => retrieveGroupSession(fetch, groupSessionId),
+    queryFn,
     staleTime: DEFAULT_STALE_TIME,
   });
+};

@@ -18,7 +18,7 @@
     },
     "inbox": "Inbox",
     "notifications": "Notifications",
-    "sellProducts": "Quick sell",
+    "sellProducts": "Sell products",
     "home": "Home",
     "calendar": "Calendar",
     "schedule": "Schedule",
@@ -82,7 +82,7 @@
     "myStudio": {
       "title": "Studio",
       "teachers": "Teachers",
-      "establishments": "Establishments",
+      "establishments": "Venues",
       "venues": "Venues",
       "substitutions": "Substitutions"
     },
@@ -120,8 +120,8 @@
   },
   "checkoutFlowModal": {
     "toasts": {
-      "invoiceCreated": "Unpaid invoice created",
-      "open": "View invoice"
+      "invoiceCreated": "Invoice #{{invoiceId}} created",
+      "open": "Open"
     }
   },
   "revampCard": {
@@ -243,7 +243,7 @@
         "title": "No appointments to complete",
         "description": "All your appointments have assigned teachers"
       },
-      "member": "Member: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Date: {{date}}"
     }
   }

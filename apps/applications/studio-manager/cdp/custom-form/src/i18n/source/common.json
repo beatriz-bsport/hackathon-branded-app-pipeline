@@ -30,7 +30,7 @@
         "cancel": "Keep"
       },
       "title": "Archive form?",
-      "description": "Once you archive <b>{{ name }}</b>, it will no longer be visible to members.  \n\nYou can restore this form at any time from your archive. "
+      "description": "Once you archive <b>{{ name }}</b>, it will no longer be visible to clients.  \n\nYou can restore this form at any time from your archive. "
     },
     "duplicateModal": {
       "actions": {
@@ -82,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "No forms to display yet",
-        "subtitle": "Create your first form to get feedback from your members"
+        "subtitle": "Create your first form to get feedback from your clients"
       },
       "archivedList": {
         "title": "No archived forms yet",

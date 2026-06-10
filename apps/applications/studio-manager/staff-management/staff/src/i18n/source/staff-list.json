@@ -9,7 +9,7 @@
       "name": "Name",
       "email": "Email",
       "role": "Role",
-      "billingGroup": "Billing group",
+      "billingGroup": "Billing location",
       "assignedTeachers": "Assigned teachers",
       "commission": "Commission",
       "actions": "Actions"
@@ -49,7 +49,7 @@
     },
     "submitResponse": {
       "success": "Staff member added",
-      "error": "Failed to add staff member"
+      "error": "Couldn't add staff member. Please try again. "
     }
   },
   "deleteModal": {
@@ -61,7 +61,7 @@
     },
     "submitResponse": {
       "success": "Staff member deleted",
-      "error": "Failed to delete staff member"
+      "error": "Couldn't delete staff member. Please try again. "
     },
     "undoResponse": {
       "success": "Deletion cancelled"

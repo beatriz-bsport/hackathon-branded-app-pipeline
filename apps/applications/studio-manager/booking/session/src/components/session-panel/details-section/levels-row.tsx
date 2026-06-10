@@ -9,8 +9,10 @@ export const LevelsRow: FC<{ level: number }> = ({ level }) => {
 
   return (
     <div className="flex items-center gap-xs text-onsurface-weak">
-      <Icon icon="bar-chart-10" size="sm" />
-      <Body htmlVariant="span" size="md" color="weak">
+      <span className="flex w-lg shrink-0 justify-center">
+        <Icon icon="bar-chart-10" size="sm" />
+      </span>
+      <Body htmlVariant="span" size="lg" color="default">
         {level === 0
           ? t("sessionPanel.details.allLevels")
           : t("sessionPanel.details.levelPlaceholder", { id: level })}

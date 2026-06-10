@@ -31,9 +31,9 @@
       "closingSection": "Closing of registrations at substitution",
       "daysLate": {
         "label": "Number of days",
-        "helper": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late.",
-        "helper_one": "Substitution requests made less than {{count}} day before the beginning of the session will be indicated as late.",
-        "helper_other": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late."
+        "helper": "Substitution requests made less than {{count}} days before the start of the class will be marked as late.",
+        "helper_one": "Substitution requests made less than {{count}} day before the start of the class will be marked as late.",
+        "helper_other": "Substitution requests made less than {{count}} days before the start of the class will be marked as late."
       },
       "limits": {
         "toggle": "Limit of late requests",
@@ -60,9 +60,9 @@
       "periodWordYear_other": "years",
       "closingDays": {
         "label": "Number of days",
-        "helper": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins.",
-        "helper_one": "Your teachers will no longer be able to accept substitutions on a session {{count}} day before the course begins.",
-        "helper_other": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins."
+        "helper": "Teachers won't be able to accept substitutions for a class {{count}} days before the series begins.",
+        "helper_one": "Teachers won't be able to accept substitutions for a class {{count}} day before the series begins.",
+        "helper_other": "Teachers won't be able to accept substitutions for a class {{count}} days before the series begins."
       },
       "toasts": {
         "success": "Substitution settings saved",

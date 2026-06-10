@@ -430,7 +430,7 @@
       }
     },
     "numericComparator": {
-      "defaultSuffix": "Total sessions",
+      "defaultSuffix": "Total classes",
       "operators": {
         "equal": "Exactly equal to",
         "between": "Between",

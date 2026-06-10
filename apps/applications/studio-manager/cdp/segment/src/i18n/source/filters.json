@@ -310,7 +310,7 @@
           "searchPlaceholder": "Search for a Level",
           "emptySelection": "Select Levels to start filtering"
         },
-        "totalSessionSuffix": "Total Session",
+        "totalSessionSuffix": "Total classes",
         "filterSpecifications": "FILTER SPECIFICATIONS",
         "bookingHourRangeStartingBetween": "Starting between ",
         "bookingHourRangeAnd": " and ",
@@ -326,8 +326,8 @@
         "coach": "Teacher",
         "passes": "Passes",
         "level": "Level",
-        "bookingDate": "Booking session date",
-        "bookingHourRange": "Booking session time",
+        "bookingDate": "Class date",
+        "bookingHourRange": "Class time",
         "attendanceMode": "Attendance",
         "subFilterFallback": "{{subFilterId}}"
       },
@@ -346,7 +346,7 @@
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
         "selectedLevelsRequired": "Select at least one level, or remove this sub-filter.",
-        "bookingDateRequired": "Select a booking session date.",
+        "bookingDateRequired": "Select a class date",
         "bookingDateBetweenRequired": "Select both dates for the between range.",
         "bookingDateDurationRequired": "Enter a number of days.",
         "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
@@ -427,7 +427,7 @@
       },
       "fields": {
         "countSuffix": "Valid Passes",
-        "sessionsSuffix": "sessions",
+        "sessionsSuffix": "classes",
         "filterSpecifications": "FILTER SPECIFICATIONS"
       },
       "paymentPacks": {

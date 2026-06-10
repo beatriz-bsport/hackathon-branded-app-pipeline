@@ -308,7 +308,7 @@
   },
   "objectLevelPermissions": {
     "session": {
-      "_label": "Session management",
+      "_label": "Services",
       "activity": {
         "_label": "Activities"
       },
@@ -385,8 +385,8 @@
       "calendar": {
         "_label": "Calendar",
         "allowed_actions": {
-          "bulkCancellation": { "_label": "Cancel several sessions" },
-          "readCancellations": { "_label": "See cancelled sessions" },
+          "bulkCancellation": { "_label": "Cancel multiple classes" },
+          "readCancellations": { "_label": "See cancelled classes" },
           "readWeeklyOverview": { "_label": "See this week's overview" }
         }
       },
@@ -414,7 +414,7 @@
         },
         "activityByCoach": { "_label": "Activities and workshops by teacher" },
         "workshop": { "_label": "Workshop" },
-        "offers": { "_label": "Sessions" },
+        "offers": { "_label": "Classes" },
         "subscription": { "_label": "Subscription invoices" },
         "privateService": { "_label": "Appointments" },
         "referral_grant": { "_label": "Referral grants" },
@@ -422,9 +422,9 @@
       },
       "Bookings": {
         "_label": "Bookings",
-        "dayBookings": { "_label": "Bookings (group sessions) per day" },
-        "first_booking": { "_label": "First (collective) session" },
-        "bookings": { "_label": "Bookings (group sessions)" },
+        "dayBookings": { "_label": "Bookings (group classes) per day" },
+        "first_booking": { "_label": "First (collective) class" },
+        "bookings": { "_label": "Bookings (group classes)" },
         "first_attendance": { "_label": "First attendance (collective)" },
         "first_privatebooking": { "_label": "First appointment" },
         "private_bookings": { "_label": "Bookings (appointments)" },

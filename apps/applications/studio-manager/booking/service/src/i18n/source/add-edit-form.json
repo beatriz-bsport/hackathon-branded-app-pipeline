@@ -37,7 +37,7 @@
       "descriptionField": {
         "label": "Description",
         "placeholder": "Add a description of the class for your clients",
-        "helper": "Default description for all sessions. Can be overridden per session.",
+        "helper": "Default description for all classes. Can be overridden per class.",
         "error": "Enter a description."
       },
       "image": {
@@ -59,20 +59,20 @@
     "bookingWindow": {
       "opening": {
         "title": "Opening of booking window",
-        "description": "Future sessions can be booked if they start in less than"
+        "description": "Future classes can be booked if they start in less than"
       },
       "closing": {
         "title": "Closing of booking window",
-        "description": "Select until when members can book before the start of the session."
+        "description": "Set how far in advance clients can book this class"
       },
       "cancellation": {
         "title": "Cancellation policy",
-        "description": "Select until when members can cancel for free before the start of the session (late-cancellations)"
+        "description": "Set the cut-off for free cancellations before this class starts"
       },
       "warnings": {
         "nullFirstBookingUntil": "Warning: the opening of the booking window is set to 0. Members will not be able to book this class.",
-        "lowFirstBookingUntil": "Warning: the opening of the booking window is less than 24 hours before the session. Members may not have enough time to book.",
-        "highLastBooking": "Warning: the closing of the booking window is more than 2 hours before the session starts. Members may book very far in advance."
+        "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class starts. Clients may not have enough time to book.",
+        "highLastBooking": "The booking window closes more than 2 hours before the class starts. Clients will need to book well in advance."
       }
     },
     "customRestrictions": {
@@ -91,7 +91,7 @@
     },
     "automaticCancellation": {
       "title": "Automatic Cancellation",
-      "toggleLabel": "Auto-cancel underbooked sessions",
+      "toggleLabel": "Automatically cancel underbooked classes",
       "minBookingsLabel": "Minimum capacity",
       "hoursBeforeStartLabel": "Time before the class starts",
       "minBookingsSuffix": "people",

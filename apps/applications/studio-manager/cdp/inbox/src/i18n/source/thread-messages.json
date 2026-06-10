@@ -14,5 +14,9 @@
       "audienceMessage": "Audience Message",
       "franchiseCampaign": "Franchise Campaign"
     }
+  },
+  "threadMessagesHeader": {
+    "filterLabel": "Filter messages",
+    "moreActionsLabel": "More actions"
   }
 }

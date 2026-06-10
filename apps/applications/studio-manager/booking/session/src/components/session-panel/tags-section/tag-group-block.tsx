@@ -22,7 +22,7 @@ export const TagGroupBlock: FC<{ title: string; tagIds: number[] }> = ({
 
   return (
     <div className="flex flex-col gap-xs">
-      <Body htmlVariant="p" size="sm" color="weak" weight="strong">
+      <Body htmlVariant="p" size="md" weight="weak">
         {title}
       </Body>
       <div className="flex flex-wrap gap-xs">

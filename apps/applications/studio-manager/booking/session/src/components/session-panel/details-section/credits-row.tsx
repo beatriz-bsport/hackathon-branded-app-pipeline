@@ -8,8 +8,10 @@ export const CreditsRow: FC<{ credits: number }> = ({ credits }) => {
   const { t } = useTranslation("sessionManagement");
   return (
     <div className="flex items-center gap-xs text-onsurface-weak">
-      <Icon icon="credit-card-02" size="sm" />
-      <Body htmlVariant="span" size="md" color="weak">
+      <span className="flex w-lg shrink-0 justify-center">
+        <Icon icon="credit-card-02" size="sm" />
+      </span>
+      <Body htmlVariant="span" size="lg" color="default">
         {t("sessionPanel.details.credits", { count: credits })}
       </Body>
     </div>

@@ -18,7 +18,7 @@
       "time": "Time",
       "participants": "Participants",
       "teacher": "Teacher",
-      "establishment": "Establishment",
+      "establishment": "Venue",
       "status": "Status",
       "empty": "No classes to display",
       "openSession": "Open class"
@@ -28,7 +28,7 @@
       "time": "Time",
       "participants": "Participants",
       "teacher": "Teacher",
-      "establishment": "Establishment",
+      "establishment": "Venue",
       "status": "Status",
       "empty": "No occurrences to show",
       "openSession": "Open class"
@@ -101,7 +101,7 @@
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
     "removeFromWaitlist": "Remove from waitlist",
-    "impossibleToRemoveFromWaitlist": "Class already started, it's not possible to remove members from the waitlist",
+    "impossibleToRemoveFromWaitlist": "Couldn't remove clients from waitlist because class has already started",
     "assignSpot": {
       "success": "Spot assigned",
       "error": "Couldn't assign the spot"
@@ -166,30 +166,30 @@
     },
     "pauseWaitlist": {
       "title": "Pause waitlist?",
-      "body": "While paused, members won’t be able to reserve a spot. When you reactivate it, the waitlist order will remain unchanged.",
+      "body": "While paused, clients won’t be able to reserve a spot. When you reactivate it, the waitlist order will remain unchanged.",
       "confirmButton": "Pause waitlist",
       "closeButton": "Close",
       "confirmation": "Waitlist was paused"
     },
     "reactivateWaitlist": {
       "title": "Reactivate waitlist?",
-      "body": "Members already on the waitlist stay in the same order, and new added members will join at the bottom.",
+      "body": "Clients already on the waitlist stay in the same order, and newly added clients will join at the bottom of the list",
       "confirmButton": "Reactivate waitlist",
       "closeButton": "Close",
       "confirmation": "Waitlist was reactivated"
     },
     "viewWaitlistMembers": {
-      "title": "Waitlist members",
+      "title": "On waitlist",
       "subtitle": "The waitlist is paused for this class, but clients are still in the queue. Reactivate it any time and their place will be saved."
     },
     "removeFromWaitlist": {
       "title": "Remove from waitlist?",
-      "body": "Are you sure you want to remove this member from the waitlist?",
+      "body": "Remove client from waitlist?",
       "sendNotification": "Send a notification",
       "confirmButton": "Remove",
       "closeButton": "Close",
-      "confirmation": "Member removed from waitlist",
-      "error": "Couldn't remove member from waitlist"
+      "confirmation": "Client removed from waitlist",
+      "error": "Couldn't remove client from waitlist"
     }
   },
   "bookingAttendanceFilter": {
@@ -231,7 +231,7 @@
     "label": "Listed information",
     "spot": "Spot",
     "pass": "Pass",
-    "newMember": "New member",
+    "newMember": "New client",
     "recurringBooking": "Recurring booking",
     "tags": "Tags",
     "unpaidInvoices": "Unpaid invoices"
@@ -241,8 +241,8 @@
     "general": "General",
     "priorityManagement": "Priority management",
     "isOptionBlocking": {
-      "title": "Save openings for waitlist members only",
-      "description": "A spot will be reserved for members on the waitlist until they book."
+      "title": "Save openings for waitlist only",
+      "description": "A spot will be reserved for clients on the waitlist until they book"
     },
     "checkCredit": {
       "title": "Require valid pass with sufficient credit",
@@ -250,12 +250,12 @@
     },
     "oneByOne": {
       "title": "One-by-one",
-      "description": "Members are ranked in order. The first person is notified automatically when a spot opens."
+      "description": "Clients are ranked in order. The first person is notified automatically when a spot opens."
     },
     "autokickDelay": {
       "title": "{{autokick_delay}} notifications before removal from waitlist",
       "description": {
-        "simple": "When a spot opens, members receive {{autokick_delay}} reminders spaced {{dumb_delay_minutes}} minutes apart to book before their spot goes to the next person.",
+        "simple": "When a spot opens, clients receive {{autokick_delay}} reminders spaced {{dumb_delay_minutes}} minutes apart to book before their spot goes to the next person.",
         "smart": "When a spot opens, clients receive {{autokick_delay}} reminders spaced at {{smart_delay_percentage}}% intervals of the remaining time before the class starts. "
       }
     },
@@ -266,21 +266,21 @@
     },
     "kickIfNoPack": {
       "title": "Auto-remove without valid pass",
-      "description": "Members are removed from the waitlist if they no longer have a valid pass when their turn arrives."
+      "description": "Clients are removed from the waitlist if they no longer have a valid pass when their turn arrives."
     },
     "firstComeFirstServed": {
       "title": "First come, first served",
-      "description": "All members that joined this waitlist will be informed simultaneously once a spot becomes available."
+      "description": "All clients that joined this waitlist will be informed simultaneously once a spot becomes available."
     }
   },
   "pausedWaitlistState": {
     "description": "The waitlist is paused for this class",
-    "viewWaitlistMembers": "View waitlist members",
+    "viewWaitlistMembers": "View waitlist",
     "reactivateWaitlist": "Reactivate waitlist"
   },
   "attendanceAlert": {
     "confirmMessage": "Once you confirm attendance, the no-show penalty countdown will be triggered for clients with an unlimited pass.",
-    "reconfirmMessage": "Attendance updated. Please reconfirm. Reconfirmation restarts the no-show penalty countdown for absent unlimited members.",
+    "reconfirmMessage": "Attendance updated. Please reconfirm to restart the no-show penalty countdown for absent unlimited clients.",
     "confirmButton": "Confirm attendance",
     "countdownMessage": "<strong>{{hoursLeft}}h</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
     "countdownMessageDetailed": "<strong>{{hoursLeft}}h {{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
@@ -381,8 +381,8 @@
       "2015": "The pass has a weekly booking limit and it's been hit",
       "2016": "The pass has a monthly booking limit and it's been hit",
       "2017": "The pass has a yearly booking limit and it's been hit",
-      "2018": "The member has used all their credits",
-      "2019": "The member received a no-show or late-cancel penalty that temporarily blocks use",
+      "2018": "The client has used all their credits",
+      "2019": "The client received a no-show or late-cancel penalty that temporarily blocks use",
       "2020": "The class falls outside the start/end window of the pass",
       "2021": "The pass is set to start on first booking and the slot is before that date",
       "2022": "The pass is set to start on first attendance, and the slot is before that date",

@@ -272,7 +272,7 @@ export const useCheckoutPaymentFlowState = ({
   const checkoutFooter = {
     confirmButton: {
       color: "main" as const,
-      label: tCore("checkoutFlowModal.title"),
+      label: tCore("checkoutFlowModal.payNow"),
       type: "submit" as const,
       form: checkoutStep.formId,
       disabled: checkoutStep.isConfirmDisabled,

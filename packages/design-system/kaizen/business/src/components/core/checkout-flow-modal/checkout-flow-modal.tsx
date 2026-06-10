@@ -74,7 +74,7 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
       onClickOutside={handleClickOutside}
       confirmButton={{
         color: "main",
-        label: t("checkoutFlowModal.title"),
+        label: t("checkoutFlowModal.payNow"),
         type: "submit",
         form: formId,
         disabled: isConfirmDisabled,

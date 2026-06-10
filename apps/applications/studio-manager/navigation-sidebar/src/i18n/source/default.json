@@ -18,7 +18,7 @@
     },
     "inbox": "Inbox",
     "notifications": "Notifications",
-    "sellProducts": "Sell products",
+    "sellProducts": "Quick sell",
     "home": "Home",
     "calendar": "Calendar",
     "schedule": "Schedule",
@@ -120,8 +120,8 @@
   },
   "checkoutFlowModal": {
     "toasts": {
-      "invoiceCreated": "Invoice #{{invoiceId}} created",
-      "open": "Open"
+      "invoiceCreated": "Unpaid invoice created",
+      "open": "View invoice"
     }
   },
   "revampCard": {

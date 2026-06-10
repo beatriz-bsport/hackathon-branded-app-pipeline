@@ -29,9 +29,9 @@
         "close": "Close",
         "save": "Continue"
       },
-      "helper": "Select which establishments you want to synchronise. All sessions in these establishments that have MyClubs enabled will be available to book for MyClubs customers.",
+      "helper": "Select which venues to sync with MyClubs. Eligible classes in these venues will be available to MyClubs members.",
       "success": {
-        "helper": "Copy and paste this Partner ID into your <0>MyClubs account</0> to make the sessions in your selected establishments available to MyClubs customers.",
+        "helper": "Copy and paste this Partner ID into your <0>MyClubs account</0> to make the classes in these venues available to MyClubs customers.",
         "title": "Copy Partner ID"
       },
       "title": {
@@ -40,7 +40,7 @@
       }
     },
     "section": {
-      "subtitle": "Generate and link Partner IDs to synchronise the sessions in your establishments with MyClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+      "subtitle": "Generate and link Partner IDs to synchronise the classes in your venues with MyClubs. You'll be able to adjust the number of available spots for this aggregator in the class details."
     },
     "table": {
       "actions": {
@@ -67,21 +67,21 @@
     },
     "confirm": {
       "delete": {
-        "alert": "All sessions linked to this Partner ID will no longer be available to MyClubs customers.",
+        "alert": "All classes linked to this Partner ID will no longer be available to MyClubs customers.",
         "cancel": "Cancel",
         "confirm": "Delete",
         "description": "You are about to delete this Partner ID and unlink all associated establishments from MyClubs.",
         "title": "Delete Partner ID"
       },
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be cancelled on MyClubs, including any bookings made with MyClubs.",
+        "alert": "Upcoming classes linked to those venues will be canceled on MyClubs, including any bookings made with MyClubs.",
         "cancel": "Cancel",
         "confirm": "Confirm",
         "description": "You are about to unlink one or several establishments from MyClubs.",
         "title": "Edit Connection"
       },
       "reactivate": {
-        "alert": "Upcoming sessions in linked establishments will become available to MyClubs customers again.",
+        "alert": "Upcoming classes in linked venues will become available to MyClubs customers again.",
         "cancel": "Cancel",
         "confirm": "Reactivate",
         "description": "You are about to reactivate this Partner ID. Establishments linked to it will be available again on MyClubs.",
@@ -149,21 +149,21 @@
     },
     "confirm": {
       "delete": {
-        "alert": "All sessions linked to this connection will no longer be available to Wellhub customers.",
+        "alert": "All classes linked to this connection will no longer be available to Wellhub customers.",
         "cancel": "Cancel",
         "confirm": "Delete",
         "description": "You are about to delete this Wellhub connection and unlink all associated establishments.",
         "title": "Delete Wellhub connection"
       },
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost",
+        "alert": "Upcoming classes linked to those venues will be deleted on Wellhub, and any Wellhub bookings will be lost",
         "cancel": "Cancel",
         "confirm": "Confirm",
         "description": "You are about to unlink one or several establishments from Wellhub",
         "title": "Edit Connection"
       },
       "reactivate": {
-        "alert": "Once reactivated, sessions will start syncing again automatically.",
+        "alert": "Once reactivated, classes will start syncing again automatically.",
         "cancel": "Cancel",
         "confirm": "Reactivate",
         "title": "Reactivate synchronisation for this Unit ID?"
@@ -213,7 +213,7 @@
       }
     },
     "section": {
-      "subtitle": "Link your bsport account to Wellhub to sync sessions."
+      "subtitle": "Link your bsport account to Wellhub to sync classes."
     },
     "table": {
       "actions": {
@@ -292,7 +292,7 @@
     },
     "confirm": {
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellpass, and any Wellpass bookings will be lost",
+        "alert": "Upcoming classes linked to those establishments will be deleted on Wellpass, and any Wellpass bookings will be lost",
         "cancel": "Cancel",
         "confirm": "Confirm",
         "description": "You are about to unlink one or several establishments from Wellpass",

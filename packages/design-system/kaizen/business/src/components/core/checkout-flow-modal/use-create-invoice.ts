@@ -23,6 +23,7 @@ import {
   INVOICES_QUERY_KEY,
   TYPE_TO_IDENTIFIER,
 } from "./constants";
+import { resolveCheckoutItemInvoicePriceAndVoucher } from "./lib/resolve-checkout-item-invoice-price-voucher";
 
 const deliveryFormatToKind = (format: GiftcardDeliveryFormat): number =>
   format === "email" ? GIFTCARD_KIND_EMAIL : GIFTCARD_KIND_PDF;
@@ -31,13 +32,8 @@ const deliveryFormatToKind = (format: GiftcardDeliveryFormat): number =>
 const itemToBuyableItem = (
   item: CheckoutFlowItem,
 ): CreateInvoiceBuyableItem => {
-  const price = (item.priceCts / 100).toFixed(2);
-  const voucher =
-    item.discountPercent > 0
-      ? ((item.priceCts * item.discountPercent) / 10000).toFixed(2)
-      : item.discountAmountCts > 0
-        ? (item.discountAmountCts / 100).toFixed(2)
-        : "0.00";
+  const { price, voucher } = resolveCheckoutItemInvoicePriceAndVoucher(item);
+
   return {
     buyable_item_id: item.buyableItemId,
     buyable_item_identifier: TYPE_TO_IDENTIFIER[item.type] ?? 0,

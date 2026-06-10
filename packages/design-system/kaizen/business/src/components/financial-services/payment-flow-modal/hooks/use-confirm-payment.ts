@@ -1,10 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import type { RefObject } from "react";
 
-import { memberKeys } from "@bsport/api-cdp/member";
-import { invoiceKeys } from "@bsport/api-financial-services/invoice";
-import { paymentGroupKeys } from "@bsport/api-financial-services/payment-group";
-import { paymentMethodKeys } from "@bsport/api-financial-services/payment-method";
 import type { Fetch } from "@bsport/fetch";
 
 import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
@@ -17,7 +13,6 @@ import { executeConfirmPayment } from "./use-confirm-payment-execute";
 type UseConfirmPaymentParams = {
   fetch: Fetch;
   invoiceId: string;
-  memberId: number;
   invoiceRemainingAmount?: number;
   isInvoiceAlreadyPaid: boolean;
   selectedPaymentMethod: PaymentMethodSelectorSelection;
@@ -40,13 +35,10 @@ type UseConfirmPaymentParams = {
  * This hook centralizes:
  * - the "invoice already paid" guard;
  * - execution of business confirmation logic (`executeConfirmPayment`);
- * - cache invalidation for invoice, payment-group, member and saved methods
- *   after a successful confirmation.
  */
 export const useConfirmPayment = ({
   fetch,
   invoiceId,
-  memberId,
   invoiceRemainingAmount,
   isInvoiceAlreadyPaid,
   selectedPaymentMethod,
@@ -58,8 +50,6 @@ export const useConfirmPayment = ({
   stripePublishableKey,
   invoiceAlreadyPaidAlert,
 }: UseConfirmPaymentParams) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: () => {
       if (isInvoiceAlreadyPaid) {
@@ -78,22 +68,6 @@ export const useConfirmPayment = ({
         sepaPaymentRef,
         stripePublishableKey,
       });
-    },
-    onSuccess: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: invoiceKeys.detail(invoiceId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: paymentGroupKeys.all,
-        }),
-        queryClient.invalidateQueries({
-          queryKey: paymentMethodKeys.saved(memberId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: memberKeys.detail(memberId),
-        }),
-      ]);
     },
   });
 };

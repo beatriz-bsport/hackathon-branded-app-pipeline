@@ -57,13 +57,13 @@
       "emptyItems": "No subscriptions found",
       "willBePaused": {
         "title": "Plans to be paused",
-        "description": "The following members will have their subscription plans paused"
+        "description": "The following clients will have their subscriptions paused"
       },
       "wontBePaused": {
         "title": "Plans that cannot be paused",
         "description": "",
-        "description_one": "{{ count }} member's plan can't be paused",
-        "description_other": "{{ count }} members' plan can't be paused",
+        "description_one": "{{ count }} client subscription can't be paused",
+        "description_other": "{{ count }} clients' subscriptions can't be paused",
         "alertInfo": "The following plans can't be paused for one of the reasons: a payment is due within 24 hours, a payment is in progress, the dates overlap with another pause, or the plan hasn't started."
       }
     },

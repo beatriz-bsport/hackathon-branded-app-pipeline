@@ -43,13 +43,13 @@
       }
     },
     "OfferGroup": {
-      "name": "Session Groups",
+      "name": "Class groups",
       "tags": {
         "group_name": "Group name",
         "activity": "Activity",
-        "sessions_list_html": "Sessions list (HTML)",
-        "sessions_list_raw": "Sessions list (text)",
-        "sessions_count": "Number of sessions"
+        "sessions_list_html": "Class list (HTML)",
+        "sessions_list_raw": "Class list (text)",
+        "sessions_count": "Number of classes"
       }
     },
     "ConsumerPaymentPack": {

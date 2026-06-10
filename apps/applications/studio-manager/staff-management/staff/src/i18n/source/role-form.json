@@ -87,7 +87,7 @@
           "label": "Teachers"
         },
         "establishments": {
-          "label": "Establishments"
+          "label": "Venues"
         },
         "programs": {
           "label": "Programs"
@@ -410,7 +410,7 @@
         "members": { "_label": "Members" },
         "activities": { "_label": "Activities" },
         "activityByEst": {
-          "_label": "Activities and workshops by establishment"
+          "_label": "Classes by venue"
         },
         "activityByCoach": { "_label": "Activities and workshops by teacher" },
         "workshop": { "_label": "Workshop" },

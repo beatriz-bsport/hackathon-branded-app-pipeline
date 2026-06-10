@@ -24,7 +24,7 @@
       "sessionName": "Class",
       "participants": "Participants",
       "teacher": "Teacher",
-      "establishment": "Establishment",
+      "establishment": "Venue",
       "sessionType": "Details",
       "actions": "Actions",
       "attendance": "Attendance"
@@ -52,7 +52,7 @@
         "groupActivity": "Group activity"
       },
       "establishment": {
-        "label": "Establishment"
+        "label": "Venue"
       },
       "location": {
         "label": "Location"
@@ -117,7 +117,7 @@
       "teacher": "Teacher",
       "participant": "Participant",
       "passUsed": "Pass used",
-      "establishment": "Establishment",
+      "establishment": "Venue",
       "type": "Type",
       "actions": "Actions"
     },
@@ -133,7 +133,7 @@
         "label": "Teacher"
       },
       "establishment": {
-        "label": "Establishment"
+        "label": "Venue"
       },
       "participant": {
         "label": "Participant"
@@ -187,10 +187,10 @@
   "cancelModal": {
     "title": "Cancel class?",
     "description": "You can restore this class at any time but you won’t be able to retrieve any associated bookings.",
-    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this class will have their credits refunded.",
-    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this class will have their credits refunded.",
+    "bookingsAlert_one": "<strong>{{number}} client </strong> who booked this class will have their credits refunded.",
+    "bookingsAlert_other": "<strong>{{number}}clients who booked this class will have their credits refunded.",
     "groupSessionAlert": "This class is part of the Series <strong>{{groupName}}</strong>.",
-    "notificationLabel": "Send a notification to all members who booked this class",
+    "notificationLabel": "Send a notification to all clients who booked this class",
     "cancelLinkedSessions": "Cancel linked classes (both online and on-site)",
     "cancelFutureSessions": "Cancel future classes too",
     "cancelFutureSessionsForGroup": "Cancel future classes of {{groupName}}",
@@ -270,12 +270,12 @@
     "title": "Reschedule appointment?",
     "dateLabel": "Date",
     "timeLabel": "Time",
-    "infoMessage": "Members will automatically receive a notification of these changes.",
+    "infoMessage": "Clients will automatically receive a notification of these changes.",
     "errorMessage": "An error occurred while rescheduling the appointment. Please try again.",
     "cancelButton": "Close",
     "confirmButton": "Reschedule",
     "successMessage": "Appointment rescheduled",
-    "overlapWarning": "Please confirm there is no scheduling overlap with the teacher and establishment before rescheduling."
+    "overlapWarning": "Please confirm there is no schedule conflict with the teacher and venue before rescheduling."
   },
   "swapPassModal": {
     "title": "Swap pass?",
@@ -302,7 +302,7 @@
   "resourceAllocation": {
     "unavailableMessage": "The following elements are not available at this time:",
     "teacher": "Teacher",
-    "establishment": "Establishment",
+    "establishment": "Venue",
     "rescheduleConfirmation": "Are you sure you want to reschedule this appointment?",
     "swapTeacherConfirmation": "Are you sure you want to swap to this teacher anyway?"
   },

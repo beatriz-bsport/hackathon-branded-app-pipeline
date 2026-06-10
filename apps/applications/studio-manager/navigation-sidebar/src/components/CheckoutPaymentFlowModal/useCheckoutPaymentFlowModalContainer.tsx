@@ -72,7 +72,7 @@ function replaceUrlSearch(params: URLSearchParams) {
  * Single host for checkout-only, payment-only, and full checkout→payment flows.
  *
  * - **Checkout-only** (`cfOpen`): toast + close on invoice create (e.g. bill member from profile).
- * - **Navbar "Sell products"**: full flow when payment flag is on (`pfOpen` without `invoiceId`).
+ * - **Navbar "Quick sell"**: full flow when payment flag is on (`pfOpen` without `invoiceId`).
  * - **Payment-only** (`pfOpen` + `invoiceId` + `memberId`): pay existing invoice.
  * - **Full** (`pfOpen` without `invoiceId`): in-place checkout → payment; URL gains `invoiceId` on transition.
  */
@@ -169,13 +169,10 @@ export function useCheckoutPaymentFlowModalContainer({
 
   const handleCheckoutComplete = useCallback(
     (_data: CheckoutFlowFormData, invoiceUuid: string) => {
-      const invoiceId = invoiceUuid.slice(0, 8);
       toast({
-        status: "default",
+        status: "positive",
         icon: "check",
-        description: t("checkoutFlowModal.toasts.invoiceCreated", {
-          invoiceId,
-        }),
+        title: t("checkoutFlowModal.toasts.invoiceCreated"),
         buttonLabel: t("checkoutFlowModal.toasts.open"),
         onButtonClick: () =>
           navigateInContext(`${LEGACY_URLS.invoice}/${invoiceUuid}`, false),

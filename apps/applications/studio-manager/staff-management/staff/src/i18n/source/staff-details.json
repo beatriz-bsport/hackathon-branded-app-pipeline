@@ -3,6 +3,6 @@
   "deleteActionLabel": "Delete staff member",
   "submitResponse": {
     "success": "Staff member updated",
-    "error": "Failed to update staff member"
+    "error": "Couldn't update staff member. Try again. "
   }
 }

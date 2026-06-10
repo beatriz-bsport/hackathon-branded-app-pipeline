@@ -198,7 +198,7 @@
     "descriptionFutureSessions": "Select which classes will be canceled",
     "cancelButton": "Back",
     "confirmButton": "Cancel",
-    "errorMessage": "An error occurred while canceling the session. Please try again later.",
+    "errorMessage": "Class couldn't be canceled. Please try again later.",
     "successMessage_one": "Class canceled",
     "successMessage_other": "Classes cancelled"
   },

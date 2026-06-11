@@ -5,6 +5,12 @@ const DEFAULT_SOURCE_DIRECTORY = "./src";
 const FILES_TO_INCLUDE = [
   "src/__tests__/**/*.test.ts",
   "src/__tests__/**/*.test.tsx",
+  "src/**/__tests__/**/*.test.ts",
+  "src/**/__tests__/**/*.test.tsx",
+];
+const FILES_TO_EXCLUDE_FROM_COVERAGE = [
+  "src/__tests__/**",
+  "src/**/__tests__/**",
 ];
 
 export const createVitestConfig = (
@@ -23,7 +29,7 @@ export const createVitestConfig = (
       include: FILES_TO_INCLUDE,
       coverage: {
         include: ["src/**"],
-        exclude: ["src/__tests__/**"],
+        exclude: FILES_TO_EXCLUDE_FROM_COVERAGE,
       },
     },
   });
@@ -51,7 +57,7 @@ export const createVitestBrowserConfig = (
       include: FILES_TO_INCLUDE,
       coverage: {
         include: ["src/**"],
-        exclude: ["src/__tests__/**"],
+        exclude: FILES_TO_EXCLUDE_FROM_COVERAGE,
       },
     },
   });

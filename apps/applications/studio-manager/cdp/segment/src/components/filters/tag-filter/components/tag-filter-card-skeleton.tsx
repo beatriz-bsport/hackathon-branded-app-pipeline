@@ -22,7 +22,7 @@ export const TagFilterCardSkeleton = () => {
               label={t("filters.11.actions.deleteFilter")}
               intent="flat"
               color="default"
-              disabled={true}
+              disabled
             />
           </div>
           <Loader size="lg" />
@@ -34,7 +34,7 @@ export const TagFilterCardSkeleton = () => {
               color="main"
               intent="default"
               iconLeft="check"
-              disabled={true}
+              disabled
             />
           </div>
         </div>

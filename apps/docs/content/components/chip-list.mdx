@@ -1,0 +1,150 @@
+---
+title: Chip list [LLM]
+description: Inline chips with overflow popover when tags exceed visible limit
+status: stable
+category: components
+tags: [display, selection]
+source: "packages/design-system/kaizen/primitive/core/src/components/organisms/chip-list"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Chip list displays multiple [Chip](/components/chip) tags in a row, collapsing
+overflow into a "+N" popover when count exceeds `maxDisplay`. Use for member tags,
+filter summaries, and multi-value fields in read-only detail views.
+
+<StorybookEmbed
+  id="primitive-components-organisms-chip-list--primary"
+  mode="playground"
+  height={500}
+  stories={[
+    {
+      id: "primitive-components-organisms-chip-list--primary",
+      label: "Primary",
+    },
+    {
+      id: "primitive-components-organisms-chip-list--overflow",
+      label: "Overflow",
+    },
+    {
+      id: "primitive-components-organisms-chip-list--disabled",
+      label: "Disabled",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Member tags** — show first seven tags on profile header.
+- **Applied filters summary** — read-only chip row in report headers.
+- **Product labels** — color-coded chips on pass detail.
+- **Team roles** — multiple role chips on staff cards.
+- **Dismissible tags** — removable filters when chips are dismissible.
+
+## Guidelines
+
+- **maxDisplay default 7** — tune per layout width.
+- **Consistent chip props** — type, color, size uniform within one list.
+- **Overflow popover** — clicking +N reveals hidden chips in [Popover](/components/popover).
+- **Disabled state** — entire list non-interactive when context is read-only.
+- **Editing tags** — use [Tag input](/components/tag-input) or autocomplete for entry; Chip list for display.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Sort chips by importance so the most critical tags stay visible." />
+  <Do caption="Use dismissible chips only when removal immediately updates data." />
+  <Do caption="Match maxDisplay to column width in table cells." />
+  <Dont caption="Chip list as the only way to see all tags — overflow must be discoverable." />
+  <Dont caption="Mixing chip sizes in one list." />
+  <Dont caption="Twenty visible chips without overflow — use compact summary link." />
+</DoDont>
+
+### Content rules
+
+Chip labels stay short proper nouns or categories:
+
+> VIP
+
+> Morning yoga
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Visible chips", description: "First maxDisplay Chip components." },
+    { name: "Overflow trigger", description: "+N control opening popover." },
+    { name: "Popover panel", description: "Remaining chips." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ChipList" />
+
+### Behaviors
+
+#### Dismissal
+
+Dismissible chips call parent `onClick` per chip; list does not auto-compact until parent updates items.
+
+### Edge cases
+
+- **Fewer than maxDisplay** — no overflow control.
+- **Empty list** — render nothing or parent empty state.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Overflow trigger needs accessible name ("Show 3 more tags"). Popover traps focus per Popover rules.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves through visible chips and overflow trigger.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Opens overflow popover or dismisses chip.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce overflow count on trigger; list full set in popover.
+
+### Focus management
+
+Return focus to overflow trigger when popover closes.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — reach overflow and dismiss actions.
+- **4.1.2 Name, Role, Value** — overflow button named.
+
+## Resources
+
+### Storybook
+
+[Open Chip list in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-organisms-chip-list--primary)
+
+### Related components
+
+- **[Chip](/components/chip)** — single token building block.
+- **[Tag input](/components/tag-input)** — entry pattern for many tags.
+- **[Filter](/components/filter)** — active filter chips in toolbars.

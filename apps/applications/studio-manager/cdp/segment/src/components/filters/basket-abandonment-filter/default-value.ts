@@ -1,4 +1,4 @@
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 import type { BasketAbandonmentFilterFormValue } from "./types";
@@ -20,5 +20,5 @@ export const createDefaultBasketAbandonmentFilter = (
     firstValue: 0,
     secondValue: null,
   },
-  abandonmentDate: defaultDateFilterValue,
+  abandonmentDate: createDefaultDateFilterValue(),
 });

@@ -1,0 +1,155 @@
+---
+title: Navigation [LLM]
+description: Feature-scoped top navigation for sub-sections within an active module
+status: stable
+category: components
+tags: [navigation, layout]
+source: "packages/design-system/kaizen/primitive/core/src/components/NavigationMenu"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Navigation (implemented as `NavigationMenu`) is the **feature-internal** bar that
+answers "what can I do inside this module?" It shows sub-section tabs, contextual
+actions, and breadcrumbs while [Sidebar](/components/sidebar) handles global module
+switching. Read [App navigation](/components/app-navigation) for the full two-layer shell model.
+
+<StorybookEmbed
+  id="primitive-components-navigationmenu--default"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "primitive-components-navigationmenu--default", label: "Default" },
+    {
+      id: "primitive-components-navigationmenu--with-active-sub-item",
+      label: "Active sub item",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Members module tabs** — profiles, passes, imports under CDP.
+- **Finance sub-routes** — invoices, payouts, settings within Financial Services.
+- **Booking views** — calendar vs list vs settings in scheduling.
+- **Contextual CTAs** — Add member, Export when scoped to current tab.
+- **Breadcrumb slot** — nested page hierarchy under the active module.
+
+## Guidelines
+
+- **Scoped to active sidebar module** — tabs change when user switches global module.
+- **No duplicate sidebar items** — if Clients is sidebar-level, sub-tabs are only here.
+- **Highlight active tab** — `aria-current` on current sub-route.
+- **Primary actions right** — align with [Header layout](/components/header-layout) patterns.
+- **Shallow depth** — prefer tabs over nested dropdown nav.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+Duplicating hierarchy in both sidebar and top navigation fragments wayfinding — each destination should live in one layer only.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Update tabs when router active module changes." />
+  <Do caption="Keep tab count manageable — split into settings pages when more than six." />
+  <Do caption="Place module-specific actions in the header action cluster." />
+  <Dont caption="Global settings or logout in feature navigation." />
+  <Dont caption="Deep multi-level menus in the top bar — use sidebar for modules." />
+  <Dont caption="Tabs that navigate away from the module without clear labeling." />
+</DoDont>
+
+### Content rules
+
+Tab labels match route purpose:
+
+> Invoices
+
+> Payout settings
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Tab list", description: "Horizontal sub-feature links." },
+    {
+      name: "Active indicator",
+      description: "Visual state for current route.",
+    },
+    {
+      name: "Action slot",
+      description: "Optional buttons from parent layout.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="NavigationMenu" />
+
+### Behaviors
+
+#### Persistence
+
+Active tab follows router; survives refresh when URL-driven.
+
+### Edge cases
+
+- **Single sub-route** — hide tab bar if only one child route exists.
+- **Permission-gated tabs** — omit unauthorized routes entirely.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Tab list uses `nav` with links; current page `aria-current="page"`.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Moves through tabs and header actions." },
+    { keys: ["Enter"], description: "Activates tab link." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce number of tabs sparingly; focus active tab on module load optional.
+
+### Focus management
+
+Route change should move focus to `h1` per Studio Manager shell convention.
+
+### WCAG criteria
+
+- **2.4.8 Location** — active tab indicates place within module.
+- **4.1.2 Name, Role, Value** — tab names match destinations.
+
+## Resources
+
+### Storybook
+
+[Open Navigation in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-navigationmenu--default)
+
+### Related components
+
+- **[App navigation](/components/app-navigation)** — full shell documentation.
+- **[Sidebar](/components/sidebar)** — global module rail.
+- **[Tabs](/components/tabs)** — in-page content switching without route change.
+- **[Breadcrumbs](/components/breadcrumbs)** — nested hierarchy within a tab.
+
+## TO CLARIFY
+
+- Exact split between NavigationMenu component and Header layout composition in Studio Manager host app.

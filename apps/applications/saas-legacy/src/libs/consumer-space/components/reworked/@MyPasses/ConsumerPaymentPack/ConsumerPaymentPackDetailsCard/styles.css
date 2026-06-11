@@ -7,7 +7,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__root--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__root--mobile {
@@ -28,7 +28,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__header__list--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__header__list__item {
@@ -67,7 +67,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__description--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-card-description__collapse-content {
@@ -91,7 +91,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__establishment-section--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__establishment-section__list {
@@ -107,7 +107,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__shared-section--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__shared-section__list {
@@ -138,7 +138,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__compatibility-section__list--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__compatibility-section__list__item {
@@ -146,7 +146,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__compatibility-section__list__item--hidden {
-  display: none;
+  display: none !important;
 }
 
 /* COMPATILIBITY SECTION --> Subsections */
@@ -166,7 +166,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__compatibility-section__subsection--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__compatibility-section__subsection--activity {
@@ -261,7 +261,7 @@
 }
 
 .bs-consumer-payment-pack-details-card__restriction-section--hidden {
-  display: none;
+  display: none !important;
 }
 
 .bs-consumer-payment-pack-details-card__restriction-section__text {

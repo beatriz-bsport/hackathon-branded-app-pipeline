@@ -1,16 +1,24 @@
 import { type FC, useMemo } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
-import { Body, Divider, Loader, Toggle } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
+import {
+  Body,
+  Divider,
+  List,
+  type ListItemProps,
+  Loader,
+  Toggle,
+} from "@bsport/kaizen-primitive-core";
 
 import { isSpotElement } from "#src/components/spot-selector/spot-canvas/canvas-transformer";
 import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label";
 import { useSpotSelectorData } from "#src/components/spot-selector/spot-selector-modal/use-spot-selector-data";
 import { useMemberPasses } from "#src/hooks/booking/fetch/use-member-passes";
+import { useSessionCredits } from "#src/hooks/booking/fetch/use-session-credits";
 import { useRetrievePass } from "#src/hooks/buyables/fetch/use-retrieve-pass";
 import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member";
+import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { setNotifyMember } from "#src/stores/booking-flow/actions";
 import { getDiscountedPrice } from "#src/stores/booking-flow/get-discounted-price";
@@ -21,24 +29,43 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { MemberCard } from "./member-card";
 
-export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
-  const { t } = useTranslation("sessionManagement");
-  const { data: session } = useRetrieveSession(sessionId);
+type ConfirmationStepProps = {
+  sessionId: number;
+};
 
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-  const { getCreditsDividedValue } = useCreditFactor(
-    companyTheme?.pass_credit_factor,
-  );
+export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
+  const { t, i18n } = useTranslation("sessionManagement");
+  const { data: session } = useRetrieveSession(sessionId);
 
   const memberId = useBookingFlowStore((state) => state.memberId);
   const { data: member, isLoading: memberIsLoading } = useFetchMember({
     memberId: memberId!,
+  });
+  const storeSessionIds = useBookingFlowStore((state) => state.sessionIds);
+
+  const isMultiSession = storeSessionIds.length > 1;
+
+  const { data: similarSessions } = useFetchSimilarSessions(
+    sessionId,
+    isMultiSession,
+  );
+
+  const sessions = isMultiSession ? similarSessions : [session];
+  const {
+    totalCreditsUsed,
+    remainingCredits,
+    isUnlimited,
+    getSessionCreditCost,
+  } = useSessionCredits({
+    currentSessionId: sessionId,
+    sessions,
   });
 
   // Existing pass route
   const selectedConsumerPaymentPackId = useBookingFlowStore(
     (state) => state.consumerPaymentPackId,
   );
+  // memberId is guaranteed to be non-null at this point (defined at first step of the flow)
   const { compatiblePasses } = useMemberPasses({
     memberId: memberId!,
     sessionId,
@@ -58,34 +85,17 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
   const isNewPassRoute =
     paymentPackId !== null && !selectedConsumerPaymentPackId;
 
-  const keepCredits = useBookingFlowStore((state) => state.keepCredits);
   const spotIndex = useBookingFlowStore((state) => state.spotIndex);
-  const creditPrice = getCreditsDividedValue(
-    session.credit_price_override ?? session.credit_price,
-  );
 
-  // Existing pass credit info
+  // Credit info
   const creditsUsed = t("bookingFlow.confirmation.creditsUsed", {
-    count: keepCredits ? 0 : creditPrice,
+    count: totalCreditsUsed,
   });
 
-  // Available credits depend on the route
-  const availableCredits = isNewPassRoute
-    ? getCreditsDividedValue(selectedNewPass?.credits ?? 0)
-    : getCreditsDividedValue(
-        selectedConsumerPaymentPack?.available_credits ?? 0,
-      );
-
-  const isUnlimited = isNewPassRoute
-    ? !!selectedNewPass?.unlimited
-    : !!selectedConsumerPaymentPack?.passData.unlimited;
-
-  const creditsRemaining = isUnlimited
+  const creditsRemainingLabel = isUnlimited
     ? t("bookingFlow.confirmation.unlimited")
     : t("bookingFlow.confirmation.creditsRemainingAfterBooking", {
-        availableAfterBooking: keepCredits
-          ? availableCredits
-          : Math.max(0, availableCredits - creditPrice),
+        availableAfterBooking: Math.max(0, remainingCredits),
       });
 
   // New pass price info
@@ -122,6 +132,44 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
     return String(spotIndex);
   }, [spotIndex, spotData.roomBlueprint, spotData.spotTypes]);
 
+  const sessionsToBookItems = useMemo((): ListItemProps[] => {
+    if (!similarSessions) return [];
+    return similarSessions
+      .filter((session) => storeSessionIds.includes(session.id))
+      .map((session) => {
+        const startDate = formatDateTime(
+          session.date_start,
+          DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY,
+          { locale: i18n.language, timeZone: session.timezone_name },
+        );
+        const startTime = formatDateTime(
+          session.date_start,
+          DATETIME_FORMATS.TIME_SIMPLE,
+          { locale: i18n.language, timeZone: session.timezone_name },
+        );
+        const creditCost = getSessionCreditCost(session);
+
+        return {
+          id: String(session.id),
+          title: `${startDate} • ${startTime}`,
+          disabled: true,
+          customNode: (
+            <Body size="md" color="weak">
+              {t("bookingFlow.sessionSelection.creditCost", {
+                count: creditCost,
+              })}
+            </Body>
+          ),
+        };
+      });
+  }, [
+    similarSessions,
+    storeSessionIds,
+    i18n.language,
+    getSessionCreditCost,
+    t,
+  ]);
+
   if (
     memberIsLoading ||
     compatiblePasses.isLoading ||
@@ -135,89 +183,108 @@ export const ConfirmationStep: FC<{ sessionId: number }> = ({ sessionId }) => {
   }
 
   return (
-    <div className="flex flex-col gap-lg w-full">
-      {member && <MemberCard member={member} />}
+    <div className="flex gap-md w-full">
+      <div className="flex flex-col gap-lg w-full">
+        {member && <MemberCard member={member} />}
 
-      {spotLabel !== null && (
-        <>
+        {!isMultiSession && spotLabel !== null && (
+          <>
+            <div className="flex flex-col gap-xs">
+              <Body size="sm" weight="strong" color="weaker">
+                {t("bookingFlow.confirmation.sessionDetails").toUpperCase()}
+              </Body>
+              <Body size="lg" weight="weak" color="default">
+                {t("bookingFlow.confirmation.spotLabel", { label: spotLabel })}
+              </Body>
+            </div>
+            <Divider weight="extra-thin" orientation="horizontal" />
+          </>
+        )}
+
+        {isNewPassRoute && selectedNewPass ? (
           <div className="flex flex-col gap-xs">
             <Body size="sm" weight="strong" color="weaker">
-              {t("bookingFlow.confirmation.sessionDetails").toUpperCase()}
+              {t("bookingFlow.confirmation.newPass").toUpperCase()}
             </Body>
-            <Body size="lg" weight="weak" color="default">
-              {t("bookingFlow.confirmation.spotLabel", { label: spotLabel })}
-            </Body>
-          </div>
-          <Divider weight="extra-thin" orientation="horizontal" />
-        </>
-      )}
-
-      {isNewPassRoute && selectedNewPass ? (
-        <div className="flex flex-col gap-xs">
-          <Body size="sm" weight="strong" color="weaker">
-            {t("bookingFlow.confirmation.newPass").toUpperCase()}
-          </Body>
-          <div className="flex flex-col gap-2xs">
-            <div className="flex gap-xs">
-              <Body size="lg" weight="weak" color="default">
-                {selectedNewPass.name}
-              </Body>
-              <span>-</span>
-              <div className="flex items-center gap-xs">
-                {hasDiscount && (
-                  <Body size="lg" color="weak" className="line-through">
-                    {getCurrencyDisplayWithPrice(newPassBasePrice)}
-                  </Body>
-                )}
-                <Body
-                  size="lg"
-                  weight="weak"
-                  color={hasDiscount ? "positive" : "default"}
-                >
-                  {getCurrencyDisplayWithPrice(newPassFinalPrice)}
+            <div className="flex flex-col gap-2xs">
+              <div className="flex gap-xs">
+                <Body size="lg" weight="weak" color="default">
+                  {selectedNewPass.name}
                 </Body>
+                <span>-</span>
+                <div className="flex items-center gap-xs">
+                  {hasDiscount && (
+                    <Body size="lg" color="weak" className="line-through">
+                      {getCurrencyDisplayWithPrice(newPassBasePrice)}
+                    </Body>
+                  )}
+                  <Body
+                    size="lg"
+                    weight="weak"
+                    color={hasDiscount ? "positive" : "default"}
+                  >
+                    {getCurrencyDisplayWithPrice(newPassFinalPrice)}
+                  </Body>
+                </div>
               </div>
+              <Body size="md" weight="weak" color="weak">
+                {selectedNewPass?.unlimited
+                  ? creditsRemainingLabel
+                  : `${creditsUsed} · ${creditsRemainingLabel}`}
+              </Body>
             </div>
-            <Body size="md" weight="weak" color="weak">
-              {selectedNewPass?.unlimited
-                ? creditsRemaining
-                : `${creditsUsed} · ${creditsRemaining}`}
+            <Body size="sm" weight="weak" color="weak">
+              {t("bookingFlow.confirmation.paymentDueAfterBooking")}
             </Body>
           </div>
-          <Body size="sm" weight="weak" color="weak">
-            {t("bookingFlow.confirmation.paymentDueAfterBooking")}
-          </Body>
-        </div>
-      ) : (
+        ) : (
+          <div className="flex flex-col gap-xs">
+            <Body size="sm" weight="strong" color="weaker">
+              {t("bookingFlow.confirmation.pass").toUpperCase()}
+            </Body>
+            <div className="flex flex-col">
+              <Body size="lg" weight="weak" color="default">
+                {selectedConsumerPaymentPack?.passData.name}
+              </Body>
+              <Body size="md" weight="weak" color="weak">
+                {selectedConsumerPaymentPack?.passData.unlimited
+                  ? creditsRemainingLabel
+                  : `${creditsUsed} · ${creditsRemainingLabel}`}
+              </Body>
+            </div>
+          </div>
+        )}
+
+        <Divider weight="extra-thin" orientation="horizontal" />
         <div className="flex flex-col gap-xs">
           <Body size="sm" weight="strong" color="weaker">
-            {t("bookingFlow.confirmation.pass").toUpperCase()}
+            {t("bookingFlow.confirmation.notifications.title").toUpperCase()}
           </Body>
-          <div className="flex flex-col">
-            <Body size="lg" weight="weak" color="default">
-              {selectedConsumerPaymentPack?.passData.name}
-            </Body>
-            <Body size="md" weight="weak" color="weak">
-              {selectedConsumerPaymentPack?.passData.unlimited
-                ? creditsRemaining
-                : `${creditsUsed} · ${creditsRemaining}`}
-            </Body>
+          <Toggle
+            label={t("bookingFlow.confirmation.notifications.toggleLabel")}
+            checked={notifyMember}
+            id="notify-member-toggle"
+            onToggleChange={(checked) => setNotifyMember(checked)}
+          />
+        </div>
+      </div>
+      {isMultiSession && sessionsToBookItems.length > 0 && (
+        <div className="flex flex-col gap-xs w-full">
+          <Body size="sm" weight="strong" color="weaker">
+            {t("bookingFlow.confirmation.sessionsToBeBooked", {
+              count: sessionsToBookItems.length,
+            }).toUpperCase()}
+          </Body>
+          <div className="max-h-component-modal-max-sm overflow-y-auto">
+            <List
+              id="confirmation-sessions-list"
+              items={sessionsToBookItems}
+              isCompact
+              className="w-full"
+            />
           </div>
         </div>
       )}
-
-      <Divider weight="extra-thin" orientation="horizontal" />
-      <div className="flex flex-col gap-xs">
-        <Body size="sm" weight="strong" color="weaker">
-          {t("bookingFlow.confirmation.notifications.title").toUpperCase()}
-        </Body>
-        <Toggle
-          label={t("bookingFlow.confirmation.notifications.toggleLabel")}
-          checked={notifyMember}
-          id="notify-member-toggle"
-          onToggleChange={(checked) => setNotifyMember(checked)}
-        />
-      </div>
     </div>
   );
 };

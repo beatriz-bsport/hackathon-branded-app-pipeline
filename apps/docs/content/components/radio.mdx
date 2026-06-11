@@ -1,33 +1,29 @@
 ---
 title: Radio
-description: Used in forms where users must select one option from a list.
+description: A mutually exclusive option set for single-choice form fields
+status: stable
 category: components
+tags: [forms, input, selection]
 source: "packages/design-system/kaizen/primitive/core/src/components/RadioGroup"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Radio buttons form a mutually exclusive set — only one option can be selected at a time.
-
-##### Related Components
-
-- _Checkbox:_ Similar to a radio button but used when multiple options in a group can be selected.
-- _Toggle Switch:_ An alternative to checkboxes for binary options, often used for settings.
-
-## Guidelines
-
-### Examples
+RadioGroup renders a labelled set of radio options where only one can be
+selected. Use it when every option should stay visible and the list is short
+enough to scan — typically two to five choices. For longer lists or search, use
+[Select](/components/select) or [Autocomplete](/components/autocomplete).
 
 <StorybookEmbed
   id="primitive-components-radiogroup--controlled-component"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
     {
       id: "primitive-components-radiogroup--controlled-component",
@@ -40,57 +36,223 @@ Radio buttons form a mutually exclusive set — only one option can be selected 
   ]}
 />
 
+### Use cases
+
+- **Delivery format** — email vs print vs in-person on gift card configuration.
+- **Visibility scope** — public vs members-only vs staff-only on pass settings.
+- **Payment timing** — charge now vs add to invoice on checkout sub-flows.
+- **Conditional fields** — reveal extra inputs under the selected option via
+  `children` on an option.
+- **Required single choice** — gender or legal status when regulations require
+  an explicit pick before submit.
+
+## Guidelines
+
+- **Always grouped** — never render a lone radio; a single visible option belongs
+  in [Select](/components/select) or [Toggle](/components/toggle).
+- **Mutually exclusive** — one `value` on the group; updating it clears the
+  prior selection.
+- **Short lists only** — beyond ~5 options, move to Select unless every label
+  must stay visible for comparison.
+- **Children for follow-ups** — nest related fields in `option.children`; they
+  show when that option is selected (or always with `forceDisplayChildren`).
+- **Per-option errors** — pass `errorText` on an option to highlight a specific
+  row after validation.
+
 ### Best practices
 
-- Use radio buttons when users must choose _one option_ from a predefined list.
-- Ensure all options are clearly labelled and mutually exclusive.
-- Always present radio buttons in a group—never use a standalone radio button.
-- Apply the `has-error` and `error-text` properties to provide feedback when the radio button input is incorrect.
+#### General
 
 <DoDont>
-  <Do
-    caption={
-      "Make sure groups of radio buttons are clearly associated with a descriptive heading."
-    }
-  />
-  <Dont
-    caption={
-      "Always present radio buttons in a group—never use a standalone radio button."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use radio buttons when multiple selections are allowed—use checkboxes instead."
-    }
-  />
-  <Dont
-    caption={
-      "Don't use if the user can toggle between two states—use a switch instead."
-    }
-  />
+  <Do caption="Give the group a clear label — 'Billing period' — plus concise option labels — 'Monthly', 'Annual'." />
+  <Do caption="Stack options vertically in forms so labels are easy to scan." />
+  <Do caption="Use option children for fields that only apply to one choice — address fields under 'Ship to member'." />
+  <Dont caption="Multi-select belongs on [Checkbox](/components/checkbox), not Radio." />
+  <Dont caption="Immediate on/off settings belong on [Toggle](/components/toggle), not Radio." />
+  <Dont caption="Ten or more options without grouping overwhelm the form — switch to Select." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
 
-- Don't stack too many radio buttons—consider a dropdown if space is an issue.
+Horizontal radio rows are rare in Studio Manager forms. Default to a vertical
+stack unless space is extremely tight and labels are very short.
 
 </Callout>
 
-## Code & Specs
+#### children slot
+
+<DoDont>
+  <Do caption="Indent nested fields under the selected option so the dependency is obvious." />
+  <Dont caption="Heavy forms belong only under the selected option — mounting them on every branch adds noise and hurts performance." />
+</DoDont>
+
+### Content rules
+
+Group labels name the decision; option labels name the choice without repeating
+the group name.
+
+**Group label**
+
+> Refund method
+
+**Options**
+
+> Original payment method
+
+> Studio credit
+
+Error on the group or option:
+
+> Select a refund method.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Group label",
+      description:
+        "Field label above the set (`label` on RadioGroup) with optional required asterisk.",
+    },
+    {
+      label: "Fieldset",
+      description: '`<fieldset role="radiogroup">` wrapping all options.',
+    },
+    {
+      label: "Radio input",
+      description: "Per-option native radio with custom styling.",
+    },
+    {
+      label: "Option label",
+      description: "Clickable text for each value.",
+    },
+    {
+      label: "Helper / error text",
+      description:
+        "Per-option `helperText` or `errorText` below the option row.",
+    },
+    {
+      label: "Children slot",
+      description:
+        "Optional nested content under a selected option (`children`, `forceDisplayChildren`).",
+    },
+  ]}
+/>
 
 ### Props
 
 <PropsTable component="RadioGroup" />
 
+### Behaviors
+
+#### Selection
+
+Controlled via `value` (selected option `value` string) and `onChange` (change
+event on the underlying input). Parent updates `value` to move selection.
+
+#### Children visibility
+
+When `option.children` is set, it renders when `value === option.value` unless
+`forceDisplayChildren` is true.
+
+#### Persistence
+
+Selection is controlled externally. Unmounting preserves whatever `value` the
+parent passes on remount.
+
+#### Responsiveness
+
+Options stack in a vertical column (`flex-col gap-xs`). Long labels wrap within
+the column width.
+
+### Edge cases
+
+#### Single option
+
+Avoid — use Select or Toggle. Radio semantics imply a choice among alternatives.
+
+#### All options disabled
+
+Pass `disabled` on the group or per option. Provide `helperText` explaining why
+choices are blocked.
+
+#### Duplicate values
+
+Each option `value` must be unique within the group or selection state collides.
+
 ## Accessibility
 
+### ARIA roles & attributes
+
+- **Group** — `<fieldset role=\"radiogroup\">` with group `id`.
+- **Radio** — native `type=\"radio\"` per option with `aria-checked`.
+- **Invalid** — `aria-invalid` when option `errorText` is set.
+- **Label** — group label via `Label`; each option uses `<label htmlFor>`.
+
+### Keyboard navigation
+
 <Accessibility
-  notes={
-    "Make sure the Radio button is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the checkbox state, especially for `intermediate`, `has-error`, and `disabled` states."
-  }
+  keyboard={[
+    { keys: ["Tab"], description: "Enter or leave the radio group." },
+    {
+      keys: ["Arrow up", "Arrow down"],
+      description:
+        "Move selection between options when focus is on a radio (browser default).",
+    },
+    { keys: ["Space"], description: "Select the focused option." },
+  ]}
 />
+
+### Screen reader behavior
+
+Announces group label, option labels, position in set, and selected state.
+Helper and error text for the focused option are available in reading order.
+
+### Focus management
+
+Focus moves between radios with arrow keys inside the group. Children revealed
+below an option are inserted in tab order after the option row.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — selected and error rings use token colours.
+- **2.1.1 Keyboard** — full keyboard selection within the group.
+- **4.1.2 Name, Role, Value** — group name from label; value from selected
+  option.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/RadioGroup`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Radio in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-radiogroup--controlled-component)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/RadioGroup`
+
+### Related components
+
+- [Checkbox](/components/checkbox) — multi-select and deferred binary choices.
+- [Toggle](/components/toggle) — single binary setting with immediate effect.
+- [Select](/components/select) — single choice from a longer dropdown list.
+- [Shared form guidelines](/components/shared-form-guidelines) — shared label
+  and validation patterns.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-583](https://linear.app/bsport/issue/KAI-583/improve-toggle-and-radio-with-custom-children) — Improve toggle and radio with custom children (Backlog).
+
+#### Implementation gaps
+
+- **Radio `name` attribute** — each `RadioButton` sets `name={value}` (unique per
+  option) instead of a shared group name. Selection is driven by React `checked`
+  state; native HTML grouping may not match expectations in uncontrolled usage.
+
+#### Design or API debt
+
+- **Indentation token for nested fields** — teams use ad hoc margins under option
+  children; shared token tracked under
+  [KAI-589](https://linear.app/bsport/issue/KAI-589) (Toggle-related but applies
+  to radio children too).

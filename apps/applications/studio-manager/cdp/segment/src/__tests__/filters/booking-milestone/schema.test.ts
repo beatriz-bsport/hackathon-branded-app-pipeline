@@ -4,7 +4,7 @@ import { createDefaultBookingMilestoneFilter } from "#src/components/filters/boo
 import { bookingMilestoneFilterSchema } from "#src/components/filters/booking-milestone/schema";
 import { BOOKING_MILESTONE_SUB_FILTER_IDS } from "#src/components/filters/booking-milestone/sub-filters/booking-milestone-sub-filter-id";
 import type { BookingMilestoneFilterFormValue } from "#src/components/filters/booking-milestone/types";
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -158,10 +158,10 @@ describe("bookingMilestoneFilterSchema", () => {
     const value = buildFormValue({
       subFilters: [BOOKING_MILESTONE_SUB_FILTER_IDS.bookingDate],
       bookingDate: {
-        ...defaultDateFilterValue,
+        ...createDefaultDateFilterValue(),
         dateType: "absolute",
         absolute: {
-          ...defaultDateFilterValue.absolute,
+          ...createDefaultDateFilterValue().absolute,
           operator: "on_or_after",
           fromDate: null,
           toDate: null,
@@ -178,10 +178,10 @@ describe("bookingMilestoneFilterSchema", () => {
     const value = buildFormValue({
       subFilters: [BOOKING_MILESTONE_SUB_FILTER_IDS.bookingDate],
       bookingDate: {
-        ...defaultDateFilterValue,
+        ...createDefaultDateFilterValue(),
         dateType: "absolute",
         absolute: {
-          ...defaultDateFilterValue.absolute,
+          ...createDefaultDateFilterValue().absolute,
           operator: "on_or_after",
           fromDate: "2026-06-10",
           toDate: null,

@@ -34,14 +34,17 @@ export const usePlanData = (): UsePlanDataResult => {
     [t],
   );
 
-  return {
-    data: {
-      plans,
-      features,
-      marketId: "FR",
-    },
-    isLoading: false,
-    isError: false,
-    refetch: () => {},
-  };
+  return useMemo(
+    () => ({
+      data: {
+        plans,
+        features,
+        marketId: "FR",
+      },
+      isLoading: false,
+      isError: false,
+      refetch: () => {},
+    }),
+    [features, plans],
+  );
 };

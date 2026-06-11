@@ -1,5 +1,5 @@
 import { OWNERSHIP_OPTIONS } from "#src/components/filters/passes-filter/constants";
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import type { AppointmentPassFilterFormValue } from "./types";
@@ -20,7 +20,7 @@ export const createDefaultAppointmentPassFilter = (
   selectAllPaymentPacks: false,
   selectedPaymentPackIds: [],
   subFilters: [],
-  purchaseDate: defaultDateFilterValue,
-  expirationDate: defaultDateFilterValue,
+  purchaseDate: createDefaultDateFilterValue(),
+  expirationDate: createDefaultDateFilterValue(),
   creditLeft: defaultNumericComparatorFilterValue,
 });

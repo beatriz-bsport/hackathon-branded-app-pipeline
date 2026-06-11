@@ -1,0 +1,136 @@
+---
+title: Time picker [LLM]
+description: Input for choosing a time of day with token-aligned styling
+status: stable
+category: components
+tags: [forms, input, time]
+source: "packages/design-system/kaizen/primitive/core/src/components/TimePicker"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Time picker captures hours and minutes for class start times, booking windows,
+and reminder schedules. Pair it with [Date picker](/components/date-picker) when
+both date and time matter, and respect studio timezone in displayed values.
+
+<StorybookEmbed
+  id="primitive-components-timepicker--primary"
+  mode="playground"
+  height={400}
+  stories={[
+    { id: "primitive-components-timepicker--primary", label: "Time picker" },
+  ]}
+/>
+
+### Use cases
+
+- **Class start time** — session editor in booking module.
+- **Reminder offset** — send notification X minutes before start.
+- **Opening hours** — venue availability end time.
+- **Staff shift blocks** — coarse time selection in scheduling tools.
+- **Filter by time** — narrow list results to morning sessions.
+
+## Guidelines
+
+- **24h vs 12h** — follow locale conventions configured for the studio.
+- **Minute steps** — align increments with scheduling granularity (5, 15 minutes).
+- **Disable past times** — on same-day bookings when combined with today's date.
+- **Label clearly** — "Start time" vs ambiguous "Time".
+- **Timezone context** — show studio timezone in helper when users work remotely.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Combine with date picker when scheduling absolute moments." />
+  <Do caption="Use consistent minute increments across booking and calendar views." />
+  <Do caption="Validate that end time is after start time at form level." />
+  <Dont caption="Free typing without mask when picker enforces valid slots." />
+  <Dont caption="Sub-minute precision unless product requires it." />
+  <Dont caption="Local time without indicating timezone on cross-region studios." />
+</DoDont>
+
+### Content rules
+
+> Starts at 18:30
+
+> Studio time (Europe/Paris)
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Input control",
+      description: "Time entry with design-system field chrome.",
+    },
+    { name: "Label and helper", description: "Field metadata." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="TimePicker" />
+
+### Behaviors
+
+#### Responsiveness
+
+Field width fits time string; stacks in narrow forms.
+
+### Edge cases
+
+- **Disabled** — show value read-only for locked schedules.
+- **Invalid manual entry** — surface validation on blur or submit.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Associate label via `id`/`htmlFor`. Native time input semantics where used.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses the time input." },
+    {
+      keys: ["Arrow keys"],
+      description: "Adjust segments in native time inputs when applicable.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announces label and value; errors via `aria-describedby`.
+
+### Focus management
+
+Standard field focus behavior.
+
+### WCAG criteria
+
+- **3.3.2 Labels or Instructions** — visible label and format hint.
+- **4.1.2 Name, Role, Value** — value programmatically available.
+
+## Resources
+
+### Storybook
+
+[Open Time picker in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-timepicker--primary)
+
+### Related components
+
+- **[Date picker](/components/date-picker)** — calendar counterpart.
+- **[Text field](/components/text-field)** — alternative for custom time masks.
+- **[Form](/components/form)** — validation wiring.

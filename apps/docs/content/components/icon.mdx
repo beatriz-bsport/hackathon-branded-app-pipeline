@@ -1,0 +1,144 @@
+---
+title: Icon [LLM]
+description: The canonical SVG icon set for actions, status, and wayfinding across Kaizen
+status: stable
+category: components
+tags: [display, imagery]
+source: "packages/design-system/kaizen/primitive/core/src/components/Icon"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Icon renders a named glyph from the Kaizen icon library at a consistent size.
+Icons annotate buttons, list rows, alerts, and navigation items — they rarely
+stand alone without a text label unless the meaning is universal (close, search,
+chevron).
+
+<StorybookEmbed
+  id="primitive-components-icon--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-icon--primary", label: "Icon" },
+    { id: "primitive-components-icon--all-icons", label: "All icons" },
+    {
+      id: "primitive-components-icon--custom-color-icons",
+      label: "Custom color",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Button prefixes** — `iconLeft` on [Button](/components/button) for save, add, export.
+- **Alert and toast status** — paired with severity copy in [Alert](/components/alert).
+- **List row metadata** — leading icon for item type in buyables or finance lists.
+- **Navigation chevrons** — disclosure and expand affordances in menus and collapse.
+- **Empty states** — large decorative icon while [Illustration](/components/illustration)
+  is preferred for marketing-style empties.
+
+## Guidelines
+
+- **Label beats icon alone** — pair with visible text except for universally understood glyphs.
+- **Size matches touch target** — use `md` beside body text; `sm`/`xs` only in dense tables.
+- **Color carries meaning sparingly** — default inherits `currentColor`; semantic colors
+  belong on status components, not every icon.
+- **One metaphor per action** — do not swap icons for the same action across one flow.
+- **Valid names only** — invalid `icon` values log an error and render nothing.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Pair icons with button labels so the action is clear without hover." />
+  <Do caption="Use the same icon for the same action across Studio Manager modules." />
+  <Do caption="Inherit text color so icons respect disabled and hover states on parents." />
+  <Dont caption="Color-only icons to signal errors — pair with text or Alert status." />
+  <Dont caption="Decorative icons on every row when spacing already groups content." />
+  <Dont caption="Inventing ad-hoc SVGs outside the library fragments the product visual language." />
+</DoDont>
+
+### Content rules
+
+Icons do not contain user-facing strings. Tooltip or button labels carry meaning.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Container",
+      description: "Sized div with role img and aria-label set to icon name.",
+    },
+    { name: "SVG", description: "Lazy-loaded vector from the icons registry." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Icon" />
+
+### Behaviors
+
+#### Responsiveness
+
+Icons scale via size tokens (`xs` through `xl`). Parent flex layout should not
+squash below token dimensions.
+
+### Edge cases
+
+- **Invalid icon name** — component returns `null` and logs available names in development.
+- **Suspense boundary** — SVG loads asynchronously; brief empty frame possible on slow networks.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Kaizen sets `role="img"` and `aria-label={icon}` using the internal icon name.
+For user-facing labels, wrap the icon in a labeled button or pass visible text.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Skips standalone icons; focuses parent buttons or links.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Standalone icons announce the internal icon key (e.g. `trash-01`), which may not
+match user language — prefer visible labels on interactive controls.
+
+### Focus management
+
+Icons are not focusable unless wrapped in an interactive parent.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — when icons convey information, ensure parent text color meets contrast.
+- **4.1.2 Name, Role, Value** — interactive icons need an accessible name on the control.
+
+## Resources
+
+### Storybook
+
+[Open Icon in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-icon--primary)
+
+### Related components
+
+- **[Button](/components/button)** — primary host for actionable icons.
+- **[Illustration](/components/illustration)** — larger narrative artwork for empty states.
+- **[Badge](/components/badge)** — optional icon slot for compact metadata.

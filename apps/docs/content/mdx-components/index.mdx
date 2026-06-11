@@ -10,29 +10,30 @@ statement required.
 
 ## Quick reference
 
-| Component                | Purpose                                                   |
-| ------------------------ | --------------------------------------------------------- |
-| `Callout`                | Highlighted note, warning, tip, or deprecation            |
-| `DoDont` / `Do` / `Dont` | Side-by-side do / don't guidance                          |
-| `StatusBadge`            | Inline stable / beta / deprecated / internal badge        |
-| `StorybookEmbed`         | Live Storybook iframe with optional story picker          |
-| `PropsTable`             | Auto-generated component props from Kaizen source         |
-| `Anatomy`                | Labelled component anatomy diagram                        |
-| `Accessibility`          | Keyboard shortcuts, ARIA roles, and a11y notes            |
-| `TokenTable`             | Token category table with swatches for color tokens       |
-| `DesignTokenList`        | Nord-style token catalog with swatch, description, copy   |
-| `TokenPalette`           | Full-width color scale with contrast badges               |
-| `TypeScale`              | Live type ramp preview with token metadata                |
-| `TitleTypeScale`         | Preset title ramp (`Title` component mapping)             |
-| `BodyTypeScale`          | Preset body ramp (`Body` component mapping)               |
-| `TokenAlias`             | Visual alias chain from semantic token to resolved value  |
-| `ColorSwatch`            | Inline single-color preview                               |
-| `CardGrid` / `Card`      | Responsive grid of linked cards                           |
-| `Tabs` / `Tab`           | Tabbed content panels inside a page                       |
-| `PageTabs`               | Sticky section tabs that jump to `h2` anchors on the page |
-| `InstallTabs`            | Package-manager install command with copy button          |
-| `FileTree`               | ASCII-style directory tree                                |
-| `IconGrid`               | Click-to-copy icon import statements                      |
+| Component                | Purpose                                                     |
+| ------------------------ | ----------------------------------------------------------- |
+| `Callout`                | Highlighted note, warning, tip, or deprecation              |
+| `DoDont` / `Do` / `Dont` | Side-by-side do / don't guidance                            |
+| `DocImage`               | Standalone screenshot or illustration with optional caption |
+| `StatusBadge`            | Inline stable / beta / deprecated / internal badge          |
+| `StorybookEmbed`         | Live Storybook iframe with optional story picker            |
+| `PropsTable`             | Auto-generated component props from Kaizen source           |
+| `Anatomy`                | Labelled component anatomy diagram                          |
+| `Accessibility`          | Keyboard shortcuts, ARIA roles, and a11y notes              |
+| `TokenTable`             | Token category table with swatches for color tokens         |
+| `DesignTokenList`        | Nord-style token catalog with swatch, description, copy     |
+| `TokenPalette`           | Full-width color scale with contrast badges                 |
+| `TypeScale`              | Live type ramp preview with token metadata                  |
+| `TitleTypeScale`         | Preset title ramp (`Title` component mapping)               |
+| `BodyTypeScale`          | Preset body ramp (`Body` component mapping)                 |
+| `TokenAlias`             | Visual alias chain from semantic token to resolved value    |
+| `ColorSwatch`            | Inline single-color preview                                 |
+| `CardGrid` / `Card`      | Responsive grid of linked cards                             |
+| `Tabs` / `Tab`           | Tabbed content panels inside a page                         |
+| `PageTabs`               | Sticky section tabs that jump to `h2` anchors on the page   |
+| `InstallTabs`            | Package-manager install command with copy button            |
+| `FileTree`               | ASCII-style directory tree                                  |
+| `IconGrid`               | Click-to-copy icon import statements                        |
 
 ---
 
@@ -86,6 +87,41 @@ is set, only the header and caption render.
 Use `image` for committed screenshots in `apps/docs/public/images/`. Use
 `figma` only when the image should link back to its source frame.
 
+### DocImage
+
+Standalone image for neutral examples, walkthroughs, or illustrations — no
+do/don't framing. Supports fixed aspect ratios and optional caption below the
+image.
+
+**Props:** `src`, `alt`, `caption?`, `figma?`, `aspectRatio?` (`auto` |
+`16/9` | `4/3` | `3/2` | `1/1` | `9/16`, default `auto`), `fullWidth?`
+(default `true`)
+
+<DocImage
+  src="/images/button-loading-form.png"
+  alt="Primary button showing a loading state"
+  caption="Use loading state for async operations."
+  aspectRatio="16/9"
+/>
+
+```mdx
+<DocImage
+  src="/images/button-with-icon.png"
+  alt="Button with a leading icon"
+  caption="Add an icon on either side to clarify the action."
+/>
+
+<DocImage
+  src="/images/button-anatomy.png"
+  alt="Button anatomy close-up"
+  aspectRatio="4/3"
+  fullWidth={false}
+/>
+```
+
+Put committed assets in `apps/docs/public/images/` and reference them from
+`/images/...`.
+
 ### StatusBadge
 
 Inline pill matching the frontmatter `status` field values.
@@ -106,24 +142,21 @@ Inline pill matching the frontmatter `status` field values.
 
 Embeds a live Storybook story: component preview on top,
 controls table below, no sidebar or toolbar. Copy the `id=` query parameter from a
-Storybook URL. Pass `stories` to add a dropdown picker, `height` (default `520`) to
+Storybook URL. Pass `stories` to add a dropdown picker, `height` (default `700`) to
 resize the frame, and `mode="preview"` to hide the story picker in the docs chrome.
 
-**Props:** `id`, `height?` (default `360`), `title?`, `stories?`, `mode?`
+**Props:** `id`, `height?` (default `700`), `title?`, `stories?`, `mode?`
 (`playground` | `preview`)
 
-<StorybookEmbed id="primitive-components-button--primary" height={240} />
+<StorybookEmbed id="primitive-components-button--primary" height={700} />
 
 ```mdx
 <StorybookEmbed
-  id="primitive-components-button--intent-gallery"
-  height={540}
+  id="primitive-components-button--primary"
+  height={700}
   stories={[
-    {
-      id: "primitive-components-button--intent-gallery",
-      label: "Intent Gallery",
-    },
-    { id: "primitive-components-button--primary", label: "Primary" },
+    { id: "primitive-components-button--primary", label: "Button" },
+    { id: "primitive-components-button--icon-button", label: "Icon Button" },
   ]}
 />
 ```

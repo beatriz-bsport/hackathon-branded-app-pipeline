@@ -1,0 +1,198 @@
+---
+title: Avatar [LLM]
+description: A compact visual identity for people, members, or accounts — image, initials, or icon
+status: stable
+category: components
+tags: [display, identity]
+source: "packages/design-system/kaizen/primitive/core/src/components/Avatar"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Avatar represents a person, member, coach, or account in a compact visual slot.
+It shows a photo when `src` is available, falls back to initials or an icon, and
+can open a profile or picker when you pass `onClick`. Avatars appear in lists,
+headers, menus, and assignment fields across Studio Manager.
+
+<StorybookEmbed
+  id="primitive-components-avatar--avatar-with-image"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-avatar--avatar-with-image", label: "Image" },
+    { id: "primitive-components-avatar--avatar-with-icon", label: "Icon" },
+    {
+      id: "primitive-components-avatar--avatar-with-children-initials",
+      label: "Initials",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Member rows** — show the member photo or initials beside name in CDP lists.
+- **Coach assignment** — display the assigned coach on a session or class card.
+- **Account menu** — render the signed-in user at the bottom of the sidebar.
+- **Picker targets** — use `onClick` to open a member or staff selector modal.
+- **Stacked groups** — pair with [Avatar group](/components/avatar-group) when
+  several people share one row.
+
+## Guidelines
+
+- **Image first** — pass `src` and meaningful `alt` when a photo exists; initials
+  are the fallback, not the default for known members.
+- **Size matches density** — use `xs`/`sm` in tables and compact lists, `md` in
+  standard rows, `lg` in headers or detail panels.
+- **Shape signals context** — `round` for people; `squared` when aligning with
+  cards or product thumbnails.
+- **Click only when actionable** — add `onClick` when the avatar opens a profile
+  or selector; static rows should omit it.
+- **Pair status elsewhere** — use [Indicator](/components/indicator) or
+  [Badge](/components/badge) beside the row until native avatar status ships.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+Avatar does not yet ship a built-in status badge. Wrapping with Indicator works
+for dot counts, but overlapping badges on the avatar itself need design review.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Provide alt text that names the person when src is a photo." />
+  <Do caption="Use initials derived from the display name when no image is available." />
+  <Do caption="Match size to the list density — sm in tables, md in standard list rows." />
+  <Dont caption="Generic placeholder icons without context read as broken data — prefer initials." />
+  <Dont caption="Clickable avatars without a visible hover state confuse users — pair onClick with cursor and border feedback." />
+  <Dont caption="Oversized avatars in dense tables steal scan focus from the primary column." />
+</DoDont>
+
+### Content rules
+
+- **Initials** — one or two characters from the person's name; avoid arbitrary
+  letters.
+- **Alt text** — name the person, not the UI role:
+
+> Emma Johnson
+
+> Coach profile photo
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Container",
+      description: "Sized frame with border and shape tokens.",
+    },
+    { name: "Image", description: "Photo when src is set; covers the frame." },
+    {
+      name: "Initials or icon",
+      description: "Fallback content when src is missing.",
+    },
+    {
+      name: "Action overlay",
+      description: "Optional actionableIconName hover layer.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="Avatar" />
+
+### Behaviors
+
+#### Action button
+
+`onClick` fires when the user activates the avatar container. Use for profile
+navigation or opening a picker — not for unrelated row selection.
+
+#### Responsiveness
+
+Size tokens are fixed per variant; the parent layout controls alignment. In
+narrow columns, prefer `sm` or `xs` and truncate the adjacent name instead of
+shrinking the avatar below token sizes.
+
+### Edge cases
+
+- **Missing src and initials** — icon or children content renders; empty shells
+  should be avoided in product UI.
+- **Broken image URL** — browser shows broken image state; validate URLs upstream
+  or fall back to initials.
+- **onClick without keyboard** — the root is a `div`, not a button; wrap in a
+  focusable control when keyboard access is required.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+The root is a `div` with `data-component="Kaizen-Avatar"`. No role is set by
+default. When `src` is present, the inner `img` should carry `alt` from props.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Skips a static avatar; focuses a parent button when the avatar is wrapped for interaction.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description:
+        "Activate a parent button wrapper when you make the avatar interactive.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Photo avatars announce `alt` text. Initials and icons are static text or
+decorative depending on surrounding labels — ensure the adjacent name is in the
+accessibility tree.
+
+### Focus management
+
+Focus stays on a parent interactive wrapper when you add one. The avatar itself
+does not receive focus by default.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — initials and icons on default surfaces meet token contrast.
+- **2.1.1 Keyboard** — provide a button wrapper when `onClick` is used.
+- **4.1.2 Name, Role, Value** — meaningful `alt` or adjacent visible name.
+
+## Resources
+
+### Storybook
+
+[Open Avatar in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-avatar--avatar-with-image)
+
+### Related components
+
+- **[Avatar group](/components/avatar-group)** — overlap several avatars with overflow handling.
+- **[List](/components/list)** — standard row layout that accepts avatar slots on items.
+- **[Indicator](/components/indicator)** — status dot beside an avatar until native badge support lands.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Status badge on avatar** — Notion and product notes call for Indicator/Badge on avatars (e.g. no-show); not implemented on Avatar yet — use row-level Indicator today.
+
+## TO CLARIFY
+
+- Confirm whether `actionableIconName` overlay should be documented as the canonical edit affordance or deprecated in favor of explicit buttons.

@@ -1,0 +1,169 @@
+---
+title: Stepper [LLM]
+description: Multi-step modal flow with validation across sequential steps
+status: stable
+category: components
+tags: [overlays, forms]
+source: "packages/design-system/kaizen/primitive/core/src/components/ModalStepper"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Stepper (`ModalStepper`) guides users through a **multi-step process inside a modal**
+— create pass, checkout configuration, onboarding setup. Each step has its own
+content and validation; footer navigation moves Back, Next, or Submit on the final step.
+
+<StorybookEmbed
+  id="primitive-core-modalstepper--basic"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-core-modalstepper--basic", label: "Basic" },
+    {
+      id: "primitive-core-modalstepper--with-validation",
+      label: "With validation",
+    },
+    {
+      id: "primitive-core-modalstepper--critical-action",
+      label: "Critical action",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Create buyable** — details → pricing → visibility steps.
+- **Payment flow** — review → pay → confirmation in financial modals.
+- **Import wizard** — upload → map columns → confirm.
+- **Onboarding** — studio setup checkpoints.
+- **Destructive multi-confirm** — critical action step with explicit acknowledgment.
+
+## Guidelines
+
+- **Three to five steps** — more steps suggest a full-page wizard instead.
+- **Validate per step** — block Next until current step schema passes.
+- **Progress visible** — step indicator in header shows position.
+- **Critical final step** — use critical footer styling for irreversible actions.
+- **Escape and close** — confirm data loss when dirty fields exist.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+More than two stacked modals usually means the flow belongs on a page — stepper should not nest inside another modal without review.
+
+</Callout>
+
+#### General
+
+<DoDont>
+  <Do caption="Name each step in the header so users know what is next." />
+  <Do caption="Persist draft answers when users go Back — do not wipe fields." />
+  <Do caption="Use WithValidation story patterns before enabling Next." />
+  <Dont caption="Optional steps hidden without indicator in the step list." />
+  <Dont caption="Submit on intermediate steps that still need review." />
+  <Dont caption="Stepper for single-field edits — use simple Modal." />
+</DoDont>
+
+### Content rules
+
+Footer actions:
+
+> Back
+
+> Continue
+
+> Create pass
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Modal shell",
+      description: "Blanket, header with step progress, body.",
+    },
+    { name: "Step content", description: "React node per StepConfig." },
+    {
+      name: "Footer",
+      description: "Back, Next/Submit, optional column layout.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="ModalStepper" />
+
+### Behaviors
+
+#### Dismissal
+
+Close icon and escape respect `open` controlled prop; confirm if dirty.
+
+#### Action button
+
+Next advances after validation; final step submits primary action.
+
+#### Persistence
+
+Step index and field state owned by parent; remount resets unless preserved.
+
+### Edge cases
+
+- **Validation failure** — focus first invalid field on Next.
+- **Async submit** — disable footer while mutation pending.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Modal dialog semantics; step position in accessible name ("Step 2 of 4").
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Trapped in modal per dialog pattern." },
+    { keys: ["Escape"], description: "Closes when dismiss allowed." },
+    { keys: ["Enter"], description: "Activates focused footer button." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce step changes when index updates (polite live region optional).
+
+### Focus management
+
+Focus modal on open; move to first field or heading per step.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — full flow without pointer.
+- **3.3.1 Error Identification** — step validation errors described.
+- **4.1.2 Name, Role, Value** — dialog labeled.
+
+## Resources
+
+### Storybook
+
+[Open Stepper in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-core-modalstepper--basic)
+
+### Related components
+
+- **[Modal](/components/modal)** — single-step dialog baseline.
+- **[Form](/components/form)** — field validation inside steps.
+- **[Progress bar](/components/progress-bar)** — optional long-running submit progress.
+
+## TO CLARIFY
+
+- Public export name: docs say Stepper but component is `ModalStepper` — align naming in nav vs code.

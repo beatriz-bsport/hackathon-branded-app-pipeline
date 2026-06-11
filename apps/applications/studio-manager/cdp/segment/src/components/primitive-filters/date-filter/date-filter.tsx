@@ -23,7 +23,7 @@ import {
 } from "./constants";
 import type { DateFilterValue } from "./types";
 import {
-  defaultDateFilterValue,
+  createDefaultDateFilterValue,
   getDatePickerValue,
   getRelativeAlertMessage,
   isAbsoluteDateOperator,
@@ -63,7 +63,7 @@ export const DateFilter = ({
   const { t } = useTranslation("details");
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState<DateFilterValue>(
-    defaultValue ?? defaultDateFilterValue,
+    defaultValue ?? createDefaultDateFilterValue(),
   );
   const currentValue = isControlled ? value : internalValue;
 

@@ -1,0 +1,147 @@
+---
+title: List [LLM]
+description: Paginated collection with headers, selection, empty states, and rich rows
+status: stable
+category: components
+tags: [data, layout]
+source: "packages/design-system/kaizen/primitive/core/src/components/List"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+List is the standard Studio Manager collection pattern — header with title and
+actions, scrollable rows built from [List item](/components/list-item), pagination,
+loading and empty states. Use it for members, templates, buyables, and any
+non-tabular collection where row layout beats [Table](/components/table).
+
+<StorybookEmbed
+  id="primitive-components-list--list"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-list--list", label: "List" },
+    {
+      id: "primitive-components-list--list-with-checkboxes",
+      label: "With checkboxes",
+    },
+    { id: "primitive-components-list--paginated-list", label: "Paginated" },
+  ]}
+/>
+
+### Use cases
+
+- **Member directory** — avatar, name, chips, row actions.
+- **Email templates** — title, description, overflow menu per row.
+- **Buyable picker** — price and chips in checkout modals.
+- **Bulk operations** — checkbox selection with header select-all.
+- **Empty and search** — dedicated empty states for zero data vs zero results.
+
+## Guidelines
+
+- **Header actions right** — primary create/export in list header, not per row only.
+- **Pagination** — use built-in pagination or [Pagination](/components/pagination) for long sets.
+- **Row actions** — limit to one primary + overflow menu for the rest.
+- **Loading** — show [Loader](/components/loader) in content area, not per row.
+- **Link rows** — `link` prop for navigable rows; buttons for in-row actions.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use empty search state copy that suggests clearing filters." />
+  <Do caption="Keep row titles scannable — one primary line, optional description." />
+  <Do caption="Align checkbox selection with bulk action bar above the list." />
+  <Dont caption="Tables disguised as lists when sortable columns are needed — use Table." />
+  <Dont caption="Five icon buttons per row — consolidate into overflow menu." />
+  <Dont caption="Infinite scroll without position recovery on back navigation." />
+</DoDont>
+
+### Content rules
+
+Empty states lead with outcome:
+
+> No email templates yet
+
+> Create a template to contact members faster.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "Header", description: "Title, optional buttons, filter slot." },
+    { name: "Content", description: "ul of List.Item rows." },
+    { name: "Pagination", description: "Optional footer page control." },
+    { name: "Empty / loading", description: "Substates when no rows." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="List" />
+
+### Behaviors
+
+#### Persistence
+
+Scroll position and selection typically owned by parent route and store.
+
+#### Responsiveness
+
+Rows stack content; compact mode reduces avatar and description density.
+
+### Edge cases
+
+- **Long descriptions** — wrap or truncate with tooltip on second line.
+- **Controlled checkboxes** — parent must sync select-all indeterminate state.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+List uses semantic `ul`/`li`; checkboxes associate with row labels.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves through interactive elements in row order.",
+    },
+    { keys: ["Space"], description: "Toggles row checkbox when focused." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce list size changes when filters apply; bulk selection updates group label.
+
+### Focus management
+
+Opening row link navigates; modal actions return focus per dialog pattern.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — row actions and selection operable.
+- **4.1.2 Name, Role, Value** — row name from title text.
+
+## Resources
+
+### Storybook
+
+[Open List in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-list--list)
+
+### Related components
+
+- **[List item](/components/list-item)** — row building block.
+- **[List layout](/components/list-layout)** — page shell around lists.
+- **[Sortable list](/components/sortable-list)** — reorderable variant.

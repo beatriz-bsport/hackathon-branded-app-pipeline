@@ -1,5 +1,6 @@
 import { creditLeftPassSubFilterModule } from "./credit-left/module";
 import { expirationDatePassSubFilterModule } from "./expiration-date/module";
+import type { PassSubFilterId } from "./pass-sub-filter-id";
 import type { PassSubFilterModule } from "./pass-sub-filter-module-contract";
 import { purchaseDatePassSubFilterModule } from "./purchase-date/module";
 
@@ -18,3 +19,12 @@ export const REGISTERED_PASS_SUB_FILTERS = [
 
 export type RegisteredPassSubFilterModule =
   (typeof REGISTERED_PASS_SUB_FILTERS)[number];
+
+export const REGISTERED_PASS_SUB_FILTERS_BY_ID =
+  REGISTERED_PASS_SUB_FILTERS.reduce(
+    (accumulator, subFilterModule) => {
+      accumulator[subFilterModule.id] = subFilterModule;
+      return accumulator;
+    },
+    {} as Record<PassSubFilterId, PassSubFilterModule>,
+  );

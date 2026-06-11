@@ -5,7 +5,7 @@ import type {
 
 import { OWNERSHIP_OPTIONS } from "#src/components/filters/passes-filter/constants";
 import { REGISTERED_PASS_SUB_FILTERS } from "#src/components/filters/passes-filter/sub-filters/registry";
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import type { AppointmentPassFilterFormValue } from "../types";
@@ -38,8 +38,9 @@ export const mapPrivatePassFilterToFormValue = (
     selectAllPaymentPacks: filter.select_all_private_passes,
     selectedPaymentPackIds: filter.private_passes ?? [],
     subFilters,
-    purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
-    expirationDate: partialForm.expirationDate ?? defaultDateFilterValue,
+    purchaseDate: partialForm.purchaseDate ?? createDefaultDateFilterValue(),
+    expirationDate:
+      partialForm.expirationDate ?? createDefaultDateFilterValue(),
     creditLeft: partialForm.creditLeft ?? defaultNumericComparatorFilterValue,
   };
 };

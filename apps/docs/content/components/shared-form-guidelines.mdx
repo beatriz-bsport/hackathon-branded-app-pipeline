@@ -1,80 +1,252 @@
 ---
 title: Shared form guidelines
-description: Shared elements and conventions for Kaizen form controls.
+description: Shared label, helper, error, and required patterns across Kaizen form controls
 category: components
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Every form control shares label, control, mandatory indicator, and helper text patterns.
+Kaizen form controls share the same field anatomy — label, control, optional
+helper text, and validation feedback. Use these conventions so Studio Manager
+forms read consistently and behave predictably for keyboard and screen reader
+users.
 
-##### Shared Elements
+See the individual component pages for control-specific behaviour:
+[Checkbox](/components/checkbox), [Radio](/components/radio),
+[Toggle](/components/toggle), [Text field](/components/text-field),
+[Select](/components/select), and [Autocomplete](/components/autocomplete).
 
-All form controls include the following elements:
+### Use cases
 
-1. _Label_
-   A descriptive text that explains the purpose of the form control. Labels are essential for accessibility, providing context for the control, and should be concise yet informative.
-2. _Control_
-   The interactive element of the form, such as a checkbox, radio button, toggle, text field, select, or text area. This is where the user directly interacts with the form.
-3. _Mandatory Indicator_
-   An asterisk (\*) or other visual cue placed next to the label to indicate that the field is required. It helps users identify which fields they must complete before submitting the form.
-4. _Helper Text_
-   Optional text placed below the control that offers additional guidance or clarifies what is expected from the user. Helper text should be brief and supportive, helping users avoid errors.
+- **Modal and drawer forms** — stack labelled fields with helper text for
+  one-off tasks such as creating a tag or editing staff details.
+- **Detail page sections** — group related fields under section headings while
+  keeping per-field labels visible.
+- **Validation feedback** — pair `errorText` or `statusText` with the matching
+  `status` / `errorText` prop after submit or blur.
+- **Required fields** — mark mandatory inputs with `required` so the asterisk
+  renders consistently via the shared `Label` component.
+- **Progressive disclosure** — nest conditional fields below a
+  [Toggle](/components/toggle) or selected [Radio](/components/radio) option.
 
-### Related Components
+## Guidelines
 
-- _Checkbox_
-- _Radio Button_
-- _Toggle_
-- _Select_
-- _Text Field_
-- _Text Area_
+- **Label every control** — every interactive field needs a visible label
+  linked with `htmlFor` / `id`; placeholders are hints, not labels.
+- **One error per field** — surface a single actionable message below the
+  control; avoid stacking helper and error text that repeat the same idea.
+- **Required is explicit** — use `required` for mandatory fields and reserve
+  the asterisk for fields the user must complete before submit.
+- **Validate at the right moment** — show error states after blur or form
+  submit, not on first paint.
+- **Pick the right control** — binary immediate settings use
+  [Toggle](/components/toggle); deferred multi-select uses
+  [Checkbox](/components/checkbox); single choice from a short list uses
+  [Radio](/components/radio) or [Select](/components/select).
 
-### Usage Guidelines
+### Best practices
+
+#### General
 
 <DoDont>
-  <Do
-    caption={"Provide clear and descriptive labels for every form control."}
-  />
-  <Do
-    caption={"Use mandatory indicators consistently to mark required fields."}
-  />
-  <Do
-    caption={
-      "Include `helper-text` when additional explanation or instructions are needed."
-    }
-  />
-  <Do
-    caption={
-      "Apply the `has-error` and `error-text` properties to provide feedback when the input is incorrect."
-    }
-  />
+  <Do caption="Write labels as short nouns or phrases — 'Invoice email', 'Sport type' — so the field purpose is obvious without reading helper text." />
+  <Do caption="Use helper text for format hints or consequences — 'Used on member receipts' — and keep it to one line when possible." />
+  <Do caption="Align error copy with the validation rule — 'Enter a valid email address' — not a generic 'Invalid input'." />
+  <Dont caption="Placeholder text alone disappears for screen readers and filled fields — always expose a visible label." />
+  <Dont caption="Optional fields should not carry an asterisk — only required fields get the mandatory indicator." />
+  <Dont caption="Error styling before first interaction misleads users — wait until submit unless the form was already submitted." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
 
-- Avoid cluttering the UI with excessive `helper-text`; keep it concise and relevant.
+Long forms in modals benefit from visual grouping (spacing, section titles), but
+section headings cannot replace field labels — every control still needs its own
+label.
 
 </Callout>
 
-## Guidelines
+### Content rules
 
-## Code & Specs
+Write labels in sentence case without a trailing colon. Helper and error text
+use present tense, plain language, and say what to do next.
+
+**Label**
+
+> Member email
+
+**Helper text**
+
+> We send booking confirmations to this address.
+
+**Error text**
+
+> Enter a valid email address.
+
+**Required field** — pass `required={true}`; the label shows an asterisk via
+`Label`.
+
+> Sport type \*
+
+## Reference
+
+### Anatomy
+
+Shared field structure across Checkbox, Radio, Toggle, TextField, Select, and
+Autocomplete:
+
+<Anatomy
+  parts={[
+    {
+      label: "Label",
+      description:
+        "Describes the field purpose. Rendered by `Label` with an optional required asterisk (`required`).",
+    },
+    {
+      label: "Control",
+      description:
+        "The interactive element — checkbox, radio, toggle, input, select trigger, or autocomplete input.",
+    },
+    {
+      label: "Helper text",
+      description:
+        "Optional guidance below the control (`helperText` on most primitives; `statusText` with neutral status on TextField).",
+    },
+    {
+      label: "Error text",
+      description:
+        'Validation message below the control (`errorText` on boolean controls and Select; `statusText` with `status="error"` on TextField).',
+    },
+  ]}
+/>
+
+### Prop conventions
+
+- **Label** — `label` on Checkbox, Toggle, TextField, Select, and RadioGroup
+  (group label); per-option `label` on radio rows; `textfieldProps.label` on
+  Autocomplete.
+- **Required** — `required` on the primitives above; Autocomplete via
+  `textfieldProps.required`.
+- **Helper** — `helperText` (or per-option helper on radio rows).
+- **Error** — `errorText` on Checkbox, Toggle, and Select (`status=\"critical\"`
+  on Select); `status=\"error\"` + `statusText` on TextField; Autocomplete via
+  `textfieldProps`.
+- **Disabled** — `disabled` on all primitives.
+
+### Behaviors
+
+#### Validation timing
+
+Validate on blur or on form submit. Boolean controls tint the input when
+`errorText` is set. TextField uses `status=\"error\"`. Select uses
+`status=\"critical\"`.
+
+#### Disabled state
+
+Disabled fields use reduced opacity (`opacity-sm`) and `pointer-events-none` on
+the container. Colours remain visible underneath — disabled is an overlay, not
+a greyscale recolour.
+
+#### Direction
+
+Checkbox, Toggle, and each Radio option support `direction=\"start\"` (control
+left) or `\"end\"` (control right). Default is `start`.
 
 ## Accessibility
 
+### ARIA roles & attributes
+
+- **Labels** — `Label` renders a native `<label htmlFor={id}>`. Always pass
+  matching `id` on the control.
+- **Required** — `required` sets the native `required` attribute where the
+  underlying element supports it and adds a visual asterisk on the label.
+- **Invalid** — pass error copy via `errorText` / `statusText`; components set
+  `aria-invalid` when error text is present (Checkbox, Toggle, Radio, TextField).
+- **Groups** — `RadioGroup` wraps options in `<fieldset role=\"radiogroup\">`.
+  Checkbox groups should use `CheckboxGroup` with a group label.
+
+### Keyboard navigation
+
 <Accessibility
-  notes={
-    "Labels: Ensure that all labels are properly associated with their corresponding form controls using appropriate HTML attributes or ARIA labels. This guarantees that assistive technologies can correctly identify and describe the control. Control: Design the control element to be accessible through various input methods, including mouse, touch, and keyboard. Focus states should be distinct to aid navigation. Helper Text: Write helper text that is concise and meaningful, to help users understand the required input. Ensure it is also accessible to screen readers."
-  }
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Move focus between fields in document order.",
+    },
+    {
+      keys: ["Space"],
+      description:
+        "Toggle Checkbox or Toggle when focused; activate the focused radio option.",
+    },
+    {
+      keys: ["Arrow keys"],
+      description:
+        "Move between radio options in the same group when focus is inside the group (browser default).",
+    },
+  ]}
 />
+
+### Screen reader behavior
+
+Screen readers announce the label, required state, and control role when focus
+enters the field. Error text is exposed as static content below the control —
+pair it with `aria-invalid` so assistive tech reports the error state.
+
+### Focus management
+
+Form controls do not trap focus. In modals, focus order follows the visual
+field stack. When a conditional block appears below a Toggle or Radio, insert
+it in the tab order immediately after the controlling field.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — labels, helper text, and error text use token
+  colours meeting AA on default surfaces.
+- **2.1.1 Keyboard** — every control is operable without a pointer.
+- **3.3.1 Error Identification** — errors are described in text, not colour
+  alone.
+- **3.3.2 Labels or Instructions** — every field has a visible label or
+  accessible name.
+- **4.1.2 Name, Role, Value** — native inputs expose name, role, and value;
+  custom triggers (Select) need an associated label.
 
 ## Resources
 
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+Shared patterns are demonstrated on each primitive story — start with
+[Text field](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-textfield--text-field-basic).
+
+### Related components
+
+- [Checkbox](/components/checkbox) — multi-select and deferred binary choices
+  submitted with a form action.
+- [Radio](/components/radio) — mutually exclusive options in a short visible
+  list.
+- [Toggle](/components/toggle) — binary settings that apply immediately.
+- [Text field](/components/text-field) — single-line text and typed inputs.
+- [Select](/components/select) — single choice from a styled dropdown.
+- [Autocomplete](/components/autocomplete) — searchable single or multi
+  select for long or remote lists.
+- **TextArea** — multi-line text input
+  (`packages/design-system/kaizen/primitive/core/src/components/TextArea`).
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-453](https://linear.app/bsport/issue/KAI-453/add-placeholder-readonly-prop-to-all-form-components) — Add placeholder readonly prop to all form components (Backlog).
+
+#### Design or API debt
+
+- **Readonly not standardised** — no shared `readonly` prop yet; teams
+  sometimes reuse `disabled`, which hides values from assistive tech and blocks
+  copy. Tracked under KAI-453.
+- **Error prop naming** — TextField uses `status=\"error\"` + `statusText`;
+  Select uses `status=\"critical\"` + `errorText`; boolean controls use
+  `errorText` only. Align naming when the readonly pass lands.

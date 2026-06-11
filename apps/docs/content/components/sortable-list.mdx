@@ -1,0 +1,142 @@
+---
+title: Sortable list [LLM]
+description: Drag-reorderable list with the same row patterns as List
+status: stable
+category: components
+tags: [data, interaction]
+source: "packages/design-system/kaizen/primitive/core/src/components/SortableList"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Sortable list extends [List](/components/list) with drag handles to reorder items —
+playlist order, menu ordering, featured products, or workflow step priority. Persist
+order to the API on drop or via explicit save depending on product rules.
+
+<StorybookEmbed
+  id="primitive-components-sortablelist--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-sortablelist--primary",
+      label: "Sortable list",
+    },
+    {
+      id: "primitive-components-sortablelist--list-with-no-primary-buttons",
+      label: "With actions",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Featured passes** — studio-controlled order on marketplace.
+- **Custom field order** — arrange member profile fields.
+- **Email block order** — marketing template sections.
+- **Category ordering** — booking activity display sequence.
+- **Form wizard steps** — admin-defined step order (with validation).
+
+## Guidelines
+
+- **Handle affordance** — drag handle icon visible; do not drag entire row without cue.
+- **Save strategy** — auto-save on drop vs Save button — pick one per flow.
+- **Disable sort when filtered** — reordering filtered subsets misleads users.
+- **Keyboard alternative** — provide move up/down actions when possible.
+- **Limit list length** — very long lists need virtualisation review before enabling drag.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Show drag handle only when user has permission to reorder." />
+  <Do caption="Optimistically update UI then rollback API failure with toast." />
+  <Do caption="Use with clear page title explaining order affects member-facing UI." />
+  <Dont caption="Sortable rows mixed with non-sortable without visual distinction." />
+  <Dont caption="Drag reorder on paginated data without loading full set." />
+  <Dont caption="Relying on drag alone for accessibility — offer move buttons." />
+</DoDont>
+
+### Content rules
+
+Helper text when order matters:
+
+> Drag to change the order members see on the app home screen.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    { name: "List header", description: "Same as List header." },
+    { name: "Drag handle", description: "Grab target on each row." },
+    { name: "Sortable row", description: "List item with reorder sensors." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="SortableList" />
+
+### Behaviors
+
+#### Persistence
+
+Order updates in parent `items` array on drag end; persist via mutation.
+
+### Edge cases
+
+- **Duplicate ids** — break drag logic; enforce unique ids.
+- **Concurrent editors** — refresh order from server on conflict.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Drag handles need `aria-label` ("Reorder item"); use live region to announce new position when keyboard alternatives exist.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Focuses handle and row actions." },
+    {
+      keys: ["Arrow keys"],
+      description:
+        "May move items when keyboard sorting enabled in implementation.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce position change after drop when polite live region is wired.
+
+### Focus management
+
+Retain focus on moved item after keyboard reorder when supported.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — provide non-drag reorder path where required.
+- **4.1.2 Name, Role, Value** — handle labeled.
+
+## Resources
+
+### Storybook
+
+[Open Sortable list in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-sortablelist--primary)
+
+### Related components
+
+- **[Nested sortable list](/components/nested-sortable-list)** — hierarchical reorder.
+- **[Drag and drop](/components/drag-and-drop)** — lower-level drag primitives.
+- **[List](/components/list)** — non-sortable baseline.

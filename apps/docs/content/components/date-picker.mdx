@@ -1,0 +1,163 @@
+---
+title: Date picker [LLM]
+description: Calendar input for single dates or ranges in modal and popover layouts
+status: stable
+category: components
+tags: [forms, input, date]
+source: "packages/design-system/kaizen/primitive/core/src/components/DatePicker"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Date picker lets users choose one date or a range with calendar UI, shortcuts, and
+disabled-date rules. It supports modal dialogs for mobile-like flows and popover
+anchoring for dense filter bars in Studio Manager.
+
+<StorybookEmbed
+  id="primitive-components-datepicker--date-picker-modal"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-datepicker--date-picker-modal",
+      label: "Modal",
+    },
+    {
+      id: "primitive-components-datepicker--date-picker-popover",
+      label: "Popover",
+    },
+    {
+      id: "primitive-components-datepicker--date-picker-range-with-shortcuts",
+      label: "Range",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Report date range** — finance exports for last 30 days or custom interval.
+- **Class schedule** — pick session date on booking forms.
+- **Member birth date** — single date with past-only constraint.
+- **Campaign send window** — range with shortcuts (This week, Next month).
+- **Filter toolbar** — popover variant on list pages.
+
+## Guidelines
+
+- **Modal vs popover** — modal for primary form fields; popover for inline filters.
+- **Disable invalid dates** — block past dates for bookings or future-only promos.
+- **Shortcuts reduce taps** — offer presets for common reporting windows.
+- **Locale and timezone** — display dates in studio locale; store ISO in API layer.
+- **Label the field** — always pair with visible label showing selected value.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Show the selected value in the trigger even when the calendar is closed." />
+  <Do caption="Use range mode when both start and end matter for reports." />
+  <Do caption="Disable dates the backend will reject before submit." />
+  <Dont caption="Free-text date parsing without picker — error-prone across locales." />
+  <Dont caption="Range pickers for a single moment in time — use single mode." />
+  <Dont caption="Opening modal pickers inside modals without focus trap review." />
+</DoDont>
+
+### Content rules
+
+Shortcut labels are familiar periods:
+
+> Last 7 days
+
+> This month
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Trigger",
+      description: "Input or button showing current selection.",
+    },
+    { name: "Calendar", description: "Month grid with navigation." },
+    { name: "Shortcuts", description: "Optional preset chips for ranges." },
+    { name: "Footer actions", description: "Apply/clear in modal layouts." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="DatePicker" />
+
+### Behaviors
+
+#### Dismissal
+
+Popover closes on outside click or selection depending on configuration; modal uses explicit apply.
+
+#### Responsiveness
+
+Modal layout suits narrow viewports; popover anchors to trigger width.
+
+### Edge cases
+
+- **Partial range** — guide users to complete end date before apply.
+- **Year bounds** — customize min/max year for birth dates vs reporting.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Calendar grid should expose day buttons with `aria-selected` and navigable month controls.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description: "Moves through trigger, calendar controls, and days.",
+    },
+    {
+      keys: ["Arrow keys"],
+      description: "Navigate days within the grid where implemented.",
+    },
+    {
+      keys: ["Escape"],
+      description: "Closes popover or modal without applying.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce selected dates on apply; live region optional for range completion.
+
+### Focus management
+
+Return focus to trigger on popover close; trap focus in modal variant.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — date selection without pointer-only interaction.
+- **3.3.2 Labels or Instructions** — label shows format expectations.
+- **4.1.2 Name, Role, Value** — selected date in accessible name.
+
+## Resources
+
+### Storybook
+
+[Open Date picker in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-datepicker--date-picker-modal)
+
+### Related components
+
+- **[Time picker](/components/time-picker)** — time-of-day companion.
+- **[Filter](/components/filter)** — may embed date facets.
+- **[Text field](/components/text-field)** — manual entry fallback when required.

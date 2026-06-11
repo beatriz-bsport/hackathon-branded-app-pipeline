@@ -3,8 +3,7 @@ Ephemeral Environment:
   needs:
     - Build Artifact MR
   extends:
-    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
-  before_script: !reference [.pnpm-setup, before_script]
+    - .ci-runner-small # 16 vCPU, 16GB RAM
   environment:
     name: "preview-${CI_MERGE_REQUEST_IID}"
     url: "https://preview-${CI_MERGE_REQUEST_IID}.backoffice.chaos.bsport.io"

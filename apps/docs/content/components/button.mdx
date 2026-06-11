@@ -1,6 +1,6 @@
 ---
 title: Button
-description: Buttons trigger actions or events when activated.
+description: Buttons trigger actions or events when activated
 status: stable
 category: components
 tags: [forms, interactive]
@@ -10,7 +10,7 @@ source: "packages/design-system/kaizen/primitive/core/src/components/Button"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
@@ -23,6 +23,16 @@ throughout the Kaizen back-office interface to communicate available actions
 clearly. Buttons communicate hierarchy through three intents — `call-to-action`,
 `default`, and `flat` — and adapt to different tonal contexts via the `color`
 and `intent` props.
+
+<StorybookEmbed
+  id="primitive-components-button--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-button--primary", label: "Button" },
+    { id: "primitive-components-button--icon-button", label: "Icon Button" },
+  ]}
+/>
 
 ### Use cases
 
@@ -43,117 +53,14 @@ and `intent` props.
 
 ## Guidelines
 
-### Examples
-
-The default button — pick an `intent`, a `size`, and a `label`.
-
-<StorybookEmbed
-  id="primitive-components-button--intent-gallery"
-  mode="playground"
-  height={540}
-  stories={[
-    {
-      id: "primitive-components-button--intent-gallery",
-      label: "Intent Gallery",
-    },
-    {
-      id: "primitive-components-button--with-side-icons",
-      label: "With Side Icons",
-    },
-    {
-      id: "primitive-components-button--icon-button-gallery",
-      label: "Icon Button Gallery",
-    },
-    { id: "primitive-components-button--primary", label: "Button (Primary)" },
-    { id: "primitive-components-button--icon-button", label: "Icon Button" },
-  ]}
-/>
-
-Add an icon on either side to clarify the action.
-
-<StorybookEmbed
-  id="primitive-components-button--with-side-icons"
-  mode="playground"
-  height={540}
-  stories={[
-    {
-      id: "primitive-components-button--intent-gallery",
-      label: "Intent Gallery",
-    },
-    {
-      id: "primitive-components-button--with-side-icons",
-      label: "With Side Icons",
-    },
-    {
-      id: "primitive-components-button--icon-button-gallery",
-      label: "Icon Button Gallery",
-    },
-    { id: "primitive-components-button--primary", label: "Button (Primary)" },
-    { id: "primitive-components-button--icon-button", label: "Icon Button" },
-  ]}
-/>
-
-For tight toolbars and table rows, use the icon-only `kind`. The `label`
-becomes the accessible name.
-
-<StorybookEmbed
-  id="primitive-components-button--icon-button-gallery"
-  mode="playground"
-  height={540}
-  stories={[
-    {
-      id: "primitive-components-button--intent-gallery",
-      label: "Intent Gallery",
-    },
-    {
-      id: "primitive-components-button--with-side-icons",
-      label: "With Side Icons",
-    },
-    {
-      id: "primitive-components-button--icon-button-gallery",
-      label: "Icon Button Gallery",
-    },
-    { id: "primitive-components-button--primary", label: "Button (Primary)" },
-    { id: "primitive-components-button--icon-button", label: "Icon Button" },
-  ]}
-/>
-
-### Live preview
-
-<Anatomy
-  parts={[
-    {
-      label: "Root element (`<button>`)",
-      description:
-        "The native HTML button that receives all native attributes, focus, and event handlers.",
-    },
-    {
-      label: "Icon left (`iconLeft`)",
-      description:
-        "Optional leading icon placed before the label; reinforces the action meaning visually.",
-    },
-    {
-      label: "Label",
-      description:
-        "Required text that names the action; always visible except in `icon-button` kind.",
-    },
-    {
-      label: "Icon right (`iconRight`)",
-      description:
-        "Optional trailing icon after the label; commonly used for navigation affordance.",
-    },
-    {
-      label: "Loader overlay",
-      description:
-        "Replaces the left icon with a loader when `loading=true`; button width stays locked to prevent layout shift.",
-    },
-    {
-      label: "Icon (icon-button only)",
-      description:
-        'A single centered icon used exclusively when `kind="icon-button"`; replaces the label entirely.',
-    },
-  ]}
-/>
+- **Default button** — pick an `intent`, a `size`, and a `label`.
+- **Icons** — add one on either side when it clarifies the action.
+- **Icon-only** — use `kind="icon-button"` in tight toolbars and table rows;
+  `label` becomes the accessible name.
+- **Loading** — set `loading=true` during async work and pass `disabled` to block
+  repeat clicks until the action completes.
+- **Destructive actions** — pair `color="critical"` with a confirmation step;
+  never use critical styling for reversible actions like Cancel.
 
 ### Best practices
 
@@ -178,6 +85,8 @@ becomes the accessible name.
 - `fullWidth=true` suits modals and narrow form columns; evaluate layout context before enabling it in wide containers.
 
 </Callout>
+
+### Variant guidance
 
 #### call-to-action intent
 
@@ -214,7 +123,11 @@ becomes the accessible name.
   <Dont caption="Use without a Tooltip — the absence of a label creates accessibility and discoverability gaps." />
 </DoDont>
 
-#### Content
+### Content rules
+
+Keep labels short, verb-first, and specific to the outcome — not the mechanism
+("Save changes", not "Submit form"). Use sentence case. Avoid jargon unless the
+audience expects it.
 
 #### Common uses
 
@@ -233,17 +146,55 @@ becomes the accessible name.
 
 > "View details"
 
-**Cancel / dismiss** — `intent="default"`, `color="default"`, no icons.
+**Cancel / dismiss** — `intent="default"`, `color="main"`, no icons.
 
 > "Cancel"
 
-#### Buttons vs. links
+#### Buttons vs links
 
-A button _does something_; a link _goes somewhere_. In certain circumstances, a
-button can look like a button but behave like a link — for instance when updating
-user data, saving edited content, or deep-linking to a dialog.
+A button _does something_; a link _goes somewhere_. Use [Link](/components/link)
+when navigation is the primary outcome. A button may trigger navigation as a side
+effect (e.g. save then redirect), but the label should still describe the action
+("Save and continue"), not the destination.
 
-## Code & Specs
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Root element (`<button>`)",
+      description:
+        "The native HTML button that receives all native attributes, focus, and event handlers.",
+    },
+    {
+      label: "Icon left (`iconLeft`)",
+      description:
+        "Optional leading icon placed before the label; reinforces the action meaning visually.",
+    },
+    {
+      label: "Label",
+      description:
+        "Required text that names the action; always visible except in `icon-button` kind.",
+    },
+    {
+      label: "Icon right (`iconRight`)",
+      description:
+        "Optional trailing icon after the label; commonly used for navigation affordance.",
+    },
+    {
+      label: "Loader overlay",
+      description:
+        "Replaces the left icon with a loader when `loading=true`; button width stays locked to prevent layout shift.",
+    },
+    {
+      label: "Icon (icon-button only)",
+      description:
+        'A single centered icon used exclusively when `kind="icon-button"`; replaces the label entirely.',
+    },
+  ]}
+/>
 
 ### Props
 
@@ -251,56 +202,73 @@ user data, saving edited content, or deep-linking to a dialog.
   component="Button"
   overrides={{
     intent: {
+      type: '"call-to-action" | "default" | "flat"',
       description:
         "Visual hierarchy. `call-to-action` for the primary action, `default` for secondary, `flat` for low-emphasis row or toolbar actions.",
     },
     color: {
+      type: '"main" | "critical" | "default" | "selected" | "onstrong"',
       description:
-        "`main` for primary emphasis, `critical` for destructive actions, `default` for neutral, `onstrong` on strong backgrounds, `selected` for toggled-on states.",
+        "Valid values depend on `intent`: `call-to-action` → `main` | `critical`; `default` → `main` | `selected`; `flat` → `default` | `main` | `critical` | `onstrong`.",
     },
     kind: {
+      type: '"default" | "icon-button"',
+      defaultValue: "default",
       description:
         "`default` shows the label; `icon-button` hides it and uses `label` as the accessible name.",
     },
     label: {
+      type: "string",
       description:
         "Visible text for default buttons; aria-label for icon-only buttons.",
     },
     size: {
+      type: '"sm" | "md" | "lg"',
       description:
         "`sm` for dense surfaces, `md` everywhere else, `lg` for marketing/empty-state CTAs.",
     },
     loading: {
+      type: "boolean",
+      defaultValue: "false",
       description:
-        "Replaces the leading icon with a spinner, locks dimensions, and disables interaction.",
+        "Replaces the leading icon with a spinner and sets aria-busy. Pass disabled alongside loading to block repeat clicks.",
     },
     fullWidth: {
+      type: "boolean",
+      defaultValue: "false",
       description:
         "Expands the button to fill its container — best in modals and narrow form columns.",
     },
     iconLeft: {
+      type: "IconName",
       description:
-        'Leading icon that describes the action type (e.g. `plus` before "Add member").',
+        'Leading icon that describes the action type (e.g. `plus` before "Add member"). Only for `kind="default"`.',
     },
     iconRight: {
+      type: "IconName",
       description:
-        "Trailing icon for direction or navigation (e.g. `chevron-right`, `link-external-02`).",
+        'Trailing icon for direction or navigation (e.g. `chevron-right`, `link-external-02`). Only for `kind="default"`.',
     },
     icon: {
+      type: "IconName",
       description:
         'Required when `kind="icon-button"` — the single centered icon replacing the label.',
+    },
+    className: {
+      type: "string",
+      description: "Additional CSS class names on the root `<button>` element.",
     },
   }}
 />
 
-### Behavior
+### Behaviors
 
 #### Loading state
 
-When `loading=true`, the button renders a spinner in place of its content and
-becomes non-interactive. Width and height are locked to pre-loading dimensions
-to prevent layout shift. Remove the loading state once the async operation
-completes or errors.
+When `loading=true`, the button renders a spinner in place of the leading icon,
+sets `aria-busy`, and keeps its layout stable. The component does not set
+`disabled` automatically — pass `disabled` with `loading` to prevent repeat
+submissions. Remove both once the async operation completes or errors.
 
 #### Disabled state
 
@@ -320,8 +288,9 @@ both simultaneously unless both icons carry distinct meaning.
 
 #### Label is very long
 
-The button stretches horizontally. Use `fullWidth` or constrain the container
-width; never truncate the label.
+The visible label truncates with an ellipsis when space is tight (`truncate` on
+the label span). Prefer shorter copy; use `fullWidth` or a wider container when
+the full label must stay readable.
 
 #### Both iconLeft and iconRight set
 
@@ -349,22 +318,107 @@ than standalone actions.
 
 ## Accessibility
 
+### ARIA roles & attributes
+
+The root element is a native `<button>` with `role="button"`. Kaizen sets the
+following automatically:
+
+- `aria-label` — derived from `label` for `kind="icon-button"`; for default
+  buttons, uses `aria-label` from props when provided, otherwise `label`.
+- `aria-busy="true"` while `loading=true`.
+- `aria-disabled="true"` when the native `disabled` attribute is set.
+
+Icons are decorative in default buttons when a visible label is present — they
+are not exposed as separate accessible names. For `kind="icon-button"`, the
+`label` prop is required and becomes the sole accessible name.
+
+### Keyboard navigation
+
 <Accessibility
   keyboard={[
     { keys: ["Tab"], description: "Move focus to the button." },
+    {
+      keys: ["Shift", "Tab"],
+      description: "Move focus to the previous control.",
+    },
     { keys: ["Enter"], description: "Activate the button." },
     { keys: ["Space"], description: "Activate the button." },
   ]}
-  aria={[
-    "role=button (implicit on <button>)",
-    "aria-disabled=true when loading or disabled",
-    "aria-busy=true while loading",
-  ]}
-  notes="Icon-only buttons require label as the accessible name — never ship them without one. Always pair icon-only buttons with a Tooltip for discoverability."
 />
+
+### Screen reader behavior
+
+On focus, screen readers announce the accessible name (`aria-label` or visible
+`label`) and role ("button"). When `loading=true`, `aria-busy` signals that an
+action is in progress — pair with a visible loader so sighted users get the
+same feedback.
+
+For icon-only buttons, never rely on the icon alone — always provide a
+descriptive `label` and wrap the control in a `Tooltip` so the action is
+discoverable for sighted users too.
+
+### Focus management
+
+Focus stays on the button when activated — there is no focus trap. The component
+uses Kaizen focus-ring styles on keyboard focus (`:focus-visible`). When
+`disabled` or non-interactive during loading, the button is removed from the tab
+order only if you pass the native `disabled` attribute; set `disabled` alongside
+`loading` for async actions you want to block until completion.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — intent and color pairings meet token contrast
+  ratios; avoid placing `color="onstrong"` on non-strong backgrounds.
+- **2.1.1 Keyboard** — fully operable with Tab, Enter, and Space.
+- **4.1.2 Name, Role, Value** — name comes from `label` / `aria-label`; role and
+  state (`aria-busy`, `aria-disabled`) are exposed on the native button.
+- **4.1.3 Status Messages** — not applicable; use [Toast](/components/toast) to
+  announce action outcomes after the button fires.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Button`
-- **Storybook:** Browse the live examples under Guidelines.
-- **Related:** [Toast](/components/toast)
+### Storybook
+
+[Open Button in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-button--primary)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Button`
+
+### Related components
+
+- [Tooltip](/components/tooltip) — required companion for `kind="icon-button"` so
+  the action stays discoverable without a visible label.
+- [Link](/components/link) — use when navigation is the primary outcome instead
+  of triggering an in-page action.
+- [Toast](/components/toast) — announce success or failure after a button action
+  completes.
+
+### Known issues
+
+#### Tracked in Linear
+
+Open items under [KAI-106 Button](https://linear.app/bsport/issue/KAI-106/kz-component-button) on the
+[Kaizen component board](https://linear.app/bsport/project/kaizen-component-board-e9084e83ba8c/view/backlog-2e1fdd31dafd):
+
+- [KAI-594](https://linear.app/bsport/issue/KAI-594/enforce-tooltip-on-icon-buttons) — Enforce tooltip on icon-buttons (Backlog)
+- [KAI-397](https://linear.app/bsport/issue/KAI-397/add-hoverpressed-colors-to-selected-variant-same-colors-as-default) — Add hover/pressed colors to `selected` variant (Backlog)
+- [KAI-398](https://linear.app/bsport/issue/KAI-398/fix-border-of-selected-variant) — Fix border of `selected` variant — use shadow instead (Backlog)
+- [KAI-659](https://linear.app/bsport/issue/KAI-659/add-link-variant-of-a-button) — Add link variant of a button (Backlog)
+- [KAI-658](https://linear.app/bsport/issue/KAI-658/button-with-avatar) — Button with avatar (Backlog, proposed)
+
+#### Implementation gaps
+
+- **Loading does not block interaction** — `loading=true` sets `aria-busy` only;
+  consumers must pass `disabled` to prevent double submission.
+- **Redundant `aria-label` on default buttons** — When `kind="default"` and a
+  visible label is rendered, `aria-label` is still set to the same string. Screen
+  readers should rely on the visible text; the duplicate attribute is unnecessary
+  and can cause inconsistent announcements across browsers.
+- **`aria-disabled` ignores loading** — `aria-disabled` is tied to the native
+  `disabled` prop only, not `loading`. Accessibility docs recommend pairing
+  both; the component does not mirror loading into `aria-disabled`.
+
+#### Design or API debt
+
+- **Props table types are incomplete** — `react-docgen-typescript` cannot parse
+  Button's discriminated-union props; generated types show as `unknown` until
+  the extract pipeline or overrides are improved.

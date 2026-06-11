@@ -9,7 +9,7 @@ import {
   DATE_FILTER_TYPE_RELATIVE,
   RELATIVE_DATE_OPERATORS,
 } from "#src/components/primitive-filters/date-filter/constants";
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -244,10 +244,10 @@ describe("totalBookingNumberFilterSchema", () => {
     const value = buildFormValue({
       subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
       bookingDate: {
-        ...defaultDateFilterValue,
+        ...createDefaultDateFilterValue(),
         dateType: "absolute",
         absolute: {
-          ...defaultDateFilterValue.absolute,
+          ...createDefaultDateFilterValue().absolute,
           operator: "on_or_after",
           fromDate: null,
           toDate: null,
@@ -272,10 +272,10 @@ describe("totalBookingNumberFilterSchema", () => {
     const value = buildFormValue({
       subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
       bookingDate: {
-        ...defaultDateFilterValue,
+        ...createDefaultDateFilterValue(),
         dateType: "absolute",
         absolute: {
-          ...defaultDateFilterValue.absolute,
+          ...createDefaultDateFilterValue().absolute,
           operator: "on_or_after",
           fromDate: "2026-06-10",
           toDate: null,
@@ -297,7 +297,7 @@ describe("totalBookingNumberFilterSchema", () => {
       buildFormValue({
         subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
         bookingDate: {
-          ...defaultDateFilterValue,
+          ...createDefaultDateFilterValue(),
           dateType: DATE_FILTER_TYPE_RELATIVE,
           relative: {
             operator,

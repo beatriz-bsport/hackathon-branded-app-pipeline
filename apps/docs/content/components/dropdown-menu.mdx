@@ -1,0 +1,152 @@
+---
+title: Dropdown menu [LLM]
+description: Anchored menu triggered by a button with search, icons, and placement options
+status: stable
+category: components
+tags: [navigation, overlays]
+source: "packages/design-system/kaizen/primitive/core/src/components/DropdownMenu"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Dropdown menu opens a [Menu](/components/menu) from a trigger — overflow buttons,
+filter pickers, and assignment fields. It handles placement, focus, optional quick
+search, and composable APIs for custom item rendering.
+
+<StorybookEmbed
+  id="primitive-components-dropdownmenu--basic"
+  mode="playground"
+  height={600}
+  stories={[
+    { id: "primitive-components-dropdownmenu--basic", label: "Basic" },
+    {
+      id: "primitive-components-dropdownmenu--with-icons",
+      label: "With icons",
+    },
+    {
+      id: "primitive-components-dropdownmenu--with-search",
+      label: "With search",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Row overflow** — three-dot menu on table and list rows.
+- **Assign coach** — searchable list of staff in session editor.
+- **Export formats** — PDF vs CSV chooser on report headers.
+- **Status change** — workflow transitions on member cards.
+- **Multi-select filters** — composable API for checkbox menus.
+
+## Guidelines
+
+- **Trigger labels the menu** — button text or `aria-label` ("Actions", "Choose coach").
+- **Search for long lists** — enable quick filter above ~8 options.
+- **Placement** — flip when near viewport edge; avoid clipping in modals.
+- **Composable vs managed** — managed API for standard cases; composable for custom slots.
+- **Close on action** — single-select menus close after choice unless documented otherwise.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use icon-only overflow triggers with aria-label Actions on each row." />
+  <Do caption="Enable search when options exceed one screen of scrolling." />
+  <Do caption="Align placement so menu does not cover the trigger label." />
+  <Dont caption="Primary navigation entire modules from row dropdowns — use sidebar." />
+  <Dont caption="Nested dropdowns more than one level deep." />
+  <Dont caption="Destructive delete as first item without divider separation." />
+</DoDont>
+
+### Content rules
+
+Trigger and items stay short:
+
+> Actions
+
+> Duplicate pass
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Trigger",
+      description: "Button or custom target opening the menu.",
+    },
+    {
+      name: "Popover panel",
+      description: "Positioned surface containing Menu.",
+    },
+    { name: "Search field", description: "Optional filter at top of panel." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="DropdownMenu" />
+
+### Behaviors
+
+#### Dismissal
+
+Outside click, Escape, and item selection close the menu (mode-dependent).
+
+#### Focus management
+
+Focus trap inside open menu; return focus to trigger on close.
+
+### Edge cases
+
+- **Custom target** — ensure keyboard activation on non-button triggers.
+- **Modal context** — verify z-index and focus trap interaction.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Trigger uses `aria-expanded` and `aria-haspopup`. Menu items inherit Menu a11y.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Enter", "Space"], description: "Opens menu from trigger." },
+    { keys: ["Arrow keys"], description: "Navigate items inside open menu." },
+    { keys: ["Escape"], description: "Closes menu and returns focus." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce menu open state and item count when search filters results.
+
+### Focus management
+
+Focus first item or search on open; restore trigger focus on close.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — full menu operation.
+- **4.1.2 Name, Role, Value** — trigger and items named.
+
+## Resources
+
+### Storybook
+
+[Open Dropdown menu in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-dropdownmenu--basic)
+
+### Related components
+
+- **[Menu](/components/menu)** — panel content.
+- **[Popover](/components/popover)** — non-action anchored content.
+- **[Select](/components/select)** — single value form field, not action menu.

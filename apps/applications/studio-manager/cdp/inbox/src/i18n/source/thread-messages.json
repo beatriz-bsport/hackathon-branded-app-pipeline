@@ -1,0 +1,18 @@
+{
+  "status": {
+    "sent": "Sent",
+    "failed": "Failed"
+  },
+  "automatedMessage": {
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "type": {
+      "campaign": "Campaign",
+      "transactionalNotification": "Transactional Notification",
+      "autoMessage": "Auto-Message",
+      "automation": "Automation",
+      "audienceMessage": "Audience Message",
+      "franchiseCampaign": "Franchise Campaign"
+    }
+  }
+}

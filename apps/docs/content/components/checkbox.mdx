@@ -1,33 +1,30 @@
 ---
 title: Checkbox
-description: Allows users to select one or multiple options from a set.
+description: A binary or tri-state control for multi-select and deferred form choices
+status: stable
 category: components
+tags: [forms, input, selection]
 source: "packages/design-system/kaizen/primitive/core/src/components/Checkbox"
 sections:
   - "Overview"
   - "Guidelines"
-  - "Code & Specs"
+  - "Reference"
   - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Checkboxes support multi-selection in forms, filters, and lists where options are independent.
-
-##### Related Components
-
-- _Checkbox:_ Used when multiple selections are allowed.
-- _Toggle Switch:_ An alternative for binary options, often used for settings.
-
-## Guidelines
-
-### Examples
+Checkbox lets users select one or more independent options, or a parent option
+that is partially selected. State is controlled externally via the `value` prop
+(`checked`, `unchecked`, or `indeterminate`). Use it when choices are submitted
+with a form — not when a setting should flip instantly (use
+[Toggle](/components/toggle) instead).
 
 <StorybookEmbed
   id="primitive-components-checkbox--checkbox-checked-unchecked"
   mode="playground"
-  height={540}
+  height={700}
   stories={[
     {
       id: "primitive-components-checkbox--checkbox-checked-unchecked",
@@ -35,53 +32,208 @@ Checkboxes support multi-selection in forms, filters, and lists where options ar
     },
     {
       id: "primitive-components-checkbox--checkbox-indeterminate-unchecked",
-      label: "Indeterminate / unchecked",
+      label: "Indeterminate",
     },
   ]}
 />
 
+### Use cases
+
+- **Terms and permissions** — "I agree to the privacy policy" on member signup
+  flows.
+- **Multi-select filters** — activity types or tag categories in list filter
+  panels (prefer `CheckboxGroup` for managed groups).
+- **Bulk actions** — select rows in a table header with `indeterminate` when
+  only some rows are checked.
+- **Optional add-ons** — "Apply to future installments" on invoice payment
+  modals, submitted with Confirm.
+- **Feature toggles in forms** — enable an optional sub-section before save, not
+  live on the server.
+
+## Guidelines
+
+- **Deferred commit** — use Checkbox when the value is saved on submit; use
+  [Toggle](/components/toggle) when the UI updates immediately.
+- **Sensible default** — default to `checked` or `unchecked` based on what most
+  users need; avoid forcing a flip on every visit.
+- **Independent options** — each checkbox stands alone; for exactly-one choice
+  use [Radio](/components/radio).
+- **Controlled state** — parent owns `value` and `onChange`; the component does
+  not store selection internally.
+- **Indeterminate for parents** — set `value=\"indeterminate\"` on a "select
+  all" row when child rows are mixed.
+- **Group long lists** — stack options vertically; use `CheckboxGroup` when you
+  need shared group label, helper, or selection state.
+
 ### Best practices
 
-- Use checkboxes for multi-selection when users can choose multiple options independently.
-- Always provide a default state (checked or unchecked) that aligns with user expectations.
-- Use a disabled state when an option is unavailable but should remain visible.
-- When using a group of checkboxes, align them vertically for readability.
-- Implement `intermediate` state for checkboxes representing groups of sub-options.
+#### General
 
 <DoDont>
-  <Do caption={"Use for multiple selections in lists, filters, or settings."} />
-  <Dont
-    caption={
-      "Don't use checkboxes for single selection—use radio buttons instead."
-    }
-  />
-  <Dont
-    caption={
-      'Don\'t use negative phrasing in labels (e.g., "Do not enable notifications").'
-    }
-  />
-  <Dont
-    caption={
-      "Avoid using it to toggle an item on/off. The Checkbox Field selection needs to be submitted with a `Button`, in contrast to `Toggle`, which has an immediate response in the UI."
-    }
-  />
+  <Do caption="Phrase labels as positive, direct statements — 'Send booking reminders' — so checked means enabled." />
+  <Do caption="Use indeterminate on a parent checkbox when a nested list is only partly selected." />
+  <Do caption="Pair validation errors with errorText — 'Select at least one activity' — on submit." />
+  <Dont caption="Single on/off settings that save immediately belong on Toggle, not Checkbox." />
+  <Dont caption="Negative labels like 'Do not send emails' confuse intent — phrase positively with unchecked as the safe default." />
+  <Dont caption="A lone checkbox still needs a visible label — hiding it leaves the control without context." />
 </DoDont>
 
-## Code & Specs
+#### indeterminate value
+
+<DoDont>
+  <Do caption="Set indeterminate on 'Select all' when some child rows are checked and others are not." />
+  <Dont caption="Indeterminate should resolve to checked or unchecked once the user explicitly checks or clears the parent." />
+</DoDont>
+
+### Content rules
+
+Labels are sentence case, concise, and describe what checking enables.
+
+> Send email receipts
+
+> Apply to future installments of this invoice
+
+> Select all sessions
+
+Error text states the rule and what to fix.
+
+> Select at least one weekday.
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Input",
+      description:
+        "Native checkbox input with custom visuals (`CheckboxSVG` overlay). Supports checked, unchecked, and indeterminate.",
+    },
+    {
+      label: "Label",
+      description:
+        "Clickable label linked via `htmlFor` / `id`. Shows required asterisk when `required`.",
+    },
+    {
+      label: "Helper text",
+      description: "Optional `helperText` below the label row.",
+    },
+    {
+      label: "Error text",
+      description:
+        "Optional `errorText`; tints the checkbox critical and sets `aria-invalid`.",
+    },
+  ]}
+/>
 
 ### Props
 
 <PropsTable component="Checkbox" />
 
+### Behaviors
+
+#### Selection
+
+`onChange` receives a boolean. Map it to `value`: `checked` when true,
+`unchecked` when false. Indeterminate is visual-only — the next click typically
+moves to checked or unchecked based on your parent logic.
+
+#### Persistence
+
+State lives in the parent. Remounting with the same `value` restores the prior
+selection.
+
+#### Responsiveness
+
+The label wraps naturally; `direction=\"end\"` places the control on the right
+for RTL-like layouts or compact toolbars.
+
+### Edge cases
+
+#### Missing label
+
+The control still renders without `label`, but helper and error text only appear
+when a label is provided. Always pass `label` for accessible forms.
+
+#### Indeterminate + onChange
+
+Native `indeterminate` does not fire a separate event — clicking clears
+indeterminate per browser rules; handle parent/child sync in your state layer.
+
+#### Multiple instances
+
+Use `CheckboxGroup` or explicit vertical spacing (`gap-xs`) between standalone
+checkboxes.
+
 ## Accessibility
 
+### ARIA roles & attributes
+
+- **Role** — native `type=\"checkbox\"` with `role=\"checkbox\"`.
+- **`aria-checked`** — `\"true\"`, `\"false\"`, or `\"mixed\"` when
+  `value=\"indeterminate\"`.
+- **`aria-invalid`** — set when `errorText` is present.
+- **`aria-labelledby`** — references the label `id`.
+- **`aria-disabled`** — mirrors `disabled`.
+
+### Keyboard navigation
+
 <Accessibility
-  notes={
-    "Make sure the Radio Button is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the radio button state, especially for `has-error` and `disabled` states. Ensure labels are associated with their respective radio buttons for clear accessibility."
-  }
+  keyboard={[
+    { keys: ["Tab"], description: "Focus the checkbox input." },
+    { keys: ["Space"], description: "Toggle checked / unchecked." },
+  ]}
 />
+
+### Screen reader behavior
+
+Announces label, role, checked state (including mixed), required, and invalid
+states. Helper and error text follow the label in reading order.
+
+### Focus management
+
+Focus stays on the input. No trap. Label click moves focus and toggles the
+control.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — checked and error states use token surfaces
+  tested on default backgrounds.
+- **2.1.1 Keyboard** — fully operable with keyboard.
+- **4.1.2 Name, Role, Value** — name from label; state from `aria-checked`.
+- **4.1.3 Status Messages** — not a live region; form-level errors can use
+  [Alert](/components/alert) if needed.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Checkbox`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Checkbox in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-checkbox--checkbox-checked-unchecked)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Checkbox`
+
+### Related components
+
+- [Toggle](/components/toggle) — immediate binary settings without a submit step.
+- [Radio](/components/radio) — exactly one option from a set.
+- **CheckboxGroup** — group label, helper, and shared selection state
+  (`packages/design-system/kaizen/primitive/core/src/components/CheckboxGroup`).
+- [Shared form guidelines](/components/shared-form-guidelines) — label, helper,
+  and error conventions.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Helper/error require label** — helper and error rows render only when
+  `label` is set; a checkbox with error text but no label will not show the
+  message.
+- **`aria-labelledby={id}`** — points at the input id, not the label element;
+  association still works via native `<label htmlFor>` but the ARIA reference is
+  unconventional.
+
+#### Design or API debt
+
+- **No readonly mode** — use `disabled` today; readonly prop planned across form
+  controls ([KAI-453](https://linear.app/bsport/issue/KAI-453)).

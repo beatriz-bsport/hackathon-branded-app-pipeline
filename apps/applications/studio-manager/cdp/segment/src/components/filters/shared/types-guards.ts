@@ -1,40 +1,53 @@
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
-  ActivePassesFilter,
+  AGE_FILTER_IDENTIFIER,
+  type ActivePassesFilter,
+  type AgeFilter,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
-  BookingMilestoneFilter,
+  type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-  CreditAccountFilter,
+  type CreditAccountFilter,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
-  FirstPurchaseFilter,
+  type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
-  GenderFilter,
+  type GenderFilter,
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
+  LIABILITY_WAIVER_FILTER_IDENTIFIER,
   type LastBookingFilter,
+  type LiabilityWaiverFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
-  MemberDateJoinedFilter,
+  type MemberDateJoinedFilter,
+  NOTES_FILTER_IDENTIFIER,
+  type NotesFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
-  PaymentPackFilter,
-  PrivateBookingsFilter,
-  PrivatePassFilter,
+  type PaymentPackFilter,
+  type PrivateBookingsFilter,
+  type PrivatePassFilter,
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  type ReferredMemberFilter,
   TAG_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
-  TagFilter,
-  TotalBookingFilter,
+  type TagFilter,
+  type TermsAndConditionsFilter,
+  type TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
 /**
  * Filter type ids rendered and drafted by the segment smartlist filters manager.
  */
 export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
+  age: "age",
   gender: "gender",
   memberSignUpDate: "memberSignUpDate",
   passes: "passes",
@@ -46,10 +59,15 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
   basketAbandonment: "basketAbandonment",
+  purchaseHistory: "purchaseHistory",
+  referredMembers: "referredMembers",
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
+  termsAndConditions: "termsAndConditions",
+  liabilityWaiver: "liabilityWaiver",
   lastBooking: "lastBooking",
+  internalNotes: "internalNotes",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -61,6 +79,7 @@ export type SmartlistFiltersManagerFilterType =
 export const isSmartlistFiltersManagerFilterType = (
   value: string,
 ): value is SmartlistFiltersManagerFilterType =>
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.age ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
@@ -72,10 +91,15 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.basketAbandonment ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.purchaseHistory ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.referredMembers ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.termsAndConditions ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.liabilityWaiver ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes;
 
 export const isBasketAbandonmentFilter = (
   value: unknown,
@@ -88,6 +112,15 @@ export const isBasketAbandonmentFilter = (
   hasNumber(value, "basket_value") &&
   hasNumber(value, "basket_value_second") &&
   hasBoolean(value, "date_filter_active");
+
+export const isAgeFilter = (value: unknown): value is AgeFilter =>
+  hasFilterIdentifier(value, AGE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second");
 
 export const isCreditAccountFilter = (
   value: unknown,
@@ -238,6 +271,32 @@ export const isFirstPurchaseFilter = (
   hasNumber(value, "company_id") &&
   hasBoolean(value, "first_payment_is_done");
 
+export const isExpensesCompleteFilter = (
+  value: unknown,
+): value is ExpensesCompleteFilter =>
+  hasFilterIdentifier(value, EXPENSES_COMPLETE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second") &&
+  hasNumberArray(value, "buyable_identifiers") &&
+  hasBoolean(value, "date_filter_active");
+
+export const isReferredMemberFilter = (
+  value: unknown,
+): value is ReferredMemberFilter =>
+  hasFilterIdentifier(value, REFERRED_MEMBERS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "is_referred") &&
+  hasBoolean(value, "money_obtained_active") &&
+  hasNumber(value, "money_obtained_comparator") &&
+  hasNumber(value, "money_obtained") &&
+  hasNumber(value, "money_obtained_second");
+
 export const isMarketingNotificationFilter = (
   value: unknown,
 ): value is MarketingNotificationFilter =>
@@ -258,6 +317,24 @@ export const isHasPhoneFilter = (value: unknown): value is HasPhoneFilter =>
   hasNumber(value, "company") &&
   hasBoolean(value, "value");
 
+export const isTermsAndConditionsFilter = (
+  value: unknown,
+): value is TermsAndConditionsFilter =>
+  hasFilterIdentifier(value, TERMS_AND_CONDITIONS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "value");
+
+export const isLiabilityWaiverFilter = (
+  value: unknown,
+): value is LiabilityWaiverFilter =>
+  hasFilterIdentifier(value, LIABILITY_WAIVER_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "value");
+
 export const isLastBookingFilter = (
   value: unknown,
 ): value is LastBookingFilter =>
@@ -266,3 +343,10 @@ export const isLastBookingFilter = (
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&
   hasNumber(value, "value");
+
+export const isNotesFilter = (value: unknown): value is NotesFilter =>
+  hasFilterIdentifier(value, NOTES_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "date_filter_active");

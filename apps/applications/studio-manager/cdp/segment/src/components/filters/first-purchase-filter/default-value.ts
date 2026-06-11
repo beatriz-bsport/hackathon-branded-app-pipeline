@@ -1,4 +1,4 @@
-import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { FIRST_PURCHASE_STATUS } from "./constants";
@@ -17,6 +17,6 @@ export const createDefaultFirstPurchaseFilter = (
   smartlist: smartlistId,
   firstPurchaseStatus: FIRST_PURCHASE_STATUS.done,
   subFilters: [],
-  purchaseDate: defaultDateFilterValue,
+  purchaseDate: createDefaultDateFilterValue(),
   purchaseAmount: defaultNumericComparatorFilterValue,
 });

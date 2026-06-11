@@ -2,13 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
+  AGE_FILTER_IDENTIFIER,
   type ActivePassesFilter,
+  type AgeFilter,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
   type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   type CreditAccountFilter,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
@@ -16,45 +20,60 @@ import {
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
+  LIABILITY_WAIVER_FILTER_IDENTIFIER,
   type LastBookingFilter,
+  type LiabilityWaiverFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
   type MemberDateJoinedFilter,
+  NOTES_FILTER_IDENTIFIER,
+  type NotesFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type PrivateBookingsFilter,
   type PrivatePassFilter,
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  type ReferredMemberFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   type TagFilter,
+  type TermsAndConditionsFilter,
   type TotalBookingFilter,
   smartlistFiltersQueryOptions,
 } from "@bsport/api-cdp/smartlist";
 
 import {
   isActivePassesFilter,
+  isAgeFilter,
   isBasketAbandonmentFilter,
   isBookingMilestoneFilter,
   isCreditAccountFilter,
+  isExpensesCompleteFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
   isHasPhoneFilter,
   isLastBookingFilter,
+  isLiabilityWaiverFilter,
   isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
+  isNotesFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
   isPrivatePassFilter,
+  isReferredMemberFilter,
   isTagFilter,
+  isTermsAndConditionsFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
 
 type SmartlistFiltersQueryData = {
+  ageFilters: AgeFilter[];
   genderFilters: GenderFilter[];
   memberDateJoinedFilters: MemberDateJoinedFilter[];
   paymentPackFilters: PaymentPackFilter[];
@@ -66,10 +85,26 @@ type SmartlistFiltersQueryData = {
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
   basketAbandonmentFilters: BasketAbandonmentFilter[];
+  purchaseHistoryFilters: ExpensesCompleteFilter[];
+  referredMemberFilters: ReferredMemberFilter[];
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
+  termsAndConditionsFilters: TermsAndConditionsFilter[];
+  liabilityWaiverFilters: LiabilityWaiverFilter[];
   lastBookingFilters: LastBookingFilter[];
+  internalNotesFilters: NotesFilter[];
+};
+
+const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
+  const ageFiltersMap = payload?.[AGE_FILTER_IDENTIFIER];
+  if (!ageFiltersMap) {
+    return [];
+  }
+
+  return Object.values(ageFiltersMap)
+    .filter(isAgeFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
 const mapGenderFilters = (
@@ -230,6 +265,34 @@ const mapBasketAbandonmentFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapPurchaseHistoryFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ExpensesCompleteFilter[] => {
+  const purchaseHistoryFiltersMap =
+    payload?.[EXPENSES_COMPLETE_FILTER_IDENTIFIER];
+  if (!purchaseHistoryFiltersMap) {
+    return [];
+  }
+
+  return Object.values(purchaseHistoryFiltersMap)
+    .filter(isExpensesCompleteFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapReferredMemberFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ReferredMemberFilter[] => {
+  const referredMemberFiltersMap =
+    payload?.[REFERRED_MEMBERS_FILTER_IDENTIFIER];
+  if (!referredMemberFiltersMap) {
+    return [];
+  }
+
+  return Object.values(referredMemberFiltersMap)
+    .filter(isReferredMemberFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapMarketingNotificationFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): MarketingNotificationFilter[] => {
@@ -257,6 +320,34 @@ const mapHasPhoneFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapTermsAndConditionsFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): TermsAndConditionsFilter[] => {
+  const termsAndConditionsFiltersMap =
+    payload?.[TERMS_AND_CONDITIONS_FILTER_IDENTIFIER];
+  if (!termsAndConditionsFiltersMap) {
+    return [];
+  }
+
+  return Object.values(termsAndConditionsFiltersMap)
+    .filter(isTermsAndConditionsFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapLiabilityWaiverFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): LiabilityWaiverFilter[] => {
+  const liabilityWaiverFiltersMap =
+    payload?.[LIABILITY_WAIVER_FILTER_IDENTIFIER];
+  if (!liabilityWaiverFiltersMap) {
+    return [];
+  }
+
+  return Object.values(liabilityWaiverFiltersMap)
+    .filter(isLiabilityWaiverFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapLastBookingFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): LastBookingFilter[] => {
@@ -270,6 +361,19 @@ const mapLastBookingFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapInternalNotesFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): NotesFilter[] => {
+  const internalNotesFiltersMap = payload?.[NOTES_FILTER_IDENTIFIER];
+  if (!internalNotesFiltersMap) {
+    return [];
+  }
+
+  return Object.values(internalNotesFiltersMap)
+    .filter(isNotesFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -278,6 +382,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
   useQuery({
     ...smartlistFiltersQueryOptions(fetch, smartlistId),
     select: (data): SmartlistFiltersQueryData => ({
+      ageFilters: mapAgeFilters(data),
       genderFilters: mapGenderFilters(data),
       memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),
@@ -289,9 +394,14 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       basketAbandonmentFilters: mapBasketAbandonmentFilters(data),
+      purchaseHistoryFilters: mapPurchaseHistoryFilters(data),
+      referredMemberFilters: mapReferredMemberFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),
+      termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
+      liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
+      internalNotesFilters: mapInternalNotesFilters(data),
     }),
   });

@@ -12,7 +12,10 @@ import {
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
 } from "../constants";
-import { REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS } from "../sub-filters/registry";
+import {
+  REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS,
+  REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS_BY_ID,
+} from "../sub-filters/registry";
 import {
   TOTAL_APPOINTMENTS_SUB_FILTER_IDS,
   type TotalAppointmentsSubFilterField,
@@ -136,9 +139,8 @@ export const TotalAppointmentsSubFiltersArea = ({
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule = REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS.find(
-          (registeredModule) => registeredModule.id === subFilterId,
-        );
+        const subFilterModule =
+          REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS_BY_ID[subFilterId];
         if (!subFilterModule) {
           return null;
         }

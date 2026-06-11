@@ -137,10 +137,11 @@ export const usePaymentFlowModalState = ({
     mode: "onChange",
   });
 
-  const { data: member } = useFetchMember(fetch, memberId);
+  const { data: member } = useFetchMember(fetch, memberId, isOpen);
   const { data: invoice, isLoading: isLoadingInvoice } = useFetchInvoice(
     fetch,
     invoiceId,
+    isOpen,
   );
   const { data: stripeReaders = [], isLoading: isLoadingStripeReaders } =
     useFetchStripeReaders({ fetch, enabled: isOpen });

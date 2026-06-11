@@ -57,6 +57,12 @@
       "basketAbandonment": {
         "description": "Filter members who left items in an abandoned cart, by cart total and optional abandonment date."
       },
+      "purchaseHistory": {
+        "description": "Filter members by total amount spent on selected product types."
+      },
+      "age": {
+        "description": "Filter members by age in whole years, based on profile birthday in your studio timezone."
+      },
       "creditAccount": {
         "description": "Filter members by account balance (credit minus unpaid total), using a number comparison."
       },
@@ -65,6 +71,18 @@
       },
       "hasPhone": {
         "description": "Filter members by whether they provided a phone number on their account."
+      },
+      "referredMembers": {
+        "description": "Filter members by whether they were referred by another member, optionally by referral discount on first purchase."
+      },
+      "termsAndConditions": {
+        "description": "Filter members by whether they accepted the studio terms and conditions."
+      },
+      "liabilityWaiver": {
+        "description": "Filter members by whether they accepted the liability waiver."
+      },
+      "internalNotes": {
+        "description": "Filter members by whether they have internal notes, optionally by note type and creation date."
       }
     }
   },
@@ -131,6 +149,31 @@
         "signUpDateBetweenRequired": "Select both dates for the between range.",
         "signUpDateDurationRequired": "Enter a number of days.",
         "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "101": {
+      "title": "Member age",
+      "actions": {
+        "deleteFilter": "Delete member age filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "yearSuffix_one": "year",
+        "yearSuffix_other": "years"
+      },
+      "help": {
+        "infoLabel": "About member age filter",
+        "content": "Age is calculated in whole years from the member profile birthday, using your studio timezone. Members without a birthday on file are excluded when this filter is active."
+      },
+      "validation": {
+        "secondValueRequired": "Enter a maximum age for the range.",
+        "secondValueGreaterThanFirst": "The maximum age must be greater than or equal to the minimum age."
+      },
+      "toasts": {
+        "saveError": "Unable to save member age filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete member age filter.",
+        "invalidFilter": "Invalid filter."
       }
     },
     "1": {
@@ -473,6 +516,78 @@
         "abandonmentDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
+    "24": {
+      "title": "Total Amount Spent",
+      "actions": {
+        "deleteFilter": "Delete purchase history filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "spentOn": "Spent on",
+        "spentOnSearchPlaceholder": "Search items..."
+      },
+      "products": {
+        "pass": "Pass",
+        "appointmentPass": "Appointment Pass",
+        "shopItem": "Shop Item",
+        "pack": "Pack",
+        "workshopPass": "Pass used on Workshops"
+      },
+      "subFilters": {
+        "purchaseDate": "Purchase date"
+      },
+      "toasts": {
+        "saveError": "Unable to save purchase history filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete purchase history filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "totalSpentValueRequired": "Enter an amount.",
+        "totalSpentSecondValueRequired": "Enter both amounts for the between range.",
+        "totalSpentSecondValueGreaterThanFirst": "The upper amount must be greater than or equal to the lower amount.",
+        "spentOnRequired": "Select at least one product type.",
+        "spentOnInvalid": "One or more selected product types are invalid.",
+        "purchaseDateRequired": "Select a purchase date.",
+        "purchaseDateBetweenRequired": "Select both dates for the between range.",
+        "purchaseDateDurationRequired": "Enter a number of days.",
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "30": {
+      "title": "Referred by Member",
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "isReferredMember": "Is a referred member",
+        "isNotReferredMember": "Is not a referred member"
+      },
+      "actions": {
+        "deleteFilter": "Delete referred member filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+
+      "subFilters": {
+        "moneyObtained": "Earnings as referred member",
+        "moneyObtainedInfoLabel": "Earnings as referred member information",
+        "moneyObtainedHelp": "Sum of referred coupon line prices on the member's first completed purchase. Members who were referred but never completed a first purchase are excluded when this sub-filter is active."
+      },
+      "toasts": {
+        "saveError": "Unable to save referred member filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete referred member filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "moneyObtainedValueRequired": "Enter an earnings amount.",
+        "moneyObtainedSecondValueRequired": "Enter both amounts for the between range.",
+        "moneyObtainedBetweenRangeInvalid": "The upper amount must be greater than or equal to the lower amount."
+      }
+    },
     "28": {
       "title": "First purchase made",
       "status": {
@@ -545,6 +660,57 @@
         "atLeastOneChannelRequired": "Enable at least SMS or Email."
       }
     },
+    "410": {
+      "title": "Liability waiver",
+      "actions": {
+        "deleteFilter": "Delete liability waiver filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "accepted": "Accepted",
+        "notAccepted": "Not accepted"
+      },
+      "toasts": {
+        "saveError": "Unable to save liability waiver filter.",
+        "saveSuccess": "Liability waiver filter saved.",
+        "deleteError": "Unable to delete liability waiver filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "104": {
+      "title": "Has internal notes",
+      "actions": {
+        "deleteFilter": "Delete internal notes filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "noteType": {
+          "essential": "Essential Note",
+          "medical": "Medical Note",
+          "both": "Both"
+        }
+      },
+      "subFilters": {
+        "noteCreationDate": "Note creation date"
+      },
+      "toasts": {
+        "saveError": "Unable to save internal notes filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete internal notes filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "noteCreationDateRequired": "Select a note creation date.",
+        "noteCreationDateBetweenRequired": "Select both dates for the between range.",
+        "noteCreationDateDurationRequired": "Enter a number of days.",
+        "noteCreationDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
     "106": {
       "title": "Has phone",
       "actions": {
@@ -561,6 +727,25 @@
         "saveError": "Unable to save has phone filter.",
         "saveSuccess": "Has phone filter saved.",
         "deleteError": "Unable to delete has phone filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "107": {
+      "title": "Terms and conditions",
+      "actions": {
+        "deleteFilter": "Delete terms and conditions filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "accepted": "Accepted",
+        "notAccepted": "Not accepted"
+      },
+      "toasts": {
+        "saveError": "Unable to save terms and conditions filter.",
+        "saveSuccess": "Terms and conditions filter saved.",
+        "deleteError": "Unable to delete terms and conditions filter.",
         "invalidFilter": "Invalid filter."
       }
     },

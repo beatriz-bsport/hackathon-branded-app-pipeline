@@ -4,6 +4,7 @@ import { Card, DetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
 import { QueryBoundary } from "#src/components/query-boundary";
+import { ContractOverviewPanel } from "#src/features/contract-overview/panel";
 import {
   MembershipPlanList,
   MembershipPlanListLoading,
@@ -26,6 +27,9 @@ const ContractOverviewPageInner: FC = () => {
           </Card>
         </QueryBoundary>
       </DetailsLayout.Content>
+      <DetailsLayout.Panel>
+        <ContractOverviewPanel contract={contract} />
+      </DetailsLayout.Panel>
 
       {modals}
     </DetailsLayout>

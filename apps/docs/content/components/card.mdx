@@ -1,0 +1,315 @@
+---
+title: Card
+description: A bounded surface for grouping one concept — static border or actionable backdrop with interaction states
+status: stable
+category: components
+tags: [layout, container]
+source: "packages/design-system/kaizen/primitive/core/src/components/Card"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Card is a bounded container that groups one concept's worth of content inside a
+rounded surface. Set `actionable={false}` for structural grouping with a border;
+set `actionable={true}` when the whole region is one click target and needs
+rest, hover, pressed, and selected backdrop states. Card is a layout primitive —
+it does not ship title slots, media presets, or actions. Compose
+[Title](/components/title), [Body](/components/body), [Button](/components/button),
+and other Kaizen components as children.
+
+A card has to earn its place. When none of the rules in
+[Using cards](/patterns/using-cards) apply, use spacing, a divider, or a heading
+instead.
+
+<StorybookEmbed
+  id="primitive-components-card--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    { id: "primitive-components-card--primary", label: "Actionable" },
+    {
+      id: "primitive-components-card--complete-card-with-children",
+      label: "Static with children",
+    },
+    { id: "primitive-components-card--action-card", label: "Action card" },
+    { id: "primitive-components-card--short-text", label: "Short text" },
+    { id: "primitive-components-card--long-text", label: "Long text" },
+  ]}
+/>
+
+### Use cases
+
+- **Selectable choice** — large-target plan or option picker with `actionable`,
+  `elevated`, and `selected` (e.g. subscription plan comparison, booking-flow
+  multi-session toggle).
+- **Object / entity tile** — heterogeneous browse item where the whole card
+  navigates to detail (e.g. explore links on the homepage, mobile session cards
+  in booking).
+- **Page-level content group** — static bordered region separating one logical
+  block from several others on a settings or segment-filter page.
+- **Embedded table or list** — `padding="none"` wrapper around a table that sits
+  inside a layout rather than on a dedicated list page.
+- **Promotional or empty-state block** — static card for informational nudges,
+  or actionable when the entire surface is the CTA.
+
+## Guidelines
+
+- **Earn the boundary** — default to heading + spacing; reach for Card only when
+  the border or backdrop adds meaning, affordance, or separation. See
+  [Using cards](/patterns/using-cards).
+- **Pick the variant by interaction** — `actionable={false}` for structural
+  grouping; `actionable={true}` when the whole region is one click target.
+- **Group siblings consistently** — cards in a grid should share the same
+  variant; avoid mixing actionable and static neighbors in one row.
+- **Compose, don't configure** — Card has no title, media, or footer slots;
+  layout and content live in `children`.
+- **Reserve elevation for actionable** — `elevated` only affects actionable
+  cards; static cards always use the bordered elevated surface style.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Read [Using cards](/patterns/using-cards) before adding a card — if removing the border does not change meaning, spacing is enough." />
+  <Do caption="Lay out multiple sibling cards in a grid with consistent gap tokens so each unit scans as part of one collection." />
+  <Do caption="Use actionable cards when the whole region navigates, selects, or opens detail — the backdrop signals a single hit target." />
+  <Dont caption="Uniform directories, audit logs, and sortable record lists belong on Table or list rows — cards hide the comparison axis." />
+  <Dont caption="Every section on a single-purpose form page does not need its own card — the page is already the container." />
+  <Dont caption="Nested cards compete visually — if you need a card inside a card, the inner block is usually the real unit; the outer wrapper should be heading + spacing." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+Mixing actionable and static cards in the same grid teaches the wrong affordance
+— users hover the first card and expect the rest to respond. Split them into
+labeled sections instead.
+
+</Callout>
+
+#### Static (`actionable={false}`)
+
+<DoDont>
+  <Do caption="Use for page-level groupings on settings or detail views when several unrelated blocks need visual separation on one screen." />
+  <Dont caption="A border alone cannot communicate click me — whole-surface navigation needs actionable={true} or an explicit link or button inside." />
+</DoDont>
+
+#### Actionable (`actionable={true}`)
+
+<DoDont>
+  <Do caption="Pair elevated and selected when the card is one option in a selectable group — e.g. current plan vs other plans." />
+  <Dont caption="A primary button inside a section does not require wrapping the whole section in an actionable card — buttons already carry affordance." />
+</DoDont>
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Root container (`<div>`)",
+      description:
+        'Rounded surface that receives variant props, padding, and optional click handling. Renders `data-component="Kaizen-Card"`.',
+    },
+    {
+      label: "Children (`children`)",
+      description:
+        "Arbitrary React content — titles, body text, media, buttons, tables, or form fields composed by the consumer.",
+    },
+  ]}
+/>
+
+### Props
+
+<PropsTable
+  component="Card"
+  overrides={{
+    actionable: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "When true, applies actionable backdrop tokens (rest, hover, pressed, selected) and enables `onClick`. When false, renders a static bordered surface.",
+    },
+    elevated: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "Visual weight for actionable cards. `true` adds border and shadow elevation; `false` uses the weaker action surface. Ignored when `actionable={false}`.",
+    },
+    selected: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        "Selected state for actionable cards in a choice group. Only applies when `actionable={true}`.",
+    },
+    padding: {
+      type: '"default" | "sm" | "none"',
+      defaultValue: '"default"',
+      description:
+        "`default` (`p-md`) for most content; `sm` (`p-2xs`) for dense nested cards; `none` for edge-to-edge children such as tables or media.",
+    },
+    onClick: {
+      type: "() => void",
+      description:
+        "Click handler. Only invoked when `actionable={true}` and the user clicks the root container.",
+    },
+    className: {
+      type: "string",
+      description:
+        "Additional Tailwind classes for layout (flex, gap) or consumer-specific overrides.",
+    },
+  }}
+/>
+
+### Behaviors
+
+#### Persistence
+
+Card is presentational — it survives re-renders and navigation as long as the
+parent keeps it mounted. Selected state is controlled via the `selected` prop.
+
+#### Responsiveness
+
+Card does not change layout at breakpoints. Multi-column card grids should
+collapse to a single column at narrow widths in the parent layout; below ~320px
+wide, consider switching dense collections to a list pattern (see
+[Using cards](/patterns/using-cards)).
+
+### Edge cases
+
+#### onClick without actionable
+
+`onClick` is ignored when `actionable={false}` — the handler never runs.
+
+#### selected without actionable
+
+`selected` has no visual effect when `actionable={false}`; selected styling is
+wired only to actionable variant tokens.
+
+#### padding="none" with media or tables
+
+Children extend to the card edge. Add `overflow-hidden` on the root via
+`className` when rounded corners must clip inner content — the component does
+not clip by default.
+
+#### Multiple instances
+
+Stack or grid sibling cards in the parent; Card does not coordinate selection
+across a group — the parent owns which card has `selected={true}`.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+The root element is a `<div>` with `data-component="Kaizen-Card"`. Kaizen does
+not set `role`, `tabIndex`, or `aria-*` attributes automatically.
+
+- **Static cards** — treated as presentational grouping; expose structure through
+  child headings and landmarks.
+- **Actionable cards** — the root is clickable but not focusable by default;
+  consumers must add keyboard support (see below).
+- **Child controls** — buttons, links, and checkboxes inside the card keep their
+  own roles; avoid duplicating the same action on both the root and a child.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Moves through focusable children inside the card (buttons, links, inputs). The card root is not in tab order unless you add tabIndex or wrap it in a focusable element.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description:
+        "Activate focused child controls. They do not activate the card root onClick unless you wire that separately.",
+    },
+  ]}
+/>
+
+For whole-card navigation or selection, prefer wrapping content in a `<button>`
+or `<a>`, or render the card inside a focusable control with an accessible name.
+The built-in `onClick` on a `<div>` is pointer-only.
+
+### Screen reader behavior
+
+Screen readers announce child content in document order. The card container
+itself has no accessible name unless you provide one via a child heading or an
+`aria-label` on the root.
+
+Actionable cards do not announce selected state automatically — pair `selected`
+with visible copy or `aria-pressed` / `aria-current` on a proper interactive
+wrapper when the selection matters to assistive tech.
+
+### Focus management
+
+Card does not trap or move focus. When an actionable card navigates away, focus
+behavior is owned by the destination route or overlay.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — static and actionable surfaces use design-system
+  tokens; verify contrast when overriding backgrounds via `className`.
+- **2.1.1 Keyboard** — default actionable pattern is not fully keyboard-operable;
+  add a focusable wrapper or native control for whole-card actions.
+- **2.4.6 Headings and Labels** — use child Title or heading elements so grouped
+  content is programmatically discernible.
+- **4.1.2 Name, Role, Value** — name comes from visible child text or an explicit
+  label on an interactive wrapper; the default div root does not expose button
+  semantics.
+- **4.1.3 Status Messages** — not applicable; use [Alert](/components/alert) or
+  [Toast](/components/toast) for system feedback.
+
+## Resources
+
+### Storybook
+
+[Open Card in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-card--primary)
+
+Source: `packages/design-system/kaizen/primitive/core/src/components/Card`
+
+### Related components
+
+- [Using cards](/patterns/using-cards) — when a bounded card surface earns its
+  place instead of spacing or dividers.
+- [Panel](/components/panel) — larger persistent side container for metadata and
+  contextual controls on detail pages; not interchangeable with Card.
+- [Analytic card](/components/analytic-card) — display-only metric card that
+  composes Card with Body, Icon, and Popover for dashboard KPIs.
+- [Button](/components/button) — primary actions inside a card; does not require
+  making the whole card actionable.
+- [Table](/components/table) — dense homogeneous records where column comparison
+  matters more than bounded tiles.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-842](https://linear.app/bsport/issue/KAI-842) — Content overflow at rounded corners (Scoping).
+- [KAI-637](https://linear.app/bsport/issue/KAI-637) — Selected actionable card adds a 2px border and shifts layout vs default (Backlog).
+- [KAI-638](https://linear.app/bsport/issue/KAI-638) — Selected state for non-actionable static cards (Scoping).
+- [KAI-584](https://linear.app/bsport/issue/KAI-584) — `weak` surface variant used in product but not exposed on Card (Scoping).
+- [KAI-844](https://linear.app/bsport/issue/KAI-844) — No `disabled` prop or visual state for actionable cards (Triage).
+- [KAI-845](https://linear.app/bsport/issue/KAI-845) — Actionable card root is not keyboard operable (Triage).
+- [KAI-846](https://linear.app/bsport/issue/KAI-846) — Nested interactives inside actionable cards create overlapping click targets (Triage).
+
+#### Implementation gaps
+
+- **No overflow clipping** — `rounded-md` does not clip children; edge-to-edge
+  media or tables can square off corners unless the consumer adds
+  `overflow-hidden` (see KAI-842).
+- **`selected` requires actionable** — static cards cannot show a selected border
+  through props today (see KAI-638).
+
+#### Design or API debt
+
+- **Teams hardcode weak surfaces** — several apps pass custom `className`
+  backgrounds instead of a first-class variant (tracked as KAI-584).

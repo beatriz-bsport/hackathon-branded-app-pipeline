@@ -1,0 +1,147 @@
+---
+title: Checkbox group [LLM]
+description: A set of related checkboxes with shared layout and selection semantics
+status: stable
+category: components
+tags: [forms, selection]
+source: "packages/design-system/kaizen/primitive/core/src/components/CheckboxGroup"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Reference"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Checkbox group renders multiple [Checkbox](/components/checkbox) options under one
+logical field — permissions, week-day toggles, or multi-select filters. It supports
+declarative option lists and composable children for custom layouts.
+
+<StorybookEmbed
+  id="primitive-components-checkboxgroup--declarative-and-uncontrolled"
+  mode="playground"
+  height={600}
+  stories={[
+    {
+      id: "primitive-components-checkboxgroup--declarative-and-uncontrolled",
+      label: "Declarative",
+    },
+    {
+      id: "primitive-components-checkboxgroup--declarative-and-controlled",
+      label: "Controlled",
+    },
+    {
+      id: "primitive-components-checkboxgroup--composable",
+      label: "Composable",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Weekday recurrence** — select days a class repeats in scheduling.
+- **Notification channels** — email, SMS, push toggles in account settings.
+- **Export columns** — choose which fields to include in a CSV export.
+- **Permission bundles** — staff role capabilities in admin tools.
+- **Filter facets** — multi-select category filters in list toolbars.
+
+## Guidelines
+
+- **Group label** — name the set ("Visible on") with a legend or section title.
+- **Independent options** — unlike radio, multiple selections are allowed unless you enforce one.
+- **Controlled for forms** — bind value to form state in Studio Manager wizards.
+- **Vertical stack default** — horizontal only for short binary pairs.
+- **Disable entire group** — when the feature is unavailable, disable all options and explain why.
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Use when users may select zero, one, or many options." />
+  <Do caption="Keep option labels parallel — each starts with the same grammatical form." />
+  <Do caption="Show indeterminate parent checkbox when implementing select-all patterns." />
+  <Dont caption="Mutually exclusive choices — use Radio group instead." />
+  <Dont caption="More than eight options without search — consider multi-select dropdown." />
+  <Dont caption="Pre-selecting marketing opt-ins without clear consent copy." />
+</DoDont>
+
+### Content rules
+
+Option labels are concise:
+
+> Monday
+
+> Send email reminders
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Group container",
+      description: "Layouts checkboxes with shared spacing.",
+    },
+    { name: "Checkbox items", description: "Individual labeled checkboxes." },
+  ]}
+/>
+
+### Props
+
+<PropsTable component="CheckboxGroup" />
+
+### Behaviors
+
+#### Persistence
+
+Controlled mode reflects parent state; uncontrolled uses internal state until synced.
+
+### Edge cases
+
+- **Select all** — implement at parent level; indeterminate state on parent checkbox.
+- **Empty selection** — valid unless business rules require at least one.
+
+## Accessibility
+
+### ARIA roles & attributes
+
+Group should use `fieldset`/`legend` or `role="group"` with `aria-labelledby` when composed manually.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Moves between checkbox inputs." },
+    { keys: ["Space"], description: "Toggles focused checkbox." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Each option announces label and checked state. Group name from legend.
+
+### Focus management
+
+Focus order follows DOM order of checkboxes.
+
+### WCAG criteria
+
+- **2.1.1 Keyboard** — toggle without pointer.
+- **3.3.2 Labels or Instructions** — group and option labels.
+- **4.1.2 Name, Role, Value** — checked state exposed.
+
+## Resources
+
+### Storybook
+
+[Open Checkbox group in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-checkboxgroup--declarative-and-uncontrolled)
+
+### Related components
+
+- **[Checkbox](/components/checkbox)** — single boolean control.
+- **[Dropdown multi select](/components/dropdown-multi-select)** — compact multi-select in menus.
+- **[Filter](/components/filter)** — filter UI that may embed checkbox facets.

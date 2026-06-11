@@ -40,7 +40,10 @@ export const Empty: Story = {
   parameters: {
     msw: { handlers: makeInboxHandlers({ dataset: [] }) },
     docs: {
-      description: { story: "No conversations have been started yet." },
+      description: {
+        story:
+          "No conversations have been started yet — renders the `ThreadListEmpty` placeholder (illustration + message).",
+      },
     },
   },
 };
@@ -73,7 +76,7 @@ export const NextPageError: Story = {
     docs: {
       description: {
         story:
-          "The first page loads fine, but fetching the next page fails with a 500. No scrolling is needed: the overscan-driven prefetch requests page 2 right after mount. ⚠️ This surfaces a known bug — the whole loaded list is replaced by the error state instead of showing an inline error on the trailing row.",
+          "The first page loads fine, but fetching the next page fails with a 500. No scrolling is needed: the overscan-driven prefetch requests page 2 right after mount. The already-loaded list stays on screen; a persistent critical toast appears with a 'Try again' action, and the trailing load-more row offers a matching retry. Retrying re-requests page 2 (which keeps failing under this mock, so the toast re-fires).",
       },
     },
   },

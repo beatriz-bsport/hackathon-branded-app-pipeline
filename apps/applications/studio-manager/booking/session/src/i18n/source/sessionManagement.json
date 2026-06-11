@@ -323,6 +323,22 @@
       "title": "Tags",
       "authorised": "Authorised participants",
       "unauthorised": "Unauthorised participants"
+    },
+    "recurringBookings": {
+      "title": "Recurring bookings",
+      "viewAriaLabel": "View recurring bookings",
+      "memberCount": "{{count}} member is automatically enrolled for this session",
+      "memberCount_other": "{{count}} members are automatically enrolled for this session",
+      "modalTitle": "Recurring bookings",
+      "modalDescription": "These members are automatically registered for this session based on their recurring booking schedule.",
+      "schedule": "Every {{weekday}} {{time}}",
+      "columns": {
+        "client": "Client",
+        "schedule": "Schedule",
+        "week": "Week"
+      },
+      "openMemberAriaLabel": "Open member bookings",
+      "noAccessTooltip": "You don't have access to members' profiles"
     }
   },
   "bookingFlow": {

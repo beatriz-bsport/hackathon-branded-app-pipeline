@@ -4,7 +4,7 @@
   "private": true,
   "description": "Datetime Formatting",
   "license": "UNLICENSED",
-  "author": "Th\u00e9o Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -26,19 +26,24 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {},
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
     "@types/luxon": "^3.4.2",
-    "luxon": "^3.4.4"
+    "luxon": "^3.4.4",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "luxon": "^3.4.4"
   },
   "nx": {
     "tags": [
+      "execute:unit-tests",
       "postinstall"
     ]
   }

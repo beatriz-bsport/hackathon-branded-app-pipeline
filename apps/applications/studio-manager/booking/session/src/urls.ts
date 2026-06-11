@@ -28,6 +28,7 @@ export const URLS = {
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
+  MEMBER_BOOKINGS: (memberId: number) => `/member/${memberId}/bookings`,
   ADD_MEMBER: "/member/add",
   PASS_DETAILS: (passId: number) => `/payment-pack/${passId}`,
   MEMBER_NOTES: (memberId: number) => `/member/${memberId}/info#member-notes`,

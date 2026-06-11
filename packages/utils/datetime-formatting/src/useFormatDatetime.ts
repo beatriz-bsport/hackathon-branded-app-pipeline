@@ -144,6 +144,38 @@ export const formatDateTimeFromDate = (
 };
 
 /**
+ * Formats an hour/minute pair as a locale-aware clock time, e.g. "14:05" or
+ * "2:05 PM". Use this for a time of day that has no date or timezone attached
+ * (e.g. a weekly recurrence slot), where `formatDateTime` /
+ * `formatDateTimeFromDate` can't be used because there is no timestamp to parse.
+ *
+ * Only `locale` affects the result: the parts are treated as wall-clock time, so
+ * no timezone conversion is applied.
+ *
+ * @param hour - Hour of the day (0-23)
+ * @param minute - Minute of the hour (0-59)
+ * @param options - Optional formatting options; only `locale` is used (defaults
+ *   to en-US, i.e. a 12-hour clock)
+ * @returns formatted clock time as string
+ *
+ * @example
+ * ```ts
+ * formatClockTimeFromParts(14, 5, { locale: "en-GB" }); // "14:05"
+ * formatClockTimeFromParts(14, 5, { locale: "en-US" }); // "2:05 PM"
+ * formatClockTimeFromParts(14, 5); // "2:05 PM" (defaults to en-US)
+ * ```
+ */
+export const formatClockTimeFromParts = (
+  hour: number,
+  minute: number,
+  options: DateTimeFormatOptions = {},
+): string => {
+  const { locale } = { ...DEFAULT_OPTIONS, ...options };
+  const dateTime = DateTime.fromObject({ hour, minute }, { locale });
+  return formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
+};
+
+/**
  * Internal function to handle different format types
  */
 function formatByType(

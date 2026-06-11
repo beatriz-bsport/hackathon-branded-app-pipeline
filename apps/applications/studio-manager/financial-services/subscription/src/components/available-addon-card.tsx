@@ -69,13 +69,12 @@ const AvailableAddonCard: FC<AvailableAddonCardProps> = ({ pack }) => {
             {priceSuffix}
           </Body>
         </div>
-        <div className="flex gap-xs">
+        <div className="flex items-center gap-xs">
           {pack.learnMoreUrl && (
             <a
               href={pack.learnMoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex"
             >
               <Button
                 label={t("addons.learn-more")}

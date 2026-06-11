@@ -100,6 +100,51 @@
       "insights-franchise": "Insights — Franchise"
     }
   },
+  "billing": {
+    "loading": "Loading billing...",
+    "error": "Unable to load billing data.",
+    "retry": "Try again",
+    "alert": {
+      "title": "Your latest invoice failed",
+      "description": "We couldn't charge your default payment method. Update it or retry the invoice to keep access to all features."
+    },
+    "payment-method": {
+      "title": "Your payment method",
+      "none": "No payment method available.",
+      "add-new-method": "Add new method",
+      "description": "Your bsport subscription will be charged to this payment method.",
+      "confirm": "Confirm payment method change",
+      "current": "Current"
+    },
+    "invoice-history": {
+      "title": "Invoice history",
+      "empty": "No invoices yet.",
+      "columns": {
+        "invoice": "Invoice",
+        "date": "Date",
+        "amount": "Amount",
+        "status": "Status"
+      },
+      "status": {
+        "paid": "Paid",
+        "failed": "Failed",
+        "disputed": "Disputed",
+        "missing-charge": "No charge attempt",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      },
+      "download": "Download",
+      "pay-now": "Pay now",
+      "pay-now-error": "Payment failed. Please try again or contact support."
+    },
+    "update-payment-method": {
+      "add-new": "Add a new payment method",
+      "cancel": "Cancel",
+      "save": "Save",
+      "success": "Payment method updated successfully.",
+      "error": "Failed to update payment method. Please try again."
+    }
+  },
   "addons": {
     "loading": "Loading addons...",
     "error": "Unable to load addons.",

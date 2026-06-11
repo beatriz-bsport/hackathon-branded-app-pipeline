@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "CanonicalizeKeys",
+  "title": "Replace a resource key factory with the canonical shape and rewrite call sites",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "API package (e.g., cdp, api-cdp or @bsport/api-cdp)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Which API package?"
+    },
+    "resource": {
+      "type": "string",
+      "description": "Resource whose key factory to canonicalize (e.g., member)"
+    },
+    "mapFile": {
+      "type": "string",
+      "description": "Path to a JSON file: { factoryName?, factorySource (object literal), callRewrites? }"
+    }
+  },
+  "required": ["appName", "resource", "mapFile"]
+}

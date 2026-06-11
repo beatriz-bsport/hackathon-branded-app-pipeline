@@ -8,6 +8,7 @@ import type {
   ApiConfig,
   Fetch,
   PaginatedResponse,
+  ResponseType,
   Xhr,
   XhrApiConfig,
 } from "@bsport/store-base";
@@ -65,6 +66,31 @@ export function createMutationOptions<FetchResult, Params>(
     mutationOptions({
       mutationFn: (params: Params) =>
         createAPI<FetchResult, Params>(apiConfigBuilder)(fetch, params),
+    });
+}
+
+// ----------------------------------------------------------------------------
+
+export function createBgTaskAPI<FetchResult, Params>(
+  apiConfigBuilder: ApiConfigBuilder<Params>,
+) {
+  return async (
+    fetch: Fetch<FetchResult>,
+    params: Params,
+  ): Promise<ResponseType<FetchResult>> => {
+    const [uri, init] = apiConfigBuilder(params);
+
+    return await fetch(uri, init);
+  };
+}
+
+export function createBgTaskMutationOptions<FetchResult, Params>(
+  apiConfigBuilder: ApiConfigBuilder<Params>,
+) {
+  return (fetch: Fetch<FetchResult>) =>
+    mutationOptions({
+      mutationFn: (params: Params) =>
+        createBgTaskAPI<FetchResult, Params>(apiConfigBuilder)(fetch, params),
     });
 }
 

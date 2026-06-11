@@ -1,5 +1,30 @@
 {
   "generators": {
+    "audit-api": {
+      "implementation": "./src/generators/audit-api/generator",
+      "schema": "./src/generators/audit-api/schema.json",
+      "description": "Audit a packages/api/* package against ADR-0001 TanStack Query conventions (read-only)"
+    },
+    "vanillaize-builders": {
+      "implementation": "./src/generators/vanillaize-builders/generator",
+      "schema": "./src/generators/vanillaize-builders/schema.json",
+      "description": "Move app-preference options out of a resource's option builders to consumer call sites (ADR-0001 Rule 1)"
+    },
+    "canonicalize-keys": {
+      "implementation": "./src/generators/canonicalize-keys/generator",
+      "schema": "./src/generators/canonicalize-keys/schema.json",
+      "description": "Replace a resource's query-key factory with the canonical shape and rewrite call sites (ADR-0001 Rule 4)"
+    },
+    "migrate-barrel-imports": {
+      "implementation": "./src/generators/migrate-barrel-imports/generator",
+      "schema": "./src/generators/migrate-barrel-imports/schema.json",
+      "description": "Move a resource's symbols off an API package root barrel onto its subpath (ADR-0001 Rule 3)"
+    },
+    "delete-barrel": {
+      "implementation": "./src/generators/delete-barrel/generator",
+      "schema": "./src/generators/delete-barrel/schema.json",
+      "description": "Delete an API package root barrel once no consumer imports from it (ADR-0001 Rule 3)"
+    },
     "migrate-to-library": {
       "implementation": "./src/generators/migrate-to-library/generator",
       "schema": "./src/generators/migrate-to-library/schema.json",

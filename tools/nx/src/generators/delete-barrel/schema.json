@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "DeleteBarrel",
+  "title": "Delete a package root barrel (gated on zero remaining barrel imports)",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "API package (e.g., cdp, api-cdp or @bsport/api-cdp)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Which API package?"
+    },
+    "force": {
+      "type": "boolean",
+      "description": "Delete even if consumers still import from the root barrel",
+      "default": false
+    }
+  },
+  "required": ["appName"]
+}

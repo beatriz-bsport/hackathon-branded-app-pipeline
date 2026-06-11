@@ -178,7 +178,7 @@ export const AutocompleteControlled: React.FC<AutocompleteControlledProps> = ({
       data-component="Kaizen-Autocomplete"
       className={autocomplete({ className, fullWidth: fullWidth })}
     >
-      <Popover className={classNames({ "w-full": fullWidth })}>
+      <Popover fullWidth={fullWidth}>
         <Popover.Anchor>
           {({ setIsPopoverOpened, isPopoverOpened }) => {
             const openPopover = () => {

@@ -188,7 +188,7 @@ const Select: React.FC<SelectProps> = ({
     >
       <Label htmlFor={id} required={required} label={label} />
 
-      <Popover className={classNames({ "w-full": fullWidth })}>
+      <Popover fullWidth={fullWidth}>
         <Popover.Anchor>
           {({ isPopoverOpened, setIsPopoverOpened }) => {
             const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);

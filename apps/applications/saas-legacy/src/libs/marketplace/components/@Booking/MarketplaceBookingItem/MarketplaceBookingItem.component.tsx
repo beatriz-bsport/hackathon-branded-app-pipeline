@@ -143,14 +143,16 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             direction={Direction.ROW}
             rowStart={2}
           >
-            <WaitlistPositionChip
-              classes={{
-                'bs-booker-module-offer-summary-item__chip': true,
-              }}
-              isRegisteredInWaitlist={true}
-              isWaitlistFull={false}
-              positionInWaitingList={positionInWaitingList}
-            />
+            {hasStatusChip && (
+              <WaitlistPositionChip
+                classes={{
+                  'bs-booker-module-offer-summary-item__chip': true,
+                }}
+                isRegisteredInWaitlist={true}
+                isWaitlistFull={false}
+                positionInWaitingList={positionInWaitingList}
+              />
+            )}
           </GridItem>
           <GridItem
             classes={{
@@ -170,10 +172,12 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             direction={Direction.ROW}
             rowStart={2}
           >
-            <MarketplaceLevelCSSOnly
-              className="bs-booking-item-level"
-              customLevel={level}
-            />
+            {level && (
+              <MarketplaceLevelCSSOnly
+                className="bs-booking-item-level"
+                customLevel={level}
+              />
+            )}
           </GridItem>
           {shouldDisplayAddGuestButton && !errorMessage && (
             <GridItem

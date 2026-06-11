@@ -99,7 +99,6 @@ export type PassDetails = {
   penalty_kind: number;
   penalty_days_blocked: number;
   penalty_account_value: number;
-  // penalty_mode_franchisor: string; // not in legacy
 
   no_show_penalty_active: boolean;
   no_show_penalty_threshold: number;
@@ -107,7 +106,6 @@ export type PassDetails = {
   no_show_penalty_kind: number;
   no_show_penalty_days_blocked: number;
   no_show_penalty_amount: number;
-  no_show_penalty_mode_franchisor: string; // ChoiceField
 
   off_peak_schedule: Record<string, string[][]>;
 

@@ -29,9 +29,11 @@ import {
   type MemberDateJoinedFilter,
   NOTES_FILTER_IDENTIFIER,
   type NotesFilter,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
+  type PaymentMethodFilter,
   type PaymentPackFilter,
   type PrivateBookingsFilter,
   type PrivatePassFilter,
@@ -62,6 +64,7 @@ import {
   isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isNotesFilter,
+  isPaymentMethodFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
   isPrivatePassFilter,
@@ -94,6 +97,7 @@ type SmartlistFiltersQueryData = {
   liabilityWaiverFilters: LiabilityWaiverFilter[];
   lastBookingFilters: LastBookingFilter[];
   internalNotesFilters: NotesFilter[];
+  paymentMethodFilters: PaymentMethodFilter[];
 };
 
 const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
@@ -374,6 +378,19 @@ const mapInternalNotesFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapPaymentMethodFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): PaymentMethodFilter[] => {
+  const paymentMethodFiltersMap = payload?.[PAYMENT_METHOD_FILTER_IDENTIFIER];
+  if (!paymentMethodFiltersMap) {
+    return [];
+  }
+
+  return Object.values(paymentMethodFiltersMap)
+    .filter(isPaymentMethodFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -403,5 +420,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
       internalNotesFilters: mapInternalNotesFilters(data),
+      paymentMethodFilters: mapPaymentMethodFilters(data),
     }),
   });

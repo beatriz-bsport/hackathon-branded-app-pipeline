@@ -14,6 +14,7 @@ export * from "./filter/last-booking/types";
 export * from "./filter/liability-waiver/types";
 export * from "./filter/marketing-notification/types";
 export * from "./filter/member-date-joined/types";
+export * from "./filter/payment-method/types";
 export * from "./filter/payment-pack/types";
 export * from "./filter/private-bookings/types";
 export * from "./filter/private-pass/types";

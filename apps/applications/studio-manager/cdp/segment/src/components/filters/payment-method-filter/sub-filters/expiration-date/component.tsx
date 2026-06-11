@@ -3,19 +3,18 @@ import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 import { DateFilter } from "#src/components/primitive-filters/date-filter/date-filter";
 import { useTranslation } from "#src/utils/i18n";
 
-import type { TotalAppointmentsSubFilterSectionProps } from "../total-appointments-sub-filter-section-props";
+import type { PaymentMethodSubFilterSectionProps } from "../payment-method-sub-filter-section-props";
 
 /**
- * Appointment date scope for the total appointments count, using the shared
- * fixed-or-relative date primitive (mirrors total booking session dates).
+ * Renders the payment method expiration date sub-filter using the shared date primitive.
  */
-export const BookingDateSubFilterSection = ({
+export const ExpirationDateSubFilterSection = ({
   id,
   value,
   errors,
   setValue,
   onRemove,
-}: TotalAppointmentsSubFilterSectionProps) => {
+}: PaymentMethodSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
 
   return (
@@ -23,14 +22,14 @@ export const BookingDateSubFilterSection = ({
       <div className="flex flex-col gap-xs">
         <div className="flex items-center justify-between">
           <Body size="lg" weight="strong">
-            {t("filters.26.subFilters.appointmentDate")}
+            {t("filters.600.subFilters.expirationDate")}
           </Body>
           <Button
             kind="icon-button"
             icon="trash-01"
             size="sm"
-            label={t("filters.26.actions.removeSubFilter", {
-              subFilterLabel: t("filters.26.subFilters.appointmentDate"),
+            label={t("filters.600.actions.removeSubFilter", {
+              subFilterLabel: t("filters.600.subFilters.expirationDate"),
             })}
             intent="flat"
             color="default"
@@ -39,19 +38,22 @@ export const BookingDateSubFilterSection = ({
         </div>
         <DateFilter
           id={id}
-          value={value.bookingDate}
+          value={value.expirationDate}
           onChange={(nextValue) =>
-            setValue("bookingDate", nextValue, { shouldDirty: true })
+            setValue("expirationDate", nextValue, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
           }
           errors={{
             absoluteFromDate:
-              errors.bookingDate?.absolute?.fromDate?.message?.toString(),
+              errors.expirationDate?.absolute?.fromDate?.message?.toString(),
             absoluteToDate:
-              errors.bookingDate?.absolute?.toDate?.message?.toString(),
+              errors.expirationDate?.absolute?.toDate?.message?.toString(),
             relativeFirstDays:
-              errors.bookingDate?.relative?.firstDays?.message?.toString(),
+              errors.expirationDate?.relative?.firstDays?.message?.toString(),
             relativeSecondDays:
-              errors.bookingDate?.relative?.secondDays?.message?.toString(),
+              errors.expirationDate?.relative?.secondDays?.message?.toString(),
           }}
         />
       </div>

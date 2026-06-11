@@ -44,19 +44,14 @@ export const PurchaseDateSubFilterSection = ({
             setValue("purchaseDate", nextValue, { shouldDirty: true })
           }
           errors={{
-            absoluteFromDate: errors.purchaseDate?.absolute?.fromDate?.message
-              ? String(errors.purchaseDate.absolute.fromDate.message)
-              : undefined,
-            absoluteToDate: errors.purchaseDate?.absolute?.toDate?.message
-              ? String(errors.purchaseDate.absolute.toDate.message)
-              : undefined,
-            relativeFirstDays: errors.purchaseDate?.relative?.firstDays?.message
-              ? String(errors.purchaseDate.relative.firstDays.message)
-              : undefined,
-            relativeSecondDays: errors.purchaseDate?.relative?.secondDays
-              ?.message
-              ? String(errors.purchaseDate.relative.secondDays.message)
-              : undefined,
+            absoluteFromDate:
+              errors.purchaseDate?.absolute?.fromDate?.message?.toString(),
+            absoluteToDate:
+              errors.purchaseDate?.absolute?.toDate?.message?.toString(),
+            relativeFirstDays:
+              errors.purchaseDate?.relative?.firstDays?.message?.toString(),
+            relativeSecondDays:
+              errors.purchaseDate?.relative?.secondDays?.message?.toString(),
           }}
         />
       </div>

@@ -40,12 +40,10 @@ import {
 } from "./filter-selector-popover";
 import { FILTER_SELECTOR_CATEGORIES } from "./filter-selector.constants";
 import { FirstPurchaseFilterCard } from "./first-purchase-filter/components/first-purchase-filter-card";
-import { FirstPurchaseFilterCardSkeleton } from "./first-purchase-filter/components/first-purchase-filter-card-skeleton";
 import { createDefaultFirstPurchaseFilter } from "./first-purchase-filter/default-value";
 import { mapFirstPurchaseFilterToFormValue } from "./first-purchase-filter/mappers/api-to-form-value";
 import type { FirstPurchaseFilterFormValue } from "./first-purchase-filter/types";
 import { GenderFilterCard } from "./gender-filter/components/gender-filter-card";
-import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filter-card-skeleton";
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
@@ -78,13 +76,15 @@ import { PassesFilterCardWithData } from "./passes-filter/components/passes-filt
 import { createDefaultPassesFilter } from "./passes-filter/default-value";
 import { mapApiFilterToFormValue as mapPaymentPackFilterToFormValue } from "./passes-filter/mappers/api-to-form-value";
 import type { PassesFilterFormValue } from "./passes-filter/types";
+import { PaymentMethodFilterCard } from "./payment-method-filter/components/payment-method-filter-card";
+import { createDefaultPaymentMethodFilter } from "./payment-method-filter/default-value";
+import { mapPaymentMethodFilterToFormValue } from "./payment-method-filter/mappers/api-to-form-value";
+import type { PaymentMethodFilterFormValue } from "./payment-method-filter/types";
 import { PurchaseHistoryFilterCard } from "./purchase-history-filter/components/purchase-history-filter-card";
-import { PurchaseHistoryFilterCardSkeleton } from "./purchase-history-filter/components/purchase-history-filter-card-skeleton";
 import { createDefaultPurchaseHistoryFilter } from "./purchase-history-filter/default-value";
 import { mapPurchaseHistoryFilterToFormValue } from "./purchase-history-filter/mappers/api-to-form-value";
 import type { PurchaseHistoryFilterFormValue } from "./purchase-history-filter/types";
 import { ReferredMembersFilterCard } from "./referred-members-filter/components/referred-members-filter-card";
-import { ReferredMembersFilterCardSkeleton } from "./referred-members-filter/components/referred-members-filter-card-skeleton";
 import { createDefaultReferredMembersFilter } from "./referred-members-filter/default-value";
 import { mapReferredMemberFilterToFormValue } from "./referred-members-filter/mappers/api-to-form-value";
 import type { ReferredMembersFilterFormValue } from "./referred-members-filter/types";
@@ -142,6 +142,7 @@ type FilterValueByType = {
   liabilityWaiver: LiabilityWaiverFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
   internalNotes: InternalNotesFilterFormValue;
+  paymentMethod: PaymentMethodFilterFormValue;
 };
 
 type DraftFilter =
@@ -254,6 +255,11 @@ type DraftFilter =
       clientId: string;
       filterType: "internalNotes";
       value: FilterValueByType["internalNotes"];
+    }
+  | {
+      clientId: string;
+      filterType: "paymentMethod";
+      value: FilterValueByType["paymentMethod"];
     };
 
 type SavedFilter =
@@ -371,6 +377,16 @@ type SavedFilter =
       key: string;
       filterType: "internalNotes";
       value: FilterValueByType["internalNotes"];
+    }
+  | {
+      key: string;
+      filterType: "marketingNotification";
+      value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      key: string;
+      filterType: "paymentMethod";
+      value: FilterValueByType["paymentMethod"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -430,6 +446,7 @@ export const SegmentFiltersManager = ({
   const liabilityWaiverFilters = smartlistFilters?.liabilityWaiverFilters ?? [];
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
   const internalNotesFilters = smartlistFilters?.internalNotesFilters ?? [];
+  const paymentMethodFilters = smartlistFilters?.paymentMethodFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -467,14 +484,13 @@ export const SegmentFiltersManager = ({
       />
     ),
     gender: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <QueryBoundary key={key} loadingFallback={<GenderFilterCardSkeleton />}>
-        <GenderFilterCard
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
+      <GenderFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
     ),
     tags: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary key={key} loadingFallback={<TagFilterCardSkeleton />}>
@@ -598,17 +614,13 @@ export const SegmentFiltersManager = ({
       </QueryBoundary>
     ),
     firstPurchase: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <QueryBoundary
+      <FirstPurchaseFilterCard
         key={key}
-        loadingFallback={<FirstPurchaseFilterCardSkeleton />}
-      >
-        <FirstPurchaseFilterCard
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
     ),
     basketAbandonment: ({
       key,
@@ -625,30 +637,22 @@ export const SegmentFiltersManager = ({
       />
     ),
     referredMembers: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <QueryBoundary
+      <ReferredMembersFilterCard
         key={key}
-        loadingFallback={<ReferredMembersFilterCardSkeleton />}
-      >
-        <ReferredMembersFilterCard
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
     ),
     purchaseHistory: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
-      <QueryBoundary
+      <PurchaseHistoryFilterCard
         key={key}
-        loadingFallback={<PurchaseHistoryFilterCardSkeleton />}
-      >
-        <PurchaseHistoryFilterCard
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
     ),
     marketingNotification: ({
       key,
@@ -707,6 +711,15 @@ export const SegmentFiltersManager = ({
     ),
     internalNotes: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <InternalNotesFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
+    paymentMethod: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <PaymentMethodFilterCard
         key={key}
         smartlistId={smartlistId}
         filterValue={value}
@@ -824,6 +837,11 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.internalNotes,
       value: createDefaultInternalNotesFilter(smartlistNumericId),
     }),
+    paymentMethod: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.paymentMethod),
+      filterType: FILTER_TYPES.paymentMethod,
+      value: createDefaultPaymentMethodFilter(smartlistNumericId),
+    }),
   };
 
   const renderFilterCard = <TFilterType extends FilterType>(
@@ -928,6 +946,18 @@ export const SegmentFiltersManager = ({
         id: FILTER_TYPES.referredMembers,
         label: t("filters.30.title"),
         description: t("filterSelector.options.referredMembers.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
+        id: FILTER_TYPES.paymentMethod,
+        label: t("filters.600.title"),
+        description: t("filterSelector.options.paymentMethod.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
+      },
+      {
+        id: FILTER_TYPES.creditAccount,
+        label: t("filters.1.title"),
+        description: t("filterSelector.options.creditAccount.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
@@ -1084,6 +1114,11 @@ export const SegmentFiltersManager = ({
       key: `saved-internal-notes-${internalNotesFilter.id}`,
       filterType: FILTER_TYPES.internalNotes,
       value: mapInternalNotesFilterToFormValue(internalNotesFilter),
+    })),
+    ...paymentMethodFilters.map((paymentMethodFilter) => ({
+      key: `saved-payment-method-${paymentMethodFilter.id}`,
+      filterType: FILTER_TYPES.paymentMethod,
+      value: mapPaymentMethodFilterToFormValue(paymentMethodFilter),
     })),
   ];
 

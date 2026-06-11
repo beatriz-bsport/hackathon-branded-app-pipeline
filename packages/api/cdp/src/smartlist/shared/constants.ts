@@ -11,6 +11,7 @@ export * from "../filter/last-booking/constants";
 export * from "../filter/liability-waiver/constants";
 export * from "../filter/marketing-notification/constants";
 export * from "../filter/member-date-joined/constants";
+export * from "../filter/payment-method/constants";
 export * from "../filter/payment-pack/constants";
 export * from "../filter/private-bookings/constants";
 export * from "../filter/private-pass/constants";

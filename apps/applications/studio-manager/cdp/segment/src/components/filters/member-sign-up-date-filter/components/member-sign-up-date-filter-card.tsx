@@ -136,18 +136,14 @@ export const MemberSignUpDateFilterCard = ({
           }
           disabled={isSaving || isDeleting}
           errors={{
-            absoluteFromDate: errors.signUpDate?.absolute?.fromDate?.message
-              ? String(errors.signUpDate.absolute.fromDate.message)
-              : undefined,
-            absoluteToDate: errors.signUpDate?.absolute?.toDate?.message
-              ? String(errors.signUpDate.absolute.toDate.message)
-              : undefined,
-            relativeFirstDays: errors.signUpDate?.relative?.firstDays?.message
-              ? String(errors.signUpDate.relative.firstDays.message)
-              : undefined,
-            relativeSecondDays: errors.signUpDate?.relative?.secondDays?.message
-              ? String(errors.signUpDate.relative.secondDays.message)
-              : undefined,
+            absoluteFromDate:
+              errors.signUpDate?.absolute?.fromDate?.message?.toString(),
+            absoluteToDate:
+              errors.signUpDate?.absolute?.toDate?.message?.toString(),
+            relativeFirstDays:
+              errors.signUpDate?.relative?.firstDays?.message?.toString(),
+            relativeSecondDays:
+              errors.signUpDate?.relative?.secondDays?.message?.toString(),
           }}
         />
 

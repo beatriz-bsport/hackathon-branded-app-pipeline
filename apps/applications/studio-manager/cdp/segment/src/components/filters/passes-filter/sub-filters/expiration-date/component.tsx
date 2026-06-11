@@ -43,20 +43,14 @@ export const ExpirationDateSubFilterSection = ({
             setValue("expirationDate", nextValue, { shouldDirty: true })
           }
           errors={{
-            absoluteFromDate: errors.expirationDate?.absolute?.fromDate?.message
-              ? String(errors.expirationDate.absolute.fromDate.message)
-              : undefined,
-            absoluteToDate: errors.expirationDate?.absolute?.toDate?.message
-              ? String(errors.expirationDate.absolute.toDate.message)
-              : undefined,
-            relativeFirstDays: errors.expirationDate?.relative?.firstDays
-              ?.message
-              ? String(errors.expirationDate.relative.firstDays.message)
-              : undefined,
-            relativeSecondDays: errors.expirationDate?.relative?.secondDays
-              ?.message
-              ? String(errors.expirationDate.relative.secondDays.message)
-              : undefined,
+            absoluteFromDate:
+              errors.expirationDate?.absolute?.fromDate?.message?.toString(),
+            absoluteToDate:
+              errors.expirationDate?.absolute?.toDate?.message?.toString(),
+            relativeFirstDays:
+              errors.expirationDate?.relative?.firstDays?.message?.toString(),
+            relativeSecondDays:
+              errors.expirationDate?.relative?.secondDays?.message?.toString(),
           }}
         />
       </div>

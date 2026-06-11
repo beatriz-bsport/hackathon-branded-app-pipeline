@@ -83,6 +83,9 @@
       },
       "internalNotes": {
         "description": "Filter members by whether they have internal notes, optionally by note type and creation date."
+      },
+      "paymentMethod": {
+        "description": "Filter members by whether they have a saved payment method, optionally by expiration date."
       }
     }
   },
@@ -709,6 +712,38 @@
         "noteCreationDateBetweenRequired": "Select both dates for the between range.",
         "noteCreationDateDurationRequired": "Enter a number of days.",
         "noteCreationDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "600": {
+      "title": "Saved payment method",
+      "actions": {
+        "deleteFilter": "Delete saved payment method filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "anySavedPaymentMethod": "Has at least one saved payment method",
+        "owns": {
+          "has": "Has",
+          "doesNotHave": "Does not have"
+        }
+      },
+      "subFilters": {
+        "expirationDate": "Expiration date"
+      },
+      "toasts": {
+        "saveError": "Unable to save saved payment method filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete saved payment method filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "expirationDateRequired": "Select an expiration date.",
+        "expirationDateBetweenRequired": "Select both dates for the between range.",
+        "expirationDateDurationRequired": "Enter a number of days.",
+        "expirationDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
     "106": {

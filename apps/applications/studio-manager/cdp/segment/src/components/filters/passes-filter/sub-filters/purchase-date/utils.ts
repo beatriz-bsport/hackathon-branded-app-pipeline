@@ -22,8 +22,13 @@ const toIsoDate = (value: string | null) => value ?? "";
 
 const toNumericValue = (value: number | null) => (value === null ? 0 : value);
 
-const toAbsoluteNumericValue = (value: number | null) =>
-  value === null ? null : Math.abs(value);
+const toAbsoluteNumericValue = (value: number | null) => {
+  if (value === null || value === 0) {
+    return null;
+  }
+
+  return Math.abs(value);
+};
 
 /**
  * Returns today's date in ISO `yyyy-MM-dd` form for API fallbacks.
@@ -110,6 +115,11 @@ const toSignedRelativeDuration = (
   value: number | null,
 ) => {
   const numericValue = toNumericValue(value);
+
+  if (numericValue === 0) {
+    return 0;
+  }
+
   if (PAST_DATE_OPERATORS.includes(operator)) {
     return -Math.abs(numericValue);
   }

@@ -44,19 +44,14 @@ export const BookingDateSubFilterSection = ({
             setValue("bookingDate", nextValue, { shouldDirty: true })
           }
           errors={{
-            absoluteFromDate: errors.bookingDate?.absolute?.fromDate?.message
-              ? String(errors.bookingDate.absolute.fromDate.message)
-              : undefined,
-            absoluteToDate: errors.bookingDate?.absolute?.toDate?.message
-              ? String(errors.bookingDate.absolute.toDate.message)
-              : undefined,
-            relativeFirstDays: errors.bookingDate?.relative?.firstDays?.message
-              ? String(errors.bookingDate.relative.firstDays.message)
-              : undefined,
-            relativeSecondDays: errors.bookingDate?.relative?.secondDays
-              ?.message
-              ? String(errors.bookingDate.relative.secondDays.message)
-              : undefined,
+            absoluteFromDate:
+              errors.bookingDate?.absolute?.fromDate?.message?.toString(),
+            absoluteToDate:
+              errors.bookingDate?.absolute?.toDate?.message?.toString(),
+            relativeFirstDays:
+              errors.bookingDate?.relative?.firstDays?.message?.toString(),
+            relativeSecondDays:
+              errors.bookingDate?.relative?.secondDays?.message?.toString(),
           }}
         />
       </div>

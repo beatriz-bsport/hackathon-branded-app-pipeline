@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { cx } from "#src/lib/cx";
+import { getDocsScrollObserverOptions } from "#src/lib/docs-scroll-root";
 
 type Heading = {
   id: string;
@@ -46,17 +47,14 @@ export function TableOfContents() {
       headingObserver?.disconnect();
       if (elements.length === 0) return;
 
-      headingObserver = new IntersectionObserver(
-        (entries) => {
-          const visible = entries.filter((entry) => entry.isIntersecting);
-          if (visible.length === 0) return;
-          const first = visible.sort(
-            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
-          )[0];
-          setActiveId(first.target.id);
-        },
-        { rootMargin: "-80px 0px -65% 0px", threshold: [0, 1] },
-      );
+      headingObserver = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length === 0) return;
+        const first = visible.sort(
+          (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
+        )[0];
+        setActiveId(first.target.id);
+      }, getDocsScrollObserverOptions());
 
       elements.forEach((el) => headingObserver?.observe(el));
     };

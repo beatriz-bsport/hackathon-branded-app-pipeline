@@ -82,8 +82,12 @@ export const useLightSignUpOperations = <
     setFieldError,
   } = useFormikContext<LightSignupFormValues>();
 
-  const { getIsFormInvalid, trimFormValues, getLighSignUpCustomErrors } =
-    useLightSignupFormUtils();
+  const {
+    getIsFormInvalid,
+    trimFormValues,
+    getLighSignUpCustomErrors,
+    setSerializerFieldErrors,
+  } = useLightSignupFormUtils();
 
   const {
     lightSignupCreate: [
@@ -210,10 +214,14 @@ export const useLightSignUpOperations = <
     [onImmediateCreateSuccess, onImmediateUpdateSuccess, performSignup],
   );
 
-  useEffect(
-    () => getLighSignUpCustomErrors(lightSignupCreateError),
-    [lightSignupCreateError, getLighSignUpCustomErrors],
-  );
+  useEffect(() => {
+    getLighSignUpCustomErrors(lightSignupCreateError);
+    setSerializerFieldErrors(lightSignupCreateError);
+  }, [
+    lightSignupCreateError,
+    getLighSignUpCustomErrors,
+    setSerializerFieldErrors,
+  ]);
 
   useEffect(() => {
     if (lightSignUpUpdateError) {

@@ -9,6 +9,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import { isAxiosError } from '#src/pages/checkout/express-checkouts/utils/typeGuard';
 
+const BACKEND_TO_FORMIK_FIELD: Record<string, keyof LightSignupFormValues> = {
+  first_name: 'firstName',
+  last_name: 'lastName',
+  email: 'email',
+  password: 'password',
+  phone_number: 'phone',
+};
+
 /**
  * Custom hook for form validation utilities
  *
@@ -100,6 +108,54 @@ export const useLightSignupFormUtils = () => {
   );
 
   /**
+   * Maps backend serializer validation errors (field-keyed 400 responses) to Formik field errors.
+   * Django REST Framework returns errors like: { "email": ["Enter a valid email address."] }
+   * Uses translated messages for known fields, falling back to the raw backend message.
+   */
+  const FIELD_ERROR_TRANSLATIONS: Record<keyof LightSignupFormValues, string> =
+    useMemo(
+      () => ({
+        email: t('booking:lightSignup.form.errors.email'),
+        firstName: t('booking:lightSignup.form.errors.requiredField'),
+        lastName: t('booking:lightSignup.form.errors.requiredField'),
+        password: t(
+          'booking:lightSignup.form.errors.passwordMinimumRequirements',
+        ),
+        phone: t('booking:lightSignup.form.errors.phone'),
+        passwordConfirm: t('booking:lightSignup.form.errors.requiredField'),
+        acceptEmail: t('booking:lightSignup.form.errors.requiredField'),
+        acceptSms: t('booking:lightSignup.form.errors.requiredField'),
+        acceptTermsAndConditions: t(
+          'booking:lightSignup.form.errors.requiredField',
+        ),
+      }),
+      [t],
+    );
+
+  const setSerializerFieldErrors = useCallback(
+    (error: Error | undefined) => {
+      if (!isAxiosError(error) || error.response?.status !== 400) return;
+
+      const data = error.response?.data;
+      if (!data || typeof data !== 'object') return;
+
+      for (const [backendField, formikField] of Object.entries(
+        BACKEND_TO_FORMIK_FIELD,
+      )) {
+        if (
+          Array.isArray(data[backendField]) &&
+          data[backendField].length > 0
+        ) {
+          const message =
+            FIELD_ERROR_TRANSLATIONS[formikField] ?? data[backendField][0];
+          setFieldError(formikField, message);
+        }
+      }
+    },
+    [setFieldError, FIELD_ERROR_TRANSLATIONS],
+  );
+
+  /**
    * Trims whitespace from all string fields in a LightSignupFormValues object.
    *
    * This function is necessary because the backend may return string values without
@@ -130,6 +186,7 @@ export const useLightSignupFormUtils = () => {
   return {
     getIsFormInvalid,
     getLighSignUpCustomErrors,
+    setSerializerFieldErrors,
     trimFormValues,
   };
 };

@@ -10,6 +10,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
+import { MembershipPlanDetailsPanel } from "#src/features/membership-plan-panel/panel";
 import { useFetchContract } from "#src/hooks/api/use-fetch-contract";
 import { useFetchMembershipPlan } from "#src/hooks/api/use-fetch-membership-plan";
 import { useMembershipPlanHeader } from "#src/hooks/layout/use-membership-plan-header";
@@ -37,8 +38,7 @@ const MembershipPlanPageInner: FC<{
   const [panelTab, setPanelTab] = useState<PanelTab>(PANEL_TABS.DETAILS);
 
   const { data: contract } = useFetchContract({ id: contractId });
-  const { data: membershipPlan, isLoading } =
-    useFetchMembershipPlan(membershipPlanId);
+  const { data: membershipPlan } = useFetchMembershipPlan(membershipPlanId);
 
   const headerConfig = useMembershipPlanHeader({
     contract,
@@ -50,21 +50,6 @@ const MembershipPlanPageInner: FC<{
     { value: PANEL_TABS.DETAILS, label: t("panelTabs.details") },
     { value: PANEL_TABS.PAYMENT_METHOD, label: t("panelTabs.paymentMethod") },
   ];
-
-  if (isLoading) {
-    return (
-      <DetailsLayout {...detailsLayoutProps} withPanel={true}>
-        <DetailsLayout.Header pageTitle={t("header.loading")} />
-        <DetailsLayout.Content>
-          <Card>
-            <Body size="md">{t("header.loading")}</Body>
-          </Card>
-        </DetailsLayout.Content>
-      </DetailsLayout>
-    );
-  }
-
-  invariant(membershipPlan, "Membership plan not found");
 
   if (membershipPlan.contract !== contractId) {
     return <Navigate to={getHrefFromRoot(URLS.OVERVIEW(contractId))} replace />;
@@ -96,11 +81,11 @@ const MembershipPlanPageInner: FC<{
           onChangeValue={(value) => setPanelTab(value as PanelTab)}
         />
 
-        <Body size="md">
-          {panelTab === PANEL_TABS.DETAILS
-            ? t("panel.detailsPlaceholder")
-            : t("panel.paymentMethodPlaceholder")}
-        </Body>
+        {panelTab === PANEL_TABS.DETAILS ? (
+          <MembershipPlanDetailsPanel membershipPlan={membershipPlan} />
+        ) : (
+          <Body size="md">{t("panel.paymentMethodPlaceholder")}</Body>
+        )}
       </DetailsLayout.Panel>
     </DetailsLayout>
   );

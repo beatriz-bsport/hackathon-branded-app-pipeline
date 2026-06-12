@@ -7,10 +7,10 @@ import {
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { Title } from "@bsport/kaizen-primitive-core";
 
+import { PanelItem } from "#src/components/panel-item";
 import { BenefitsCardWithQuery } from "#src/features/benefits-card";
 import { useTranslation } from "#src/utils/i18n";
 
-import { PanelItem } from "./panel-item";
 import { TagsOverview } from "./tags-overview";
 
 type ContractOverviewPanelProps = {

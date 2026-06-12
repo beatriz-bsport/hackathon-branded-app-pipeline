@@ -1,8 +1,12 @@
 {
   "checkoutFlowModal": {
     "title": "Checkout",
-    "cancel": "Pay later",
+    "payLater": "Pay later",
     "payNow": "Pay now",
+    "toasts": {
+      "invoicePendingPayment": "The invoice is still pending payment",
+      "invoiceAction": "Invoice"
+    },
     "loadingMemberInfo": "Loading member information...",
     "editMember": "Edit member",
     "addItem": "Add Item",

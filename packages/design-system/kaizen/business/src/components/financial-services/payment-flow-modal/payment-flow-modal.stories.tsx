@@ -143,7 +143,7 @@ export const Documentation: StoryObj<PaymentFlowModalComponent> = {
 
 | Prop | Description |
 |------|-------------|
-| \`onConfirm\` | Called after a successful payment confirmation. |
+| \`onConfirm\` | Called after a successful payment confirmation. When the invoice is fully paid, a "Payment completed" toast is shown automatically; use this for post-success side effects (refresh, analytics). Partial payments open the remaining-balance flow instead. |
 
 ---
 
@@ -151,7 +151,7 @@ export const Documentation: StoryObj<PaymentFlowModalComponent> = {
 
 - Keep open/close state in the parent container.
 - Pass real \`invoiceId\` + \`memberId\` from selected business context.
-- Use \`onConfirm\` for post-success side effects (toast, tracking, container refresh).
+- Use \`onConfirm\` for post-success side effects (tracking, container refresh). The modal shows a "Payment completed" toast when the invoice is fully paid.
 - Let this modal own method-specific form state and confirmation logic.
         `,
       },

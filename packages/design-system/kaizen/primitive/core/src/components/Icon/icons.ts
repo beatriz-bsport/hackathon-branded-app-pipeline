@@ -118,6 +118,12 @@ const icons = {
   "credit-card-02": React.lazy(
     async () => await import("./assets/credit-card-02.svg?react"),
   ),
+  "credit-card-check": React.lazy(
+    async () => await import("./assets/credit-card-check.svg?react"),
+  ),
+  "credit-card-search": React.lazy(
+    async () => await import("./assets/credit-card-search.svg?react"),
+  ),
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),

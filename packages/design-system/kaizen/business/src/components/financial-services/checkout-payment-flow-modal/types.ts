@@ -5,6 +5,7 @@ import type {
   CheckoutFlowFormData,
   CheckoutFlowStartContext,
   CheckoutFlowTrackFn,
+  InvoiceCompletionIntent,
 } from "#src/components/core/checkout-flow-modal/types";
 
 import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
@@ -48,6 +49,7 @@ type CheckoutModeProps = CheckoutPaymentFlowModalBaseProps & {
   onCheckoutComplete?: (
     data: CheckoutFlowFormData,
     invoiceUuid: string,
+    intent?: InvoiceCompletionIntent,
   ) => void;
   onTransitionToPayment?: never;
 };

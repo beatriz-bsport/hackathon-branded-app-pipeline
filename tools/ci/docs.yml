@@ -1,4 +1,4 @@
-.Kaizen Docs Build Base:
+.Kaizen Docs Base:
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script:
@@ -20,40 +20,18 @@
     - ICHIZEN_SKIP_POSTINSTALL=true pnpm install --frozen-lockfile --prefer-offline
     - echo "✅ Node modules have been installed successfully"
 
-Build Kaizen Docs:
+Check Kaizen Docs:
   stage: build
   extends:
-    - .Kaizen Docs Build Base
+    - .Kaizen Docs Base
   allow_failure: false
   rules:
     - if: $CI_COMMIT_BRANCH == "dev"
       allow_failure: false
       when: on_success
   script:
-    - echo "🔱 Building Kaizen docs static artifact"
+    - echo "🔱 Checking Kaizen docs"
     - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
     - pnpm -C apps/docs format:check
     - pnpm -C apps/docs typecheck
     - pnpm -C apps/docs lint
-    - pnpm -C apps/docs ci:build
-  artifacts:
-    name: "kaizen-docs-$CI_COMMIT_SHORT_SHA"
-    when: on_success
-    expire_in: 7 days
-    paths:
-      - apps/docs/dist/
-
-Deploy Kaizen Docs:
-  stage: deploy
-  needs:
-    - job: Build Kaizen Docs
-      artifacts: true
-  extends:
-    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
-  allow_failure: true
-  rules:
-    - if: $CI_COMMIT_BRANCH == "dev"
-      when: on_success
-  script:
-    - echo "🔱 Deploying Kaizen docs static site"
-    - apps/docs/scripts/ci-deploy.sh

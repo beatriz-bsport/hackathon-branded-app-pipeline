@@ -79,3 +79,22 @@ Analyze:Format:
     - pnpm exec nx affected --target=pretty,format:check --base=origin/$NX_BASE
     - pnpm exec prettier --check package.json
     - echo "✅ All affected projects are well formatted"
+
+Analyze:Artifact Scripts:
+  extends:
+    - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
+  stage: analyze
+  before_script: !reference [.pnpm-setup, before_script]
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - .gitlab-ci.yml
+        - tools/ci/**/*
+        - tools/scripts/*artifact*
+  script:
+    - echo "⏳ Checking artifact shell scripts"
+    - bash -n tools/scripts/build-artifact.sh tools/scripts/set-deploy-config.sh
+    - echo "⏳ Running artifact script tests"
+    - pnpm exec vitest run --config tools/scripts/vitest.config.ts
+    - echo "✅ Artifact scripts are valid"

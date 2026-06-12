@@ -269,6 +269,69 @@ export const openPaymentFlowFromLegacy = ({
   return true;
 };
 
+export type OpenFullPaymentFlowFromLegacyArgs = {
+  memberId: number;
+  basketStartTrigger: string;
+  checkoutFlowModalEnabled: boolean;
+  paymentFlowModalEnabled: boolean;
+  showRevampedSidebar: boolean;
+  pathname?: string;
+  pushRouter: (path: string) => void;
+};
+
+/**
+ * Opens the combined checkout → payment flow via URL query params.
+ *
+ * When the payment flow flag is on, sets `pfOpen` (without `invoiceId`) so the
+ * unified shell runs in `full` mode. Falls back to checkout-only (`cfOpen`) when
+ * only the billing flag is enabled. Clears conflicting params between modes.
+ */
+export const openFullPaymentFlowFromLegacy = ({
+  memberId,
+  basketStartTrigger,
+  checkoutFlowModalEnabled,
+  paymentFlowModalEnabled,
+  showRevampedSidebar,
+  pathname,
+  pushRouter,
+}: OpenFullPaymentFlowFromLegacyArgs): boolean => {
+  if (!checkoutFlowModalEnabled || !showRevampedSidebar || !pathname) {
+    return false;
+  }
+
+  const existingSearch =
+    (typeof window !== 'undefined' && window.location.search) || '';
+  const params = new URLSearchParams(existingSearch);
+
+  if (paymentFlowModalEnabled) {
+    params.delete('cfOpen');
+    params.set('pfOpen', '');
+    params.set('cfTrigger', basketStartTrigger);
+    params.set('memberId', String(memberId));
+    params.delete('invoiceId');
+  } else {
+    params.delete('pfOpen');
+    params.delete('invoiceId');
+    params.set('cfOpen', '');
+    params.set('cfTrigger', basketStartTrigger);
+    params.set('memberId', String(memberId));
+  }
+
+  const search = params.toString();
+  const path = search ? `${pathname}?${search}` : pathname;
+
+  if (typeof window !== 'undefined') {
+    window.history.pushState(null, '', path);
+    window.dispatchEvent(
+      new CustomEvent(PAYMENT_FLOW_NAVIGATION_EVENT, { detail: { path } }),
+    );
+    return true;
+  }
+
+  pushRouter(path);
+  return true;
+};
+
 /**
  * Returns the minimum amount in cents that Stripe requires for the current currency.
  * @returns The minimum amount in cents.

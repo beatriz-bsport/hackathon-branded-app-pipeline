@@ -1,6 +1,6 @@
 import type React from 'react';
 
-export interface OnlinePaymentBasketRef {
+export interface CheckoutBasketOnlinePaymentRef {
   onPaymentConfirm?: (event: React.MouseEvent<HTMLElement>) => void;
   onPayLaterSubmit?: () => void;
   onPayPalCreateOrder?: () => void;
@@ -18,7 +18,7 @@ export interface BasketDeliveryFormRef {
   }) => void;
 }
 
-export interface CheckoutStepsRef extends OnlinePaymentBasketRef {
+export interface CheckoutStepsRef extends CheckoutBasketOnlinePaymentRef {
   updateMemberDefaultEstablishmentBillingGroup: () => void;
   onAddressSubmit: (options?: {
     onSuccess?: () => void;

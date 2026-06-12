@@ -16,7 +16,7 @@ import type {
 } from '#src/state/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
 
-export type MemberAreaBasketUnifiedPageProps = {
+export type BasketPageProps = {
   // Core data
   basket: Basket | null;
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>;

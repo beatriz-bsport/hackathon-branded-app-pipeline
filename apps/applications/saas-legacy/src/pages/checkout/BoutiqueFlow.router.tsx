@@ -16,8 +16,6 @@ import asyncComponent from '#src/AsyncComponent.js';
 import { RootState } from '#src/reducers';
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
-import { useSafeFlag } from '#src/utils/feature-flag/flagWrapper';
-import { FeatureFlags } from '#src/utils/feature-flag/flags';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -37,11 +35,9 @@ const BoutiqueBookerModule = asyncComponent(
   () => import('./booker-modules/OfferBooker/BoutiqueBookerModule.page'),
 );
 
-// @ts-expect-error
-const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
-const MemberAreaBasketUnifiedPage = asyncComponent(
+const BasketPage = asyncComponent(
   // @ts-expect-error
-  () => import('./basket/MemberAreaBasketUnified.page'),
+  () => import('./basket/Basket.page'),
 );
 
 const BoutiqueContractCheckout = asyncComponent(
@@ -82,10 +78,6 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
     // Opt in B2C tracking and opt out B2B tracking
     requestOptInTrackingB2C();
   }, []);
-
-  const showMemberAreaBasketUnified = useSafeFlag(
-    FeatureFlags.MEMBER_AREA_BASKET_UNIFIED,
-  );
 
   if (is_manager) {
     return <MarketplaceAsManager />;
@@ -129,9 +121,7 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
                 : undefined,
           },
           {
-            component: showMemberAreaBasketUnified
-              ? MemberAreaBasketUnifiedPage
-              : BasketPage,
+            component: BasketPage,
             path: '/checkout-s/:companyId',
           },
           {

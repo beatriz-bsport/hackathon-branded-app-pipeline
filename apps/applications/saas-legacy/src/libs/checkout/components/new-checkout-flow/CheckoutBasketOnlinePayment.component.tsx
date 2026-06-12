@@ -19,10 +19,10 @@ import PaymentPaypal from '#src/libs/payment/components/paypal/PaymentPaypal.com
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
-import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasketPaymentContext } from './BasketPaymentContext';
 import { useBasketPaymentActions } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentActions';
 import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
-import { useBasketPaymentLocalStateUnified } from './hooks/useBasketPaymentLocalStateUnified';
+import { useCheckoutBasketPaymentLocalState } from './hooks/useCheckoutBasketPaymentLocalState';
 import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
 import { useCompanyPaymentSettings } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useCompanyPaymentSettings';
 import { useMember } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useMember';
@@ -30,7 +30,7 @@ import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-pay
 import { usePaymentMethod } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePaymentMethod';
 import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 
-import { OnlinePaymentBasketRef } from '#src/libs/checkout/components/new-checkout-flow-unified/types';
+import { CheckoutBasketOnlinePaymentRef } from './types';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 
@@ -68,7 +68,7 @@ type Props = {
   ref?: React.Ref<any>;
 };
 
-export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
+export const CheckoutBasketOnlinePayment: React.FC<Props> = forwardRef(
   (
     {
       basketId,
@@ -92,7 +92,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       FeatureFlags.WEBVIEW_GOOGLE_PAY,
     );
 
-    const paymentRef = React.useRef<OnlinePaymentBasketRef>(null);
+    const paymentRef = React.useRef<CheckoutBasketOnlinePaymentRef>(null);
 
     const {
       basketTotalPriceCts,
@@ -151,7 +151,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       setIsOnlinePaymentDisabled,
       isOnlinePaymentDisabled,
       setSelectedPaymentEngine,
-    } = useBasketPaymentLocalStateUnified(basketId);
+    } = useCheckoutBasketPaymentLocalState(basketId);
 
     const { isPaymentProcessing, isSettingUpPayment, hasPaymentSucceeded } =
       useBasketPaymentStatusTracker(basketId, memberId);

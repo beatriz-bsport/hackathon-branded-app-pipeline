@@ -14,7 +14,7 @@ import { STEPS, type StepType, SUBMIT_BUTTONS } from '#src/libs/checkout/types';
 import { useBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasket';
 import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
 import { useBasketPaymentActions } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentActions';
-import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow/BasketPaymentContext';
 import { useCompanyPaymentSettings } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useCompanyPaymentSettings';
 import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePayment';
 
@@ -127,7 +127,7 @@ const getButtonsDisabledStatus = ({
   };
 };
 
-export const usePaymentBasketButtonsUnified = ({
+export const usePaymentBasketButtons = ({
   paymentContext,
   paymentBasketRef,
   submitButtons,

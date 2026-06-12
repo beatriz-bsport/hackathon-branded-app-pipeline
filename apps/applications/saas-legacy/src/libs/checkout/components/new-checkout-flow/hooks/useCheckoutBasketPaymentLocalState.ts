@@ -58,7 +58,7 @@ type UseBasketPaymentLocalStateData = {
  * @param basketId - Optional basket ID. If provided, will use getBasket(state, basketId)
  *                   instead of getCurrentBasket(state) to retrieve basket data.
  */
-export const useBasketPaymentLocalStateUnified = (
+export const useCheckoutBasketPaymentLocalState = (
   basketId?: string,
 ): UseBasketPaymentLocalStateData => {
   const basket = useSelector((state: RootState) =>

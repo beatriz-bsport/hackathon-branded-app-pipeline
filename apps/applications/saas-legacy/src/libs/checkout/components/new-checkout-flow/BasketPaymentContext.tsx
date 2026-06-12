@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useBasketPaymentLocalStateUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/hooks/useBasketPaymentLocalStateUnified';
+import { useCheckoutBasketPaymentLocalState } from '#src/libs/checkout/components/new-checkout-flow/hooks/useCheckoutBasketPaymentLocalState';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 
 type BasketPaymentContextType = {
@@ -49,7 +49,7 @@ export const BasketPaymentProvider: React.FC<BasketPaymentProviderProps> = ({
   const {
     isEstablishmentBillingGroupSelected: _isEstablishmentBillingGroupSelected,
     selectedEstablishmentBillingGroup: _selectedEstablishmentBillingGroup,
-  } = useBasketPaymentLocalStateUnified(basketId);
+  } = useCheckoutBasketPaymentLocalState(basketId);
 
   const [termsAccepted, setTermsAccepted] = useState(initialTermsAccepted);
   const [instalmentPaymentSelectedId, setInstalmentPaymentSelectedId] =

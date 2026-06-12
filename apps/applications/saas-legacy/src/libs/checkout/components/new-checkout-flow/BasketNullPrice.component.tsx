@@ -5,94 +5,55 @@ import chroma from 'chroma-js';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+
+import { useBasketPaymentContext } from './BasketPaymentContext';
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { useCompanyPaymentSettings } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useCompanyPaymentSettings';
+import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 
 type BasketNullPriceProps = {
-  areTermsAndConditionsAccepted?: boolean;
   basketHasOffers: boolean;
+  companyId: number;
   enableMultiLocalization: boolean;
-  establishmentBillingGroups: EstablishmentBillingGroup[];
-  setSelectedEstablishmentBillingGroup: (
-    value: React.SetStateAction<EstablishmentBillingGroup>,
-  ) => void;
-  setIsEstablishmentBillingGroupSelected: (
-    isEstablishmentBillingGroupSelected: boolean,
-  ) => void;
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
-};
-
-type CompactLayoutProps = Omit<
-  BasketNullPriceProps,
-  'areTermsAndConditionsAccepted' | 'basketHasOffers'
-> & { children: React.ReactNode };
-
-const CompactLayout: React.FC<CompactLayoutProps> = ({
-  enableMultiLocalization,
-  establishmentBillingGroups,
-  setSelectedEstablishmentBillingGroup,
-  setIsEstablishmentBillingGroupSelected,
-  selectedEstablishmentBillingGroup,
-  children,
-}: CompactLayoutProps) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.basketNullPriceCompactContainer}>
-      <div className={classes.basketNullPriceCompact}>
-        <div className={classes.iconContainer}>
-          <ShoppingBasket className={classes.shoppingBasketIcon} />
-        </div>
-        <div className={classes.basketNullPriceCompactText}>{children}</div>
-      </div>
-      <CheckoutBillingGroupSelector
-        enableMultiLocalization={enableMultiLocalization}
-        establishmentBillingGroups={establishmentBillingGroups}
-        selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
-        setIsEstablishmentBillingGroupSelected={
-          setIsEstablishmentBillingGroupSelected
-        }
-        setSelectedEstablishmentBillingGroup={
-          setSelectedEstablishmentBillingGroup
-        }
-      />
-    </div>
-  );
-};
-
-const CenteredLayout: React.FC = ({ children }) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.basketNullPriceContainer}>
-      <div className={classes.iconContainer}>
-        <ShoppingBasket className={classes.shoppingBasketIcon} />
-      </div>
-      {children}
-    </div>
-  );
 };
 
 export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
-  areTermsAndConditionsAccepted,
   basketHasOffers,
+  companyId,
   enableMultiLocalization,
-  establishmentBillingGroups,
-  setSelectedEstablishmentBillingGroup,
-  setIsEstablishmentBillingGroupSelected,
-  selectedEstablishmentBillingGroup,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
 
-  const acceptTermsAndFinalizeMessage = basketHasOffers
-    ? t('myBasket.acceptTermsAndFinalize')
-    : t('myBasket.noBooking.acceptTermsAndFinalize');
+  const {
+    termsAccepted,
+    setTermsAccepted,
+    selectedEstablishmentBillingGroup,
+    setIsEstablishmentBillingGroupSelected,
+    setSelectedEstablishmentBillingGroup,
+  } = useBasketPaymentContext();
+  const { generalTermsAndConditions, establishmentBillingGroups } =
+    useCompanyPaymentSettings(companyId);
 
-  const checkAndFinalizeMessage = basketHasOffers
-    ? t('myBasket.checkAndFinalize')
-    : t('myBasket.noBooking.checkAndFinalize');
+  const acceptTermsAndFinalizeTransKey = basketHasOffers
+    ? 'myBasket.acceptTermsAndFinalize'
+    : 'myBasket.noBooking.acceptTermsAndFinalize';
+  const checkAndFinalizeTransKey = basketHasOffers
+    ? 'myBasket.checkAndFinalize'
+    : 'myBasket.noBooking.checkAndFinalize';
 
-  return enableMultiLocalization ? (
-    <CompactLayout
+  const termsAndConditionsNode = generalTermsAndConditions ? (
+    <AcceptTermsAndConditions
+      accepted={termsAccepted}
+      onChecked={setTermsAccepted}
+      termsAndConditions={generalTermsAndConditions}
+      type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+    />
+  ) : null;
+
+  const billingGroupSelectorNode = enableMultiLocalization ? (
+    <CheckoutBillingGroupSelector
       enableMultiLocalization={enableMultiLocalization}
       establishmentBillingGroups={establishmentBillingGroups}
       selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
@@ -102,27 +63,51 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
       setSelectedEstablishmentBillingGroup={
         setSelectedEstablishmentBillingGroup
       }
+    />
+  ) : null;
+
+  const showAcceptMessage = !!generalTermsAndConditions && !termsAccepted;
+  const innerContent = (
+    <>
+      <Typography className={classes.title} variant="h6">
+        {t('myBasket.almostDone')}
+      </Typography>
+      <Typography className={classes.subtitle} variant="body1">
+        {showAcceptMessage
+          ? t(acceptTermsAndFinalizeTransKey)
+          : t(checkAndFinalizeTransKey)}
+      </Typography>
+    </>
+  );
+
+  return (
+    <div
+      className={
+        enableMultiLocalization
+          ? classes.basketNullPriceCompactContainer
+          : classes.basketNullPriceContainer
+      }
     >
-      <Typography className={classes.title} variant="h6">
-        {t('myBasket.almostDone')}
-      </Typography>
-      <Typography className={classes.subtitle} variant="body1">
-        {areTermsAndConditionsAccepted
-          ? checkAndFinalizeMessage
-          : acceptTermsAndFinalizeMessage}
-      </Typography>
-    </CompactLayout>
-  ) : (
-    <CenteredLayout>
-      <Typography className={classes.title} variant="h6">
-        {t('myBasket.almostDone')}
-      </Typography>
-      <Typography className={classes.subtitle} variant="body1">
-        {areTermsAndConditionsAccepted
-          ? checkAndFinalizeMessage
-          : acceptTermsAndFinalizeMessage}
-      </Typography>
-    </CenteredLayout>
+      <div
+        className={
+          enableMultiLocalization
+            ? classes.basketNullPriceCompact
+            : classes.iconContainer
+        }
+      >
+        <div className={classes.iconContainer}>
+          <ShoppingBasket className={classes.shoppingBasketIcon} />
+        </div>
+        {enableMultiLocalization && (
+          <div className={classes.basketNullPriceCompactText}>
+            {innerContent}
+          </div>
+        )}
+      </div>
+      {!enableMultiLocalization && innerContent}
+      {billingGroupSelectorNode}
+      {termsAndConditionsNode}
+    </div>
   );
 };
 
@@ -156,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   subtitle: {
-    fontColor: theme.palette.grey[600],
+    color: theme.palette.grey[600],
   },
   iconContainer: {
     borderRadius: theme.spacing(1),
@@ -173,5 +158,3 @@ const useStyles = makeStyles((theme) => ({
     height: '44%',
   },
 }));
-
-export default React.memo(BasketNullPrice);

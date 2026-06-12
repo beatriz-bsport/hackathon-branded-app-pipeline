@@ -196,7 +196,7 @@ export const SUBMIT_BUTTONS = {
   },
   PAY_NOW_BUTTON: {
     id: 1,
-    textPath: 'validation.actions.payNow',
+    textPath: 'validation.actions.payAmountNow',
     variant: 'contained',
   },
   PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit', variant: 'outlined' },
@@ -236,7 +236,7 @@ export const STEPS = {
   PAYMENT_STEP: {
     id: 1,
     label: 'payment',
-    submitButtonTextPath: 'validation.actions.payNow',
+    submitButtonTextPath: 'validation.actions.payAmountNow',
   },
 };
 

@@ -129,6 +129,9 @@ const icons = {
   ),
   "edit-02": React.lazy(async () => await import("./assets/edit-02.svg?react")),
   "edit-05": React.lazy(async () => await import("./assets/edit-05.svg?react")),
+  "expand-01": React.lazy(
+    async () => await import("./assets/expand-01.svg?react"),
+  ),
   "eye-off": React.lazy(async () => await import("./assets/eye-off.svg?react")),
   eye: React.lazy(async () => await import("./assets/eye.svg?react")),
   "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
@@ -234,6 +237,9 @@ const icons = {
   ),
   "message-x-square": React.lazy(
     async () => await import("./assets/message-x-square.svg?react"),
+  ),
+  "minimize-01": React.lazy(
+    async () => await import("./assets/minimize-01.svg?react"),
   ),
   minus: React.lazy(async () => await import("./assets/minus.svg?react")),
   "monitor-04": React.lazy(

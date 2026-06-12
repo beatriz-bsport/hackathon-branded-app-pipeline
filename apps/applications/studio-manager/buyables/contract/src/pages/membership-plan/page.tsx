@@ -10,6 +10,9 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
+import { QueryBoundary } from "#src/components/query-boundary";
+import { MembershipPlanInvoiceListLoading } from "#src/features/membership-plan-invoice-list/loading";
+import { MembershipPlanInvoiceList } from "#src/features/membership-plan-invoice-list/membership-plan-invoice-list";
 import { MembershipPlanDetailsPanel } from "#src/features/membership-plan-panel/panel";
 import { useFetchContract } from "#src/hooks/api/use-fetch-contract";
 import { useFetchMembershipPlan } from "#src/hooks/api/use-fetch-membership-plan";
@@ -61,9 +64,11 @@ const MembershipPlanPageInner: FC<{
 
       <DetailsLayout.Content>
         {activeContentTab === "billing" && (
-          <Card>
-            <Body size="md">{t("content.billingPlaceholder")}</Body>
-          </Card>
+          <QueryBoundary loadingFallback={<MembershipPlanInvoiceListLoading />}>
+            <Card padding="none">
+              <MembershipPlanInvoiceList billingPlanId={membershipPlanId} />
+            </Card>
+          </QueryBoundary>
         )}
         {activeContentTab === "history" && (
           <Card>

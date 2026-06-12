@@ -104,5 +104,3 @@ export const fetchBillingPlanQueryOptions = (
     queryKey: queryKeys.detail(params.id),
     queryFn: () => fetchBillingPlanAPI(fetch, params),
   });
-
-// ----------------------------------------------------------------------------

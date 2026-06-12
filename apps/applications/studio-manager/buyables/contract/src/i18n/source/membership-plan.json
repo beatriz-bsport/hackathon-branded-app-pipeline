@@ -18,7 +18,30 @@
     "historyPlaceholder": "Membership plan history will appear here."
   },
   "panel": {
-    "detailsPlaceholder": "Membership plan details will appear here.",
+    "details": {
+      "autoRenewal": "Auto-renew",
+      "billingCycles": "Billing cycles",
+      "commitmentPeriod": "Commitment period",
+      "joinFee": "Join fee",
+      "memberProfile": "View member profile",
+      "member": "Member",
+      "name": "Name",
+      "notes": {
+        "empty": "No note added.",
+        "title": "Note",
+        "stopNote": "Cancellation note"
+      },
+      "pauses": {
+        "cancel": "Cancel pause",
+        "empty": "No scheduled pauses.",
+        "range": "From {{fromDate}} to {{untilDate}}",
+        "reschedule": "Reschedule pause",
+        "title": "Scheduled pauses"
+      },
+      "recurringPrice": "Recurring price",
+      "remainingPeriod": "Remaining period",
+      "remainingUntil": "Until {{date}}"
+    },
     "paymentMethodPlaceholder": "Payment method details will appear here."
   }
 }

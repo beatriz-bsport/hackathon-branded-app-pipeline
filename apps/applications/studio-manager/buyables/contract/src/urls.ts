@@ -24,6 +24,7 @@ export const URLS = {
 
 export const LEGACY_URLS = {
   MEMBERSHIP_PLAN: (id: number) => `/subscription/${id}`,
+  MEMBER_PROFILE: (memberId: number) => `/member/${memberId}/info`,
 
   PAYMENT_LINK: ({
     companyId,

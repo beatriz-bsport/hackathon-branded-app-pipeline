@@ -22,6 +22,7 @@ stages:
   - analyze
   - build
   - deploy-ephemeral-environment
+  - release-tag
   - deploy
   - post-deploy
   - release-artifact

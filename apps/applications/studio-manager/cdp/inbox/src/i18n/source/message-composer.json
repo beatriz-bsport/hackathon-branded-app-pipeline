@@ -1,0 +1,27 @@
+{
+  "channelBar": {
+    "channelSelectorLabel": "Message channel",
+    "expandLabel": "Expand composer",
+    "minimizeLabel": "Minimize composer"
+  },
+  "fields": {
+    "email": {
+      "titleLabel": "Email subject",
+      "messageLabel": "Email body",
+      "messagePlaceholder": "Message"
+    },
+    "sms": {
+      "messageLabel": "SMS message",
+      "messagePlaceholder": "Message"
+    },
+    "push": {
+      "titleLabel": "Push notification title",
+      "messageLabel": "Push notification body",
+      "messagePlaceholder": "Message"
+    },
+    "chat": {
+      "messagePlaceholder": "Message"
+    }
+  },
+  "send": "Send"
+}

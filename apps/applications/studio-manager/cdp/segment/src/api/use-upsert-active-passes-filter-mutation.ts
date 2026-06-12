@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type ActivePassesFilter,
   CreateActivePassesFilterPayload,
   UpdateActivePassesFilterPayload,
   createActivePassesFilter,
@@ -18,7 +19,7 @@ type UpsertActivePassesFilterVariables = {
 };
 
 type UseUpsertActivePassesFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: ActivePassesFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -51,11 +52,11 @@ export const useUpsertActivePassesFilterMutation = (
 
       return patchActivePassesFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

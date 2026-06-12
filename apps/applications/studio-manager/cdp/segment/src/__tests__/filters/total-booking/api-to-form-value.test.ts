@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import {
   SmartlistDateFilterType,
   SmartlistTotalBookingComparator,
+  TOTAL_BOOKING_FILTER_IDENTIFIER,
   type TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
@@ -15,15 +16,13 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-const TOTAL_BOOKING_FILTER_IDENTIFIER = 22;
-
 const buildApiFilter = (
   overrides: Partial<TotalBookingFilter> = {},
 ): TotalBookingFilter => ({
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: TOTAL_BOOKING_FILTER_IDENTIFIER,
+  filter_identifier: Number(TOTAL_BOOKING_FILTER_IDENTIFIER),
   comparator: SmartlistTotalBookingComparator.GTE,
   value: 3,
   value_second: 0,

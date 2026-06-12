@@ -9,6 +9,7 @@ import { useUpsertBasketAbandonmentFilterMutation } from "#src/api/use-upsert-ba
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapBasketAbandonmentFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createBasketAbandonmentFilterPayload } from "../mappers/form-value-to-create-payload";
 import { basketAbandonmentFilterSchema } from "../schema";
@@ -41,15 +42,14 @@ export const BasketAbandonmentFilterCard = ({
 
   const { upsertBasketAbandonmentFilterMutate, isLoading: isSaving } =
     useUpsertBasketAbandonmentFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.20.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapBasketAbandonmentFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

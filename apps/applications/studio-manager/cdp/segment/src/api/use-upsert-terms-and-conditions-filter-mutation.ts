@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { upsertTermsAndConditionsFilterMutationOptions } from "@bsport/api-cdp/smartlist";
+import {
+  type TermsAndConditionsFilter,
+  upsertTermsAndConditionsFilterMutationOptions,
+} from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
 
 type UseUpsertTermsAndConditionsFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: TermsAndConditionsFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -23,11 +26,11 @@ export const useUpsertTermsAndConditionsFilterMutation = (
 
   const mutation = useMutation({
     ...upsertTermsAndConditionsFilterMutationOptions(fetch),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

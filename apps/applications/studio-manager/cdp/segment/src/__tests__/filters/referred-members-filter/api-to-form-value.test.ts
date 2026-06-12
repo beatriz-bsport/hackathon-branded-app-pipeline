@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { SmartlistReferralMoneyComparator } from "@bsport/api-cdp/smartlist";
+import {
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  SmartlistReferralMoneyComparator,
+} from "@bsport/api-cdp/smartlist";
 
 import { REFERRED_MEMBER_STATUS } from "#src/components/filters/referred-members-filter/constants";
 import { mapReferredMemberFilterToFormValue } from "#src/components/filters/referred-members-filter/mappers/api-to-form-value";
@@ -11,7 +14,7 @@ const baseApiFilter = {
   id: 91,
   smartlist: 123,
   company_id: 7,
-  filter_identifier: 30,
+  filter_identifier: Number(REFERRED_MEMBERS_FILTER_IDENTIFIER),
   is_referred: true,
   money_obtained_active: false,
   money_obtained_comparator: SmartlistReferralMoneyComparator.GTE,

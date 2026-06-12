@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { upsertPaymentMethodFilterMutationOptions } from "@bsport/api-cdp/smartlist";
+import {
+  type PaymentMethodFilter,
+  upsertPaymentMethodFilterMutationOptions,
+} from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
 
 type UseUpsertPaymentMethodFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: PaymentMethodFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -22,11 +25,11 @@ export const useUpsertPaymentMethodFilterMutation = (
 
   const mutation = useMutation({
     ...upsertPaymentMethodFilterMutationOptions(fetch),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

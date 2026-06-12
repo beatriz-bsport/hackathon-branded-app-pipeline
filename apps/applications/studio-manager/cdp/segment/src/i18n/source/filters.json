@@ -86,6 +86,9 @@
       },
       "paymentMethod": {
         "description": "Filter members by whether they have a saved payment method, optionally by expiration date."
+      },
+      "hasPassword": {
+        "description": "Filter members by whether they have set a password on their account."
       }
     }
   },
@@ -772,10 +775,29 @@
         "save": "Add filter",
         "update": "Save filter"
       },
+      "toasts": {
+        "saveError": "Unable to save password filter.",
+        "saveSuccess": "Password filter saved.",
+        "deleteError": "Unable to delete password filter.",
+        "invalidFilter": "Invalid filter."
+      },
       "fields": {
         "radioLabel": "Filter for Profiles that:",
         "accepted": "Accepted",
         "notAccepted": "Not accepted"
+      }
+    },
+    "400": {
+      "title": "Password",
+      "actions": {
+        "deleteFilter": "Delete password filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "hasPassword": "Has password",
+        "doesNotHavePassword": "Does not have password"
       },
       "toasts": {
         "saveError": "Unable to save terms and conditions filter.",

@@ -7,6 +7,7 @@ import { useDeleteTermsAndConditionsFilterMutation } from "#src/api/use-delete-t
 import { useUpsertTermsAndConditionsFilterMutation } from "#src/api/use-upsert-terms-and-conditions-filter-mutation";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapTermsAndConditionsFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildTermsAndConditionsFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createTermsAndConditionsFilterPayload } from "../mappers/form-value-to-create-payload";
 import { termsAndConditionsFilterSchema } from "../schema";
@@ -34,19 +35,18 @@ export const TermsAndConditionsFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { dirtyFields } = methods.formState;
+  const { dirtyFields, isDirty } = methods.formState;
 
   const { upsertTermsAndConditionsFilterMutate, isLoading: isSaving } =
     useUpsertTermsAndConditionsFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.107.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapTermsAndConditionsFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -71,7 +71,6 @@ export const TermsAndConditionsFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const handleSave = methods.handleSubmit(

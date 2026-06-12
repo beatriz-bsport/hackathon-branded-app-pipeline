@@ -10,6 +10,7 @@ export * from "./filter/expenses-complete/types";
 export * from "./filter/first-purchase/types";
 export * from "./filter/gender/types";
 export * from "./filter/has-phone/types";
+export * from "./filter/has-password/types";
 export * from "./filter/last-booking/types";
 export * from "./filter/liability-waiver/types";
 export * from "./filter/marketing-notification/types";

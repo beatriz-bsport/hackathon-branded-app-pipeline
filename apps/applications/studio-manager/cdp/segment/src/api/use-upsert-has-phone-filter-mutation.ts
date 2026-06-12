@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type HasPhoneFilter,
   createHasPhoneFilter,
   patchHasPhoneFilter,
 } from "@bsport/api-cdp/smartlist";
@@ -20,7 +21,7 @@ type UpsertHasPhoneFilterVariables = {
 };
 
 type UseUpsertHasPhoneFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: HasPhoneFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -49,11 +50,11 @@ export const useUpsertHasPhoneFilterMutation = (
 
       return patchHasPhoneFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

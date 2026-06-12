@@ -11,6 +11,7 @@ import type { NumericComparatorFilterValue } from "#src/components/primitive-fil
 import { useTranslation } from "#src/utils/i18n";
 
 import { isTotalBookingNumberType } from "../constants";
+import { mapTotalBookingFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createTotalBookingPayload } from "../mappers/form-value-to-create-payload";
 import { totalBookingNumberFilterSchema } from "../schema";
@@ -48,15 +49,14 @@ export const TotalBookingNumberFilterCard = ({
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.22.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapTotalBookingFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

@@ -8,6 +8,7 @@ import { useUpsertFirstPurchaseFilterMutation } from "#src/api/use-upsert-first-
 import { useTranslation } from "#src/utils/i18n";
 
 import { firstPurchaseStatusToApi } from "../constants";
+import { mapFirstPurchaseFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createFirstPurchaseFilterPayload } from "../mappers/form-value-to-create-payload";
 import { firstPurchaseFilterSchema } from "../schema";
@@ -42,15 +43,14 @@ export const FirstPurchaseFilterCard = ({
 
   const { upsertFirstPurchaseFilterMutate, isLoading: isSaving } =
     useUpsertFirstPurchaseFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.28.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapFirstPurchaseFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createNotesFilter, patchNotesFilter } from "@bsport/api-cdp/smartlist";
+import {
+  type NotesFilter,
+  createNotesFilter,
+  patchNotesFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import type {
   InternalNotesFilterCreatePayload,
@@ -17,7 +21,7 @@ type UpsertInternalNotesFilterVariables = {
 };
 
 type UseUpsertInternalNotesFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: NotesFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -46,11 +50,11 @@ export const useUpsertInternalNotesFilterMutation = (
 
       return patchNotesFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

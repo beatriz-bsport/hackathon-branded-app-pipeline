@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
   type PaymentMethodFilter,
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
@@ -13,15 +14,13 @@ import {
   RELATIVE_DATE_OPERATORS,
 } from "#src/components/primitive-filters/date-filter/constants";
 
-const PAYMENT_METHOD_FILTER_IDENTIFIER = 600;
-
 const buildApiFilter = (
   overrides: Partial<PaymentMethodFilter> = {},
 ): PaymentMethodFilter => ({
   id: 1,
   company: 1,
   smartlist: 1,
-  filter_identifier: PAYMENT_METHOD_FILTER_IDENTIFIER,
+  filter_identifier: Number(PAYMENT_METHOD_FILTER_IDENTIFIER),
   owns_payment_method: true,
   date_filter_active: false,
   date_filter_type: SmartlistDateFilterType.DATE_BEFORE,

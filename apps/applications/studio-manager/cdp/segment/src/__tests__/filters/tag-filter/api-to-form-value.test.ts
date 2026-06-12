@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import type { TagFilter } from "@bsport/api-cdp/smartlist";
+import {
+  TAG_FILTER_IDENTIFIER,
+  type TagFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import { mapTagFilterToFormValue } from "#src/components/filters/tag-filter/mappers/api-to-form-value";
 
@@ -8,7 +11,7 @@ const buildTagFilter = (overrides: Partial<TagFilter> = {}): TagFilter => ({
   id: 1,
   company_id: 9,
   smartlist: 100,
-  filter_identifier: 11,
+  filter_identifier: Number(TAG_FILTER_IDENTIFIER),
   tags_included: [],
   tags_excluded: [],
   ...overrides,

@@ -12,6 +12,7 @@ import { TimedInfoPopover } from "#src/components/timed-info-popover";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isAgeFilterNumberType } from "../constants";
+import { mapAgeFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildAgeFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { ageFilterSchema } from "../schema";
@@ -40,15 +41,14 @@ export const AgeFilterCard = ({
 
   const { upsertAgeFilterMutate, isLoading: isSaving } =
     useUpsertAgeFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.101.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapAgeFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

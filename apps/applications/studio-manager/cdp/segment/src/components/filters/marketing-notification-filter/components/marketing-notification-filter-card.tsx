@@ -14,6 +14,7 @@ import { useDeleteMarketingNotificationFilterMutation } from "#src/api/use-delet
 import { useUpsertMarketingNotificationFilterMutation } from "#src/api/use-upsert-marketing-notification-filter-mutation";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapMarketingNotificationFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildMarketingNotificationFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createMarketingNotificationFilterPayload } from "../mappers/form-value-to-create-payload";
 import { marketingNotificationFilterSchema } from "../schema";
@@ -47,19 +48,18 @@ export const MarketingNotificationFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertMarketingNotificationFilterMutate, isLoading: isSaving } =
     useUpsertMarketingNotificationFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.103.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapMarketingNotificationFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -84,7 +84,6 @@ export const MarketingNotificationFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
   const showCombineModeSelect =
     watchedFilterValue.smsFilterActive && watchedFilterValue.emailFilterActive;

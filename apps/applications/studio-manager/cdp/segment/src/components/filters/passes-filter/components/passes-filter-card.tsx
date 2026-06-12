@@ -7,6 +7,7 @@ import { useDeletePaymentPackFilterMutation } from "#src/api/use-delete-payment-
 import { useUpsertPaymentPackFilterMutation } from "#src/api/use-upsert-payment-pack-filter-mutation";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapApiFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createPassesPayload } from "../mappers/form-value-to-create-payload";
 import { passesFilterSchema } from "../schema";
@@ -49,15 +50,14 @@ export const PassesFilterCard = ({
 
   const { upsertPaymentPackFilterMutate, isLoading: isSaving } =
     useUpsertPaymentPackFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.19.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapApiFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

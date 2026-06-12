@@ -8,6 +8,7 @@ import { useUpsertMemberDateJoinedFilterMutation } from "#src/api/use-upsert-mem
 import { DateFilter } from "#src/components/primitive-filters/date-filter/date-filter";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapMemberDateJoinedFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { memberSignUpDateFilterSchema } from "../schema";
@@ -37,15 +38,14 @@ export const MemberSignUpDateFilterCard = ({
 
   const { upsertMemberDateJoinedFilterMutate, isLoading: isSaving } =
     useUpsertMemberDateJoinedFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.18.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapMemberDateJoinedFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

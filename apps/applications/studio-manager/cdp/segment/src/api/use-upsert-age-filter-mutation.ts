@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createAgeFilter, patchAgeFilter } from "@bsport/api-cdp/smartlist";
+import {
+  type AgeFilter,
+  createAgeFilter,
+  patchAgeFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import type {
   AgeFilterCreatePayload,
@@ -17,7 +21,7 @@ type UpsertAgeFilterVariables = {
 };
 
 type UseUpsertAgeFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: AgeFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -46,11 +50,11 @@ export const useUpsertAgeFilterMutation = (
 
       return patchAgeFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

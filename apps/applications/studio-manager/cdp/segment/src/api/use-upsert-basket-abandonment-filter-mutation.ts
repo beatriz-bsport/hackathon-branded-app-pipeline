@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type BasketAbandonmentFilter,
   type CreateBasketAbandonmentFilterPayload,
   type UpdateBasketAbandonmentFilterPayload,
   createBasketAbandonmentFilter,
@@ -18,7 +19,7 @@ type UpsertBasketAbandonmentFilterVariables = {
 };
 
 type UseUpsertBasketAbandonmentFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: BasketAbandonmentFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -50,11 +51,11 @@ export const useUpsertBasketAbandonmentFilterMutation = (
 
       return patchBasketAbandonmentFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

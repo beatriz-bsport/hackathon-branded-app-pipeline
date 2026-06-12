@@ -17,7 +17,9 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  HAS_PASSWORD_FILTER_IDENTIFIER,
   HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPasswordFilter,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
   LIABILITY_WAIVER_FILTER_IDENTIFIER,
@@ -58,6 +60,7 @@ import {
   isExpensesCompleteFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
+  isHasPasswordFilter,
   isHasPhoneFilter,
   isLastBookingFilter,
   isLiabilityWaiverFilter,
@@ -95,6 +98,7 @@ type SmartlistFiltersQueryData = {
   hasPhoneFilters: HasPhoneFilter[];
   termsAndConditionsFilters: TermsAndConditionsFilter[];
   liabilityWaiverFilters: LiabilityWaiverFilter[];
+  hasPasswordFilters: HasPasswordFilter[];
   lastBookingFilters: LastBookingFilter[];
   internalNotesFilters: NotesFilter[];
   paymentMethodFilters: PaymentMethodFilter[];
@@ -352,6 +356,19 @@ const mapLiabilityWaiverFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapHasPasswordFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): HasPasswordFilter[] => {
+  const hasPasswordFiltersMap = payload?.[HAS_PASSWORD_FILTER_IDENTIFIER];
+  if (!hasPasswordFiltersMap) {
+    return [];
+  }
+
+  return Object.values(hasPasswordFiltersMap)
+    .filter(isHasPasswordFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapLastBookingFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): LastBookingFilter[] => {
@@ -418,6 +435,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       hasPhoneFilters: mapHasPhoneFilters(data),
       termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
       liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
+      hasPasswordFilters: mapHasPasswordFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
       internalNotesFilters: mapInternalNotesFilters(data),
       paymentMethodFilters: mapPaymentMethodFilters(data),

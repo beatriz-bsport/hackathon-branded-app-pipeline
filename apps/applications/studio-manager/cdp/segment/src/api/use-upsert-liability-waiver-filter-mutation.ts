@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { upsertLiabilityWaiverFilterMutationOptions } from "@bsport/api-cdp/smartlist";
+import {
+  type LiabilityWaiverFilter,
+  upsertLiabilityWaiverFilterMutationOptions,
+} from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
 
 type UseUpsertLiabilityWaiverFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: LiabilityWaiverFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -22,11 +25,11 @@ export const useUpsertLiabilityWaiverFilterMutation = (
 
   const mutation = useMutation({
     ...upsertLiabilityWaiverFilterMutationOptions(fetch),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

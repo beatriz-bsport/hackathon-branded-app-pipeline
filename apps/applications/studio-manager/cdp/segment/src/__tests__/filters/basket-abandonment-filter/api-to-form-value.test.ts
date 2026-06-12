@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
   SmartlistDateFilterType,
   SmartlistPaymentComparator,
@@ -14,7 +15,7 @@ const baseFilter: BasketAbandonmentFilter = {
   id: 10,
   smartlist: 5,
   company_id: 2,
-  filter_identifier: 20,
+  filter_identifier: Number(BASKET_ABANDONMENT_FILTER_IDENTIFIER),
   comparator: SmartlistPaymentComparator.LTE,
   basket_value: 11,
   basket_value_second: 30,

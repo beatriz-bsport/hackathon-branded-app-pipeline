@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type CreditAccountFilter,
   createCreditAccountFilter,
   patchCreditAccountFilter,
 } from "@bsport/api-cdp/smartlist";
@@ -20,7 +21,7 @@ type UpsertCreditAccountFilterVariables = {
 };
 
 type UseUpsertCreditAccountFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: CreditAccountFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -49,11 +50,11 @@ export const useUpsertCreditAccountFilterMutation = (
 
       return patchCreditAccountFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

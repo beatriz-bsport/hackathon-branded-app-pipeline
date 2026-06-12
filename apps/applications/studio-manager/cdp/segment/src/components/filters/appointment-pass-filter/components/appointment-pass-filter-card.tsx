@@ -8,6 +8,7 @@ import { useUpsertPrivatePassFilterMutation } from "#src/api/use-upsert-private-
 import { PassesFilterSubFiltersArea } from "#src/components/filters/passes-filter/components/passes-filter-sub-filters-area";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapPrivatePassFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildAppointmentPassDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createAppointmentPassPayload } from "../mappers/form-value-to-create-payload";
 import { appointmentPassFilterSchema } from "../schema";
@@ -46,15 +47,14 @@ export const AppointmentPassFilterCard = ({
 
   const { upsertPrivatePassFilterMutate, isLoading: isSaving } =
     useUpsertPrivatePassFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.25.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapPrivatePassFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

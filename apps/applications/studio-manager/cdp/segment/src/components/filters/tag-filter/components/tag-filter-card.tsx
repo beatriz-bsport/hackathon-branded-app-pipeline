@@ -21,6 +21,7 @@ import { QueryBoundary } from "#src/components/QueryBoundary";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapTagFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildTagFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createTagFilterPayload } from "../mappers/form-value-to-create-payload";
 import { tagFilterFormSchema } from "../schema";
@@ -66,15 +67,14 @@ export const TagFilterCard = ({
 
   const { upsertTagFilterMutate, isLoading: isSaving } =
     useUpsertTagFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.11.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapTagFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

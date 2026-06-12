@@ -9,6 +9,7 @@ import { useUpsertPurchaseHistoryFilterMutation } from "#src/api/use-upsert-purc
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapPurchaseHistoryFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createPurchaseHistoryFilterPayload } from "../mappers/form-value-to-create-payload";
 import { purchaseHistoryFilterSchema } from "../schema";
@@ -43,15 +44,14 @@ export const PurchaseHistoryFilterCard = ({
 
   const { upsertPurchaseHistoryFilterMutate, isLoading: isSaving } =
     useUpsertPurchaseHistoryFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.24.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapPurchaseHistoryFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

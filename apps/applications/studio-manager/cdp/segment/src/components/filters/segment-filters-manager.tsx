@@ -47,6 +47,10 @@ import { GenderFilterCard } from "./gender-filter/components/gender-filter-card"
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
+import { HasPasswordFilterCard } from "./has-password-filter/components/has-password-filter-card";
+import { createDefaultHasPasswordFilter } from "./has-password-filter/default-value";
+import { mapHasPasswordFilterToFormValue } from "./has-password-filter/mappers/api-to-form-value";
+import type { HasPasswordFilterFormValue } from "./has-password-filter/types";
 import { HasPhoneFilterCard } from "./has-phone-filter/components/has-phone-filter-card";
 import { createDefaultHasPhoneFilter } from "./has-phone-filter/default-value";
 import { mapHasPhoneFilterToFormValue } from "./has-phone-filter/mappers/api-to-form-value";
@@ -140,6 +144,7 @@ type FilterValueByType = {
   hasPhone: HasPhoneFilterFormValue;
   termsAndConditions: TermsAndConditionsFilterFormValue;
   liabilityWaiver: LiabilityWaiverFilterFormValue;
+  hasPassword: HasPasswordFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
   internalNotes: InternalNotesFilterFormValue;
   paymentMethod: PaymentMethodFilterFormValue;
@@ -245,6 +250,11 @@ type DraftFilter =
       clientId: string;
       filterType: "liabilityWaiver";
       value: FilterValueByType["liabilityWaiver"];
+    }
+  | {
+      clientId: string;
+      filterType: "hasPassword";
+      value: FilterValueByType["hasPassword"];
     }
   | {
       clientId: string;
@@ -370,6 +380,11 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "hasPassword";
+      value: FilterValueByType["hasPassword"];
+    }
+  | {
+      key: string;
       filterType: "lastBooking";
       value: FilterValueByType["lastBooking"];
     }
@@ -444,6 +459,7 @@ export const SegmentFiltersManager = ({
   const termsAndConditionsFilters =
     smartlistFilters?.termsAndConditionsFilters ?? [];
   const liabilityWaiverFilters = smartlistFilters?.liabilityWaiverFilters ?? [];
+  const hasPasswordFilters = smartlistFilters?.hasPasswordFilters ?? [];
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
   const internalNotesFilters = smartlistFilters?.internalNotesFilters ?? [];
   const paymentMethodFilters = smartlistFilters?.paymentMethodFilters ?? [];
@@ -700,6 +716,15 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    hasPassword: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <HasPasswordFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     lastBooking: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <LastBookingFilterCard
         key={key}
@@ -826,6 +851,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.liabilityWaiver),
       filterType: FILTER_TYPES.liabilityWaiver,
       value: createDefaultLiabilityWaiverFilter(smartlistNumericId),
+    }),
+    hasPassword: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.hasPassword),
+      filterType: FILTER_TYPES.hasPassword,
+      value: createDefaultHasPasswordFilter(smartlistNumericId),
     }),
     lastBooking: () => ({
       clientId: createDraftClientId(FILTER_TYPES.lastBooking),
@@ -998,6 +1028,12 @@ export const SegmentFiltersManager = ({
         description: t("filterSelector.options.lastBooking.description"),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
+      {
+        id: FILTER_TYPES.hasPassword,
+        label: t("filters.400.title"),
+        description: t("filterSelector.options.hasPassword.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
@@ -1104,6 +1140,11 @@ export const SegmentFiltersManager = ({
       key: `saved-liability-waiver-${liabilityWaiverFilter.id}`,
       filterType: FILTER_TYPES.liabilityWaiver,
       value: mapLiabilityWaiverFilterToFormValue(liabilityWaiverFilter),
+    })),
+    ...hasPasswordFilters.map((hasPasswordFilter) => ({
+      key: `saved-has-password-${hasPasswordFilter.id}`,
+      filterType: FILTER_TYPES.hasPassword,
+      value: mapHasPasswordFilterToFormValue(hasPasswordFilter),
     })),
     ...lastBookingFilters.map((lastBookingFilter) => ({
       key: `saved-last-booking-${lastBookingFilter.id}`,

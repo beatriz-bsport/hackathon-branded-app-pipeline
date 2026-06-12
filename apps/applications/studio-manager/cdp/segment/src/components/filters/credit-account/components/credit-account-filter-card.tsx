@@ -12,6 +12,7 @@ import type { NumericComparatorFilterValue } from "#src/components/primitive-fil
 import { useTranslation } from "#src/utils/i18n";
 
 import { isCreditAccountNumberType } from "../constants";
+import { mapCreditAccountFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildCreditAccountFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { creditAccountFilterSchema } from "../schema";
@@ -39,15 +40,14 @@ export const CreditAccountFilterCard = ({
 
   const { upsertCreditAccountFilterMutate, isLoading: isSaving } =
     useUpsertCreditAccountFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.1.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapCreditAccountFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

@@ -15,7 +15,9 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  HAS_PASSWORD_FILTER_IDENTIFIER,
   HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPasswordFilter,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
   LIABILITY_WAIVER_FILTER_IDENTIFIER,
@@ -68,6 +70,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   hasPhone: "hasPhone",
   termsAndConditions: "termsAndConditions",
   liabilityWaiver: "liabilityWaiver",
+  hasPassword: "hasPassword",
   lastBooking: "lastBooking",
   internalNotes: "internalNotes",
   paymentMethod: "paymentMethod",
@@ -103,6 +106,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.liabilityWaiver ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPassword ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.paymentMethod;
 
 export const isBasketAbandonmentFilter = (
@@ -334,6 +338,15 @@ export const isLiabilityWaiverFilter = (
   value: unknown,
 ): value is LiabilityWaiverFilter =>
   hasFilterIdentifier(value, LIABILITY_WAIVER_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "value");
+
+export const isHasPasswordFilter = (
+  value: unknown,
+): value is HasPasswordFilter =>
+  hasFilterIdentifier(value, HAS_PASSWORD_FILTER_IDENTIFIER) &&
   hasNumber(value, "id") &&
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&

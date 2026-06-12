@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type MarketingNotificationFilter,
   createMarketingNotificationFilter,
   patchMarketingNotificationFilter,
 } from "@bsport/api-cdp/smartlist";
@@ -20,7 +21,7 @@ type UpsertMarketingNotificationFilterVariables = {
 };
 
 type UseUpsertMarketingNotificationFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: MarketingNotificationFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -53,11 +54,11 @@ export const useUpsertMarketingNotificationFilterMutation = (
 
       return patchMarketingNotificationFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

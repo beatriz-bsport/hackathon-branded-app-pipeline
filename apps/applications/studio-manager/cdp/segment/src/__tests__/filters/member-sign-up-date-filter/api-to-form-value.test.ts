@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MemberDateJoinedFilter,
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
@@ -16,7 +17,7 @@ const baseFilter: MemberDateJoinedFilter = {
   id: 88,
   company_id: 7,
   smartlist: 123,
-  filter_identifier: 18,
+  filter_identifier: Number(MEMBER_DATE_JOINED_FILTER_IDENTIFIER),
   date_filter_type: SmartlistDateFilterType.DATE_EXACT,
   date: "2024-06-01",
   date_second: null,

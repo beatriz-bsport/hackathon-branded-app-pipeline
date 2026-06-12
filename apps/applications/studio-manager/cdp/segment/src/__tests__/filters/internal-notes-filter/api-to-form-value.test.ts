@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  NOTES_FILTER_IDENTIFIER,
   NoteCondition,
   type NotesFilter,
   SmartlistDateFilterType,
@@ -10,13 +11,11 @@ import { NOTE_TYPE_OPTIONS } from "#src/components/filters/internal-notes-filter
 import { mapInternalNotesFilterToFormValue } from "#src/components/filters/internal-notes-filter/mappers/api-to-form-value";
 import { INTERNAL_NOTES_SUB_FILTER_IDS } from "#src/components/filters/internal-notes-filter/sub-filters/internal-notes-sub-filter-id";
 
-const NOTES_FILTER_IDENTIFIER = 104;
-
 const buildApiFilter = (overrides: Partial<NotesFilter> = {}): NotesFilter => ({
   id: 1,
   company: 1,
   smartlist: 1,
-  filter_identifier: NOTES_FILTER_IDENTIFIER,
+  filter_identifier: Number(NOTES_FILTER_IDENTIFIER),
   note_condition: NoteCondition.ANY_NOTE,
   date_filter_active: false,
   date_filter_type: SmartlistDateFilterType.DATE_BEFORE,

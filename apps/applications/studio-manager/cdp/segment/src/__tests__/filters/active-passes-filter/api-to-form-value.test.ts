@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
+  ACTIVE_PASSES_FILTER_IDENTIFIER,
   type ActivePassesFilter,
   SmartlistActivePassesComparator,
 } from "@bsport/api-cdp/smartlist";
@@ -12,15 +13,13 @@ vi.mock("#src/utils/i18n", () => ({
   i18nInstance: { t: (key: string) => key },
 }));
 
-const ACTIVE_PASSES_FILTER_IDENTIFIER = 27;
-
 const buildActivePassesFilter = (
   overrides: Partial<ActivePassesFilter> = {},
 ): ActivePassesFilter => ({
   id: 901,
   company_id: 1,
   smartlist: 123,
-  filter_identifier: ACTIVE_PASSES_FILTER_IDENTIFIER,
+  filter_identifier: Number(ACTIVE_PASSES_FILTER_IDENTIFIER),
   select_all_payment_packs: true,
   payment_packs: [],
   select_all_private_passes: false,

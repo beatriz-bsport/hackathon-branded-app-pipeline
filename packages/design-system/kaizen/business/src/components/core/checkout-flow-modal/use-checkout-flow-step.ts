@@ -119,10 +119,28 @@ export const useCheckoutFlowStep = ({
     [t, onError],
   );
 
+  const handleFetchMember = async (id: number) => {
+    return getMember(fetch, { memberId: id });
+  };
+
+  const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
+    useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
+
+  const resetCheckoutForm = useCallback(() => {
+    methods.reset({
+      ...DEFAULT_FORM_DATA,
+      ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
+      isDiscountReasonRequired,
+      member: fetchedMember ?? null,
+    });
+  }, [methods, isDiscountReasonRequired, fetchedMember]);
+
   const { mutateAsync } = useCreateInvoice({
     fetch,
     onError: handleCreateInvoiceError,
     onSubmit: (data, invoiceUuid) => {
+      resetCheckoutForm();
       const memberId = data.member?.id;
       if (memberId != null) {
         onInvoiceCreated?.(invoiceUuid, memberId, data);
@@ -173,13 +191,6 @@ export const useCheckoutFlowStep = ({
     }
   };
 
-  const handleFetchMember = async (id: number) => {
-    return getMember(fetch, { memberId: id });
-  };
-
-  const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
-    useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
-
   useEffect(() => {
     if (memberId) {
       fetchMember(memberId);
@@ -197,10 +208,11 @@ export const useCheckoutFlowStep = ({
 
   useEffect(() => {
     if (!isActive) {
+      resetCheckoutForm();
       setIsMemberSelectorOpen(false);
       setIsFootnoteModalOpen(false);
     }
-  }, [isActive]);
+  }, [isActive, resetCheckoutForm]);
 
   const hasAutoOpenedMemberSelectorRef = useRef(false);
   useEffect(() => {
@@ -258,17 +270,11 @@ export const useCheckoutFlowStep = ({
   );
 
   const handleInternalClose = useCallback(() => {
-    methods.reset({
-      ...DEFAULT_FORM_DATA,
-      ...ADD_ITEM_DEFAULT,
-      ...GIFTCARD_FIELDS_DEFAULT,
-      isDiscountReasonRequired,
-      member: fetchedMember ?? null,
-    });
+    resetCheckoutForm();
     setIsMemberSelectorOpen(false);
     setIsFootnoteModalOpen(false);
     onClose?.();
-  }, [methods, isDiscountReasonRequired, fetchedMember, onClose]);
+  }, [resetCheckoutForm, onClose]);
 
   const closeConfirmationMessage = t(
     "checkoutFlowModal.closeWithItemsConfirmation",

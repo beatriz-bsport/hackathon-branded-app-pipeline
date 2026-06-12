@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type ReactNode, useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { CompanyTheme } from "@bsport/api-core";
 import { getFetch } from "@bsport/fetch";
 import { Button, toast } from "@bsport/kaizen-primitive-core";
+
+import { INVOICE_COMPLETION_INTENT } from "#src/components/core/checkout-flow-modal/constants";
 
 import { CheckoutPaymentFlowModal } from "./checkout-payment-flow-modal";
 import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
@@ -59,60 +61,36 @@ The host app must provide these (see \`@bsport/kaizen-business-components\` \`pe
 
 Optional: \`companyTheme\` (\`@bsport/api-core\`) for Stripe card/SEPA in the payment step.
 
-### How to import
+### Recommended public API
+
+Open the flow through the URL helper (recommended for app integration):
 
 \`\`\`tsx
-import { CheckoutPaymentFlowModal } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
+import { openFullPaymentFlow } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
 \`\`\`
 
-Host apps typically mount this once (e.g. in the navigation sidebar) and open it via \`openCheckoutFlow\`, \`openPaymentFlow\`, or \`openFullPaymentFlow\`.
+\`\`\`tsx
+openFullPaymentFlow({
+  basketStartTrigger: "navbar",
+  memberId: 29612631, // optional
+});
+\`\`\`
+
+Mount \`CheckoutPaymentFlowModal\` once in a host container (e.g. navigation sidebar) that reads URL params and drives \`mode\`. Checkout-only entry points use \`openCheckoutFlow\`; payment-only use \`openPaymentFlow\`.
+
+The modal component shown in this story is a low-level building block for Storybook and internal development.
+`;
+
+const metaSourceCode = `
+import { openFullPaymentFlow } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
+
+openFullPaymentFlow({
+  basketStartTrigger: "member_profile_page",
+  memberId: ${MEMBER_ID}, // optional
+});
 `;
 
 type CheckoutPaymentFlowModalComponent = typeof CheckoutPaymentFlowModal;
-
-const FlowStoryLayout = ({
-  buttonLabel,
-  children,
-}: {
-  buttonLabel: string;
-  children: (controls: { isOpen: boolean; close: () => void }) => ReactNode;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Button
-        label={buttonLabel}
-        size="md"
-        intent="default"
-        color="main"
-        onClick={() => setIsOpen(true)}
-      />
-      {children({ isOpen, close })}
-    </QueryClientProvider>
-  );
-};
-
-const sharedFlowProps = (isOpen: boolean, close: () => void) => ({
-  companyId: COMPANY_ID,
-  fetch,
-  isOpen,
-  companyTheme: storybookCompanyTheme,
-  onClose: close,
-  startContext,
-  onTrack: () => {},
-  onPaymentConfirm: (remainingAmountCts: number) => {
-    if (remainingAmountCts <= 0) {
-      toast({
-        status: "positive",
-        title: "Payment confirmed",
-        icon: "check",
-      });
-      close();
-    }
-  },
-});
 
 const meta: Meta<CheckoutPaymentFlowModalComponent> = {
   component: CheckoutPaymentFlowModal,
@@ -123,7 +101,107 @@ const meta: Meta<CheckoutPaymentFlowModalComponent> = {
       description: {
         component: metaComponentDescription,
       },
+      source: {
+        code: metaSourceCode,
+      },
     },
+  },
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(args.isOpen);
+    const close = () => setIsOpen(false);
+
+    useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
+
+    const sharedProps = {
+      isOpen,
+      companyId: args.companyId,
+      fetch,
+      companyTheme: storybookCompanyTheme,
+      startContext,
+      basketSessionId: args.basketSessionId,
+      onClose: close,
+      onTrack: () => {},
+      onPaymentConfirm: (remainingAmountCts: number) => {
+        if (remainingAmountCts <= 0) {
+          close();
+        }
+      },
+    };
+
+    const modal =
+      args.mode === CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT ? (
+        <CheckoutPaymentFlowModal
+          {...sharedProps}
+          mode={CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT}
+          memberId={args.memberId}
+          invoiceId={args.invoiceId}
+          onCheckoutComplete={(_data, invoiceUuid, intent) => {
+            if (intent === INVOICE_COMPLETION_INTENT.PAY_NOW) {
+              toast({
+                status: "positive",
+                title: "Invoice created",
+                description: invoiceUuid,
+                icon: "check",
+              });
+            }
+            close();
+          }}
+        />
+      ) : args.mode === CHECKOUT_PAYMENT_FLOW_MODE.PAYMENT ? (
+        <CheckoutPaymentFlowModal
+          {...sharedProps}
+          mode={CHECKOUT_PAYMENT_FLOW_MODE.PAYMENT}
+          memberId={args.memberId ?? 0}
+          invoiceId={args.invoiceId ?? ""}
+        />
+      ) : (
+        <CheckoutPaymentFlowModal
+          {...sharedProps}
+          mode={CHECKOUT_PAYMENT_FLOW_MODE.FULL}
+          memberId={args.memberId}
+          invoiceId={args.invoiceId}
+          onTransitionToPayment={() => {}}
+        />
+      );
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Button
+          label="Open Checkout Payment Flow Modal"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={() => setIsOpen(true)}
+        />
+        {modal}
+      </QueryClientProvider>
+    );
+  },
+  args: {
+    isOpen: false,
+    companyId: COMPANY_ID,
+    mode: CHECKOUT_PAYMENT_FLOW_MODE.FULL,
+    memberId: MEMBER_ID,
+    invoiceId: PAYMENT_INVOICE_ID,
+  },
+  argTypes: {
+    mode: {
+      control: "select",
+      options: Object.values(CHECKOUT_PAYMENT_FLOW_MODE),
+    },
+    companyId: { control: "number" },
+    memberId: { control: "number" },
+    invoiceId: { control: "text" },
+    basketSessionId: { control: "text" },
+    fetch: { table: { disable: true } },
+    onClose: { table: { disable: true } },
+    onTrack: { table: { disable: true } },
+    onPaymentConfirm: { table: { disable: true } },
+    onCheckoutComplete: { table: { disable: true } },
+    onTransitionToPayment: { table: { disable: true } },
+    onError: { table: { disable: true } },
+    companyTheme: { table: { disable: true } },
+    startContext: { table: { disable: true } },
   },
   tags: ["autodocs"],
 };
@@ -132,39 +210,30 @@ export default meta;
 
 type Story = StoryObj<CheckoutPaymentFlowModalComponent>;
 
+export const Default: Story = {};
+
 /** Checkout then payment without closing the modal. */
 export const FullFlow: Story = {
+  args: {
+    mode: CHECKOUT_PAYMENT_FLOW_MODE.FULL,
+    memberId: MEMBER_ID,
+  },
   parameters: {
     docs: {
       description: {
         story:
-          '`mode: "full"` - after invoice creation the shell switches to the payment step in place. Use `onTransitionToPayment` to sync URL (`pfOpen`, `invoiceId`, `memberId`) without remounting.',
+          '`mode: "full"` - "Pay now" creates the invoice and switches to the payment step (no toast). "Pay later" creates the invoice, closes the modal, and shows a pending-payment toast.',
       },
     },
   },
-  render: () => (
-    <FlowStoryLayout buttonLabel="Open full checkout - payment flow">
-      {({ isOpen, close }) => (
-        <CheckoutPaymentFlowModal
-          {...sharedFlowProps(isOpen, close)}
-          mode={CHECKOUT_PAYMENT_FLOW_MODE.FULL}
-          memberId={MEMBER_ID}
-          onTransitionToPayment={(nextInvoiceId) => {
-            toast({
-              status: "default",
-              title: "Checkout complete - pay now",
-              description: `Invoice ${nextInvoiceId}`,
-              icon: "file-06",
-            });
-          }}
-        />
-      )}
-    </FlowStoryLayout>
-  ),
 };
 
 /** Same as checkout-only entry: create invoice, then close. */
 export const CheckoutOnly: Story = {
+  args: {
+    mode: CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT,
+    memberId: MEMBER_ID,
+  },
   parameters: {
     docs: {
       description: {
@@ -173,30 +242,15 @@ export const CheckoutOnly: Story = {
       },
     },
   },
-  render: () => (
-    <FlowStoryLayout buttonLabel="Open checkout-only flow">
-      {({ isOpen, close }) => (
-        <CheckoutPaymentFlowModal
-          {...sharedFlowProps(isOpen, close)}
-          mode={CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT}
-          memberId={MEMBER_ID}
-          onCheckoutComplete={(_data, invoiceUuid) => {
-            toast({
-              status: "positive",
-              title: "Invoice created",
-              description: invoiceUuid,
-              icon: "check",
-            });
-            close();
-          }}
-        />
-      )}
-    </FlowStoryLayout>
-  ),
 };
 
 /** Pay an existing invoice (invoice detail, billing problems, etc.). */
 export const PaymentOnly: Story = {
+  args: {
+    mode: CHECKOUT_PAYMENT_FLOW_MODE.PAYMENT,
+    invoiceId: PAYMENT_INVOICE_ID,
+    memberId: PAYMENT_MEMBER_ID,
+  },
   parameters: {
     docs: {
       description: {
@@ -205,18 +259,6 @@ export const PaymentOnly: Story = {
       },
     },
   },
-  render: () => (
-    <FlowStoryLayout buttonLabel="Open payment-only flow">
-      {({ isOpen, close }) => (
-        <CheckoutPaymentFlowModal
-          {...sharedFlowProps(isOpen, close)}
-          mode={CHECKOUT_PAYMENT_FLOW_MODE.PAYMENT}
-          invoiceId={PAYMENT_INVOICE_ID}
-          memberId={PAYMENT_MEMBER_ID}
-        />
-      )}
-    </FlowStoryLayout>
-  ),
 };
 
 export const Documentation: Story = {
@@ -243,7 +285,7 @@ export const Documentation: Story = {
 | \`invoiceId\` | Required for \`mode: "payment"\`. |
 | \`onCheckoutComplete\` | \`mode: "checkout"\` - host toast + close. |
 | \`onTransitionToPayment\` | \`mode: "full"\` - URL/session sync, modal stays open. |
-| \`onPaymentConfirm\` | After successful payment (all modes with payment step). |
+| \`onPaymentConfirm\` | After successful full payment (all modes with payment step). A "Payment completed" toast is shown automatically when the invoice is fully paid; use this for host side effects (close, refresh, analytics). |
 | \`companyTheme\` | Stripe keys for card/SEPA methods in payment step. |
 
 ### Required peerDependencies

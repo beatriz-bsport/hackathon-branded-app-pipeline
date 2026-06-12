@@ -8,7 +8,12 @@ import {
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import type { CheckoutFlowFormData } from "#src/components/core/checkout-flow-modal/types";
+import { INVOICE_COMPLETION_INTENT } from "#src/components/core/checkout-flow-modal/constants";
+import { showInvoicePendingPaymentToast } from "#src/components/core/checkout-flow-modal/lib/show-invoice-pending-payment-toast";
+import type {
+  CheckoutFlowFormData,
+  InvoiceCompletionIntent,
+} from "#src/components/core/checkout-flow-modal/types";
 import { useCheckoutFlowStep } from "#src/components/core/checkout-flow-modal/use-checkout-flow-step";
 import { usePaymentFlowModalState } from "#src/components/financial-services/payment-flow-modal/hooks/use-payment-flow-modal-state";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -184,11 +189,17 @@ export const useCheckoutPaymentFlowState = ({
   }, [isOpen, mode, resolvedInvoiceId, resolvedMemberId, onError, onClose]);
 
   const handleInvoiceCreated = useCallback(
-    (invoiceUuid: string, memberId: number, data: CheckoutFlowFormData) => {
+    (
+      invoiceUuid: string,
+      memberId: number,
+      data: CheckoutFlowFormData,
+      intent: InvoiceCompletionIntent = INVOICE_COMPLETION_INTENT.PAY_NOW,
+    ) => {
       const action = resolveInvoiceCreatedFlowAction(
         mode,
         invoiceUuid,
         memberId,
+        intent,
       );
 
       if (action.type === INVOICE_CREATED_FLOW_ACTION.TRANSITION_TO_PAYMENT) {
@@ -199,9 +210,27 @@ export const useCheckoutPaymentFlowState = ({
         return;
       }
 
-      onCheckoutComplete?.(data, invoiceUuid);
+      if (action.type === INVOICE_CREATED_FLOW_ACTION.DEFER_PAYMENT) {
+        showInvoicePendingPaymentToast(invoiceUuid);
+        if (mode === CHECKOUT_PAYMENT_FLOW_MODE.FULL) {
+          onClose();
+          return;
+        }
+        onCheckoutComplete?.(
+          data,
+          invoiceUuid,
+          INVOICE_COMPLETION_INTENT.PAY_LATER,
+        );
+        return;
+      }
+
+      onCheckoutComplete?.(
+        data,
+        invoiceUuid,
+        INVOICE_COMPLETION_INTENT.PAY_NOW,
+      );
     },
-    [mode, onCheckoutComplete, onTransitionToPayment],
+    [mode, onCheckoutComplete, onClose, onTransitionToPayment],
   );
 
   const checkoutStep = useCheckoutFlowStep({
@@ -276,10 +305,13 @@ export const useCheckoutPaymentFlowState = ({
       type: "submit" as const,
       form: checkoutStep.formId,
       disabled: checkoutStep.isConfirmDisabled,
+      loading: checkoutStep.isPayNowLoading,
     },
     cancelButton: {
-      label: tCore("checkoutFlowModal.cancel"),
-      onClick: checkoutStep.handleCancelClose,
+      label: tCore("checkoutFlowModal.payLater"),
+      disabled: checkoutStep.isConfirmDisabled,
+      loading: checkoutStep.isPayLaterLoading,
+      onClick: checkoutStep.handlePayLaterSubmit,
     },
   };
 

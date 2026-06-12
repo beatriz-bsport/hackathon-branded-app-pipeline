@@ -255,6 +255,9 @@
       "successful": "Payment successful",
       "remaining": "There will be {{amount}} left to pay on this invoice"
     },
+    "toasts": {
+      "paymentCompleted": "Payment completed"
+    },
     "paymentMethodTitle": "Payment method",
     "memberBalanceInsufficientAlert": "Client's account balance doesn't cover the full amount. Charge the remaining amount separately.",
     "giftCards": {

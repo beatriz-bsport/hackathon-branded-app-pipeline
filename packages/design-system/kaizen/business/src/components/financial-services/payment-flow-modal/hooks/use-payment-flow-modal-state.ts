@@ -33,6 +33,7 @@ import {
   paymentFlowFormSchema,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
 import { resolveConfirmAmountCts } from "#src/components/financial-services/payment-flow-modal/lib/resolve-confirm-amount-cts";
+import { showPaymentCompletedToast } from "#src/components/financial-services/payment-flow-modal/lib/show-payment-completed-toast";
 import type {
   PaymentFlowModalBodyState,
   PaymentFlowModalProps,
@@ -804,6 +805,7 @@ export const usePaymentFlowModalState = ({
           return;
         }
 
+        showPaymentCompletedToast();
         closeModal();
       },
       onError: (error: unknown) => {

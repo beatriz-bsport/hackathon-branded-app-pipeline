@@ -1,5 +1,10 @@
 import type { Fetch } from "@bsport/fetch";
 
+import { INVOICE_COMPLETION_INTENT } from "./constants";
+
+export type InvoiceCompletionIntent =
+  (typeof INVOICE_COMPLETION_INTENT)[keyof typeof INVOICE_COMPLETION_INTENT];
+
 /**
  * Buyable Item Type identifiers
  * These match the backend buyable_item_identifier values
@@ -315,7 +320,7 @@ type FootnotePayload = {
 
 type CompletionPayload = {
   basket_session_id?: string;
-  basket_completion_trigger: "confirm";
+  basket_completion_trigger: InvoiceCompletionIntent;
   member_id?: number | null;
   nb_of_promo_code_applied: number;
   total_item_quantity: number;
@@ -451,6 +456,7 @@ export type CheckoutFlowStepProps = {
     invoiceUuid: string,
     memberId: number,
     data: CheckoutFlowFormData,
+    intent?: InvoiceCompletionIntent,
   ) => void;
   onTrack: CheckoutFlowTrackFn;
   startContext?: CheckoutFlowStartContext;

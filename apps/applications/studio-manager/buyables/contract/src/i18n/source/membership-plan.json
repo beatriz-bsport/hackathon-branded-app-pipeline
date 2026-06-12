@@ -17,6 +17,25 @@
     "billingPlaceholder": "Billing details will appear here.",
     "historyPlaceholder": "Membership plan history will appear here."
   },
+  "invoiceList": {
+    "headers": {
+      "billingDate": "Billing date",
+      "status": "Status",
+      "amount": "Amount"
+    },
+    "emptyList": {
+      "title": "No invoices yet",
+      "subtitle": "Invoices for this membership plan will appear here."
+    },
+    "loading": "Loading invoices...",
+    "status": {
+      "draft": "Draft",
+      "open": "Open",
+      "paid": "Paid",
+      "voided": "Voided",
+      "refunded": "Refunded"
+    }
+  },
   "panel": {
     "details": {
       "autoRenewal": "Auto-renew",

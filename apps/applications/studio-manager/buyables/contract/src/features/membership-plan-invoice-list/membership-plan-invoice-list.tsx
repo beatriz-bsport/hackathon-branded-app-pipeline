@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 
 import {
   type PaginationProps,
@@ -10,9 +10,13 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { useBillingPlanInvoicesPaginatedSuspenseQuery } from "#src/hooks/api/use-billing-plan-invoices-query";
 import { useTranslation } from "#src/utils/i18n";
 
+import { EditBillingDateModal } from "./edit-billing-date-modal";
 import { MembershipPlanInvoiceMobile } from "./membership-plan-invoice-mobile";
 import { MembershipPlanInvoiceTable } from "./membership-plan-invoice-table";
-import type { MembershipPlanInvoiceListProps } from "./types";
+import type {
+  MembershipPlanInvoiceListProps,
+  MembershipPlanInvoiceRowData,
+} from "./types";
 import { useMembershipPlanInvoiceRows } from "./use-membership-plan-invoice-rows";
 
 export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
@@ -20,6 +24,8 @@ export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
 }) => {
   const { t } = useTranslation("membership-plan");
   const isMobile = !useMatchMedia("sm");
+  const [editingRow, setEditingRow] =
+    useState<MembershipPlanInvoiceRowData | null>(null);
 
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
@@ -51,11 +57,22 @@ export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
     emptyConfig,
     paginationProps,
     loadingProps: {},
+    onEditBillingDate: setEditingRow,
   };
 
-  return isMobile ? (
-    <MembershipPlanInvoiceMobile {...sharedProps} />
-  ) : (
-    <MembershipPlanInvoiceTable {...sharedProps} />
+  return (
+    <>
+      {isMobile ? (
+        <MembershipPlanInvoiceMobile {...sharedProps} />
+      ) : (
+        <MembershipPlanInvoiceTable {...sharedProps} />
+      )}
+
+      <EditBillingDateModal
+        invoice={editingRow}
+        billingPlanId={billingPlanId}
+        onClose={() => setEditingRow(null)}
+      />
+    </>
   );
 };

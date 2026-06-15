@@ -8,6 +8,8 @@ import type {
 export type MembershipPlanInvoiceRowData = {
   id: number;
   billingDate: string;
+  rawDate: string;
+  isPast: boolean;
   statusChip: ChipProps;
   amount: string;
 };
@@ -18,4 +20,5 @@ export type MembershipPlanInvoiceListProps = {
   emptyConfig: UseEmptyStateProps["emptyConfig"];
   paginationProps?: PaginationProps;
   loadingProps: UseLoadingStateProps;
+  onEditBillingDate: (row: MembershipPlanInvoiceRowData) => void;
 };

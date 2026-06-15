@@ -24,12 +24,12 @@
         "triggeredBy": "Condition",
         "triggeredWhen": "Delivery timing",
         "smartlist": {
-          "excluding": "Don't send to clients in these Smartlists",
-          "including": "Only send to clients in these Smartlists",
+          "excluding": "Don't send to clients in these segments",
+          "including": "Only send to clients in these segments",
           "noSmartlistsFiltering": "None"
         },
         "passes": {
-          "title": "Associated Passes",
+          "title": "Associated passes",
           "credits_one": "{{count}} credit",
           "credits_other": "{{count}} credits",
           "allIncluded": {

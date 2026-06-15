@@ -6,7 +6,6 @@ import {
   Breadcrumbs,
   Button,
   DetailsLayout,
-  type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { ABSOLUTE_ROUTES } from "#src/urls";
@@ -14,15 +13,10 @@ import { useTranslation } from "#src/utils/i18n";
 
 type Props = {
   venue: Establishment;
-  pageTabs: TabsProps;
   onArchive: (venue: Establishment) => void;
 };
 
-export const VenueDetailHeader: FC<Props> = ({
-  venue,
-  pageTabs,
-  onArchive,
-}) => {
+export const VenueDetailHeader: FC<Props> = ({ venue, onArchive }) => {
   const { t } = useTranslation("venues-list");
 
   const BreadcrumbsItems = [
@@ -59,7 +53,6 @@ export const VenueDetailHeader: FC<Props> = ({
     <DetailsLayout.Header
       pageTitle={venue.title}
       BreadcrumbsItems={BreadcrumbsItems}
-      pageTabs={pageTabs}
       endGroupActions={endGroupActions}
     />
   );

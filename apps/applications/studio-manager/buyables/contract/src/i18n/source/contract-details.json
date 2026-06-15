@@ -115,7 +115,7 @@
       "loading": "Loading active subscriptions…",
       "headers": {
         "startDate": "Start date",
-        "member": "Member",
+        "member": "Client",
         "status": "Status",
         "actions": "Actions"
       },

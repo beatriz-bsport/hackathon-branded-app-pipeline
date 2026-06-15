@@ -71,9 +71,9 @@
   },
   "benefitsCard": {
     "kinds": {
-      "pass": "Pass",
-      "appointmentPass": "Appointment Pass",
-      "universalPass": "Universal Pass"
+      "pass": "Class pass",
+      "appointmentPass": "Appointment pass",
+      "universalPass": "Universal pass"
     },
     "hasAccessToOnDemand": "Access to On-Demand",
     "editBenefit": "Edit Benefit",

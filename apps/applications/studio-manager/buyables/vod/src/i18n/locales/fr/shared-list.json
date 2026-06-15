@@ -1,1 +1,7 @@
-{}
+{
+  "pageTitle": "On-demand",
+  "tabs": {
+    "collections": "Collections",
+    "media": "Média"
+  }
+}

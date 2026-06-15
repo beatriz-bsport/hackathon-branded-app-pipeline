@@ -3,18 +3,18 @@
   "deleteActionLabel": "Delete",
   "loading": "Loading collection",
   "loadError": {
-    "title": "Unable to load collection",
-    "description": "Please try again. If the issue persists, go back to the list.",
+    "title": "Coudn't load collection",
+    "description": "Try again. If the issue persists, refresh or go back to collections page. ",
     "retry": "Retry"
   },
   "notFound": {
     "title": "Collection not found",
-    "description": "The requested collection could not be found.",
-    "backToCollections": "Back to collections"
+    "description": "Media couldn't be found. It may have been deleted or you don't have access to it. ",
+    "backToCollections": "Back to all collections"
   },
   "emptyMedia": {
     "title": "No media added yet",
-    "subtitle": "Add media to create your first Collection."
+    "subtitle": "Add media to create your first collection"
   },
   "emptyThumbnailLabel": "No media in the collection",
   "ebook": {
@@ -26,14 +26,14 @@
       "openYoutubeVideo": "Open YouTube video"
     },
     "fallbacks": {
-      "loadError": "The embedded player could not be loaded. Open the media in a new tab instead.",
-      "youtubeEmbedError": "The YouTube URL could not be parsed for embedding. Open it in a new tab instead."
+      "loadError": "The embedded player couldn't load. Open the media in a new tab instead.",
+      "youtubeEmbedError": "The YouTube URL couldn't be embedded. Open it in a new tab instead."
     }
   },
   "videoList": {
     "addMedia": "Add media",
-    "ebook": "Ebook",
-    "managerOnly": "Manager only",
+    "ebook": "eBook",
+    "managerOnly": "Unlisted",
     "rentalDays": "",
     "rentalDays_one": "{{count}} rental day",
     "rentalDays_other": "{{count}} rental days",
@@ -49,30 +49,30 @@
     "title": "Add media",
     "searchPlaceholder": "Search media",
     "emptySearch": "No media found",
-    "cancel": "Cancel",
+    "cancel": "Close",
     "add": "Add",
     "submitResponse": {
-      "success": "Media added to the collection",
-      "error": "Failed to add media to the collection"
+      "success": "Media added to collection",
+      "error": "Couldn't add media to collection. Try again. "
     }
   },
   "removeMediaModal": {
-    "title": "Remove media?",
+    "title": "Remove media from collection?",
     "description": "Your clients will no longer be able to see \"{{videoName}}\" in your collection, but you’ll still be able to access it from on-demand.",
     "undoAction": {
       "label": "Undo"
     },
     "undoResponse": {
-      "success": "Action undone"
+      "success": "Change undone"
     },
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Keep",
       "remove": "Remove",
       "removeItem": "Remove {{videoName}}"
     },
     "submitResponse": {
-      "success": "Media removed from the collection",
-      "error": "Failed to remove media from the collection"
+      "success": "Media removed from collection",
+      "error": "Couldn't remove media from the collection. Try again. "
     }
   }
 }

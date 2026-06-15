@@ -14,6 +14,8 @@ import { writeFileSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
+import { getEffectivePort } from "@bsport/config-federation";
+
 import type { DevExecutorSchema } from "./schema";
 
 interface FederationConfig {
@@ -72,11 +74,14 @@ export default async function runExecutor(
   const processes: ChildProcess[] = [];
 
   const remotesToStart = getRemotesToStart(options, federation);
+  const effectiveDevPort = getEffectivePort(federation.devPort);
 
   output.log({
     title: `Starting ${projectName} dev server`,
     bodyLines: [
-      `Port: ${federation.devPort}`,
+      `Slot: ${process.env.BSPORT_DEV_SLOT ?? "0"}`,
+      `Port: ${effectiveDevPort} (base ${federation.devPort})`,
+      `URL: http://localhost:${effectiveDevPort}`,
       `Remotes: ${remotesToStart.length > 0 ? remotesToStart.join(", ") : "none"}`,
       `Watching deps: ${options.watchDeps !== false}`,
     ],

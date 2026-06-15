@@ -16,7 +16,7 @@ The commands below suppose you are under the location `apps/applications/saas-le
 
 ### With local server
 
-To bootstrap the local backend, follow instructions in the README of https://gitlab.com/bsport/bsport-django
+To bootstrap the local backend, follow instructions in the README of <https://gitlab.com/bsport/bsport-django>
 
 When you are ready you can start with :
 
@@ -39,6 +39,20 @@ Under the hood what it does is basically :
 pnpm run start
 cp envs/staging public/env.js
 ```
+
+### With the revamped sidebar in parallel worktrees
+
+The legacy backoffice loads the Studio Manager navigation sidebar in development.
+When running multiple worktrees, use the same `BSPORT_DEV_SLOT` for
+`saas-legacy` so the legacy remote URL points
+at the matching sidebar server.
+
+```sh
+BSPORT_DEV_SLOT=1 pnpm --filter @bsport/saas-legacy start-dev
+```
+
+Unset or `0` keeps the default sidebar port `4050`. Slot `1` maps it to `10050`,
+slot `2` maps it to `11050`.
 
 ### Generate translations
 
@@ -107,7 +121,7 @@ You will find here all the routing and the page
 
 A page is something at the "root" level that is correlated to a specific URL, a router is basically a "switch" component which, based on the URL, will chose to display one page or another one.
 
-The pages are the only component allowed to dispatch redux actions, and allowed to connect to the redux store to get there some data. ** This is important, dont forget!**
+The pages are the only component allowed to dispatch redux actions, and allowed to connect to the redux store to get there some data. **This is important, dont forget!**
 
 Each folder here is, more or less, a root url. There are a few "master-router-page" :
 

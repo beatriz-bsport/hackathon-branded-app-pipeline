@@ -29,6 +29,7 @@ Modern backoffice apps. New manager-facing product work belongs here unless expl
 
 - Navigation Sidebar is the bridge between old and new during local dev and may need URL updates for new apps.
 - `dev:watch` is the preferred entrypoint because it starts the app with sidebar injection and watches workspace deps without needing host.
+- For parallel worktrees, set `BSPORT_DEV_SLOT` and keep every related dev server, including remotes, in the same slot.
 - Do not import legacy patterns from `saas-legacy` into Studio Manager.
 
 ## Related docs

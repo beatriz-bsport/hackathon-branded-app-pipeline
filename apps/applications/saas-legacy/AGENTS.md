@@ -16,6 +16,7 @@ But the developer has the last word on this.
 - Respect legacy constraints: Flow/Redux/material-ui patterns may still exist.
 - Keep changes isolated. Do not import modern Studio Manager patterns blindly.
 - Check whether the change should also be ported or documented for a future port.
+- When testing the revamped sidebar from legacy in parallel worktrees, run legacy and `sm-navigation-sidebar` with the same `BSPORT_DEV_SLOT`.
 
 ## Related docs
 

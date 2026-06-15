@@ -8,6 +8,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@bsport/config-federation": "workspace:*",
     "@nx/devkit": "21.6.10",
     "tslib": "^2.8.1"
   },
@@ -15,6 +16,8 @@
     "vitest": "^3.2.4"
   },
   "//": "Source-only package: Nx consumes TypeScript directly via ts-node. No build step required.",
+  "executors": "./executors.json",
+  "generators": "./generators.json",
   "nx": {
     "targets": {
       "release-tag": {
@@ -26,7 +29,5 @@
     "tags": [
       "postinstall"
     ]
-  },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  }
 }

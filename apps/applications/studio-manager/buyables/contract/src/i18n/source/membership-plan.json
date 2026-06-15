@@ -1,6 +1,6 @@
 {
   "header": {
-    "loading": "Loading membership plan...",
+    "loading": "Loading memberships...",
     "breadcrumbs": {
       "subscription": "Subscription"
     }
@@ -15,7 +15,7 @@
   },
   "content": {
     "billingPlaceholder": "Billing details will appear here.",
-    "historyPlaceholder": "Membership plan history will appear here."
+    "historyPlaceholder": "Membership billing history will appear here"
   },
   "invoiceList": {
     "actions": {
@@ -39,7 +39,7 @@
     },
     "emptyList": {
       "title": "No invoices yet",
-      "subtitle": "Invoices for this membership plan will appear here."
+      "subtitle": "Billing for this membership will appear here"
     },
     "loading": "Loading invoices...",
     "status": {

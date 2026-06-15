@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 import { Card, Loader } from "@bsport/kaizen-primitive-core";
 
@@ -18,21 +18,10 @@ const BenefitsCardWithQueryInner: FC<BenefitsCardWithQueryProps> = ({
   appointmentPassId,
   onEditClick,
 }) => {
-  const { passBenefit, appointmentPassBenefit, isLoading } = useBenefitsQueries(
-    {
-      passId,
-      appointmentPassId,
-      throwOnError: true, // Let the boundary catch errors
-    },
-  );
-
-  if (isLoading) {
-    return (
-      <Card>
-        <Loader size="md" className="mx-auto" />
-      </Card>
-    );
-  }
+  const { passBenefit, appointmentPassBenefit } = useBenefitsQueries({
+    passId,
+    appointmentPassId,
+  });
 
   return (
     <BenefitsCard
@@ -47,7 +36,13 @@ export const BenefitsCardWithQuery: FC<BenefitsCardWithQueryProps> = (
   params,
 ) => {
   return (
-    <QueryBoundary>
+    <QueryBoundary
+      loadingFallback={
+        <Card>
+          <Loader size="md" className="mx-auto" />
+        </Card>
+      }
+    >
       <BenefitsCardWithQueryInner {...params} />
     </QueryBoundary>
   );

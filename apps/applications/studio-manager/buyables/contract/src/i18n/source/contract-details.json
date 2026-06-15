@@ -80,6 +80,11 @@
       "label": "Commitment period",
       "sublabel": "Duration",
       "alertInfo": "Set minimum subscription duration. Future changes apply to new purchases only."
+    },
+    "benefit": {
+      "penaltiesError": {
+        "positive": "This field must be positive."
+      }
     }
   },
   "intervals": {

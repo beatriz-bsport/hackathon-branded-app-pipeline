@@ -11,7 +11,7 @@ import {
   API_V1_URL_CONTRACT,
   queryKeys,
 } from "./constants";
-import type { Contract } from "./types/models";
+import type { Contract, ContractWithBenefits } from "./types/models";
 import type {
   ArchiveContractParams,
   FetchContractParams,
@@ -43,15 +43,16 @@ export const fetchContractQueryOptions = createQueryOptions<
 
 // ----------------------------------------------------------------------------
 
-export const updateContractAPI = createAPI<Contract, UpdateContractParams>(
-  (params) => [
-    `${API_V1_URL_CONTRACT}/${params.id}/`,
-    {
-      method: "PUT",
-      body: JSON.stringify(params),
-    },
-  ],
-);
+export const updateContractAPI = createAPI<
+  ContractWithBenefits,
+  UpdateContractParams
+>((params) => [
+  `${API_V1_URL_CONTRACT}/${params.id}/?with_benefits=true`,
+  {
+    method: "PUT",
+    body: JSON.stringify(params),
+  },
+]);
 
 // ----------------------------------------------------------------------------
 

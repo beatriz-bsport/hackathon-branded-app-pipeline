@@ -4,8 +4,7 @@ import { BILLING_INTERVALS } from "@bsport/api-buyables/contract";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { FIELD_CONSTRAINTS } from "./constants";
-import type { ContractFormSchema } from "./types";
+import { FIELD_CONSTRAINTS } from "../constants";
 
 const INTERVALS = [
   BILLING_INTERVALS.DAY,
@@ -18,7 +17,6 @@ export const useContractNameSchema = () => {
   const { t } = useTranslation("contract-details");
 
   return z.object({
-    // Identity section
     name: z
       .string()
       .min(
@@ -35,15 +33,11 @@ export const useContractNameSchema = () => {
 };
 
 /**
- * Returns the adequate Zod schema based on the type of the Contract.
- * Instead of handling multiple signatures of forms and functions for the 2 versions,
- * this feature manages a single form state but with conditional constraints.
+ * Schema for the contract-only fields (identity, price, billing cycle, terms,
+ * commitment period, visibility). The benefit configuration is validated
+ * separately, see `./benefits`.
  */
-export function useContractFormSchema({
-  isRevampedContract,
-}: {
-  isRevampedContract: boolean;
-}): ContractFormSchema {
+export function useRootContractSchema() {
   const { t } = useTranslation("contract-details");
 
   const requiredErrorMessage = t("formFields.errors.fieldIsRequired");
@@ -54,7 +48,6 @@ export function useContractFormSchema({
 
   const nameSchema = useContractNameSchema();
 
-  // Schema for both type of contracts
   const billingCycleSchema = z.discriminatedUnion("hasCustomInterval", [
     // Case 1: hasCustomInterval = false → month_billing_day required
     z.object({
@@ -72,11 +65,11 @@ export function useContractFormSchema({
         .max(FIELD_CONSTRAINTS.NB_FIXED_INTERVAL_MAX),
     }),
 
-    // Case 2: hasCustomInterval = true → min_price & max_price are required
+    // Case 2: hasCustomInterval = true → custom recurrence
     z.object({
       hasCustomInterval: z.literal(true),
       month_billing_day: nullableNumber,
-      recurrence_basis: z
+      recurrence_basis: z.coerce
         .number()
         .int()
         .min(FIELD_CONSTRAINTS.RECURRENCE_BASIS_MIN),
@@ -90,14 +83,14 @@ export function useContractFormSchema({
   const commitmentPeriodSchema = z.discriminatedUnion(
     "has_mandatory_commitment_period",
     [
-      // Case 1: has_mandatory_commitment_period = false → unit and value not required
+      // Case 1: not mandatory → unit and value not required
       z.object({
         has_mandatory_commitment_period: z.literal(false),
         commitment_period_unit: z.enum(INTERVALS).nullable(),
         commitment_period_value: nullableNumber,
       }),
 
-      // Case 2: has_mandatory_commitment_period = true → unit and value required
+      // Case 2: mandatory → unit and value required
       z.object({
         has_mandatory_commitment_period: z.literal(true),
         commitment_period_unit: z.enum(INTERVALS),
@@ -110,17 +103,17 @@ export function useContractFormSchema({
     ],
   );
 
-  const baseSchema = z
+  return z
     .object({
       description: z
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
 
-      recurrent_price: z
+      recurrent_price: z.coerce
         .number({ required_error: requiredErrorMessage })
         .min(FIELD_CONSTRAINTS.PRICE_MIN),
 
-      flat_fee: z
+      flat_fee: z.coerce
         .number({ required_error: requiredErrorMessage })
         .min(FIELD_CONSTRAINTS.PRICE_MIN),
 
@@ -131,48 +124,21 @@ export function useContractFormSchema({
 
       contract: z
         .string()
-        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
-        .max(FIELD_CONSTRAINTS.TERMS_LENGTH_MAX), // e.g. terms
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
 
       manager_only: z.boolean(),
       highlighted_as_recommended: z.boolean(),
       is_usable_by_staff: z.boolean(),
 
       tags_on_first_billing: z.array(z.number()),
+
+      tax: z.coerce
+        .number()
+        .min(FIELD_CONSTRAINTS.TAX_RATE_MIN)
+        .max(FIELD_CONSTRAINTS.TAX_RATE_MAX),
+      bookkeeping_account_id: z.number().nullable(),
     })
     .and(nameSchema)
     .and(commitmentPeriodSchema)
     .and(billingCycleSchema);
-
-  // ----- Revamped config -----
-  const revampSubschema = z.object({
-    // Revamp fields -> defined
-    payment_pack_details: z
-      .object({
-        bookkeeping_account_id: z.number().nullable(),
-        tax: z
-          .number()
-          .min(FIELD_CONSTRAINTS.TAX_RATE_MIN)
-          .max(FIELD_CONSTRAINTS.TAX_RATE_MAX),
-      })
-      .nullable(),
-
-    // Legacy fields -> nullished
-    payment_pack: nullableNumber,
-  });
-
-  const revampSchema = baseSchema.and(revampSubschema);
-
-  // ----- Legacy config -----
-  const legacySubschema = z.object({
-    // Revamp fields -> nullished
-    payment_pack_details: z.null(),
-
-    // Legacy fields -> defined
-    payment_pack: z.number().nullable(),
-  });
-
-  const legacySchema = baseSchema.and(legacySubschema);
-
-  return isRevampedContract ? revampSchema : legacySchema;
 }

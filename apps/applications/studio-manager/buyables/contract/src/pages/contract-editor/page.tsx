@@ -1,13 +1,13 @@
 import { type FC, useEffect, useId } from "react";
 
-import type { Contract } from "@bsport/api-buyables/contract";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { DetailsLayout, toast } from "@bsport/kaizen-primitive-core";
+import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
 import { ContractEditorHeader } from "#src/features/contract-editor-header/header";
 import { ContractEditorContent } from "#src/features/contract-editor/content";
 import { ContractEditorPanel } from "#src/features/contract-editor/panel";
+import { useEditorForm } from "#src/features/contract-editor/use-editor-form";
 import { useContractFormSchema } from "#src/features/contract-form/schema";
 import type {
   ContractFormData,
@@ -17,68 +17,33 @@ import {
   transformContractIntoFormState,
   transformFormStateIntoContractAPIParams,
 } from "#src/features/contract-form/utils";
-import {
-  useUpdateLegacyContract,
-  useUpdateRevampedContract,
-} from "#src/hooks/api/use-update-contract";
 import { useDetailsConfig } from "#src/hooks/layout/use-details-config";
 import { useIsRevampedContract } from "#src/hooks/layout/use-is-revamped-contract";
-import { useTranslation } from "#src/utils/i18n";
 
 const ContractEditorPageInner: FC = () => {
-  const { t } = useTranslation("contract-details");
-
   // ----- LAYOUT -----
 
-  const { detailsLayoutConfig, contract } = useDetailsConfig();
+  const { detailsLayoutConfig, contract, benefitQuery } = useDetailsConfig();
   const { detailsLayoutProps, toggleHasUnsavedChanges } = detailsLayoutConfig;
 
   // ----- EDITOR -----
 
   const isRevampedContract = useIsRevampedContract();
 
-  const contractFormSchema = useContractFormSchema({
-    isRevampedContract,
-  });
+  const contractFormSchema = useContractFormSchema();
 
   const methods = useFormController<ContractFormSchema>({
     mode: "onChange",
     defaultValues: transformContractIntoFormState({
-      isRevampedContract,
       contract,
+      pass: benefitQuery.passBenefit,
+      appointmentPass: benefitQuery.appointmentPassBenefit,
     }),
     schema: contractFormSchema,
     criteriaMode: "all",
   });
 
-  // Only the final submit method should be different between the 2 versions
-  const onSuccess = (updatedContract: Contract) => {
-    methods.reset(
-      transformContractIntoFormState({
-        isRevampedContract,
-        contract: updatedContract,
-      }),
-    );
-  };
-
-  const onError = () => {
-    toast({
-      status: "critical",
-      icon: "alert-circle",
-      title: t("editor.submit.error"),
-      buttonIcon: "x-close",
-    });
-  };
-
-  const { mutateAsync: updateRevampedContract } = useUpdateRevampedContract({
-    onSuccess,
-    onError,
-  });
-
-  const { mutateAsync: updateLegacyContract } = useUpdateLegacyContract({
-    onSuccess,
-    onError,
-  });
+  const { updateRevampedContract } = useEditorForm({ methods });
 
   const formId = `contract-form-editor-${useId()}`;
 
@@ -100,21 +65,11 @@ const ContractEditorPageInner: FC = () => {
 
   async function onSubmit(formState: ContractFormData) {
     try {
-      if (isRevampedContract) {
-        const apiData = transformFormStateIntoContractAPIParams({
-          formState,
-          isRevampedContract: true,
-        });
+      const apiData = transformFormStateIntoContractAPIParams({
+        formState,
+      });
 
-        await updateRevampedContract({ ...apiData, id: contract.id });
-      } else {
-        const apiData = transformFormStateIntoContractAPIParams({
-          formState,
-          isRevampedContract: false,
-        });
-
-        await updateLegacyContract({ ...apiData, id: contract.id });
-      }
+      await updateRevampedContract({ ...apiData, id: contract.id });
     } catch (error) {
       console.error("[Form] Update failed:", error);
     }

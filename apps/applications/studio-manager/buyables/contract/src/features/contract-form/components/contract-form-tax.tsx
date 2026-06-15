@@ -25,9 +25,7 @@ export const ContractFormTax: FC<ContractFormTaxProps> = ({
   readonly,
 }) => {
   const { t } = useTranslation("contract-details");
-  const bookkeepingAccount = watch(
-    "payment_pack_details.bookkeeping_account_id",
-  );
+  const bookkeepingAccount = watch("bookkeeping_account_id");
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
@@ -41,8 +39,8 @@ export const ContractFormTax: FC<ContractFormTaxProps> = ({
 
   return (
     <>
-      <FormNumberField<ContractFormData, "payment_pack_details.tax">
-        fieldName="payment_pack_details.tax"
+      <FormNumberField<ContractFormData, "tax">
+        fieldName="tax"
         id={`${formId}-tax`}
         label={t("formFields.tax.label")}
         required
@@ -58,12 +56,12 @@ export const ContractFormTax: FC<ContractFormTaxProps> = ({
       {enableBookkeepingAccountSelector && (
         <BookkeepingAccountFormSelector<
           ContractFormData,
-          "payment_pack_details.bookkeeping_account_id",
-          "payment_pack_details.tax"
+          "bookkeeping_account_id",
+          "tax"
         >
-          idFieldName="payment_pack_details.bookkeeping_account_id"
-          taxFieldName="payment_pack_details.tax"
-          taxFieldClearedValue={DEFAULT_DATA.payment_pack_details.tax}
+          idFieldName="bookkeeping_account_id"
+          taxFieldName="tax"
+          taxFieldClearedValue={DEFAULT_DATA.tax}
           fetch={fetch}
           withCreationFlow
           disabled={readonly}

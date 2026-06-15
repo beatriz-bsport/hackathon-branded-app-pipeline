@@ -7,9 +7,13 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
+import {
+  type UseBenefitsQueriesReturnType,
+  useBenefitsQueries,
+} from "#src/hooks/api/use-benefits-queries";
+import { useFetchContract } from "#src/hooks/api/use-fetch-contract";
 import { invariant } from "#src/utils/invariant";
 
-import { useFetchContract } from "../api/use-fetch-contract";
 import { useContractDetailsHeader } from "./use-contract-details-header";
 
 export const useDetailsConfig = (): {
@@ -20,6 +24,7 @@ export const useDetailsConfig = (): {
   >;
   contract: Contract;
   modals: ReactNode;
+  benefitQuery: UseBenefitsQueriesReturnType;
 } => {
   const { id: rawId } = useParams();
 
@@ -28,6 +33,11 @@ export const useDetailsConfig = (): {
   invariant(id);
 
   const { data: contract } = useFetchContract({ id });
+
+  const benefitQuery = useBenefitsQueries({
+    passId: contract.payment_pack,
+    appointmentPassId: contract.private_pass,
+  });
 
   const detailsLayoutConfig = useDetailsLayout();
 
@@ -45,5 +55,6 @@ export const useDetailsConfig = (): {
     headerConfig,
     contract,
     modals,
+    benefitQuery,
   };
 };

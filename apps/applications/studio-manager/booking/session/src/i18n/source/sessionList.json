@@ -5,7 +5,8 @@
   },
   "tabs": {
     "classes": "Classes",
-    "appointments": "Appointments"
+    "appointments": "Appointments",
+    "series": "Series"
   },
   "addSession": "Add class",
   "dateNavigation": {

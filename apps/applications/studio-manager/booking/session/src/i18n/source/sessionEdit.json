@@ -15,7 +15,7 @@
       "teacherPayrollRuleOverrideLabel": "Override teacher payment rule",
       "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied",
       "chooseActivity": {
-        "label": "Activity"
+        "label": "Service"
       },
       "detailsForm": {
         "title": "Details"
@@ -46,7 +46,7 @@
     "notificationDescription": "Clients who have booked this class will receive an email or push notification to let them know about the changes ",
     "updateFutureSessions": "Apply these changes to similar classes",
     "updateFutureSessionsForGroup": "Apply these changes to the other classes in that Series",
-    "passesAlert": "Class changes <strong>may affect pass compatibility</strong>. After editing, check they still match the venue/teacher."
+    "passesAlert": "Class changes <strong>may affect pass compatibility</strong>. After editing, check they still match the venue or teacher."
   },
   "USCWarningModal": {
     "title": "Edit class",

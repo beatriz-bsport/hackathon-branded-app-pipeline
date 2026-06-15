@@ -1,6 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-import { type GetMemberParams, memberQueryOptions } from "@bsport/api-cdp";
+import {
+  type GetMemberParams,
+  memberQueryOptions,
+} from "@bsport/api-cdp/member";
 
 import { fetch } from "#src/utils/fetch";
 

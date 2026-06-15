@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import keyBy from "lodash/keyBy";
 
-import { type Member, memberListQueryOptions } from "@bsport/api-cdp";
+import {
+  MEMBER_STALE_TIME,
+  type Member,
+  memberListQueryOptions,
+} from "@bsport/api-cdp/member";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -17,6 +21,7 @@ export const useFetchMembersByIds = <T = Record<string, Member>>(
       page_size: memberIdsSorted.length,
     }),
     enabled: enabled && memberIdsSorted.length > 0,
+    staleTime: MEMBER_STALE_TIME,
     select: (response) => {
       const members = response.results;
       return select ? select(members) : (keyBy(members, "id") as T);

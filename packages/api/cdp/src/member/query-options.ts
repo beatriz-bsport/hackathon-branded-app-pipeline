@@ -3,7 +3,6 @@ import { queryOptions } from "@tanstack/react-query";
 import { Fetch, PaginatedResponse } from "@bsport/store-base";
 
 import {
-  MEMBER_STALE_TIME,
   fetchMemberAPI,
   fetchMemberListAPI,
   getLatestMemberAPI,
@@ -32,7 +31,7 @@ export const searchMembersQueryOptions = (
   params: SearchMembersParams,
 ) =>
   queryOptions({
-    queryKey: memberKeys.search(params),
+    queryKey: memberKeys.searchQuery(params),
     queryFn: () => searchMembersAPI(fetch, params),
   });
 export const memberListQueryOptions = (
@@ -42,7 +41,6 @@ export const memberListQueryOptions = (
   return queryOptions({
     queryKey: memberKeys.list(params),
     queryFn: () => fetchMemberListAPI(fetch, params),
-    staleTime: MEMBER_STALE_TIME,
   });
 };
 export const getLatestMemberQueryOptions = (fetch: Fetch<number>) =>

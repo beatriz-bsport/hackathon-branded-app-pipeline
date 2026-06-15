@@ -5,7 +5,7 @@ import {
   type MemberPayload,
   memberKeys,
   updateMemberAPI,
-} from "@bsport/api-cdp";
+} from "@bsport/api-cdp/member";
 
 import { fetch } from "#src/utils/fetch";
 

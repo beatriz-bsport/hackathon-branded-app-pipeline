@@ -1,9 +1,11 @@
 import { QUERY_KEY_MAIN } from "#src/constants";
 
-import {
-  EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE,
-  EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE,
-} from "./constants";
+export type EmailTemplateSearchKeyParams = {
+  query: string;
+  id__in?: string;
+  page: number;
+  page_size: number;
+};
 
 /**
  * React Query keys for email templates, aligned with the smartlists app cache prefix
@@ -17,19 +19,8 @@ export const emailTemplateKeys = {
   emailTemplateSearch: () =>
     [...emailTemplateKeys.emailTemplate(), "search"] as const,
 
-  emailTemplateSearchQueries: (
-    query: string,
-    id__in?: string,
-    page?: number,
-    page_size?: number,
-  ) =>
-    [
-      ...emailTemplateKeys.emailTemplateSearch(),
-      query,
-      id__in ?? "",
-      page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE,
-      page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE,
-    ] as const,
+  emailTemplateSearchQueries: (params: EmailTemplateSearchKeyParams) =>
+    [...emailTemplateKeys.emailTemplateSearch(), params] as const,
 
   emailTemplateCategories: () =>
     [...emailTemplateKeys.emailTemplate(), "categories"] as const,

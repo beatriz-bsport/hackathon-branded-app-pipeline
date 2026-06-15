@@ -1,5 +1,5 @@
 import type { RecurrenceRuleBooking } from "@bsport/api-book";
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 
 import { getMemberInitials } from "#src/utils/get-member-initials";
 

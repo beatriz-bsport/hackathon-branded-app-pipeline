@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   type SearchMembersParams,
   searchMembersQueryOptions,
-} from "@bsport/api-cdp";
+} from "@bsport/api-cdp/member";
 
 import { fetch } from "#src/utils/fetch";
 

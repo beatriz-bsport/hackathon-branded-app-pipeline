@@ -7,7 +7,7 @@ import {
   consumerPaymentPackKeys,
   registerBookingAPI,
 } from "@bsport/api-buyables";
-import { memberKeys } from "@bsport/api-cdp";
+import { memberKeys } from "@bsport/api-cdp/member";
 import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";

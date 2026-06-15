@@ -9,6 +9,7 @@ import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isAgeFilterNumberType } from "../constants";
@@ -38,6 +39,7 @@ export const AgeFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertAgeFilterMutate, isLoading: isSaving } =
     useUpsertAgeFilterMutation(smartlistId, {

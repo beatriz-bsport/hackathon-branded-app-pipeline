@@ -12,6 +12,7 @@ import {
 
 import { useDeleteMarketingNotificationFilterMutation } from "#src/api/use-delete-marketing-notification-filter-mutation";
 import { useUpsertMarketingNotificationFilterMutation } from "#src/api/use-upsert-marketing-notification-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapMarketingNotificationFilterToFormValue } from "../mappers/api-to-form-value";
@@ -49,6 +50,7 @@ export const MarketingNotificationFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertMarketingNotificationFilterMutate, isLoading: isSaving } =
     useUpsertMarketingNotificationFilterMutation(smartlistId, {

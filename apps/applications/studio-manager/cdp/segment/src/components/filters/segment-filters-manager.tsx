@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { QueryBoundary } from "#src/components/QueryBoundary/QueryBoundary";
+import { useFilterDraftGuardStore } from "#src/stores/filter-draft-guard/store";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ActivePassesFilterCard } from "./active-passes-filter/components/active-passes-filter-card";
@@ -92,6 +93,10 @@ import { ReferredMembersFilterCard } from "./referred-members-filter/components/
 import { createDefaultReferredMembersFilter } from "./referred-members-filter/default-value";
 import { mapReferredMemberFilterToFormValue } from "./referred-members-filter/mappers/api-to-form-value";
 import type { ReferredMembersFilterFormValue } from "./referred-members-filter/types";
+import {
+  SegmentFiltersEmptyStateHeader,
+  SegmentFiltersTopFilterShortcuts,
+} from "./segment-filters-empty-state";
 import {
   SMARTLIST_FILTERS_MANAGER_FILTER_TYPES,
   type SmartlistFiltersManagerFilterType,
@@ -428,6 +433,22 @@ export const SegmentFiltersManager = ({
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const smartlistNumericId = Number(smartlistId);
   const [draftFilters, setDraftFilters] = useState<DraftFilter[]>([]);
+  const setUnsavedNewFilterCount = useFilterDraftGuardStore(
+    (state) => state.setUnsavedNewFilterCount,
+  );
+  const resetFilterDraftGuard = useFilterDraftGuardStore(
+    (state) => state.reset,
+  );
+
+  useEffect(() => {
+    setUnsavedNewFilterCount(draftFilters.length);
+  }, [draftFilters.length, setUnsavedNewFilterCount]);
+
+  useEffect(() => {
+    return () => {
+      resetFilterDraftGuard();
+    };
+  }, [resetFilterDraftGuard]);
 
   const {
     data: smartlistFilters,
@@ -1114,11 +1135,6 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.referredMembers,
       value: mapReferredMemberFilterToFormValue(referredMemberFilter),
     })),
-    ...creditAccountFilters.map((creditAccountFilter) => ({
-      key: `saved-credit-account-${creditAccountFilter.id}`,
-      filterType: FILTER_TYPES.creditAccount,
-      value: mapCreditAccountFilterToFormValue(creditAccountFilter),
-    })),
     ...marketingNotificationFilters.map((marketingNotificationFilter) => ({
       key: `saved-marketing-notification-${marketingNotificationFilter.id}`,
       filterType: FILTER_TYPES.marketingNotification,
@@ -1163,9 +1179,26 @@ export const SegmentFiltersManager = ({
     })),
   ];
 
+  const hasFilters = savedFilters.length > 0 || draftFilters.length > 0;
+
+  const handleAddFilter = (selectedFilterType: string) => {
+    if (!isSmartlistFiltersManagerFilterType(selectedFilterType)) {
+      return;
+    }
+    addDraft(createDraftFilterByType[selectedFilterType]());
+  };
+
+  const handleAddFilterShortcut = (
+    filterType: SmartlistFiltersManagerFilterType,
+  ) => {
+    addDraft(createDraftFilterByType[filterType]());
+  };
+
   return (
     <FilterManager isLoading={isLoading} isError={isError}>
-      <div className="flex flex-col gap-sm w-[500px]">
+      <div className="flex flex-col gap-sm w-full">
+        {!hasFilters ? <SegmentFiltersEmptyStateHeader /> : null}
+
         {savedFilters.map((savedFilter) =>
           renderFilterCard(savedFilter.filterType, {
             key: savedFilter.key,
@@ -1184,13 +1217,14 @@ export const SegmentFiltersManager = ({
 
         <FilterSelectorPopover
           options={addableFilterOptions}
-          onSelectOption={(selectedFilterType) => {
-            if (!isSmartlistFiltersManagerFilterType(selectedFilterType)) {
-              return;
-            }
-            addDraft(createDraftFilterByType[selectedFilterType]());
-          }}
+          onSelectOption={handleAddFilter}
         />
+
+        {!hasFilters ? (
+          <SegmentFiltersTopFilterShortcuts
+            onSelectShortcut={handleAddFilterShortcut}
+          />
+        ) : null}
       </div>
     </FilterManager>
   );

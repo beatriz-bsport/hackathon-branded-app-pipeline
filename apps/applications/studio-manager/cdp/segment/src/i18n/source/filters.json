@@ -3,6 +3,25 @@
     "loading": "Loading segment filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
+  "emptyState": {
+    "title": "No filters added yet.",
+    "description": "Click 'Add filter' below to start building your segment.",
+    "topFiltersLabel": "Or start filtering with top filters:",
+    "shortcuts": {
+      "passes": {
+        "title": "Passes",
+        "description": "Filter by pass ownership, credits, or expiration"
+      },
+      "tags": {
+        "title": "Tags",
+        "description": "Filter by tags members do or don't have"
+      },
+      "totalBookingNumber": {
+        "title": "Total Bookings",
+        "description": "Filter by total number of bookings."
+      }
+    }
+  },
   "filterSelector": {
     "actions": {
       "addFilter": "Add filter"

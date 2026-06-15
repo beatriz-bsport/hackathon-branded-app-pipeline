@@ -4,7 +4,14 @@
     "campaigns": "Campaigns",
     "automations": "Automations"
   },
+  "filterDraftDiscardModal": {
+    "title": "Discard unsaved filter changes?",
+    "description": "You have filters that haven't been saved. If you leave now, your changes will be lost.",
+    "confirm": "Discard changes",
+    "cancel": "Keep editing"
+  },
   "actions": {
+    "refreshMembers": "Refresh members",
     "createAutomation": "Create automation",
     "createAutomationModal": {
       "title": "Create a new automation",
@@ -440,6 +447,20 @@
       "fields": {
         "and": "And"
       }
+    }
+  },
+  "membersTable": {
+    "loading": "Loading members...",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "balance": "Balance",
+      "joinDate": "Join date"
+    },
+    "emptyState": {
+      "title": "No members found",
+      "subtitle": "Try updating your filters to broaden or refine this segment.",
+      "updateFilters": "Update filters"
     }
   },
   "error": {

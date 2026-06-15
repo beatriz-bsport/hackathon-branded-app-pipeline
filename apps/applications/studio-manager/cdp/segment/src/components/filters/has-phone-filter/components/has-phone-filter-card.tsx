@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteHasPhoneFilterMutation } from "#src/api/use-delete-has-phone-filter-mutation";
 import { useUpsertHasPhoneFilterMutation } from "#src/api/use-upsert-has-phone-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapHasPhoneFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const HasPhoneFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertHasPhoneFilterMutate, isLoading: isSaving } =
     useUpsertHasPhoneFilterMutation(smartlistId, {

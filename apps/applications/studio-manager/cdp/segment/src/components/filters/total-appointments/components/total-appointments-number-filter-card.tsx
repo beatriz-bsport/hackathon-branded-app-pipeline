@@ -8,6 +8,7 @@ import { useUpsertTotalAppointmentsFilterMutation } from "#src/api/use-upsert-to
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isTotalAppointmentsNumberType } from "../constants";
@@ -47,6 +48,7 @@ export const TotalAppointmentsNumberFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, isDirty, dirtyFields } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertTotalAppointmentsFilterMutate, isLoading: isSaving } =
     useUpsertTotalAppointmentsFilterMutation(smartlistId, {

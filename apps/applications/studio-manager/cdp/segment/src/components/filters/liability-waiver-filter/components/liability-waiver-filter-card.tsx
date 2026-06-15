@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLiabilityWaiverFilterMutation } from "#src/api/use-delete-liability-waiver-filter-mutation";
 import { useUpsertLiabilityWaiverFilterMutation } from "#src/api/use-upsert-liability-waiver-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapLiabilityWaiverFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const LiabilityWaiverFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertLiabilityWaiverFilterMutate, isLoading: isSaving } =
     useUpsertLiabilityWaiverFilterMutation(smartlistId, {

@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeletePaymentMethodFilterMutation } from "#src/api/use-delete-payment-method-filter-mutation";
 import { useUpsertPaymentMethodFilterMutation } from "#src/api/use-upsert-payment-method-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ownsPaymentMethodToApi } from "../constants";
@@ -39,6 +40,7 @@ export const PaymentMethodFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertPaymentMethodFilterMutate, isLoading: isSaving } =
     useUpsertPaymentMethodFilterMutation(smartlistId, {

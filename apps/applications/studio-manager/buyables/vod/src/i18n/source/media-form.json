@@ -3,12 +3,12 @@
     "name": {
       "label": "Title",
       "placeholder": "Add media title",
-      "errorMaxLength": "Title must be at most {{maxLength}} characters"
+      "errorMaxLength": "Title must be max{{maxLength}} characters"
     },
     "description": {
       "label": "Description",
       "placeholder": "Describe your media",
-      "errorMaxLength": "Description must be at most {{maxLength}} characters"
+      "errorMaxLength": "Description must be max {{maxLength}} characters"
     },
     "credit_price": {
       "errorInvalid": "Price must be a valid non-negative number",
@@ -16,20 +16,20 @@
     },
     "manager_only": {
       "label": "Unlisted",
-      "helperText": "This media won't be available to buy on your website or app and will only be visible to staff"
+      "helperText": "This media won't be available to buy on your website or app "
     },
     "rental": {
-      "label": "Available for rent",
-      "helperText": "This media will be available to rent for a limited time"
+      "label": "Available to rent",
+      "helperText": "Clients can rent this video for a set number of days"
     },
     "rental_days": {
-      "label": "Rental duration (days)",
-      "helperText": "Specify how many days the video will remain unlocked",
-      "errorInvalid": "Rental duration must be at least {{min}} day"
+      "label": "Rental period (days)",
+      "helperText": "How many days clients can access the video after renting it",
+      "errorInvalid": "Rental period must be at least {{min}} day"
     },
     "cover": {
       "extensions": "JPG, PNG, GIF, WEBP",
-      "helperText": "Upload a thumbnail for this media."
+      "helperText": "Upload an image to display on your client app and studio website."
     },
     "category": {
       "label": "Category",
@@ -38,21 +38,21 @@
     "level": {
       "label": "Level",
       "placeholder": "Select a level",
-      "byDefault": "By default",
+      "byDefault": "Presets",
       "custom": "Custom",
       "create": "Create a new level",
       "add": "Add level",
       "nameLabel": "Name",
-      "nameTooLong": "Level name must be at most 50 characters",
-      "colorLabel": "Colour",
+      "nameTooLong": "Level name must be no longer than 50 characters",
+      "colorLabel": "Color",
       "confirmCreate": "Create",
-      "cancel": "Cancel",
+      "cancel": "Close",
       "edit": "Edit level",
       "save": "Save",
       "deleteTitle": "Delete level?",
-      "deleteMessage": "Videos which have this level applied will stay the same, but future videos won't be able to use it.",
+      "deleteMessage": "Existing media will keep this level, but it won't be available for new media.",
       "delete": "Delete",
-      "error": "An error occurred",
+      "error": "Something went wrong. Please try again. ",
       "defaults": {
         "1": "All levels",
         "2": "Beginner",
@@ -66,19 +66,19 @@
       "placeholder": "Select teacher"
     },
     "errors": {
-      "fieldIsRequired": "This field is required"
+      "fieldIsRequired": "This field can't be empty"
     }
   },
   "createModal": {
     "title": "Create media",
     "buttons": {
       "create": "Create",
-      "cancel": "Cancel"
+      "cancel": "Close"
     },
     "submitResponse": {
       "success": "Media created",
       "open": "Open",
-      "error": "Failed to create the media"
+      "error": "Couldn't create media. Try again. "
     }
   },
   "editModal": {
@@ -89,7 +89,7 @@
     },
     "submitResponse": {
       "success": "Changes saved",
-      "error": "Failed to update the media"
+      "error": "Couldn't update media. Try again. "
     }
   }
 }

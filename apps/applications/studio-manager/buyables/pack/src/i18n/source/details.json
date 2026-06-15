@@ -57,8 +57,8 @@
       "save": "Save"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Appointment pass categories",
-      "passCategories": "Pass categories",
+      "appointmentPassCategories": "Appointment passes",
+      "passCategories": "Class passes",
       "webshopItemCategories": "Product categories"
     },
     "categories": {
@@ -101,13 +101,13 @@
         "placeholder": "Add at least one item in your pack"
       },
       "itemVariants": {
-        "passes": "Passes",
+        "passes": "Class passes",
         "appointmentPasses": "Appointment passes",
         "webshopItems": "Products"
       },
       "buttons": {
         "addItem": "Add item",
-        "addPass": "Add pass",
+        "addPass": "Add class pass",
         "addAppointmentPass": "Add appointment pass",
         "addWebshopItem": "Add product",
         "removeItem": "Remove item"

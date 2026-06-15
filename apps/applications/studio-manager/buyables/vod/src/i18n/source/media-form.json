@@ -46,7 +46,7 @@
       "nameTooLong": "Level name must be no longer than 50 characters",
       "colorLabel": "Color",
       "confirmCreate": "Create",
-      "cancel": "Close",
+      "cancel": "Keep",
       "edit": "Edit level",
       "save": "Save",
       "deleteTitle": "Delete level?",

@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteFirstPurchaseFilterMutation } from "#src/api/use-delete-first-purchase-filter-mutation";
 import { useUpsertFirstPurchaseFilterMutation } from "#src/api/use-upsert-first-purchase-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { firstPurchaseStatusToApi } from "../constants";
@@ -40,6 +41,7 @@ export const FirstPurchaseFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertFirstPurchaseFilterMutate, isLoading: isSaving } =
     useUpsertFirstPurchaseFilterMutation(smartlistId, {

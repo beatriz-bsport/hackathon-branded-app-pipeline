@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteGenderFilterMutation } from "#src/api/use-delete-gender-filter-mutation";
 import { useUpsertGenderFilterMutation } from "#src/api/use-upsert-gender-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapGenderFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const GenderFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertGenderFilterMutate, isLoading: isSaving } =
     useUpsertGenderFilterMutation(smartlistId, {

@@ -8,6 +8,7 @@ import { useUpsertTotalBookingFilterMutation } from "#src/api/use-upsert-total-b
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isTotalBookingNumberType } from "../constants";
@@ -46,6 +47,7 @@ export const TotalBookingNumberFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {

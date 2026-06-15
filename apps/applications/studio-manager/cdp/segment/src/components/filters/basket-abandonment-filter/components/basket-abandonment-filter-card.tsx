@@ -7,6 +7,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteBasketAbandonmentFilterMutation } from "#src/api/use-delete-basket-abandonment-filter-mutation";
 import { useUpsertBasketAbandonmentFilterMutation } from "#src/api/use-upsert-basket-abandonment-filter-mutation";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapBasketAbandonmentFilterToFormValue } from "../mappers/api-to-form-value";
@@ -39,6 +40,7 @@ export const BasketAbandonmentFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertBasketAbandonmentFilterMutate, isLoading: isSaving } =
     useUpsertBasketAbandonmentFilterMutation(smartlistId, {

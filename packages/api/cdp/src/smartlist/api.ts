@@ -22,3 +22,4 @@ export * from "./filter/total-booking/api";
 export * from "./filter/last-booking/api";
 export * from "./filter/liability-waiver/api";
 export * from "./filter/internal-notes/api";
+export * from "./members/api";

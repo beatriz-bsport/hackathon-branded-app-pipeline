@@ -7,6 +7,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeletePurchaseHistoryFilterMutation } from "#src/api/use-delete-purchase-history-filter-mutation";
 import { useUpsertPurchaseHistoryFilterMutation } from "#src/api/use-upsert-purchase-history-filter-mutation";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapPurchaseHistoryFilterToFormValue } from "../mappers/api-to-form-value";
@@ -41,6 +42,7 @@ export const PurchaseHistoryFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertPurchaseHistoryFilterMutate, isLoading: isSaving } =
     useUpsertPurchaseHistoryFilterMutation(smartlistId, {

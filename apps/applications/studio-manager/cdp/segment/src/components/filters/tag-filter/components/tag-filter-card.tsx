@@ -18,6 +18,7 @@ import {
 import { useDeleteTagFilterMutation } from "#src/api/use-delete-tag-filter-mutation";
 import { useUpsertTagFilterMutation } from "#src/api/use-upsert-tag-filter-mutation";
 import { QueryBoundary } from "#src/components/QueryBoundary";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -59,6 +60,7 @@ export const TagFilterCard = ({
   });
   const watchedValue = methods.watch();
   const { errors, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedValue.id, isDirty);
 
   const tagRequirementErrorMessage =
     errors.tagsIncluded?.message === "atLeastOneTagRequired"

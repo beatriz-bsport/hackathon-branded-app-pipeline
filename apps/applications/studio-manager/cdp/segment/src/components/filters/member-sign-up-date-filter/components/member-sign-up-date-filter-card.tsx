@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteMemberDateJoinedFilterMutation } from "#src/api/use-delete-member-date-joined-filter-mutation";
 import { useUpsertMemberDateJoinedFilterMutation } from "#src/api/use-upsert-member-date-joined-filter-mutation";
 import { DateFilter } from "#src/components/primitive-filters/date-filter/date-filter";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapMemberDateJoinedFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const MemberSignUpDateFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertMemberDateJoinedFilterMutate, isLoading: isSaving } =
     useUpsertMemberDateJoinedFilterMutation(smartlistId, {

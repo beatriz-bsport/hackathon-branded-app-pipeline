@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLastBookingFilterMutation } from "#src/api/use-delete-last-booking-filter-mutation";
 import { useUpsertLastBookingFilterMutation } from "#src/api/use-upsert-last-booking-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapLastBookingFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const LastBookingFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertLastBookingFilterMutate, isLoading: isSaving } =
     useUpsertLastBookingFilterMutation(smartlistId, {

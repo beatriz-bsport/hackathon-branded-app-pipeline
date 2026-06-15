@@ -1,4 +1,7 @@
 export const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
+
+/** Default page size for smartlist member lists in Studio Manager. */
+export const SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE = 25;
 export const CDP_API_V0 = "customer-data-platform/v0";
 
 export const TagRuleKind = {

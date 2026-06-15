@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteTermsAndConditionsFilterMutation } from "#src/api/use-delete-terms-and-conditions-filter-mutation";
 import { useUpsertTermsAndConditionsFilterMutation } from "#src/api/use-upsert-terms-and-conditions-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapTermsAndConditionsFilterToFormValue } from "../mappers/api-to-form-value";
@@ -36,6 +37,7 @@ export const TermsAndConditionsFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertTermsAndConditionsFilterMutate, isLoading: isSaving } =
     useUpsertTermsAndConditionsFilterMutation(smartlistId, {

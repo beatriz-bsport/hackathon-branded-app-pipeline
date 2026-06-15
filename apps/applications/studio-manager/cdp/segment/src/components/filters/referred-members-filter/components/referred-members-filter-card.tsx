@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteReferredMemberFilterMutation } from "#src/api/use-delete-referred-member-filter-mutation";
 import { useUpsertReferredMemberFilterMutation } from "#src/api/use-upsert-referred-member-filter-mutation";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isReferredStatusToApi } from "../constants";
@@ -40,6 +41,7 @@ export const ReferredMembersFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertReferredMemberFilterMutate, isLoading: isSaving } =
     useUpsertReferredMemberFilterMutation(smartlistId, {

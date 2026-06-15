@@ -28,6 +28,9 @@ export const smartlistKeys = {
   filtersLists: () => [...smartlistKeys.all, "filters"] as const,
   filters: (smartlistId: string) =>
     [...smartlistKeys.filtersLists(), smartlistId] as const,
+  membersLists: () => [...smartlistKeys.all, "members"] as const,
+  members: (smartlistId: string, page: number, page_size: number) =>
+    [...smartlistKeys.membersLists(), smartlistId, page, page_size] as const,
 } as const;
 
 export const fetchSmartlistDetailAPI = async (

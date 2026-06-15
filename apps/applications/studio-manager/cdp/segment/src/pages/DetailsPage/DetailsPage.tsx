@@ -26,6 +26,7 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { AutomationInfoPopover } from "#src/components/SmartlistDetailHeaderActions/AutomationInfoPopover";
+import { useRefreshSmartlistMembers } from "#src/hooks/use-refresh-smartlist-members";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import {
@@ -41,6 +42,7 @@ import {
   GENERATE_REPORT_ACTION_ID,
   SmartlistHeaderActionDropdown,
 } from "./SmartlistHeaderActionDropdown";
+import type { DetailsPageOutletContext } from "./details-page-outlet-context";
 import {
   type DetailsTabPath,
   getDetailsActiveTabPath,
@@ -75,6 +77,7 @@ const CAMPAIGN_TYPE_SELECTOR_ACTION_ID = "campaign-type-selector" as const;
 const CREATE_AUTOMATION_ACTION_ID = "create-automation" as const;
 
 function Details() {
+  const [isParameterDrawerOpen, setIsParameterDrawerOpen] = useState(false);
   const [inlineActions, setInlineActions] = useState<
     | typeof GENERATE_REPORT_ACTION_ID
     | typeof CAMPAIGN_TYPE_SELECTOR_ACTION_ID
@@ -158,6 +161,7 @@ function Details() {
   const { navigateToSmartlistParameters } = useSmartlistNavigation();
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
   const { detailsLayoutProps } = useDetailsLayout();
+  const refreshSmartlistMembers = useRefreshSmartlistMembers(id);
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
@@ -192,6 +196,17 @@ function Details() {
 
   const activeTabPath = getDetailsActiveTabPath(location.pathname);
   const headerTabConfig = getHeaderTabConfig(activeTabPath);
+
+  const openParameterDrawer = () => setIsParameterDrawerOpen(true);
+  const closeParameterDrawer = () => setIsParameterDrawerOpen(false);
+
+  const detailsOutletContext: DetailsPageOutletContext = {
+    smartlistId: id,
+    smartlist,
+    isParameterDrawerOpen,
+    openParameterDrawer,
+    closeParameterDrawer,
+  };
 
   const getEndGroupActionItems = () => {
     if (headerTabConfig.showDropdown) {
@@ -242,6 +257,31 @@ function Details() {
             onClick={() => setInlineActions(CREATE_AUTOMATION_ACTION_ID)}
           />
         );
+      case "parameters":
+        return (
+          <div className="flex flex-row gap-xs">
+            <Button
+              color="main"
+              intent="default"
+              label={isMobile ? "" : t("tabs.parameters", { ns: "details" })}
+              aria-label={t("tabs.parameters", { ns: "details" })}
+              iconLeft="filter-lines"
+              size="md"
+              onClick={openParameterDrawer}
+            />
+            <Button
+              color="main"
+              intent="call-to-action"
+              label={
+                isMobile ? "" : t("actions.refreshMembers", { ns: "details" })
+              }
+              aria-label={t("actions.refreshMembers", { ns: "details" })}
+              iconLeft="refresh-cw-01"
+              size="md"
+              onClick={refreshSmartlistMembers}
+            />
+          </div>
+        );
       case null:
         return;
     }
@@ -283,7 +323,7 @@ function Details() {
         callToActionButton={getCallToActionButton()}
       />
       <DetailsLayout.Content>
-        <Outlet context={{ smartlistId: id, smartlist }} />
+        <Outlet context={detailsOutletContext} />
       </DetailsLayout.Content>
       {inlineActions === GENERATE_REPORT_ACTION_ID ? (
         <CampaignReportModal

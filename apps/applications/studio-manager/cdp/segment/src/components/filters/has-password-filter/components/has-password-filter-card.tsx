@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteHasPasswordFilterMutation } from "#src/api/use-delete-has-password-filter-mutation";
 import { useUpsertHasPasswordFilterMutation } from "#src/api/use-upsert-has-password-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapHasPasswordFilterToFormValue } from "../mappers/api-to-form-value";
@@ -35,6 +36,7 @@ export const HasPasswordFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertHasPasswordFilterMutate, isLoading: isSaving } =
     useUpsertHasPasswordFilterMutation(smartlistId, {

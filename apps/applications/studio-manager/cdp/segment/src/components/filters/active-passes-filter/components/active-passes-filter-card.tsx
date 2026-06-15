@@ -19,6 +19,7 @@ import { PassSelectorWithToggle } from "#src/components/filters/active-passes-fi
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isActivePassesComparatorType } from "../constants";
@@ -95,6 +96,7 @@ export const ActivePassesFilterCard = ({
 
   const watchedValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedValue.id, isDirty);
 
   const { upsertActivePassesFilterMutate, isLoading: isSaving } =
     useUpsertActivePassesFilterMutation(smartlistId, {

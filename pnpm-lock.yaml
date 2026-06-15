@@ -2622,6 +2622,9 @@ importers:
       zod:
         specifier: ^3.25.64
         version: 3.25.67
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@19.2.2)(immer@9.0.21)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

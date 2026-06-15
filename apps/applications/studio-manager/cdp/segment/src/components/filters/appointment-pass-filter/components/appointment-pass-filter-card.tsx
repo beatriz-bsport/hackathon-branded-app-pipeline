@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeletePrivatePassFilterMutation } from "#src/api/use-delete-private-pass-filter-mutation";
 import { useUpsertPrivatePassFilterMutation } from "#src/api/use-upsert-private-pass-filter-mutation";
 import { PassesFilterSubFiltersArea } from "#src/components/filters/passes-filter/components/passes-filter-sub-filters-area";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { mapPrivatePassFilterToFormValue } from "../mappers/api-to-form-value";
@@ -44,6 +45,7 @@ export const AppointmentPassFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertPrivatePassFilterMutate, isLoading: isSaving } =
     useUpsertPrivatePassFilterMutation(smartlistId, {

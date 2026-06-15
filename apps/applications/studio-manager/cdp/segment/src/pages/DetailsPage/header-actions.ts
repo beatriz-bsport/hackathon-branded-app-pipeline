@@ -9,7 +9,7 @@ export type DetailsTabPath =
   | typeof CAMPAIGN_TAB_PATH
   | typeof AUTOMATION_TAB_PATH;
 
-type HeaderCallToAction = "campaign" | "automation" | null;
+type HeaderCallToAction = "campaign" | "automation" | "parameters" | null;
 
 type HeaderTabConfig = {
   showDropdown: boolean;
@@ -19,7 +19,7 @@ type HeaderTabConfig = {
 const HEADER_ACTIONS_BY_TAB: Record<DetailsTabPath, HeaderTabConfig> = {
   [PARAMETER_TAB_PATH]: {
     showDropdown: false,
-    callToAction: null,
+    callToAction: "parameters",
   },
   [CAMPAIGN_TAB_PATH]: {
     showDropdown: true,

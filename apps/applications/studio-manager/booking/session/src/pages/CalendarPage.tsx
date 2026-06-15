@@ -38,7 +38,7 @@ import { useAppointmentListData } from "#src/hooks/appointment/fetch/useAppointm
 import { useSearchAppointments } from "#src/hooks/appointment/fetch/useSearchAppointments";
 import { useModal } from "#src/hooks/use-modal";
 import { useFetchOffersMissingWellhubProduct } from "#src/hooks/wellhub/use-fetch-offers-missing-wellhub-product";
-import type { CalendarTab } from "#src/types";
+import type { CalendarDataTab, CalendarTab } from "#src/types";
 import { AppointmentModalType, ModalType } from "#src/types";
 import { flags, useBookingManagementFlag } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -64,10 +64,30 @@ import {
 import { getDateStartKey } from "../utils/get-date-start-key";
 import { scrollToCurrentSession } from "../utils/scroll";
 
-const VALID_TABS: CalendarTab[] = ["classes", "appointments"];
+const VALID_TABS: CalendarTab[] = ["classes", "appointments", "series"];
 
-const getActiveTab = (tabParam: string | null): CalendarTab =>
-  VALID_TABS.includes(tabParam as CalendarTab)
+const getVisibleTabs = (
+  showAppointmentsTab: boolean,
+  showSeriesTab: boolean,
+): CalendarTab[] => {
+  return VALID_TABS.filter((tab) => {
+    if (tab === "appointments") {
+      return showAppointmentsTab;
+    }
+
+    if (tab === "series") {
+      return showSeriesTab;
+    }
+
+    return true;
+  });
+};
+
+const getActiveTab = (
+  tabParam: string | null,
+  visibleTabs: CalendarTab[],
+): CalendarTab =>
+  visibleTabs.includes(tabParam as CalendarTab)
     ? (tabParam as CalendarTab)
     : "classes";
 
@@ -79,11 +99,17 @@ const CalendarPage: React.FC = () => {
   const showAppointmentsTab = useBookingManagementFlag(
     flags.CALENDAR_APPOINTMENTS_TAB,
   );
+  const showSeriesTab = useBookingManagementFlag(flags.CALENDAR_SERIES_TAB);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = showAppointmentsTab
-    ? getActiveTab(searchParams.get("tab"))
-    : "classes";
+  const visibleTabs = useMemo(
+    () => getVisibleTabs(showAppointmentsTab, showSeriesTab),
+    [showAppointmentsTab, showSeriesTab],
+  );
+  const activeTab = getActiveTab(searchParams.get("tab"), visibleTabs);
+  const isClassesTab = activeTab === "classes";
+  const isAppointmentsTab = activeTab === "appointments";
+  const isSeriesTabActive = activeTab === "series";
 
   const handleTabChange = useCallback(
     (tabId: string) => {
@@ -98,8 +124,6 @@ const CalendarPage: React.FC = () => {
     },
     [setSearchParams],
   );
-
-  const isClassesTab = activeTab === "classes";
 
   const selectedDate = useCalendarStore(selectSelectedDate);
   const detailsModalState = useCalendarStore(selectModalState);
@@ -152,8 +176,6 @@ const CalendarPage: React.FC = () => {
       : selectedDate.minDate && selectedDate.maxDate
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
-
-  const isAppointmentsTab = !isClassesTab;
 
   const {
     sessions,
@@ -220,10 +242,14 @@ const CalendarPage: React.FC = () => {
     [filteredAppointments],
   );
 
-  const displaySettings = useCallback(
-    () => <DisplaySettings activeTab={activeTab} />,
-    [activeTab],
-  );
+  // TODO: Add Series display settings in the upcoming Series listing MR.
+  const displaySettingsTab: CalendarDataTab | undefined =
+    activeTab === "series" ? undefined : activeTab;
+  const displaySettings = useMemo(() => {
+    if (!displaySettingsTab) return undefined;
+
+    return () => <DisplaySettings activeTab={displaySettingsTab} />;
+  }, [displaySettingsTab]);
   const endGroupActions = useMemo(() => {
     if (!isClassesTab) return undefined;
     return [
@@ -351,6 +377,47 @@ const CalendarPage: React.FC = () => {
     message: t("table.isLoading"),
   });
 
+  // TODO: Add Series filters in the upcoming Series listing MR.
+  const headerFilterConfig = isClassesTab
+    ? filterConfig
+    : isAppointmentsTab
+      ? appointmentFilterConfig
+      : undefined;
+  const headerFilterRef = isClassesTab
+    ? sessionFiltersRef
+    : isAppointmentsTab
+      ? appointmentFiltersRef
+      : undefined;
+
+  // TODO: Add Series search in the upcoming Series listing MR.
+  const headerSearchConfig = isSeriesTabActive
+    ? undefined
+    : {
+        id: isClassesTab ? "session-search" : "appointment-search",
+        inputValue: searchQuery,
+        onInputValueChange: (value: string) => {
+          if (isClassesTab) {
+            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+              search_value: value,
+            });
+          }
+          setSearchQuery(value);
+        },
+        debounceValue: DEFAULT_DEBOUNCE_DELAY,
+        onClear: () => {
+          if (isClassesTab) {
+            analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+              search_value: searchQuery,
+              source: SearchClearSource.CLEAR_BUTTON,
+            });
+          }
+          setSearchQuery("");
+        },
+      };
+
+  // TODO: Add Series list content in the upcoming Series listing MR.
+  const seriesContent = null;
+
   const callToActionButton = useMemo(() => {
     if (!isClassesTab || !hasCreateSessionPermission) return null;
     return (
@@ -397,49 +464,30 @@ const CalendarPage: React.FC = () => {
         pageTitle={t("header")}
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
-        filterConfig={isClassesTab ? filterConfig : appointmentFilterConfig}
-        filterRef={isClassesTab ? sessionFiltersRef : appointmentFiltersRef}
+        filterConfig={headerFilterConfig}
+        filterRef={headerFilterRef}
         endGroupActions={endGroupActions}
         pageTabs={
-          showAppointmentsTab
+          visibleTabs.length > 1
             ? {
                 orientation: "horizontal",
                 value: activeTab,
                 onValueChange: handleTabChange,
-                tabs: [
-                  { id: "classes", label: t("tabs.classes") },
-                  { id: "appointments", label: t("tabs.appointments") },
-                ],
+                tabs: visibleTabs.map((tab) => ({
+                  id: tab,
+                  label: t(`tabs.${tab}`),
+                })),
               }
             : undefined
         }
-        searchConfig={{
-          id: isClassesTab ? "session-search" : "appointment-search",
-          inputValue: searchQuery,
-          onInputValueChange: (value: string) => {
-            if (isClassesTab) {
-              analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
-                search_value: value,
-              });
-            }
-            setSearchQuery(value);
-          },
-          debounceValue: DEFAULT_DEBOUNCE_DELAY,
-          onClear: () => {
-            if (isClassesTab) {
-              analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
-                search_value: searchQuery,
-                source: SearchClearSource.CLEAR_BUTTON,
-              });
-            }
-            setSearchQuery("");
-          },
-        }}
+        searchConfig={headerSearchConfig}
       />
       <ListLayout.Content>
-        <DateNavigationHeader
-          onScrollToNow={isClassesTab ? scrollToNow : undefined}
-        />
+        {!isSeriesTabActive && (
+          <DateNavigationHeader
+            onScrollToNow={isClassesTab ? scrollToNow : undefined}
+          />
+        )}
         {isClassesTab &&
           wellhubOffersData &&
           wellhubOffersData.total_count > 0 && (
@@ -476,7 +524,7 @@ const CalendarPage: React.FC = () => {
                 sessionDays
               )}
             </>
-          ) : (
+          ) : isAppointmentsTab ? (
             <>
               {shouldRenderAppointmentEmptyState ? (
                 <AppointmentEmptyState />
@@ -492,6 +540,8 @@ const CalendarPage: React.FC = () => {
                 appointmentDays
               )}
             </>
+          ) : (
+            seriesContent
           )}
         </div>
 

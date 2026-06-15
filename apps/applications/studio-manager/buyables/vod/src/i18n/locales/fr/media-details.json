@@ -1,0 +1,30 @@
+{
+  "breadcrumbLabel": "Média",
+  "ebook": {
+    "download": "Télécharger"
+  },
+  "managerOnly": "Non répertorié",
+  "rentalDays": "",
+  "rentalDays_one": "{{count}} jour de location",
+  "rentalDays_other": "{{count}} jours de location",
+  "panel": {
+    "viewingTitle": "Activité",
+    "uploadedAt": "Média mis en ligne le {{date}}",
+    "totalViews": "Somme",
+    "viewsLastWeek": "7 derniers jours",
+    "distinctViewers": "Vues uniques",
+    "viewersTitle": "Vues",
+    "viewersEmpty": "Aucune vue pour le moment",
+    "viewedAt": "Vu le {{date}}",
+    "viewersCount": "{{count}} éléments",
+    "buyersTitle": "Achats",
+    "buyersEmpty": "Aucun achat pour le moment",
+    "purchasedAt": "Acheté le {{date}}",
+    "buyersCount": "{{count}} éléments"
+  },
+  "notFound": {
+    "title": "Média introuvable",
+    "description": "Le média n'a pas pu être trouvé. Il a peut-être été supprimé ou vous n'y avez pas accès. ",
+    "backToMedia": "Retour à tous les médias"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Título",
+      "placeholder": "Adicionar título da mídia",
+      "errorMaxLength": "O título deve ter no máximo {{maxLength}} caracteres"
+    },
+    "description": {
+      "label": "Descrição",
+      "placeholder": "Descreva sua mídia",
+      "errorMaxLength": "A descrição deve ter no máximo {{maxLength}} caracteres"
+    },
+    "credit_price": {
+      "errorInvalid": "O preço deve ser um número válido e não negativo",
+      "equivalentCredits": "Este passe vai conter {{ creditsDisplay }}"
+    },
+    "manager_only": {
+      "label": "Não listado",
+      "helperText": "Este conteúdo não estará disponível para compra no seu site ou app "
+    },
+    "rental": {
+      "label": "Disponível para alugar",
+      "helperText": "Os clientes podem alugar este vídeo por um número definido de dias"
+    },
+    "rental_days": {
+      "label": "Período de aluguer (dias)",
+      "helperText": "Quantos dias os clientes podem acessar o vídeo depois de alugá-lo",
+      "errorInvalid": "O período de aluguel deve ser de pelo menos {{min}} dias"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Faça upload de uma imagem para exibir no seu app do cliente e no site do estúdio."
+    },
+    "category": {
+      "label": "Categoria",
+      "placeholder": "Selecione uma categoria"
+    },
+    "level": {
+      "label": "Nível",
+      "placeholder": "Selecionar um nível",
+      "byDefault": "Predefinições",
+      "custom": "Personalizado",
+      "create": "Criar um novo nível",
+      "add": "Adicionar nível",
+      "nameLabel": "Nome",
+      "nameTooLong": "O nome do nível não pode ter mais de 50 caracteres",
+      "colorLabel": "Cor",
+      "confirmCreate": "Criar",
+      "cancel": "Manter",
+      "edit": "Editar nível",
+      "save": "Guardar",
+      "deleteTitle": "Eliminar nível?",
+      "deleteMessage": "A mídia existente manterá este nível, mas não estará disponível para novas mídias.",
+      "delete": "Eliminar",
+      "error": "Algo deu errado. Por favor, tente novamente. ",
+      "defaults": {
+        "1": "Todos os níveis",
+        "2": "Iniciante",
+        "3": "Intermediário",
+        "4": "Avançado",
+        "5": "Nenhum nível apresentado"
+      }
+    },
+    "teachers": {
+      "label": "Professor",
+      "placeholder": "Selecionar professor"
+    },
+    "errors": {
+      "fieldIsRequired": "Este campo não pode estar vazio"
+    }
+  },
+  "createModal": {
+    "title": "Criar mídia",
+    "buttons": {
+      "create": "Criar",
+      "cancel": "Fechar"
+    },
+    "submitResponse": {
+      "success": "Mídia criada",
+      "open": "Abrir",
+      "error": "Não foi possível criar a mídia. Tente novamente. "
+    }
+  },
+  "editModal": {
+    "title": "Editar mídia",
+    "buttons": {
+      "save": "Guardar",
+      "cancel": "Fechar"
+    },
+    "submitResponse": {
+      "success": "Créditos atualizados",
+      "error": "Não foi possível atualizar a mídia. Tente novamente. "
+    }
+  }
+}

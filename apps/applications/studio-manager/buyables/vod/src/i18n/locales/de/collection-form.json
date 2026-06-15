@@ -1,0 +1,44 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titel",
+      "placeholder": "Gib dieser Sammlung einen Namen",
+      "errorMaxLength": "Der Titel darf nicht länger als {{maxLength}} Zeichen sein"
+    },
+    "description": {
+      "label": "Beschreibung",
+      "placeholder": "Beschreibe deine Sammlung",
+      "errorMaxLength": "Die Beschreibung darf maximal {{maxLength}} Zeichen lang sein"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Lade ein Titelbild für diese Sammlungen hoch."
+    },
+    "errors": {
+      "fieldIsRequired": "Dieses Feld ist erforderlich"
+    }
+  },
+  "createModal": {
+    "title": "Sammlung erstellen",
+    "buttons": {
+      "create": "Erstellen",
+      "cancel": "Schließen"
+    },
+    "submitResponse": {
+      "success": "Sammlung erstellt",
+      "open": "Öffnen",
+      "error": "Die Sammlung konnte nicht erstellt werden. Versuche es erneut. "
+    }
+  },
+  "editModal": {
+    "title": "Sammlung bearbeiten",
+    "buttons": {
+      "save": "Speichern",
+      "cancel": "Schließen"
+    },
+    "submitResponse": {
+      "success": "Deine Änderungen wurden gespeichert",
+      "error": "Die Sammlung konnte nicht aktualisiert werden. Versuche es noch einmal. "
+    }
+  }
+}

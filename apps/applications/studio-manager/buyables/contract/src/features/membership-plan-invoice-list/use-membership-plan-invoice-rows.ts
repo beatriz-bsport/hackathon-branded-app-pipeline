@@ -4,6 +4,7 @@ import type {
 } from "@bsport/api-buyables/billing-plan-planned-invoice";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
+import { isPast } from "@bsport/datetime-manipulation";
 import type { ChipProps } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -48,6 +49,8 @@ export const useMembershipPlanInvoiceRows = (
     billingDate: formatDateTime(invoice.date, DATETIME_FORMATS.MEDIUM_DATE, {
       locale: i18n.language,
     }),
+    rawDate: invoice.date,
+    isPast: isPast(invoice.date),
     statusChip: {
       label: t(INVOICE_STATUS_TRANSLATION_KEYS[invoice.status]),
       color: getInvoiceStatusColor(invoice.status),

@@ -18,6 +18,20 @@
     "historyPlaceholder": "Membership plan history will appear here."
   },
   "invoiceList": {
+    "actions": {
+      "editBillingDate": "Edit billing date",
+      "openActions": "Open invoice actions"
+    },
+    "editBillingDateModal": {
+      "buttons": {
+        "close": "Close",
+        "save": "Save"
+      },
+      "dateLabel": "Date",
+      "error": "Could not save billing date. Please try again.",
+      "helpText": "This change applies to this invoice only",
+      "title": "Edit billing date"
+    },
     "headers": {
       "billingDate": "Billing date",
       "status": "Status",

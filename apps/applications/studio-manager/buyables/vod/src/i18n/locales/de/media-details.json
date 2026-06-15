@@ -1,0 +1,30 @@
+{
+  "breadcrumbLabel": "Medien",
+  "ebook": {
+    "download": "Herunterladen"
+  },
+  "managerOnly": "Ausgeblendet",
+  "rentalDays": "",
+  "rentalDays_one": "{{count}} Miettag",
+  "rentalDays_other": "{{count}} Miettage",
+  "panel": {
+    "viewingTitle": "Aktivität",
+    "uploadedAt": "Medien hochgeladen am {{date}}",
+    "totalViews": "Summe",
+    "viewsLastWeek": "Letzten 7 Tage",
+    "distinctViewers": "Einmaliger Aufruf",
+    "viewersTitle": "Views",
+    "viewersEmpty": "Noch keine Views",
+    "viewedAt": "Angesehen am {{date}}",
+    "viewersCount": "{{count}} Elemente",
+    "buyersTitle": "Käufe",
+    "buyersEmpty": "Noch keine Käufe",
+    "purchasedAt": "Gekauft am {{date}}",
+    "buyersCount": "{{count}} Elemente"
+  },
+  "notFound": {
+    "title": "Medien nicht gefunden",
+    "description": "Medien konnten nicht gefunden werden. Sie wurden möglicherweise gelöscht oder du hast keinen Zugriff darauf. ",
+    "backToMedia": "Zurück zu allen Medien"
+  }
+}

@@ -306,7 +306,7 @@
             "americanExpress": "AMEX",
             "transfer": "Transfer",
             "other": "Other",
-            "clientCreditBalance": "Client credit balance (debit)"
+            "clientCreditBalance": "Client account balance"
           }
         },
         "date": {

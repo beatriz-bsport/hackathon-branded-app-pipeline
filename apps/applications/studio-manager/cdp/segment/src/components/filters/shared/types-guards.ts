@@ -38,7 +38,9 @@ import {
   type PrivateBookingsFilter,
   type PrivatePassFilter,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  REFERRER_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
+  type ReferrerFilter,
   TAG_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
@@ -74,6 +76,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   lastBooking: "lastBooking",
   internalNotes: "internalNotes",
   paymentMethod: "paymentMethod",
+  referrer: "referrer",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -107,7 +110,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPassword ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.paymentMethod;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.paymentMethod ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.referrer;
 
 export const isBasketAbandonmentFilter = (
   value: unknown,
@@ -381,3 +385,20 @@ export const isPaymentMethodFilter = (
   hasNumber(value, "duration") &&
   hasNumber(value, "duration_second") &&
   hasBoolean(value, "payment_method_kind_filter_active");
+
+export const isReferrerFilter = (value: unknown): value is ReferrerFilter =>
+  hasFilterIdentifier(value, REFERRER_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator_referred") &&
+  hasNumber(value, "value_referred") &&
+  hasNumber(value, "value_second_referred") &&
+  hasBoolean(value, "value_obtained_reward_active") &&
+  hasNumber(value, "value_obtained_reward") &&
+  hasNumber(value, "value_second_reward") &&
+  hasNumber(value, "comparator_reward") &&
+  hasBoolean(value, "value_obtained_money_active") &&
+  hasNumber(value, "value_obtained_money") &&
+  hasNumber(value, "value_second_obtained_money") &&
+  hasNumber(value, "comparator_obtained_money");

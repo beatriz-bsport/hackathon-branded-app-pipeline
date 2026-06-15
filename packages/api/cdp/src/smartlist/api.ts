@@ -16,6 +16,7 @@ export * from "./filter/payment-pack/api";
 export * from "./filter/private-bookings/api";
 export * from "./filter/private-pass/api";
 export * from "./filter/referred-members/api";
+export * from "./filter/referrer/api";
 export * from "./filter/tag/api";
 export * from "./filter/terms-and-conditions/api";
 export * from "./filter/total-booking/api";

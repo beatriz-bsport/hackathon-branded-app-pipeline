@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Colecciones",
+  "deleteActionLabel": "Eliminar",
+  "loading": "Cargando colecciones",
+  "loadError": {
+    "title": "No se pudo cargar la colección",
+    "description": "Inténtalo de nuevo. Si el problema persiste, actualiza o vuelve a la página de colecciones. ",
+    "retry": "Intentar de nuevo"
+  },
+  "notFound": {
+    "title": "Colección no encontrada",
+    "description": "No se pudo encontrar el contenido multimedia. Es posible que se haya eliminado o que no tengas acceso a él. ",
+    "backToCollections": "Volver a todas las colecciones"
+  },
+  "emptyMedia": {
+    "title": "Aún no se ha añadido contenido multimedia",
+    "subtitle": "Añade contenido multimedia para crear tu primera colección"
+  },
+  "emptyThumbnailLabel": "No hay contenido multimedia en la colección",
+  "ebook": {
+    "download": "Descargar"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Abrir video",
+      "openYoutubeVideo": "Abrir vídeo de YouTube"
+    },
+    "fallbacks": {
+      "loadError": "No se pudo cargar el reproductor. Abre el contenido multimedia en una pestaña nueva.",
+      "youtubeEmbedError": "No se pudo insertar la URL de YouTube. Ábrela en una nueva pestaña."
+    }
+  },
+  "videoList": {
+    "addMedia": "Añadir contenido multimedia",
+    "ebook": "Libro electrónico",
+    "managerOnly": "No listado",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} día de alquiler",
+    "rentalDays_other": "{{count}} días de alquiler",
+    "levels": {
+      "1": "Todos los niveles",
+      "2": "Principiante",
+      "3": "Intermedio",
+      "4": "Avanzado",
+      "5": "No se muestra el nivel"
+    }
+  },
+  "addMediaModal": {
+    "title": "Añadir contenido multimedia",
+    "searchPlaceholder": "Buscar contenido multimedia",
+    "emptySearch": "No se encontró ningún medio",
+    "cancel": "Cerrar",
+    "add": "Añadir",
+    "submitResponse": {
+      "success": "Contenido multimedia añadido a la colección",
+      "error": "No se pudo añadir el contenido multimedia a la colección. Inténtalo de nuevo. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "¿Eliminar contenido multimedia de la Colección?",
+    "description": "Tus clientes ya no podrán ver \"{{videoName}}\" en tu colección, pero tú seguirás pudiendo acceder a él desde On-Demand.",
+    "undoAction": {
+      "label": "Revertir"
+    },
+    "undoResponse": {
+      "success": "Cambio deshecho"
+    },
+    "buttons": {
+      "cancel": "Mantener",
+      "remove": "Eliminar",
+      "removeItem": "Eliminar {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Contenido multimedia eliminado de la colección",
+      "error": "No se pudo eliminar el contenido multimedia de la colección. Inténtalo de nuevo. "
+    }
+  }
+}

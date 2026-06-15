@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Sammlungen",
+  "deleteActionLabel": "Löschen",
+  "loading": "Sammlung wird geladen",
+  "loadError": {
+    "title": "Sammlung konnte nicht geladen werden",
+    "description": "Versuch es noch einmal. Wenn das Problem weiterhin besteht, aktualisiere die Seite oder gehe zurück zur Sammlungsseite. ",
+    "retry": "Noch ein Mal versuchen"
+  },
+  "notFound": {
+    "title": "Sammlung nicht gefunden",
+    "description": "Medien konnten nicht gefunden werden. Sie wurden möglicherweise gelöscht oder du hast keinen Zugriff darauf. ",
+    "backToCollections": "Zurück zu allen Sammlungen"
+  },
+  "emptyMedia": {
+    "title": "Noch keine Medien hinzugefügt",
+    "subtitle": "Füge Medien hinzu, um deine ersten Sammlungen zu erstellen."
+  },
+  "emptyThumbnailLabel": "Keine Medien in der Sammlung",
+  "ebook": {
+    "download": "Herunterladen"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Video öffnen",
+      "openYoutubeVideo": "YouTube-Video öffnen"
+    },
+    "fallbacks": {
+      "loadError": "Der eingebettete Player konnte nicht geladen werden. Öffne die Medien stattdessen in einem neuen Tab.",
+      "youtubeEmbedError": "Die YouTube-URL konnte nicht eingebettet werden. Öffne sie stattdessen in einem neuen Tab."
+    }
+  },
+  "videoList": {
+    "addMedia": "Medien hinzufügen",
+    "ebook": "Ebook",
+    "managerOnly": "Ausgeblendet",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} Miettag",
+    "rentalDays_other": "{{count}} Miettage",
+    "levels": {
+      "1": "Alle Ebenen",
+      "2": "Einsteiger",
+      "3": "Mittelstufe",
+      "4": "Erweiterte Optionen",
+      "5": "Kein Level"
+    }
+  },
+  "addMediaModal": {
+    "title": "Medien hinzufügen",
+    "searchPlaceholder": "Medien suchen",
+    "emptySearch": "Keine Medien gefunden",
+    "cancel": "Schließen",
+    "add": "Hinzufügen",
+    "submitResponse": {
+      "success": "Medien zur Sammlung hinzugefügt",
+      "error": "Medien konnten den Sammlungen nicht hinzugefügt werden. Versuch es noch einmal. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "Medium aus der Sammlung entfernen?",
+    "description": "Deine Kund:innen können \"{{videoName}}\" nicht mehr in deiner Sammlung sehen, aber du kannst weiterhin über On-Demand darauf zugreifen.",
+    "undoAction": {
+      "label": "Änderung rückgängig machen"
+    },
+    "undoResponse": {
+      "success": "Änderung rückgängig gemacht"
+    },
+    "buttons": {
+      "cancel": "Behalten",
+      "remove": "Entfernen",
+      "removeItem": "{{videoName}} entfernen"
+    },
+    "submitResponse": {
+      "success": "Medien aus der Sammlung entfernt",
+      "error": "Du konntest die Medien nicht aus den Sammlungen entfernen. Versuche es noch einmal. "
+    }
+  }
+}

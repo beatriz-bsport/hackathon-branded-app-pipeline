@@ -1,0 +1,30 @@
+{
+  "breadcrumbLabel": "Media",
+  "ebook": {
+    "download": "Download"
+  },
+  "managerOnly": "Niet vermeld",
+  "rentalDays": "",
+  "rentalDays_one": "{{count}} huurdag",
+  "rentalDays_other": "{{count}} huurdagen",
+  "panel": {
+    "viewingTitle": "Activiteit",
+    "uploadedAt": "Media geüpload op {{date}}",
+    "totalViews": "Totaal",
+    "viewsLastWeek": "Aantal weergaven in de afgelopen 7 dagen",
+    "distinctViewers": "Unieke kijkers",
+    "viewersTitle": "Aantal keer bekeken",
+    "viewersEmpty": "Nog geen weergaven",
+    "viewedAt": "Bekeken op {{date}}",
+    "viewersCount": "{{count}} elementen",
+    "buyersTitle": "Verkopen",
+    "buyersEmpty": "Nog geen aankopen",
+    "purchasedAt": "Gekocht op {{date}}",
+    "buyersCount": "{{count}} elementen"
+  },
+  "notFound": {
+    "title": "Media niet gevonden",
+    "description": "Media kon niet worden gevonden. Het is mogelijk verwijderd of je hebt er geen toegang toe. ",
+    "backToMedia": "Terug naar alle media"
+  }
+}

@@ -301,7 +301,7 @@
     },
     "toast": {
       "update": {
-        "error": "Failed to update Wellpass connection. Please try again.",
+        "error": "Couldn't update Wellpass connection. Please try again.",
         "success": "Wellpass connection updated successfully."
       }
     },
@@ -321,7 +321,7 @@
         "status": "Status"
       },
       "empty": {
-        "subtitle": "No Wellpass accounts are configured yet.",
+        "subtitle": "No Wellpass accounts are set up yet.",
         "title": "No accounts yet"
       },
       "status": {

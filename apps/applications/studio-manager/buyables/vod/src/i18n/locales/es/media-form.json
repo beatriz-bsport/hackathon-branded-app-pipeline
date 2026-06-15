@@ -1,0 +1,95 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Título",
+      "placeholder": "Añade un título al contenido multimedia",
+      "errorMaxLength": "El título debe tener un máximo de {{maxLength}} caracteres"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe tu contenido multimedia",
+      "errorMaxLength": "La descripción debe tener un máximo de {{maxLength}} caracteres"
+    },
+    "credit_price": {
+      "errorInvalid": "El precio debe ser un número válido no negativo",
+      "equivalentCredits": "Este pase contendrá {{ creditsDisplay }}"
+    },
+    "manager_only": {
+      "label": "No listado",
+      "helperText": "Este contenido multimedia no estará disponible para comprar en tu sitio web o app "
+    },
+    "rental": {
+      "label": "Disponible para alquilar",
+      "helperText": "Los Clientes pueden alquilar este video por un número determinado de días"
+    },
+    "rental_days": {
+      "label": "Período de alquiler (días)",
+      "helperText": "Cuántos días pueden acceder los clientes al vídeo después de alquilarlo",
+      "errorInvalid": "El período de alquiler debe ser de al menos {{min}} días"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Sube una imagen para mostrarla en tu app de cliente y en la web del estudio."
+    },
+    "category": {
+      "label": "Categoría",
+      "placeholder": "Selecciona una categoría"
+    },
+    "level": {
+      "label": "Nivel",
+      "placeholder": "Selecciona un nivel",
+      "byDefault": "Preajustes",
+      "custom": "Personalizado",
+      "create": "Crear un nuevo nivel",
+      "add": "Añadir nivel",
+      "nameLabel": "Nombre",
+      "nameTooLong": "El nombre del nivel no debe tener más de 50 caracteres",
+      "colorLabel": "Color",
+      "confirmCreate": "Crear",
+      "cancel": "Mantener",
+      "edit": "Editar nivel",
+      "save": "Guardar",
+      "deleteTitle": "¿Eliminar nivel?",
+      "deleteMessage": "Los medios existentes mantendrán este nivel, pero no estarán disponibles para nuevos medios.",
+      "delete": "Eliminar",
+      "error": "Algo salió mal. Por favor, inténtalo de nuevo. ",
+      "defaults": {
+        "1": "Todos los niveles",
+        "2": "Principiante",
+        "3": "Intermedio",
+        "4": "Avanzado",
+        "5": "No se muestra el nivel"
+      }
+    },
+    "teachers": {
+      "label": "Profesor",
+      "placeholder": "Seleccionar profesor"
+    },
+    "errors": {
+      "fieldIsRequired": "Este campo no puede estar vacío"
+    }
+  },
+  "createModal": {
+    "title": "Crear contenido multimedia",
+    "buttons": {
+      "create": "Crear",
+      "cancel": "Cerrar"
+    },
+    "submitResponse": {
+      "success": "Contenido multimedia creado",
+      "open": "Abrir",
+      "error": "No se pudo crear el contenido multimedia. Inténtalo de nuevo. "
+    }
+  },
+  "editModal": {
+    "title": "Editar multimedia",
+    "buttons": {
+      "save": "Guardar",
+      "cancel": "Cerrar"
+    },
+    "submitResponse": {
+      "success": "Créditos actualizados",
+      "error": "No se pudo actualizar el contenido multimedia. Inténtalo de nuevo. "
+    }
+  }
+}

@@ -3,6 +3,25 @@
     "loading": "Loading segment filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
+  "emptyState": {
+    "title": "No filters added yet.",
+    "description": "Click 'Add filter' below to start building your segment.",
+    "topFiltersLabel": "Or start filtering with top filters:",
+    "shortcuts": {
+      "passes": {
+        "title": "Passes",
+        "description": "Filter by pass ownership, credits, or expiration"
+      },
+      "tags": {
+        "title": "Tags",
+        "description": "Filter by tags members do or don't have"
+      },
+      "totalBookingNumber": {
+        "title": "Total Bookings",
+        "description": "Filter by total number of bookings."
+      }
+    }
+  },
   "filterSelector": {
     "actions": {
       "addFilter": "Add filter"
@@ -83,6 +102,12 @@
       },
       "internalNotes": {
         "description": "Filter members by whether they have internal notes, optionally by note type and creation date."
+      },
+      "paymentMethod": {
+        "description": "Filter members by whether they have a saved payment method, optionally by expiration date."
+      },
+      "hasPassword": {
+        "description": "Filter members by whether they have set a password on their account."
       }
     }
   },
@@ -295,8 +320,8 @@
           "emptySelection": "Select Activities to start filtering"
         },
         "establishment": {
-          "searchPlaceholder": "Search for an Establishment",
-          "emptySelection": "Select Establishments to start filtering"
+          "searchPlaceholder": "Search for a venue",
+          "emptySelection": "Select venues to start filtering"
         },
         "coach": {
           "searchPlaceholder": "Search for a Teacher",
@@ -310,7 +335,7 @@
           "searchPlaceholder": "Search for a Level",
           "emptySelection": "Select Levels to start filtering"
         },
-        "totalSessionSuffix": "Total Session",
+        "totalSessionSuffix": "Total classes",
         "filterSpecifications": "FILTER SPECIFICATIONS",
         "bookingHourRangeStartingBetween": "Starting between ",
         "bookingHourRangeAnd": " and ",
@@ -322,12 +347,12 @@
       },
       "subFilters": {
         "activity": "Activity",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "coach": "Teacher",
         "passes": "Passes",
         "level": "Level",
-        "bookingDate": "Booking session date",
-        "bookingHourRange": "Booking session time",
+        "bookingDate": "Class date",
+        "bookingHourRange": "Class time",
         "attendanceMode": "Attendance",
         "subFilterFallback": "{{subFilterId}}"
       },
@@ -342,11 +367,11 @@
         "secondValueRequired": "Second booking number is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedActivitiesRequired": "Select at least one activity.",
-        "selectedEstablishmentsRequired": "Select at least one establishment.",
+        "selectedEstablishmentsRequired": "Select at least one venue",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
         "selectedLevelsRequired": "Select at least one level, or remove this sub-filter.",
-        "bookingDateRequired": "Select a booking session date.",
+        "bookingDateRequired": "Select a class date",
         "bookingDateBetweenRequired": "Select both dates for the between range.",
         "bookingDateDurationRequired": "Enter a number of days.",
         "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
@@ -369,8 +394,8 @@
           "emptySelection": "Select Teachers to start filtering"
         },
         "establishment": {
-          "searchPlaceholder": "Search for an Establishment",
-          "emptySelection": "Select Establishments to start filtering",
+          "searchPlaceholder": "Search for a venue",
+          "emptySelection": "Select venues to start filtering",
           "atHomePrefix": "or",
           "atHomeLabel": "Include online appointments (at home)"
         },
@@ -385,7 +410,7 @@
       },
       "subFilters": {
         "coach": "Teacher",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "appointmentPass": "Appointment pass",
         "appointment": "Appointment",
         "appointmentDate": "Appointment date",
@@ -402,7 +427,7 @@
         "secondValueRequired": "Second appointment count is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
-        "selectedEstablishmentsRequired": "Select at least one establishment, or include online appointments.",
+        "selectedEstablishmentsRequired": "Select at least one venue, or include online appointments.",
         "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
         "selectedAppointmentsRequired": "Select at least one appointment, or remove this sub-filter.",
         "appointmentDateRequired": "Select an appointment date.",
@@ -427,7 +452,7 @@
       },
       "fields": {
         "countSuffix": "Valid Passes",
-        "sessionsSuffix": "sessions",
+        "sessionsSuffix": "classes",
         "filterSpecifications": "FILTER SPECIFICATIONS"
       },
       "paymentPacks": {
@@ -711,6 +736,38 @@
         "noteCreationDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
+    "600": {
+      "title": "Saved payment method",
+      "actions": {
+        "deleteFilter": "Delete saved payment method filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "anySavedPaymentMethod": "Has at least one saved payment method",
+        "owns": {
+          "has": "Has",
+          "doesNotHave": "Does not have"
+        }
+      },
+      "subFilters": {
+        "expirationDate": "Expiration date"
+      },
+      "toasts": {
+        "saveError": "Unable to save saved payment method filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete saved payment method filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "expirationDateRequired": "Select an expiration date.",
+        "expirationDateBetweenRequired": "Select both dates for the between range.",
+        "expirationDateDurationRequired": "Enter a number of days.",
+        "expirationDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
     "106": {
       "title": "Has phone",
       "actions": {
@@ -737,10 +794,29 @@
         "save": "Add filter",
         "update": "Save filter"
       },
+      "toasts": {
+        "saveError": "Unable to save password filter.",
+        "saveSuccess": "Password filter saved.",
+        "deleteError": "Unable to delete password filter.",
+        "invalidFilter": "Invalid filter."
+      },
       "fields": {
         "radioLabel": "Filter for Profiles that:",
         "accepted": "Accepted",
         "notAccepted": "Not accepted"
+      }
+    },
+    "400": {
+      "title": "Password",
+      "actions": {
+        "deleteFilter": "Delete password filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "hasPassword": "Has password",
+        "doesNotHavePassword": "Does not have password"
       },
       "toasts": {
         "saveError": "Unable to save terms and conditions filter.",

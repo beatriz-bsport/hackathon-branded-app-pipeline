@@ -20,7 +20,7 @@
       "detailsForm": {
         "title": "Details"
       },
-      "establishmentSectionTitle": "Establishment",
+      "establishmentSectionTitle": "Venue",
       "visibilitySelector": {
         "title": "Visibility",
         "label": "Select visibility"
@@ -42,7 +42,7 @@
     "cancelButton": "Cancel",
     "futureSessionsHeader": "Future classes",
     "descriptionFutureSessions": "Select the future classes you want to update.",
-    "notificationLabel": "Update members about changes",
+    "notificationLabel": "Update clients about changes",
     "notificationDescription": "Clients who have booked this class will receive an email or push notification to let them know about the changes ",
     "updateFutureSessions": "Apply these changes to similar classes",
     "updateFutureSessionsForGroup": "Apply these changes to the other classes in that Series",

@@ -1,7 +1,8 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { Fetch } from "@bsport/store-base";
+import { Fetch, type PaginatedResponse } from "@bsport/store-base";
 
+import { SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE } from "./constants";
 import {
   fetchSmartlistDetailAPI,
   fetchSmartlistFiltersAPI,
@@ -10,6 +11,11 @@ import {
   smartlistKeys,
 } from "./core/api";
 import type { Smartlist, TagRule } from "./core/types";
+import { fetchSmartlistMembersAPI } from "./members/api";
+import type {
+  FetchSmartlistMembersParams,
+  SmartlistMember,
+} from "./members/types";
 import type { SmartlistGetFiltersResponse } from "./shared/types";
 
 export const smartlistDetailQueryOptions = (
@@ -44,3 +50,21 @@ export const smartlistFiltersQueryOptions = (
     queryKey: smartlistKeys.filters(id),
     queryFn: () => fetchSmartlistFiltersAPI(fetch, id),
   });
+
+export const smartlistMembersQueryOptions = (
+  fetch: Fetch<PaginatedResponse<SmartlistMember>>,
+  params: FetchSmartlistMembersParams,
+) => {
+  const page = params.page ?? 1;
+  const page_size = params.page_size ?? SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE;
+
+  return queryOptions({
+    queryKey: smartlistKeys.members(params.smartlistId, page, page_size),
+    queryFn: () =>
+      fetchSmartlistMembersAPI(fetch, {
+        ...params,
+        page,
+        page_size,
+      }),
+  });
+};

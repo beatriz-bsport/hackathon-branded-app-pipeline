@@ -18,7 +18,7 @@ Repository: ichizen
 # How
 
 We should use kebab-case for two types of files : tsx and css
-Special case to ignore : App.tsx are still authorized.
+Special case to ignore : App.tsx are still authorized. AI Guidelines MD files can use SCREAMING_SNAKE_CASE.
 
 <aside>
 ❌

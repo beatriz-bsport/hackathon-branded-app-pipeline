@@ -34,8 +34,8 @@ export const TeacherRow: FC<{
       />
       <Body
         htmlVariant="span"
-        size="md"
-        color="weak"
+        size="lg"
+        color="default"
         className="hover:underline"
       >
         {displayedTeacher.name}

@@ -59,11 +59,12 @@ export const FilterSelectorPopover = ({
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (
             <Button
+              fullWidth
               label={t("filterSelector.actions.addFilter")}
               iconLeft="plus"
-              intent="flat"
+              intent="default"
               color="main"
-              size="sm"
+              size="md"
               onClick={() => setIsPopoverOpened(true)}
             />
           )}

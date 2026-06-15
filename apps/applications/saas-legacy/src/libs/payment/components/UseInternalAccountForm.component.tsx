@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { Basket } from '#src/libs/checkout/types';
-import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
+import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow/BasketPaymentContext';
 import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error

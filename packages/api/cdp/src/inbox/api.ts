@@ -15,8 +15,9 @@ import type {
 export const inboxKeys = {
   all: [QUERY_KEY_MAIN, "inbox-conversation"] as const,
   lists: () => [...inboxKeys.all, "list"] as const,
+  infiniteLists: () => [...inboxKeys.lists(), "infinite"] as const,
   infinite: (params: FetchInboxConversationsParams) =>
-    [...inboxKeys.lists(), "infinite", params] as const,
+    [...inboxKeys.infiniteLists(), params] as const,
 } as const;
 
 export const fetchInboxConversationsAPI = async (

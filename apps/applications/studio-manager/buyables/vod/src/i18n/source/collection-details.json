@@ -58,7 +58,7 @@
   },
   "removeMediaModal": {
     "title": "Remove media?",
-    "description": "Your members will no longer be able to see \"{{videoName}}\" in your Collection, but you’ll still be able to access it from On-Demand.",
+    "description": "Your clients will no longer be able to see \"{{videoName}}\" in your collection, but you’ll still be able to access it from on-demand.",
     "undoAction": {
       "label": "Undo"
     },

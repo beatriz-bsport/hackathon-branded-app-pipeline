@@ -5,8 +5,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLastBookingFilterMutation } from "#src/api/use-delete-last-booking-filter-mutation";
 import { useUpsertLastBookingFilterMutation } from "#src/api/use-upsert-last-booking-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapLastBookingFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildLastBookingFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createLastBookingFilterPayload } from "../mappers/form-value-to-create-payload";
 import { lastBookingFilterSchema } from "../schema";
@@ -33,19 +35,19 @@ export const LastBookingFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertLastBookingFilterMutate, isLoading: isSaving } =
     useUpsertLastBookingFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.501.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapLastBookingFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -70,7 +72,6 @@ export const LastBookingFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const handleSave = methods.handleSubmit(

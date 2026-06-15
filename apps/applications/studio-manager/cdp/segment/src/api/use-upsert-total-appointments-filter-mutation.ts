@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type PrivateBookingsFilter,
   createPrivateBookingsFilter,
   patchPrivateBookingsFilter,
 } from "@bsport/api-cdp/smartlist";
@@ -18,7 +19,7 @@ type UpsertTotalAppointmentsFilterVariables = {
 };
 
 type UseUpsertTotalAppointmentsFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: PrivateBookingsFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -52,11 +53,11 @@ export const useUpsertTotalAppointmentsFilterMutation = (
 
       return patchPrivateBookingsFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
+  BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BookingMilestoneFilter,
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
@@ -13,15 +14,13 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-const BOOKING_MILESTONE_FILTER_IDENTIFIER = 21;
-
 const buildApiFilter = (
   overrides: Partial<BookingMilestoneFilter> = {},
 ): BookingMilestoneFilter => ({
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: BOOKING_MILESTONE_FILTER_IDENTIFIER,
+  filter_identifier: Number(BOOKING_MILESTONE_FILTER_IDENTIFIER),
   value: 1,
   is_v2: true,
   select_all_activities: true,

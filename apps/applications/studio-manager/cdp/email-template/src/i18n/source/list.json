@@ -25,7 +25,7 @@
     "emptyPage": {
       "custom": {
         "title": "You haven't made any custom templates yet",
-        "description": "Create your first custom template to send personalized emails to your members"
+        "description": "Create your first custom template to send personalized emails to your clients"
       },
       "bsport": {
         "title": "You have no bsport template available",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Create a custom template for this category to send personalized emails to members"
+      "description": "Create a custom template for this category to send personalized emails to clients"
     },
     "noCategory": "No Category ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "bsport templates",
       "title": "bsport templates",
-      "description": "These pre-made templates are ready to use. Duplicate the template, then edit and send the copied version to your members. ",
+      "description": "These pre-made templates are ready to use. Duplicate the template, then edit and send the copied version to your clients. ",
       "quit": "Quit"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Delete email template?",
-      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. It'll also be removed from any transactional emails that it's been linked to.",
+      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to clients. It'll also be removed from any transactional emails that it's been linked to.",
       "confirmButton": "Delete",
       "cancelButton": "Keep",
       "onSuccess": {

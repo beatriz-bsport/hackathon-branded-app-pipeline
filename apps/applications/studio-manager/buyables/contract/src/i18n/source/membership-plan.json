@@ -1,0 +1,66 @@
+{
+  "header": {
+    "loading": "Loading membership plan...",
+    "breadcrumbs": {
+      "subscription": "Subscription"
+    }
+  },
+  "tabs": {
+    "billing": "Billing",
+    "history": "History"
+  },
+  "panelTabs": {
+    "details": "Details",
+    "paymentMethod": "Payment method"
+  },
+  "content": {
+    "billingPlaceholder": "Billing details will appear here.",
+    "historyPlaceholder": "Membership plan history will appear here."
+  },
+  "invoiceList": {
+    "headers": {
+      "billingDate": "Billing date",
+      "status": "Status",
+      "amount": "Amount"
+    },
+    "emptyList": {
+      "title": "No invoices yet",
+      "subtitle": "Invoices for this membership plan will appear here."
+    },
+    "loading": "Loading invoices...",
+    "status": {
+      "draft": "Draft",
+      "open": "Open",
+      "paid": "Paid",
+      "voided": "Voided",
+      "refunded": "Refunded"
+    }
+  },
+  "panel": {
+    "details": {
+      "autoRenewal": "Auto-renew",
+      "billingCycles": "Billing cycles",
+      "commitmentPeriod": "Commitment period",
+      "joinFee": "Join fee",
+      "memberProfile": "View member profile",
+      "member": "Member",
+      "name": "Name",
+      "notes": {
+        "empty": "No note added.",
+        "title": "Note",
+        "stopNote": "Cancellation note"
+      },
+      "pauses": {
+        "cancel": "Cancel pause",
+        "empty": "No scheduled pauses.",
+        "range": "From {{fromDate}} to {{untilDate}}",
+        "reschedule": "Reschedule pause",
+        "title": "Scheduled pauses"
+      },
+      "recurringPrice": "Recurring price",
+      "remainingPeriod": "Remaining period",
+      "remainingUntil": "Until {{date}}"
+    },
+    "paymentMethodPlaceholder": "Payment method details will appear here."
+  }
+}

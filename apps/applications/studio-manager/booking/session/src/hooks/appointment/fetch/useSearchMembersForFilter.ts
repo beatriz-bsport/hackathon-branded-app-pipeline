@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-import { searchMembersQueryOptions } from "@bsport/api-cdp";
+import { searchMembersQueryOptions } from "@bsport/api-cdp/member";
 
 import { fetch } from "#src/utils/fetch";
 

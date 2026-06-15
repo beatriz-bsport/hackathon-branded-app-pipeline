@@ -9,8 +9,8 @@
         "activity": "Group activities",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishments",
-        "establishment_practical_info": "Establishment details ",
+        "establishment": "Venues",
+        "establishment_practical_info": "Venue details ",
         "address": "Address"
       }
     },
@@ -31,8 +31,8 @@
         "activity": "Activity",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishment",
-        "establishment_practical_info": "Establishment details",
+        "establishment": "Venue",
+        "establishment_practical_info": "Venue details",
         "address": "Address",
         "ics_calendar_link": "ICS Calendar Link",
         "spot": "Place",
@@ -41,7 +41,7 @@
       "subtitles": {
         "workshop": "Workshop",
         "establishment_group": "Location",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "meta_activity": "Activity"
       }
     },
@@ -77,8 +77,8 @@
         "activity": "Activity",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishment",
-        "establishment_practical_info": "Establishment access information",
+        "establishment": "Venue",
+        "establishment_practical_info": "Venue access information",
         "address": "Address",
         "option_payment_url": "Booking link",
         "option_expiration_date": "Waitlist expiration date",
@@ -88,12 +88,12 @@
     },
     "PrivateBooking": {
       "tags": {
-        "establishment_practical_info": "Establishment access information",
+        "establishment_practical_info": "Venue access information",
         "address": "Address",
         "date": "Time and date",
         "coach": "Teacher",
         "activity": "Activity",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "ics_calendar_link": "ICS Calendar Link"
       },
       "name": "Appointments"
@@ -142,8 +142,8 @@
         "activity": "Group activities",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishments",
-        "establishment_practical_info": "Establishment details",
+        "establishment": "Venues",
+        "establishment_practical_info": "Venue details",
         "address": "Address",
         "recurring_booking_fail_reason": "Failure reason"
       },

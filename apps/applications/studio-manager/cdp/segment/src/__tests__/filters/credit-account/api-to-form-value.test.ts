@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
+  CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   type CreditAccountFilter,
   SmartlistCreditAccountFilterComparator,
 } from "@bsport/api-cdp/smartlist";
@@ -14,15 +15,13 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-const CREDIT_ACCOUNT_FILTER_IDENTIFIER = 1;
-
 const buildCreditAccountFilter = (
   overrides: Partial<CreditAccountFilter> = {},
 ): CreditAccountFilter => ({
   id: 55,
   company_id: 7,
   smartlist: 123,
-  filter_identifier: CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  filter_identifier: Number(CREDIT_ACCOUNT_FILTER_IDENTIFIER),
   comparator: SmartlistCreditAccountFilterComparator.LTE,
   value: 0,
   value_second: 20,

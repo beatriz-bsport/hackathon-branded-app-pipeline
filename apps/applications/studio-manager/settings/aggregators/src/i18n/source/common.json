@@ -14,12 +14,12 @@
         "removeEstablishment": "Remove {{title}}"
       },
       "errors": {
-        "establishmentRequired": "At least one establishment is required"
+        "establishmentRequired": "At least one venue is required"
       },
       "fields": {
         "establishments": {
-          "label": "Establishments",
-          "placeholder": "Link your establishment(s)"
+          "label": "Venues",
+          "placeholder": "Link a venue"
         }
       }
     },
@@ -29,18 +29,18 @@
         "close": "Close",
         "save": "Continue"
       },
-      "helper": "Select which establishments you want to synchronise. All sessions in these establishments that have MyClubs enabled will be available to book for MyClubs customers.",
+      "helper": "Select which venues to sync with MyClubs. Eligible classes in these venues will be available to MyClubs clients.",
       "success": {
-        "helper": "Copy and paste this Partner ID into your <0>MyClubs account</0> to make the sessions in your selected establishments available to MyClubs customers.",
+        "helper": "Copy and paste this Partner ID into your <0>MyClubs account</0> to make the classes in these venues available to MyClubs clients.",
         "title": "Copy Partner ID"
       },
       "title": {
-        "create": "Choose establishment(s)",
+        "create": "Choose venue",
         "edit": "Edit Partner ID {{externalId}}"
       }
     },
     "section": {
-      "subtitle": "Generate and link Partner IDs to synchronise the sessions in your establishments with MyClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+      "subtitle": "Generate and link Partner IDs to synchronise the classes in your venues with MyClubs. You'll be able to adjust the number of available spots for this aggregator in the class details."
     },
     "table": {
       "actions": {
@@ -51,7 +51,7 @@
         "reactivate": "Reactivate"
       },
       "columns": {
-        "establishments": "Establishments",
+        "establishments": "Venues",
         "partnerId": "Partner ID",
         "status": "Status"
       },
@@ -67,24 +67,24 @@
     },
     "confirm": {
       "delete": {
-        "alert": "All sessions linked to this Partner ID will no longer be available to MyClubs customers.",
+        "alert": "All classes linked to this Partner ID will no longer be available to MyClubs clients.",
         "cancel": "Cancel",
         "confirm": "Delete",
-        "description": "You are about to delete this Partner ID and unlink all associated establishments from MyClubs.",
+        "description": "You're about to delete this Partner ID and disconnect all associated venues from MyClubs.",
         "title": "Delete Partner ID"
       },
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be cancelled on MyClubs, including any bookings made with MyClubs.",
+        "alert": "Upcoming classes linked to those venues will be canceled on MyClubs, including any bookings made with MyClubs.",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "description": "You are about to unlink one or several establishments from MyClubs.",
+        "description": "You're about to disconnect one or several venues from MyClubs.",
         "title": "Edit Connection"
       },
       "reactivate": {
-        "alert": "Upcoming sessions in linked establishments will become available to MyClubs customers again.",
+        "alert": "Upcoming classes in linked venues will become available to MyClubs clients again.",
         "cancel": "Cancel",
         "confirm": "Reactivate",
-        "description": "You are about to reactivate this Partner ID. Establishments linked to it will be available again on MyClubs.",
+        "description": "You're about to reactivate this Partner ID. Venues linked to it will be available again on MyClubs.",
         "title": "Reactivate Partner ID"
       }
     },
@@ -110,22 +110,22 @@
   "wellhub": {
     "actions": {
       "addConnection": "Add connection",
-      "addConnectionDisabledHint": "All establishments are already linked"
+      "addConnectionDisabledHint": "All venues are already linked"
     },
     "form": {
       "actions": {
         "removeEstablishment": "Remove {{title}}"
       },
       "errors": {
-        "establishmentRequired": "At least one establishment is required",
+        "establishmentRequired": "At least one venue is required",
         "externalIdInvalid": "Unit ID must be a number",
         "externalIdRequired": "Unit ID is required",
         "externalIdUnavailable": "This Unit ID is already in use or does not exist"
       },
       "fields": {
         "establishments": {
-          "label": "Establishments",
-          "placeholder": "Link your establishment(s)"
+          "label": "Venues",
+          "placeholder": "Link a venue"
         },
         "externalId": {
           "helper": "Enter the Wellhub venue ID for this connection",
@@ -141,7 +141,7 @@
         "cancel": "Cancel",
         "save": "Save"
       },
-      "helper": "Select which establishments you want to synchronise with Wellhub.",
+      "helper": "Select which venues to synchronize with Wellhub.",
       "title": {
         "create": "Add Wellhub connection",
         "edit": "Edit Wellhub connection {{externalId}}"
@@ -149,21 +149,21 @@
     },
     "confirm": {
       "delete": {
-        "alert": "All sessions linked to this connection will no longer be available to Wellhub customers.",
+        "alert": "All classes linked to this connection will no longer be available to Wellhub clients.",
         "cancel": "Cancel",
         "confirm": "Delete",
-        "description": "You are about to delete this Wellhub connection and unlink all associated establishments.",
+        "description": "You're about to delete this Wellhub connection and disconnect all associated venues.",
         "title": "Delete Wellhub connection"
       },
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost",
+        "alert": "Upcoming classes linked to those venues will be deleted on Wellhub, and any Wellhub bookings will be lost",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "description": "You are about to unlink one or several establishments from Wellhub",
+        "description": "You're about to disconnect one or several venues from Wellhub",
         "title": "Edit Connection"
       },
       "reactivate": {
-        "alert": "Once reactivated, sessions will start syncing again automatically.",
+        "alert": "Once reactivated, classes will start syncing again automatically.",
         "cancel": "Cancel",
         "confirm": "Reactivate",
         "title": "Reactivate synchronisation for this Unit ID?"
@@ -213,7 +213,7 @@
       }
     },
     "section": {
-      "subtitle": "Link your bsport account to Wellhub to sync sessions."
+      "subtitle": "Link your bsport account to Wellhub to sync classes."
     },
     "table": {
       "actions": {
@@ -224,7 +224,7 @@
         "reactivate": "Reactivate"
       },
       "columns": {
-        "establishments": "Establishments",
+        "establishments": "Venues",
         "partnerId": "Unit ID",
         "status": "Status"
       },
@@ -241,7 +241,7 @@
   },
   "usc": {
     "section": {
-      "subtitle": "View your Urban Sports Club connections and linked establishments."
+      "subtitle": "View your Urban Sports Club connections and linked venues."
     },
     "table": {
       "actions": {
@@ -250,7 +250,7 @@
         "label": "More actions"
       },
       "columns": {
-        "establishments": "Establishments",
+        "establishments": "Venues",
         "partnerId": "Partner ID",
         "status": "Status"
       },
@@ -271,12 +271,12 @@
         "removeEstablishment": "Remove {{title}}"
       },
       "errors": {
-        "establishmentRequired": "At least one establishment is required"
+        "establishmentRequired": "At least one venue is required"
       },
       "fields": {
         "establishments": {
-          "label": "Establishments",
-          "placeholder": "Link your establishment(s)"
+          "label": "Venues",
+          "placeholder": "Link a venue"
         }
       }
     },
@@ -292,10 +292,10 @@
     },
     "confirm": {
       "editWarning": {
-        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellpass, and any Wellpass bookings will be lost",
+        "alert": "Upcoming classes linked to those venues will be deleted on Wellpass, and any Wellpass bookings will be lost",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "description": "You are about to unlink one or several establishments from Wellpass",
+        "description": "You're about to disconnect one or several venues from Wellpass",
         "title": "Edit Connection"
       }
     },
@@ -316,7 +316,7 @@
         "label": "More actions"
       },
       "columns": {
-        "establishments": "Establishments",
+        "establishments": "Venues",
         "partnerId": "Partner ID",
         "status": "Status"
       },

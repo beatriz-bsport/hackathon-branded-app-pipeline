@@ -293,7 +293,7 @@ Hotfix branches named `hotfix/v<major>.<minor>.x` run the same job automatically
 
 The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
 
-After `Release:Tag` succeeds on `dev` or a hotfix branch, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`.
+After `Release:Tag` succeeds on `dev` or a hotfix branch, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`. This artifact publication is independent from dev deploy; dev still uses the normal `tools/scripts/deploy.sh` path.
 
 If `CI_LINEAR_ACCESS_KEY` is configured in GitLab CI, `Release:Linear Sync`
 runs after the release artifact is created and syncs that same semver tag to the

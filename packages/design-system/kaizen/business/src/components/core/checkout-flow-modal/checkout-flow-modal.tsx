@@ -5,6 +5,8 @@ import { Modal } from "@bsport/kaizen-primitive-core";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import { CheckoutFlowStepContent } from "./checkout-flow-step-content";
+import { INVOICE_COMPLETION_INTENT } from "./constants";
+import { showInvoicePendingPaymentToast } from "./lib/show-invoice-pending-payment-toast";
 import type { CheckoutFlowModalProps } from "./types";
 import { useCheckoutFlowStep } from "./use-checkout-flow-step";
 
@@ -48,7 +50,15 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     memberId,
     onClose,
     onError,
-    onInvoiceCreated: (invoiceUuid, _memberId, data) => {
+    onInvoiceCreated: (
+      invoiceUuid,
+      _memberId,
+      data,
+      intent = INVOICE_COMPLETION_INTENT.PAY_NOW,
+    ) => {
+      if (intent === INVOICE_COMPLETION_INTENT.PAY_LATER) {
+        showInvoicePendingPaymentToast(invoiceUuid);
+      }
       onSubmit?.(data, invoiceUuid);
     },
     onTrack,
@@ -59,7 +69,9 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   const {
     formId,
     isConfirmDisabled,
-    handleCancelClose,
+    isPayNowLoading,
+    isPayLaterLoading,
+    handlePayLaterSubmit,
     handleClickOutside,
     handleCrossClick,
   } = stepState;
@@ -74,14 +86,17 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
       onClickOutside={handleClickOutside}
       confirmButton={{
         color: "main",
-        label: t("checkoutFlowModal.title"),
+        label: t("checkoutFlowModal.payNow"),
         type: "submit",
         form: formId,
         disabled: isConfirmDisabled,
+        loading: isPayNowLoading,
       }}
       cancelButton={{
-        label: t("checkoutFlowModal.cancel"),
-        onClick: handleCancelClose,
+        label: t("checkoutFlowModal.payLater"),
+        disabled: isConfirmDisabled,
+        loading: isPayLaterLoading,
+        onClick: handlePayLaterSubmit,
       }}
     >
       <CheckoutFlowStepContent

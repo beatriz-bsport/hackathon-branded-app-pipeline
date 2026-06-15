@@ -9,6 +9,9 @@ const ContractOverviewPage = lazy(() => import("#src/pages/contract-overview"));
 const ContractPausesListPage = lazy(
   () => import("#src/pages/contract-pauses-list"),
 );
+const MembershipPlanPage = lazy(
+  () => import("#src/pages/membership-plan/page"),
+);
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +22,14 @@ export const AppRoutes = () => {
       <Route element={<ContractEditorPage />} path={URLS.EDITOR_SLUG} />
       <Route element={<ContractOverviewPage />} path={URLS.OVERVIEW_SLUG} />
       <Route element={<ContractPausesListPage />} path={URLS.PAUSES_SLUG} />
+      <Route
+        element={<MembershipPlanPage />}
+        path={URLS.MEMBERSHIP_PLAN_SLUG}
+      />
+      <Route
+        element={<MembershipPlanPage />}
+        path={`${URLS.MEMBERSHIP_PLAN_SLUG}/:tab`}
+      />
 
       {/** Fallback to details page */}
       <Route element={<ContractEditorPage />} path={`${URLS.EDITOR_SLUG}/*`} />

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "MigrateBarrelImports",
+  "title": "Move a resource's symbols off the root barrel onto its subpath",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "API package (e.g., cdp, api-cdp or @bsport/api-cdp)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Which API package?"
+    },
+    "resource": {
+      "type": "string",
+      "description": "Resource whose barrel imports to migrate (e.g., member)",
+      "x-prompt": "Which resource?"
+    }
+  },
+  "required": ["appName", "resource"]
+}

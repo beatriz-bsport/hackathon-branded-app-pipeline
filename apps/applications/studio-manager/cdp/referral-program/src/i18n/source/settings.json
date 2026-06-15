@@ -2,7 +2,7 @@
   "title": "Referrals",
   "referralProgramHelper": {
     "title": "Activate Referrals",
-    "description": "Set up a referral link for your members to invite others to your studio. Offer an incentive, set a time limit for the referral, and provide a reward for the referring member.",
+    "description": "Set up a referral link for your clients to invite others to your studio. Offer an incentive, set a time limit for the referral, and provide a reward for the referring client.",
     "button": {
       "activated": {
         "label": "Deactivate",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Reward for referring a member",
+        "title": "Reward for referring a client",
         "amountOff": {
-          "label": "How much you want to reward the member"
+          "label": "How much you want to reward the client"
         },
         "maxReferringNumber": {
-          "label": "Max. use per member",
+          "label": "Max. use per client",
           "errors": {
             "tooSmall": "The number of uses must be between 1 and 5",
             "tooBig": "You cannot give more than 5 referrals",
@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "By choosing this value, no discount will be applied for referring a new customer."
+          "equalToZero": "By choosing this value, no discount will be applied for referring a new client."
         },
         "errors": {
           "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",
@@ -58,7 +58,7 @@
         }
       },
       "referralReward": {
-        "title": "Discount for new customer",
+        "title": "Discount for new client",
         "label": "Discount total",
         "percentage": "Percentage",
         "amount": "Amount",
@@ -93,9 +93,9 @@
         }
       },
       "tagSelector": {
-        "label": "Apply a tag when new customers use the referral link",
+        "label": "Apply a tag when new clients use the referral link",
         "placeholder": "Select a tag",
-        "helper": "Tip: Tag new customers to target them later.",
+        "helper": "Tag new clients to target them later.",
         "errors": {
           "notProvided": "Select a tag or deactivate this option to continue"
         }
@@ -103,7 +103,7 @@
       "redirectLink": {
         "switch": {
           "label": "Add a redirect link",
-          "helper": "Add a link to redirect new customers to a custom URL after registering. If left blank, they'll be taken to the Calendar page."
+          "helper": "Add a link to redirect new clients to a custom URL after registering. If left blank, they'll be taken to the Calendar page."
         },
         "textfield": {
           "label": "Redirect link",

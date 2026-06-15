@@ -1,8 +1,10 @@
-import { type ApiConfig, Fetch } from "@bsport/store-base";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
-import { API_URL_PLATFORM_BILLING } from "#src/constants";
+import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
-import type { RequestUpsellPackagePayload } from "./types";
+import { API_URL_PLATFORM_BILLING, QUERY_KEY_MAIN } from "#src/constants";
+
+import type { PlatformInvoice, RequestUpsellPackagePayload } from "./types";
 
 const getRequestUpsellPackageConfig = (
   payload: RequestUpsellPackagePayload,
@@ -30,3 +32,47 @@ export const requestUpsellPackageAPI = async (
   const [uri, init] = getRequestUpsellPackageConfig({ upsellIdentifier });
   await fetch(uri, init);
 };
+
+export const platformInvoiceKeys = {
+  all: [QUERY_KEY_MAIN, "platform-invoice"] as const,
+  list: () => [...platformInvoiceKeys.all, "list"] as const,
+} as const;
+
+const fetchPlatformInvoiceListAPIConfig = (): ApiConfig => {
+  return [`${API_URL_PLATFORM_BILLING}/platform_invoice/from_payment_backend/`];
+};
+
+export const fetchPlatformInvoiceListAPI = async (
+  fetch: Fetch<{ results: PlatformInvoice[] }>,
+): Promise<PlatformInvoice[]> => {
+  const [uri, init] = fetchPlatformInvoiceListAPIConfig();
+
+  const { data } = await fetch(uri, init);
+
+  return data.results;
+};
+
+export const fetchPlatformInvoiceListQueryOptions = (
+  fetch: Fetch<{ results: PlatformInvoice[] }>,
+) =>
+  queryOptions({
+    queryKey: platformInvoiceKeys.list(),
+    queryFn: () => fetchPlatformInvoiceListAPI(fetch),
+  });
+
+export const payPlatformInvoiceAPI = async (
+  fetch: Fetch<void>,
+  paymentBackendId: string,
+): Promise<void> => {
+  await fetch(`${API_URL_PLATFORM_BILLING}/platform_invoice/bill_now/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ payment_backend_id: paymentBackendId }),
+  });
+};
+
+export const payPlatformInvoiceMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: (paymentBackendId: string) =>
+      payPlatformInvoiceAPI(fetch, paymentBackendId),
+  });

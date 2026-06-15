@@ -10,7 +10,7 @@
         "appointment": "Appointment",
         "groupActivity": "Group Activity",
         "workshop": "Workshop",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "pass": "Pass",
         "appointmentPass": "Appointment Pass",
         "subscription": "Subscription",
@@ -24,7 +24,7 @@
     "emptyState": {
       "unfiltered": {
         "title": "No notifications yet",
-        "description": "Set up an automation to send notifications to your members",
+        "description": "Set up an automation to send notifications to your clients",
         "primaryAction": "Add automation"
       },
       "filtered": {
@@ -55,7 +55,7 @@
       "location": "Location",
       "groupActivity": "Group Activity",
       "workshop": "Workshop",
-      "establishment": "Establishment",
+      "establishment": "Venue",
       "appointment": "Appointment",
       "appointmentPass": "Appointment Pass",
       "pass": "Pass",
@@ -89,7 +89,7 @@
         "groupActivity": "Missing linked group activity",
         "workshop": "Missing linked workshop",
         "location": "Missing linked location",
-        "establishment": "Missing linked establishment",
+        "establishment": "Missing linked venue",
         "appointment": "Missing linked appointment",
         "subscription": "Missing linked subscription",
         "pass": "Missing linked pass",
@@ -147,7 +147,7 @@
           "expired_other": "{{count}} days past expiry in all passes"
         }
       },
-      "birthday": "Member birthday"
+      "birthday": "Client birthday"
     },
     "triggerTiming": {
       "booking": {

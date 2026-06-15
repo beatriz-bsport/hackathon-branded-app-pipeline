@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import type { LiabilityWaiverFilter } from "@bsport/api-cdp/smartlist";
+import {
+  LIABILITY_WAIVER_FILTER_IDENTIFIER,
+  type LiabilityWaiverFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import { mapLiabilityWaiverFilterToFormValue } from "#src/components/filters/liability-waiver-filter/mappers/api-to-form-value";
-
-const LIABILITY_WAIVER_FILTER_IDENTIFIER = 410;
 
 const buildApiFilter = (
   overrides: Partial<LiabilityWaiverFilter> = {},
@@ -12,7 +13,7 @@ const buildApiFilter = (
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: LIABILITY_WAIVER_FILTER_IDENTIFIER,
+  filter_identifier: Number(LIABILITY_WAIVER_FILTER_IDENTIFIER),
   value: true,
   ...overrides,
 });

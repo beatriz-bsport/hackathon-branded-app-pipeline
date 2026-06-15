@@ -8,9 +8,11 @@ import { useUpsertTotalAppointmentsFilterMutation } from "#src/api/use-upsert-to
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isTotalAppointmentsNumberType } from "../constants";
+import { mapTotalAppointmentsFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createTotalAppointmentsPayload } from "../mappers/form-value-to-create-payload";
 import { totalAppointmentsNumberFilterSchema } from "../schema";
@@ -46,18 +48,18 @@ export const TotalAppointmentsNumberFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, isDirty, dirtyFields } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertTotalAppointmentsFilterMutate, isLoading: isSaving } =
     useUpsertTotalAppointmentsFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.26.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapTotalAppointmentsFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

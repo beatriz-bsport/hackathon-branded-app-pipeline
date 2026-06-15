@@ -12,7 +12,7 @@
         "description": "This segment captures all individuals with at least one paid transaction. Target everyone who has ever paid the studio (a class pass, a subscription, or even a coffee at the front desk)."
       },
       "active_members": {
-        "title": "Active Members",
+        "title": "Active Clients",
         "description": "This segment groups all clients currently active. (have an active pass). Following the lifecycle status definition."
       },
       "active_trials": {
@@ -59,10 +59,10 @@
         "campaigns": "Campaigns"
       },
       "segment": {
-        "loading": "Loading segment members...",
+        "loading": "Loading segment...",
         "emptyState": {
-          "title": "No members found",
-          "subtitle": "This prebuilt segment has no matching members yet."
+          "title": "No clients found",
+          "subtitle": "This prebuilt segment has no matching clients yet."
         }
       },
       "segmentPlaceholder": "Segment details will be available soon.",

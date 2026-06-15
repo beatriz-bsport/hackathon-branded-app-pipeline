@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router";
+
 import type { BillingPlan } from "@bsport/api-buyables/billing-plan";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
@@ -7,7 +9,7 @@ import {
 } from "@bsport/kaizen-business-components/buyables/billing-plan-status";
 import { ChipProps, WithTooltip } from "@bsport/kaizen-primitive-core";
 
-import { LEGACY_URLS } from "#src/urls";
+import { URLS, getHrefFromRoot } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { MembershipPlanRowData } from "./types";
@@ -26,6 +28,7 @@ export const useMembershipPlanRows = (
 ): MembershipPlanRowData[] => {
   const { t } = useTranslation("contract-details");
   const baseConfigs = useBillingPlanStatusChipConfigs({ withLabel: true });
+  const navigate = useNavigate();
 
   const getStatusChip = (billingPlan: BillingPlan): WithTooltip<ChipProps> => {
     const status = getBillingPlanStatus(billingPlan);
@@ -63,7 +66,12 @@ export const useMembershipPlanRows = (
       DATETIME_FORMATS.MEDIUM_DATE,
     ),
     statusChip: getStatusChip(billingPlan),
-    onViewBillingPlan: () =>
-      window.location.assign(LEGACY_URLS.MEMBERSHIP_PLAN(billingPlan.id)),
+    onViewBillingPlan: () => {
+      navigate(
+        getHrefFromRoot(
+          URLS.MEMBERSHIP_PLAN(billingPlan.contract, billingPlan.id),
+        ),
+      );
+    },
   }));
 };

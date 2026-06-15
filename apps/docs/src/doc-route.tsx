@@ -63,7 +63,7 @@ export function DocRoute(props: DocRouteProps) {
 
   if (!entry) {
     return (
-      <article className="flex w-full max-w-[1200px] flex-col py-2">
+      <article className="flex w-full flex-col py-2">
         <h1 className="text-4xl font-bold tracking-tight">Page not found</h1>
         <p className="mt-4 text-lg text-[color:var(--color-fg-subtle)]">
           The page you&apos;re looking for doesn&apos;t exist.
@@ -101,7 +101,7 @@ function DocPageContent({ entry }: { entry: ManifestEntry }) {
 
   if (!MdxComponent) {
     return (
-      <article className="flex w-full max-w-[1200px] flex-col py-2">
+      <article className="flex w-full flex-col py-2">
         <p className="text-lg text-[color:var(--color-fg-subtle)]">
           Content not found.
         </p>
@@ -110,7 +110,10 @@ function DocPageContent({ entry }: { entry: ManifestEntry }) {
   }
 
   return (
-    <article className="flex w-full max-w-[1200px] flex-col py-2">
+    <article
+      className="flex w-full flex-col py-2"
+      data-has-page-tabs={frontmatter.sections?.length ? "" : undefined}
+    >
       <header
         className={cx(
           "mb-4 flex flex-col gap-4",

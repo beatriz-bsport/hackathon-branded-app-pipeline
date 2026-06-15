@@ -5,8 +5,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteInternalNotesFilterMutation } from "#src/api/use-delete-internal-notes-filter-mutation";
 import { useUpsertInternalNotesFilterMutation } from "#src/api/use-upsert-internal-notes-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapInternalNotesFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildInternalNotesFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createInternalNotesFilterPayload } from "../mappers/form-value-to-create-payload";
 import { internalNotesFilterSchema } from "../schema";
@@ -37,18 +39,18 @@ export const InternalNotesFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertInternalNotesFilterMutate, isLoading: isSaving } =
     useUpsertInternalNotesFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.104.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapInternalNotesFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

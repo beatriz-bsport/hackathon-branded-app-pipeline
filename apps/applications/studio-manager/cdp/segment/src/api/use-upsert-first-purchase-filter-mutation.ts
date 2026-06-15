@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   type CreateFirstPurchaseFilterPayload,
+  type FirstPurchaseFilter,
   type UpdateFirstPurchaseFilterPayload,
   createFirstPurchaseFilter,
   patchFirstPurchaseFilter,
@@ -18,7 +19,7 @@ type UpsertFirstPurchaseFilterVariables = {
 };
 
 type UseUpsertFirstPurchaseFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: FirstPurchaseFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -50,11 +51,11 @@ export const useUpsertFirstPurchaseFilterMutation = (
 
       return patchFirstPurchaseFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

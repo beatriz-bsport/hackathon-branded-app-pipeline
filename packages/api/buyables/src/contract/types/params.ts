@@ -46,12 +46,20 @@ export type CreateContractParams = Omit<
   Contract,
   | "id"
   | "company"
-  | "contract_terms_pdf_link"
   | "disabled"
   | "tax" // defined at benefit level
   | "payment_pack" // deprecated in revamped contract
   | "private_pass" // deprecated in revamped contract
   | "payment_combo" // deprecated in revamped contract
+  | "contract_terms_pdf_link" // Managed backend-side
+  | "contract_terms_current_version" // Managed backend-side
+  | "contract_terms_history" // Managed backend-side
+  | "contract_terms_date_updated" // Managed backend-side
+  | "contract_template" // Managed backend-side
+  | "member_relation_auto_share" // Managed backend-side
+  | "editable" // Managed backend-side
+  | "metadata" // Managed backend-side
+  | "source" // Managed backend-side
 > & {
   payment_pack_details: PassDetails | null;
   private_pass_details: AppointmentPassDetails | null;

@@ -19,9 +19,11 @@ import { PassSelectorWithToggle } from "#src/components/filters/active-passes-fi
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isActivePassesComparatorType } from "../constants";
+import { mapActivePassesFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildActivePassesFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createActivePassesPayload } from "../mappers/form-value-to-create-payload";
 import { activePassesFilterSchema } from "../schema";
@@ -94,18 +96,18 @@ export const ActivePassesFilterCard = ({
 
   const watchedValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedValue.id, isDirty);
 
   const { upsertActivePassesFilterMutate, isLoading: isSaving } =
     useUpsertActivePassesFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.27.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapActivePassesFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

@@ -15,6 +15,9 @@ export const BASKET_START_TRIGGERS = [
   "session_management_page",
 ] as const;
 
+export const DEFAULT_BASKET_START_TRIGGER =
+  "navbar" satisfies (typeof BASKET_START_TRIGGERS)[number];
+
 const basketCancelTriggerValues = [
   "cancel_button",
   "cross_button",

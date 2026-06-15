@@ -235,8 +235,8 @@
           "title": "Tags",
           "subTitle": "Use tags to make this class available only to certain segments of your client base",
           "addTags": "Add tags",
-          "whiteListTagsLabel": "Authorised members",
-          "blackListTagsLabel": "Unauthorised members"
+          "whiteListTagsLabel": "Authorized clients",
+          "blackListTagsLabel": "Unauthorized clients"
         }
       }
     },

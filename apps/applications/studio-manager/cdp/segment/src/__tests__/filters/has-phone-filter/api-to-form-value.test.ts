@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import type { HasPhoneFilter } from "@bsport/api-cdp/smartlist";
+import {
+  HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPhoneFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import { mapHasPhoneFilterToFormValue } from "#src/components/filters/has-phone-filter/mappers/api-to-form-value";
-
-const HAS_PHONE_FILTER_IDENTIFIER = 106;
 
 const buildApiFilter = (
   overrides: Partial<HasPhoneFilter> = {},
@@ -12,7 +13,7 @@ const buildApiFilter = (
   id: 1,
   company: 1,
   smartlist: 1,
-  filter_identifier: HAS_PHONE_FILTER_IDENTIFIER,
+  filter_identifier: Number(HAS_PHONE_FILTER_IDENTIFIER),
   value: true,
   ...overrides,
 });

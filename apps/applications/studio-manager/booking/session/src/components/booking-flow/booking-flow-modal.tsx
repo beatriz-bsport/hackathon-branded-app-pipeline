@@ -70,6 +70,7 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
 
   const { data: session } = useRetrieveSession(sessionId);
   const hasBlueprint = session.room_blueprint != null;
+  const isSeries = session.group !== null;
 
   const isNewPassRoute = paymentPackId !== null && !consumerPaymentPackId;
 
@@ -97,6 +98,8 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   );
 
   const isMultiSession = storeSessionIds.length > 1;
+
+  const showSessionSelectionStep = isBookMultiSessionsSelected || isSeries;
 
   const handleClose = useCallback(() => {
     if (isPending) return; // Prevent closing if there's an ongoing booking registration
@@ -136,11 +139,16 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
           return !hasDiscountErrors(discount, passPrice);
         },
       },
-      ...(isBookMultiSessionsSelected
+      ...(showSessionSelectionStep
         ? [
             {
               label: t("bookingFlow.steps.sessionSelection"),
-              content: <SessionSelectionStep currentSessionId={sessionId} />,
+              content: (
+                <SessionSelectionStep
+                  currentSessionId={sessionId}
+                  groupId={session.group}
+                />
+              ),
               validate: () => storeSessionIds.length >= 1,
             },
           ]
@@ -172,6 +180,8 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       handleSelectBookMultiSessions,
       storeSessionIds,
       isMultiSession,
+      showSessionSelectionStep,
+      session.group,
       t,
     ],
   );

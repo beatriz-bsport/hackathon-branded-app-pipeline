@@ -9,7 +9,10 @@ import {
   consumerPaymentPackListQueryOptions,
   passesQueryOptions,
 } from "@bsport/api-buyables";
-import { memberListQueryOptions } from "@bsport/api-cdp";
+import {
+  MEMBER_STALE_TIME,
+  memberListQueryOptions,
+} from "@bsport/api-cdp/member";
 
 import { getBookingParamsFromFilters } from "#src/components/session-management/filters/get-booking-params-from-filters";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
@@ -60,6 +63,7 @@ export const useFetchRefinedBookings = (
         }),
         enabled: memberIds.length > 0,
         throwOnError: true,
+        staleTime: MEMBER_STALE_TIME,
       },
       {
         ...consumerPaymentPackListQueryOptions(fetch, {

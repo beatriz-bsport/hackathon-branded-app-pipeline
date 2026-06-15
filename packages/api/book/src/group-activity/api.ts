@@ -372,12 +372,14 @@ export const retrieveGroupActivity = async (
 export const retrieveGroupActivityQueryOptions = (
   fetch: Fetch<MetaActivity>,
   metaActivityId: number,
-) =>
-  queryOptions({
+) => {
+  const queryFn = retrieveGroupActivity.bind(null, fetch, metaActivityId);
+  return queryOptions({
     queryKey: groupActivityKeys.detail(metaActivityId),
-    queryFn: () => retrieveGroupActivity(fetch, metaActivityId),
+    queryFn,
     staleTime: DEFAULT_STALE_TIME,
   });
+};
 
 // ----------------------------------------------------------------------------
 

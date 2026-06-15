@@ -6,7 +6,7 @@ import {
   consumerPaymentPackListQueryOptions,
   passesQueryOptions,
 } from "@bsport/api-buyables";
-import { memberQueryOptions } from "@bsport/api-cdp";
+import { memberQueryOptions } from "@bsport/api-cdp/member";
 
 import type { RefinedBooking } from "#src/types";
 import { fetch } from "#src/utils/fetch";

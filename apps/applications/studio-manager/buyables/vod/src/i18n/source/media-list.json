@@ -31,8 +31,8 @@
         "noFileUploaded": "No file uploaded"
       },
       "availability": {
-        "availableToMembers": "Available to members",
-        "unavailableToMembers": "Unavailable to members",
+        "availableToMembers": "Available to clients",
+        "unavailableToMembers": "Unavailable to clients",
         "limitedTimeOnly": "Limited-time only",
         "unlimitedAccess": "Unlimited access"
       }
@@ -44,7 +44,7 @@
   },
   "deleteModal": {
     "title": "Delete Media?",
-    "description": "Once you delete \"{{mediaName}}\", it will no longer be visible to members.",
+    "description": "Once you delete \"{{mediaName}}\", it will no longer be visible to clients.",
     "descriptionWarning": "Heads up: this change is permanent.",
     "buttons": {
       "cancel": "Cancel",

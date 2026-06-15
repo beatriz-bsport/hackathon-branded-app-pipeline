@@ -20,14 +20,17 @@ export const smartlistKeys = {
   all: [QUERY_KEY_MAIN, "smartlist"] as const,
   details: () => [...smartlistKeys.all, "detail"] as const,
   detail: (id: string) => [...smartlistKeys.details(), id] as const,
-  tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
+  tagRulesLists: () => [...smartlistKeys.all, "tag-rules"] as const,
+  tagRules: (id: string) => [...smartlistKeys.tagRulesLists(), id] as const,
+  tagRuleDetails: () => [...smartlistKeys.all, "tag-rule-detail"] as const,
   tagRuleDetail: (id: string) =>
-    [...smartlistKeys.all, "tag-rule-detail", id] as const,
-  filters: (smartlistId: string) => [
-    ...smartlistKeys.all,
-    "filters",
-    smartlistId,
-  ],
+    [...smartlistKeys.tagRuleDetails(), id] as const,
+  filtersLists: () => [...smartlistKeys.all, "filters"] as const,
+  filters: (smartlistId: string) =>
+    [...smartlistKeys.filtersLists(), smartlistId] as const,
+  membersLists: () => [...smartlistKeys.all, "members"] as const,
+  members: (smartlistId: string, page: number, page_size: number) =>
+    [...smartlistKeys.membersLists(), smartlistId, page, page_size] as const,
 } as const;
 
 export const fetchSmartlistDetailAPI = async (

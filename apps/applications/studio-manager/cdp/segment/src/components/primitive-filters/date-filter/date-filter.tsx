@@ -342,38 +342,42 @@ export const DateFilter = ({
                 fullWidth
                 status={errors?.relativeFirstDays ? "error" : "default"}
                 statusText={errors?.relativeFirstDays}
+                customNode={
+                  isRelativeBetween ? (
+                    <Body className="self-center" size="sm">
+                      {t("filters.date.fields.and")}
+                    </Body>
+                  ) : undefined
+                }
               />
 
               {isRelativeBetween ? (
-                <div className="flex flex-row gap-xs">
-                  <Body size="sm">{t("filters.date.fields.and")}</Body>
-                  <TextField
-                    id={`${id}-relative-second-days`}
-                    type="number"
-                    min={0}
-                    step={1}
-                    value={
-                      currentValue.relative.secondDays === null
-                        ? ""
-                        : currentValue.relative.secondDays.toString()
-                    }
-                    onChange={(event) =>
-                      onRelativeNumberChange("secondDays", event)
-                    }
-                    disabled={disabled}
-                    suffix={{
-                      type: "text",
-                      value:
-                        currentValue.relative.operator ===
-                        RELATIVE_DATE_OPERATORS.pastBetween
-                          ? t("filters.date.fields.daysAgo")
-                          : t("filters.date.fields.daysFromNow"),
-                    }}
-                    fullWidth
-                    status={errors?.relativeSecondDays ? "error" : "default"}
-                    statusText={errors?.relativeSecondDays}
-                  />
-                </div>
+                <TextField
+                  id={`${id}-relative-second-days`}
+                  type="number"
+                  min={0}
+                  step={1}
+                  value={
+                    currentValue.relative.secondDays === null
+                      ? ""
+                      : currentValue.relative.secondDays.toString()
+                  }
+                  onChange={(event) =>
+                    onRelativeNumberChange("secondDays", event)
+                  }
+                  disabled={disabled}
+                  suffix={{
+                    type: "text",
+                    value:
+                      currentValue.relative.operator ===
+                      RELATIVE_DATE_OPERATORS.pastBetween
+                        ? t("filters.date.fields.daysAgo")
+                        : t("filters.date.fields.daysFromNow"),
+                  }}
+                  fullWidth
+                  status={errors?.relativeSecondDays ? "error" : "default"}
+                  statusText={errors?.relativeSecondDays}
+                />
               ) : null}
             </div>
 

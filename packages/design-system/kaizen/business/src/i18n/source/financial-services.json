@@ -99,7 +99,7 @@
     },
     "errors": {
       "generic": "Could not confirm this payment. Please try again.",
-      "fraudProtectionBlocked": "The payment cannot be processed because fraud protection has temporarily blocked this member after several failed card attempts. Please try again later or contact support.",
+      "fraudProtectionBlocked": "The payment cannot be processed because fraud protection has temporarily blocked this client after several failed card attempts. Please try again later or contact support.",
       "giftCardPayment": "Could not pay this invoice with this gift card.",
       "invoiceAlreadyPaid": "This invoice is already paid.",
       "invalidInstallmentSchedule": "Installment schedule is invalid.",
@@ -187,7 +187,7 @@
       "reverted": "This invoice was reverted; installments cannot be scheduled.",
       "notRegularInvoice": "Installments are only available on standard invoices.",
       "subscriptionPlannedInvoice": "This invoice is linked to a subscription; use subscription billing instead of installments here.",
-      "noMember": "Assign a member to this invoice before scheduling installments.",
+      "noMember": "Assign a client to this invoice before scheduling installments.",
       "nothingToPay": "There is no remaining balance to split into installments."
     },
     "installments": {
@@ -236,7 +236,7 @@
       "scheduleBillingWord": "",
       "scheduleBillingWord_one": "billing",
       "scheduleBillingWord_other": "billings",
-      "scheduleExplainer": "Every {{recurrenceSpan}}, a payment will be processed for a total of {{totalSpan}}. The member will be billed {{invoiceCount}} times in total.",
+      "scheduleExplainer": "Every {{recurrenceSpan}}, a payment will be processed for a total of {{totalSpan}}. The client will be billed {{invoiceCount}} times in total.",
       "perIntervalCaption": "{{amount}} per {{recurrenceSpan}}"
     },
     "totalAmountLabel": "Total amount",
@@ -255,12 +255,15 @@
       "successful": "Payment successful",
       "remaining": "There will be {{amount}} left to pay on this invoice"
     },
+    "toasts": {
+      "paymentCompleted": "Payment completed"
+    },
     "paymentMethodTitle": "Payment method",
     "memberBalanceInsufficientAlert": "Client's account balance doesn't cover the full amount. Charge the remaining amount separately.",
     "giftCards": {
       "title": "Available gift cards",
       "loading": "Loading gift cards...",
-      "empty": "No gift cards available for this member.",
+      "empty": "No gift cards available for this client.",
       "remaining": "{{available}} of {{total}} remaining",
       "expiresOn": "Expires on {{date}}",
       "loadMore": "Load more",

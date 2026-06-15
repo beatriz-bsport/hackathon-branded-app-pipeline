@@ -18,8 +18,9 @@ import {
   type RefinedConsumerPaymentPack,
   useMemberPasses,
 } from "#src/hooks/booking/fetch/use-member-passes";
-import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member.js";
-import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session.js";
+import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member";
+import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import {
   setDiscount,
   setKeepCredits,
@@ -63,6 +64,9 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   const keepCredits = useBookingFlowStore((state) => state.keepCredits);
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const { data: similarSessions, isLoading: similarSessionsLoading } =
+    useFetchSimilarSessions(sessionId, !session.group);
   // memberId is guaranteed to be non-null at this point (defined at first step of the flow)
   const { compatiblePasses, incompatiblePasses } = useMemberPasses({
     memberId: memberId!,
@@ -178,7 +182,8 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   const passesAreLoading =
     compatiblePasses.isLoading || incompatiblePasses.isLoading;
 
-  const isLoading = passesAreLoading || memberIsLoading;
+  const isLoading =
+    passesAreLoading || memberIsLoading || similarSessionsLoading;
 
   if (isLoading) {
     return (
@@ -289,31 +294,39 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
           <NewPassForm sessionId={sessionId} />
         )}
       </div>
-      <Body size="lg">{t("bookingFlow.passSelection.moreBookingOptions")}</Body>
-      <Card
-        actionable
-        elevated={isBookMultiSessionsSelected}
-        selected={isBookMultiSessionsSelected}
-        onClick={() => onSelectBookMultiSessions(!isBookMultiSessionsSelected)}
-      >
-        <div className="flex items-center gap-md">
-          <Checkbox
-            id="book-future-dates-checkbox"
-            value={isBookMultiSessionsSelected ? "checked" : "unchecked"}
-            onChange={() =>
+      {!!similarSessions?.length && (
+        <>
+          <Body size="lg">
+            {t("bookingFlow.passSelection.moreBookingOptions")}
+          </Body>
+          <Card
+            actionable
+            elevated={isBookMultiSessionsSelected}
+            selected={isBookMultiSessionsSelected}
+            onClick={() =>
               onSelectBookMultiSessions(!isBookMultiSessionsSelected)
             }
-          />
-          <div className="flex flex-col">
-            <Body size="lg">
-              {t("bookingFlow.passSelection.bookFutureDates")}
-            </Body>
-            <Body size="md" color="weak">
-              {t("bookingFlow.passSelection.bookFutureDatesDescription")}
-            </Body>
-          </div>
-        </div>
-      </Card>
+          >
+            <div className="flex items-center gap-md">
+              <Checkbox
+                id="book-future-dates-checkbox"
+                value={isBookMultiSessionsSelected ? "checked" : "unchecked"}
+                onChange={() =>
+                  onSelectBookMultiSessions(!isBookMultiSessionsSelected)
+                }
+              />
+              <div className="flex flex-col">
+                <Body size="lg">
+                  {t("bookingFlow.passSelection.bookFutureDates")}
+                </Body>
+                <Body size="md" color="weak">
+                  {t("bookingFlow.passSelection.bookFutureDatesDescription")}
+                </Body>
+              </div>
+            </div>
+          </Card>
+        </>
+      )}
     </div>
   );
 };

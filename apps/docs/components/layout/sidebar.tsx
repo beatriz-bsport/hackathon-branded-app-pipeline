@@ -23,7 +23,9 @@ export function Sidebar({ topTabs }: SidebarProps) {
   const active = topTabs.find((tab) => tab.key === activeKey);
 
   if (!active || active.children.length === 0) {
-    return <aside className="hidden md:block" aria-hidden="true" />;
+    return (
+      <aside className="docs-sidebar hidden md:block" aria-hidden="true" />
+    );
   }
 
   const isWelcomeAlias =
@@ -33,10 +35,10 @@ export function Sidebar({ topTabs }: SidebarProps) {
 
   return (
     <aside
-      className="hidden md:block"
+      className="docs-sidebar hidden md:block"
       aria-label={`${active.label} navigation`}
     >
-      <div className="sticky top-20 flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5">
         <Link
           to={active.href}
           aria-current={isLandingActive ? "page" : undefined}

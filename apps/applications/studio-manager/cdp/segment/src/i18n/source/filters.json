@@ -91,6 +91,9 @@
       "hasPhone": {
         "description": "Filter members by whether they provided a phone number on their account."
       },
+      "referrer": {
+        "description": "Filter members by the number of referral they made, optionally by number of rewards obtained and total money earned as a referrer."
+      },
       "referredMembers": {
         "description": "Filter members by whether they were referred by another member, optionally by referral discount on first purchase."
       },
@@ -646,6 +649,28 @@
         "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
         "purchaseAmountValueRequired": "Enter a purchase amount.",
         "purchaseAmountSecondValueRequired": "Enter both amounts for the between range."
+      }
+    },
+    "29": {
+      "title": "Amount of referred members",
+      "actions": {
+        "deleteFilter": "Delete amount of referred members filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "referralsSuffix": "",
+        "referralsSuffix_one": "Referral",
+        "referralsSuffix_other": "Referrals"
+      },
+      "toasts": {
+        "saveError": "Unable to save amount of referred members filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete amount of referred members filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueSecondReferredRequired": "Enter both values for the between range.",
+        "valueSecondReferredGreaterThanFirst": "The upper value must be greater than or equal to the lower value."
       }
     },
     "103": {

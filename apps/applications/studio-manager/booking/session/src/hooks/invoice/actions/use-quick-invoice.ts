@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { bookingKeys, sessionKeys } from "@bsport/api-book";
 import { consumerPaymentPackKeys } from "@bsport/api-buyables";
-import { memberKeys } from "@bsport/api-cdp";
+import { memberKeys } from "@bsport/api-cdp/member";
 import {
   createQuickInvoiceMutationOptions,
   invoiceKeys,

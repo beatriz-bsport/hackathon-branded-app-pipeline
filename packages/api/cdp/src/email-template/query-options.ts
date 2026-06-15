@@ -65,12 +65,12 @@ export const emailTemplateSearchQueryOptions = (
     params.page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE;
 
   return queryOptions({
-    queryKey: emailTemplateKeys.emailTemplateSearchQueries(
-      params.searchInput,
-      params.id__in,
-      currentPage,
-      currentPageSize,
-    ),
+    queryKey: emailTemplateKeys.emailTemplateSearchQueries({
+      query: params.searchInput,
+      id__in: params.id__in,
+      page: currentPage,
+      page_size: currentPageSize,
+    }),
     queryFn: () =>
       searchEmailTemplateAPI(fetch, {
         q: params.searchInput,

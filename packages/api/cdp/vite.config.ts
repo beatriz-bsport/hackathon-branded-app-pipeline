@@ -5,9 +5,14 @@ import dts from "vite-plugin-dts";
 
 function discoverEntries(): Record<string, string> {
   const srcDir = path.resolve(__dirname, "src");
-  const entries: Record<string, string> = {
-    index: path.resolve(srcDir, "index.ts"),
-  };
+  const entries: Record<string, string> = {};
+
+  // The package has no root barrel (ADR-0001 Rule 3); only include a root
+  // `index` entry if one exists. Resource subpaths are discovered below.
+  const rootIndex = path.resolve(srcDir, "index.ts");
+  if (fs.existsSync(rootIndex)) {
+    entries.index = rootIndex;
+  }
 
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     if (

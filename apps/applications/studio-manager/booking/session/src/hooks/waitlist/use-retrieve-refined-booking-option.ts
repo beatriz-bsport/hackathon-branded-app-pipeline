@@ -6,7 +6,7 @@ import {
   fetchWaitingListPositionsQueryOption,
   retrieveBookingOptionQueryOptions,
 } from "@bsport/api-book";
-import { memberQueryOptions } from "@bsport/api-cdp";
+import { memberQueryOptions } from "@bsport/api-cdp/member";
 
 import type { RefinedBookingOption } from "#src/types";
 import { fetch } from "#src/utils/fetch";

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { RecurrenceRuleBooking } from "@bsport/api-book";
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 
 import { buildRecurringBookingRows } from "#src/components/session-panel/recurring-bookings-section/build-recurring-booking-rows";
 

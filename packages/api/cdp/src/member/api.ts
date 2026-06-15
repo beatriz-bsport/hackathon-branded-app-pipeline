@@ -21,17 +21,18 @@ export const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 export const memberKeys = {
   all: [QUERY_KEY_MAIN, "member"] as const,
 
-  listScope: () => [...memberKeys.all, "list"] as const,
-
+  lists: () => [...memberKeys.all, "lists"] as const,
   list: (params: PaginatedMemberListParams = {}) =>
-    [...memberKeys.listScope(), params] as const,
+    [...memberKeys.lists(), params] as const,
 
-  detail: (id: number) => [...memberKeys.all, "detail", id] as const,
+  details: () => [...memberKeys.all, "detail"] as const,
+  detail: (id: number) => [...memberKeys.details(), id] as const,
 
   latest: () => [...memberKeys.all, "latest"] as const,
 
-  search: (params: SearchMembersParams) =>
-    [...memberKeys.all, "search", params] as const,
+  search: () => [...memberKeys.all, "search"] as const,
+  searchQuery: (params: SearchMembersParams) =>
+    [...memberKeys.search(), params] as const,
 } as const;
 
 export const fetchMemberAPI = async (

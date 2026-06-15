@@ -9,7 +9,7 @@ import type {
   Session,
 } from "@bsport/api-book";
 import type { ConsumerPaymentPack, Pass } from "@bsport/api-buyables";
-import type { Member, MemberNote } from "@bsport/api-cdp";
+import type { Member, MemberNote } from "@bsport/api-cdp/member";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 

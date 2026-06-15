@@ -88,15 +88,10 @@
     "breadcrumbs": {
       "venues": "Venues"
     },
-    "tabs": {
-      "editor": "Editor",
-      "calendar": "Calendar"
-    },
     "actions": {
       "archive": "Archive",
       "configureWidget": "Configure widget"
     },
-    "comingSoon": "Coming soon",
     "notFound": "Venue not found",
     "editor": {
       "discard": {

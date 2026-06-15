@@ -1,5 +1,5 @@
 import { type FC, useCallback, useEffect, useId, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 
 import { type Establishment } from "@bsport/api-book";
 import { ControlledForm } from "@bsport/form";
@@ -7,7 +7,6 @@ import {
   Body,
   DetailsLayout,
   Modal,
-  type TabsProps,
   toast,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
@@ -20,14 +19,6 @@ import { useVenuesModals } from "#src/hooks/use-venues-modals";
 import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-const VALID_TABS = ["editor", "calendar"] as const;
-type VenueDetailTab = (typeof VALID_TABS)[number];
-
-const getActiveTab = (raw: string | null): VenueDetailTab =>
-  (VALID_TABS as readonly string[]).includes(raw ?? "")
-    ? (raw as VenueDetailTab)
-    : "editor";
-
 type Props = {
   venue: Establishment;
 };
@@ -38,9 +29,6 @@ export const VenueDetailShell: FC<Props> = ({ venue }) => {
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
 
   const { modalState, openArchiveModal, closeModal } = useVenuesModals();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = getActiveTab(searchParams.get("tab"));
 
   const { methods, isPending, submit } = useVenueForm({
     venue,
@@ -68,52 +56,18 @@ export const VenueDetailShell: FC<Props> = ({ venue }) => {
     });
   }
 
-  const handleTabChange = useCallback(
-    (tabId: string) => {
-      setSearchParams(
-        (prev) => {
-          prev.set("tab", tabId);
-          return prev;
-        },
-        { replace: true },
-      );
-    },
-    [setSearchParams],
-  );
-
-  const pageTabs: TabsProps = {
-    value: activeTab,
-    onValueChange: handleTabChange,
-    orientation: "horizontal",
-    tabs: [
-      { id: "editor", label: t("detail.tabs.editor") },
-      { id: "calendar", label: t("detail.tabs.calendar") },
-    ],
-  };
-
   return (
     <>
       <ControlledForm {...methods} onSubmit={submit} id={formId}>
         <DetailsLayout {...detailsLayoutProps}>
-          <VenueDetailHeader
-            venue={venue}
-            pageTabs={pageTabs}
-            onArchive={openArchiveModal}
-          />
+          <VenueDetailHeader venue={venue} onArchive={openArchiveModal} />
           <DetailsLayout.Content>
-            {activeTab === "editor" && <VenueEditorTab />}
-            {activeTab === "calendar" && (
-              <Body size="md" color="default">
-                {t("detail.comingSoon")}
-              </Body>
-            )}
+            <VenueEditorTab />
           </DetailsLayout.Content>
-          {activeTab === "editor" && (
-            <DetailsLayout.Confirmation
-              onDiscard={openDiscard}
-              formSubmit={{ formId, isSubmitting: isPending }}
-            />
-          )}
+          <DetailsLayout.Confirmation
+            onDiscard={openDiscard}
+            formSubmit={{ formId, isSubmitting: isPending }}
+          />
         </DetailsLayout>
       </ControlledForm>
       {modalState?.type === "archive" && (

@@ -33,7 +33,7 @@
         "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Area are set to only display this location's calendar and workshops, please update them before deleting the location."
       },
       "warnings": {
-        "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
+        "hasRelatedStaffConfigurations": "One or more staff members use this location for access control. If you delete it without assigning a replacement, they'll lose access control permissions.",
         "exclusiveAssociatedCoaches_one": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
         "exclusiveAssociatedCoaches_other": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
         "hasRelatedAssociatedCoaches": "Some teachers are currently only notified of substitution requests for classes at this location. Deleting this location will stop notifications.",

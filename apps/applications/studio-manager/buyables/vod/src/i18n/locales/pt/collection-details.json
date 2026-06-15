@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Coleções",
+  "deleteActionLabel": "Eliminar",
+  "loading": "Carregando coleção",
+  "loadError": {
+    "title": "Não foi possível carregar a coleção",
+    "description": "Tente novamente. Se o problema persistir, atualize ou volte para a página de Coleções. ",
+    "retry": "Tentar novamente"
+  },
+  "notFound": {
+    "title": "Coleção não encontrada",
+    "description": "Não foi possível encontrar a mídia. Ela pode ter sido excluída ou você não tem acesso a ela. ",
+    "backToCollections": "Voltar para todas as coleções"
+  },
+  "emptyMedia": {
+    "title": "Nenhuma mídia adicionada ainda",
+    "subtitle": "Adicione mídias para criar sua primeira coleção"
+  },
+  "emptyThumbnailLabel": "Nenhuma mídia na coleção",
+  "ebook": {
+    "download": "Descarregar"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Abrir vídeo",
+      "openYoutubeVideo": "Abrir vídeo do YouTube"
+    },
+    "fallbacks": {
+      "loadError": "O leitor incorporado não pôde ser carregado. Abra o conteúdo multimédia numa nova aba.",
+      "youtubeEmbedError": "O URL do YouTube não pôde ser incorporado. Abra-o numa nova aba."
+    }
+  },
+  "videoList": {
+    "addMedia": "Adicionar multimédia",
+    "ebook": "Ebook",
+    "managerOnly": "Não listado",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} dia de aluguel",
+    "rentalDays_other": "{{count}} dias de aluguel",
+    "levels": {
+      "1": "Todos os níveis",
+      "2": "Iniciante",
+      "3": "Intermediário",
+      "4": "Avançado",
+      "5": "Nenhum nível apresentado"
+    }
+  },
+  "addMediaModal": {
+    "title": "Adicionar mídia",
+    "searchPlaceholder": "Pesquisar mídia",
+    "emptySearch": "Nenhum arquivo de mídia encontrado",
+    "cancel": "Fechar",
+    "add": "Adicionar",
+    "submitResponse": {
+      "success": "Mídia adicionada à Coleção",
+      "error": "Não foi possível adicionar o conteúdo à coleção. Tente novamente. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "Remover mídia da coleção?",
+    "description": "Os seus clientes não conseguirão mais ver \"{{videoName}}\" na sua Coleção, mas você ainda poderá acessá-lo On-Demand.",
+    "undoAction": {
+      "label": "Desfazer"
+    },
+    "undoResponse": {
+      "success": "Mudança desfeita"
+    },
+    "buttons": {
+      "cancel": "Manter",
+      "remove": "Remover",
+      "removeItem": "Remover {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Mídia removida da coleção",
+      "error": "Não foi possível remover o conteúdo da coleção. Tente novamente. "
+    }
+  }
+}

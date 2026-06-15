@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Collecties",
+  "deleteActionLabel": "Verwijderen",
+  "loading": "Collectie laden",
+  "loadError": {
+    "title": "Collectie kon niet worden geladen",
+    "description": "Probeer het opnieuw. Als het probleem aanhoudt, vernieuw dan de pagina of ga terug naar de collectiepagina. ",
+    "retry": "Opnieuw proberen"
+  },
+  "notFound": {
+    "title": "Collectie niet gevonden",
+    "description": "Media kon niet worden gevonden. Het is mogelijk verwijderd of je hebt er geen toegang toe. ",
+    "backToCollections": "Terug naar alle collecties"
+  },
+  "emptyMedia": {
+    "title": "Nog geen media toegevoegd",
+    "subtitle": "Voeg media toe om je eerste collectie te maken"
+  },
+  "emptyThumbnailLabel": "Geen media in de collectie",
+  "ebook": {
+    "download": "Download"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Open video",
+      "openYoutubeVideo": "Open YouTube-video"
+    },
+    "fallbacks": {
+      "loadError": "De ingesloten speler kon niet worden geladen. Open de media in een nieuw tabblad.",
+      "youtubeEmbedError": "De YouTube-URL kon niet worden ingesloten. Open deze in plaats daarvan in een nieuw tabblad."
+    }
+  },
+  "videoList": {
+    "addMedia": "Media toevoegen",
+    "ebook": "eBook",
+    "managerOnly": "Niet vermeld",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} huurdag",
+    "rentalDays_other": "{{count}} huurdagen",
+    "levels": {
+      "1": "Alle niveaus",
+      "2": "Beginner",
+      "3": "Intermediair",
+      "4": "Geavanceerd",
+      "5": "Zonder niveau"
+    }
+  },
+  "addMediaModal": {
+    "title": "Media toevoegen",
+    "searchPlaceholder": "Media zoeken",
+    "emptySearch": "Geen media gevonden",
+    "cancel": "Sluiten",
+    "add": "Toevoegen",
+    "submitResponse": {
+      "success": "Media toegevoegd aan collectie",
+      "error": "Kon geen media toevoegen aan de collectie. Probeer het opnieuw. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "Media uit collectie verwijderen?",
+    "description": "Je klanten kunnen \"{{videoName}}\" niet meer zien in je collectie, maar jij hebt er nog wel toegang toe via On-demand.",
+    "undoAction": {
+      "label": "Terug"
+    },
+    "undoResponse": {
+      "success": "Wijziging ongedaan gemaakt"
+    },
+    "buttons": {
+      "cancel": "Behouden",
+      "remove": "Verwijder",
+      "removeItem": "Verwijder {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Media verwijderd uit collectie",
+      "error": "Kon de media niet uit de collectie verwijderen. Probeer het opnieuw. "
+    }
+  }
+}

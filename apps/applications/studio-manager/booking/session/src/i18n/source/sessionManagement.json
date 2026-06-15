@@ -245,7 +245,7 @@
       "description": "A spot will be reserved for clients on the waitlist until they book"
     },
     "checkCredit": {
-      "title": "Require valid pass with sufficient credit",
+      "title": "Requires a valid pass with sufficient credit",
       "description": "Clients can only join the waitlist for this class if they have a compatible pass with enough credits."
     },
     "oneByOne": {
@@ -305,7 +305,7 @@
       "saveAriaLabel": "Save note",
       "cancelAriaLabel": "Cancel editing note",
       "deleteAriaLabel": "Delete note",
-      "placeholder": "Leave a note about this session",
+      "placeholder": "Leave a note about this class",
       "errorToast": "Could not save the note. Please try again.",
       "deleteModal": {
         "title": "Delete this note?",
@@ -323,22 +323,6 @@
       "title": "Tags",
       "authorised": "Authorised participants",
       "unauthorised": "Unauthorised participants"
-    },
-    "recurringBookings": {
-      "title": "Recurring bookings",
-      "viewAriaLabel": "View recurring bookings",
-      "memberCount": "{{count}} member is automatically enrolled for this session",
-      "memberCount_other": "{{count}} members are automatically enrolled for this session",
-      "modalTitle": "Recurring bookings",
-      "modalDescription": "These members are automatically registered for this session based on their recurring booking schedule.",
-      "schedule": "Every {{weekday}} {{time}}",
-      "columns": {
-        "client": "Client",
-        "schedule": "Schedule",
-        "week": "Week"
-      },
-      "openMemberAriaLabel": "Open member bookings",
-      "noAccessTooltip": "You don't have access to members' profiles"
     }
   },
   "bookingFlow": {

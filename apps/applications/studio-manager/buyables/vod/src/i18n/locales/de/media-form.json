@@ -1,0 +1,95 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titel",
+      "placeholder": "Medientitel hinzufügen",
+      "errorMaxLength": "Titel darf max. {{maxLength}} Zeichen lang sein"
+    },
+    "description": {
+      "label": "Beschreibung",
+      "placeholder": "Beschreibe deine Medien",
+      "errorMaxLength": "Die Beschreibung darf maximal {{maxLength}} Zeichen lang sein"
+    },
+    "credit_price": {
+      "errorInvalid": "Der Preis muss eine gültige, nicht negative Zahl sein",
+      "equivalentCredits": "Dieser Pass enthält {{ creditsDisplay }}"
+    },
+    "manager_only": {
+      "label": "Ausgeblendet",
+      "helperText": "Dieses Medium kann nicht auf deiner Website oder in deiner App gekauft werden "
+    },
+    "rental": {
+      "label": "Zur Miete verfügbar",
+      "helperText": "Kund:innen können dieses Video für eine bestimmte Anzahl von Tagen mieten"
+    },
+    "rental_days": {
+      "label": "Mietdauer (Tage)",
+      "helperText": "Wie viele Tage Kund:innen nach dem Mieten auf das Video zugreifen können",
+      "errorInvalid": "Die Mietdauer muss mindestens {{min}} Tage betragen"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Lade ein Bild hoch, das in deiner Kund:innen-App und auf der Studio-Website angezeigt werden soll."
+    },
+    "category": {
+      "label": "Kategorie",
+      "placeholder": "Kategorie auswählen"
+    },
+    "level": {
+      "label": "Level",
+      "placeholder": "Level auswählen",
+      "byDefault": "Voreinstellungen",
+      "custom": "Benutzerdefiniert",
+      "create": "Ein neues Level erstellen",
+      "add": "Level hinzufügen",
+      "nameLabel": "Name",
+      "nameTooLong": "Der Levelname darf nicht länger als 50 Zeichen sein",
+      "colorLabel": "Farbe",
+      "confirmCreate": "Erstellen",
+      "cancel": "Behalten",
+      "edit": "Level bearbeiten",
+      "save": "Speichern",
+      "deleteTitle": "Level löschen?",
+      "deleteMessage": "Bestehende Medien behalten dieses Level, aber es wird für neue Medien nicht verfügbar sein.",
+      "delete": "Löschen",
+      "error": "Es ist ein Fehler aufgetreten. Bitte versuche es noch einmal. ",
+      "defaults": {
+        "1": "Alle Ebenen",
+        "2": "Einsteiger",
+        "3": "Mittelstufe",
+        "4": "Erweiterte Optionen",
+        "5": "Kein Level"
+      }
+    },
+    "teachers": {
+      "label": "Lehrkraft",
+      "placeholder": "Lehrkraft auswählen"
+    },
+    "errors": {
+      "fieldIsRequired": "Dieses Feld darf nicht leer sein"
+    }
+  },
+  "createModal": {
+    "title": "Medien erstellen",
+    "buttons": {
+      "create": "Erstellen",
+      "cancel": "Schließen"
+    },
+    "submitResponse": {
+      "success": "Medien erstellt",
+      "open": "Öffnen",
+      "error": "Medien konnten nicht erstellt werden. Versuche es erneut. "
+    }
+  },
+  "editModal": {
+    "title": "Medien bearbeiten",
+    "buttons": {
+      "save": "Speichern",
+      "cancel": "Schließen"
+    },
+    "submitResponse": {
+      "success": "Deine Änderungen wurden gespeichert",
+      "error": "Medien konnten nicht aktualisiert werden. Versuche es noch einmal. "
+    }
+  }
+}

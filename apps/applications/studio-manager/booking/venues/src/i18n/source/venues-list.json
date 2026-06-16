@@ -41,8 +41,8 @@
         "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted."
       },
       "info": {
-        "reportsDefault": "The location will be deleted from past reports.",
-        "widgetsDefault": "Schedule and workshop widgets configured for this location will need to be updated manually."
+        "reportsDefault": "This location will be deleted from past reports.",
+        "widgetsDefault": "Schedule and workshop widgets setup for this location will need to be updated manually."
       }
     }
   },

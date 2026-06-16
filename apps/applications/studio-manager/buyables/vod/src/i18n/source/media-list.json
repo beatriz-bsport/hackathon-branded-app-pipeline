@@ -1,7 +1,7 @@
 {
   "table": {
     "headers": {
-      "createMedia": "Create media",
+      "createMedia": "Create on-demand",
       "name": "Name",
       "category": "Category",
       "format": "Format",
@@ -13,72 +13,72 @@
       "duplicate": "Duplicate",
       "delete": "Delete",
       "edit": "Edit",
-      "upload": "Upload"
+      "upload": "Add media"
     },
     "values": {
       "noCategory": "No category",
-      "noFile": "No file"
+      "noFile": "No media"
     },
-    "loading": "Loading media...",
+    "loading": "Loading on-demand media...",
     "emptyList": {
-      "title": "No media yet",
-      "subtitle": "Media will appear here once it is created."
+      "title": "No on-demand media yet",
+      "subtitle": "On-demand media will appear here once it's created"
     },
     "tooltips": {
       "format": {
-        "videoUploaded": "Video uploaded",
-        "ebookUploaded": "Ebook uploaded",
-        "noFileUploaded": "No file uploaded"
+        "videoUploaded": "Video link added",
+        "ebookUploaded": "eBook uploaded",
+        "noFileUploaded": "No media file added"
       },
       "availability": {
-        "availableToMembers": "Available to clients",
-        "unavailableToMembers": "Unavailable to clients",
-        "limitedTimeOnly": "Limited-time only",
-        "unlimitedAccess": "Unlimited access"
+        "availableToMembers": "Available to clients on the app and website",
+        "unavailableToMembers": "Unavailable to clients on the app and website",
+        "limitedTimeOnly": "Available for a limited time only",
+        "unlimitedAccess": "Available for unlimited access"
       }
     }
   },
   "duplicateResponse": {
     "success": "Media duplicated",
-    "error": "Failed to duplicate the media"
+    "error": "Couldn't duplicate media. Try again. "
   },
   "deleteModal": {
     "title": "Delete Media?",
-    "description": "Once you delete \"{{mediaName}}\", it will no longer be visible to clients.",
-    "descriptionWarning": "Heads up: this change is permanent.",
+    "description": "Once you delete \"{{mediaName}}\", it won't be visible to clients.",
+    "descriptionWarning": "This change is permanent.",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Keep",
       "delete": "Delete"
     },
     "submitResponse": {
-      "success": "Media deleted",
-      "error": "Failed to delete the media"
+      "success": "On-demand media deleted",
+      "error": "Couldn't delete the media. Try again. "
     },
     "undoAction": {
       "label": "Undo"
     },
     "undoResponse": {
-      "success": "Action undone"
+      "success": "Change undone"
     }
   },
   "uploadModal": {
     "title": "Add new media",
     "ebookTitle": "Upload an eBook",
     "buttons": {
-      "cancel": "Cancel",
-      "addMedia": "Add media",
-      "add": "Add",
+      "cancel": "Close",
+      "addMedia": "Add",
+      "add": "Add media",
       "upload": "Upload"
     },
     "source": {
       "options": {
         "youtube": {
           "label": "Video (YouTube)",
-          "helperText": "Add a YouTube video with a link"
+          "helperText": "Add a link to a YouTube video"
         },
         "vimeo": {
           "label": "Video (Vimeo)",
-          "helperText": "Add a Vimeo video with a link"
+          "helperText": "Add a link to a Vimeo video"
         },
         "ebook": {
           "label": "eBook",
@@ -113,22 +113,22 @@
       }
     },
     "validation": {
-      "sourceRequired": "Select a source before continuing.",
-      "urlRequired": "Enter a video URL.",
-      "youtubeUrlInvalid": "Enter a valid YouTube URL.",
-      "vimeoUrlInvalid": "Enter a valid Vimeo URL.",
+      "sourceRequired": "Select a source to continue",
+      "urlRequired": "Enter a video URL",
+      "youtubeUrlInvalid": "Enter a valid YouTube URL",
+      "vimeoUrlInvalid": "Enter a valid Vimeo URL",
       "durationRequired": "Enter a duration greater than zero.",
-      "fileRequired": "Select a file to upload.",
-      "fileTypeInvalid": "Only PDF, JPG, JPEG, and PNG files are allowed."
+      "fileRequired": "Select a file to upload",
+      "fileTypeInvalid": "Only PDF, JPG, JPEG, and PNG files are compatible"
     },
     "submitResponse": {
-      "success": "Media uploaded successfully.",
-      "error": "Unable to upload media. Please try again."
+      "success": "Media uploaded successfully",
+      "error": "Couldn't upload media. Try again."
     }
   },
   "error": {
-    "title": "Unable to load media",
-    "description": "Please try again. If the issue persists, refresh the page.",
+    "title": "Couldn't load media",
+    "description": "Try again. If the issue persists, refresh the page.",
     "retry": "Retry"
   },
   "search": {
@@ -151,7 +151,7 @@
     "format": {
       "label": "Format",
       "video": "Video",
-      "ebook": "Ebook"
+      "ebook": "eBook"
     },
     "duration": {
       "label": "Duration",
@@ -162,7 +162,7 @@
     },
     "emptySearch": {
       "title": "No results found",
-      "subtitle": "Try adjusting your search or filters.",
+      "subtitle": "Try adjusting your search or filters",
       "cta": "Clear filters"
     }
   }

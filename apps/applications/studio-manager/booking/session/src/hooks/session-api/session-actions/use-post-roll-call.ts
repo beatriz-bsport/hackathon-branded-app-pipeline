@@ -15,10 +15,11 @@ export const usePostRollCall = () => {
 
   return useMutation<void, Error, PostRollCallVariables>({
     mutationFn: ({ sessionId }) => postRollCall(sessionId),
-    onSuccess: (_, { sessionId }) => {
-      queryClient.invalidateQueries({
-        queryKey: sessionKeys.detail(sessionId),
-      });
+    onSuccess: () => {
+      // Refresh every session query (detail + lists) so the mobile card
+      // reflects the validated attendance without a manual refresh (BOO-2002),
+      // matching the lifecycle action hooks (cancel/restore/edit/delete/create).
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
     },
   });
 };

@@ -13,7 +13,7 @@
       "creditWarning": "Older bookings do not take into account changes in credits.",
       "teacherSectionTitle": "Teacher",
       "teacherPayrollRuleOverrideLabel": "Override teacher payment rule",
-      "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied",
+      "teacherPayrollRuleOverrideDescription": "If disabled, the teacher profile's default rule applies. For substitutions, this payroll rule applies to the substitute teacher",
       "chooseActivity": {
         "label": "Service"
       },

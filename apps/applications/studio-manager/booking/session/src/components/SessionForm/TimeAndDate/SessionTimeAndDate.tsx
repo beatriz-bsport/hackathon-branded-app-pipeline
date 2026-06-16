@@ -17,6 +17,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { SessionDuration } from "./SessionDuration";
 import { SessionStartDateTime } from "./SessionStartDateTime";
 import { AggregatorWarning } from "./aggregator-warning";
+import { PastSessionWarning } from "./past-session-warning";
 import { SessionRecurrence } from "./recurrence/session-recurrence";
 
 export const SessionTimeAndDate: FC<{
@@ -49,6 +50,8 @@ export const SessionTimeAndDate: FC<{
       </Title>
 
       <SessionStartDateTime fieldIdPrefix={fieldIdPrefix} />
+
+      <PastSessionWarning />
 
       <SessionDuration fieldIdPrefix={fieldIdPrefix} />
       <SessionRecurrence

@@ -27,9 +27,18 @@ export const TeacherSection: FC<{
       </Title>
       <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
       <SubstituteTeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <OverridePayrollRuleToggle fieldIdPrefix={fieldIdPrefix} />
+      <OverridePayrollRuleToggle
+        fieldIdPrefix={fieldIdPrefix}
+        label={t("editSessionForm.content.teacherPayrollRuleOverrideLabel")}
+        helperText={t(
+          "editSessionForm.content.teacherPayrollRuleOverrideDescription",
+        )}
+      />
       {shouldOverrideTeacherPayrollRule && (
-        <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
+        // Indent matches the toggle's label text (switch w-xl + label pl-xs).
+        <div className="ml-xl pl-xs">
+          <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
+        </div>
       )}
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>

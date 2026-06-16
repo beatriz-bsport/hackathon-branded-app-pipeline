@@ -437,7 +437,8 @@
       "pass": "Pass",
       "notifications": {
         "title": "Notifications",
-        "toggleLabel": "Send booking confirmation to client"
+        "toggleLabel": "Send booking confirmation to client",
+        "toggleHelperText": "No email address on file. You can add one in the client profile."
       },
       "creditsUsed": "{{count}} credit used",
       "creditsUsed_zero": "No credits used",
@@ -517,6 +518,21 @@
         "reasonRequired": "A reason is required when applying a discount",
         "exceedsPrice": "Discount cannot exceed the pass price",
         "exceedsPercentage": "Percentage cannot exceed 100%"
+      },
+      "universal": "Universal",
+      "validity": {
+        "year": "{{count}} year",
+        "year_other": "{{count}} years",
+        "month": "{{count}} month",
+        "month_other": "{{count}} months",
+        "day": "{{count}} day",
+        "day_other": "{{count}} days",
+        "validAnd": "{{first}} and {{second}}",
+        "validDaysMonthsYears": "{{years}}, {{months}} and {{days}}",
+        "validFromTo": "Valid from {{start}} to {{end}}",
+        "startOnBooking": "Starts on first booking",
+        "startOnAttendance": "Starts on first attendance",
+        "startOnPurchase": "Starts on purchase"
       }
     }
   },

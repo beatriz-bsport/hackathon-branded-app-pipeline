@@ -57,3 +57,87 @@ export type FetchInboxConversationsParams = {
   /** Reserved quick filter — not yet honored by the backend/mock. */
   filter?: InboxConversationFilter;
 };
+
+/**
+ * Who sent a message. `member` is an inbound message (the backend's `is_answer`
+ * on `CommunicationSent`); `studio` is an outbound message from the business.
+ */
+export type InboxMessageSender = "studio" | "member";
+
+/**
+ * Origin of a message. `"manual"` is a one-off message a studio manager typed —
+ * it renders as a chat bubble. Every other value is an automated/campaign
+ * message that renders as a collapsed card. The automated values mirror the
+ * inbox app's `AutomatedMessageType`, each derived from which id is populated in
+ * `CommunicationSent.metadata` (see bsport-django `apps/communicate`).
+ */
+export type InboxMessageSource =
+  | "manual"
+  | "campaign"
+  | "transactional-notification"
+  | "auto-message"
+  | "automation"
+  | "audience-message"
+  | "franchise-campaign";
+
+/** Delivery status of a message. Mirrors the inbox UI's `MessageStatus`. */
+export type InboxMessageStatus = "sent" | "failed";
+
+/**
+ * A single message in a conversation. Denormalized from `CommunicationSent` for
+ * the B2B inbox thread view. The `id` is a sequential integer that doubles as
+ * the pagination cursor (see `FetchInboxMessagesParams`).
+ */
+export type InboxMessage = {
+  /** `CommunicationSent.id` — sequential integer; the pagination cursor. */
+  id: number;
+  channel: InboxChannel;
+  sender: InboxMessageSender;
+  /** Origin of the message; drives chat-bubble vs automated-card rendering. */
+  source: InboxMessageSource;
+  /**
+   * Human-readable name of the source (campaign/workflow name, e.g. "Summer
+   * campaign"). `null` for `manual` messages, which have no source.
+   */
+  sourceName: string | null;
+  /** Subject line. Present for `email`/`push`; `null` for `sms`/`chat`. */
+  title: string | null;
+  /** Message content. HTML for `email`, plain text for the other channels. */
+  body: string;
+  /** ISO timestamp of when the message was created. */
+  dateCreated: string;
+  status: InboxMessageStatus;
+};
+
+/**
+ * Response for the "list conversation messages" endpoint. The server returns a
+ * pre-split window around the seam (the boundary between read and unread). See
+ * the Notion "List messages" UX spec.
+ */
+export type InboxMessagesResponse = {
+  /** Messages ordered oldest → newest (ascending `id`). */
+  messages: InboxMessage[];
+  /**
+   * Id of the first unread message — the seam the client scrolls to on open.
+   * `null` when the conversation is fully read (client scrolls to the bottom),
+   * and always `null` when a filter is active (the seam is then ignored).
+   */
+  firstUnreadId: number | null;
+  /** Whether older messages exist before the returned window. */
+  hasMoreBefore: boolean;
+  /** Whether newer messages exist after the returned window. */
+  hasMoreAfter: boolean;
+};
+
+export type FetchInboxMessagesParams = {
+  /** Load messages strictly older than this id (`id` < `before`). */
+  before?: number;
+  /** Load messages strictly newer than this id (`id` > `after`). */
+  after?: number;
+  /** Max messages per direction. Defaults to the backend/mock page size. */
+  limit?: number;
+  /** Channel filter. When set, the seam is ignored. */
+  channel?: InboxChannel;
+  /** Source/message-type filter. When set, the seam is ignored. */
+  message_type?: InboxMessageSource;
+};

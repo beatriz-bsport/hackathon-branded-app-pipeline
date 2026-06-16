@@ -18,5 +18,12 @@
   "threadMessagesHeader": {
     "filterLabel": "Filter messages",
     "moreActionsLabel": "More actions"
+  },
+  "messageFeed": {
+    "newSeparator": "New",
+    "empty": "No messages yet",
+    "loadingError": "Couldn't load messages",
+    "retry": "Try again",
+    "jumpToLatest": "Jump to latest"
   }
 }

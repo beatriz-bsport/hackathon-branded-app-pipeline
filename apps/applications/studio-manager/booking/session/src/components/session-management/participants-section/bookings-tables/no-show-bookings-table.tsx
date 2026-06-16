@@ -15,6 +15,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
 import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
+import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label.js";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
 import {
@@ -99,7 +100,12 @@ export const NoShowBookingsTable: FC<{
         const spotName = listedInformation.includes(
           BookingListedInformation.SPOT,
         )
-          ? row.spot_information?.name
+          ? `${row.spot_information?.name ?? ""} ${composeLabel(
+              row.spot_information?.prefix,
+              row.spot_information?.indexType,
+              null, // index is not used in this context
+              row.spot_information?.suffix,
+            )}`
           : null;
 
         const passName = listedInformation.includes(
@@ -167,7 +173,12 @@ export const NoShowBookingsTable: FC<{
 
   const listItems: ListProps["items"] = searchedBookings.map((booking) => {
     const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? booking.spot_information?.name
+      ? composeLabel(
+          booking.spot_information?.prefix,
+          booking.spot_information?.indexType,
+          null, // index is not used in this context
+          booking.spot_information?.suffix,
+        )
       : null;
     const passName = listedInformation.includes(BookingListedInformation.PASS)
       ? booking.passData?.name

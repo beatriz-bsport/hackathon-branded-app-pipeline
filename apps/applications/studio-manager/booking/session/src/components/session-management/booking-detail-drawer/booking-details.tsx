@@ -11,6 +11,7 @@ import {
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 import { fromIsoString } from "@bsport/datetime-manipulation";
+import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import {
   Alert,
   Avatar,
@@ -19,7 +20,9 @@ import {
   Icon,
   Title,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label.js";
 import {
   type SessionManagementModalParams,
   SessionManagementModalType,
@@ -60,6 +63,11 @@ export const BookingDetails: FC<{
 }> = ({ selectedBooking, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
+
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const { getCreditsDividedValue } = useCreditFactor(
+    companyTheme?.pass_credit_factor,
+  );
 
   const lastCancellationStaffHistoryEntry =
     getLastCancellationStaffHistoryEntry(selectedBooking.staff_history);
@@ -192,10 +200,15 @@ export const BookingDetails: FC<{
           </Body>
         </Alert>
       )}
-      {selectedBooking.spot_information?.name && (
+      {!!selectedBooking.spot_information && (
         <Section title={t("participantDetails.spot")}>
           <Body weight="weak" color="default">
-            {selectedBooking.spot_information?.name}
+            {`${selectedBooking.spot_information?.name ?? ""} ${composeLabel(
+              selectedBooking.spot_information?.prefix,
+              selectedBooking.spot_information?.indexType,
+              null, // index is not used in this context
+              selectedBooking.spot_information?.suffix,
+            )}`}
           </Body>
         </Section>
       )}
@@ -226,17 +239,25 @@ export const BookingDetails: FC<{
               {selectedBooking.passData?.unlimited
                 ? t("participantDetails.unlimited")
                 : t("participantDetails.creditsUsed", {
-                    creditsUsed: selectedBooking.credit_consumed,
-                    count: selectedBooking.credit_consumed,
+                    creditsUsed: getCreditsDividedValue(
+                      selectedBooking.credit_consumed,
+                    ),
+                    count: getCreditsDividedValue(
+                      selectedBooking.credit_consumed,
+                    ),
                   }) +
                   t("participantDetails.credits", {
-                    creditsLeft:
+                    creditsLeft: getCreditsDividedValue(
                       selectedBooking.consumerPaymentPackData
-                        ?.available_credits,
-                    totalCredits: selectedBooking.passData?.credits,
-                    count:
+                        ?.available_credits ?? 0,
+                    ),
+                    totalCredits: getCreditsDividedValue(
+                      selectedBooking.passData?.credits ?? 0,
+                    ),
+                    count: getCreditsDividedValue(
                       selectedBooking.consumerPaymentPackData
-                        ?.available_credits,
+                        ?.available_credits ?? 0,
+                    ),
                   })}
             </Body>
           </div>

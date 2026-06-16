@@ -4,10 +4,14 @@
 export const composeLabel = (
   prefix: string | null | undefined,
   indexType: string | number | null | undefined,
-  index: number,
+  index: number | null | undefined,
   suffix: string | null | undefined,
 ): string => {
-  const core = indexType ? String(indexType) : String(index);
+  const core = indexType
+    ? String(indexType)
+    : index != null
+      ? String(index)
+      : "";
   if (prefix) return `${prefix}${core}`;
   if (suffix) return `${core}${suffix}`;
   return core;

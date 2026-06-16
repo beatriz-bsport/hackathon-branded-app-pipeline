@@ -35,8 +35,9 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
   const { closeModal, modalState, openModal } = useSessionManagementModals();
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
-  const { pageTitle, startGroupActions, endGroupActions } =
-    useSessionHeaderBase(session, { openModal });
+  const { pageTitle, startGroupActions } = useSessionHeaderBase(session, {
+    openModal,
+  });
 
   const paginationNamespace = `occurrences-${session.recurrence_id}`;
   const { status, filterConfig } =
@@ -48,7 +49,6 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
         <ListLayout.Header
           pageTitle={pageTitle}
           startGroupActions={startGroupActions}
-          endGroupActions={endGroupActions}
           filterConfig={filterConfig}
           {...headerConfig}
         />

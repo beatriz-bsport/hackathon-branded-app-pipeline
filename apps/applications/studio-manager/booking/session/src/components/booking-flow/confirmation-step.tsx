@@ -132,12 +132,12 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
         const spotType = spotData.spotTypes.find(
           (s) => s.id === element.data.spotTypeId,
         );
-        return composeLabel(
+        return `${spotType?.name ?? ""} ${composeLabel(
           spotType?.prefix,
           element.data.indexType,
           spotIndex,
           spotType?.suffix,
-        );
+        )}`;
       }
     }
     return String(spotIndex);

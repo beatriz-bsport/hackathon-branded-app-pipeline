@@ -24,14 +24,15 @@ export const Header: FC<{
   const { data: session } = useRetrieveSession(sessionId);
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
-  const { pageTitle, startGroupActions, endGroupActions, isMobile } =
-    useSessionHeaderBase(session, { openModal });
+  const { pageTitle, startGroupActions, isMobile } = useSessionHeaderBase(
+    session,
+    { openModal },
+  );
 
   return (
     <DetailsLayout.Header
       pageTitle={pageTitle}
       startGroupActions={startGroupActions}
-      endGroupActions={endGroupActions}
       onDisplayPopover={() => (
         <div className="flex flex-col gap-sm max-w-[260px]">
           <OrderingBookings />

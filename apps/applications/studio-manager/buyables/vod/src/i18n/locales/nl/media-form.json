@@ -29,7 +29,7 @@
     },
     "cover": {
       "extensions": "JPG, PNG, GIF, WEBP",
-      "helperText": "Upload een afbeelding om weer te geven in je klant-app en op de studiewebsite."
+      "helperText": "Upload een afbeelding om weer te geven in je klant-app en op de studiowebsite."
     },
     "category": {
       "label": "Categorie",
@@ -47,7 +47,7 @@
       "colorLabel": "Kleur",
       "confirmCreate": "Maken",
       "cancel": "Behouden",
-      "edit": "Niveau bewerken",
+      "edit": "Bewerk niveau",
       "save": "Opslaan",
       "deleteTitle": "Niveau verwijderen?",
       "deleteMessage": "Bestaande media behouden dit niveau, maar ze zijn niet beschikbaar voor nieuwe media.",
@@ -56,13 +56,13 @@
       "defaults": {
         "1": "Alle niveaus",
         "2": "Beginner",
-        "3": "Intermediair",
-        "4": "Geavanceerd",
+        "3": "Gevorderd",
+        "4": "Expert",
         "5": "Zonder niveau"
       }
     },
     "teachers": {
-      "label": "Docent",
+      "label": "Instructeur",
       "placeholder": "Selecteer docent"
     },
     "errors": {
@@ -78,7 +78,7 @@
     "submitResponse": {
       "success": "Media aangemaakt",
       "open": "Open",
-      "error": "Kon geen media maken. Probeer het opnieuw. "
+      "error": "Kon geen media aanmaken. Probeer het opnieuw. "
     }
   },
   "editModal": {

@@ -40,8 +40,8 @@
     "levels": {
       "1": "Alle niveaus",
       "2": "Beginner",
-      "3": "Intermediair",
-      "4": "Geavanceerd",
+      "3": "Gevorderd",
+      "4": "Expert",
       "5": "Zonder niveau"
     }
   },

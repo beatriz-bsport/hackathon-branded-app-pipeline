@@ -73,10 +73,6 @@ export const ShortcutActionsButton: FC<{
     "billing.allowed_actions.createInvoice",
   );
 
-  const hasReadInvoicePermission = useObjectLevelPermission(
-    "billing.allowed_actions.readInvoices",
-  );
-
   const hasCancelBookingPermission = useObjectLevelPermission(
     isWorkshop
       ? "reservation.workshop.allowed_actions.delete"
@@ -165,28 +161,6 @@ export const ShortcutActionsButton: FC<{
         },
       };
 
-      const resolveUnpaidInvoicesAction: Item = {
-        id: BookingActionItemId.RESOLVE_UNPAID_INVOICES,
-        label: t("actions.resolveUnpaidInvoices"),
-        iconLeft: "file-attachment-02",
-        type: "button",
-        onClick: () => {
-          // TODO: implement resolve unpaid invoices action
-          setIsPopoverOpened(false);
-        },
-      };
-
-      const sendMessageAction: Item = {
-        id: BookingActionItemId.SEND_MESSAGE,
-        label: t("actions.sendMessage"),
-        iconLeft: "send-01",
-        type: "button",
-        onClick: () => {
-          // TODO: implement send message action
-          setIsPopoverOpened(false);
-        },
-      };
-
       const copyEmailAction: Item = {
         id: BookingActionItemId.COPY_EMAIL,
         label: participantEmail ?? "",
@@ -266,10 +240,8 @@ export const ShortcutActionsButton: FC<{
         divider,
         sectionTitle(t("billing")),
         ...(hasCreateInvoicePermission ? [sellItemsAction] : []),
-        ...(hasReadInvoicePermission ? [resolveUnpaidInvoicesAction] : []),
         divider,
         sectionTitle(t("contact")),
-        sendMessageAction,
         ...(hasSeeProfileDetailsPermission && memberId
           ? [updateMemberNotesAction]
           : []),
@@ -296,7 +268,6 @@ export const ShortcutActionsButton: FC<{
       hasChangeSpotPermission,
       hasCancelBookingPermission,
       hasCreateInvoicePermission,
-      hasReadInvoicePermission,
       participantEmail,
       participantPhone,
       copyToClipboard,

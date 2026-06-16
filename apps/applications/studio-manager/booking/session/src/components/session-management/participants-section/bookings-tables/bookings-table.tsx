@@ -167,6 +167,7 @@ export const BookingsTable: FC<{
           sessionId={sessionId}
           bookingId={row.id}
           memberId={row.memberData?.id}
+          consumerPaymentPackId={row.consumer_payment_pack}
           openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}
@@ -251,6 +252,7 @@ export const BookingsTable: FC<{
             sessionId={sessionId}
             bookingId={booking.id}
             memberId={booking.memberData?.id}
+            consumerPaymentPackId={booking.consumer_payment_pack}
             openModal={openModal}
             participantEmail={booking.memberData?.email}
             participantPhone={booking.memberData?.phone}

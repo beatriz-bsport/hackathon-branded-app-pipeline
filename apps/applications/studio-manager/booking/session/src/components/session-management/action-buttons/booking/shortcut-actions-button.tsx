@@ -24,6 +24,7 @@ export const ShortcutActionsButton: FC<{
   bookingId?: number;
   bookingOptionId?: number;
   memberId?: number;
+  consumerPaymentPackId?: number | null;
   openModal?: (
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
@@ -37,6 +38,7 @@ export const ShortcutActionsButton: FC<{
   bookingId,
   bookingOptionId,
   memberId,
+  consumerPaymentPackId,
   openModal,
   allowedItemIds,
   participantEmail,
@@ -124,8 +126,14 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.swapPass"),
         iconLeft: "switch-horizontal-01",
         type: "button",
+        disabled: !openModal || !bookingId || !memberId,
         onClick: () => {
-          // TODO: implement swap pass action
+          if (!openModal || !bookingId || !memberId) return;
+          openModal(SessionManagementModalType.SWAP_PASS, {
+            bookingId,
+            memberId,
+            consumerPaymentPackId,
+          });
           setIsPopoverOpened(false);
         },
       };
@@ -219,7 +227,8 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.bookToClass"),
         iconLeft: "plus",
         type: "button",
-        disabled: !openModal || !bookingOptionId || !memberId,
+        disabled:
+          hasSessionStarted || !openModal || !bookingOptionId || !memberId,
         onClick: () => {
           if (!openModal || !bookingOptionId || !memberId) return;
           openModal(SessionManagementModalType.BOOK, {
@@ -292,6 +301,7 @@ export const ShortcutActionsButton: FC<{
       participantPhone,
       copyToClipboard,
       bookingId,
+      consumerPaymentPackId,
       openModal,
       openAssignSpotModal,
       navigate,

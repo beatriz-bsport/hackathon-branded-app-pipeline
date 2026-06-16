@@ -18,6 +18,7 @@ import type {
   RecurrenceRuleBooking,
   RecurrenceRuleBookingFilterParams,
   SetSpotParams,
+  SwapBookingPassParams,
   UpdateRecurrenceRuleBookingParams,
   UpdateSessionWithCancelledBookingsToRetryParams,
 } from "./types";
@@ -160,6 +161,18 @@ export const cancelBookingAPI = async (
   params: CancelBookingParams = {},
 ): Promise<Booking> => {
   const { data } = await fetch(`${API_URL_BOOKING}/${bookingId}/cancel/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+  return data;
+};
+
+export const swapBookingPassAPI = async (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+  params: SwapBookingPassParams,
+): Promise<Booking> => {
+  const { data } = await fetch(`${API_URL_BOOKING}/${bookingId}/swap_pass/`, {
     method: "POST",
     body: JSON.stringify(params),
   });

@@ -17,6 +17,7 @@ import { CancelBookingModal } from "./cancel-booking-modal";
 import { DiscardBookingOptionModal } from "./discard-booking-option-modal";
 import { PauseWaitlistModal } from "./pause-waitlist-modal";
 import { ReactivateWaitlistModal } from "./reactivate-waitlist-modal";
+import { SwapBookingPassModal } from "./swap-booking-pass-modal";
 import { ViewWaitlistModal } from "./view-waitlist-modal";
 
 type Props = {
@@ -84,6 +85,20 @@ export const SessionManagementModals: FC<Props> = ({
         modalState?.type === SessionManagementModalType.CANCEL_BOOKING && (
           <CancelBookingModal
             bookingId={modalState.bookingId}
+            isOpen
+            onClose={closeModal}
+          />
+        )}
+      {modalState?.bookingId != null &&
+        modalState?.memberId != null &&
+        modalState?.type === SessionManagementModalType.SWAP_PASS && (
+          <SwapBookingPassModal
+            bookingId={modalState.bookingId}
+            sessionId={sessionId}
+            memberId={modalState.memberId}
+            currentConsumerPaymentPackId={
+              modalState.consumerPaymentPackId ?? null
+            }
             isOpen
             onClose={closeModal}
           />

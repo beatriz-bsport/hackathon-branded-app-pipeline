@@ -122,3 +122,14 @@ export const TitleNoChildren: Story = {
     layout: "banner",
   },
 };
+
+export const BannerFlush: Story = {
+  name: "Alert with full-width flush layout",
+  args: {
+    status: "default",
+    type: "weak",
+    children:
+      "Lorem ipsum dolor sit amet consectetur. Elementum mauris eget donec adipiscing morbi orci. In cursus urna morbi platea ullamcorper hendrerit.",
+    layout: "banner-flush",
+  },
+};

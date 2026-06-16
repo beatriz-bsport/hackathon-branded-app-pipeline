@@ -38,6 +38,10 @@
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",
   "bookButton": "Book client",
+  "classIsFull": "This class is full",
+  "bookAndOverride": "Book & override capacity",
+  "addToWaitlist": "Add to waitlist",
+  "addBookingOptions": "Add client to the waitlist",
   "bookingsSectionTitle": "Class roster",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
   "waitlistSectionTitle": "Waitlist",
@@ -100,6 +104,7 @@
     "copyClientPhone": "Copy client phone number",
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
+    "impossibleToBookToClass": "Couldn't book clients because class has already started",
     "removeFromWaitlist": "Remove from waitlist",
     "impossibleToRemoveFromWaitlist": "Couldn't remove clients from waitlist because class has already started",
     "assignSpot": {
@@ -323,10 +328,34 @@
       "title": "Tags",
       "authorised": "Authorised participants",
       "unauthorised": "Unauthorised participants"
+    },
+    "recurringBookings": {
+      "title": "Recurring bookings",
+      "viewAriaLabel": "View recurring bookings",
+      "memberCount": "{{count}} member is automatically enrolled for this session",
+      "memberCount_other": "{{count}} members are automatically enrolled for this session",
+      "modalTitle": "Recurring bookings",
+      "modalDescription": "These members are automatically registered for this session based on their recurring booking schedule.",
+      "schedule": "Every {{weekday}} {{time}}",
+      "columns": {
+        "client": "Client",
+        "schedule": "Schedule",
+        "week": "Week"
+      },
+      "openMemberAriaLabel": "Open member bookings",
+      "noAccessTooltip": "You don't have access to members' profiles"
     }
   },
   "bookingFlow": {
     "title": "Book a client",
+    "addToWaitlist": {
+      "title": "Add to waitlist",
+      "successToast": "Client added to waitlist",
+      "errorToast": "Couldn't add client to waitlist"
+    },
+    "conversion": {
+      "fromWaitlist": "Converting from waitlist"
+    },
     "steps": {
       "memberSelection": "Choose a client",
       "passSelection": "Pick a pass",

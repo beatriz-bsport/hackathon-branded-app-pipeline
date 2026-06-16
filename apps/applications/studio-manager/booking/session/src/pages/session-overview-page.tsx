@@ -58,7 +58,7 @@ const SessionOverviewPageInner: FC = () => {
   }, [id]);
 
   const shouldDisplayWaitlistSection =
-    session.full || session.booking_options.length > 0;
+    !session.group && (session.full || session.booking_options.length > 0);
 
   return (
     <>

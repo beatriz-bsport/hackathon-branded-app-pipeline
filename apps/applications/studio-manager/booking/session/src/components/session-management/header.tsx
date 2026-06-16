@@ -8,7 +8,7 @@ import {
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
 import { useSessionHeaderBase } from "#src/hooks/use-session-header-base";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 
 import { BookButton } from "./action-buttons/book-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
@@ -40,11 +40,7 @@ export const Header: FC<{
       )}
       callToActionButton={
         session.available && !isMobile ? (
-          <BookButton
-            onClick={() => {
-              openModal(SessionManagementModalType.BOOK);
-            }}
-          />
+          <BookButton sessionId={sessionId} openModal={openModal} />
         ) : !session.group && !isMobile ? (
           <RestoreSessionButton openModal={openModal} />
         ) : undefined

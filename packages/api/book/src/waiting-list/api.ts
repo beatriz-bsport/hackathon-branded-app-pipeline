@@ -10,6 +10,7 @@ import {
   BookingOptionListParams,
   BookingOptionPosition,
   DiscardBookingOptionParams,
+  RegisterToWaitlistParams,
   WaitingListConfiguration,
 } from "./types";
 
@@ -154,5 +155,16 @@ export const discardBookingOptionAPI = async (
       body: JSON.stringify(params),
     },
   );
+  return data;
+};
+
+export const registerToWaitlistAPI = async (
+  fetch: Fetch<BookingOption>,
+  params: RegisterToWaitlistParams,
+) => {
+  const { data } = await fetch(`${API_URL_BOOKING_OPTION}/register/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
   return data;
 };

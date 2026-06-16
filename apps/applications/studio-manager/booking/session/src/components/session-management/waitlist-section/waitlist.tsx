@@ -158,7 +158,11 @@ export const WaitList: FC<{
               <div className="flex gap-sm items-center">
                 <ResponsiveTooltip
                   placement="bottom"
-                  label={t("actions.bookToClass")}
+                  label={
+                    hasSessionStarted
+                      ? t("actions.impossibleToBookToClass")
+                      : t("actions.bookToClass")
+                  }
                 >
                   <Button
                     kind="icon-button"
@@ -167,7 +171,14 @@ export const WaitList: FC<{
                     intent="default"
                     size="md"
                     color="main"
-                    disabled
+                    disabled={hasSessionStarted || !openModal}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal?.(SessionManagementModalType.BOOK, {
+                        bookingOptionId: row.id,
+                        memberId: row.member,
+                      });
+                    }}
                   />
                 </ResponsiveTooltip>
                 <ResponsiveTooltip
@@ -216,7 +227,12 @@ export const WaitList: FC<{
               intent: "default",
               size: "md",
               color: "main",
-              disabled: true,
+              disabled: !openModal,
+              onClick: () =>
+                openModal?.(SessionManagementModalType.BOOK, {
+                  bookingOptionId: bookingOption.id,
+                  memberId: bookingOption.member,
+                }),
             },
             {
               id: `waitlist-remove-${bookingOption.id}`,
@@ -290,9 +306,9 @@ export const WaitList: FC<{
                   emptyConfig: {
                     title: t("waitList.emptyState.title"),
                     ctaButtonConfig: {
-                      label: t("bookButton"),
+                      label: t("addBookingOptions"),
                       onClick: () => {
-                        openModal?.(SessionManagementModalType.BOOK);
+                        openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
                       },
                     },
                   },
@@ -345,9 +361,9 @@ export const WaitList: FC<{
                 emptyConfig: {
                   title: t("waitList.emptyState.title"),
                   ctaButtonConfig: {
-                    label: t("bookButton"),
+                    label: t("addBookingOptions"),
                     onClick: () => {
-                      openModal?.(SessionManagementModalType.BOOK);
+                      openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
                     },
                   },
                 },

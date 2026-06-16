@@ -54,7 +54,11 @@ export const MoreActionsButton: React.FC<{
       const mobileCtaItem: Item | null = session.available
         ? {
             id: "book-action",
-            label: t("bookButton", { ns: "sessionManagement" }),
+            label: session.full
+              ? t("bookAndOverride", {
+                  ns: "sessionManagement",
+                })
+              : t("bookButton", { ns: "sessionManagement" }),
             iconLeft: "plus",
             type: "button",
             onClick: () => {
@@ -73,6 +77,22 @@ export const MoreActionsButton: React.FC<{
               onClick: () => {
                 openModal(SessionManagementModalType.RESTORE);
                 setIsPopoverOpened(false);
+              },
+            }
+          : null;
+
+      const mobileAddToWaitlistItem: Item | null =
+        session.available && session.full && !session.group
+          ? {
+              id: "add-to-waitlist-action",
+              label: t("addToWaitlist", {
+                ns: "sessionManagement",
+              }),
+              iconLeft: "user-plus-01",
+              type: "button",
+              onClick: () => {
+                setIsPopoverOpened(false);
+                openModal(SessionManagementModalType.ADD_TO_WAITLIST);
               },
             }
           : null;
@@ -100,6 +120,7 @@ export const MoreActionsButton: React.FC<{
 
       const mobileItems: Item[] = [
         mobileCtaItem,
+        mobileAddToWaitlistItem,
         mobileRefreshItem,
         mobileSendCommunicationItem,
       ].filter((item) => item !== null);

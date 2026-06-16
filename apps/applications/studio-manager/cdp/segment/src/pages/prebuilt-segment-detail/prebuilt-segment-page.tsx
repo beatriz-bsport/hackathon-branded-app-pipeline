@@ -1,7 +1,12 @@
 import { useEffect, useEffectEvent, useRef } from "react";
 import { useOutletContext } from "react-router";
 
-import { Alert, Card, Table } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Divider,
+  Table,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import {
   DEFAULT_PAGE,
   usePaginationQueryParams,
@@ -28,6 +33,8 @@ const PrebuiltSegmentTableSection = ({
   prebuiltSegmentId,
 }: PrebuiltSegmentTableSectionProps) => {
   const { t } = useTranslation("list");
+  const isMobile = !useMatchMedia("md");
+
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
   const previousSegmentIdRef = useRef(prebuiltSegmentId);
@@ -47,6 +54,7 @@ const PrebuiltSegmentTableSection = ({
   const tableColumns = usePrebuiltSegmentTableColumns(
     prebuiltSegmentId,
     definition,
+    isMobile,
   );
 
   const resetPageOnSegmentChange = useEffectEvent(() => {
@@ -73,38 +81,40 @@ const PrebuiltSegmentTableSection = ({
   }, [currentPage, safeCurrentPage]);
 
   return (
-    <div className="flex flex-col gap-md w-full p-md">
+    <div className="flex flex-col w-full h-full">
       {definition?.fallback_description ? (
-        <Alert status="default" type="weak" layout="banner">
-          {t(`prebuilt.segments.${prebuiltSegmentId}.description`, {
-            defaultValue: definition.fallback_description,
-          })}
-        </Alert>
+        <>
+          <Alert layout="banner-flush" status="default" type="weak">
+            {t(`prebuilt.segments.${prebuiltSegmentId}.description`, {
+              defaultValue: definition.fallback_description,
+            })}
+          </Alert>
+          <Divider />
+        </>
       ) : null}
-      <Card padding="none">
-        <Table
-          columns={tableColumns}
-          rows={tableRows}
-          rowHeight="lg"
-          loadingProps={{
-            isLoading,
-            message: t("prebuilt.details.segment.loading"),
-          }}
-          emptyStateProps={{
-            isEmpty: !isLoading && (membersPage?.count ?? 0) === 0,
-            emptyConfig: {
-              title: t("prebuilt.details.segment.emptyState.title"),
-              subtitle: t("prebuilt.details.segment.emptyState.subtitle"),
-            },
-          }}
-          paginationProps={{
-            currentPage: safeCurrentPage,
-            rowsPerPage: currentPageSize,
-            totalItems: membersPage?.count ?? 0,
-            onPageSettingsChange: setPageSettings,
-          }}
-        />
-      </Card>
+      <Table
+        columns={tableColumns}
+        rows={tableRows}
+        rowHeight="lg"
+        hideHeader={isMobile}
+        loadingProps={{
+          isLoading,
+          message: t("prebuilt.details.segment.loading"),
+        }}
+        emptyStateProps={{
+          isEmpty: !isLoading && (membersPage?.count ?? 0) === 0,
+          emptyConfig: {
+            title: t("prebuilt.details.segment.emptyState.title"),
+            subtitle: t("prebuilt.details.segment.emptyState.subtitle"),
+          },
+        }}
+        paginationProps={{
+          currentPage: safeCurrentPage,
+          rowsPerPage: currentPageSize,
+          totalItems: membersPage?.count ?? 0,
+          onPageSettingsChange: setPageSettings,
+        }}
+      />
     </div>
   );
 };

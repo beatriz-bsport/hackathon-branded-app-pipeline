@@ -266,6 +266,7 @@ export const useSessionSchema = () => {
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
       coach_payment_rule: z.number().nullable(),
+      overrideTeacherPayrollRule: z.boolean(),
       // Two options here: empty string (no link, if zoom app enabled or if the selected group activity is not livestream) or valid URL
       broadcast_link: z.string().refine(
         (val) => {
@@ -355,7 +356,15 @@ export const useSessionSchema = () => {
         "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",
       ),
       path: ["effectif"],
-    }) satisfies SessionCreationFormSchema;
+    })
+    .refine(
+      (data) =>
+        !data.overrideTeacherPayrollRule || data.coach_payment_rule != null,
+      {
+        message: t("addSessionModal.errors.requiredField"),
+        path: ["coach_payment_rule"],
+      },
+    ) satisfies SessionCreationFormSchema;
 
   const advancedOptionsSchema = z.object({
     allow_guest_offer: z.boolean(),

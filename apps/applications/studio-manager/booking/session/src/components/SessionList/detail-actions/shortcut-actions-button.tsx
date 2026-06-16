@@ -189,7 +189,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       ];
 
       const unavailableActions = [
-        ...(hasEditPermission ? [restoreShortcutAction] : []),
+        // The backend rejects restoring a session that is part of a group, so
+        // don't offer the action for grouped sessions (same !session.group check
+        // the duplicate guard uses).
+        ...(hasEditPermission && !session.group ? [restoreShortcutAction] : []),
         ...(hasEditPermission ? [editShortcutAction] : []),
         ...(hasCreatePermission && canSessionBeDuplicated
           ? [duplicateShortcutAction]

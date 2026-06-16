@@ -106,6 +106,7 @@ export type SessionCreationFormData = SessionCreationDateTimeFormData &
     | "wellhub_product_id"
   > & {
     allowCustomNameAndDescription: boolean;
+    overrideTeacherPayrollRule: boolean;
     roomBlueprintCapacity: number | null;
   };
 

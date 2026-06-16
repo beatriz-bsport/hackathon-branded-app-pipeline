@@ -84,6 +84,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   is_hybrid: false,
   coach: null,
   coach_payment_rule: null,
+  overrideTeacherPayrollRule: false,
   broadcast_link: "",
   establishment: null,
   room_blueprint: null,

@@ -144,7 +144,9 @@
             },
             "payroll": {
               "label": "Payroll rule",
-              "placeholder": "Choose a rule..."
+              "placeholder": "Choose a rule...",
+              "overrideLabel": "Override payroll rule",
+              "overrideDescription": "If disabled, the teacher profile's default rule applies. For substitutions, this payroll rule applies to the substitute teacher"
             },
             "establishment": {
               "label": "Venue",
@@ -221,6 +223,7 @@
             "recurrenceInterval": "Choose how often to repeat the class",
             "recurrencePattern": "Select a monthly interval"
           },
+          "pastSessionWarning": "The selected date and time are in the past. This class will be created with a start date that has already passed.",
           "wellhubWarning": "Classes shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
           "uscWarning": "Your integration with the Urban Sports Club is active, any class spanning 2 days or more will not appear there."
         }

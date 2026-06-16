@@ -1,5 +1,9 @@
 {
   "pages": {
-    "contractList": "Contracts"
+    "contractList": "Contracts",
+    "contractArchivedList": "Archived Contracts"
+  },
+  "header": {
+    "createContract": "Create Contract"
   }
 }

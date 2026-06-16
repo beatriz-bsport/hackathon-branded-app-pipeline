@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type BookingMilestoneFilter,
   createBookingMilestoneFilter,
   patchBookingMilestoneFilter,
 } from "@bsport/api-cdp/smartlist";
@@ -20,7 +21,7 @@ type UpsertBookingMilestoneFilterVariables = {
 };
 
 type UseUpsertBookingMilestoneFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: BookingMilestoneFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -54,11 +55,11 @@ export const useUpsertBookingMilestoneFilterMutation = (
 
       return patchBookingMilestoneFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

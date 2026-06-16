@@ -1,7 +1,12 @@
 {
   "checkoutFlowModal": {
-    "title": "Create invoice",
-    "cancel": "Cancel",
+    "title": "Checkout",
+    "payLater": "Pay later",
+    "payNow": "Pay now",
+    "toasts": {
+      "invoicePendingPayment": "The invoice is still pending payment",
+      "invoiceAction": "Invoice"
+    },
     "loadingMemberInfo": "Loading member information...",
     "editMember": "Edit member",
     "addItem": "Add Item",
@@ -129,10 +134,10 @@
       "giftcardBackgroundImageRequired": "Background image is required for email gift cards."
     },
     "passesActivationDateLabel": "",
-    "passesActivationDateLabel_one": "The date that the pass would start from",
-    "passesActivationDateLabel_other": "The date that the passes would start from",
+    "passesActivationDateLabel_one": "Pass start date",
+    "passesActivationDateLabel_other": "Passes start date",
     "loadingBillingGroups": "Loading billing groups...",
-    "billingGroup": "Billing group",
+    "billingGroup": "Billing location",
     "billingGroupTooltip": "Choose a billing group to assign this invoice to a specific location or entity for accurate tracking and reporting",
     "closeWithItemsConfirmation": "There are items in your checkout. Do you really want to close?"
   },
@@ -140,7 +145,7 @@
     "label": "Type",
     "pass": "Pass",
     "appointmentPass": "Appointment Pass",
-    "product": "Products",
+    "product": "Retail",
     "pack": "Pack",
     "giftcard": "Gift Card",
     "subscription": "Subscription"

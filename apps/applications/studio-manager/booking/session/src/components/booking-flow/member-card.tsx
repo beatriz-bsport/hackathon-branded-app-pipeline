@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-import { MemberDetail } from "@bsport/api-cdp";
+import { MemberDetail } from "@bsport/api-cdp/member";
 import { Avatar, Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";

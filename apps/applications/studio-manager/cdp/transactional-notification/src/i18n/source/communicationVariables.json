@@ -9,13 +9,13 @@
         "activity": "Group activities",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishments",
-        "establishment_practical_info": "Establishment details ",
+        "establishment": "Venues",
+        "establishment_practical_info": "Venue details ",
         "address": "Address"
       }
     },
     "User": {
-      "name": "Member",
+      "name": "Client",
       "tags": {
         "firstname": "First name",
         "lastname": "Last name",
@@ -31,8 +31,8 @@
         "activity": "Activity",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishment",
-        "establishment_practical_info": "Establishment details",
+        "establishment": "Venue",
+        "establishment_practical_info": "Venue details",
         "address": "Address",
         "ics_calendar_link": "ICS Calendar Link",
         "spot": "Place",
@@ -41,7 +41,7 @@
       "subtitles": {
         "workshop": "Workshop",
         "establishment_group": "Location",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "meta_activity": "Activity"
       }
     },
@@ -77,8 +77,8 @@
         "activity": "Activity",
         "coach": "Teacher",
         "date": "Time and date",
-        "establishment": "Establishment",
-        "establishment_practical_info": "Establishment access information",
+        "establishment": "Venue",
+        "establishment_practical_info": "Venue access information",
         "address": "Address",
         "option_payment_url": "Booking link",
         "option_expiration_date": "Waitlist expiration date",
@@ -88,12 +88,12 @@
     },
     "PrivateBooking": {
       "tags": {
-        "establishment_practical_info": "Establishment access information",
+        "establishment_practical_info": "Venue access information",
         "address": "Address",
         "date": "Time and date",
         "coach": "Teacher",
         "activity": "Activity",
-        "establishment": "Establishment",
+        "establishment": "Venue",
         "ics_calendar_link": "ICS Calendar Link"
       },
       "name": "Appointments"
@@ -133,15 +133,15 @@
       "tags": {
         "firstname_guest": "Guest first name",
         "lastname_guest": "Guest last name",
-        "firstname_host": "Inviting member first name",
-        "lastname_host": "Inviting member last name"
+        "firstname_host": "Inviting client first name",
+        "lastname_host": "Inviting client last name"
       }
     },
     "RecurrentRule": {
       "tags": {
         "recurring_booking_fail_reason": "Reason for recurrent booking failure",
-        "establishment_practical_info": "Establishment access information",
-        "establishment": "Establishment",
+        "establishment_practical_info": "Venue access information",
+        "establishment": "Venue",
         "date": "Time and date",
         "coach": "Teacher",
         "address": "Address",
@@ -174,7 +174,7 @@
       "tags": {
         "giftcard_message": "Gift card message",
         "activate_giftcard_url": "Gift card activation link",
-        "message_is_from": "Member sending the gift card",
+        "message_is_from": "Client sending the gift card",
         "message_is_for": "Recipient of the gift card",
         "giftcard_value": "Gift card value",
         "giftcard_name": "Gift card name",
@@ -191,7 +191,7 @@
       "new_email": "New login email",
       "old_email": "Old login email",
       "activate_giftcard_url": "Gift card activation link",
-      "message_is_from": "Member sending the gift card",
+      "message_is_from": "Client sending the gift card",
       "giftcard_message": "Gift card message",
       "giftcard_value": "Gift card value",
       "manage_changing_email_link": "Email change management link",
@@ -226,7 +226,7 @@
     "ReferralProgram": {
       "name": "Referral",
       "tags": {
-        "reduction_purchase_referred": "Discount for the referred member",
+        "reduction_purchase_referred": "Discount for the referred client",
         "referring_reward": "Reward for the referrer",
         "minimum_purchase_referral": "Minimum purchase amount",
         "deadline_use_referral": "Referral reward validity",
@@ -235,7 +235,7 @@
         "referred_firstname": "Referred first name",
         "referred_lastname": "Referred last name",
         "referral_link": "Referral link",
-        "registration_date": "Referred member registration date"
+        "registration_date": "Referred client registration date"
       }
     }
   }

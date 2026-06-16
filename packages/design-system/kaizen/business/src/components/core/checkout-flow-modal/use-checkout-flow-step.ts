@@ -11,6 +11,7 @@ import {
   useGuardedModalClose,
 } from "#src/utils/use-guarded-modal-close";
 
+import { INVOICE_COMPLETION_INTENT } from "./constants";
 import {
   ADD_ITEM_DEFAULT,
   DEFAULT_FORM_DATA,
@@ -18,7 +19,7 @@ import {
 } from "./defaults";
 import { getMember } from "./fetch-member";
 import { checkoutFlowFormStateSchema } from "./schema";
-import type { CheckoutFlowStepProps } from "./types";
+import type { CheckoutFlowStepProps, InvoiceCompletionIntent } from "./types";
 import { useCheckoutFlowTracking } from "./use-checkout-flow-tracking";
 import { useCreateInvoice } from "./use-create-invoice";
 import { useInvoiceConfiguration } from "./use-invoice-configuration";
@@ -47,6 +48,10 @@ export const useCheckoutFlowStep = ({
     ((value: boolean | ((prev: boolean) => boolean)) => void) | null
   >(null);
   const hasTrackedDropRef = useRef(false);
+  const submitLockRef = useRef(false);
+  const invoiceCompletionIntentRef = useRef<InvoiceCompletionIntent>(
+    INVOICE_COMPLETION_INTENT.PAY_NOW,
+  );
   const { isDiscountReasonRequired } = useInvoiceConfiguration(fetch);
 
   const methods = useFormController({
@@ -74,7 +79,7 @@ export const useCheckoutFlowStep = ({
   }, [isActive]);
 
   const { formState, setValue, watch } = methods;
-  const { isDirty, isSubmitting, isValid, errors } = formState;
+  const { isDirty, isValid, errors } = formState;
   const items = watch("items") ?? [];
 
   const openSummarySection = useCallback(() => {
@@ -89,11 +94,15 @@ export const useCheckoutFlowStep = ({
 
   const hasOnlyPromoCodeError =
     !isValid && Object.keys(errors).length === 1 && "promoCodes" in errors;
-  const isConfirmDisabled =
-    !isDirty ||
-    isSubmitting ||
-    items.length === 0 ||
-    (!isValid && !hasOnlyPromoCodeError);
+  const isSubmitDisabled =
+    !isDirty || items.length === 0 || (!isValid && !hasOnlyPromoCodeError);
+  const [activeSubmitIntent, setActiveSubmitIntent] =
+    useState<InvoiceCompletionIntent | null>(null);
+  const isConfirmDisabled = isSubmitDisabled || activeSubmitIntent != null;
+  const isPayNowLoading =
+    activeSubmitIntent === INVOICE_COMPLETION_INTENT.PAY_NOW;
+  const isPayLaterLoading =
+    activeSubmitIntent === INVOICE_COMPLETION_INTENT.PAY_LATER;
 
   const handleCreateInvoiceError = useCallback(
     (error: Error) => {
@@ -119,18 +128,46 @@ export const useCheckoutFlowStep = ({
     [t, onError],
   );
 
+  const handleFetchMember = async (id: number) => {
+    return getMember(fetch, { memberId: id });
+  };
+
+  const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
+    useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
+
+  const resetCheckoutForm = useCallback(() => {
+    methods.reset({
+      ...DEFAULT_FORM_DATA,
+      ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
+      isDiscountReasonRequired,
+      member: fetchedMember ?? null,
+    });
+  }, [methods, isDiscountReasonRequired, fetchedMember]);
+
   const { mutateAsync } = useCreateInvoice({
     fetch,
     onError: handleCreateInvoiceError,
     onSubmit: (data, invoiceUuid) => {
+      resetCheckoutForm();
       const memberId = data.member?.id;
       if (memberId != null) {
-        onInvoiceCreated?.(invoiceUuid, memberId, data);
+        onInvoiceCreated?.(
+          invoiceUuid,
+          memberId,
+          data,
+          invoiceCompletionIntentRef.current,
+        );
       }
     },
   });
 
-  const handleFormSubmit = async () => {
+  const submitInvoice = async (intent: InvoiceCompletionIntent) => {
+    if (isSubmitDisabled || submitLockRef.current) return;
+
+    submitLockRef.current = true;
+    invoiceCompletionIntentRef.current = intent;
+    setActiveSubmitIntent(intent);
     const formData = methods.getValues();
     const formItems = formData.items ?? [];
     const rawFootnote = formData.footnote ?? "";
@@ -138,7 +175,7 @@ export const useCheckoutFlowStep = ({
     const hasFootnote = trimmedFootnote.length > 0;
 
     const completionPayload = {
-      basket_completion_trigger: "confirm" as const,
+      basket_completion_trigger: intent,
       member_id: formData.member?.id ?? null,
       nb_of_promo_code_applied: formData.promoCodes.length,
       total_item_quantity: formItems.reduce(
@@ -170,15 +207,19 @@ export const useCheckoutFlowStep = ({
         invoice_creation_error:
           error instanceof Error ? error.message : String(error),
       });
+    } finally {
+      submitLockRef.current = false;
+      setActiveSubmitIntent(null);
     }
   };
 
-  const handleFetchMember = async (id: number) => {
-    return getMember(fetch, { memberId: id });
+  const handleFormSubmit = async () => {
+    await submitInvoice(INVOICE_COMPLETION_INTENT.PAY_NOW);
   };
 
-  const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
-    useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
+  const handlePayLaterSubmit = async () => {
+    await submitInvoice(INVOICE_COMPLETION_INTENT.PAY_LATER);
+  };
 
   useEffect(() => {
     if (memberId) {
@@ -197,10 +238,11 @@ export const useCheckoutFlowStep = ({
 
   useEffect(() => {
     if (!isActive) {
+      resetCheckoutForm();
       setIsMemberSelectorOpen(false);
       setIsFootnoteModalOpen(false);
     }
-  }, [isActive]);
+  }, [isActive, resetCheckoutForm]);
 
   const hasAutoOpenedMemberSelectorRef = useRef(false);
   useEffect(() => {
@@ -258,17 +300,11 @@ export const useCheckoutFlowStep = ({
   );
 
   const handleInternalClose = useCallback(() => {
-    methods.reset({
-      ...DEFAULT_FORM_DATA,
-      ...ADD_ITEM_DEFAULT,
-      ...GIFTCARD_FIELDS_DEFAULT,
-      isDiscountReasonRequired,
-      member: fetchedMember ?? null,
-    });
+    resetCheckoutForm();
     setIsMemberSelectorOpen(false);
     setIsFootnoteModalOpen(false);
     onClose?.();
-  }, [methods, isDiscountReasonRequired, fetchedMember, onClose]);
+  }, [resetCheckoutForm, onClose]);
 
   const closeConfirmationMessage = t(
     "checkoutFlowModal.closeWithItemsConfirmation",
@@ -329,7 +365,10 @@ export const useCheckoutFlowStep = ({
     isLoadingMember,
     fetchedMember,
     isConfirmDisabled,
+    isPayNowLoading,
+    isPayLaterLoading,
     handleFormSubmit,
+    handlePayLaterSubmit,
     openSummarySection,
     openAddItemSection,
     isFootnoteModalOpen,

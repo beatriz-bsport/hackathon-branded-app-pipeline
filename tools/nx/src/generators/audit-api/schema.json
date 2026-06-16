@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "AuditApi",
+  "title": "Audit a packages/api/* package against ADR-0001",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "API package (e.g., cdp, api-cdp or @bsport/api-cdp)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Which API package do you want to audit?"
+    },
+    "resource": {
+      "type": "string",
+      "description": "Limit the audit to a single resource (e.g., member)"
+    }
+  },
+  "required": ["appName"]
+}

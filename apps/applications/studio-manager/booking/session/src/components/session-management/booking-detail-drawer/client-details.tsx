@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import type { Member, MemberNote } from "@bsport/api-cdp";
+import type { Member, MemberNote } from "@bsport/api-cdp/member";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
   DATETIME_FORMATS,

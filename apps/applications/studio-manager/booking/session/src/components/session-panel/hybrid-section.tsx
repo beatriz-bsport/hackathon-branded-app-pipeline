@@ -30,7 +30,7 @@ export const HybridSection: FC<{ sessionId: number }> = ({ sessionId }) => {
             <Icon icon="link-external-02" size="sm" />
           </a>
         </header>
-        <Body htmlVariant="p" size="md" color="weak" className="pt-sm">
+        <Body htmlVariant="p" size="lg" weight="weak" className="pt-sm">
           {t("sessionPanel.hybrid.body")}
         </Body>
       </section>

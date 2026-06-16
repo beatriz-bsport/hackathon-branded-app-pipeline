@@ -1,0 +1,1 @@
+export const PAYMENT_METHOD_FILTER_IDENTIFIER = "600";

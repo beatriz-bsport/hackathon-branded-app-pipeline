@@ -32,7 +32,7 @@
     "loading": "Loading sold packs",
     "emptyList": {
       "title": "No packs sold yet",
-      "subtitle": "Once a member buys a pack, they'll be displayed here."
+      "subtitle": "Once a client buys a pack, they'll be displayed here."
     },
     "table": {
       "columns": {

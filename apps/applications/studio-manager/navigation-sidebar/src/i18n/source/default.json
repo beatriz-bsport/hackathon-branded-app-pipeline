@@ -82,7 +82,7 @@
     "myStudio": {
       "title": "Studio",
       "teachers": "Teachers",
-      "establishments": "Establishments",
+      "establishments": "Venues",
       "venues": "Venues",
       "substitutions": "Substitutions"
     },
@@ -243,7 +243,7 @@
         "title": "No appointments to complete",
         "description": "All your appointments have assigned teachers"
       },
-      "member": "Member: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Date: {{date}}"
     }
   }

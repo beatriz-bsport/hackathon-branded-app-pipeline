@@ -22,11 +22,11 @@
           "listIntro": "We calculate this number by excluding:",
           "exclusions": {
             "noValidContact": {
-              "description": "Members without a valid contact method",
+              "description": "Clients without a valid contact method",
               "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
             },
             "optedOut": {
-              "description": "Members who have opted out of marketing communications (or are not opted in, depending on the campaign type)",
+              "description": "Clients who have opted out of marketing communications (or are not opted in, depending on the campaign type)",
               "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
             },
             "invalidEmail": {
@@ -38,8 +38,8 @@
               "example": "(such as temporary emails created by ClassPass)"
             },
             "smartlistChanges": {
-              "description": "Segment membership changes over time. Members may enter or leave the segment between now and when the campaign is sent",
-              "example": "(e.g. members may enter or leave the segment between now and when the campaign is sent)"
+              "description": "Clients included in segment changes over time. Clients may enter or leave the segment between now and when the campaign is sent",
+              "example": "(e.g. clients may enter or leave the segment between now and when the campaign is sent)"
             }
           }
         }
@@ -177,7 +177,7 @@
       },
       "title": "Push Notification Campaign",
       "continueButtonLabel": "Continue",
-      "alertMessage": "Only members who have downloaded your studio app and enabled push notifications will receive this notification.",
+      "alertMessage": "Only clients who have downloaded your studio app and enabled push notifications will receive this notification.",
       "form": {
         "errors": {
           "campaignNameRequired": "Campaign name is required.",
@@ -218,11 +218,11 @@
           "listIntro": "We calculate this number by excluding:",
           "exclusions": {
             "noValidPhone": {
-              "description": "Members without a valid phone number",
+              "description": "Clients without a valid phone number",
               "example": "(e.g. no phone number in profile)"
             },
             "optedOut": {
-              "description": "Members who have opted out of marketing SMS",
+              "description": "Clients who have opted out of marketing SMS",
               "example": "(or who are not opted in for SMS marketing when required)"
             },
             "invalidPhone": {
@@ -230,8 +230,8 @@
               "example": "(e.g. malformed numbers or blocked destinations)"
             },
             "smartlistChanges": {
-              "description": "Segment membership changes over time. Members may enter or leave the segment between now and when the campaign is sent",
-              "example": "(e.g. members may enter or leave the segment between now and when the campaign is sent)"
+              "description": "Clients included in segment changes over time. Clients may enter or leave the segment between now and when the campaign is sent",
+              "example": "(e.g. clients may enter or leave the segment between now and when the campaign is sent)"
             }
           }
         }
@@ -264,7 +264,7 @@
     "creation": {
       "title": "Pop-up Campaign",
       "continueButtonLabel": "Continue",
-      "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
+      "alertMessage": "Only clients who have downloaded your studio app will receive this notification.",
       "messageSectionTitle": "Message",
       "form": {
         "campaignName": {
@@ -302,7 +302,7 @@
     "edit": {
       "title": "Edit Pop-up Campaign",
       "continueButtonLabel": "Continue",
-      "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
+      "alertMessage": "Only clients who have downloaded your studio app will receive this notification.",
       "toasts": {
         "error": {
           "editFailed": "Segment pop-up changes couldn't be saved. Please try again."
@@ -336,15 +336,15 @@
     },
     "sms": {
       "title": "SMS",
-      "description": "Send SMS messages to your members"
+      "description": "Send SMS messages to your clients"
     },
     "push": {
       "title": "Push Notification",
-      "description": "Send your members a notification via your studio app"
+      "description": "Send your clients a notification via your studio app"
     },
     "popup": {
       "title": "Pop-up",
-      "description": "Message appears when members open your app"
+      "description": "Message appears when clients open the app"
     }
   },
   "upsellInterestConfirmationModal": {
@@ -364,16 +364,16 @@
       "requestFailed": "Something went wrong. Please try again or contact your Account Manager."
     },
     "sms": {
-      "heading": "Reach members on every channel",
-      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+      "heading": "SMS, email and push — all in one place",
+      "description": "Automate welcome messages, re-engagement nudges, loyalty offers and studio updates, all from your Back Office. Always the right message, perfectly timed."
     },
     "push": {
-      "heading": "Reach members on every channel",
-      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+      "heading": "SMS, email and push — all in one place",
+      "description": "Automate welcome messages, re-engagement nudges, loyalty offers and studio updates, all from your Back Office. Always the right message, perfectly timed."
     },
     "popup": {
       "heading": "Turn on in-app notifications",
-      "description": "Connect with your members in real time through your branded app. Send timely reminders, highlight key updates, and keep your studio visible on their home screen."
+      "description": "Connect with clients in real time through your branded app. Send timely reminders, highlight key updates, and keep your studio visible on their home screen."
     }
   },
   "generateReportModal": {
@@ -398,7 +398,7 @@
       },
       "emptyDate": "--",
       "headers": {
-        "memberIdentity": "Member",
+        "memberIdentity": "Client",
         "lastOpened": "Last opened",
         "openCount": "Opens",
         "clickCount": "Clicks",
@@ -412,7 +412,7 @@
       },
       "moreActions": {
         "label": "More actions",
-        "navigateToMemberProfile": "Navigate to member profile",
+        "navigateToMemberProfile": "Go to client profile",
         "copyEmail": "Copy email",
         "copyPhoneNumber": "Copy phone number",
         "copyName": "Copy name"
@@ -452,7 +452,7 @@
       },
       "recipientsList": {
         "title": "Recipients",
-        "description": "This list shows members who currently match your segment. If the segment changes before sending, the final list of recipients will be updated automatically."
+        "description": "This list shows clients who currently match your segment. If the segment changes before sending, the final list of recipients will be updated automatically."
       },
       "headers": {
         "scheduledDate": "Scheduled",

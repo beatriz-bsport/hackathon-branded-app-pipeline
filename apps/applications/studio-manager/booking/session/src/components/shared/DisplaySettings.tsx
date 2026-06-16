@@ -30,7 +30,7 @@ import {
 import { useCalendarStore } from "#src/stores/calendar/store";
 import {
   AppointmentColumn,
-  type CalendarTab,
+  type CalendarDataTab,
   CalendarView,
   SessionColumns,
 } from "#src/types";
@@ -39,7 +39,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
 type DisplaySettingsProps = {
-  activeTab: CalendarTab;
+  activeTab: CalendarDataTab;
 };
 
 /** Columns that are always visible and cannot be toggled off by the user. */

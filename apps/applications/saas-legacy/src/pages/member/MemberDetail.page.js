@@ -15,7 +15,10 @@ import { fetchStripeReaders } from '#src/libs/terminal/actions';
 import { getStripeReaders } from '#src/libs/terminal/selectors';
 import type { StripeReader } from '#src/libs/terminal/types';
 import MemberActions from '#src/libs/member/components/ManagerMemberActions.components';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import {
+  getBackofficeBillingPlanEnabledPaymentMethods,
+  openFullPaymentFlowFromLegacy,
+} from '#src/libs/payment/utils';
 import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_MEMBER } from '#src/libs/communication-v2/constants';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#src/libs/communication-v2/actions';
@@ -198,6 +201,7 @@ type Props = {
   establishmentBillingGroups?: EstablishmentBillingGroup,
   staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
   checkoutFlowModalEnabled?: boolean,
+  paymentFlowModalEnabled?: boolean,
   pathname?: string,
   showRevampedSidebar?: boolean,
 };
@@ -371,19 +375,17 @@ export class MemberDetail extends React.Component<Props> {
   };
 
   handleBillMember = () => {
-    if (
-      this.props.checkoutFlowModalEnabled &&
-      this.props.showRevampedSidebar &&
-      this.props.pathname
-    ) {
-      const existingSearch =
-        (typeof window !== 'undefined' && window.location.search) || '';
-      const params = new URLSearchParams(existingSearch);
-      params.set('cfOpen', '');
-      params.set('cfTrigger', 'member_profile_page');
-      params.set('memberId', this.props.id);
-      this.props.pushRouter(`${this.props.pathname}?${params.toString()}`);
-    } else {
+    const opened = openFullPaymentFlowFromLegacy({
+      memberId: this.props.id,
+      basketStartTrigger: 'member_profile_page',
+      checkoutFlowModalEnabled: !!this.props.checkoutFlowModalEnabled,
+      paymentFlowModalEnabled: !!this.props.paymentFlowModalEnabled,
+      showRevampedSidebar: !!this.props.showRevampedSidebar,
+      pathname: this.props.pathname,
+      pushRouter: this.props.pushRouter,
+    });
+
+    if (!opened) {
       this.props.billMember(this.props.id);
     }
   };

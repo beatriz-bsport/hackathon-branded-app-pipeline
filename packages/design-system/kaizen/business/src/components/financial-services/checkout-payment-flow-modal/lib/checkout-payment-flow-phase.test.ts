@@ -1,9 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  CHECKOUT_PAYMENT_FLOW_MODE,
-  CHECKOUT_PAYMENT_FLOW_PHASE,
-} from "#src/components/financial-services/checkout-payment-flow-modal/types";
+import { INVOICE_COMPLETION_INTENT } from "#src/components/core/checkout-flow-modal/constants";
+import { CHECKOUT_PAYMENT_FLOW_MODE } from "#src/components/financial-services/checkout-payment-flow-modal/constants";
+import { CHECKOUT_PAYMENT_FLOW_PHASE } from "#src/components/financial-services/checkout-payment-flow-modal/types";
 
 import {
   INVOICE_CREATED_FLOW_ACTION,
@@ -29,12 +28,13 @@ describe("getInitialCheckoutPaymentFlowPhase", () => {
 });
 
 describe("resolveInvoiceCreatedFlowAction", () => {
-  it("transitions to payment in full mode", () => {
+  it("transitions to payment in full mode when paying now", () => {
     expect(
       resolveInvoiceCreatedFlowAction(
         CHECKOUT_PAYMENT_FLOW_MODE.FULL,
         "invoice-uuid",
         42,
+        INVOICE_COMPLETION_INTENT.PAY_NOW,
       ),
     ).toEqual({
       type: INVOICE_CREATED_FLOW_ACTION.TRANSITION_TO_PAYMENT,
@@ -43,14 +43,45 @@ describe("resolveInvoiceCreatedFlowAction", () => {
     });
   });
 
-  it("completes checkout for checkout-only mode", () => {
+  it("defers payment in full mode when paying later", () => {
+    expect(
+      resolveInvoiceCreatedFlowAction(
+        CHECKOUT_PAYMENT_FLOW_MODE.FULL,
+        "invoice-uuid",
+        42,
+        INVOICE_COMPLETION_INTENT.PAY_LATER,
+      ),
+    ).toEqual({
+      type: INVOICE_CREATED_FLOW_ACTION.DEFER_PAYMENT,
+      invoiceId: "invoice-uuid",
+      memberId: 42,
+    });
+  });
+
+  it("completes checkout for checkout-only mode when paying now", () => {
     expect(
       resolveInvoiceCreatedFlowAction(
         CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT,
         "invoice-uuid",
         42,
+        INVOICE_COMPLETION_INTENT.PAY_NOW,
       ),
     ).toEqual({ type: INVOICE_CREATED_FLOW_ACTION.COMPLETE_CHECKOUT });
+  });
+
+  it("defers payment for checkout-only mode when paying later", () => {
+    expect(
+      resolveInvoiceCreatedFlowAction(
+        CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT,
+        "invoice-uuid",
+        42,
+        INVOICE_COMPLETION_INTENT.PAY_LATER,
+      ),
+    ).toEqual({
+      type: INVOICE_CREATED_FLOW_ACTION.DEFER_PAYMENT,
+      invoiceId: "invoice-uuid",
+      memberId: 42,
+    });
   });
 
   it("completes checkout when mode is payment (unexpected path)", () => {

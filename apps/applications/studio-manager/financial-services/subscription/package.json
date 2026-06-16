@@ -38,12 +38,16 @@
     "vite": "^5.4.11"
   },
   "peerDependencies": {
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@stripe/react-stripe-js": "^3.10.0",
+    "@stripe/stripe-js": "^7.9.0",
     "@tanstack/react-query": "^5.90.12",
     "luxon": "^3.4.4",
     "react": "^19.2.0",

@@ -23,6 +23,13 @@ export type LabelProps = LabelHTMLAttributes<HTMLLabelElement> & {
   required?: boolean;
 };
 
+/**
+ * React component to display an Indicator for numeric notifications or status updates, appearing beside the content it accompanies.
+ * @param props.label Text to display
+ * @param props.htmlFor Id of a form element
+ * @param props.required Whether to indicate the required red star indicator
+ * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/primitive-components-label--docs
+ */
 export const Label: FC<LabelProps> = ({
   className,
   htmlFor,

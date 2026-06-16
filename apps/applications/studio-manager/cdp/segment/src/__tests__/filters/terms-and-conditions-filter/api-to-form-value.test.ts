@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { mapTermsAndConditionsFilterToFormValue } from "#src/components/filters/terms-and-conditions-filter/mappers/api-to-form-value";
+import { TERMS_AND_CONDITIONS_FILTER_IDENTIFIER } from "@bsport/api-cdp/smartlist";
 
-const TERMS_AND_CONDITIONS_FILTER_IDENTIFIER = 107;
+import { mapTermsAndConditionsFilterToFormValue } from "#src/components/filters/terms-and-conditions-filter/mappers/api-to-form-value";
 
 const baseApiFilter = {
   id: 64,
   company: 7,
   smartlist: 123,
   value: true,
-  filter_identifier: TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
+  filter_identifier: Number(TERMS_AND_CONDITIONS_FILTER_IDENTIFIER),
 };
 
 describe("mapTermsAndConditionsFilterToFormValue", () => {

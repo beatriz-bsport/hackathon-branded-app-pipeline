@@ -1,7 +1,7 @@
 import Config from '../../config';
 
 export const emailValidationRegExp =
-  /^([A-z0-9-_]|\.)+@[A-z0-9-_.]+(\.[A-z]+)+$/;
+  /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$/;
 
 export const CUSTOM_FORM_CSS_VARIANT_ACTIVATED =
   Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production';

@@ -26,6 +26,12 @@ export type ContractPause = {
 
 // #region Params
 
+export type FetchContractPausesParams = {
+  contract?: number;
+  page?: number;
+  page_size?: number;
+};
+
 export type FetchContractPauseInfoParams = {
   contract: number;
   from_date: string;
@@ -43,7 +49,16 @@ export type CreateContractPauseParams = {
 };
 
 export type UpdateContractPauseParams = CreateContractPauseParams & {
-  contract_pause_id?: number;
+  contract_pause_id: number;
+};
+
+export type UpdateContractPauseNameParams = {
+  contract_pause_id: number;
+  name: string;
+};
+
+export type DeleteContractPauseParams = {
+  contract_pause_id: number;
 };
 
 // #endregion

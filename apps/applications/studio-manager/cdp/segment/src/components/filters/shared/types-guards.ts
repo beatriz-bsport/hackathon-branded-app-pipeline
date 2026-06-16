@@ -15,7 +15,9 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  HAS_PASSWORD_FILTER_IDENTIFIER,
   HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPasswordFilter,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
   LIABILITY_WAIVER_FILTER_IDENTIFIER,
@@ -27,9 +29,11 @@ import {
   type MemberDateJoinedFilter,
   NOTES_FILTER_IDENTIFIER,
   type NotesFilter,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
+  type PaymentMethodFilter,
   type PaymentPackFilter,
   type PrivateBookingsFilter,
   type PrivatePassFilter,
@@ -66,8 +70,10 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   hasPhone: "hasPhone",
   termsAndConditions: "termsAndConditions",
   liabilityWaiver: "liabilityWaiver",
+  hasPassword: "hasPassword",
   lastBooking: "lastBooking",
   internalNotes: "internalNotes",
+  paymentMethod: "paymentMethod",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -99,7 +105,9 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.termsAndConditions ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.liabilityWaiver ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPassword ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.paymentMethod;
 
 export const isBasketAbandonmentFilter = (
   value: unknown,
@@ -335,6 +343,15 @@ export const isLiabilityWaiverFilter = (
   hasNumber(value, "company_id") &&
   hasBoolean(value, "value");
 
+export const isHasPasswordFilter = (
+  value: unknown,
+): value is HasPasswordFilter =>
+  hasFilterIdentifier(value, HAS_PASSWORD_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "value");
+
 export const isLastBookingFilter = (
   value: unknown,
 ): value is LastBookingFilter =>
@@ -350,3 +367,17 @@ export const isNotesFilter = (value: unknown): value is NotesFilter =>
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company") &&
   hasBoolean(value, "date_filter_active");
+
+export const isPaymentMethodFilter = (
+  value: unknown,
+): value is PaymentMethodFilter =>
+  hasFilterIdentifier(value, PAYMENT_METHOD_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "owns_payment_method") &&
+  hasBoolean(value, "date_filter_active") &&
+  hasNumber(value, "date_filter_type") &&
+  hasNumber(value, "duration") &&
+  hasNumber(value, "duration_second") &&
+  hasBoolean(value, "payment_method_kind_filter_active");

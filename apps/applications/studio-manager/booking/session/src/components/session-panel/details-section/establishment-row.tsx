@@ -19,8 +19,10 @@ export const EstablishmentRow: FC<{
       href={LEGACY_URLS.ESTABLISHMENT_DETAILS(establishment.id)}
       className="flex items-center gap-xs text-onsurface-weak hover:underline"
     >
-      <Icon icon="pin-02" size="sm" />
-      <Body htmlVariant="span" size="md" color="weak">
+      <span className="flex w-lg shrink-0 justify-center">
+        <Icon icon="pin-02" size="sm" />
+      </span>
+      <Body htmlVariant="span" size="lg" color="default">
         {establishment.title}
       </Body>
     </a>

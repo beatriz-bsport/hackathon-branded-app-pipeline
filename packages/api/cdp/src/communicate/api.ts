@@ -59,13 +59,15 @@ export const communicateKeys = {
       no_automated_campaign ?? null,
       without_member_info ?? null,
     ] as const,
+  campaignSentDetails: () =>
+    [...communicateKeys.all, "campaign-sent", "detail"] as const,
   campaignSentDetail: (campaignUuid: string) =>
-    [...communicateKeys.all, "campaign-sent", "detail", campaignUuid] as const,
+    [...communicateKeys.campaignSentDetails(), campaignUuid] as const,
+  campaignSentPerformanceReports: () =>
+    [...communicateKeys.all, "campaign-sent", "performance-report"] as const,
   campaignSentPerformanceReport: (campaignUuid: string) =>
     [
-      ...communicateKeys.all,
-      "campaign-sent",
-      "performance-report",
+      ...communicateKeys.campaignSentPerformanceReports(),
       campaignUuid,
     ] as const,
   campaignSentRecipients: ({
@@ -91,11 +93,11 @@ export const communicateKeys = {
       params.page ?? DEFAULT_PAGE,
       params.page_size ?? DEFAULT_PAGE_SIZE_CAMPAIGN_SCHEDULED_LIST,
     ] as const,
+  campaignScheduledDetails: () =>
+    [...communicateKeys.all, "campaign-scheduled", "detail"] as const,
   campaignScheduledDetail: (campaignScheduledId: string) =>
     [
-      ...communicateKeys.all,
-      "campaign-scheduled",
-      "detail",
+      ...communicateKeys.campaignScheduledDetails(),
       campaignScheduledId,
     ] as const,
   communicationRecipientsCountPreview: (
@@ -117,10 +119,14 @@ export const communicateKeys = {
       request.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
     ] as const,
 
-  campaignSummaryByAutomatedCampaignId: (automatedCampaignId: number) =>
+  campaignSummariesByAutomatedCampaignId: () =>
     [
       ...communicateKeys.all,
       "campaign-summary-by-automated-campaign-id",
+    ] as const,
+  campaignSummaryByAutomatedCampaignId: (automatedCampaignId: number) =>
+    [
+      ...communicateKeys.campaignSummariesByAutomatedCampaignId(),
       automatedCampaignId,
     ] as const,
 } as const;

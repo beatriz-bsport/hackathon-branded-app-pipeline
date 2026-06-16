@@ -8,14 +8,15 @@ import {
   useState,
 } from "react";
 
-import { memberKeys } from "@bsport/api-cdp/member";
-import { invoiceKeys } from "@bsport/api-financial-services/invoice";
-import { paymentGroupKeys } from "@bsport/api-financial-services/payment-group";
-import { paymentMethodKeys } from "@bsport/api-financial-services/payment-method";
+import {
+  fetchInvoiceAPI,
+  invoiceKeys,
+} from "@bsport/api-financial-services/invoice";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
 import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
+import { invalidatePaymentFlowCaches } from "#src/components/financial-services/payment-flow-modal/lib/invalidate-payment-flow-caches";
 import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
 import {
   PAYMENT_FLOW_ERROR_KEYS,
@@ -31,6 +32,8 @@ import {
   installmentScheduleDetailSchema,
   paymentFlowFormSchema,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
+import { resolveConfirmAmountCts } from "#src/components/financial-services/payment-flow-modal/lib/resolve-confirm-amount-cts";
+import { showPaymentCompletedToast } from "#src/components/financial-services/payment-flow-modal/lib/show-payment-completed-toast";
 import type {
   PaymentFlowModalBodyState,
   PaymentFlowModalProps,
@@ -127,6 +130,10 @@ export const usePaymentFlowModalState = ({
   const [clientSecretEngine, setClientSecretEngine] =
     useState<PaymentClientSecretEngine | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [
+    shouldInvalidateCachesAfterClose,
+    setShouldInvalidateCachesAfterClose,
+  ] = useState(false);
 
   const formId = `payment-flow-modal-${useId()}`;
   const cardPaymentRef = useRef<StripePaymentMethodHandle>(null);
@@ -379,7 +386,6 @@ export const usePaymentFlowModalState = ({
   const confirmPaymentMutation = useConfirmPayment({
     fetch,
     invoiceId,
-    memberId,
     invoiceRemainingAmount,
     isInvoiceAlreadyPaid,
     selectedPaymentMethod,
@@ -694,6 +700,11 @@ export const usePaymentFlowModalState = ({
     terminalReaderId,
   ]);
 
+  const refreshInvoiceCache = useCallback(async () => {
+    const freshInvoice = await fetchInvoiceAPI(fetch, invoiceId);
+    queryClient.setQueryData(invoiceKeys.detail(invoiceId), freshInvoice);
+  }, [fetch, invoiceId, queryClient]);
+
   const dismissMainModal = useCallback(() => {
     const base = getPaymentFlowDefaultValues();
     const nextPartialAmountCts =
@@ -724,29 +735,42 @@ export const usePaymentFlowModalState = ({
     onClose();
   }, [dismissMainModal, onClose]);
 
+  useEffect(() => {
+    if (isOpen || !shouldInvalidateCachesAfterClose) return;
+
+    setShouldInvalidateCachesAfterClose(false);
+    invalidatePaymentFlowCaches(queryClient, { invoiceId, memberId });
+  }, [
+    isOpen,
+    shouldInvalidateCachesAfterClose,
+    invoiceId,
+    memberId,
+    queryClient,
+  ]);
+
+  const dueAmountCts = isPartialEnabled
+    ? partialAmountCts
+    : invoiceRemainingAmountCts;
+  const selectedGiftCard =
+    availableGiftCards.find((giftCard) => giftCard.id === selectedGiftCardId) ??
+    null;
+  const confirmAmountCts = resolveConfirmAmountCts({
+    activeTab,
+    dueAmountCts,
+    selectedPaymentMethod,
+    accountBalance,
+    selectedGiftCard,
+    clientSecretPriceCts: paymentClientSecretQuery.data?.price_cts,
+  });
+
   const handleSubmit = () => {
     if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
       setSubmitError(null);
       scheduleInstallmentsMutation.mutate(undefined, {
         onSuccess: () => {
+          setShouldInvalidateCachesAfterClose(true);
           onConfirm?.(0);
           closeModal();
-          window.setTimeout(() => {
-            void Promise.all([
-              queryClient.invalidateQueries({
-                queryKey: invoiceKeys.detail(invoiceId),
-              }),
-              queryClient.invalidateQueries({
-                queryKey: paymentGroupKeys.all,
-              }),
-              queryClient.invalidateQueries({
-                queryKey: paymentMethodKeys.saved(memberId),
-              }),
-              queryClient.invalidateQueries({
-                queryKey: memberKeys.detail(memberId),
-              }),
-            ]);
-          }, 0);
         },
         onError: (error: unknown) => {
           setSubmitError(
@@ -765,22 +789,24 @@ export const usePaymentFlowModalState = ({
       return;
     }
 
-    const submittedAmountCts = isPartialEnabled
-      ? methods.getValues("partialAmountCts")
-      : invoiceRemainingAmountCts;
     const submissionRemainingAmountCts = Math.max(
-      invoiceRemainingAmountCts - submittedAmountCts,
+      invoiceRemainingAmountCts - confirmAmountCts,
       0,
     );
     setSubmitError(null);
     confirmPaymentMutation.mutate(undefined, {
       onSuccess: () => {
+        setShouldInvalidateCachesAfterClose(true);
         onConfirm?.(submissionRemainingAmountCts);
+
         if (submissionRemainingAmountCts > 0) {
+          refreshInvoiceCache();
           dismissMainModal();
-        } else {
-          closeModal();
+          return;
         }
+
+        showPaymentCompletedToast();
+        closeModal();
       },
       onError: (error: unknown) => {
         setSubmitError(
@@ -893,12 +919,7 @@ export const usePaymentFlowModalState = ({
     dismissMainModal,
     isConfirmDisabled,
     isConfirmLoading,
-    confirmAmountCts:
-      activeTab === PAYMENT_TAB.INSTALLMENTS
-        ? 0
-        : isPartialEnabled
-          ? partialAmountCts
-          : invoiceRemainingAmountCts,
+    confirmAmountCts,
     remainingAmountCts: Math.max(
       invoiceRemainingAmountCts -
         (isPartialEnabled ? partialAmountCts : invoiceRemainingAmountCts),

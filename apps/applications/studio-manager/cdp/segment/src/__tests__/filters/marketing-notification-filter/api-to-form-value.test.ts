@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { MARKETING_NOTIFICATION_FILTER_IDENTIFIER } from "@bsport/api-cdp/smartlist";
+
 import {
   COMBINE_MODE_OPTIONS,
   CONSENT_OPTIONS,
@@ -12,7 +14,7 @@ describe("mapMarketingNotificationFilterToFormValue", () => {
       id: 901,
       company: 7,
       smartlist: 123,
-      filter_identifier: 103,
+      filter_identifier: Number(MARKETING_NOTIFICATION_FILTER_IDENTIFIER),
       sms_filter_active: true,
       sms_value: true,
       email_filter_active: true,
@@ -39,7 +41,7 @@ describe("mapMarketingNotificationFilterToFormValue", () => {
       id: 902,
       company: 7,
       smartlist: 123,
-      filter_identifier: 103,
+      filter_identifier: Number(MARKETING_NOTIFICATION_FILTER_IDENTIFIER),
       sms_filter_active: true,
       sms_value: false,
       email_filter_active: false,

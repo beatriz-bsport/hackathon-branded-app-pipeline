@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import type { LastBookingFilter } from "@bsport/api-cdp/smartlist";
+import {
+  LAST_BOOKING_FILTER_IDENTIFIER,
+  type LastBookingFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import { mapLastBookingFilterToFormValue } from "#src/components/filters/last-booking-filter/mappers/api-to-form-value";
-
-const LAST_BOOKING_FILTER_IDENTIFIER = 501;
 
 const buildApiFilter = (
   overrides: Partial<LastBookingFilter> = {},
@@ -12,7 +13,7 @@ const buildApiFilter = (
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: LAST_BOOKING_FILTER_IDENTIFIER,
+  filter_identifier: Number(LAST_BOOKING_FILTER_IDENTIFIER),
   value: 30,
   ...overrides,
 });

@@ -56,8 +56,8 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
-import { BasketPaymentProvider } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
-import { OnlinePaymentBasketUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/OnlinePaymentBasketUnified.component';
+import { BasketPaymentProvider } from '#src/libs/checkout/components/new-checkout-flow/BasketPaymentContext';
+import { CheckoutBasketOnlinePayment } from '#src/libs/checkout/components/new-checkout-flow/CheckoutBasketOnlinePayment.component';
 import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';
 import PrepaidLineListItem from '#src/libs/checkout/components/PrepaidLineListItem.component';
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
@@ -558,7 +558,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             basketId={this.props.basketId}
             initialTermsAccepted={true}
           >
-            <OnlinePaymentBasketUnified
+            <CheckoutBasketOnlinePayment
               basketId={this.props.basketId}
               companyId={this.props.basket.company}
               onConfirmPaymentSuccess={this.onSuccess}

@@ -11,6 +11,7 @@ import { API_V0_URL_SUBSCRIPTION, QUERY_KEY_MAIN } from "#src/constants";
 
 import type {
   BillingPlan,
+  FetchBillingPlanParams,
   FetchBillingPlansParams,
   FetchPaginatedMembershipPlansParams,
 } from "./types";
@@ -21,6 +22,9 @@ export const API_V0_URL_BILLING_PLAN = `${API_V0_URL_SUBSCRIPTION}/billing-plan`
 
 export const queryKeys = {
   all: [QUERY_KEY_MAIN, "billing-plan"] as const,
+
+  details: () => [...queryKeys.all, "detail"] as const,
+  detail: (id: number) => [...queryKeys.details(), id] as const,
 
   lists: () => [...queryKeys.all, "list"] as const,
   list: (params: FetchBillingPlansParams) =>
@@ -82,3 +86,21 @@ export const fetchPaginatedBillingPlansQueryOptions = (
   });
 
 // ----------------------------------------------------------------------------
+
+const fetchBillingPlanAPI = async (
+  fetch: Fetch<BillingPlan>,
+  params: FetchBillingPlanParams,
+): Promise<BillingPlan> => {
+  const { data } = await fetch(`${API_V0_URL_BILLING_PLAN}/${params.id}/`);
+
+  return data;
+};
+
+export const fetchBillingPlanQueryOptions = (
+  fetch: Fetch<BillingPlan>,
+  params: FetchBillingPlanParams,
+) =>
+  queryOptions({
+    queryKey: queryKeys.detail(params.id),
+    queryFn: () => fetchBillingPlanAPI(fetch, params),
+  });

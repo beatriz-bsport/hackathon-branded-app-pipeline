@@ -5,8 +5,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteGenderFilterMutation } from "#src/api/use-delete-gender-filter-mutation";
 import { useUpsertGenderFilterMutation } from "#src/api/use-upsert-gender-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapGenderFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createGenderFilterPayload } from "../mappers/form-value-to-create-payload";
 import { genderFilterSchema } from "../schema";
@@ -34,18 +36,18 @@ export const GenderFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertGenderFilterMutate, isLoading: isSaving } =
     useUpsertGenderFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.5.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapGenderFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

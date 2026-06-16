@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
+  PAYMENT_PACK_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   SmartlistCreditComparator,
   SmartlistDateFilterType,
@@ -14,15 +15,13 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-const PAYMENT_PACK_FILTER_IDENTIFIER = 19;
-
 const buildApiFilter = (
   overrides: Partial<PaymentPackFilter> = {},
 ): PaymentPackFilter => ({
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: PAYMENT_PACK_FILTER_IDENTIFIER,
+  filter_identifier: Number(PAYMENT_PACK_FILTER_IDENTIFIER),
   payment_packs: [],
   select_all_payment_packs: false,
   has_pack: true,

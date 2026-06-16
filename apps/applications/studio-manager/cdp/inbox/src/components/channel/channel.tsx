@@ -1,17 +1,10 @@
-import { Body, Icon, type IconName, cx } from "@bsport/kaizen-primitive-core";
+import { Body, Icon, cx } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { type ChannelType } from "./constants";
+import { CHANNEL_ICON, type ChannelType } from "./constants";
 
 export type { ChannelType };
-
-const CHANNEL_ICON: Record<ChannelType, IconName> = {
-  email: "mail-01",
-  sms: "message-dots-circle",
-  push: "notification-message",
-  chat: "message-square-02",
-};
 
 type BaseChannelProps = {
   channel: ChannelType;

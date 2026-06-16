@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import {
+  PRIVATE_PASS_FILTER_IDENTIFIER,
   type PrivatePassFilter,
   SmartlistCreditComparator,
   SmartlistDateFilterType,
@@ -15,15 +16,13 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-const PRIVATE_PASS_FILTER_IDENTIFIER = 25;
-
 const buildApiFilter = (
   overrides: Partial<PrivatePassFilter> = {},
 ): PrivatePassFilter => ({
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: PRIVATE_PASS_FILTER_IDENTIFIER,
+  filter_identifier: Number(PRIVATE_PASS_FILTER_IDENTIFIER),
   private_passes: [],
   select_all_private_passes: false,
   has_pack: true,

@@ -6,11 +6,13 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteBookingMilestoneFilterMutation } from "#src/api/use-delete-booking-milestone-filter-mutation";
 import { useUpsertBookingMilestoneFilterMutation } from "#src/api/use-upsert-booking-milestone-filter-mutation";
 import { BookingMilestoneValueField } from "#src/components/filters/booking-milestone/components/booking-milestone-value-field";
+import { mapBookingMilestoneFilterToFormValue } from "#src/components/filters/booking-milestone/mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "#src/components/filters/booking-milestone/mappers/build-dirty-patch";
 import { createBookingMilestonePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
 import { bookingMilestoneFilterSchema } from "#src/components/filters/booking-milestone/schema";
 import type { BookingMilestoneFilterCardProps } from "#src/components/filters/booking-milestone/types";
 import { TotalBookingSubFiltersArea } from "#src/components/filters/total-booking/components/total-booking-sub-filters-area";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 export const BookingMilestoneFilterCard = ({
@@ -41,18 +43,18 @@ export const BookingMilestoneFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertBookingMilestoneFilterMutate, isLoading: isSaving } =
     useUpsertBookingMilestoneFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.21.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapBookingMilestoneFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

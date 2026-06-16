@@ -1,72 +1,81 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core';
+import React, {
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import AddressForm from '../../../components/form/AddressForm.component';
-import type { Basket, BasketAddress, PrepaidLine } from '../types';
-import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
+
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+import AddressForm from '#src/components/form/AddressForm.component';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
+
+import type {
+  Basket,
+  BasketAddress,
+  PrepaidLine,
+} from '#src/libs/checkout/types';
+import type { OptionCallback } from '#src/state/types';
+import { BasketDeliveryFormRef } from '#src/libs/checkout/components/new-checkout-flow/types';
 
 type BasketDeliveryProps = {
   basket: Basket | Basket<string, PrepaidLine>;
   companyCountry: string;
-  onSubmit: (data: BasketAddress) => void;
+  onSubmit: (data: BasketAddress, options?: OptionCallback) => void;
   loading?: boolean;
   onCancel?: () => void;
-  ref?: React.Ref<any>;
+  ref?: React.Ref<BasketDeliveryFormRef>;
 };
 
 const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
   ({ basket, companyCountry, onSubmit, loading, onCancel }, ref) => {
     const classes = useStyles();
     const { t } = useTranslation('checkout');
-    const isCheckoutContext = React.useContext(CheckoutContext);
+    const isCheckoutContext = useContext(CheckoutContext);
 
-    const [basketAddress, setBasketAddress] = React.useState<BasketAddress>({
-      first_name: basket.first_name,
-      last_name: basket.last_name,
-      address_line_1: basket.address_line_1,
-      address_line_2: basket.address_line_2,
-      zipcode: basket.zipcode,
-      state: basket.state,
-      city: basket.city,
-      country: basket.country,
+    const [basketAddress, setBasketAddress] = useState<BasketAddress>({
+      first_name: basket.first_name ?? '',
+      last_name: basket.last_name ?? '',
+      address_line_1: basket.address_line_1 ?? '',
+      address_line_2: basket.address_line_2 ?? '',
+      zipcode: basket.zipcode ?? '',
+      state: basket.state ?? '',
+      city: basket.city ?? '',
+      country: basket.country ?? '',
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
       setBasketAddress({
-        first_name: basket.first_name,
-        last_name: basket.last_name,
-        address_line_1: basket.address_line_1,
-        address_line_2: basket.address_line_2,
-        zipcode: basket.zipcode,
-        state: basket.state,
-        city: basket.city,
-        country: basket.country,
+        first_name: basket.first_name ?? '',
+        last_name: basket.last_name ?? '',
+        address_line_1: basket.address_line_1 ?? '',
+        address_line_2: basket.address_line_2 ?? '',
+        zipcode: basket.zipcode ?? '',
+        state: basket.state ?? '',
+        city: basket.city ?? '',
+        country: basket.country ?? '',
       });
     }, [basket]);
 
-    const onChange = React.useCallback(
+    const onChange = useCallback(
       (key: string) => (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setBasketAddress({ ...basketAddress, [key]: ev.target.value });
+        setBasketAddress((prev) => ({ ...prev, [key]: ev.target.value }));
       },
-      [basketAddress],
+      [],
     );
 
-    const onAddressSubmit = React.useCallback(() => {
-      onSubmit(basketAddress);
-    }, [basketAddress, onSubmit]);
-
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          onAddressSubmit,
-        };
-      },
-      [onAddressSubmit],
+    const onAddressSubmit = useCallback(
+      (options?: OptionCallback) => onSubmit(basketAddress, options),
+      [basketAddress, onSubmit],
     );
+
+    useImperativeHandle(ref, () => ({ onAddressSubmit }), [onAddressSubmit]);
 
     return (
       <div>
@@ -86,32 +95,27 @@ const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
           />
         </div>
         <AddressForm
-          address_line_1={basketAddress.address_line_1}
-          address_line_2={basketAddress.address_line_2}
-          city={basketAddress.city}
+          {...basketAddress}
           companyCountry={companyCountry}
-          country={basketAddress.country}
           onChange={onChange}
-          state={basketAddress.state}
-          zipcode={basketAddress.zipcode}
         />
         {!isCheckoutContext && (
           <div className={classes.buttonContainer}>
             {loading ? (
               <CircularProgress />
             ) : (
-              <React.Fragment>
+              <>
                 <Button onClick={onCancel}>
                   {t('forms.delivery.actions.cancel')}
                 </Button>
                 <Button
                   color="primary"
-                  onClick={onAddressSubmit}
+                  onClick={() => onAddressSubmit()}
                   variant="contained"
                 >
                   {t('forms.delivery.actions.submit')}
                 </Button>
-              </React.Fragment>
+              </>
             )}
           </div>
         )}

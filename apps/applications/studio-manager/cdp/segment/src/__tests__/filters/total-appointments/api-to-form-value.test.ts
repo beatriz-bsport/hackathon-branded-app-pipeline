@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   type PrivateBookingsFilter,
   SmartlistDateFilterType,
   SmartlistPrivateBookingsComparator,
@@ -10,15 +11,13 @@ import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "#src/components/filters/total-ap
 import { mapTotalAppointmentsFilterToFormValue } from "#src/components/filters/total-appointments/mappers/api-to-form-value";
 import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "#src/components/filters/total-appointments/sub-filters/total-appointments-sub-filter-id";
 
-const PRIVATE_BOOKINGS_FILTER_IDENTIFIER = 26;
-
 const buildApiFilter = (
   overrides: Partial<PrivateBookingsFilter> = {},
 ): PrivateBookingsFilter => ({
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  filter_identifier: Number(PRIVATE_BOOKINGS_FILTER_IDENTIFIER),
   comparator: SmartlistPrivateBookingsComparator.GTE,
   value: 3,
   value_second: 0,

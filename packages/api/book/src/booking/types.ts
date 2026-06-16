@@ -154,6 +154,7 @@ export type RecurrenceRuleBookingFilterParams = {
   member?: number;
   establishment?: number;
   meta_activity?: number;
+  offer?: number;
 } & PaginatedParameters;
 export type CancelBookingParams = {
   force_notify?: boolean;

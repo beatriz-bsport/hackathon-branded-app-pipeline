@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   EXPENSES_COMPLETE_BUYABLE,
   EXPENSES_COMPLETE_BUYABLE_DISPLAY_ORDER,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   type ExpensesCompleteFilter,
   SmartlistCreditComparator,
   SmartlistDateFilterType,
@@ -16,7 +17,7 @@ const baseApiFilter: ExpensesCompleteFilter = {
   id: 10,
   smartlist: 5,
   company_id: 1,
-  filter_identifier: 24,
+  filter_identifier: Number(EXPENSES_COMPLETE_FILTER_IDENTIFIER),
   buyable_identifiers: [],
   comparator: SmartlistCreditComparator.GTE,
   value: 100,

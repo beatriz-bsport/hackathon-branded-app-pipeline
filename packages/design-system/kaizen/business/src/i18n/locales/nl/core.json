@@ -1,7 +1,6 @@
 {
   "checkoutFlowModal": {
     "title": "Create invoice",
-    "cancel": "Sluiten",
     "loadingMemberInfo": "Loading member information...",
     "editMember": "Edit member",
     "addItem": "Add Item",

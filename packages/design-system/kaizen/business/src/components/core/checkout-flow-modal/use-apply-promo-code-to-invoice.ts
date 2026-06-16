@@ -13,6 +13,7 @@ import { useFormContext } from "@bsport/form";
 
 import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import { TYPE_TO_IDENTIFIER } from "#src/components/core/checkout-flow-modal/constants";
+import { resolveCheckoutItemInvoicePriceAndVoucher } from "#src/components/core/checkout-flow-modal/lib/resolve-checkout-item-invoice-price-voucher";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import type { CheckoutFlowItem } from "#src/components/core/checkout-flow-modal/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -30,16 +31,9 @@ const transformItemsToInvoiceItems = (
   items: CheckoutFlowItem[],
 ): InvoiceItem[] => {
   return items.map((item, index) => {
-    const price = (item.priceCts / 100).toFixed(2);
-    const voucher =
-      item.discountPercent > 0
-        ? (
-            (item.priceCts * item.quantity * item.discountPercent) /
-            10000
-          ).toFixed(2)
-        : item.discountAmountCts > 0
-          ? ((item.discountAmountCts * item.quantity) / 100).toFixed(2)
-          : "0.00";
+    const { price, voucher } = resolveCheckoutItemInvoicePriceAndVoucher(item, {
+      multiplyVoucherByQuantity: true,
+    });
 
     return {
       // Keep a per-line unique id so repeated promo-code applications do not overwrite

@@ -17,7 +17,9 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  HAS_PASSWORD_FILTER_IDENTIFIER,
   HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPasswordFilter,
   type HasPhoneFilter,
   LAST_BOOKING_FILTER_IDENTIFIER,
   LIABILITY_WAIVER_FILTER_IDENTIFIER,
@@ -29,9 +31,11 @@ import {
   type MemberDateJoinedFilter,
   NOTES_FILTER_IDENTIFIER,
   type NotesFilter,
+  PAYMENT_METHOD_FILTER_IDENTIFIER,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
+  type PaymentMethodFilter,
   type PaymentPackFilter,
   type PrivateBookingsFilter,
   type PrivatePassFilter,
@@ -56,12 +60,14 @@ import {
   isExpensesCompleteFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
+  isHasPasswordFilter,
   isHasPhoneFilter,
   isLastBookingFilter,
   isLiabilityWaiverFilter,
   isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isNotesFilter,
+  isPaymentMethodFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
   isPrivatePassFilter,
@@ -92,8 +98,10 @@ type SmartlistFiltersQueryData = {
   hasPhoneFilters: HasPhoneFilter[];
   termsAndConditionsFilters: TermsAndConditionsFilter[];
   liabilityWaiverFilters: LiabilityWaiverFilter[];
+  hasPasswordFilters: HasPasswordFilter[];
   lastBookingFilters: LastBookingFilter[];
   internalNotesFilters: NotesFilter[];
+  paymentMethodFilters: PaymentMethodFilter[];
 };
 
 const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
@@ -348,6 +356,19 @@ const mapLiabilityWaiverFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapHasPasswordFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): HasPasswordFilter[] => {
+  const hasPasswordFiltersMap = payload?.[HAS_PASSWORD_FILTER_IDENTIFIER];
+  if (!hasPasswordFiltersMap) {
+    return [];
+  }
+
+  return Object.values(hasPasswordFiltersMap)
+    .filter(isHasPasswordFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapLastBookingFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): LastBookingFilter[] => {
@@ -371,6 +392,19 @@ const mapInternalNotesFilters = (
 
   return Object.values(internalNotesFiltersMap)
     .filter(isNotesFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapPaymentMethodFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): PaymentMethodFilter[] => {
+  const paymentMethodFiltersMap = payload?.[PAYMENT_METHOD_FILTER_IDENTIFIER];
+  if (!paymentMethodFiltersMap) {
+    return [];
+  }
+
+  return Object.values(paymentMethodFiltersMap)
+    .filter(isPaymentMethodFilter)
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
@@ -401,7 +435,9 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       hasPhoneFilters: mapHasPhoneFilters(data),
       termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
       liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
+      hasPasswordFilters: mapHasPasswordFilters(data),
       lastBookingFilters: mapLastBookingFilters(data),
       internalNotesFilters: mapInternalNotesFilters(data),
+      paymentMethodFilters: mapPaymentMethodFilters(data),
     }),
   });

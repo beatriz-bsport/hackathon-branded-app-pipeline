@@ -1,7 +1,7 @@
 Release:Tag:
   extends:
     - .ci-runner-large-highcpu # 8 vCPU, 8GB RAM
-  stage: post-deploy
+  stage: release-tag
   before_script: !reference [.pnpm-setup, before_script]
   variables:
     GIT_STRATEGY: clone
@@ -74,6 +74,10 @@ Release:Build Artifact:
   needs:
     - job: Release:Tag
       artifacts: true
+      optional: true
+    - job: Check Kaizen Docs
+      artifacts: false
+      optional: true
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
@@ -97,7 +101,7 @@ Release:Build Artifact:
         exit 1
       fi
     - echo "🔱 Building release artifact for $RELEASE_TAG"
-    - ARTIFACT_VERSION="$RELEASE_TAG" bash tools/scripts/build-artifact.sh
+    - ARTIFACT_MODE=release ARTIFACT_VERSION="$RELEASE_TAG" bash tools/scripts/build-artifact.sh
 
 Release:Linear Sync:
   image: node:24-bookworm-slim

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { cx } from "#src/lib/cx";
+import { getDocsScrollObserverOptions } from "#src/lib/docs-scroll-root";
 import { headingSlug } from "#src/lib/heading-slug";
 
 export type PageTabItem =
@@ -81,17 +82,14 @@ export function PageTabs({ items }: PageTabsProps) {
 
     if (elements.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length === 0) return;
-        const first = visible.sort(
-          (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
-        )[0];
-        setActiveId(first.target.id);
-      },
-      { rootMargin: "-96px 0px -65% 0px", threshold: [0, 1] },
-    );
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting);
+      if (visible.length === 0) return;
+      const first = visible.sort(
+        (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
+      )[0];
+      setActiveId(first.target.id);
+    }, getDocsScrollObserverOptions());
 
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
@@ -102,7 +100,7 @@ export function PageTabs({ items }: PageTabsProps) {
   return (
     <nav
       aria-label="Page sections"
-      className="sticky top-[var(--site-header-height)] z-[25] -mx-1 mb-4 w-[calc(100%+0.5rem)] bg-[color:var(--color-bg)] px-1"
+      className="sticky top-0 z-[25] -mx-1 mb-4 w-[calc(100%+0.5rem)] bg-[color:var(--color-bg)] px-1"
     >
       <div
         role="tablist"

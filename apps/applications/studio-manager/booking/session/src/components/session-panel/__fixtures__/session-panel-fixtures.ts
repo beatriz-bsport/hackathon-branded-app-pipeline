@@ -146,6 +146,9 @@ export const sessionVariants = {
     linked_hybrid_offer_id: HYBRID_OFFER_ID,
     whitelist_tags: [11, 12],
     blacklist_tags: [21],
+    internal_note:
+      "Member sensitive to noise, prefers to be at the back of the room. " +
+      "Please keep the music low during the warm-up.",
   },
   minimal: {
     ...baseSession,
@@ -159,7 +162,16 @@ export const sessionVariants = {
 
 export const seededSessionPanelClient = (session: Session): QueryClient => {
   const client = new QueryClient({
-    defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnWindowFocus: false,
+        // Stories run against seeded data — never background-refetch to a real
+        // API. The note-save flow still refetches via explicit invalidation.
+        refetchOnMount: false,
+        staleTime: Infinity,
+      },
+    },
   });
 
   client.setQueryData(sessionKeys.detail(SESSION_ID), session);

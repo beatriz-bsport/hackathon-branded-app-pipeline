@@ -54,12 +54,12 @@
     "billingCycle": {
       "radioPurchaseDay": {
         "label": "Invoice on purchase day",
-        "tooltip": "Member's first invoice will be sent on the date of purchase.",
+        "tooltip": "Client's first invoice will be sent on the date of purchase.",
         "sublabel": "Billing interval"
       },
       "radioFixedDay": {
         "label": "Invoice on fixed day",
-        "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
+        "tooltip": "Client's first invoice will be sent on the chosen date and pro-rated if necessary.",
         "sublabel": "Every month on"
       }
     },
@@ -112,7 +112,7 @@
   },
   "overview": {
     "membershipPlanList": {
-      "loading": "Loading membership plans…",
+      "loading": "Loading active subscriptions…",
       "headers": {
         "startDate": "Start date",
         "member": "Member",
@@ -120,17 +120,17 @@
         "actions": "Actions"
       },
       "emptyList": {
-        "title": "No membership plans yet",
-        "subtitle": "Members who subscribe to this contract will appear here."
+        "title": "No active subscriptions yet",
+        "subtitle": "Clients who signed up to this subscription will appear here"
       },
       "actions": {
-        "viewBillingPlan": "View billing plan"
+        "viewBillingPlan": "Billing"
       },
       "statusTooltips": {
-        "valid": "Member's contract is active and billing normally.",
-        "canceled": "Member's contract is scheduled for cancellation.",
-        "paused": "Member's contract is currently on pause",
-        "ended": "Member's contract billing cycle has ended."
+        "valid": "Member's subscription is active and billing normally.",
+        "canceled": "Member's subscription is scheduled for cancellation.",
+        "paused": "Member's subscription is currently on pause",
+        "ended": "Member's subscription billing cycle has ended."
       }
     },
     "panel": {

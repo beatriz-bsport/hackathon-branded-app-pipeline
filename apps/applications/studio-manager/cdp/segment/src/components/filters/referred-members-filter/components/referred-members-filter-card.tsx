@@ -6,9 +6,11 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteReferredMemberFilterMutation } from "#src/api/use-delete-referred-member-filter-mutation";
 import { useUpsertReferredMemberFilterMutation } from "#src/api/use-upsert-referred-member-filter-mutation";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
 import { isReferredStatusToApi } from "../constants";
+import { mapReferredMemberFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildReferredMembersFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createReferredMembersFilterPayload } from "../mappers/form-value-to-create-payload";
 import { referredMembersFilterSchema } from "../schema";
@@ -39,18 +41,18 @@ export const ReferredMembersFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertReferredMemberFilterMutate, isLoading: isSaving } =
     useUpsertReferredMemberFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.30.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapReferredMemberFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

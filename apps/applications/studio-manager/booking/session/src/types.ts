@@ -9,7 +9,7 @@ import type {
   Session,
 } from "@bsport/api-book";
 import type { ConsumerPaymentPack, Pass } from "@bsport/api-buyables";
-import type { Member, MemberNote } from "@bsport/api-cdp";
+import type { Member, MemberNote } from "@bsport/api-cdp/member";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -76,7 +76,10 @@ export enum AppointmentColumn {
 
 // Tab identifiers match the user-facing labels
 // Internally, class data is modeled as sessions.
-export type CalendarTab = "classes" | "appointments";
+export type CalendarTab = "classes" | "appointments" | "series";
+// TODO: Remove this split once Series has its own store/display-settings wiring.
+// this type is temporary (Include only tabs that have store data)
+export type CalendarDataTab = Exclude<CalendarTab, "series">;
 
 export enum CalendarView {
   DAILY = "daily",

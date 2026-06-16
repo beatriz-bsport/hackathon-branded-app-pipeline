@@ -34,9 +34,9 @@
       },
       "warnings": {
         "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
-        "exclusiveAssociatedCoaches_one": "Your teacher {{- coach_name}} is only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
-        "exclusiveAssociatedCoaches_other": "Your teachers {{- coach_name}} are only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
-        "hasRelatedAssociatedCoaches": "Some teachers are notified when a substitution request is made for a session in this location. By deleting the location, they will stop receiving the notification for it.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
+        "hasRelatedAssociatedCoaches": "Some teachers are currently only notified of substitution requests for classes at this location. Deleting this location will stop notifications.",
         "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for the Member Area will not display this location calendar anymore.",
         "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted."
       },
@@ -82,21 +82,16 @@
     "createLocation": "Create location",
     "createLocationTooltip": "A location groups venues for shared marketing, products, and reporting.",
     "createVenue": "Create venue",
-    "createVenueTooltip": "Create a new space for sessions and bookings."
+    "createVenueTooltip": "Create a new space for classes and bookings."
   },
   "detail": {
     "breadcrumbs": {
       "venues": "Venues"
     },
-    "tabs": {
-      "editor": "Editor",
-      "calendar": "Calendar"
-    },
     "actions": {
       "archive": "Archive",
       "configureWidget": "Configure widget"
     },
-    "comingSoon": "Coming soon",
     "notFound": "Venue not found",
     "editor": {
       "discard": {
@@ -158,9 +153,9 @@
       "warning": "Archiving this venue will have the following consequences:"
     },
     "errors": {
-      "hasUpcomingOffers": "Some upcoming sessions take place in this venue. Please cancel and delete them before archiving.",
+      "hasUpcomingOffers": "Some upcoming classes take place in this venue. Please cancel and delete them before archiving.",
       "hasUpcomingPrivateBookings": "Some upcoming appointments take place in this venue. Please cancel and delete them before archiving.",
-      "hasExclusiveBillingGroup": "This venue is the last one of its billing group. Please delete or update this billing group before archiving.",
+      "hasExclusiveBillingGroup": "This venue is tied to a billing location. Delete or update this billing location before archiving this venue. ",
       "exclusiveEstablishmentGroups": "This venue will be removed from the following location(s): {{names}}. Please update them before archiving.",
       "exclusivePaymentPacks": "The following passes {{names}} are only usable in this venue. Please update their restrictions before archiving.",
       "hasExclusiveMarketplaceComponentConfigs": "This venue has exclusive marketplace component configurations. Please update them before archiving.",
@@ -168,7 +163,7 @@
     },
     "warnings": {
       "title": "Archiving this venue will affect the following:",
-      "hasBillingGroup": "This venue belongs to billing group {{name}}.",
+      "hasBillingGroup": "This venue belongs to billing location {{name}}.",
       "exclusivePrivateServices": "The following private service(s) are exclusively assigned to this venue: {{names}}.",
       "relatedPaymentPacks": "The following passes {{names}} are assigned to this venue.",
       "hasExclusiveStaffConfigurations": "Some staff are exclusively configured for this venue.",
@@ -185,8 +180,8 @@
     "info": {
       "noReports": "The venue will not be deleted from past reports.",
       "widgets": "Calendar and Workshops widgets may have been configured with this venue, do not forget to update them.",
-      "sessions": "Existing sessions, workshops and past bookings will not be modified.",
-      "appointments": "Past appointments sessions will not be modified."
+      "sessions": "Existing classes and past bookings won't be affected",
+      "appointments": "Past appointments won't be affected"
     }
   },
   "venueModal": {

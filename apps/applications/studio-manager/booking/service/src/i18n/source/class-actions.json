@@ -6,7 +6,7 @@
       "cancel": "Cancel",
       "retry": "Retry",
       "modalContent": "It will no longer be active but can be restored any time from your archive. Bookings already made will not be affected.",
-      "cantArchive": "{{className}} cannot be archived right now. Cancel all upcoming sessions and bookings first.",
+      "cantArchive": "{{className}} can't be archived right now. Cancel all upcoming classes and bookings first.",
       "checkError": "Something went wrong while checking if this class can be archived."
     },
     "duplicateModal": {

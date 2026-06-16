@@ -33,7 +33,6 @@ export const FeatureFlags = {
   LEAD_ACQUISITION_WIDGET_REQUIRE_RECAPTCHA:
     'lead-acquisition-widget-require-recaptcha',
   MARKETING_DOUBLE_OPT_IN: 'marketing_double_opt_in',
-  MEMBER_AREA_BASKET_UNIFIED: 'member-area-basket-unified',
   NEW_SUBSCRIPTION_CONTRACTS: 'new-subscription-contracts',
   SCHEDULE_ANALYSIS: 'insights_schedule_analysis_page',
   STOP_SUBSCRIPTION_FROM_MEMBER_SIDE: 'stop_subscription_on_memberside',

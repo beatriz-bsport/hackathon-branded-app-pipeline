@@ -11,7 +11,7 @@ import {
   privateBookingKeys,
 } from "@bsport/api-book";
 import type { Establishment, Teacher } from "@bsport/api-book";
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import type { DateTime } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 

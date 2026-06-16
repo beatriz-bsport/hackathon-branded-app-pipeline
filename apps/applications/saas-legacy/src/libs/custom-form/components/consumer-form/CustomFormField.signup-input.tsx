@@ -467,7 +467,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             id={uniqueCustomFormFieldIdentifier}
             isDisabled={props.asManager}
             isRequired={props.field.mandatory}
-            label={t('translation:form.signup.fields.accept_email')}
+            label={label}
             name={`custom_form_field.${props.index}.answer`}
           />
         );
@@ -475,11 +475,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <CheckboxField
           disabled={props.asManager}
-          label={
-            <Typography variant="caption">
-              {t('translation:form.signup.fields.accept_email')}
-            </Typography>
-          }
+          label={<Typography variant="caption">{label}</Typography>}
           name={`custom_form_field.${props.index}.answer`}
           // @ts-expect-error
           required={props.field.mandatory}
@@ -492,7 +488,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             id={uniqueCustomFormFieldIdentifier}
             isDisabled={props.asManager}
             isRequired={props.field.mandatory}
-            label={t('translation:form.signup.fields.accept_sms')}
+            label={label}
             name={`custom_form_field.${props.index}.answer`}
           />
         );
@@ -500,11 +496,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <CheckboxField
           disabled={props.asManager}
-          label={
-            <Typography variant="caption">
-              {t('translation:form.signup.fields.accept_sms')}
-            </Typography>
-          }
+          label={<Typography variant="caption">{label}</Typography>}
           name={`custom_form_field.${props.index}.answer`}
           // @ts-expect-error
           required={props.field.mandatory}

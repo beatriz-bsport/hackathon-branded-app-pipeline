@@ -38,6 +38,8 @@ Build Artifact MR:
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
+  variables:
+    ARTIFACT_MODE: "backoffice"
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always

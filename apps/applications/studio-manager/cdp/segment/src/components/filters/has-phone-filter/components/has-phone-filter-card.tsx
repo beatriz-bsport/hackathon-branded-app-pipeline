@@ -5,8 +5,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteHasPhoneFilterMutation } from "#src/api/use-delete-has-phone-filter-mutation";
 import { useUpsertHasPhoneFilterMutation } from "#src/api/use-upsert-has-phone-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapHasPhoneFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildHasPhoneFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createHasPhoneFilterPayload } from "../mappers/form-value-to-create-payload";
 import { hasPhoneFilterSchema } from "../schema";
@@ -33,19 +35,19 @@ export const HasPhoneFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { dirtyFields } = methods.formState;
+  const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertHasPhoneFilterMutate, isLoading: isSaving } =
     useUpsertHasPhoneFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.106.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapHasPhoneFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -70,7 +72,6 @@ export const HasPhoneFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const handleSave = methods.handleSubmit(

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  FIRST_PURCHASE_FILTER_IDENTIFIER,
   SmartlistDateFilterType,
   SmartlistPaymentComparator,
 } from "@bsport/api-cdp/smartlist";
@@ -19,7 +20,7 @@ const baseApiFilter = {
   id: 10,
   smartlist: 5,
   company_id: 1,
-  filter_identifier: 28,
+  filter_identifier: Number(FIRST_PURCHASE_FILTER_IDENTIFIER),
   date_filter_active: false,
   date_filter_type: SmartlistDateFilterType.DATE_EXACT,
   date: "2024-01-01",

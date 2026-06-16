@@ -6,8 +6,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteMemberDateJoinedFilterMutation } from "#src/api/use-delete-member-date-joined-filter-mutation";
 import { useUpsertMemberDateJoinedFilterMutation } from "#src/api/use-upsert-member-date-joined-filter-mutation";
 import { DateFilter } from "#src/components/primitive-filters/date-filter/date-filter";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapMemberDateJoinedFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { memberSignUpDateFilterSchema } from "../schema";
@@ -34,18 +36,18 @@ export const MemberSignUpDateFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertMemberDateJoinedFilterMutate, isLoading: isSaving } =
     useUpsertMemberDateJoinedFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.18.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapMemberDateJoinedFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -136,18 +138,14 @@ export const MemberSignUpDateFilterCard = ({
           }
           disabled={isSaving || isDeleting}
           errors={{
-            absoluteFromDate: errors.signUpDate?.absolute?.fromDate?.message
-              ? String(errors.signUpDate.absolute.fromDate.message)
-              : undefined,
-            absoluteToDate: errors.signUpDate?.absolute?.toDate?.message
-              ? String(errors.signUpDate.absolute.toDate.message)
-              : undefined,
-            relativeFirstDays: errors.signUpDate?.relative?.firstDays?.message
-              ? String(errors.signUpDate.relative.firstDays.message)
-              : undefined,
-            relativeSecondDays: errors.signUpDate?.relative?.secondDays?.message
-              ? String(errors.signUpDate.relative.secondDays.message)
-              : undefined,
+            absoluteFromDate:
+              errors.signUpDate?.absolute?.fromDate?.message?.toString(),
+            absoluteToDate:
+              errors.signUpDate?.absolute?.toDate?.message?.toString(),
+            relativeFirstDays:
+              errors.signUpDate?.relative?.firstDays?.message?.toString(),
+            relativeSecondDays:
+              errors.signUpDate?.relative?.secondDays?.message?.toString(),
           }}
         />
 

@@ -6,7 +6,7 @@ import {
   fetchPaginatedBookingOptionsQueryOption,
   fetchWaitingListPositionsQueryOption,
 } from "@bsport/api-book";
-import { memberListQueryOptions } from "@bsport/api-cdp";
+import { memberListQueryOptions } from "@bsport/api-cdp/member";
 
 import { useSessionManagementStore } from "#src/stores/session-management/store.js";
 import type { RefinedBookingOption } from "#src/types";

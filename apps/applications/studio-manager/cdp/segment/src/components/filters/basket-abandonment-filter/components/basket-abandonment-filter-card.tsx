@@ -7,8 +7,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteBasketAbandonmentFilterMutation } from "#src/api/use-delete-basket-abandonment-filter-mutation";
 import { useUpsertBasketAbandonmentFilterMutation } from "#src/api/use-upsert-basket-abandonment-filter-mutation";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapBasketAbandonmentFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createBasketAbandonmentFilterPayload } from "../mappers/form-value-to-create-payload";
 import { basketAbandonmentFilterSchema } from "../schema";
@@ -38,18 +40,18 @@ export const BasketAbandonmentFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertBasketAbandonmentFilterMutate, isLoading: isSaving } =
     useUpsertBasketAbandonmentFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.20.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapBasketAbandonmentFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {

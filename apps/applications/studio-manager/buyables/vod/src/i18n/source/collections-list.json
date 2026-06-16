@@ -25,7 +25,7 @@
   },
   "deleteModal": {
     "title": "Delete Collection?",
-    "description": "Your members will no longer have access to this collection.",
+    "description": "Clients will no longer have access to this collection.",
     "buttons": {
       "cancel": "Cancel",
       "delete": "Delete"

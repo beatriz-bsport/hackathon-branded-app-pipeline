@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import type { GenderFilter } from "@bsport/api-cdp/smartlist";
+import {
+  GENDER_FILTER_IDENTIFIER,
+  type GenderFilter,
+} from "@bsport/api-cdp/smartlist";
 
 import { GENDER_OPTIONS } from "#src/components/filters/gender-filter/constants";
 import { mapGenderFilterToFormValue } from "#src/components/filters/gender-filter/mappers/api-to-form-value";
-
-const GENDER_FILTER_IDENTIFIER = 5;
 
 const buildApiFilter = (
   overrides: Partial<GenderFilter> = {},
@@ -13,7 +14,7 @@ const buildApiFilter = (
   id: 1,
   company_id: 1,
   smartlist: 1,
-  filter_identifier: GENDER_FILTER_IDENTIFIER,
+  filter_identifier: Number(GENDER_FILTER_IDENTIFIER),
   value: GENDER_OPTIONS.male,
   ...overrides,
 });

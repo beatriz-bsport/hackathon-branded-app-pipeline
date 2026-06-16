@@ -5,8 +5,10 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLiabilityWaiverFilterMutation } from "#src/api/use-delete-liability-waiver-filter-mutation";
 import { useUpsertLiabilityWaiverFilterMutation } from "#src/api/use-upsert-liability-waiver-filter-mutation";
+import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
+import { mapLiabilityWaiverFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildLiabilityWaiverFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createLiabilityWaiverFilterPayload } from "../mappers/form-value-to-create-payload";
 import { liabilityWaiverFilterSchema } from "../schema";
@@ -33,19 +35,19 @@ export const LiabilityWaiverFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { dirtyFields } = methods.formState;
+  const { dirtyFields, isDirty } = methods.formState;
+  useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
 
   const { upsertLiabilityWaiverFilterMutate, isLoading: isSaving } =
     useUpsertLiabilityWaiverFilterMutation(smartlistId, {
-      onSuccess: () => {
+      onSuccess: (savedFilter) => {
         toast({
           status: "default",
           icon: "check-circle",
           title: t("filters.410.toasts.saveSuccess"),
           buttonIcon: "x-close",
         });
-        const newValues = methods.getValues();
-        methods.reset(newValues);
+        methods.reset(mapLiabilityWaiverFilterToFormValue(savedFilter));
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -70,7 +72,6 @@ export const LiabilityWaiverFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const handleSave = methods.handleSubmit(

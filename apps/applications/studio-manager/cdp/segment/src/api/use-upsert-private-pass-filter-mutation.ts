@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   type CreatePrivatePassFilterPayload,
+  type PrivatePassFilter,
   type UpdatePrivatePassFilterPayload,
   createPrivatePassFilter,
   patchPrivatePassFilter,
@@ -18,7 +19,7 @@ type UpsertPrivatePassFilterVariables = {
 };
 
 type UseUpsertPrivatePassFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: PrivatePassFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -47,11 +48,11 @@ export const useUpsertPrivatePassFilterMutation = (
 
       return patchPrivatePassFilter(fetch, filterId, updatePayload);
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

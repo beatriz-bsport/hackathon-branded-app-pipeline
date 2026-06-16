@@ -14,3 +14,9 @@ export const TYPE_TO_IDENTIFIER: Record<string, number> = {
 
 export const GIFTCARD_KIND_EMAIL = 1;
 export const GIFTCARD_KIND_PDF = 2;
+
+/** How checkout completes when the user chooses Pay now vs Pay later. */
+export const INVOICE_COMPLETION_INTENT = {
+  PAY_NOW: "pay_now",
+  PAY_LATER: "pay_later",
+} as const;

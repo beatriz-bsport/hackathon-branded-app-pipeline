@@ -21,11 +21,13 @@ const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
 export const automatedCampaignKeys = {
   all: [QUERY_KEY_MAIN, "automated-campaign"] as const,
 
+  lists: () => [...automatedCampaignKeys.all, "list"] as const,
   list: (smartlistId: string) =>
-    [...automatedCampaignKeys.all, "list", smartlistId] as const,
+    [...automatedCampaignKeys.lists(), smartlistId] as const,
 
+  details: () => [...automatedCampaignKeys.all, "detail"] as const,
   detail: (messageId: string) =>
-    [...automatedCampaignKeys.all, "detail", messageId] as const,
+    [...automatedCampaignKeys.details(), messageId] as const,
 } as const;
 
 // ── GET Configs ──

@@ -4,7 +4,7 @@ import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import {
   AppointmentColumn,
   AppointmentModalType,
-  CalendarTab,
+  CalendarDataTab,
   CalendarView,
   EnrichedAppointment,
   EnrichedSession,
@@ -84,13 +84,16 @@ export const setLocale = (locale: string) => {
 
 // Tab-aware actions
 
-export const setFilters = (tab: CalendarTab, filters: FilterElementState[]) => {
+export const setFilters = (
+  tab: CalendarDataTab,
+  filters: FilterElementState[],
+) => {
   calendarStore.setState((state) => ({
     [tab]: { ...state[tab], filters },
   }));
 };
 
-export const setShowCancelled = (tab: CalendarTab, show: boolean) => {
+export const setShowCancelled = (tab: CalendarDataTab, show: boolean) => {
   calendarStore.setState((state) => ({
     [tab]: { ...state[tab], showCancelled: show },
   }));
@@ -103,7 +106,7 @@ export function toggleColumn(
   column: AppointmentColumn,
 ): void;
 export function toggleColumn(
-  tab: CalendarTab,
+  tab: CalendarDataTab,
   column: SessionColumns | AppointmentColumn,
 ): void {
   calendarStore.setState((state) => {

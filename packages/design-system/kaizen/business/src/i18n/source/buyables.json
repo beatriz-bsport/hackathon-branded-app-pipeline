@@ -12,7 +12,7 @@
         "helperText": "Cash or cheque"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with clients using a link and paid for via online payment."
   },
   "visibilitySelector": {
     "optionVisible": {
@@ -29,11 +29,11 @@
     "checkboxes": {
       "recommended": {
         "label": "Mark as recommended",
-        "helperText": "Allows your customers to quickly see which offerings are currently recommended"
+        "helperText": "Allows your clients to quickly see which offerings are currently recommended"
       },
       "newMembersOnly": {
-        "label": "Only available to new members",
-        "helperText": "Members are 'new' as long as they haven't bought an item with a value more than {{ minimalCurrency }}. Even if a member buys an item with a 100% discount, this still counts as a purchase."
+        "label": "Only available to new clients",
+        "helperText": "Clients are 'new' as long as they haven't bought an item with a value more than {{ minimalCurrency }}. Even they buy an item with a 100% discount, this still counts as a purchase."
       },
       "hideFromStaff": {
         "label": "Hide from staff",
@@ -44,7 +44,7 @@
   "tagsAfterPurchaseSelector": {
     "placeholder": "Add tags",
     "title": "Tag after purchase",
-    "description": "Add tags to identify which member bought this item."
+    "description": "Add tags to identify which client bought this item"
   },
   "copyPaymentLinkButton": {
     "toastSuccess": "Link copied",
@@ -80,7 +80,7 @@
     },
     "maximumUsage": {
       "label": "Set maximum usage",
-      "helperText": "Control the maximum allowed usage per day, week, month, or purchase per member",
+      "helperText": "Control the maximum allowed usage per day, week, month, or purchase per client",
       "gridColumns": {
         "maximumUsage": "Maximum usage",
         "scope": "Scope"
@@ -89,12 +89,12 @@
         "day": "Day",
         "week": "Week",
         "month": "Month",
-        "member": "Member"
+        "member": "Client"
       }
     },
     "timeRestrictions": {
       "label": "Restrict booking to certain time",
-      "helperText": "Members can only book during the selected times",
+      "helperText": "Clients can only book during the selected times",
       "timePeriod": "Time period",
       "allDay": "All day",
       "addMoreSchedule": "Add more schedule",
@@ -106,7 +106,7 @@
     },
     "penalty": {
       "label": "Apply penalty",
-      "helperText": "Penalty to members with frequent no show or late cancellation",
+      "helperText": "Penalty to clients with frequent no show or late cancellation",
       "daysSuffix": "",
       "daysSuffix_one": "day",
       "daysSuffix_other": "days",
@@ -140,19 +140,19 @@
       "placeholder": "Search for an appointment",
       "loadingMessage": "Loading appointments…",
       "list": {
-        "compatibleWithAll": "Compatible with all sessions",
+        "compatibleWithAll": "Compatible with all classes",
         "compatibleWith": "Compatible with: {{ slotNames }}",
-        "noSessionsAvailable": "No sessions available",
+        "noSessionsAvailable": "No classes available",
         "removeAction": "Remove",
-        "editAction": "Edit compatible sessions"
+        "editAction": "Edit compatible classes"
       },
       "editModal": {
         "selectAll": "Select all",
-        "helperText": "Members can use this pass for the selected sessions only.",
-        "noSessionsAlert": "All eligible sessions have been removed. This subscription is no longer compatible with any {{ appointmentName }} sessions.",
+        "helperText": "Clients can use this pass for the selected classes only",
+        "noSessionsAlert": "This subscription is no longer compatible with {{ appointmentName }} appointments.",
         "cancel": "Cancel",
         "save": "Save",
-        "emptyState": "This appointment has no session yet."
+        "emptyState": "This appointment has no time slot yet."
       }
     }
   },
@@ -181,6 +181,6 @@
   },
   "accessControlToggle": {
     "label": "Grant studio access",
-    "helperText": "Members with this pass can unlock studio doors. To restrict access times, set time rules in the Kisi platform."
+    "helperText": "Clients with this pass can unlock studio doors. To restrict access times, set time rules in the Kisi platform."
   }
 }

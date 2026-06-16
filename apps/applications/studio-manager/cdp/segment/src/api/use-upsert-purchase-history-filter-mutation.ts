@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { upsertExpensesCompleteFilterMutationOptions } from "@bsport/api-cdp/smartlist";
+import {
+  type ExpensesCompleteFilter,
+  upsertExpensesCompleteFilterMutationOptions,
+} from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
 
 type UseUpsertPurchaseHistoryFilterMutationParams = {
-  onSuccess?: () => void;
+  onSuccess?: (data: ExpensesCompleteFilter) => void;
   onError?: (error: Error) => void;
 };
 
@@ -22,11 +25,11 @@ export const useUpsertPurchaseHistoryFilterMutation = (
 
   const mutation = useMutation({
     ...upsertExpensesCompleteFilterMutationOptions(fetch),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
-      params.onSuccess?.();
+      params.onSuccess?.(data);
     },
     onError: (error) => params.onError?.(error),
   });

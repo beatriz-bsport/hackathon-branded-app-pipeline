@@ -22,7 +22,7 @@
     },
     "tooltips": {
       "unlisted": "Not listed on the Member Area",
-      "hiddenToStaff": "Hidden from staff members",
+      "hiddenToStaff": "Hidden from staff",
       "limitedTime": "Only listed for a limited time",
       "archive": "Delete pack"
     }
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Delete pack?",
     "description": {
-      "effect": "Once you delete {{ name }} , it will no longer be visible to members. ",
-      "canNotBeUndone": "All members who bought this pack will be unaffected. "
+      "effect": "Once you delete {{ name }} , it will no longer be visible to clients. ",
+      "canNotBeUndone": "All clients who bought this pack will be unaffected. "
     },
     "actions": {
       "cancel": "Keep",

@@ -282,10 +282,6 @@ export function isPast(
   date: string | DateTime,
   strict: boolean = true,
 ): boolean {
-  if (typeof date === "string" && !isValidDate(date)) {
-    return false;
-  }
-
   const today = LuxonDateTime.now();
   const dateToCompare =
     typeof date === "string"

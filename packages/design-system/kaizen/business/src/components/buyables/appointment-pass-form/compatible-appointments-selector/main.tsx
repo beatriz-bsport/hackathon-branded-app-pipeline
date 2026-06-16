@@ -42,6 +42,7 @@ export type AppointmentPassFormCompatibleAppointmentsSelectorProps<
   privateServicesFieldName: TPrivateServicesField;
   compatibilityFieldName: TCompatibilityField;
   required?: boolean;
+  disabled?: boolean;
 };
 
 export const AppointmentPassFormCompatibleAppointmentsSelector = <
@@ -56,6 +57,7 @@ export const AppointmentPassFormCompatibleAppointmentsSelector = <
   privateServicesFieldName,
   compatibilityFieldName,
   required,
+  disabled,
 }: AppointmentPassFormCompatibleAppointmentsSelectorProps<
   TFormValues,
   TPrivateServicesField,
@@ -129,6 +131,7 @@ export const AppointmentPassFormCompatibleAppointmentsSelector = <
         privateServicesFieldName={privateServicesFieldName}
         compatibilityFieldName={compatibilityFieldName}
         required={required}
+        disabled={disabled}
       />
       <Activity mode={hasSelection ? "visible" : "hidden"}>
         <CompatibleAppointmentList<
@@ -155,6 +158,7 @@ export const AppointmentPassFormCompatibleAppointmentsSelector = <
           excludedSlotIds={editingExcludedSlotIds}
           onClose={() => setEditingAppointmentId(null)}
           onSave={handleSaveExclusions}
+          disabled={disabled}
         />
       )}
     </div>

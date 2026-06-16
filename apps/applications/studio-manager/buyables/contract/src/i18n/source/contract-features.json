@@ -83,5 +83,8 @@
       "nbOfCredits_other": "{{ count }} credits",
       "unlimited": "Unlimited"
     }
+  },
+  "editBenefitModal": {
+    "save": "Save"
   }
 }

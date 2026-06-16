@@ -20,6 +20,7 @@ export type EditCompatibleSlotsModalProps = {
   excludedSlotIds: number[];
   onClose: () => void;
   onSave: (nextExcludedSlotIds: number[]) => void;
+  disabled?: boolean;
 };
 
 const computeSelectAllValue = (
@@ -38,6 +39,7 @@ export const EditCompatibleSlotsModal: FC<EditCompatibleSlotsModalProps> = ({
   excludedSlotIds,
   onClose,
   onSave,
+  disabled,
 }) => {
   const { t } = useTranslation("buyables", { i18n: i18nInstance });
 
@@ -67,6 +69,9 @@ export const EditCompatibleSlotsModal: FC<EditCompatibleSlotsModalProps> = ({
   };
 
   const toggleSlot = (slotId: string) => {
+    if (disabled) {
+      return;
+    }
     setCheckedIds((previous) =>
       previous.includes(slotId)
         ? previous.filter((id) => id !== slotId)
@@ -92,10 +97,19 @@ export const EditCompatibleSlotsModal: FC<EditCompatibleSlotsModalProps> = ({
       id: slotId,
       title: slot.name,
       className: "cursor-pointer",
+      disabled: disabled,
       // When clicking on the row
-      onItemClick: () => toggleSlot(slotId),
+      onItemClick: () => {
+        if (disabled) {
+          return;
+        }
+        toggleSlot(slotId);
+      },
       // When clicking on the checkbox (that swallows the row click)
       onCheckboxChange: (checked) => {
+        if (disabled) {
+          return;
+        }
         if (checked && !checkedIds.includes(slotId)) {
           setCheckedIds((prev) => [...prev, slotId]);
         }
@@ -123,6 +137,7 @@ export const EditCompatibleSlotsModal: FC<EditCompatibleSlotsModalProps> = ({
           "appointmentPassForm.compatibleAppointmentsSelector.editModal.save",
         ),
         onClick: handleSave,
+        disabled,
       }}
     >
       <div className="flex flex-col gap-md">
@@ -142,6 +157,7 @@ export const EditCompatibleSlotsModal: FC<EditCompatibleSlotsModalProps> = ({
               "appointmentPassForm.compatibleAppointmentsSelector.editModal.selectAll",
             )}
             onChange={handleSelectAll}
+            disabled={disabled}
           />
         )}
         <List

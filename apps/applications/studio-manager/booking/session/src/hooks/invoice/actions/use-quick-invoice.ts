@@ -13,13 +13,7 @@ import { fetch } from "#src/utils/fetch.js";
 import { useTranslation } from "#src/utils/i18n";
 import { useAddProcessingToast } from "#src/utils/processing-toast.js";
 
-export const useQuickInvoice = ({
-  onSuccess,
-  onError,
-}: {
-  onSuccess?: () => void;
-  onError?: () => void;
-}) => {
+export const useQuickInvoice = () => {
   const { t } = useTranslation("sessionManagement");
   const queryClient = useQueryClient();
   const addProcessingToast = useAddProcessingToast();
@@ -46,7 +40,6 @@ export const useQuickInvoice = ({
         icon: "check",
         title: t("bookingFlow.confirmation.confirmationToast"),
       });
-      onSuccess?.();
     },
     onError: (error, _variables, onMutateResult) => {
       console.error("Error registering booking:", error);
@@ -55,7 +48,6 @@ export const useQuickInvoice = ({
         status: "critical",
         title: t("bookingFlow.confirmation.quickInvoiceErrorToast"),
       });
-      onError?.();
     },
   });
 

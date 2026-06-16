@@ -6,6 +6,7 @@ import {
   bookingKeys,
   cancelBookingAPI,
   sessionKeys,
+  waitingListKeys,
 } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
@@ -30,6 +31,9 @@ export const useCancelBooking = () => {
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
       queryClient.invalidateQueries({
         queryKey: sessionKeys.detail(sessionId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: waitingListKeys.all,
       });
       toast({
         status: "default",

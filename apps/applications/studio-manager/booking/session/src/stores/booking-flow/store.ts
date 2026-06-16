@@ -5,7 +5,6 @@ import { bindStore } from "@bsport/store-base";
 import type { BookingFlowState } from "./types";
 
 export const getInitialState = (): BookingFlowState => ({
-  variant: "single",
   memberId: null,
   consumerPaymentPackId: null,
   paymentPackId: null,

@@ -1,9 +1,3 @@
-export type BookingFlowVariant =
-  | "single"
-  | "recurring-sessions"
-  | "series"
-  | "convert-booking-option";
-
 export type DiscountState = {
   enabled: boolean;
   type: "percentage" | "amount";
@@ -12,7 +6,6 @@ export type DiscountState = {
 };
 
 export interface BookingFlowState {
-  variant: BookingFlowVariant;
   memberId: number | null;
   consumerPaymentPackId: number | null;
   paymentPackId: number | null;

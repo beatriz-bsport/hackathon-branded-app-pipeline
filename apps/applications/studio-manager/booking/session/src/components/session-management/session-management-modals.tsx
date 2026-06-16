@@ -45,7 +45,21 @@ export const SessionManagementModals: FC<Props> = ({
   return (
     <>
       {modalState?.type === SessionManagementModalType.BOOK && (
-        <BookingFlowModal sessionId={sessionId} isOpen onClose={closeModal} />
+        <BookingFlowModal
+          sessionId={sessionId}
+          isOpen
+          onClose={closeModal}
+          bookingOptionId={modalState.bookingOptionId}
+          initialMemberId={modalState.memberId}
+        />
+      )}
+      {modalState?.type === SessionManagementModalType.ADD_TO_WAITLIST && (
+        <BookingFlowModal
+          sessionId={sessionId}
+          isOpen
+          onClose={closeModal}
+          isAddToWaitlist
+        />
       )}
       {modalState?.type === SessionManagementModalType.CANCEL && (
         <CancelSessionModal session={session} isOpen onClose={closeModal} />

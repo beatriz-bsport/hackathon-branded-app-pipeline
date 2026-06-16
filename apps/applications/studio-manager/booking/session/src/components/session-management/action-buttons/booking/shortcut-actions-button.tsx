@@ -219,8 +219,13 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.bookToClass"),
         iconLeft: "plus",
         type: "button",
+        disabled: !openModal || !bookingOptionId || !memberId,
         onClick: () => {
-          // TODO: implement book option action
+          if (!openModal || !bookingOptionId || !memberId) return;
+          openModal(SessionManagementModalType.BOOK, {
+            bookingOptionId,
+            memberId,
+          });
           setIsPopoverOpened(false);
         },
       };

@@ -491,5 +491,13 @@
         "exceedsPercentage": "Percentage cannot exceed 100%"
       }
     }
+  },
+  "swapBookingPassModal": {
+    "title": "Swap pass",
+    "description": "Pick an existing pass",
+    "confirmButton": "Swap pass",
+    "cancelButton": "Back",
+    "successMessage": "Pass swapped",
+    "errorMessage": "An error occurred while swapping the pass. Please try again."
   }
 }

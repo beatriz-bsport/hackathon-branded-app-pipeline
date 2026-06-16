@@ -128,6 +128,8 @@ export const BookingDetails: FC<{
               bookingId={selectedBooking.id}
               openModal={openModal}
               sessionId={selectedBooking.offer}
+              memberId={selectedBooking.member ?? undefined}
+              consumerPaymentPackId={selectedBooking.consumer_payment_pack}
               allowedItemIds={[
                 BookingActionItemId.SWAP_SPOT,
                 BookingActionItemId.SWAP_PASS,

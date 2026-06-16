@@ -10,6 +10,7 @@ import {
 import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch.js";
+import { getErrorMessageFromCodes } from "#src/utils/get-error-message-from-codes";
 import { useTranslation } from "#src/utils/i18n";
 import { useAddProcessingToast } from "#src/utils/processing-toast.js";
 
@@ -17,6 +18,14 @@ export const useQuickInvoice = () => {
   const { t } = useTranslation("sessionManagement");
   const queryClient = useQueryClient();
   const addProcessingToast = useAddProcessingToast();
+
+  const CODE_MAP: Partial<Record<number, string>> = {
+    4500: t("bookingFlow.confirmation.quickInvoiceErrors.4500"),
+    8001: t("bookingFlow.confirmation.quickInvoiceErrors.8001"),
+    15000: t("bookingFlow.confirmation.quickInvoiceErrors.15000"),
+    20000: t("bookingFlow.confirmation.quickInvoiceErrors.20000"),
+    99000: t("bookingFlow.confirmation.quickInvoiceErrors.99000"),
+  };
 
   const { mutate: createQuickInvoice, isPending } = useMutation({
     ...createQuickInvoiceMutationOptions(fetch),
@@ -46,7 +55,11 @@ export const useQuickInvoice = () => {
       if (onMutateResult?.toastId) dismissToast(onMutateResult.toastId);
       toast({
         status: "critical",
-        title: t("bookingFlow.confirmation.quickInvoiceErrorToast"),
+        title: getErrorMessageFromCodes(
+          error,
+          CODE_MAP,
+          t("bookingFlow.confirmation.quickInvoiceErrors.generic"),
+        ),
       });
     },
   });

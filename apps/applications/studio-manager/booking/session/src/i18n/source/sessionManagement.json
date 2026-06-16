@@ -351,7 +351,15 @@
     "addToWaitlist": {
       "title": "Add to waitlist",
       "successToast": "Client added to waitlist",
-      "errorToast": "Couldn't add client to waitlist"
+      "errors": {
+        "4505": "Staff role is not allowed to exceed waiting list capacity.",
+        "6002": "The waiting list is full. Impossible to register.",
+        "6003": "Already registered on this waiting list.",
+        "6005": "Someone is currently trying to book this spot. Please retry.",
+        "23001": "No compatible pass allows this member to book this offer.",
+        "23002": "Too many upcoming bookings or booking options.",
+        "generic": "Couldn't add client to waitlist"
+      }
     },
     "conversion": {
       "fromWaitlist": "Converting from waitlist"
@@ -431,8 +439,22 @@
       "unlimited": "Unlimited pass",
       "creditsRemainingAfterBooking": "{{availableAfterBooking}} remaining after booking",
       "confirmationToast": "Booking confirmed",
-      "errorToast": "An error occurred while booking this client. Please try again later.",
-      "quickInvoiceErrorToast": "An error occurred while creating an invoice for this booking. Please try again later.",
+      "registerBookingErrors": {
+        "1234": "Too many bookings this month.",
+        "4500": "Staff role is not allowed to overbook.",
+        "8001": "The spot may have been booked while you were booking. Refresh the page.",
+        "85101": "This spot is already locked. Please try again.",
+        "85000": "This spot is already locked. Please try again.",
+        "generic": "An error occurred while booking this client. Please try again later."
+      },
+      "quickInvoiceErrors": {
+        "4500": "Staff role is not allowed to overbook.",
+        "8001": "The spot may have been booked while you were booking. Refresh the page.",
+        "15000": "Cannot create an invoice with buyable items that are unusable by staff.",
+        "20000": "Company mismatch between member, payment pack and offer.",
+        "99000": "Cannot use an item that is unusable by staff.",
+        "generic": "An error occurred while creating an invoice for this booking. Please try again later."
+      },
       "newPass": "New pass",
       "paymentDueAfterBooking": "Payment due after booking",
       "spotLabel": "Spot: {{label}}",
@@ -498,6 +520,15 @@
     "confirmButton": "Swap pass",
     "cancelButton": "Back",
     "successMessage": "Pass swapped",
-    "errorMessage": "An error occurred while swapping the pass. Please try again."
+    "errors": {
+      "5347000": "Pass not found.",
+      "5347001": "Booking already uses this pass.",
+      "5347002": "Pass belongs to another member.",
+      "5347003": "Pass is not compatible with this session.",
+      "5347004": "Pass is blocked.",
+      "5347005": "Pass does not have enough credits.",
+      "5347006": "Cannot swap pass on a partnership booking.",
+      "generic": "An error occurred while swapping the pass. Please try again."
+    }
   }
 }

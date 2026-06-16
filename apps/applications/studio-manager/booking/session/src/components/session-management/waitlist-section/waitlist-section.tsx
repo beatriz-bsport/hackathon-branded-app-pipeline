@@ -28,7 +28,8 @@ export const WaitlistSection: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
-}> = ({ sessionId, searchQuery, openModal }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, openModal, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -80,11 +81,13 @@ export const WaitlistSection: FC<{
               <CancelledWaitlist
                 sessionId={sessionId}
                 searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
               />
             ) : (
               <WaitList
                 sessionId={sessionId}
                 searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
                 paginationNamespace={waitlistFilters}
                 openModal={openModal}
               />

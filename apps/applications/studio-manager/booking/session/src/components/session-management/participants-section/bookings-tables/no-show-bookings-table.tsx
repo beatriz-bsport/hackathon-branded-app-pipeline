@@ -38,7 +38,8 @@ enum NoShowBookingColumns {
 export const NoShowBookingsTable: FC<{
   sessionId: number;
   searchQuery: string;
-}> = ({ sessionId, searchQuery }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -225,7 +226,20 @@ export const NoShowBookingsTable: FC<{
           emptyStateProps={{
             isEmpty: !searchedBookings.length,
             emptyConfig: {
-              title: t("bookingsTable.emptyState.title"),
+              title: t("bookingsTable.emptyState.emptyNoShowTitle"),
+              subtitle: t("bookingsTable.emptyState.emptyNoShowSubtitle"),
+            },
+            isEmptySearch: hasSearchQuery && !searchedBookings.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              secondaryButtonConfig: {
+                label: t("bookingsTable.emptyState.clearSearch"),
+                iconLeft: "x",
+                onClick: () => {
+                  setSearchQuery("");
+                },
+              },
             },
           }}
           loadingProps={{
@@ -259,7 +273,20 @@ export const NoShowBookingsTable: FC<{
         emptyStateProps={{
           isEmpty: !searchedBookings.length,
           emptyConfig: {
-            title: t("bookingsTable.emptyState.title"),
+            title: t("bookingsTable.emptyState.emptyNoShowTitle"),
+            subtitle: t("bookingsTable.emptyState.emptyNoShowSubtitle"),
+          },
+          isEmptySearch: hasSearchQuery && !searchedBookings.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            secondaryButtonConfig: {
+              label: t("bookingsTable.emptyState.clearSearch"),
+              iconLeft: "x",
+              onClick: () => {
+                setSearchQuery("");
+              },
+            },
           },
         }}
         loadingProps={{

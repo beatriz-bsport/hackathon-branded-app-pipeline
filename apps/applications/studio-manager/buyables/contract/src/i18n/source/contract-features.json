@@ -67,7 +67,41 @@
         "alertInfo": "The following plans can't be paused for one of the reasons: a payment is due within 24 hours, a payment is in progress, the dates overlap with another pause, or the plan hasn't started."
       }
     },
-    "toastSuccess": "Subscription {{ name }} paused"
+    "toastSuccess": {
+      "create": "Subscription {{ contractName }} paused",
+      "edit": "Changes saved"
+    },
+    "toastError": {
+      "create": "Failed to pause {{ contractName }}",
+      "edit": "Failed to edit pause {{ pauseName }}"
+    }
+  },
+  "pauseList": {
+    "loading": "Loading pauses...",
+    "empty": "No pauses yet",
+    "items": {
+      "buttons": {
+        "edit": "Edit pause",
+        "cancel": "Cancel pause"
+      }
+    },
+    "cancelPauseModal": {
+      "title": "Cancel pause?",
+      "description": "The scheduled pause of this subscription plan will be canceled.",
+      "actions": {
+        "keep": "Keep",
+        "cancel": "Cancel"
+      },
+      "toast": {
+        "success": "Pause canceled",
+        "error": "Failed to cancel pause"
+      }
+    }
+  },
+  "pauseStatus": {
+    "active": "Active",
+    "scheduled": "Scheduled",
+    "ended": "Ended"
   },
   "benefitsCard": {
     "kinds": {

@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
+import { ContractPauseList } from "#src/features/contract-pause-list";
 import { useDetailsConfig } from "#src/hooks/layout/use-details-config";
 
 const ContractPausesListPageInner: FC = () => {
@@ -12,7 +13,9 @@ const ContractPausesListPageInner: FC = () => {
     <ListLayout>
       <ListLayout.Header pageTitle={contract.name} {...headerConfig} />
 
-      <ListLayout.Content>This will be the pauses page</ListLayout.Content>
+      <ListLayout.Content>
+        <ContractPauseList contract={contract} />
+      </ListLayout.Content>
 
       {modals}
     </ListLayout>

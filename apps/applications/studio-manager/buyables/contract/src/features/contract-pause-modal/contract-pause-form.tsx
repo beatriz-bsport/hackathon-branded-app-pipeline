@@ -83,6 +83,7 @@ const DatePickerWithAlert: FC<DatePickerWithAlertProps> = ({
           id={`${formId}-daterange`}
           displayAs="popover"
           mode="range"
+          dateValue={value}
           disableDate={disablePast}
           onSelect={(date) => {
             if (Array.isArray(date)) {

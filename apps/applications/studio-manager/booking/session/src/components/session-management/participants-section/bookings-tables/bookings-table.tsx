@@ -49,7 +49,8 @@ export const BookingsTable: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
-}> = ({ sessionId, searchQuery, openModal }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, openModal, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -278,11 +279,24 @@ export const BookingsTable: FC<{
           emptyStateProps={{
             isEmpty: !searchedBookings.length,
             emptyConfig: {
-              title: t("bookingsTable.emptyState.title"),
+              title: "",
+              subtitle: t("bookingsTable.emptyState.title"),
               ctaButtonConfig: {
                 label: t("bookButton"),
                 onClick: () => {
                   openModal(SessionManagementModalType.BOOK);
+                },
+              },
+            },
+            isEmptySearch: hasSearchQuery && !searchedBookings.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              secondaryButtonConfig: {
+                label: t("bookingsTable.emptyState.clearSearch"),
+                iconLeft: "x",
+                onClick: () => {
+                  setSearchQuery("");
                 },
               },
             },
@@ -322,11 +336,24 @@ export const BookingsTable: FC<{
         emptyStateProps={{
           isEmpty: !searchedBookings.length,
           emptyConfig: {
-            title: t("bookingsTable.emptyState.title"),
+            title: "",
+            subtitle: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {
               label: t("bookButton"),
               onClick: () => {
                 openModal(SessionManagementModalType.BOOK);
+              },
+            },
+          },
+          isEmptySearch: hasSearchQuery && !searchedBookings.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            secondaryButtonConfig: {
+              label: t("bookingsTable.emptyState.clearSearch"),
+              iconLeft: "x",
+              onClick: () => {
+                setSearchQuery("");
               },
             },
           },

@@ -45,12 +45,14 @@ export const WaitList: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
+  setSearchQuery?: (query: string) => void;
 }> = ({
   sessionId,
   searchQuery,
   readOnly = false,
   paginationNamespace = WaitlistFilter.ON_WAITLIST,
   openModal,
+  setSearchQuery,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -304,7 +306,8 @@ export const WaitList: FC<{
             ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
               ? {
                   emptyConfig: {
-                    title: t("waitList.emptyState.title"),
+                    title: "",
+                    subtitle: t("waitList.emptyState.title"),
                     ctaButtonConfig: {
                       label: t("addBookingOptions"),
                       onClick: () => {
@@ -314,8 +317,27 @@ export const WaitList: FC<{
                   },
                 }
               : {
-                  emptyConfig: { title: t("waitList.emptyState.pending") },
+                  emptyConfig: {
+                    title: "",
+                    subtitle: t("waitList.emptyState.pending"),
+                  },
                 }),
+            isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              ...(setSearchQuery
+                ? {
+                    secondaryButtonConfig: {
+                      label: t("bookingsTable.emptyState.clearSearch"),
+                      iconLeft: "x",
+                      onClick: () => {
+                        setSearchQuery("");
+                      },
+                    },
+                  }
+                : undefined),
+            },
           }}
           loadingProps={{
             isLoading,
@@ -359,7 +381,8 @@ export const WaitList: FC<{
           ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
             ? {
                 emptyConfig: {
-                  title: t("waitList.emptyState.title"),
+                  title: "",
+                  subtitle: t("waitList.emptyState.title"),
                   ctaButtonConfig: {
                     label: t("addBookingOptions"),
                     onClick: () => {
@@ -369,8 +392,27 @@ export const WaitList: FC<{
                 },
               }
             : {
-                emptyConfig: { title: t("waitList.emptyState.pending") },
+                emptyConfig: {
+                  title: "",
+                  subtitle: t("waitList.emptyState.pending"),
+                },
               }),
+          isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            ...(setSearchQuery
+              ? {
+                  secondaryButtonConfig: {
+                    label: t("bookingsTable.emptyState.clearSearch"),
+                    iconLeft: "x",
+                    onClick: () => {
+                      setSearchQuery("");
+                    },
+                  },
+                }
+              : undefined),
+          },
         }}
         loadingProps={{
           isLoading,

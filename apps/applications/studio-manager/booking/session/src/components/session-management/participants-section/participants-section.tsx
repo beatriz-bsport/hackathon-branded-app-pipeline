@@ -39,7 +39,8 @@ export const ParticipantsSection: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
-}> = ({ sessionId, searchQuery, openModal }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, openModal, setSearchQuery }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const isMobile = !useMatchMedia("lg");
   const { data: session } = useRetrieveSession(sessionId);
@@ -120,17 +121,20 @@ export const ParticipantsSection: FC<{
               sessionId={session.id}
               openModal={openModal}
               searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
             />
           ) : bookingsStatusFilters === BookingStatusFilter.CANCELLED ? (
             <CancelledBookingsTable
               sessionId={session.id}
               searchQuery={searchQuery}
               openModal={openModal}
+              setSearchQuery={setSearchQuery}
             />
           ) : (
             <NoShowBookingsTable
               sessionId={session.id}
               searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
             />
           )}
         </QueryBoundary>

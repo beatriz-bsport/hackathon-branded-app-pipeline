@@ -52,7 +52,13 @@
       "client": "Client"
     },
     "emptyState": {
-      "title": "No clients in this class yet"
+      "title": "No clients in this class yet",
+      "emptySearch": "We couldn't find any clients matching your search.",
+      "clearSearch": "Clear search",
+      "emptyCancelledTitle": "No cancellations",
+      "emptyCancelledSubtitle": "Clients who cancelled their booking will appear here.",
+      "emptyNoShowTitle": "No no-shows",
+      "emptyNoShowSubtitle": "Clients marked as no-show after attendance is confirmed will appear here."
     },
     "loadingMessage": "Loading class roster...",
     "chips": {

@@ -28,7 +28,8 @@ export const CancelledWaitlist: FC<{
   sessionId: number;
   searchQuery: string;
   readOnly?: boolean;
-}> = ({ sessionId, searchQuery, readOnly = false }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, readOnly = false, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -144,7 +145,20 @@ export const CancelledWaitlist: FC<{
           emptyStateProps={{
             isEmpty: !searchedBookingOptions.length,
             emptyConfig: {
-              title: t("waitList.emptyState.removed"),
+              title: "",
+              subtitle: t("waitList.emptyState.title"),
+            },
+            isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              secondaryButtonConfig: {
+                label: t("bookingsTable.emptyState.clearSearch"),
+                iconLeft: "x",
+                onClick: () => {
+                  setSearchQuery("");
+                },
+              },
             },
           }}
           loadingProps={{
@@ -185,7 +199,20 @@ export const CancelledWaitlist: FC<{
         emptyStateProps={{
           isEmpty: !searchedBookingOptions.length,
           emptyConfig: {
-            title: t("waitList.emptyState.removed"),
+            title: "",
+            subtitle: t("waitList.emptyState.title"),
+          },
+          isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            secondaryButtonConfig: {
+              label: t("bookingsTable.emptyState.clearSearch"),
+              iconLeft: "x",
+              onClick: () => {
+                setSearchQuery("");
+              },
+            },
           },
         }}
         loadingProps={{

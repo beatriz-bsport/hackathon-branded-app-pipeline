@@ -12,7 +12,7 @@ import Config from '@bsport/saas-legacy/src/config';
 // widget.js was loaded via a static <script> tag or dynamically injected.
 declare const __webpack_public_path__: string;
 
-const loadEnvFile: Promise<void> = () => new Promise(resolve => {
+const loadEnvFile = (): Promise<void> => new Promise(resolve => {
   const envUrl = __webpack_public_path__ + 'env.js';
   const script = document.createElement('script');
   script.src = envUrl;
@@ -30,13 +30,11 @@ const refreshConfig = () => {
   Object.keys(env).forEach((k) => { (Config as any)[k] = env[k]; });
 }
 
-const _envReady: Promise<{ default: typeof import('./Root').default }> = async () => {
+const _envReady: Promise<{ default: typeof import('./Root').default }> = (async () => {
   await loadEnvFile();
   refreshConfig();
-  const loadRoot = () => import('./Root');
-
-  return loadRoot;
-}
+  return import('./Root');
+})();
 
 type BsportWidgetMountParams = {
   parentElement: string,

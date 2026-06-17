@@ -39,6 +39,7 @@ const getMockInvoice = (
     billing_plan: billingPlanId,
     invoice_legal_identifier: `INV-${billingPlanId}-${String(invoiceNumber).padStart(3, "0")}`,
     reverted: false,
+    is_first_invoice: index === 0,
   };
 };
 

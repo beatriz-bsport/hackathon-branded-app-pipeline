@@ -20,6 +20,7 @@
   "invoiceList": {
     "actions": {
       "editBillingDate": "Edit billing date",
+      "editPrice": "Edit price",
       "openActions": "Open invoice actions"
     },
     "editBillingDateModal": {
@@ -31,6 +32,22 @@
       "error": "Could not save billing date. Please try again.",
       "helpText": "This change applies to this invoice only",
       "title": "Edit billing date"
+    },
+    "editPriceModal": {
+      "buttons": {
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      },
+      "currentPriceLabel": "Current price",
+      "error": "Could not save price. Please try again.",
+      "firstInvoiceWarning": "This invoice includes a one-time join fee that won't appear on future invoices.",
+      "joinFeeHelpText": "Join fee will also be added to the first invoice",
+      "newPriceLabel": "New price",
+      "title": "Edit price",
+      "toggles": {
+        "afterRenewal": "Apply to all future payments after the auto-renewal",
+        "beforeRenewal": "Apply to all invoices before the auto-renewal"
+      }
     },
     "headers": {
       "billingDate": "Billing date",

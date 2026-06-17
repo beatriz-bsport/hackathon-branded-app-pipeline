@@ -47,10 +47,10 @@ when a component needs tight control (list rows, form controls, chips) or when
 `Body`/`Title` wrappers would add unnecessary DOM nodes. Do not invent ad-hoc
 font sizes — stay on the token-backed scale.
 
-<Callout type="info" title="Base UI size">
-  **`body / md`** (`0.875rem` / **14px**) is the workhorse size for dense
-  back-office UI — table cells, form labels, buttons, and helper text. When in
-  doubt, start here.
+<Callout type="info" title="Body default vs dense UI">
+  **`body / lg`** (`1rem` / **16px**) is the default for `Body` — readable
+  prose, descriptions, and multi-line copy. Use **`body / md`** (`0.875rem` /
+  **14px**) in tables, forms, buttons, and other dense surfaces.
 </Callout>
 
 ## Type scale
@@ -82,7 +82,7 @@ Body styles are for multi-line copy, labels, and inline text. Render as `p` or
 <BodyTypeScale />
 
 <DoDont>
-  <Do caption="Pick the smallest body size that remains comfortable to read for the container width." />
+  <Do caption="Use Body size=lg (16px) as the default for readable body copy." />
   <Do caption="Use Body size=md (14px) for tables, forms, and dense layouts." />
   <Dont caption="Use bold weights excessively — it disrupts flow and makes paragraphs harder to scan." />
   <Dont caption="Mix too many body sizes inside one section; it creates visual clutter." />
@@ -106,8 +106,8 @@ dense UI. They are **not** wired to `Title` `htmlVariant` values.
 | `font.size.title-md`   | 1.25rem (20px)   | `Title` `htmlVariant="h3"` — subsections                                   |
 | `font.size.title-sm`   | 1.1rem (~17.6px) | `Title` `htmlVariant="h4"` — cards, drawers, modals                        |
 | `font.size.title-xs`   | 1rem (16px)      | `Title` `htmlVariant="h5"` — nested labels inside modals and dense layouts |
-| `font.size.body-lg`    | 1rem (16px)      | `Body` `size="lg"` — primary prose blocks                                  |
-| `font.size.body-md`    | 0.875rem (14px)  | `Body` `size="md"` — **base UI size**                                      |
+| `font.size.body-lg`    | 1rem (16px)      | `Body` `size="lg"` — **default** for body copy                             |
+| `font.size.body-md`    | 0.875rem (14px)  | `Body` `size="md"` — dense UI (tables, forms, labels)                      |
 | `font.size.body-sm`    | 0.75rem (12px)   | `Body` `size="sm"` — captions, metadata                                    |
 | `font.size.body-xs`    | 0.625rem (10px)  | Utility `text-body-xs` — badges, avatars (no `Body` size)                  |
 
@@ -126,12 +126,12 @@ dense UI. They are **not** wired to `Title` `htmlVariant` values.
 
 ### Body
 
-| Prop          | Values                                                                                                            | Default   | Notes                                                                                                |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| `size`        | `display`, `xl`, `lg`, `md`, `sm`                                                                                 | none      | Token-backed: `lg`, `md`, `sm`. `display` / `xl` are larger component variants (e.g. metric figures) |
-| `htmlVariant` | `p`, `span`                                                                                                       | `p`       | Use `span` inside tables and inline labels                                                           |
-| `color`       | `default`, `main`, `weak`, `weaker`, `info`, `positive`, `critical`, `warning`, `onstrong`, `disabled`, `inherit` | `default` | `main` for links and interactive inline text                                                         |
-| `weight`      | `weaker`, `weak`, `strong`, `stronger`                                                                            | none      | Optional emphasis                                                                                    |
+| Prop          | Values                                                                                                            | Default   | Notes                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------- |
+| `size`        | `display`, `xl`, `lg`, `md`, `sm`                                                                                 | none      | Default to `lg` for body copy; use `md` in dense UI. `display` / `xl` are larger component variants |
+| `htmlVariant` | `p`, `span`                                                                                                       | `p`       | Use `span` inside tables and inline labels                                                          |
+| `color`       | `default`, `main`, `weak`, `weaker`, `info`, `positive`, `critical`, `warning`, `onstrong`, `disabled`, `inherit` | `default` | `main` for links and interactive inline text                                                        |
+| `weight`      | `weaker`, `weak`, `strong`, `stronger`                                                                            | none      | Optional emphasis                                                                                   |
 
 There is **no `Body size="xs"`** — use the `text-body-xs` utility where space
 is extremely tight (avatars, chips).
@@ -201,7 +201,7 @@ Tables are a common typography surface in the Back Office:
 
 | Element            | Pattern                                                 |
 | ------------------ | ------------------------------------------------------- |
-| Cell text          | `Body htmlVariant="span" size="md"` — 14px base size    |
+| Cell text          | `Body htmlVariant="span" size="md"` — 14px dense size   |
 | Column headers     | `Body htmlVariant="span"` inside header cells           |
 | List row primary   | Often `text-body-lg` utility in compact list components |
 | List row secondary | `text-body-md` with `text-onsurface-weak`               |

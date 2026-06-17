@@ -44,16 +44,6 @@ members, passes, sessions — not global search.
 
 ## Guidelines
 
-- **Reflect URL or store** — sync filters with query params for shareable list URLs.
-- **Reset is visible** — one control clears all active filters.
-- **Category labels** — name facets ("Status", "Coach") before values.
-- **Avoid duplicate search** — separate [Text field](/components/text-field) search from facet chips when both exist.
-- **Single-choice facets** — use single-select mode per category when only one value applies.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Persist filters in the URL so refresh and share links keep context." />
   <Do caption="Show count of active filters on mobile collapse if bar wraps." />
@@ -61,6 +51,11 @@ members, passes, sessions — not global search.
   <Dont caption="Twenty categories without grouping — split into advanced panel." />
   <Dont caption="Filters that do not affect the list — every chip must trigger query." />
   <Dont caption="Reset that also clears unrelated search text without warning." />
+  <Do caption="Reflect URL or store — sync filters with query params for shareable list URLs." />
+  <Do caption="Reset is visible — one control clears all active filters." />
+  <Do caption='Category labels — name facets ("Status", "Coach") before values.' />
+  <Dont caption="Avoid duplicate search — separate `Text field` search from facet chips when both exist." />
+  <Do caption="Single-choice facets — use single-select mode per category when only one value applies." />
 </DoDont>
 
 ### Content rules

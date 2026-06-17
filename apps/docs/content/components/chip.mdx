@@ -51,23 +51,6 @@ Not sure whether Chip, Badge, or Indicator fits? See
 
 ## Guidelines
 
-- **Semantic token** — Chip names the value itself; use
-  [Badge](/components/badge) when the pill only qualifies adjacent content.
-- **Not for list filtering** — use **Filter** to compose query constraints on
-  tables and lists; Chip does not replace field/operator/value filter UI.
-- **Dismiss when removable** — set `dismissible` and handle `onClick` when the
-  user can remove a tag or other selection from a form.
-- **Group related chips** — lay chips in a flex row with consistent `gap`; use
-  `ChipList` when a collection may overflow.
-- **Match color to meaning** — reserve status colors (`positive`, `warning`,
-  `critical`, `info`) for states; use `default` or `main` for neutral tags.
-- **Pick density** — `size="sm"` in dense tables and forms; `size="lg"` as the
-  default in page headers and detail panels.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use dismissible chips when a form captures removable tags or selections the user should clear individually." />
   <Do caption="Pair status colors with short, human-readable labels in table cells — color reinforces the word, not replaces it." />
@@ -75,23 +58,26 @@ Not sure whether Chip, Badge, or Indicator fits? See
   <Dont caption='Compact side labels like "New" or "Beta" beside nav items belong on Badge, not Chip.' />
   <Dont caption="Table and list query filters belong on Filter — field, operator, and value constraints need that pattern." />
   <Dont caption="Strong-type chips across an entire row flatten emphasis — reserve type=strong for the one value that needs it." />
+  <Do caption="Semantic token — Chip names the value itself; use `Badge` when the pill only qualifies adjacent content." />
+  <Do caption="Match color to meaning — reserve status colors (`positive`, `warning`, `critical`, `info`) for states; use `default` or `main` for neutral tags." />
+  <Do caption='Pick density — `size="sm"` in dense tables and forms; `size="lg"` as the default in page headers and detail panels.' />
 </DoDont>
 
-#### weak type
+### weak type
 
 <DoDont>
   <Do caption="Use for tags and table statuses where the chip sits among other content without dominating the layout." />
   <Dont caption="Values that need immediate attention in an alert or banner belong on type=strong or a dedicated status pattern, not weak." />
 </DoDont>
 
-#### strong type
+### strong type
 
 <DoDont>
   <Do caption="Use sparingly to emphasize one high-salience status or category in a group." />
   <Dont caption="Strong styling on every chip in a list removes contrast — something in the group should stay visually quieter." />
 </DoDont>
 
-#### customColor
+### customColor
 
 <DoDont>
   <Do caption="Pass a hex value for user-defined tag colors; the component derives accessible text and border contrast automatically." />

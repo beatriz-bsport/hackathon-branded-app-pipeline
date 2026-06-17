@@ -1,8 +1,9 @@
 ---
 title: App navigation
-description: Navigation shell components for global and feature-scoped wayfinding.
+description: How the Studio Manager shell divides global sidebar wayfinding from feature-internal header navigation, and the Kaizen primitives that compose each layer.
+status: stable
 category: components
-source: "packages/design-system/kaizen/primitive/core/src/components/NavigationMenu"
+tags: [navigation, layout]
 sections:
   - "Overview"
   - "Guidelines"
@@ -13,57 +14,283 @@ sections:
 
 ## Overview
 
-NavigationMenu renders the feature-internal navigation that adapts to the active module.
+Studio Manager uses a **two-layer navigation shell**. The left sidebar answers _"Where can I go in the Back Office?"_ The page header answers _"What can I do inside this module?"_ Each layer has a distinct job — mixing them breaks spatial memory.
 
-The _left sidebar owns global wayfinding_ across the entire Back Office, while the _top bar owns feature-internal wayfinding_ that adapts to whichever module is currently active. This creates a clear spatial contract so users always know which layer of the system they are interacting with.
+```text
+┌─────────────┬──────────────────────────────────────────────┐
+│   SIDEBAR   │  PAGE HEADER (feature-internal)              │
+│   global    │  breadcrumbs · title · tabs · actions        │
+│   modules   ├──────────────────────────────────────────────┤
+│             │  page content                                │
+└─────────────┴──────────────────────────────────────────────┘
+```
 
-This is the persistent backbone of the application. It answers the question _"Where can I go in the entire Back Office?"_ and should remain visible (or easily collapsible) across all screens.
+Kaizen provides **`Sidebar`** and **`NavigationMenu`** for the global rail. Feature-internal navigation is composed from **[Header layout](/components/header-layout)**, **[Tabs](/components/tabs)**, and **[Breadcrumbs](/components/breadcrumbs)** — there is no separate top-bar navigation primitive.
 
-- _Feature Modules_: High-level product areas such as _Scheduling_, _Profiles_, _Payments_, _Marketing_, or _Analytics_
-- _Cross-Cutting tools_: Utilities that span all features, such as _Global Search_, _Notifications…_
-- _Quick Actions / Shortcuts_: Frequently used creation entry points like Sales, _Create Booking(idea)_ or _Add Member_
-- _System & Utility Items_: _Settings_, _Help Center_, _Account/Profile_, and _Logout_ — visually de-emphasized and grouped at the bottom of the sidebar
+### Global layer — Sidebar and NavigationMenu
 
-Side navigation scales comfortably to 10–20+ items and supports logical grouping without forcing hierarchy into cramped dropdowns. Eye-tracking research also shows that left navigation reduces cursor movement and selection errors compared to top navigation alone.
+**Sidebar** is the persistent left rail: brand, module links, global utilities, and account actions. On mobile it collapses into a drawer with a toggle in the top bar.
 
-This bar is scoped to the current feature and answers the question _"What can I do inside this feature?"_ It should update dynamically based on which sidebar item is active.
-
-- _Sub-Feature Tabs_: Sections within the active module. For example, inside _Members_ you might find _Related passes_, Object overview, _Import/Export, etc_
-- _Contextual Actions_: Primary and secondary actions tied to the current view, such as _Add Member_, _Export CSV_, or _Apply Filters_
-- _Breadcrumbs_: Hierarchical wayfinding when a feature has nested pages, helping users orient themselves without overloading the sidebar
-- _Page Title & Status Badges_: The current page name plus optional indicators like _Listed_
-
-- _Duplicating hierarchy_: If _Clients_ is a top-level sidebar item, its sub-sections (_Profiles, Tags_) should live only in the top bar, not repeat in both locations
-- _Deep nesting in the sidebar_: Avoid multi-level flyouts in the left bar; diagonal cursor movement makes them error-prone and they clutter the global view
-- _Global actions in the top bar_: Actions like switching organizations or account settings belong in the sidebar; placing them in the top bar falsely implies they are scoped to the current feature
-
-## Guidelines
-
-### Examples
+**NavigationMenu** is the structured menu inside the sidebar — items, groups, dividers, and expandable sub-items with icons and badges. In Studio Manager, the navigation-sidebar app composes `Sidebar` + `NavigationMenu` for all global wayfinding.
 
 <StorybookEmbed
-  id="primitive-components-navigationmenu--default"
+  id="primitive-components-sidebar--default"
   mode="playground"
   height={700}
   stories={[
+    { id: "primitive-components-sidebar--default", label: "Sidebar default" },
     {
-      id: "primitive-components-navigationmenu--default",
-      label: "Navigation menu",
-    },
-    {
-      id: "primitive-components-navigationmenu--with-active-sub-item",
-      label: "With active sub-item",
+      id: "primitive-components-sidebar--sidebar-and-list-layout",
+      label: "Sidebar with list layout",
     },
   ]}
 />
 
+**Typical global destinations**
+
+- Feature modules — Scheduling, Members, Finance, Marketing
+- Cross-cutting tools — global search, notifications
+- Quick actions — add member, create sale (where product allows)
+- System utilities — settings, help, account, logout (grouped at the bottom)
+
+### Feature layer — page header
+
+The header region is scoped to the active sidebar module. It updates when the user switches modules. Use it for sub-routes, contextual actions, and nested hierarchy — not for global destinations.
+
+**Typical feature-internal content**
+
+- Sub-feature tabs — Invoices, Payouts, Settings within Financial Services
+- Contextual actions — Add member, Export CSV, Apply filters
+- Breadcrumbs — nested pages under the active tab
+- Page title and status badges — current view identity
+
+Compose this layer with **HeaderLayout** or **DetailsLayout** and route-level **Tabs**. See [Header layout](/components/header-layout) and [Tabs](/components/tabs) for API and examples.
+
+### NavigationMenu
+
+NavigationMenu is a composable vertical menu: items with optional sub-items, groups, dividers, icons, and trailing slots (badges, indicators). It is designed for sidebars and other hierarchical lists — not for horizontal page tabs.
+
+<StorybookEmbed
+  id="primitive-components-navigationmenu--default"
+  mode="playground"
+  height={500}
+  stories={[
+    {
+      id: "primitive-components-navigationmenu--default",
+      label: "Navigation menu default",
+    },
+    {
+      id: "primitive-components-navigationmenu--with-active-sub-item",
+      label: "Active sub-item",
+    },
+  ]}
+/>
+
+## Guidelines
+
+### Shell contract
+
+<DoDont>
+  <Do caption="One destination, one layer — if Members is a sidebar module, its sub-sections (Profiles, Tags…) live only in the page header, not repeated in both rails." />
+  <Do caption="Sidebar owns global scope — module switching, search, notifications, account, logout." />
+  <Do caption="Header owns feature scope — tabs, breadcrumbs, and actions tied to the current module." />
+  <Do caption="Shallow sidebar depth — prefer expandable sub-items over deep flyouts; reserve multi-tab flows for the header." />
+  <Do caption="Active states follow the router — highlight the current module in the sidebar and the current sub-route in tabs." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+Duplicating hierarchy in both sidebar and header fragments wayfinding. Each destination should live in exactly one layer.
+
+</Callout>
+
+### Sidebar
+
+<DoDont>
+  <Do caption="Keep high-traffic modules in the primary stack with stable icons and labels." />
+  <Do caption="De-emphasize settings and logout in a bottom group separated by spacing." />
+  <Do caption="Show active state on the current module even when a child route is open." />
+  <Dont caption="Deep flyout trees in the sidebar — use the page header for sub-features." />
+  <Dont caption="Feature-specific filters in the global sidebar." />
+  <Dont caption="Hiding logout or account behind undocumented gestures." />
+</DoDont>
+
+Module labels use product terms users recognize:
+
+> Scheduling
+
+> Members
+
+### Feature header
+
+<DoDont>
+  <Do caption="Update tabs when the router active module changes." />
+  <Do caption="Keep tab count manageable — split into settings pages when more than six." />
+  <Do caption="Place module-specific actions in the header action cluster." />
+  <Dont caption="Global settings or logout in feature header actions." />
+  <Dont caption="Deep multi-level menus in the header — use the sidebar for modules." />
+  <Dont caption="Tabs that navigate away from the module without clear labeling." />
+</DoDont>
+
+Tab labels match route purpose:
+
+> Invoices
+
+> Payout settings
+
+### NavigationMenu
+
+<DoDont>
+  <Do caption="Use groups and dividers to separate modules from utilities." />
+  <Do caption="Omit permission-gated items entirely rather than showing disabled dead ends." />
+  <Do caption="Pair trailing badges or indicators with a clear menu label." />
+  <Dont caption="Horizontal tab switching — use Tabs in the page header instead." />
+  <Dont caption="More than one expanded sub-menu open at a time without a clear reason." />
+  <Dont caption="NavigationMenu as a substitute for Sidebar on desktop — wrap it in Sidebar for shell behavior." />
+</DoDont>
+
 ## Reference
 
-### Props
+### Shell model
+
+| Layer            | Question                           | Kaizen building blocks                                    |
+| ---------------- | ---------------------------------- | --------------------------------------------------------- |
+| Global           | Where can I go in the Back Office? | `Sidebar` + `NavigationMenu`                              |
+| Feature-internal | What can I do inside this module?  | `HeaderLayout` / `DetailsLayout` + `Tabs` + `Breadcrumbs` |
+
+### Sidebar anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Brand / studio switcher",
+      description: "Top identity and org context.",
+    },
+    { name: "Module links", description: "Primary navigation items." },
+    {
+      name: "Utility cluster",
+      description: "Search, notifications, quick actions.",
+    },
+    { name: "Footer utilities", description: "Settings, help, account." },
+  ]}
+/>
+
+### NavigationMenu anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: "Item",
+      description: "Top-level link with optional icon and end slot.",
+    },
+    { name: "Sub-item", description: "Nested link under an expandable item." },
+    { name: "Group", description: "Non-interactive section label." },
+    { name: "Divider", description: "Visual separator between sections." },
+  ]}
+/>
+
+### Feature header anatomy
+
+See [Header layout](/components/header-layout) for breadcrumbs, page title, tabs, actions, and filter rows.
+
+### Sidebar props
+
+<PropsTable component="Sidebar" />
+
+### NavigationMenu props
 
 <PropsTable component="NavigationMenu" />
 
+### Behaviors
+
+#### Sidebar responsiveness
+
+Collapses to a mobile drawer below the `md` breakpoint. Desktop rail stays fixed; mobile overlay traps focus until dismissed.
+
+#### Sidebar persistence
+
+Active module follows router state. Collapse preference may persist per user where the host app implements it.
+
+#### NavigationMenu selection
+
+Active item and sub-item follow click handlers and host routing. Sub-items expand under their parent item.
+
+#### Feature header persistence
+
+Active tab follows the URL. Survives refresh when routes are URL-driven.
+
+### Edge cases
+
+- **Single sub-route** — hide the tab bar when only one child route exists.
+- **Permission-gated tabs or modules** — omit unauthorized routes entirely.
+- **Federated modules** — show loading state while remote nav chunks load.
+- **Sidebar with one module** — still render the rail for utilities; do not move global actions into the header.
+
+## Accessibility
+
+### Landmarks and roles
+
+- **Sidebar** — `aside` with `role="navigation"` and an accessible label (defaults via i18n).
+- **NavigationMenu** — list of links inside the sidebar landmark; current page uses `aria-current="page"` where the host sets it.
+- **Feature header** — `nav` for tab lists; breadcrumbs use the Breadcrumbs component landmark pattern.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Moves through sidebar links, header tabs, and actions in document order.",
+    },
+    { keys: ["Enter"], description: "Activates the focused link or tab." },
+    { keys: ["Escape"], description: "Closes the mobile sidebar drawer." },
+  ]}
+/>
+
+### Screen reader behavior
+
+Announce module and tab names with current state. Skip redundant unlabeled logo links. For notification counts in `endSlot`, ensure the visible menu label plus count pill form a coherent phrase.
+
+### Focus management
+
+Route changes in Studio Manager should move focus to the page `h1` per shell convention. Mobile sidebar open traps focus in the overlay until closed.
+
+### WCAG criteria
+
+- **2.4.1 Bypass Blocks** — skip link to main content alongside the sidebar.
+- **2.4.8 Location** — active module and tab indicate place within the product.
+- **4.1.2 Name, Role, Value** — link and tab names match destinations.
+
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/NavigationMenu`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+- [Open Sidebar in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-sidebar--default)
+- [Open NavigationMenu in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-navigationmenu--default)
+
+### Source
+
+- `packages/design-system/kaizen/primitive/core/src/components/Sidebar`
+- `packages/design-system/kaizen/primitive/core/src/components/NavigationMenu`
+
+### Related components
+
+- **[Header layout](/components/header-layout)** — composable page header for tabs, breadcrumbs, and actions.
+- **[Tabs](/components/tabs)** — route-level sub-section navigation in the feature header.
+- **[Breadcrumbs](/components/breadcrumbs)** — nested hierarchy under an active tab.
+- **[Indicator](/components/indicator)** — counts on sidebar items (notifications, tallies).
+- **[Segmented control](/components/segmented-control)** — in-page view switching without URL change; not a substitute for Tabs.
+
+### Known issues
+
+<Callout type="info">
+
+The feature-internal layer is a **composition pattern** (HeaderLayout + Tabs), not a single Kaizen export. Studio Manager host and federated apps wire it per module.
+
+</Callout>
+
+#### Implementation gaps
+
+- **NavigationMenu placement** — NavigationMenu ships as a vertical menu and is composed inside Sidebar in production; horizontal page tabs use Tabs + HeaderLayout, not NavigationMenu.
+- **Sidebar collapse breakpoints** — responsive icon-only mode and tooltip behavior are not yet fully specified in design tokens.

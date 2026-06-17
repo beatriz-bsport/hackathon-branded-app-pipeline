@@ -50,16 +50,6 @@ is unknown.
 
 ## Guidelines
 
-- **Clamp values** — component clamps to 0–100; pass accurate percentages from backend.
-- **Status matches tone** — `main` default, `positive` success path, `critical` risk or failure.
-- **Size by prominence** — `sm` inline, `md` in cards, `lg` for hero progress moments.
-- **Label when space allows** — percent or step name helps scanning.
-- **Transition smoothly** — abrupt jumps unsettle users on fast polling — debounce updates.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Update value from real job progress, not fake timers." />
   <Do caption="Switch to success state or navigate away when value reaches 100." />
@@ -67,6 +57,11 @@ is unknown.
   <Dont caption="Indeterminate waits belong in Loader, not a stuck 0% bar." />
   <Dont caption="Progress bars that run backward without explanation." />
   <Dont caption="Multiple bars for the same job in header and body." />
+  <Do caption="Clamp values — component clamps to 0–100; pass accurate percentages from backend." />
+  <Do caption="Status matches tone — `main` default, `positive` success path, `critical` risk or failure." />
+  <Do caption="Size by prominence — `sm` inline, `md` in cards, `lg` for hero progress moments." />
+  <Do caption="Label when space allows — percent or step name helps scanning." />
+  <Do caption="Transition smoothly — abrupt jumps unsettle users on fast polling — debounce updates." />
 </DoDont>
 
 ### Content rules

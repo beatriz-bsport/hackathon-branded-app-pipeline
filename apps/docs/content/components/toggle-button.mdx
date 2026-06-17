@@ -1,6 +1,6 @@
 ---
-title: Toggle button [LLM]
-description: A button that stays pressed to show on-off or single selection within a group
+title: Toggle button
+description: Dense horizontal buttons for high-frequency on/off or single-select choices outside classic forms
 status: stable
 category: components
 tags: [actions, selection]
@@ -15,10 +15,14 @@ sections:
 
 ## Overview
 
-Toggle button looks like [Button](/components/button) but retains a pressed state
-to show selection — view mode switches, formatting toggles, or toolbar filters.
-Use [Segmented control](/components/segmented-control) when options are mutually
-exclusive segments; use standalone toggle buttons for independent on-off tools.
+Toggle button looks like [Button](/components/button) but retains a pressed selected
+state. Reserve it for **dense, horizontal controls** on surfaces operators touch
+often — display-settings popovers, filter buttons, table cells — where choices should
+flip instantly without a form submit.
+
+Prefer vertical [Checkbox](/components/checkbox) and [Radio](/components/radio)
+lists for classic forms, [Toggle](/components/toggle) for slower boolean settings,
+and [Segmented control](/components/segmented-control) for connected view-mode bars.
 
 <StorybookEmbed
   id="primitive-components-togglebutton--primary"
@@ -39,40 +43,35 @@ exclusive segments; use standalone toggle buttons for independent on-off tools.
 
 ### Use cases
 
-- **List density** — compact vs comfortable row height toggle.
-- **Map vs list** — view switcher on scheduling pages.
-- **Pin sidebar** — persist navigation panel open state.
-- **Show archived** — include inactive records in table.
-- **Toolbar bold** — formatting in rich text toolbars (when exposed).
+- **Multi-select buttons** — several independent toggles in a row; multiple can stay
+  on (column pickers, day selectors, optional filters).
+- **Exclusive choice** — one active option among a few; parent deselects the others.
+- **Per-row state** — binary on/off for one item inside a table cell or list row.
+
+### When not to use
+
+- Legal consent, destructive confirmation, or options that need helper text per row.
+- Connected view-mode bars (_List_ / _Grid_, _Day_ / _Week_) — use
+  [Segmented control](/components/segmented-control).
 
 ## Guidelines
 
-- **Pressed state visible** — rely on token background, not color alone.
-- **Icon + label** — icon-only toggles need `aria-pressed` and tooltip.
-- **Controlled when synced** — parent owns state tied to URL or store.
-- **Group related toggles** — use `role="group"` when multiple affect one view.
-- **Not for form booleans** — long-lived settings use [Toggle](/components/toggle).
+### Patterns
 
-### Best practices
-
-#### General
+| Pattern              | Layout                     | Check icon                 | Alternative                                                       |
+| -------------------- | -------------------------- | -------------------------- | ----------------------------------------------------------------- |
+| Multi-select buttons | Horizontal, dense, instant | Show `check` when selected | [Checkbox](/components/checkbox) group in forms                   |
+| Exclusive choice     | Horizontal, dense, instant | None — selected fill only  | [Segmented control](/components/segmented-control) for view modes |
+| Per-row on/off       | Table or list cell         | None — label or fill       | [Toggle](/components/toggle) in forms                             |
 
 <DoDont>
+  <Do caption="Add check icon on selected multi-select buttons; omit it for exclusive choices." />
   <Do caption="Use aria-pressed so screen readers announce toggled state." />
-  <Do caption="Pair icon toggles with Tooltip describing the mode." />
   <Do caption="Use Segmented control for 2–4 exclusive view modes in one bar." />
   <Dont caption="Toggle button for submit actions — use Button intent call-to-action." />
-  <Dont caption="Ambiguous pressed state — users must see what mode is active." />
-  <Dont caption="Mixing toggle buttons and tabs for the same navigation job." />
+  <Dont caption="Check icon on exclusive options — selected fill is enough." />
+  <Dont caption="Vertical checkbox lists when horizontal buttons would be faster." />
 </DoDont>
-
-### Content rules
-
-Labels name the mode when active or inactive:
-
-> Show map
-
-> Compact view
 
 ## Reference
 
@@ -82,7 +81,7 @@ Labels name the mode when active or inactive:
   parts={[
     {
       name: "Button surface",
-      description: "Button styling with pressed variant.",
+      description: "Button styling with selected variant.",
     },
     { name: "Icon or label", description: "Content showing the tool or mode." },
   ]}
@@ -92,16 +91,10 @@ Labels name the mode when active or inactive:
 
 <PropsTable component="ToggleButton" />
 
-### Behaviors
-
-#### Persistence
-
-Pressed state follows controlled `pressed` prop or internal state until toggled.
-
 ### Edge cases
 
-- **Disabled while pressed** — show pressed styling and explain disable reason nearby.
-- **Exclusive group** — only one pressed; manage at parent like radio behavior.
+- **Disabled while selected** — show selected styling and explain disable reason nearby.
+- **Exclusive group** — only one selected; manage at parent like radio behavior.
 
 ## Accessibility
 
@@ -114,13 +107,13 @@ Use `aria-pressed="true|false"` on the button element.
 <Accessibility
   keyboard={[
     { keys: ["Tab"], description: "Focuses each toggle in the toolbar." },
-    { keys: ["Enter", "Space"], description: "Toggles pressed state." },
+    { keys: ["Enter", "Space"], description: "Toggles selection." },
   ]}
 />
 
 ### Screen reader behavior
 
-Announces label and pressed state on focus.
+Announces label and selection (via `aria-pressed`) on focus.
 
 ### Focus management
 
@@ -129,7 +122,7 @@ Focus stays on control after toggle.
 ### WCAG criteria
 
 - **2.1.1 Keyboard** — toggle without pointer.
-- **4.1.2 Name, Role, Value** — pressed state programmatic.
+- **4.1.2 Name, Role, Value** — selected state exposed programmatically via `aria-pressed`.
 
 ## Resources
 
@@ -139,6 +132,7 @@ Focus stays on control after toggle.
 
 ### Related components
 
-- **[Segmented control](/components/segmented-control)** — exclusive multi-option switcher.
+- **[Segmented control](/components/segmented-control)** — connected exclusive view modes.
+- **[Checkbox](/components/checkbox)** — multi-select in vertical forms.
 - **[Toggle](/components/toggle)** — form boolean switch.
 - **[Button](/components/button)** — one-shot actions without latched state.

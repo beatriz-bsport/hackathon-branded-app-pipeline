@@ -1,5 +1,5 @@
 ---
-title: Icon [LLM]
+title: Icon
 description: The canonical SVG icon set for actions, status, and wayfinding across Kaizen
 status: stable
 category: components
@@ -34,27 +34,7 @@ chevron).
   ]}
 />
 
-### Use cases
-
-- **Button prefixes** — `iconLeft` on [Button](/components/button) for save, add, export.
-- **Alert and toast status** — paired with severity copy in [Alert](/components/alert).
-- **List row metadata** — leading icon for item type in buyables or finance lists.
-- **Navigation chevrons** — disclosure and expand affordances in menus and collapse.
-- **Empty states** — large decorative icon while [Illustration](/components/illustration)
-  is preferred for marketing-style empties.
-
 ## Guidelines
-
-- **Label beats icon alone** — pair with visible text except for universally understood glyphs.
-- **Size matches touch target** — use `md` beside body text; `sm`/`xs` only in dense tables.
-- **Color carries meaning sparingly** — default inherits `currentColor`; semantic colors
-  belong on status components, not every icon.
-- **One metaphor per action** — do not swap icons for the same action across one flow.
-- **Valid names only** — invalid `icon` values log an error and render nothing.
-
-### Best practices
-
-#### General
 
 <DoDont>
   <Do caption="Pair icons with button labels so the action is clear without hover." />
@@ -63,11 +43,11 @@ chevron).
   <Dont caption="Color-only icons to signal errors — pair with text or Alert status." />
   <Dont caption="Decorative icons on every row when spacing already groups content." />
   <Dont caption="Inventing ad-hoc SVGs outside the library fragments the product visual language." />
+  <Do caption="Label beats icon alone — pair with visible text except for universally understood glyphs." />
+  <Do caption="Size matches touch target — use `md` beside body text; `sm`/`xs` only in dense tables." />
+  <Do caption="Color carries meaning sparingly — default inherits `currentColor`; semantic colors belong on status components, not every icon." />
+  <Do caption="Valid names only — invalid `icon` values log an error and render nothing." />
 </DoDont>
-
-### Content rules
-
-Icons do not contain user-facing strings. Tooltip or button labels carry meaning.
 
 ## Reference
 
@@ -86,13 +66,6 @@ Icons do not contain user-facing strings. Tooltip or button labels carry meaning
 ### Props
 
 <PropsTable component="Icon" />
-
-### Behaviors
-
-#### Responsiveness
-
-Icons scale via size tokens (`xs` through `xl`). Parent flex layout should not
-squash below token dimensions.
 
 ### Edge cases
 

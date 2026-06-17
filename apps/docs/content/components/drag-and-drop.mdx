@@ -45,16 +45,6 @@ for two-dimensional moves rather than linear reorder.
 
 ## Guidelines
 
-- **Column titles visible** — each drop zone labeled.
-- **Empty columns** — show drop target affordance when column has zero items.
-- **Persist on drop** — API update with optimistic UI and error toast on failure.
-- **Accessible variant** — use accessible story patterns; do not rely on drag alone.
-- **Not for long lists** — paginated tables need different interaction models.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use AccessibleDragAndDrop patterns when shipping to keyboard-only users." />
   <Do caption="Highlight valid drop zones during drag." />
@@ -62,6 +52,11 @@ for two-dimensional moves rather than linear reorder.
   <Dont caption="Drag-and-drop as the only path to change critical billing state." />
   <Dont caption="Tiny drag handles on mobile breakpoints without alternative UI." />
   <Dont caption="Mixing drag board with real-time multi-user edits without conflict handling." />
+  <Do caption="Column titles visible — each drop zone labeled." />
+  <Do caption="Empty columns — show drop target affordance when column has zero items." />
+  <Do caption="Persist on drop — API update with optimistic UI and error toast on failure." />
+  <Do caption="Accessible variant — use accessible story patterns; do not rely on drag alone." />
+  <Dont caption="Not for long lists — paginated tables need different interaction models." />
 </DoDont>
 
 ### Content rules

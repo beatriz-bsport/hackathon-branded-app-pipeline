@@ -47,21 +47,11 @@ settings pages, and multi-part forms where users need progressive disclosure.
 
 ## Guidelines
 
-- **ariaLabel on every item** — required accessible name for the header trigger.
-- **Meaningful headers** — header slot shows title and metadata; chevron is automatic.
-- **Header actions are real buttons** — separate from the expand trigger to avoid nested buttons.
-- **Initially open sparingly** — expand the first or most critical section only.
-- **Prefer Accordion over many Collapse** — consistent spacing and chevron behavior.
-
-### Best practices
-
 <Callout type="warning" title="Caution">
 
 Accordion is marked unvalidated in source — confirm visual spec with design before marketing-facing pages.
 
 </Callout>
-
-#### General
 
 <DoDont>
   <Do caption="Write ariaLabel that matches the visible header text for screen readers." />
@@ -70,6 +60,10 @@ Accordion is marked unvalidated in source — confirm visual spec with design be
   <Dont caption="Ten accordion items with no search — long pages need tabs or split routes." />
   <Dont caption="Critical warnings hidden in a collapsed panel users may never open." />
   <Dont caption="Nesting accordions more than one level — flatten or use a drill-in page." />
+  <Do caption="ariaLabel on every item — required accessible name for the header trigger." />
+  <Do caption="Meaningful headers — header slot shows title and metadata; chevron is automatic." />
+  <Do caption="Initially open sparingly — expand the first or most critical section only." />
+  <Do caption="Prefer Accordion over many Collapse — consistent spacing and chevron behavior." />
 </DoDont>
 
 ### Content rules

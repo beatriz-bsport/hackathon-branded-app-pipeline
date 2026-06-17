@@ -28,104 +28,17 @@ navigation; Body carries everything the user reads in flow.
   stories={[{ id: "primitive-components-body--primary", label: "Body" }]}
 />
 
-### Use cases
-
-- **Table cells** — `htmlVariant="span"` with `size="md"` for the 14px base UI
-  size in [Table](/components/table) rows.
-- **Alert and modal copy** — multi-line explanation text beneath a [Title](/components/title)
-  heading inside [Alert](/components/alert) or [Modal](/components/modal).
-- **Form helpers** — secondary hints, validation messages, and field descriptions
-  at `size="sm"` with `color="weak"`.
-- **Page subtitles** — supporting line under a page title in
-  [Header layout](/components/header-layout) (`size="lg"` when prose-length).
-- **Status inline copy** — `color="critical"`, `warning`, `info`, or `positive`
-  inside a component when the surrounding layout already signals context.
-
 ## Guidelines
 
-- **Base UI size** — `size="md"` (14px) is the default choice for tables, forms,
-  and dense layouts; see [Typography](/foundations/typography).
-- **Semantic element** — render as `p` for blocks and `span` for inline table
-  cells or labels; do not swap elements for styling alone.
-- **Colour carries meaning** — `default` for primary copy, `weak` / `weaker`
-  for de-emphasis, `main` only when inline text is interactive (prefer
-  [Link](/components/link) for real navigation).
-- **Weight sparingly** — no default weight is applied; use `strong` or
-  `stronger` for short emphasis, not whole paragraphs.
-- **Stay on the scale** — no `size="xs"` on Body; use the `text-body-xs` utility
-  in extremely tight surfaces (badges, avatars).
-
-### Best practices
-
-#### General
-
 <DoDont>
-  <Do caption="Reach for size=md in tables and forms — it matches buttons, labels, and the rest of the dense Back Office UI." />
   <Do caption="Switch to htmlVariant=span when Body sits inside a table cell or inline label so you avoid invalid paragraph nesting." />
   <Do caption="Pair weak or weaker colour with supporting metadata — timestamps, helper lines, and secondary labels." />
   <Dont caption="Page and section headings belong on Title — Body cannot replace heading semantics." />
   <Dont caption="Interactive navigation belongs on Link, not Body with color=main, unless you are composing a one-off inline pattern inside another component." />
   <Dont caption="Strong or stronger weight across an entire paragraph flattens scanability — reserve emphasis for a phrase or callout line." />
+  <Do caption='Default size — `size="lg"` (16px) is the default for body copy; use `md` (14px) in tables, forms, and dense layouts; see `Typography`.' />
+  <Do caption='Stay on the scale — no `size="xs"` on Body; use the `text-body-xs` utility in extremely tight surfaces (badges, avatars).' />
 </DoDont>
-
-<Callout type="warning" title="Caution">
-
-When `htmlVariant="p"`, block children such as lists or other paragraphs
-produce invalid HTML (`<ul>` inside `<p>`). Pass a React node as children only
-when the structure is plain text or inline elements, or choose a different
-wrapper at the parent level.
-
-</Callout>
-
-#### size md
-
-<DoDont>
-  <Do caption="Use for table cells, form labels, menu item labels, and any surface where 14px is the workhorse size." />
-  <Dont caption="Long-form reading blocks at md feel cramped — step up to size=lg when the user reads multiple sentences in a panel or empty state." />
-</DoDont>
-
-#### color main
-
-<DoDont>
-  <Do caption="Reserve main for inline interactive affordances inside composite components when Link is not yet wired." />
-  <Dont caption="Standalone hyperlinks in copy belong on Link — main on Body does not add underline, focus ring, or keyboard affordances." />
-</DoDont>
-
-### Content rules
-
-Write in sentence case, present tense, and plain language. Keep helper text
-actionable — say what happened and what to do next.
-
-**Table cell** — `size="md"`, `color="default"`.
-
-> Active until 12 Jun 2026
-
-**Validation hint** — `size="sm"`, `color="critical"`.
-
-> Enter a valid email address.
-
-**Supporting description** — `size="lg"`, `color="weak"`.
-
-> Members without a pack cannot book this activity.
-
-## Reference
-
-### Anatomy
-
-<Anatomy
-  parts={[
-    {
-      label: "Root (`p` or `span`)",
-      description:
-        "Semantic text element selected by `htmlVariant`. Receives typography utility classes from `size`, `color`, and `weight`.",
-    },
-    {
-      label: "Children",
-      description:
-        "Text or inline nodes. When `size` is set and children are block-level siblings, vertical `space-y-*` rhythm is applied between direct children.",
-    },
-  ]}
-/>
 
 ### Type scale
 
@@ -143,7 +56,7 @@ figures). There is no `size="xs"` — see [Typography](/foundations/typography).
     size: {
       type: '"display" | "xl" | "lg" | "md" | "sm"',
       description:
-        "Token-backed text size and line height. Also applies `space-y-*` between direct block children when set. `md` is the base UI size (14px).",
+        "Token-backed text size and line height. Also applies `space-y-*` between direct block children when set. `lg` is the default reading size (16px); use `md` (14px) for dense UI.",
     },
     htmlVariant: {
       type: '"p" | "span"',
@@ -171,14 +84,14 @@ figures). There is no `size="xs"` — see [Typography](/foundations/typography).
 
 ### Behaviors
 
-#### Vertical rhythm
+### Vertical rhythm
 
 When `size` is set, Body adds a `space-y-*` utility matching the size step
 (`space-y-md` for `display` / `xl` / `lg`, `space-y-sm` for `md`,
 `space-y-xs` for `sm`) between **direct** block children. Inline text and a
 single child are unaffected.
 
-#### Responsiveness
+### Responsiveness
 
 Body does not change size at breakpoints — pick the size that fits the
 container. In narrow panels, prefer `md` or `sm` and let wrapping handle
@@ -186,18 +99,13 @@ overflow.
 
 ### Edge cases
 
-- **`htmlVariant="p"` with block children** — nesting lists, divs, or other
-  paragraphs inside `p` is invalid HTML and triggers hydration warnings. Keep
-  children to text and inline elements, or lift structure to the parent.
-- **Missing `size`** — only colour and weight classes apply; line height and
-  font size fall back to inherited styles. Kaizen primitives usually pass an
-  explicit `size`.
-- **Very long text** — wraps naturally; no built-in truncation. Truncate at the
-  parent layout (for example `line-clamp-*` on a wrapper) when space is fixed.
-- **`color="inherit"`** — takes colour from the parent; useful inside tinted
-  surfaces or composite components that already set text colour.
-- **No `size="xs"`** — use `text-body-xs` and `leading-2xs` utilities where
-  space is extremely tight.
+<DoDont>
+  <Do caption='`htmlVariant="p"` with block children — nesting lists, divs, or other paragraphs inside `p` is invalid HTML and triggers hydration warnings. Keep children to text and inline elements, or lift structure to the parent.' />
+  <Do caption="Missing `size` — only colour and weight classes apply; line height and font size fall back to inherited styles. Kaizen primitives usually pass an explicit `size`." />
+  <Do caption="Very long text — wraps naturally; no built-in truncation. Truncate at the parent layout (for example `line-clamp-*` on a wrapper) when space is fixed." />
+  <Do caption='`color="inherit"` — takes colour from the parent; useful inside tinted surfaces or composite components that already set text colour.' />
+  <Do caption='No `size="xs"` — use `text-body-xs` and `leading-2xs` utilities where space is extremely tight.' />
+</DoDont>
 
 ## Accessibility
 

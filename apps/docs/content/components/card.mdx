@@ -60,29 +60,16 @@ instead.
 
 ## Guidelines
 
-- **Earn the boundary** — default to heading + spacing; reach for Card only when
-  the border or backdrop adds meaning, affordance, or separation. See
-  [Using cards](/patterns/using-cards).
-- **Pick the variant by interaction** — `actionable={false}` for structural
-  grouping; `actionable={true}` when the whole region is one click target.
-- **Group siblings consistently** — cards in a grid should share the same
-  variant; avoid mixing actionable and static neighbors in one row.
-- **Compose, don't configure** — Card has no title, media, or footer slots;
-  layout and content live in `children`.
-- **Reserve elevation for actionable** — `elevated` only affects actionable
-  cards; static cards always use the bordered elevated surface style.
-
-### Best practices
-
-#### General
-
 <DoDont>
-  <Do caption="Read [Using cards](/patterns/using-cards) before adding a card — if removing the border does not change meaning, spacing is enough." />
+  <Do caption="Read `Using cards` before adding a card — if removing the border does not change meaning, spacing is enough." />
   <Do caption="Lay out multiple sibling cards in a grid with consistent gap tokens so each unit scans as part of one collection." />
   <Do caption="Use actionable cards when the whole region navigates, selects, or opens detail — the backdrop signals a single hit target." />
   <Dont caption="Uniform directories, audit logs, and sortable record lists belong on Table or list rows — cards hide the comparison axis." />
   <Dont caption="Every section on a single-purpose form page does not need its own card — the page is already the container." />
   <Dont caption="Nested cards compete visually — if you need a card inside a card, the inner block is usually the real unit; the outer wrapper should be heading + spacing." />
+  <Do caption="Group siblings consistently — cards in a grid should share the same variant; avoid mixing actionable and static neighbors in one row." />
+  <Do caption="Compose, don't configure — Card has no title, media, or footer slots; layout and content live in `children`." />
+  <Do caption="Reserve elevation for actionable — `elevated` only affects actionable cards; static cards always use the bordered elevated surface style." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -93,14 +80,14 @@ labeled sections instead.
 
 </Callout>
 
-#### Static (`actionable={false}`)
+### Static (`actionable={false}`)
 
 <DoDont>
   <Do caption="Use for page-level groupings on settings or detail views when several unrelated blocks need visual separation on one screen." />
   <Dont caption="A border alone cannot communicate click me — whole-surface navigation needs actionable={true} or an explicit link or button inside." />
 </DoDont>
 
-#### Actionable (`actionable={true}`)
+### Actionable (`actionable={true}`)
 
 <DoDont>
   <Do caption="Pair elevated and selected when the card is one option in a selectable group — e.g. current plan vs other plans." />

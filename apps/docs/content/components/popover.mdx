@@ -37,10 +37,6 @@ Popover surfaces contextual information or lightweight actions in a floating pan
   ]}
 />
 
-### Best practices
-
-#### General
-
 <DoDont>
   <Do
     caption={
@@ -64,16 +60,14 @@ Popover surfaces contextual information or lightweight actions in a floating pan
   />
 </DoDont>
 
-<Callout type="warning" title="Caution">
+<DoDont>
+  <Do caption="Caution when using hover as the only trigger: hover popovers are inaccessible on touch devices. Pair hover with click or focus, or use Tooltip for non-interactive hover content." />
+  <Do caption="Caution with multiple simultaneous popovers. The component does not manage stacking order between sibling popovers — avoid designs where two can be open at once." />
+</DoDont>
 
-- Caution when using hover as the only trigger: hover popovers are inaccessible on touch devices. Pair hover with click or focus, or use Tooltip for non-interactive hover content.
-- Caution with multiple simultaneous popovers. The component does not manage stacking order between sibling popovers — avoid designs where two can be open at once.
+### Content
 
-</Callout>
-
-#### Content
-
-#### `Tbd`
+### `Tbd`
 
 ## Reference
 

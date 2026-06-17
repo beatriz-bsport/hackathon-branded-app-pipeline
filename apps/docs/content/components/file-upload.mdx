@@ -49,16 +49,6 @@ templates — wire to your API layer for `autoUpload` or fully controlled flows.
 
 ## Guidelines
 
-- **State file constraints** — max size and MIME types in helper text.
-- **Preview images** — show [Media](/components/media) thumbnail after select.
-- **Error on reject** — explain why a file failed validation.
-- **Controlled for wizards** — parent owns File object until submit.
-- **autoUpload** — only when API supports immediate upload with progress feedback.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="List accepted formats and max size before users browse." />
   <Do caption="Show upload progress or success when autoUpload is enabled." />
@@ -66,6 +56,10 @@ templates — wire to your API layer for `autoUpload` or fully controlled flows.
   <Dont caption="Silent failure when file exceeds limit — always message." />
   <Dont caption="Drag-only upload without a visible browse button." />
   <Dont caption="Uploading sensitive files without encryption context in copy." />
+  <Do caption="State file constraints — max size and MIME types in helper text." />
+  <Do caption="Preview images — show `Media` thumbnail after select." />
+  <Do caption="Error on reject — explain why a file failed validation." />
+  <Do caption="Controlled for wizards — parent owns File object until submit." />
 </DoDont>
 
 ### Content rules

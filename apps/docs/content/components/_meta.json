@@ -5,10 +5,6 @@
     "items": ["button", "toggle-button", "copy-to-clipboard"]
   },
   {
-    "group": "App navigation",
-    "items": ["app-navigation", "navigation", "sidebar"]
-  },
-  {
     "group": "Images and icons",
     "items": [
       "icon",
@@ -21,7 +17,7 @@
   },
   {
     "group": "Typography",
-    "items": ["body", "title", "label"]
+    "items": ["body", "title"]
   },
   {
     "group": "Data display",
@@ -79,7 +75,13 @@
   },
   {
     "group": "Navigation",
-    "items": ["breadcrumbs", "link", "tabs", "segmented-control"]
+    "items": [
+      "app-navigation",
+      "breadcrumbs",
+      "link",
+      "tabs",
+      "segmented-control"
+    ]
   },
   {
     "group": "Overlays",
@@ -106,6 +108,6 @@
   },
   {
     "group": "Utilities",
-    "items": ["loader", "error-fallback", "drag-and-drop"]
+    "items": ["label", "loader", "error-fallback", "drag-and-drop"]
   }
 ]

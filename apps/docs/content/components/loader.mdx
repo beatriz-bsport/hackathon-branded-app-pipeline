@@ -39,25 +39,12 @@ it with a disabled shell or overlay.
 
 ## Guidelines
 
-- **Size matches container** — `sm` inline, `md` in cards, `lg`/`xl` for page-level waits.
-- **Pair with context** — add visible text ("Loading members…") for waits longer
-  than a few seconds.
-- **Do not fake progress** — Loader is indeterminate; use [Progress bar](/components/progress-bar)
-  when you know completion percentage.
-- **Avoid duplicate spinners** — one loader per waiting region, not per cell in a table.
-- **Disable destructive actions** — while a critical save runs, disable buttons
-  even if the loader is only inline.
-
-### Best practices
-
 <Callout type="warning" title="Caution">
 
 A page-sized loader without copy leaves users unsure whether the app froze. Add a
 short status line when fetch times routinely exceed three seconds.
 
 </Callout>
-
-#### General
 
 <DoDont>
   <Do caption="Center an xl loader in the list content area while the initial query resolves." />
@@ -66,6 +53,11 @@ short status line when fetch times routinely exceed three seconds.
   <Dont caption="Multiple loaders in one viewport suggest uncoordinated fetching — consolidate loading state." />
   <Dont caption="Loaders on static screens that never resolve train users to ignore them." />
   <Dont caption="Long operations without cancel belong in a modal with explicit copy, not a lone dot animation." />
+  <Do caption="Size matches container — `sm` inline, `md` in cards, `lg`/`xl` for page-level waits." />
+  <Do caption='Pair with context — add visible text ("Loading members…") for waits longer than a few seconds.' />
+  <Dont caption="Do not fake progress — Loader is indeterminate; use `Progress bar` when you know completion percentage." />
+  <Dont caption="Avoid duplicate spinners — one loader per waiting region, not per cell in a table." />
+  <Do caption="Disable destructive actions — while a critical save runs, disable buttons even if the loader is only inline." />
 </DoDont>
 
 ### Content rules

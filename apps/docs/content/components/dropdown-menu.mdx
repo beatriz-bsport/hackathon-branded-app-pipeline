@@ -46,16 +46,6 @@ search, and composable APIs for custom item rendering.
 
 ## Guidelines
 
-- **Trigger labels the menu** — button text or `aria-label` ("Actions", "Choose coach").
-- **Search for long lists** — enable quick filter above ~8 options.
-- **Placement** — flip when near viewport edge; avoid clipping in modals.
-- **Composable vs managed** — managed API for standard cases; composable for custom slots.
-- **Close on action** — single-select menus close after choice unless documented otherwise.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use icon-only overflow triggers with aria-label Actions on each row." />
   <Do caption="Enable search when options exceed one screen of scrolling." />
@@ -63,6 +53,11 @@ search, and composable APIs for custom item rendering.
   <Dont caption="Primary navigation entire modules from row dropdowns — use sidebar." />
   <Dont caption="Nested dropdowns more than one level deep." />
   <Dont caption="Destructive delete as first item without divider separation." />
+  <Do caption='Trigger labels the menu — button text or `aria-label` ("Actions", "Choose coach").' />
+  <Do caption="Search for long lists — enable quick filter above ~8 options." />
+  <Do caption="Placement — flip when near viewport edge; avoid clipping in modals." />
+  <Do caption="Composable vs managed — managed API for standard cases; composable for custom slots." />
+  <Do caption="Close on action — single-select menus close after choice unless documented otherwise." />
 </DoDont>
 
 ### Content rules

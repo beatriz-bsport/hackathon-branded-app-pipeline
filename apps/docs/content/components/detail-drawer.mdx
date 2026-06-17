@@ -47,16 +47,6 @@ DetailDrawer is a transient, side-mounted container that shifts focus to one obj
 
 ## Guidelines
 
-- **Preserve flow** — open the drawer when the operator encounters objects in a list or queue and needs a peek, not when they intentionally navigated to a full detail page.
-- **Stay scoped** — limit content to one object and short interactions; multi-step wizards and full profile edits belong on a page.
-- **Keep context visible** — highlight the triggering row in the list and let the page behind remain interactive.
-- **Navigate in place** — wire previous/next through `actionsConfig` whenever the drawer opens from a collection.
-- **Choose the right surface** — blocking decisions use [Modal](/components/modal); persistent metadata on the current record uses [Panel](/components/panel). See [Panel vs Drawer vs Modal](/patterns/panel-vs-drawer-vs-modal) when unsure.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Open the drawer when operators browse a list or queue and need to peek at a record without losing scroll position or applied filters." />
   <Do caption="Wire previous and next navigation through actionsConfig whenever the drawer opens from a list so operators can triage without closing and reopening." />
@@ -64,6 +54,7 @@ DetailDrawer is a transient, side-mounted container that shifts focus to one obj
   <Dont caption="Stacking drawers fragments context — replace the drawer body with a back affordance or navigate to a full page when opening a different record." />
   <Dont caption="Primary work destinations belong on a dedicated page, not in a drawer opened from a deep link or main navigation." />
   <Dont caption="Object creation and multi-step flows belong in Modal or on a page, not in DetailDrawer." />
+  <Do caption="Choose the right surface — blocking decisions use `Modal`; persistent metadata on the current record uses `Panel`. See `Panel vs Drawer vs Modal` when unsure." />
 </DoDont>
 
 <Callout type="warning" title="Caution">

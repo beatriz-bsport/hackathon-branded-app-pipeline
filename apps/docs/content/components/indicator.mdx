@@ -58,24 +58,6 @@ Not sure whether Badge, Chip, or Indicator fits? See
 
 ## Guidelines
 
-- **Attention, not metadata** — use Indicator when you need a count or presence
-  signal on or beside a host; use [Badge](/components/badge) for inline
-  qualifiers like "New" or "Beta".
-- **Non-dismissible** — users cannot clear an Indicator; use
-  [Chip](/components/chip) when the token must be removed or filtered out.
-- **Two placement modes** — wrap a host in `children` for top-right or
-  bottom-right overlay anchoring; render without `children` and pass the result
-  as an `endSlot` or inline sibling when the layout already positions the
-  signal beside content.
-- **Dot vs count** — omit `value` for presence-only signals; pass `value` when
-  the exact or capped count matters.
-- **Color for urgency** — reserve `critical` for alerts that need immediate
-  attention; use `main` for product highlights and `default` for neutral tallies.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Wrap an icon button or avatar in children when the signal should sit on the corner of the host — for example, applied filters on a filter button." />
   <Do caption="Pass value for actionable counts (unread messages, active filters) so users know whether attention is needed before they click." />
@@ -83,6 +65,8 @@ Not sure whether Badge, Chip, or Indicator fits? See
   <Dont caption="Removable tags, filters, and object statuses belong on Chip, not Indicator." />
   <Dont caption="Standalone text labels without a host belong on Badge beside copy, not Indicator." />
   <Dont caption="Critical meaning needs more than color — pair color critical with a numeric value or ensure the parent label names the alert." />
+  <Do caption="Non-dismissible — users cannot clear an Indicator; use `Chip` when the token must be removed or filtered out." />
+  <Do caption="Dot vs count — omit `value` for presence-only signals; pass `value` when the exact or capped count matters." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -93,14 +77,14 @@ scanning predictable. When several counts apply, aggregate them into a single
 
 </Callout>
 
-#### Dot mode (no value)
+### Dot mode (no value)
 
 <DoDont>
   <Do caption="Use a dot to signal presence or novelty when the exact count is unknown or unnecessary — for example, a new analytics section in the sidebar." />
   <Dont caption="When the count matters, pass value instead of a dot so the number is visible." />
 </DoDont>
 
-#### critical color
+### critical color
 
 <DoDont>
   <Do caption="Reserve for alert or error counts that should pull attention before the user opens the destination — for example, unread system notifications." />

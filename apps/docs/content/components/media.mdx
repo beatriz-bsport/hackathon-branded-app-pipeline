@@ -1,6 +1,6 @@
 ---
-title: Media [LLM]
-description: A responsive image frame with aspect ratio and loading placeholders
+title: Media
+description: A responsive image frame with aspect ratio and fade-in on load
 status: stable
 category: components
 tags: [display, imagery]
@@ -11,14 +11,16 @@ sections:
   - "Reference"
   - "Accessibility"
   - "Resources"
+  - "Improvements"
 ---
 
 ## Overview
 
-Media displays photos and cover images with consistent rounding, aspect ratio, and
-fade-in loading. It handles broken or missing sources with a neutral placeholder
-and icon — use it for pass covers, venue photos, and marketing tiles instead of
-raw `img` tags.
+Media displays photos and cover images with consistent rounding and aspect ratio.
+While the image loads, it **fades in** from transparent to visible — there is no
+skeleton or placeholder during download. Empty or broken sources render a neutral
+placeholder with icon instead. Use for pass covers, venue photos, and marketing tiles
+instead of raw `img` tags.
 
 <StorybookEmbed
   id="primitive-components-media--primary"
@@ -31,43 +33,17 @@ raw `img` tags.
   ]}
 />
 
-### Use cases
-
-- **Pass and product cards** — cover image with `ratio="16:9"` in buyables lists.
-- **Venue thumbnails** — `size="sm"` beside location names in booking views.
-- **Member-uploaded assets** — preview in [File upload](/components/file-upload) flows.
-- **Detail headers** — `size="lg"` hero image on pass or class detail panels.
-- **Gallery grids** — square `ratio="1:1"` tiles in media pickers.
-
 ## Guidelines
 
-- **Alt text is required** — describe the image content, not the filename.
-- **Pick ratio for layout** — lock aspect ratio in grids; use `aspect-auto` only
-  when height is content-driven.
-- **Size token over custom CSS** — `sm` through `xl` align with element scale.
-- **Placeholder is not content** — empty or broken states need retry or upload actions nearby.
-- **Photos vs illustrations** — use [Illustration](/components/illustration) for branded empties, Media for real assets.
-
-### Best practices
-
-#### General
-
 <DoDont>
-  <Do caption="Set meaningful alt text for every promotional or venue photo." />
   <Do caption="Match ratio to the grid cell so rows align without cropping surprises." />
-  <Do caption="Fade-in respects loaded state — avoid swapping src rapidly during carousel flicker." />
   <Dont caption="Stretching Media with arbitrary CSS defeats object-cover — pick the right ratio." />
-  <Dont caption="Decorative thumbnails without alt when they convey product identity." />
   <Dont caption="Using Media for icons or spot illustrations — wrong component family." />
+  <Do caption="Alt text is required — describe the image content, not the filename." />
+  <Do caption="Pick ratio for layout — lock aspect ratio in grids; use `aspect-auto` only when height is content-driven." />
+  <Do caption="Pair slow grids with a parent skeleton if load is slow." />
+  <Do caption="Photos vs illustrations — use `Illustration` for branded empties, Media for real assets." />
 </DoDont>
-
-### Content rules
-
-Alt text examples:
-
-> Yoga class studio interior
-
-> Summer pass cover image
 
 ## Reference
 
@@ -77,11 +53,12 @@ Alt text examples:
   parts={[
     {
       name: "Image",
-      description: "object-cover img with opacity transition on load.",
+      description: "object-cover img; starts transparent, fades in on load.",
     },
     {
       name: "Placeholder",
-      description: "Weak surface with image icon when src fails or is empty.",
+      description:
+        "Weak surface with image icon when src is empty or fails — not while loading.",
     },
   ]}
 />
@@ -101,7 +78,8 @@ aspect ratio tokens.
 
 - **Empty src** — placeholder renders immediately.
 - **Broken URL** — onError shows placeholder; offer re-upload in product UI.
-- **Slow load** — opacity animates from transparent to visible when loaded.
+- **Slow load** — image stays transparent until loaded, then opacity animates to visible;
+  no in-component skeleton.
 
 ## Accessibility
 
@@ -147,3 +125,12 @@ When Media is the sole content of a clickable card, focus stays on the card wrap
 - **[File upload](/components/file-upload)** — source of uploaded files previewed with Media.
 - **[Avatar](/components/avatar)** — circular people photos, not rectangular media tiles.
 - **[Card](/components/card)** — common parent layout for media + metadata.
+
+## Improvements
+
+### Loading state
+
+During slow loads the image stays transparent until `onLoad` — no skeleton or weak-surface
+placeholder behind it. Grids that need layout stability may need a parent skeleton until
+the image appears. Track in
+[KAI-856](https://linear.app/bsport/issue/KAI-856/kz-improvement-add-loading-placeholder-to-media).

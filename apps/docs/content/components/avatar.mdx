@@ -1,5 +1,5 @@
 ---
-title: Avatar [LLM]
+title: Avatar
 description: A compact visual identity for people, members, or accounts — image, initials, or icon
 status: stable
 category: components
@@ -37,26 +37,12 @@ headers, menus, and assignment fields across Studio Manager.
 ### Use cases
 
 - **Member rows** — show the member photo or initials beside name in CDP lists.
-- **Coach assignment** — display the assigned coach on a session or class card.
-- **Account menu** — render the signed-in user at the bottom of the sidebar.
+- **Account menu** — render the signed-in user.
 - **Picker targets** — use `onClick` to open a member or staff selector modal.
 - **Stacked groups** — pair with [Avatar group](/components/avatar-group) when
   several people share one row.
 
 ## Guidelines
-
-- **Image first** — pass `src` and meaningful `alt` when a photo exists; initials
-  are the fallback, not the default for known members.
-- **Size matches density** — use `xs`/`sm` in tables and compact lists, `md` in
-  standard rows, `lg` in headers or detail panels.
-- **Shape signals context** — `round` for people; `squared` when aligning with
-  cards or product thumbnails.
-- **Click only when actionable** — add `onClick` when the avatar opens a profile
-  or selector; static rows should omit it.
-- **Pair status elsewhere** — use [Indicator](/components/indicator) or
-  [Badge](/components/badge) beside the row until native avatar status ships.
-
-### Best practices
 
 <Callout type="warning" title="Caution">
 
@@ -65,26 +51,17 @@ for dot counts, but overlapping badges on the avatar itself need design review.
 
 </Callout>
 
-#### General
-
 <DoDont>
-  <Do caption="Provide alt text that names the person when src is a photo." />
   <Do caption="Use initials derived from the display name when no image is available." />
   <Do caption="Match size to the list density — sm in tables, md in standard list rows." />
   <Dont caption="Generic placeholder icons without context read as broken data — prefer initials." />
   <Dont caption="Clickable avatars without a visible hover state confuse users — pair onClick with cursor and border feedback." />
   <Dont caption="Oversized avatars in dense tables steal scan focus from the primary column." />
+  <Do caption="Image first — pass `src` and meaningful `alt` when a photo exists; initials are the fallback, not the default for known members." />
+  <Do caption="Shape signals context — `round` for people; `squared` when aligning with cards or product thumbnails." />
+  <Do caption="Click only when actionable — add `onClick` when the avatar opens a profile or selector; static rows should omit it." />
+  <Do caption="Pair status elsewhere — use `Indicator` or `Badge` beside the row until native avatar status ships." />
 </DoDont>
-
-### Content rules
-
-- **Initials** — one or two characters from the person's name; avoid arbitrary
-  letters.
-- **Alt text** — name the person, not the UI role:
-
-> Emma Johnson
-
-> Coach profile photo
 
 ## Reference
 

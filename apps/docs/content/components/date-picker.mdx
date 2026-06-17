@@ -49,16 +49,6 @@ anchoring for dense filter bars in Studio Manager.
 
 ## Guidelines
 
-- **Modal vs popover** — modal for primary form fields; popover for inline filters.
-- **Disable invalid dates** — block past dates for bookings or future-only promos.
-- **Shortcuts reduce taps** — offer presets for common reporting windows.
-- **Locale and timezone** — display dates in studio locale; store ISO in API layer.
-- **Label the field** — always pair with visible label showing selected value.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Show the selected value in the trigger even when the calendar is closed." />
   <Do caption="Use range mode when both start and end matter for reports." />
@@ -66,6 +56,11 @@ anchoring for dense filter bars in Studio Manager.
   <Dont caption="Free-text date parsing without picker — error-prone across locales." />
   <Dont caption="Range pickers for a single moment in time — use single mode." />
   <Dont caption="Opening modal pickers inside modals without focus trap review." />
+  <Do caption="Modal vs popover — modal for primary form fields; popover for inline filters." />
+  <Do caption="Disable invalid dates — block past dates for bookings or future-only promos." />
+  <Do caption="Shortcuts reduce taps — offer presets for common reporting windows." />
+  <Do caption="Locale and timezone — display dates in studio locale; store ISO in API layer." />
+  <Do caption="Label the field — always pair with visible label showing selected value." />
 </DoDont>
 
 ### Content rules

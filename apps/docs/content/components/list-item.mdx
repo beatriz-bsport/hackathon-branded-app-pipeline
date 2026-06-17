@@ -46,16 +46,6 @@ and action buttons or overflow menu. It is the workhorse row pattern across Stud
 
 ## Guidelines
 
-- **One primary title** — `title` is the main scan line; `rightTitle` for meta (price, date).
-- **Description optional** — second line only when it adds non-obvious context.
-- **Max three chips** — type system allows up to three; overflow visually clutters.
-- **Actions split** — visible buttons for primary; `dropdownConfig` for overflow.
-- **Link vs click** — `link` for navigation; `onItemClick` for selection without route change.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use compactMode in narrow panels and drawers." />
   <Do caption="Place color indicator via color prop for category-coded rows." />
@@ -63,6 +53,11 @@ and action buttons or overflow menu. It is the workhorse row pattern across Stud
   <Dont caption="Entire row clickable plus three buttons — pick link OR explicit actions." />
   <Dont caption="Long descriptions without truncation in dense lists." />
   <Dont caption="Avatar without member name in title — title must identify the row." />
+  <Do caption="One primary title — `title` is the main scan line; `rightTitle` for meta (price, date)." />
+  <Do caption="Description optional — second line only when it adds non-obvious context." />
+  <Do caption="Max three chips — type system allows up to three; overflow visually clutters." />
+  <Do caption="Actions split — visible buttons for primary; `dropdownConfig` for overflow." />
+  <Do caption="Link vs click — `link` for navigation; `onItemClick` for selection without route change." />
 </DoDont>
 
 ### Content rules

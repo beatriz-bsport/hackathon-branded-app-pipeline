@@ -53,19 +53,6 @@ and `intent` props.
 
 ## Guidelines
 
-- **Default button** — pick an `intent`, a `size`, and a `label`.
-- **Icons** — add one on either side when it clarifies the action.
-- **Icon-only** — use `kind="icon-button"` in tight toolbars and table rows;
-  `label` becomes the accessible name.
-- **Loading** — set `loading=true` during async work and pass `disabled` to block
-  repeat clicks until the action completes.
-- **Destructive actions** — pair `color="critical"` with a confirmation step;
-  never use critical styling for reversible actions like Cancel.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do
     caption="Match intent to action hierarchy — use one call-to-action button per distinct action area."
@@ -77,46 +64,48 @@ and `intent` props.
   />
   <Dont caption='Use color="critical" for non-destructive actions like "Cancel" or "Close".' />
   <Dont caption="Nest interactive elements inside a Button — this breaks the accessibility tree." />
+  <Do caption="Default button — pick an `intent`, a `size`, and a `label`." />
+  <Do caption="Icons — add one on either side when it clarifies the action." />
+  <Do caption='Icon-only — use `kind="icon-button"` in tight toolbars and table rows; `label` becomes the accessible name.' />
+  <Do caption='Destructive actions — pair `color="critical"` with a confirmation step; never use critical styling for reversible actions like Cancel.' />
 </DoDont>
 
-<Callout type="warning" title="Caution">
-
-- Avoid icon-only buttons without tooltips — always wrap `kind="icon-button"` in a `Tooltip`.
-- `fullWidth=true` suits modals and narrow form columns; evaluate layout context before enabling it in wide containers.
-
-</Callout>
+<DoDont>
+  <Dont caption='Avoid icon-only buttons without tooltips — always wrap `kind="icon-button"` in a `Tooltip`.' />
+  <Do caption="`fullWidth=true` suits modals and narrow form columns; evaluate layout context before enabling it in wide containers." />
+</DoDont>
 
 ### Variant guidance
 
-#### call-to-action intent
+### call-to-action intent
 
 <DoDont>
   <Do caption="Limit to one per form section or modal footer so users have a clear primary path forward." />
   <Dont caption="Use for destructive or reversible actions — this intent implies confidence and forward momentum." />
 </DoDont>
 
-#### default intent
+### default intent
 
 <DoDont>
   <Do caption='Pair with a call-to-action button to offer a clear secondary option (e.g. "Save" + "Cancel").' />
   <Dont caption="Use as the sole button when no primary action exists — it will feel visually ambiguous." />
 </DoDont>
 
-#### flat intent
+### flat intent
 
 <DoDont>
   <Do caption="Use in tables and lists for row-level actions where density requires minimal visual weight." />
   <Dont caption="Use for destructive row actions without additional confirmation — the low visual weight underplays the risk." />
 </DoDont>
 
-#### critical color
+### critical color
 
 <DoDont>
   <Do caption="Combine with a confirmation modal or inline warning before the action executes." />
   <Dont caption='Apply to reversible operations (e.g. "Filter", "Deselect") — reserve it for deletion or data-loss scenarios.' />
 </DoDont>
 
-#### icon-button kind
+### icon-button kind
 
 <DoDont>
   <Do caption="Use for toolbar actions where space is constrained and the icon has universal recognition." />
@@ -129,7 +118,7 @@ Keep labels short, verb-first, and specific to the outcome — not the mechanism
 ("Save changes", not "Submit form"). Use sentence case. Avoid jargon unless the
 audience expects it.
 
-#### Common uses
+### Common uses
 
 **Form submission** — `intent="call-to-action"`, `color="main"`, `size="md"`,
 `loading` bound to submit state.
@@ -150,7 +139,7 @@ audience expects it.
 
 > "Cancel"
 
-#### Buttons vs links
+### Buttons vs links
 
 A button _does something_; a link _goes somewhere_. Use [Link](/components/link)
 when navigation is the primary outcome. A button may trigger navigation as a side

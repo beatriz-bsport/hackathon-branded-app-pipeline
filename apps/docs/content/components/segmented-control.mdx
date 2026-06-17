@@ -64,24 +64,6 @@ different route or URL.
 
 ## Guidelines
 
-- **Local context** — reserve segmented control for mutually exclusive views
-  scoped to one object or surface; route-level navigation belongs on Tabs.
-- **Small option sets** — aim for 2–5 segments; beyond six options the layout
-  clutters and [Select](/components/select) reads better.
-- **Equal weight** — every option should be a peer alternative, not a primary
-  action; system-wide actions belong on Button or a toolbar.
-- **Single selection** — one active segment at a time; multi-select patterns
-  belong on [Checkbox group](/components/checkbox-group).
-- **Compact copy** — keep labels short (one to three words) so segments stay
-  scannable in drawers and cards.
-- **Badges for counts** — pass `badge` on an option when a tally helps the
-  choice (e.g. unread count); avoid badges on every segment when only one count
-  matters.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Switch content in place below the control — the page title and breadcrumbs stay the same." />
   <Do caption="Use parallel labels with the same grammar across segments — all nouns or all short verbs." />
@@ -89,6 +71,11 @@ different route or URL.
   <Dont caption="Route-level navigation between peer pages belongs on Tabs — segmented control does not replace URL-based section switching." />
   <Dont caption="More than six options crowd the bar — a Select dropdown scales better for long enumerations." />
   <Dont caption="Mixing labeled and icon-only segments in one control breaks scan rhythm — pick one pattern per control." />
+  <Do caption="Small option sets — aim for 2–5 segments; beyond six options the layout clutters and `Select` reads better." />
+  <Do caption="Equal weight — every option should be a peer alternative, not a primary action; system-wide actions belong on Button or a toolbar." />
+  <Do caption="Single selection — one active segment at a time; multi-select patterns belong on `Checkbox group`." />
+  <Do caption="Compact copy — keep labels short (one to three words) so segments stay scannable in drawers and cards." />
+  <Do caption="Badges for counts — pass `badge` on an option when a tally helps the choice (e.g. unread count); avoid badges on every segment when only one count matters." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -100,14 +87,14 @@ inside a drawer or modal, keep selection in local state.
 
 </Callout>
 
-#### fullWidth
+### fullWidth
 
 <DoDont>
   <Do caption="Stretch segments evenly when the control spans a toolbar or card header and each label is similarly short." />
   <Dont caption="Full width with long labels forces truncation — shorten copy or drop fullWidth so each segment sizes to content." />
 </DoDont>
 
-#### Icon-only options
+### Icon-only options
 
 <DoDont>
   <Do caption="Provide a `label` on every option even when only the icon shows — it becomes the accessible name." />

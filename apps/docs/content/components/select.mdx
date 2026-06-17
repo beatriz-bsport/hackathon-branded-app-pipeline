@@ -46,18 +46,6 @@ multi-select lists, use [Autocomplete](/components/autocomplete).
 
 ## Guidelines
 
-- **Label every field** — pass `label` so trigger and popover have context.
-- **Group long lists** — use title and divider items past ~20 options.
-- **Validate late** — `status=\"critical\"` and `errorText` after interaction or
-  submit.
-- **Binary choices** — two options often fit [Toggle](/components/toggle) or
-  [Radio](/components/radio) better than a dropdown.
-- **Width** — `fullWidth` in form columns; natural width in toolbars.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use helperText when the selection affects something non-obvious — 'Controls which invoice template members receive'." />
   <Do caption="Group related items with title rows so staff can scan the popover." />
@@ -65,6 +53,10 @@ multi-select lists, use [Autocomplete](/components/autocomplete).
   <Dont caption="Yes/no choices read more clearly on Toggle or Radio than Select." />
   <Dont caption="Critical status should appear after the user opens the field or submits, not before." />
   <Dont caption="An empty items list opens a popover with no choices — populate items or disable the field." />
+  <Do caption="Label every field — pass `label` so trigger and popover have context." />
+  <Do caption="Group long lists — use title and divider items past ~20 options." />
+  <Do caption='Validate late — `status="critical"` and `errorText` after interaction or submit.' />
+  <Do caption="Width — `fullWidth` in form columns; natural width in toolbars." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -74,14 +66,14 @@ Autocomplete when staff need search.
 
 </Callout>
 
-#### status critical
+### status critical
 
 <DoDont>
   <Do caption="Pair critical status with actionable errorText — 'Select a sport type'." />
   <Dont caption="Critical styling should clear once the user fixes the value." />
 </DoDont>
 
-#### status positive
+### status positive
 
 <DoDont>
   <Do caption="Use positive status in multi-step flows to confirm a valid pick." />

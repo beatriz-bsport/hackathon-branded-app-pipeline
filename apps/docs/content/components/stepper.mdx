@@ -46,21 +46,11 @@ content and validation; footer navigation moves Back, Next, or Submit on the fin
 
 ## Guidelines
 
-- **Three to five steps** — more steps suggest a full-page wizard instead.
-- **Validate per step** — block Next until current step schema passes.
-- **Progress visible** — step indicator in header shows position.
-- **Critical final step** — use critical footer styling for irreversible actions.
-- **Escape and close** — confirm data loss when dirty fields exist.
-
-### Best practices
-
 <Callout type="warning" title="Caution">
 
 More than two stacked modals usually means the flow belongs on a page — stepper should not nest inside another modal without review.
 
 </Callout>
-
-#### General
 
 <DoDont>
   <Do caption="Name each step in the header so users know what is next." />
@@ -69,6 +59,11 @@ More than two stacked modals usually means the flow belongs on a page — steppe
   <Dont caption="Optional steps hidden without indicator in the step list." />
   <Dont caption="Submit on intermediate steps that still need review." />
   <Dont caption="Stepper for single-field edits — use simple Modal." />
+  <Do caption="Three to five steps — more steps suggest a full-page wizard instead." />
+  <Do caption="Validate per step — block Next until current step schema passes." />
+  <Do caption="Progress visible — step indicator in header shows position." />
+  <Do caption="Critical final step — use critical footer styling for irreversible actions." />
+  <Do caption="Escape and close — confirm data loss when dirty fields exist." />
 </DoDont>
 
 ### Content rules

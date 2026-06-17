@@ -45,16 +45,6 @@ order to the API on drop or via explicit save depending on product rules.
 
 ## Guidelines
 
-- **Handle affordance** — drag handle icon visible; do not drag entire row without cue.
-- **Save strategy** — auto-save on drop vs Save button — pick one per flow.
-- **Disable sort when filtered** — reordering filtered subsets misleads users.
-- **Keyboard alternative** — provide move up/down actions when possible.
-- **Limit list length** — very long lists need virtualisation review before enabling drag.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Show drag handle only when user has permission to reorder." />
   <Do caption="Optimistically update UI then rollback API failure with toast." />
@@ -62,6 +52,11 @@ order to the API on drop or via explicit save depending on product rules.
   <Dont caption="Sortable rows mixed with non-sortable without visual distinction." />
   <Dont caption="Drag reorder on paginated data without loading full set." />
   <Dont caption="Relying on drag alone for accessibility — offer move buttons." />
+  <Do caption="Handle affordance — drag handle icon visible; do not drag entire row without cue." />
+  <Do caption="Save strategy — auto-save on drop vs Save button — pick one per flow." />
+  <Do caption="Disable sort when filtered — reordering filtered subsets misleads users." />
+  <Do caption="Keyboard alternative — provide move up/down actions when possible." />
+  <Do caption="Limit list length — very long lists need virtualisation review before enabling drag." />
 </DoDont>
 
 ### Content rules

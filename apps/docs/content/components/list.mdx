@@ -44,16 +44,6 @@ non-tabular collection where row layout beats [Table](/components/table).
 
 ## Guidelines
 
-- **Header actions right** — primary create/export in list header, not per row only.
-- **Pagination** — use built-in pagination or [Pagination](/components/pagination) for long sets.
-- **Row actions** — limit to one primary + overflow menu for the rest.
-- **Loading** — show [Loader](/components/loader) in content area, not per row.
-- **Link rows** — `link` prop for navigable rows; buttons for in-row actions.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use empty search state copy that suggests clearing filters." />
   <Do caption="Keep row titles scannable — one primary line, optional description." />
@@ -61,6 +51,11 @@ non-tabular collection where row layout beats [Table](/components/table).
   <Dont caption="Tables disguised as lists when sortable columns are needed — use Table." />
   <Dont caption="Five icon buttons per row — consolidate into overflow menu." />
   <Dont caption="Infinite scroll without position recovery on back navigation." />
+  <Do caption="Header actions right — primary create/export in list header, not per row only." />
+  <Do caption="Pagination — use built-in pagination or `Pagination` for long sets." />
+  <Do caption="Row actions — limit to one primary + overflow menu for the rest." />
+  <Do caption="Loading — show `Loader` in content area, not per row." />
+  <Do caption="Link rows — `link` prop for navigable rows; buttons for in-row actions." />
 </DoDont>
 
 ### Content rules

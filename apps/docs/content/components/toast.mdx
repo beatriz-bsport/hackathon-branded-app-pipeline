@@ -70,21 +70,6 @@ For when toast is the right confirmation pattern, see
 
 ## Guidelines
 
-- **Keep it brief** — one action, one toast; title plus at most one sentence of
-  description.
-- **Transient by default** — rely on the 5 s auto-dismiss unless the user must
-  explicitly acknowledge the message.
-- **Not for blocking state** — errors that halt the workflow belong in
-  [Alert](/components/alert) or inline field validation.
-- **One outcome per toast** — fire a new toast per action; do not batch unrelated
-  messages.
-- **Icon reinforces, not replaces** — always pair icons with a `title` or
-  `description`.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Confirm saves and deletes with a toast when the result is off-screen or not obvious from the UI." />
   <Do caption="Front-load the meaningful word in the title so users scanning the stack grasp the outcome quickly." />
@@ -92,6 +77,11 @@ For when toast is the right confirmation pattern, see
   <Dont caption="Long explanations and multi-option choices belong in a Modal, not a toast." />
   <Dont caption="Unrelated outcomes deserve separate toasts or product-level consolidation, not one overloaded message." />
   <Dont caption="Persistent warnings that stay until resolved belong in Alert, not toast." />
+  <Do caption="Keep it brief — one action, one toast; title plus at most one sentence of description." />
+  <Do caption="Transient by default — rely on the 5 s auto-dismiss unless the user must explicitly acknowledge the message." />
+  <Dont caption="Not for blocking state — errors that halt the workflow belong in `Alert` or inline field validation." />
+  <Do caption="One outcome per toast — fire a new toast per action; do not batch unrelated messages." />
+  <Do caption="Icon reinforces, not replaces — always pair icons with a `title` or `description`." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -102,14 +92,14 @@ acknowledgement — otherwise the stack clutters the viewport.
 
 </Callout>
 
-#### default status
+### default status
 
 <DoDont>
   <Do caption='Use status="default" for neutral confirmations and success feedback alike ("Changes saved", "Link copied").' />
   <Dont caption="Default toasts with multiple sentences bury the outcome — move detail to an alert or modal." />
 </DoDont>
 
-#### critical status
+### critical status
 
 <DoDont>
   <Do caption='Use status="critical" for operation failures or errors that block the immediate goal.' />

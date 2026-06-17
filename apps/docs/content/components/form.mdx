@@ -46,17 +46,7 @@ primitive; composition happens in app and business component layers.
 
 ## Guidelines
 
-- **Schema is source of truth** — zod (or equivalent) drives validation messages.
-- **Field components bind state** — use `Form*` wrappers instead of raw inputs in SM apps.
-- **Errors at field** — show below control; form-level summary only for non-field errors.
-- **Disable submit while invalid** — or validate on submit with focus first error.
-- **i18n** — user strings through translation namespaces per app.
-
 See [Shared form guidelines](/components/shared-form-guidelines) for cross-field rules.
-
-### Best practices
-
-#### General
 
 <DoDont>
   <Do caption="Reuse business Form* components before wiring primitives manually." />
@@ -65,6 +55,11 @@ See [Shared form guidelines](/components/shared-form-guidelines) for cross-field
   <Dont caption="Browser alert() for validation — use inline field errors." />
   <Dont caption="Submitting untouched optional fields that overwrite null with empty string unintentionally." />
   <Dont caption="Mixing uncontrolled and controlled fields in one form without documentation." />
+  <Do caption="Schema is source of truth — zod (or equivalent) drives validation messages." />
+  <Do caption="Field components bind state — use `Form*` wrappers instead of raw inputs in SM apps." />
+  <Do caption="Errors at field — show below control; form-level summary only for non-field errors." />
+  <Do caption="Disable submit while invalid — or validate on submit with focus first error." />
+  <Do caption="i18n — user strings through translation namespaces per app." />
 </DoDont>
 
 ### Content rules

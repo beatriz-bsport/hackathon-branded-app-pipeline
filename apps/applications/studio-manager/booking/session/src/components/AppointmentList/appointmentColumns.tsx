@@ -73,19 +73,29 @@ const getColumns = (
     label: t("appointmentTable.headers.teacher"),
     type: "custom",
     align: "start",
-    render: (row: EnrichedAppointment) => (
-      <div className="flex gap-xs items-center">
-        <Avatar
-          shape="round"
-          size="sm"
-          src={row.teacherAvatar ?? undefined}
-          initials={row.teacherInitials}
-        />
-        <Body htmlVariant="p" size="md" className="truncate max-w-[140px]">
-          {row.teacherName}
+    render: (row: EnrichedAppointment) =>
+      row.teacherName ? (
+        <div className="flex gap-xs items-center">
+          <Avatar
+            shape="round"
+            size="sm"
+            src={row.teacherAvatar ?? undefined}
+            initials={row.teacherInitials}
+          />
+          <Body htmlVariant="p" size="md" className="truncate max-w-[140px]">
+            {row.teacherName}
+          </Body>
+        </div>
+      ) : (
+        <Body
+          htmlVariant="p"
+          size="md"
+          color="weak"
+          className="truncate max-w-[140px]"
+        >
+          {t("appointmentTable.noTeacher")}
         </Body>
-      </div>
-    ),
+      ),
   };
 
   const participantColumn: AppointmentTableColumn = {

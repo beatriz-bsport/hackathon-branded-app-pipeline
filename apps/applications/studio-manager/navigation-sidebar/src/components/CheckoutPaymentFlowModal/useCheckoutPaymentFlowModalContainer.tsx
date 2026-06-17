@@ -8,6 +8,7 @@ import {
 import {
   CHECKOUT_FLOW_SEARCH_PARAMS,
   CHECKOUT_PAYMENT_FLOW_MODE,
+  type CheckoutPaymentFlowEventName,
   CheckoutPaymentFlowModal,
   type CheckoutPaymentFlowMode,
   FULL_PAYMENT_FLOW_SEARCH_PARAMS,
@@ -240,8 +241,10 @@ export function useCheckoutPaymentFlowModalContainer({
       companyId,
       fetch,
       onClose: handleClose,
-      onTrack: (eventName: string, properties: Record<string, unknown>) =>
-        analyticsClient.track({ eventType: eventName, ...properties }),
+      onTrack: (
+        eventName: CheckoutPaymentFlowEventName,
+        properties: Record<string, unknown>,
+      ) => analyticsClient.track({ eventType: eventName, ...properties }),
       startContext: checkoutStartContext,
       companyTheme: companyTheme ?? undefined,
     };

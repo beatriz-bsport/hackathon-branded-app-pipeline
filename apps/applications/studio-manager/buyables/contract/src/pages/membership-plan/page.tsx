@@ -66,7 +66,7 @@ const MembershipPlanPageInner: FC<{
         {activeContentTab === "billing" && (
           <QueryBoundary loadingFallback={<MembershipPlanInvoiceListLoading />}>
             <Card padding="none">
-              <MembershipPlanInvoiceList billingPlanId={membershipPlanId} />
+              <MembershipPlanInvoiceList billingPlan={membershipPlan} />
             </Card>
           </QueryBoundary>
         )}

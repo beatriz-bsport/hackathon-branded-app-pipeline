@@ -18,6 +18,7 @@ export type PlannedInvoice = {
   billing_plan: number;
   invoice_legal_identifier: string | null;
   reverted: boolean;
+  is_first_invoice: boolean;
 };
 
 // #endregion
@@ -30,6 +31,14 @@ export type FetchPlannedInvoicesParams = {
   billing_plan: number;
   page?: number;
   page_size?: number;
+};
+
+export type UpdateInvoicePriceParams = {
+  invoiceId: number;
+  billingPlanId: number;
+  newPrice: number;
+  applyBeforeRenewal: boolean;
+  applyAfterRenewal: boolean;
 };
 
 // #endregion

@@ -5,7 +5,6 @@ export {
   type ResolveInvoiceInstallmentsEligibilityParams,
   type ResolveInvoiceInstallmentsEligibilityResult,
 } from "./lib/invoice-installments-eligibility";
-export { PaymentFlowModal } from "./payment-flow-modal";
 export {
   PaymentFlowStep,
   type PaymentFlowStepState,

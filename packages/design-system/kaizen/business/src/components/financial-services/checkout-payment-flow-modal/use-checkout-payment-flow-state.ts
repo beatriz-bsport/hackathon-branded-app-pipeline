@@ -113,7 +113,6 @@ export const useCheckoutPaymentFlowState = ({
   onError,
   onTrack,
   startContext,
-  basketSessionId,
   companyTheme,
 }: UseCheckoutPaymentFlowStateParams): CheckoutPaymentFlowState => {
   const { t: tCore } = useTranslation("core", { i18n: i18nInstance });
@@ -121,6 +120,16 @@ export const useCheckoutPaymentFlowState = ({
     i18n: i18nInstance,
   });
   const queryClient = useQueryClient();
+
+  const [sharedSessionId, setSharedSessionId] = useState(() =>
+    crypto.randomUUID(),
+  );
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) setSharedSessionId(crypto.randomUUID());
+  }
 
   const [phase, setPhase] = useState<CheckoutPaymentFlowPhase>(() =>
     getInitialCheckoutPaymentFlowPhase(mode),
@@ -243,7 +252,7 @@ export const useCheckoutPaymentFlowState = ({
     onInvoiceCreated: handleInvoiceCreated,
     onTrack,
     startContext,
-    basketSessionId,
+    trackingSessionId: sharedSessionId,
   });
 
   const isPaymentStepActive =
@@ -270,6 +279,10 @@ export const useCheckoutPaymentFlowState = ({
       }
     },
     companyTheme,
+    onPaymentTrack: onTrack,
+    paymentStartTrigger:
+      mode === CHECKOUT_PAYMENT_FLOW_MODE.FULL ? "checkout_flow" : "invoice",
+    trackingSessionId: sharedSessionId,
   });
 
   const paymentConfirmLabel = useMemo(() => {
@@ -295,7 +308,7 @@ export const useCheckoutPaymentFlowState = ({
   const paymentCloseHandlers = useGuardedModalClose({
     skipEscapeListener: !isMainModalOpen,
     shouldGuard: false,
-    close: paymentStep.closeModal,
+    close: paymentStep.handleClose,
   });
 
   const checkoutFooter = {

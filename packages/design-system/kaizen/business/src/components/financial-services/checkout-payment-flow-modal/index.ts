@@ -11,5 +11,7 @@ export {
 export type {
   CheckoutPaymentFlowModalProps,
   CheckoutPaymentFlowMode,
+  CheckoutPaymentFlowEventName,
+  CheckoutPaymentFlowTrackFn,
   FullPaymentFlowBasketStartTrigger,
 } from "./types";

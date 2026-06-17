@@ -61,7 +61,7 @@ export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
   };
 
   const handleEscapeClose = () => {
-    track("checkout_flow_member_search_escape_key_button_clicked", {
+    track("checkout_flow_member_search_escape_key_pressed", {
       member_id: selectedMember?.id,
     });
     handleClose();

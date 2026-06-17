@@ -71,18 +71,14 @@ const AvailableAddonCard: FC<AvailableAddonCardProps> = ({ pack }) => {
         </div>
         <div className="flex items-center gap-xs">
           {pack.learnMoreUrl && (
-            <a
+            <Button
+              label={t("addons.learn-more")}
+              intent="default"
+              size="md"
+              color="main"
               href={pack.learnMoreUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button
-                label={t("addons.learn-more")}
-                intent="default"
-                size="md"
-                color="main"
-              />
-            </a>
+            />
           )}
           <Button
             color="main"

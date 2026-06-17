@@ -7,7 +7,7 @@ export const defaultClasses = [
   "cursor-pointer",
   "font-weak",
   // Flex config
-  "flex flex-row items-center justify-center",
+  "inline-flex flex-row items-center justify-center",
   "whitespace-nowrap",
   // Disabled
   "disabled:opacity-md",

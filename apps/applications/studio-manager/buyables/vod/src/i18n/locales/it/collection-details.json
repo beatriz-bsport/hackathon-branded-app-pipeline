@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Collezioni",
+  "deleteActionLabel": "Elimina",
+  "loading": "Caricamento collezione",
+  "loadError": {
+    "title": "Impossibile caricare la collezione",
+    "description": "Riprova. Se il problema persiste, aggiorna la pagina o torna alla pagina delle Collezioni. ",
+    "retry": "Riprova"
+  },
+  "notFound": {
+    "title": "Collezione non trovata",
+    "description": "Non è stato possibile trovare il contenuto multimediale. Potrebbe essere stato eliminato o non hai accesso ad esso. ",
+    "backToCollections": "Torna a tutte le collezioni"
+  },
+  "emptyMedia": {
+    "title": "Nessun media aggiunto",
+    "subtitle": "Aggiungi media per creare la tua prima collezione"
+  },
+  "emptyThumbnailLabel": "Nessun contenuto multimediale nella collezione",
+  "ebook": {
+    "download": "Scaricare"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Apri video",
+      "openYoutubeVideo": "Apri il video di YouTube"
+    },
+    "fallbacks": {
+      "loadError": "Il player integrato non è riuscito a caricare il contenuto. Apri il media in una nuova scheda.",
+      "youtubeEmbedError": "L'URL di YouTube non può essere incorporato. Aprilo invece in una nuova scheda."
+    }
+  },
+  "videoList": {
+    "addMedia": "Aggiungi media",
+    "ebook": "Ebook",
+    "managerOnly": "Non in elenco",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} giorno di noleggio",
+    "rentalDays_other": "{{count}} giorni di noleggio",
+    "levels": {
+      "1": "Tutti i livelli",
+      "2": "Principiante",
+      "3": "Intermedio",
+      "4": "Avanzate",
+      "5": "Nessun livello visualizzato"
+    }
+  },
+  "addMediaModal": {
+    "title": "Aggiungi media",
+    "searchPlaceholder": "Cerca media",
+    "emptySearch": "Nessun media trovato",
+    "cancel": "Chiudi",
+    "add": "Aggiungi",
+    "submitResponse": {
+      "success": "Media aggiunto alla collezione",
+      "error": "Non è stato possibile aggiungere il contenuto multimediale alla collezione. Riprova. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "Rimuovere il contenuto multimediale dalla Collezione?",
+    "description": "i tuoi clienti non potranno più vedere \"{{videoName}}\" nella tua collezione, ma potrai comunque accedervi On-Demand.",
+    "undoAction": {
+      "label": "Indietro"
+    },
+    "undoResponse": {
+      "success": "Cambiamento annullato"
+    },
+    "buttons": {
+      "cancel": "Mantieni",
+      "remove": "Rimuovi",
+      "removeItem": "Rimuovi {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Media rimossi dalla Collezione",
+      "error": "Non è stato possibile rimuovere il contenuto multimediale dalla raccolta. Riprova. "
+    }
+  }
+}

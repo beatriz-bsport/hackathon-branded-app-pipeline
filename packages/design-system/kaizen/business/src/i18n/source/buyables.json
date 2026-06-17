@@ -1,7 +1,7 @@
 {
   "paymentMethods": {
     "label": "Accepted payment methods",
-    "helperText": "Choose at least one payment method",
+    "helperText": "Choose at least one",
     "options": {
       "onlinePayment": {
         "label": "Online (default)",
@@ -25,7 +25,7 @@
     }
   },
   "visibilityRules": {
-    "label": "Additional Rules",
+    "label": "Advanced options",
     "checkboxes": {
       "recommended": {
         "label": "Mark as recommended",
@@ -37,7 +37,7 @@
       },
       "hideFromStaff": {
         "label": "Hide from staff",
-        "helperText": "Staff will be unable to view or buy this offering"
+        "helperText": "Staff will be unable to view or buy this {{ buyable }} "
       }
     }
   },
@@ -52,7 +52,7 @@
   },
   "creditFactor": {
     "fieldLabel": "Credits",
-    "notPriceWarning": "Double-check: you're entering credits, not a price.",
+    "notPriceWarning": "Enter price in credits, not the monetary value",
     "nbOfCredits": "",
     "nbOfCredits_one": "{{ countDisplay }} credit",
     "nbOfCredits_other": "{{ countDisplay }} credits"
@@ -63,8 +63,8 @@
       "optionUnlimited": "Unlimited"
     },
     "onDemandToggle": {
-      "label": "Enable On-Demand access",
-      "restrictToOnDemand": "Restrict to On-Demand usage"
+      "label": "Enable on-demand access",
+      "restrictToOnDemand": "Restrict on-demand access"
     },
     "guestBookingToggle": {
       "label": "Allow guest booking"
@@ -75,7 +75,7 @@
     },
     "teacherPayRate": {
       "label": "Teacher pay rate incl. VAT",
-      "helperText": "Value is calculated as price / number of bookings",
+      "helperText": "Amount teacher earns for each booking",
       "tooltip": "This rate determines teacher payroll and applies to all bookings made with this pass. If left as '0', the rate will be calculated as subscription price divided by number of bookings."
     },
     "maximumUsage": {
@@ -106,7 +106,7 @@
     },
     "penalty": {
       "label": "Apply penalty",
-      "helperText": "Penalty to clients with frequent no show or late cancellation",
+      "helperText": "Penalty to clients with frequent no-show or late cancellations",
       "daysSuffix": "",
       "daysSuffix_one": "day",
       "daysSuffix_other": "days",
@@ -123,7 +123,7 @@
         "windowDaysLabel": "Within days"
       },
       "noShow": {
-        "title": "Frequent no show",
+        "title": "Frequent no-show",
         "thresholdLabel": "Number of no-shows",
         "windowDaysLabel": "Within days",
         "description": "Define no show rules in <key1>Settings > Personalisation</key1>"
@@ -150,7 +150,7 @@
         "selectAll": "Select all",
         "helperText": "Clients can use this pass for the selected classes only",
         "noSessionsAlert": "This subscription is no longer compatible with {{ appointmentName }} appointments.",
-        "cancel": "Cancel",
+        "cancel": "Close",
         "save": "Save",
         "emptyState": "This appointment has no time slot yet."
       }
@@ -171,7 +171,7 @@
     "custom": "Custom",
     "customAmountRange": "Custom: {{min}} - {{max}}",
     "hiddenChipLabel": "Hidden",
-    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the client website"
   },
   "billingPlanStatus": {
     "valid": "Valid",

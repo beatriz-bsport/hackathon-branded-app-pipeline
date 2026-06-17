@@ -73,6 +73,20 @@ const meta: Meta<typeof Button> = {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
     },
+    href: {
+      control: { type: "text" },
+      description:
+        "When set, renders an `<a>` element instead of `<button>`. `disabled`, and `loading` are ignored on link buttons.",
+      table: { defaultValue: { summary: "undefined" } },
+      type: { name: "string", required: false },
+    },
+    target: {
+      control: { type: "text" },
+      description:
+        'HTML `target` attribute for the `<a>` element. `rel="noopener noreferrer"` is injected automatically when set to `"_blank"`.',
+      table: { defaultValue: { summary: "undefined" } },
+      type: { name: "string", required: false },
+    },
   },
 };
 
@@ -105,6 +119,20 @@ export const IconButton: Story = {
     size: "md",
     disabled: false,
     loading: false,
+    fullWidth: false,
+  },
+};
+
+export const LinkButton: Story = {
+  name: "Link Button",
+  args: {
+    label: "Open documentation",
+    href: "https://example.com",
+    target: "_blank",
+    intent: "default",
+    color: "main",
+    size: "md",
+    iconRight: "arrow-right",
     fullWidth: false,
   },
 };

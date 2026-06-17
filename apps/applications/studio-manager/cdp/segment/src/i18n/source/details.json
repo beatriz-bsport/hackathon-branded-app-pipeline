@@ -11,7 +11,7 @@
     "cancel": "Keep editing"
   },
   "actions": {
-    "refreshMembers": "Refresh members",
+    "refreshMembers": "Refresh clients",
     "createAutomation": "Create automation",
     "createAutomationModal": {
       "title": "Create a new automation",
@@ -450,7 +450,7 @@
     }
   },
   "membersTable": {
-    "loading": "Loading members...",
+    "loading": "Loading clients...",
     "columns": {
       "name": "Name",
       "email": "Email",
@@ -458,7 +458,7 @@
       "joinDate": "Join date"
     },
     "emptyState": {
-      "title": "No members found",
+      "title": "No clients found",
       "subtitle": "Try updating your filters to broaden or refine this segment.",
       "updateFilters": "Update filters"
     }

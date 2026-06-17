@@ -7,16 +7,16 @@
       "actions": "Actions"
     },
     "videosCountLabel": "",
-    "videosCountLabel_one": "{{count}} item",
-    "videosCountLabel_other": "{{count}} items",
+    "videosCountLabel_one": "{{count}} media",
+    "videosCountLabel_other": "{{count}} media",
     "loading": "Loading collections...",
     "emptyList": {
       "title": "No collections yet",
-      "subtitle": "Collections will appear here once they are created."
+      "subtitle": "Your collections will appear here once you create one"
     },
     "emptySearch": {
       "title": "No collections found",
-      "subtitle": "Try adjusting your search."
+      "subtitle": "Try adjusting your search"
     },
     "actions": {
       "edit": "Edit",
@@ -24,26 +24,26 @@
     }
   },
   "deleteModal": {
-    "title": "Delete Collection?",
+    "title": "Delete collection?",
     "description": "Clients will no longer have access to this collection.",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Keep",
       "delete": "Delete"
     },
     "submitResponse": {
       "success": "Collection deleted",
-      "error": "Failed to delete the collection"
+      "error": "Couldn't delete the collection. Try again. "
     },
     "undoAction": {
       "label": "Undo"
     },
     "undoResponse": {
-      "success": "Action undone"
+      "success": "Change undone"
     }
   },
   "error": {
-    "title": "Unable to load collections",
-    "description": "Please try again. If the issue persists, refresh the page.",
+    "title": "Couldn't load collections",
+    "description": "Try again. If the issue persists, refresh the page.",
     "retry": "Retry"
   }
 }

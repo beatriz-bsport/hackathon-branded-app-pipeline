@@ -5,10 +5,17 @@ import {
   PAUSE_ACTION_KIND,
   fetchContractPauseInfoMutationOptions,
 } from "@bsport/api-buyables/contract-pause";
-import { calculateDiffDuration } from "@bsport/datetime-manipulation";
+import {
+  calculateDiffDuration,
+  fromIsoString,
+} from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Modal } from "@bsport/kaizen-primitive-core";
+import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
+import {
+  useUpdateContractPauseMutation,
+  useUpdateContractPauseNameOnlyMutation,
+} from "#src/hooks/api/use-contract-pause-mutations";
 import { useCreateContractPause } from "#src/hooks/api/use-create-contract-pause";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
@@ -26,6 +33,7 @@ type ContractPauseModalProps = {
   closeModal: () => void;
   contractId: number;
   isOpen: boolean;
+  contractName: string;
   initial?: {
     pauseId: number;
     fromDate: string;
@@ -42,6 +50,7 @@ const STEPS = {
 export const ContractPauseModal: FC<ContractPauseModalProps> = ({
   closeModal,
   contractId,
+  contractName,
   initial,
   isOpen,
 }) => {
@@ -56,11 +65,13 @@ export const ContractPauseModal: FC<ContractPauseModalProps> = ({
   const contractPauseFormSchema = useContractPauseFormSchema();
 
   const defaultData = useDefaultData();
-  const defaultValues = initial
+  const defaultValues: ContractPauseFormData = initial
     ? {
         name: initial.name,
-        fromDate: initial.fromDate,
-        untilDate: initial.untilDate,
+        dateRange: [
+          fromIsoString(initial.fromDate),
+          fromIsoString(initial.untilDate),
+        ],
       }
     : defaultData;
 
@@ -70,7 +81,7 @@ export const ContractPauseModal: FC<ContractPauseModalProps> = ({
     defaultValues,
   });
 
-  const { isDirty, isSubmitting } = methods.formState;
+  const { isDirty, isSubmitting, dirtyFields } = methods.formState;
 
   const resetModal = () => {
     methods.reset();
@@ -90,14 +101,65 @@ export const ContractPauseModal: FC<ContractPauseModalProps> = ({
     },
   });
 
+  const onMutationSuccess = () => {
+    closeModal();
+    resetModal();
+  };
+
   const { createPause, isGettingBackgroundTaskId } = useCreateContractPause({
-    onSuccess: () => {
-      closeModal();
-      resetModal();
+    contractName,
+    onSuccess: onMutationSuccess,
+    onError: () => {
+      toast({
+        status: "critical",
+        icon: "alert-circle",
+        title: t("pauseModal.toastError.create", { contractName }),
+        buttonIcon: "x-close",
+      });
     },
   });
 
-  const isLoading = isGettingInfo || isGettingBackgroundTaskId;
+  const { updatePause, isGettingBackgroundTaskId: isUpdating } =
+    useUpdateContractPauseMutation({
+      contractName,
+      onSuccess: onMutationSuccess,
+      onError: () => {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("pauseModal.toastError.edit", {
+            pauseName: initial?.name ?? "",
+          }),
+          buttonIcon: "x-close",
+        });
+      },
+    });
+
+  const { updatePauseName, isMutatingName } =
+    useUpdateContractPauseNameOnlyMutation({
+      onSuccess: () => {
+        toast({
+          status: "default",
+          icon: "save",
+          title: t("pauseModal.toastSuccess.edit"),
+          buttonIcon: "x-close",
+        });
+        onMutationSuccess();
+      },
+      onError: () => {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("pauseModal.toastError.edit", {
+            pauseName: initial?.name ?? "",
+          }),
+          buttonIcon: "x-close",
+        });
+      },
+    });
+
+  const isLoading =
+    isGettingInfo || isGettingBackgroundTaskId || isUpdating || isMutatingName;
 
   // ----- Client interaction -----
 
@@ -170,7 +232,20 @@ export const ContractPauseModal: FC<ContractPauseModalProps> = ({
           ...commonPostData,
         });
       } else {
-        alert(`Edit Pause todo later: ${JSON.stringify(formData)}`);
+        // Edition - 2 flows
+        if (!dirtyFields.dateRange) {
+          // Name only update - specific endpoint
+          updatePauseName({
+            contract_pause_id: initial.pauseId,
+            name: formData.name,
+          });
+          return;
+        }
+        updatePause({
+          ...commonData,
+          ...commonPostData,
+          contract_pause_id: initial.pauseId,
+        });
       }
     }
   };

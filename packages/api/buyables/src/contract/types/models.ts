@@ -1,3 +1,6 @@
+import type { AppointmentPass } from "#src/appointment-pass";
+import type { Pass } from "#src/pass";
+
 /**
  * Represents a subscription contract with detailed configuration options.
  */
@@ -118,4 +121,9 @@ export type PassDetails = {
   allow_guest_pass: boolean;
   applies_for_payroll: boolean;
   grants_door_access: boolean;
+};
+
+export type ContractWithBenefits = Contract & {
+  payment_pack_details?: Pass | null;
+  private_pass_details?: AppointmentPass | null;
 };

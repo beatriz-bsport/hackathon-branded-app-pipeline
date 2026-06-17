@@ -48,6 +48,7 @@ export const FeatureFlags = {
     'booking_activate_new_wellpass_configuration',
   WELLHUB_NEW_CONFIGURATION: 'booking_activate_new_wellhub_configuration',
   SIGNUP_SEND_FILE_NOT_JSON: 'signup_send_file_not_json',
+  TAG_MEMBER_EVENT_WEBHOOK: 'tag-member-event-webhook',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

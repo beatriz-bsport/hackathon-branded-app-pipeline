@@ -1,1 +1,49 @@
-{}
+{
+  "table": {
+    "headers": {
+      "name": "Collezioni",
+      "createCollection": "Crea collezione",
+      "videosCount": "Numero di video",
+      "actions": "Azioni"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} media",
+    "videosCountLabel_other": "{{count}} media",
+    "loading": "Caricamento collezioni...",
+    "emptyList": {
+      "title": "Nessuna collezione ancora",
+      "subtitle": "Le tue collezioni appariranno qui quando ne avrai creata una"
+    },
+    "emptySearch": {
+      "title": "Nessuna collezione trovata",
+      "subtitle": "Prova a modificare la tua ricerca"
+    },
+    "actions": {
+      "edit": "Modifica",
+      "delete": "Elimina"
+    }
+  },
+  "deleteModal": {
+    "title": "Eliminare la collezione?",
+    "description": "I clienti non avranno più accesso a questa collezione.",
+    "buttons": {
+      "cancel": "Mantieni",
+      "delete": "Elimina"
+    },
+    "submitResponse": {
+      "success": "Collezione eliminata",
+      "error": "Non è stato possibile eliminare la collezione. Riprova. "
+    },
+    "undoAction": {
+      "label": "Indietro"
+    },
+    "undoResponse": {
+      "success": "Cambiamento annullato"
+    }
+  },
+  "error": {
+    "title": "Impossibile caricare le Collezioni",
+    "description": "Riprova. Se il problema persiste, aggiorna la pagina.",
+    "retry": "Riprova"
+  }
+}

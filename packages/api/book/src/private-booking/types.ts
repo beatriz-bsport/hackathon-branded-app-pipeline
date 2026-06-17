@@ -42,15 +42,18 @@ export type PrivateBookingFilterParams = {
   before_date_end?: boolean;
   booking_status_code__in?: number[];
   coach?: number;
+  coach__in?: number[];
   company?: number;
   date_start__gte?: string;
   date_start__lte?: string;
   establishment?: number;
+  establishment__in?: number[];
   strictly_future_booking?: boolean;
   id__in?: number[];
   is_recurrent?: boolean;
   is_unpaid?: boolean;
   member?: number;
+  member__in?: number[];
   only_mine?: boolean;
   page_size?: number;
   page?: number;

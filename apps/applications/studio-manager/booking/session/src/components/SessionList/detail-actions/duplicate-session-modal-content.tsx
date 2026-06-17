@@ -122,6 +122,7 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
           credits: session.credit_price,
           is_hybrid: !!session.linked_hybrid_offer_id,
           coach_payment_rule: session.coach_payment_rule_id,
+          overrideTeacherPayrollRule: session.coach_payment_rule_id != null,
           allowCustomNameAndDescription: true,
           name_override: session.name_override ?? "",
           description_override: session.description_override ?? "",

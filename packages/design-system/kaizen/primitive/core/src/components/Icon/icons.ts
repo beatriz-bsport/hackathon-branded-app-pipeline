@@ -2,6 +2,9 @@
 import React from "react";
 
 const icons = {
+  "alarm-clock-off": React.lazy(
+    async () => await import("./assets/alarm-clock-off.svg?react"),
+  ),
   "alert-circle": React.lazy(
     async () => await import("./assets/alert-circle.svg?react"),
   ),

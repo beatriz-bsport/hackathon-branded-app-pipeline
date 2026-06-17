@@ -36,6 +36,7 @@ const SEGMENTS = {
   edit: "edit",
   legacySmartlist: "smart-list",
   legacyMember: "member",
+  legacyMemberInfo: "info",
   legacyAudience: "audience",
 } as const;
 
@@ -281,4 +282,6 @@ export const SMARTLIST_LEGACY_URLS = {
   audience: joinPath(SEGMENTS.legacyAudience),
   smartlistMember: (smartlistId: number) =>
     joinPath(SEGMENTS.legacySmartlist, smartlistId, SEGMENTS.legacyMember),
+  memberProfile: (memberId: number) =>
+    joinPath(SEGMENTS.legacyMember, memberId, SEGMENTS.legacyMemberInfo),
 } as const;

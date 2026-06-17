@@ -1,4 +1,4 @@
-import { type VariantProps, cva, cx } from "class-variance-authority";
+import { cva, cx } from "class-variance-authority";
 import classNames from "classnames";
 import React, { useCallback } from "react";
 
@@ -11,18 +11,18 @@ export const defaultClasses = [
 
 const toggle = cva(defaultClasses);
 
-export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> &
-  VariantProps<typeof toggle> & {
-    checked: boolean;
-    label: string;
-    id: string;
-    required?: boolean;
-    disabled?: boolean;
-    direction?: "start" | "end";
-    helperText?: string;
-    errorText?: string;
-    onToggleChange?: (value: boolean) => void;
-  };
+export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  className?: string;
+  checked: boolean;
+  label: string;
+  id: string;
+  required?: boolean;
+  disabled?: boolean;
+  direction?: "start" | "end";
+  helperText?: string;
+  errorText?: string;
+  onToggleChange?: (value: boolean) => void;
+};
 
 /**
  * React component implementing all the types of toggles used in Kaizen.

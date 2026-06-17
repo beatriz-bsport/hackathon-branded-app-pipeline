@@ -11,6 +11,7 @@ import { memberKeys } from "@bsport/api-cdp/member";
 import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
+import { getErrorMessageFromCodes } from "#src/utils/get-error-message-from-codes";
 import { useTranslation } from "#src/utils/i18n";
 import { useAddProcessingToast } from "#src/utils/processing-toast.js";
 
@@ -25,6 +26,14 @@ export const useRegisterBooking = () => {
   const { t } = useTranslation("sessionManagement");
   const queryClient = useQueryClient();
   const addProcessingToast = useAddProcessingToast();
+
+  const CODE_MAP: Partial<Record<number, string>> = {
+    1234: t("bookingFlow.confirmation.registerBookingErrors.1234"),
+    4500: t("bookingFlow.confirmation.registerBookingErrors.4500"),
+    8001: t("bookingFlow.confirmation.registerBookingErrors.8001"),
+    85101: t("bookingFlow.confirmation.registerBookingErrors.85101"),
+    85000: t("bookingFlow.confirmation.registerBookingErrors.85000"),
+  };
 
   return useMutation<
     ConsumerPaymentPack,
@@ -55,7 +64,11 @@ export const useRegisterBooking = () => {
       if (onMutateResult?.toastId) dismissToast(onMutateResult.toastId);
       toast({
         status: "critical",
-        title: t("bookingFlow.confirmation.errorToast"),
+        title: getErrorMessageFromCodes(
+          error,
+          CODE_MAP,
+          t("bookingFlow.confirmation.registerBookingErrors.generic"),
+        ),
       });
     },
   });

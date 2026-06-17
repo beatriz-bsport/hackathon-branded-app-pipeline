@@ -23,9 +23,9 @@
       }
     },
     "Booking": {
-      "name": "Activity",
+      "name": "Service",
       "tags": {
-        "activity": "Activity",
+        "activity": "Service",
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Venue",
@@ -39,21 +39,21 @@
         "workshop": "Workshop",
         "establishment_group": "Location",
         "establishment": "Venue",
-        "meta_activity": "Activity"
+        "meta_activity": "Service"
       }
     },
     "OfferGroup": {
       "name": "Class groups",
       "tags": {
         "group_name": "Group name",
-        "activity": "Activity",
+        "activity": "Service",
         "sessions_list_html": "Class list (HTML)",
         "sessions_list_raw": "Class list (text)",
         "sessions_count": "Number of classes"
       }
     },
     "ConsumerPaymentPack": {
-      "name": "Passes",
+      "name": "Class passes",
       "tags": {
         "pass_price": "Price of the pass",
         "pass_name": "Name of the pass",
@@ -81,7 +81,7 @@
     "BookingOption": {
       "name": "Waitlist",
       "tags": {
-        "activity": "Activity",
+        "activity": "Service",
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Venue",
@@ -99,7 +99,7 @@
         "address": "Address",
         "date": "Time and date",
         "coach": "Teacher",
-        "activity": "Activity",
+        "activity": "Service",
         "establishment": "Venue",
         "ics_calendar_link": "ICS Calendar Link"
       },
@@ -152,7 +152,7 @@
         "date": "Time and date",
         "coach": "Teacher",
         "address": "Address",
-        "activity": "Activity"
+        "activity": "Service"
       },
       "name": "Recurrent rule"
     },

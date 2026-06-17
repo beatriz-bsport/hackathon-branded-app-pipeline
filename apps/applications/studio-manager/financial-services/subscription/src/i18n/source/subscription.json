@@ -39,7 +39,7 @@
         "highlights": [
           "Everything in Start",
           "Platform access",
-          "Digital pack (VOD + Zoom)",
+          "Digital pack (On-demand media and Livestreaming)",
           "Communications pack",
           "Integrations pack",
           "Subscription performance insights"
@@ -47,7 +47,7 @@
       },
       "engage": {
         "name": "Engage",
-        "tagline": "Full member experience with your own branded app.",
+        "tagline": "Full client experience with your own branded app.",
         "highlights": [
           "Everything in Build",
           "Branded app",
@@ -74,7 +74,7 @@
     "features": {
       "platform": "Platform",
       "stripe-terminal": "Stripe Terminal (hardware excluded)",
-      "digital-pack": "Digital Pack (VOD, Zoom)",
+      "digital-pack": "Digital pack (On-demand media and Livestreaming)",
       "communication-pack": "Communication Pack (Inbox, SMS, Push)",
       "integration-pack": "Integration Pack (Wellhub, ClassPass, EGYM, Urban Sports Club)",
       "branded-app": "Branded App",

@@ -6,6 +6,8 @@ const MEMBERSHIP_PLAN_SEGMENT = "membership-plan";
 export const URLS = {
   INDEX: "..",
 
+  ARCHIVED: "archived",
+
   EDITOR_SLUG: EDITOR_SLUG,
   EDITOR: (id: number) => String(id),
 

@@ -1,0 +1,44 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titre",
+      "placeholder": "Ajoutez un nom à cette collection",
+      "errorMaxLength": "Le titre ne doit pas dépasser {{maxLength}} caractères"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Décrivez votre collection",
+      "errorMaxLength": "La description ne doit pas dépasser {{maxLength}} caractères"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Téléchargez une image de couverture pour cette collection."
+    },
+    "errors": {
+      "fieldIsRequired": "Ce champ est obligatoire"
+    }
+  },
+  "createModal": {
+    "title": "Créer une collection",
+    "buttons": {
+      "create": "Créer",
+      "cancel": "Fermer"
+    },
+    "submitResponse": {
+      "success": "Collection créée",
+      "open": "Ouvrir",
+      "error": "Impossible de créer la collection. Veuillez réessayer. "
+    }
+  },
+  "editModal": {
+    "title": "Modifier la collection",
+    "buttons": {
+      "save": "Enregistrer",
+      "cancel": "Fermer"
+    },
+    "submitResponse": {
+      "success": "Crédits mis à jour",
+      "error": "Impossible de mettre à jour la collection. Veuillez réessayer. "
+    }
+  }
+}

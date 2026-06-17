@@ -1,0 +1,30 @@
+{
+  "breadcrumbLabel": "Medios",
+  "ebook": {
+    "download": "Descargar"
+  },
+  "managerOnly": "No listado",
+  "rentalDays": "",
+  "rentalDays_one": "{{count}} día de alquiler",
+  "rentalDays_other": "{{count}} días de alquiler",
+  "panel": {
+    "viewingTitle": "Actividad",
+    "uploadedAt": "Contenido multimedia subido el {{date}}",
+    "totalViews": "Suma",
+    "viewsLastWeek": "Los últimos 7 días",
+    "distinctViewers": "Vistas únicas",
+    "viewersTitle": "Vistas",
+    "viewersEmpty": "Aún no hay vistas",
+    "viewedAt": "Visto el {{date}}",
+    "viewersCount": "{{count}} elementos",
+    "buyersTitle": "Compras",
+    "buyersEmpty": "Aún no hay compras",
+    "purchasedAt": "Comprado el {{date}}",
+    "buyersCount": "{{count}} elementos"
+  },
+  "notFound": {
+    "title": "Contenido multimedia no encontrado",
+    "description": "No se pudo encontrar el contenido multimedia. Es posible que se haya eliminado o que no tengas acceso a él. ",
+    "backToMedia": "Volver a todos los medios"
+  }
+}

@@ -77,6 +77,21 @@ pnpm exec nx run @bsport/sm-APP:dev:watch
 
 This starts the target app in its isolated local runtime and injects the Navigation Sidebar bridge so you do not need to run the host to work on one app.
 
+### Run parallel worktrees
+
+Use `BSPORT_DEV_SLOT` when multiple worktrees need Studio Manager dev servers at
+the same time. Unset or `0` keeps the base `4000-4549` ports from
+`package.json#federation.devPort`.
+
+```sh
+BSPORT_DEV_SLOT=1 pnpm exec nx run @bsport/sm-host:dev:watch --remotes=@bsport/sm-navigation-sidebar
+BSPORT_DEV_SLOT=2 pnpm exec nx run @bsport/sm-host:dev:watch --remotes=@bsport/sm-navigation-sidebar
+```
+
+Slot `1` maps `4000-4549` to `10000-10549`; slot `2` maps it to
+`11000-11549`. Run every related remote in the same worktree with the same slot,
+including `@bsport/sm-navigation-sidebar`.
+
 If you need only the app's own Vite server, use:
 
 ```sh

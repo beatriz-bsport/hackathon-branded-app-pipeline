@@ -2,11 +2,13 @@ import { useCallback, useReducer } from "react";
 
 export enum SessionManagementModalType {
   BOOK = "book",
+  ADD_TO_WAITLIST = "add_to_waitlist",
   CANCEL = "cancel",
   RESTORE = "restore",
   DUPLICATE = "duplicate",
   DELETE = "delete",
   CANCEL_BOOKING = "cancel_booking",
+  SWAP_PASS = "swap_pass",
   PAUSE_WAITLIST = "pause_waitlist",
   REACTIVATE_WAITLIST = "reactivate_waitlist",
   VIEW_WAITLIST = "view_waitlist",
@@ -16,12 +18,16 @@ export enum SessionManagementModalType {
 export type SessionManagementModalParams = {
   bookingId?: number;
   bookingOptionId?: number;
+  memberId?: number;
+  consumerPaymentPackId?: number | null;
 };
 
 export type SessionManagementModalState = {
   type: SessionManagementModalType;
   bookingId?: number | null; // Used for booking related modals, e.g. CancelBookingModal
-  bookingOptionId?: number | null; // Used for booking option related modals, e.g. DiscardBookingOptionModal
+  bookingOptionId?: number | null; // Used for booking related modals, e.g. CancelBookingModal
+  memberId?: number | null; // Used for booking related modals, e.g. converting a booking option for a specific member
+  consumerPaymentPackId: number | null; // Used for swap pass modal to pre-select current pass
 } | null;
 
 type Action =
@@ -30,6 +36,8 @@ type Action =
       type: SessionManagementModalType;
       bookingId?: number | null;
       bookingOptionId?: number | null;
+      memberId?: number | null;
+      consumerPaymentPackId: number | null;
     }
   | { action: "close" };
 
@@ -43,6 +51,8 @@ const reducer = (
         type: action.type,
         bookingId: action.bookingId,
         bookingOptionId: action.bookingOptionId,
+        memberId: action.memberId,
+        consumerPaymentPackId: action.consumerPaymentPackId,
       };
     case "close":
       return null;
@@ -59,9 +69,21 @@ export const useSessionManagementModals = () => {
   const openModal = useCallback(
     (
       type: SessionManagementModalType,
-      { bookingId, bookingOptionId }: SessionManagementModalParams = {},
+      {
+        bookingId,
+        bookingOptionId,
+        memberId,
+        consumerPaymentPackId,
+      }: SessionManagementModalParams = {},
     ) => {
-      dispatch({ action: "open", type, bookingId, bookingOptionId });
+      dispatch({
+        action: "open",
+        type,
+        bookingId,
+        bookingOptionId,
+        memberId,
+        consumerPaymentPackId: consumerPaymentPackId ?? null,
+      });
     },
     [],
   );

@@ -40,7 +40,9 @@ import {
   type PrivateBookingsFilter,
   type PrivatePassFilter,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
+  REFERRER_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
+  type ReferrerFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
@@ -72,6 +74,7 @@ import {
   isPrivateBookingsFilter,
   isPrivatePassFilter,
   isReferredMemberFilter,
+  isReferrerFilter,
   isTagFilter,
   isTermsAndConditionsFilter,
   isTotalBookingFilter,
@@ -102,6 +105,7 @@ type SmartlistFiltersQueryData = {
   lastBookingFilters: LastBookingFilter[];
   internalNotesFilters: NotesFilter[];
   paymentMethodFilters: PaymentMethodFilter[];
+  referrerFilters: ReferrerFilter[];
 };
 
 const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
@@ -408,6 +412,19 @@ const mapPaymentMethodFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapReferrerFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ReferrerFilter[] => {
+  const referrerFiltersMap = payload?.[REFERRER_FILTER_IDENTIFIER];
+  if (!referrerFiltersMap) {
+    return [];
+  }
+
+  return Object.values(referrerFiltersMap)
+    .filter(isReferrerFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -439,5 +456,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       lastBookingFilters: mapLastBookingFilters(data),
       internalNotesFilters: mapInternalNotesFilters(data),
       paymentMethodFilters: mapPaymentMethodFilters(data),
+      referrerFilters: mapReferrerFilters(data),
     }),
   });

@@ -6,7 +6,7 @@
   },
   "locations": {
     "columns": {
-      "name": "Name",
+      "name": "Location",
       "venues": "Venues"
     },
     "actions": {
@@ -14,41 +14,41 @@
       "delete": "Delete"
     },
     "emptyState": {
-      "title": "Group your venues into locations",
-      "subtitle": "A location groups related venues.\nSome marketing items apply to the whole group.",
-      "cta": "Create location",
+      "title": "Not locations yet",
+      "subtitle": "Group venues by location and they will appear here",
+      "cta": "Add location",
       "noResults": "No locations match your search"
     },
     "deleteModal": {
-      "title": "Delete location",
+      "title": "Delete location?",
       "warningsTitle": "Deleting this location will affect the following:",
       "confirm": "Delete",
-      "cancel": "Cancel",
+      "cancel": "Keep",
       "alert": {
-        "blocking": "This location cannot be deleted because of the following reasons:",
-        "warning": "Deleting this location will have the following consequences:"
+        "blocking": "This location can't be deleted because:",
+        "warning": "Deleting this location will affect the following:"
       },
-      "preflightError": "Unable to verify whether this location can be deleted. Please try again.",
+      "preflightError": "Couldn't verify if this location can be deleted. Try again.",
       "errors": {
-        "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Area are set to only display this location's calendar and workshops, please update them before deleting the location."
+        "hasExclusiveMarketplaceComponentConfigs": "One or more tabs on your website are set to display only this location's schedule. Update them before deleting this location."
       },
       "warnings": {
-        "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
-        "exclusiveAssociatedCoaches_one": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
-        "exclusiveAssociatedCoaches_other": "{{coach_name}} is currently only notified of substitution requests for classes at this location. Deleting this location will send them requests from all locations.",
-        "hasRelatedAssociatedCoaches": "Some teachers are currently only notified of substitution requests for classes at this location. Deleting this location will stop notifications.",
-        "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for the Member Area will not display this location calendar anymore.",
+        "hasRelatedStaffConfigurations": "One or more staff members use this location for access control. If you delete it without assigning a replacement, they'll lose access control.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} only receives substitution requests for this location. Deleting it will send them requests from all locations.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} only receives substitution requests for this location. Deleting it will send them requests from all locations.",
+        "hasRelatedAssociatedCoaches": "Some teachers only receive substitution requests for this location. Deleting it will remove them from substitution notifications.",
+        "hasRelatedMarketplaceComponentConfigs": "The schedule and workshop tabs set up for your client website will no longer show this location.",
         "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted."
       },
       "info": {
-        "reportsDefault": "The location will be deleted from past reports.",
-        "widgetsDefault": "Calendar and Workshops widgets may be configured with this location, please do not forget to update them."
+        "reportsDefault": "This location will be deleted from past reports.",
+        "widgetsDefault": "Schedule and workshop widgets setup for this location will need to be updated manually."
       }
     }
   },
   "emptyState": {
-    "title": "Create your first venue",
-    "cta": "Create venue"
+    "title": "No venues yet",
+    "cta": "Create your first venue to start scheduling classes and appointments"
   },
   "search": {
     "placeholder": "Search venues",
@@ -70,7 +70,7 @@
   "sectionCount": "{{address}} ({{count}})",
   "groupTag": {
     "add": "Add to location",
-    "addTooltip": "Add this venue to a location to inherit its notifications and marketing items.",
+    "addTooltip": "Assign this venue to a location to apply its notification and marketing settings.",
     "edit": "Edit location"
   },
   "venueRow": {
@@ -80,9 +80,9 @@
   "actions": {
     "archive": "Archived venues",
     "createLocation": "Create location",
-    "createLocationTooltip": "A location groups venues for shared marketing, products, and reporting.",
+    "createLocationTooltip": "Add a location to group venues for shared marketing, sales and reporting",
     "createVenue": "Create venue",
-    "createVenueTooltip": "Create a new space for classes and bookings."
+    "createVenueTooltip": "Create a new space for classes and appointments to take place"
   },
   "detail": {
     "breadcrumbs": {
@@ -90,7 +90,7 @@
     },
     "actions": {
       "archive": "Archive",
-      "configureWidget": "Configure widget"
+      "configureWidget": "Set up widget"
     },
     "notFound": "Venue not found",
     "editor": {
@@ -103,29 +103,29 @@
       }
     },
     "spotScheduling": {
-      "title": "Spot scheduling",
-      "subtitle": "Add a layout to allow clients to book specific spots (bikes, mats, reformers).",
+      "title": "Spot selection",
+      "subtitle": "Add a spot layout to allow clients to book specific spots (e.g. bikes, mats, reformers).",
       "createCta": "Create",
-      "noSpots": "No spots configured",
+      "noSpots": "No spots set up yet",
       "spotCount_one": "{{count}} spot",
       "spotCount_other": "{{count}} spots",
-      "empty": "No blueprints yet",
+      "empty": "No spot layout yet",
       "rowMenu": {
-        "label": "Open blueprint actions",
+        "label": "Open spot layout",
         "edit": "Edit",
         "delete": "Delete"
       },
       "deleteModal": {
-        "title": "Delete Spot Scheduling configuration",
-        "description": "Are you sure you want to delete this Spot Scheduling layout? This action can't be undone.",
+        "title": "Delete spot selection?",
+        "description": "Deleting this spot selection setup can't be undone",
         "confirm": "Delete",
-        "cancel": "Cancel"
+        "cancel": "Keep"
       },
-      "untitledBlueprint": "Untitled blueprint",
+      "untitledBlueprint": "Untitled spot layout",
       "toasts": {
-        "delete": "Spot scheduling layout deleted",
-        "deleteError": "Failed to delete spot scheduling layout",
-        "createError": "Failed to create spot scheduling layout"
+        "delete": "Spot selection deleted",
+        "deleteError": "Couldn't delete spot selection. Try again. ",
+        "createError": "Couldn't create spot selection. Try again. "
       }
     }
   },
@@ -146,65 +146,65 @@
   },
   "modal": {
     "title": "Archive venue",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
+    "confirm": "Archive",
+    "cancel": "Keep",
     "alert": {
-      "blocking": "This venue cannot be archived because of the following reasons:",
-      "warning": "Archiving this venue will have the following consequences:"
+      "blocking": "This venue can't be archived due to the following:",
+      "warning": "Archiving this venue will affect the following:"
     },
     "errors": {
-      "hasUpcomingOffers": "Some upcoming classes take place in this venue. Please cancel and delete them before archiving.",
-      "hasUpcomingPrivateBookings": "Some upcoming appointments take place in this venue. Please cancel and delete them before archiving.",
-      "hasExclusiveBillingGroup": "This venue is tied to a billing location. Delete or update this billing location before archiving this venue. ",
-      "exclusiveEstablishmentGroups": "This venue will be removed from the following location(s): {{names}}. Please update them before archiving.",
-      "exclusivePaymentPacks": "The following passes {{names}} are only usable in this venue. Please update their restrictions before archiving.",
-      "hasExclusiveMarketplaceComponentConfigs": "This venue has exclusive marketplace component configurations. Please update them before archiving.",
-      "isIntegratedInPartnership": "This venue is integrated in a partnership. Please remove the integration before archiving."
+      "hasUpcomingOffers": "This venue has upcoming classes. Cancel or delete them before archiving.",
+      "hasUpcomingPrivateBookings": "This venue has upcoming appointments. Cancel or delete them before archiving.",
+      "hasExclusiveBillingGroup": "This venue is linked to a billing location. Update or delete the billing location before archiving.",
+      "exclusiveEstablishmentGroups": "This venue will be removed from the following locations: {{names}}. Update them before archiving.",
+      "exclusivePaymentPacks": "The following passes are only valid at this venue: {{names}}. Update their restrictions before archiving.",
+      "hasExclusiveMarketplaceComponentConfigs": "One or more tabs on your website are set to display only this location's schedule. Update them before deleting this location.",
+      "isIntegratedInPartnership": "This venue is linked to one or more aggregators. Update these connections before archiving."
     },
     "warnings": {
       "title": "Archiving this venue will affect the following:",
       "hasBillingGroup": "This venue belongs to billing location {{name}}.",
-      "exclusivePrivateServices": "The following private service(s) are exclusively assigned to this venue: {{names}}.",
-      "relatedPaymentPacks": "The following passes {{names}} are assigned to this venue.",
-      "hasExclusiveStaffConfigurations": "Some staff are exclusively configured for this venue.",
-      "hasRelatedStaffConfigurations": "Some staff are configured for this venue.",
-      "exclusiveCoachAvailabilitySlots": "The following coach(es) have availability slots exclusively in this venue: {{names}}.",
-      "hasRelatedCoachAvailabilitySlots": "Some coaches have availability slots in this venue.",
-      "exclusiveAssociatedCoaches": "The following coach(es) are exclusively associated with this venue: {{names}}.",
+      "exclusivePrivateServices": "These appointments are only available at this venue: {{names}}.",
+      "relatedPaymentPacks": "These passes {{names}} are only usable at this venue.",
+      "hasExclusiveStaffConfigurations": "Some staff members are only assigned to this venue.",
+      "hasRelatedStaffConfigurations": "Some staff members have settings linked to this venue.",
+      "exclusiveCoachAvailabilitySlots": "These coaches only have availability slots at this venue: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Some coaches have availability slots at this venue.",
+      "exclusiveAssociatedCoaches": "These coaches are only associated with this venue: {{names}}.",
       "hasRelatedAssociatedCoaches": "Some coaches are associated with this venue.",
-      "hasRelatedAvailabilitySlots": "Some availability slots are configured for this venue.",
-      "hasRelatedMarketplaceComponentConfigs": "Some marketplace components are configured for this venue.",
-      "hasRelatedZoomEstablishment": "A Zoom integration is configured for this venue.",
-      "hasRelatedMarketingNotifications": "Some marketing notifications target this venue."
+      "hasRelatedAvailabilitySlots": "Some availability slots are linked to this venue.",
+      "hasRelatedMarketplaceComponentConfigs": "One or more tabs on your website are set to display only this venue's schedule. ",
+      "hasRelatedZoomEstablishment": "A Zoom integration is setup for this venue.",
+      "hasRelatedMarketingNotifications": "Some auto-messages target this venue."
     },
     "info": {
-      "noReports": "The venue will not be deleted from past reports.",
-      "widgets": "Calendar and Workshops widgets may have been configured with this venue, do not forget to update them.",
-      "sessions": "Existing classes and past bookings won't be affected",
+      "noReports": "The venue won't be deleted from past reports.",
+      "widgets": "Schedule and workshop widgets configured for this location will need to be updated manually.",
+      "sessions": "Ongoing classes and past bookings won't be affected",
       "appointments": "Past appointments won't be affected"
     }
   },
   "venueModal": {
     "createTitle": "Create venue",
     "editTitle": "Edit venue",
-    "createConfirm": "Create venue",
+    "createConfirm": "Create",
     "editConfirm": "Save changes",
     "cancel": "Close",
     "errors": {
-      "requiredField": "This field is required"
+      "requiredField": "This field can't be empty"
     },
     "cover": {
-      "label": "Venue image",
-      "helper": "Used as the header background in the mobile app and as the thumbnail in service listings. Use a landscape (16:9) image (images will be cropped automatically)."
+      "label": "Image",
+      "helper": "Displayed to clients on the app and website. Landscape (16:9) — cropped automatically."
     },
     "name": {
       "label": "Name",
-      "placeholder": "Venue name e.g. Cycling Studio"
+      "placeholder": "Add a venue name"
     },
     "description": {
       "label": "Description",
-      "placeholder": "Describe the venue e.g. A boutique yoga studio in central Paris with daily Vinyasa classes.",
-      "helper": "Displayed on your studio's profile in the app. Use it to describe your space, atmosphere, or what makes your studio unique."
+      "placeholder": "Describe the venue ",
+      "helper": "Shown on your studio's profile in the app. Describe the space, atmosphere, or what makes it unique."
     },
     "address": {
       "label": "Address",
@@ -220,23 +220,23 @@
     },
     "accessInformation": {
       "label": "Information for clients",
-      "placeholder": "Tell clients how to access this venue, including any additional information e.g. 2nd floor, second door to the right of the stairs.",
+      "placeholder": "Tell clients how to access this venue",
       "helper": "Displayed to your clients after they book (e.g., entry code, floor, instructions)."
     }
   },
   "toasts": {
     "undo": "Undo",
     "archive": "Venue archived",
-    "archiveError": "Failed to archive venue",
+    "archiveError": "Couldn't archive venue. Try again. ",
     "unarchive": "Venue restored",
-    "unarchiveError": "Failed to restore venue",
+    "unarchiveError": "Couldn't restore venue. Try again. ",
     "addVenueToLocation": "\"{{venue}}\" added to \"{{location}}\"",
     "locationDelete": "Location deleted",
-    "locationDeleteError": "Failed to delete location",
+    "locationDeleteError": "Couldn't delete location. Try again.",
     "create": "Venue created",
-    "createPartial": "Venue created but could not be assigned to the selected location. Please assign it manually.",
-    "createError": "Failed to create venue",
+    "createPartial": "Venue created, but couldn't be assigned to the selected location. Assign it manually.",
+    "createError": "Couldn't create venue. Try again. ",
     "update": "Venue updated",
-    "updateError": "Failed to update venue"
+    "updateError": "Couldn't update venue. Try again. "
   }
 }

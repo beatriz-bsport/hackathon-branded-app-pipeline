@@ -1,0 +1,78 @@
+{
+  "breadcrumbLabel": "Collections",
+  "deleteActionLabel": "Supprimer",
+  "loading": "Chargement de la collection",
+  "loadError": {
+    "title": "Impossible de charger la collection",
+    "description": "Veuillez réessayer. Si le problème persiste, actualisez la page ou retournez à la page des Collections. ",
+    "retry": "Veuillez réessayer."
+  },
+  "notFound": {
+    "title": "Collection introuvable",
+    "description": "Le média n'a pas pu être trouvé. Il a peut-être été supprimé ou vous n'y avez pas accès. ",
+    "backToCollections": "Retour à toutes les collections"
+  },
+  "emptyMedia": {
+    "title": "Aucun média ajouté pour le moment",
+    "subtitle": "Ajoutez des médias pour créer votre première collection"
+  },
+  "emptyThumbnailLabel": "Aucun média dans la collection",
+  "ebook": {
+    "download": "Télécharger"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Ouvrir la vidéo",
+      "openYoutubeVideo": "Ouvrir la vidéo YouTube"
+    },
+    "fallbacks": {
+      "loadError": "Le lecteur intégré n'a pas pu être chargé. Veuillez ouvrir le média dans un nouvel onglet.",
+      "youtubeEmbedError": "L'URL YouTube n'a pas pu être intégrée. Ouvrez-la dans un nouvel onglet à la place."
+    }
+  },
+  "videoList": {
+    "addMedia": "Ajouter un média",
+    "ebook": "Ebook",
+    "managerOnly": "Non répertorié",
+    "rentalDays": "",
+    "rentalDays_one": "{{count}} jours de location",
+    "rentalDays_other": "{{count}} jours de location",
+    "levels": {
+      "1": "Tous les niveaux",
+      "2": "Débutant",
+      "3": "Intermédiaire",
+      "4": "Options avancées",
+      "5": "Aucun niveau affiché"
+    }
+  },
+  "addMediaModal": {
+    "title": "Ajouter un média",
+    "searchPlaceholder": "Rechercher des médias",
+    "emptySearch": "Aucun média trouvé",
+    "cancel": "Fermer",
+    "add": "Ajouter",
+    "submitResponse": {
+      "success": "Médias ajoutés à la collection",
+      "error": "Impossible d'ajouter le média à la collection. Veuillez réessayer. "
+    }
+  },
+  "removeMediaModal": {
+    "title": "Supprimer le média de la collection ?",
+    "description": "Vos adhérents ne pourront plus voir \"{{videoName}}\" dans votre collection, mais vous pourrez toujours y accéder en on-demand.",
+    "undoAction": {
+      "label": "Retour"
+    },
+    "undoResponse": {
+      "success": "Modification annulée"
+    },
+    "buttons": {
+      "cancel": "Garder",
+      "remove": "Supprimer",
+      "removeItem": "Supprimer {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Médias supprimés de la collection",
+      "error": "Impossible de supprimer le média de la collection. Veuillez réessayer. "
+    }
+  }
+}

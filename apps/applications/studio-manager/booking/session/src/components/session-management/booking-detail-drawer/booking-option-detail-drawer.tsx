@@ -117,6 +117,7 @@ const BookingOptionDetailDrawerContent: FC<{
         {!refinedBookingOption.cancelled && (
           <ShortcutActionsButton
             bookingOptionId={refinedBookingOption.id}
+            memberId={refinedBookingOption.member}
             sessionId={refinedBookingOption.offer.id}
             openModal={openModal}
             allowedItemIds={[

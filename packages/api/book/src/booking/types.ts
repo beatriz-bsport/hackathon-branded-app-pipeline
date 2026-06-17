@@ -181,3 +181,7 @@ export type DeleteRecurrenceRuleBookingParams = {
 export type UpdateSessionWithCancelledBookingsToRetryParams = {
   offer_ids: number[];
 };
+
+export type SwapBookingPassParams = {
+  consumer_payment_pack_id: number;
+};

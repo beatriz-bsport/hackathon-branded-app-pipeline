@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { getConfig } from "../config.js";
+import { getConfig, getEffectivePort } from "../config.js";
 
 vi.mock("@module-federation/vite", () => ({
   federation: vi.fn().mockReturnValue([{ name: "module-federation" }]),
@@ -35,6 +35,7 @@ vi.mock("../studioRuntimeDevServerPlugin", () => ({
 }));
 
 type ConfigInput = Parameters<typeof getConfig>[0];
+const originalBsportDevSlot = process.env.BSPORT_DEV_SLOT;
 
 describe("getConfig", () => {
   const mockRemotes = { "sm-remote-app": { devPort: 4001 } };
@@ -71,6 +72,16 @@ describe("getConfig", () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    Reflect.deleteProperty(process.env, "BSPORT_DEV_SLOT");
+  });
+
+  afterEach(() => {
+    if (originalBsportDevSlot === undefined) {
+      Reflect.deleteProperty(process.env, "BSPORT_DEV_SLOT");
+      return;
+    }
+
+    process.env.BSPORT_DEV_SLOT = originalBsportDevSlot;
   });
 
   it("validates port ranges correctly", () => {
@@ -331,6 +342,97 @@ describe("getConfig", () => {
     expect(prodVariables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(prodVariables["__BASENAME__"]).toBe("/studio/");
     expect(prodConfig.define["__API_ENV__"]).toBeUndefined();
+  });
+
+  it("keeps slot 0 behavior unchanged", () => {
+    process.env.BSPORT_DEV_SLOT = "0";
+
+    const config = getConfig(
+      createConfig({
+        federationConfig: {
+          remotes: mockRemotes,
+        },
+      }),
+    );
+    const variables = JSON.parse(config.define["__NAVIGATION_SIDEBAR__"]);
+
+    expect(config.server).toEqual({
+      port: 4000,
+      strictPort: true,
+    });
+    expect(config.preview).toEqual({
+      port: 4000,
+    });
+    expect(variables["__APPLICATION_BASE_URL__"]).toBe("http://localhost:4000");
+    expect(config.federation?.remotes?.["sm-remote-app"]?.entry).toBe(
+      "http://localhost:4001/remoteEntry.js",
+    );
+  });
+
+  it("maps slot 1 ports to the 10000 range", () => {
+    process.env.BSPORT_DEV_SLOT = "1";
+
+    const config = getConfig(
+      createConfig({
+        federationConfig: {
+          remotes: {
+            "sm-navigation-sidebar": { devPort: 4050 },
+          },
+        },
+      }),
+    );
+    const variables = JSON.parse(config.define["__NAVIGATION_SIDEBAR__"]);
+
+    expect(config.server).toEqual({
+      port: 10000,
+      strictPort: true,
+    });
+    expect(config.preview).toEqual({
+      port: 10000,
+    });
+    expect(variables["__APPLICATION_BASE_URL__"]).toBe(
+      "http://localhost:10000",
+    );
+    expect(config.federation?.remotes?.["sm-navigation-sidebar"]?.entry).toBe(
+      "http://localhost:10050/remoteEntry.js",
+    );
+  });
+
+  it("maps slot 2 ports to the 11000 range", () => {
+    process.env.BSPORT_DEV_SLOT = "2";
+
+    const config = getConfig(
+      createConfig({
+        federationConfig: {
+          remotes: mockRemotes,
+        },
+      }),
+    );
+    const variables = JSON.parse(config.define["__NAVIGATION_SIDEBAR__"]);
+
+    expect(config.server).toEqual({
+      port: 11000,
+      strictPort: true,
+    });
+    expect(config.preview).toEqual({
+      port: 11000,
+    });
+    expect(variables["__APPLICATION_BASE_URL__"]).toBe(
+      "http://localhost:11000",
+    );
+    expect(config.federation?.remotes?.["sm-remote-app"]?.entry).toBe(
+      "http://localhost:11001/remoteEntry.js",
+    );
+  });
+
+  it("rejects invalid dev slot values", () => {
+    for (const invalidSlot of ["abc", "-1", "51"]) {
+      process.env.BSPORT_DEV_SLOT = invalidSlot;
+
+      expect(() => getEffectivePort(4000)).toThrow(
+        `BSPORT_DEV_SLOT must be an integer 0-50, got "${invalidSlot}"`,
+      );
+    }
   });
 
   it("generates correct remotes configuration", () => {

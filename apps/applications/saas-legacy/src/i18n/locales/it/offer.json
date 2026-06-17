@@ -272,7 +272,7 @@
               },
               "COMBINED": {
                 "singleAggregatorHelperText": "Imposta un numero massimo di posti per l’aggregatore attivato.",
-                "helperText": "Imposta un numero massimo di posti per gli aggregatori attivati combinati tra myClubs, Wellhub e Urban Sports Club (gli altri aggregatori non sono influenzati da questa impostazione).",
+                "helperText": "Imposta un numero massimo di posti per gli aggregatori attivati combinati tra myClubs, Wellhub, Wellpass e Urban Sports Club (Classpass non è influenzato da questa impostazione).",
                 "singleAggregatorLabel": "Posti limitati",
                 "label": "Posti limitati (combinati)"
               },

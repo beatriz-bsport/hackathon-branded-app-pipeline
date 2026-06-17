@@ -16,6 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   t: TFunction,
@@ -28,6 +29,7 @@ type Props = {
 };
 
 const NO_EVENT = -1;
+const TAG_MEMBER_EVENT = 'tag_member-applied';
 
 export class WebhookFormDialog extends Component<Props, state> {
   state = {
@@ -160,7 +162,19 @@ const styles = (theme) => ({
   },
 });
 
+// Wrapper component that filters eventList based on feature flag
+const WebhookFormDialogWithFeatureFlag = (props: Props) => {
+  const isTagMemberEventEnabled = useSafeFlag(
+    FeatureFlags.TAG_MEMBER_EVENT_WEBHOOK,
+  );
+  const filteredEventList = isTagMemberEventEnabled
+    ? props.eventList
+    : props.eventList.filter((event) => ![TAG_MEMBER_EVENT].includes(event));
+
+  return <WebhookFormDialog {...props} eventList={filteredEventList} />;
+};
+
 export default compose(
   withStyles(styles),
   withTranslation(['settings']),
-)(WebhookFormDialog);
+)(WebhookFormDialogWithFeatureFlag);

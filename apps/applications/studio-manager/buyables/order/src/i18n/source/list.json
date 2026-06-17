@@ -20,7 +20,7 @@
     "loading": "Loading orders ...",
     "emptyState": {
       "title": "No orders yet",
-      "emptyDatabase": "Once clients buy products from your store, you can track and manage orders on this page. ",
+      "emptyDatabase": "Manage and track your retail orders here",
       "emptySearch": "There are no orders currently marked as {{ status }}."
     },
     "rows": {

@@ -8,9 +8,32 @@ import { REVAMPED_BO_DOMAIN } from './constants';
 
 import './compat-drawer.css';
 
+const RANGE_BASE = 4000;
+const RANGE_SPAN = 1000;
+const SLOT_BASE = 10000;
+const NAVIGATION_SIDEBAR_DEV_PORT = 4050;
+
+const getEffectivePort = (devPort: number): number => {
+  const slot = Number(process.env.BSPORT_DEV_SLOT ?? 0);
+
+  if (!Number.isInteger(slot) || slot < 0 || slot > 50) {
+    throw new Error(
+      `BSPORT_DEV_SLOT must be an integer 0-50, got "${process.env.BSPORT_DEV_SLOT}"`,
+    );
+  }
+
+  if (slot === 0) {
+    return devPort;
+  }
+
+  return SLOT_BASE + (slot - 1) * RANGE_SPAN + (devPort - RANGE_BASE);
+};
+
 const isDev = process.env.NODE_ENV === 'development';
 const entry = isDev
-  ? 'http://localhost:4050/remoteEntry.js'
+  ? `http://localhost:${getEffectivePort(
+      NAVIGATION_SIDEBAR_DEV_PORT,
+    )}/remoteEntry.js`
   : `${REVAMPED_BO_DOMAIN}/apps/navigation-sidebar/remoteEntry.js`;
 
 init({

@@ -37,7 +37,7 @@
       },
       "type": {
         "label": "Type",
-        "groupActivity": "Group activity",
+        "groupActivity": "Group class",
         "workshop": "Workshop"
       }
     },
@@ -80,7 +80,7 @@
       "item": {
         "type": {
           "workshop": "Workshop",
-          "groupActivity": "Group Activity"
+          "groupActivity": "Group class"
         },
         "features": {
           "notifications": {

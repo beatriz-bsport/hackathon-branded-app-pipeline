@@ -99,16 +99,16 @@
       "products": {
         "label": "Products",
         "paymentPack": {
-          "label": "Passes"
+          "label": "Class passes"
         },
         "privatePass": {
           "label": "Appointment passes"
         },
         "shop": {
-          "label": "Webshop"
+          "label": "Retail"
         },
         "shopReworked": {
-          "label": "Webshop",
+          "label": "Retail",
           "products": {
             "label": "Products"
           },
@@ -171,7 +171,7 @@
           "label": "Forms"
         },
         "smartlists": {
-          "label": "Smartlists"
+          "label": "Segments"
         },
         "notifications": {
           "label": "Notifications"
@@ -189,14 +189,14 @@
           "label": "Videos & eBooks"
         },
         "playlists": {
-          "label": "Playlist"
+          "label": "Collections"
         }
       },
       "inbox": {
         "label": "Inbox"
       },
       "member": {
-        "label": "Members"
+        "label": "Clients"
       },
       "reporting": {
         "label": "Reporting"
@@ -219,7 +219,7 @@
           "label": "Personalization"
         },
         "memberForms": {
-          "label": "Member forms"
+          "label": "Client forms"
         },
         "coachUserspace": {
           "label": "Teacher View"
@@ -292,7 +292,7 @@
     "restrictedPaths": {
       "title": "URL permissions",
       "helperText": "Allow access to specific URLs for this role",
-      "placeholder": "Example: /member/"
+      "placeholder": "Example: /client/"
     },
     "hasBookingOverrideControl": {
       "label": "Grant advanced booking permissions to this role",
@@ -320,29 +320,29 @@
       }
     },
     "member": {
-      "_label": "Actions on members",
+      "_label": "Actions on clients",
       "allowed_actions": {
-        "create": { "_label": "Add a member" },
+        "create": { "_label": "Add a client" },
         "readInfo": { "_label": "See personal data" },
         "editInfo": { "_label": "Edit personal data" },
-        "delete": { "_label": "Delete a member" },
-        "search": { "_label": "Search for members" },
-        "accessProfile": { "_label": "Access to member profiles" },
-        "readBalance": { "_label": "See the balance of members" },
-        "communication": { "_label": "Contact members" },
-        "manageNotification": { "_label": "Manage member notifications" }
+        "delete": { "_label": "Delete a client" },
+        "search": { "_label": "Search for clients" },
+        "accessProfile": { "_label": "Access to client profiles" },
+        "readBalance": { "_label": "See the balance of clients" },
+        "communication": { "_label": "Contact clients" },
+        "manageNotification": { "_label": "Manage client notifications" }
       }
     },
     "billing": {
       "_label": "Transactions",
       "allowed_actions": {
-        "takePayment": { "_label": "Cash in a member" },
-        "editBalance": { "_label": "Adjust member balance" },
+        "takePayment": { "_label": "Take payment from client" },
+        "editBalance": { "_label": "Adjust client balance" },
         "editBalanceWithoutInvoice": {
-          "_label": "Adjust member balance without generating an invoice"
+          "_label": "Adjust client balance without generating an invoice"
         },
         "readInvoices": { "_label": "See invoices" },
-        "createInvoice": { "_label": "Bill a member" },
+        "createInvoice": { "_label": "Bill a client" },
         "readPaymentLink": { "_label": "Generate payment links" },
         "cancelInvoice": { "_label": "Cancel invoices" },
         "addPaymentMethod": { "_label": "Add a payment method" },
@@ -372,11 +372,11 @@
         "subscription": { "_label": "Export subscriptions" },
         "payroll": { "_label": "Export teachers' payroll" },
         "attendance": { "_label": "Export attendances/absences" },
-        "smartlist": { "_label": "Export smartlists" },
-        "memberDocument": { "_label": "Export members' documents" },
+        "smartlist": { "_label": "Export segments" },
+        "memberDocument": { "_label": "Export client documents" },
         "report": { "_label": "Export reports" },
         "smartlist_general_report": {
-          "_label": "Export Smartlist General Report"
+          "_label": "Export segments report"
         }
       }
     },
@@ -406,8 +406,8 @@
       "Club": {
         "_label": "Studio",
         "billing_plan": { "_label": "Subscription" },
-        "members_purchase": { "_label": "Member" },
-        "members": { "_label": "Members" },
+        "members_purchase": { "_label": "Client" },
+        "members": { "_label": "Clients" },
         "activities": { "_label": "Activities" },
         "activityByEst": {
           "_label": "Classes by venue"
@@ -453,7 +453,7 @@
           "_label": "Expired appointment credits"
         },
         "expired_pass": { "_label": "Expired passes credits" },
-        "memberships": { "_label": "Passes" },
+        "memberships": { "_label": "Class passes" },
         "private_cpasses": { "_label": "Appointment passes" },
         "universal_passes": { "_label": "Universal passes" },
         "discount": { "_label": "Discounts" },
@@ -465,7 +465,7 @@
     },
     "product": {
       "_label": "Products",
-      "paymentPack": { "_label": "Passes" },
+      "paymentPack": { "_label": "Class passes" },
       "privatePass": { "_label": "Appointment passes" },
       "contract": { "_label": "Subscriptions" },
       "shopReworked": { "_label": "Webshop" }
@@ -485,12 +485,12 @@
       "viewNotes": { "_label": "View notes" },
       "editNotes": { "_label": "Edit notes" },
       "rollcall": { "_label": "Validate roll call" },
-      "addToWaitlist": { "_label": "Add members to the waiting list" },
+      "addToWaitlist": { "_label": "Add clients to the waitlist" },
       "removeFromWaitlist": {
-        "_label": "Delete members from the waiting list"
+        "_label": "Delete clients from the waitlist"
       },
       "attendance": { "_label": "Edit attendance/absences" },
-      "editSpot": { "_label": "Edit member spots" },
+      "editSpot": { "_label": "Edit client spots" },
       "editPerformance": { "_label": "Edit program performances" },
       "refund": { "_label": "Refund" },
       "cancel": { "_label": "Cancel bookings" },
@@ -503,7 +503,7 @@
       "createCustomBillingPlan": { "_label": "Create custom billing plans" },
       "pauseBillingPlan": { "_label": "Pause billing plans" },
       "endBillingPlan": { "_label": "End billing plans" },
-      "editPassBillingPlan": { "_label": "Edit pass on billing plans" },
+      "editPassBillingPlan": { "_label": "Edit pass on memberships" },
       "editInvoiceDateBillingPlan": {
         "_label": "Edit invoice dates on billing plans"
       },

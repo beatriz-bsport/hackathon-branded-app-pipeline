@@ -47,6 +47,26 @@ const PORT_RANGES: Record<AppTypes, [number, number]> = {
   "staff-management": [4500, 4549],
 } as const;
 
+const RANGE_BASE = 4000;
+const RANGE_SPAN = 1000;
+const SLOT_BASE = 10000;
+
+export const getEffectivePort = (devPort: number): number => {
+  const slot = Number(process.env.BSPORT_DEV_SLOT ?? 0);
+
+  if (!Number.isInteger(slot) || slot < 0 || slot > 50) {
+    throw new Error(
+      `BSPORT_DEV_SLOT must be an integer 0-50, got "${process.env.BSPORT_DEV_SLOT}"`,
+    );
+  }
+
+  if (slot === 0) {
+    return devPort;
+  }
+
+  return SLOT_BASE + (slot - 1) * RANGE_SPAN + (devPort - RANGE_BASE);
+};
+
 const ConfigSchema = z
   .object({
     appType: AppTypesEnum,
@@ -179,6 +199,7 @@ export const getConfig = (config: {
     mode === "preview" || mode === "development" || mode === "compat";
   const useLocalRemoteEntries = mode === "development" || mode === "compat";
   const { devPort, name: federationName, exposes } = packageJson.federation;
+  const effectiveDevPort = getEffectivePort(devPort);
 
   const base = getBase({
     appName: packageJson.name,
@@ -194,7 +215,7 @@ export const getConfig = (config: {
    * so we have to remove it to avoid double slashes
    */
   const appBaseUrl = (
-    isLocal ? `http://localhost:${devPort}${base}` : base
+    isLocal ? `http://localhost:${effectiveDevPort}${base}` : base
   ).slice(0, -1);
 
   const namespace = compose(
@@ -215,12 +236,12 @@ export const getConfig = (config: {
   };
 
   const server: ServerOptions = {
-    port: devPort,
+    port: effectiveDevPort,
     strictPort: true,
   };
 
   const preview: PreviewOptions = {
-    port: devPort,
+    port: effectiveDevPort,
   };
 
   const pathsToWatch: string[] = [];
@@ -241,7 +262,7 @@ export const getConfig = (config: {
             name: key,
             type: "module",
             entry: useLocalRemoteEntries
-              ? `http://localhost:${remote.devPort}/remoteEntry.js`
+              ? `http://localhost:${getEffectivePort(remote.devPort)}/remoteEntry.js`
               : `${deploymentRelativeUrl}apps/${removePrefix(key)}/remoteEntry.js`,
           },
         };

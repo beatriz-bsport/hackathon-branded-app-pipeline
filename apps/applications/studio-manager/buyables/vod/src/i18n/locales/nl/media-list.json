@@ -1,0 +1,169 @@
+{
+  "table": {
+    "headers": {
+      "createMedia": "On-demand aanmaken",
+      "name": "Naam",
+      "category": "Categorie",
+      "format": "Formaat",
+      "availability": "Beschikbaarheid",
+      "actions": "Acties"
+    },
+    "actions": {
+      "moreActions": "Meer acties",
+      "duplicate": "Dupliceren",
+      "delete": "Verwijderen",
+      "edit": "Bewerken",
+      "upload": "Media toevoegen"
+    },
+    "values": {
+      "noCategory": "Naamloze categorie",
+      "noFile": "Geen media"
+    },
+    "loading": "On-demand media laden...",
+    "emptyList": {
+      "title": "Nog geen on-demand media",
+      "subtitle": "On-demand media verschijnt hier zodra het is aangemaakt"
+    },
+    "tooltips": {
+      "format": {
+        "videoUploaded": "Videolink toegevoegd",
+        "ebookUploaded": "eBook geüpload",
+        "noFileUploaded": "Geen mediabestand toegevoegd"
+      },
+      "availability": {
+        "availableToMembers": "Beschikbaar voor klanten in de app en op de website",
+        "unavailableToMembers": "Niet beschikbaar voor klanten in de app en op de website",
+        "limitedTimeOnly": "Alleen beschikbaar voor een beperkte tijd",
+        "unlimitedAccess": "Beschikbaar voor onbeperkte toegang"
+      }
+    }
+  },
+  "duplicateResponse": {
+    "success": "Media gedupliceerd",
+    "error": "Kon media niet dupliceren. Probeer het opnieuw. "
+  },
+  "deleteModal": {
+    "title": "Media verwijderen?",
+    "description": "Zodra je \"{{mediaName}}\" verwijdert, is het niet meer zichtbaar voor klanten.",
+    "descriptionWarning": "Deze wijziging is permanent.",
+    "buttons": {
+      "cancel": "Behouden",
+      "delete": "Verwijderen"
+    },
+    "submitResponse": {
+      "success": "On-demand media verwijderd",
+      "error": "Kon de media niet verwijderen. Probeer het opnieuw. "
+    },
+    "undoAction": {
+      "label": "Terug"
+    },
+    "undoResponse": {
+      "success": "Wijziging ongedaan gemaakt"
+    }
+  },
+  "uploadModal": {
+    "title": "Nieuwe media toevoegen",
+    "ebookTitle": "Een eBook uploaden",
+    "buttons": {
+      "cancel": "Sluiten",
+      "addMedia": "Toevoegen",
+      "add": "Media toevoegen",
+      "upload": "Uploaden"
+    },
+    "source": {
+      "options": {
+        "youtube": {
+          "label": "Video (YouTube)",
+          "helperText": "Voeg een link naar een YouTube-video toe"
+        },
+        "vimeo": {
+          "label": "Video (Vimeo)",
+          "helperText": "Voeg een link toe naar een Vimeo-video"
+        },
+        "ebook": {
+          "label": "eBook",
+          "helperText": "Upload een eBook als PDF, JPG of PNG"
+        }
+      }
+    },
+    "details": {
+      "youtube": {
+        "placeholder": "Plak de videolink van YouTube"
+      },
+      "vimeo": {
+        "placeholder": "Plak de videolink van Vimeo"
+      }
+    },
+    "fields": {
+      "url": {
+        "youtube": "Link naar YouTube",
+        "vimeo": "Link naar Vimeo"
+      },
+      "duration": "Duur",
+      "hours": {
+        "placeholder": "Uren"
+      },
+      "minutes": {
+        "placeholder": "Minuten"
+      },
+      "file": {
+        "uploadCta": "Bestand kiezen",
+        "dragAndDropCta": "Sleep hier een bestand naartoe",
+        "extensions": "JPG, PNG, PDF"
+      }
+    },
+    "validation": {
+      "sourceRequired": "Selecteer een bron om verder te gaan",
+      "urlRequired": "Voer een video-URL in",
+      "youtubeUrlInvalid": "Voer een geldige YouTube-URL in",
+      "vimeoUrlInvalid": "Voer een geldige Vimeo-URL in",
+      "durationRequired": "Voer een duur in die groter is dan nul.",
+      "fileRequired": "Selecteer een bestand om te uploaden",
+      "fileTypeInvalid": "Alleen PDF-, JPG-, JPEG- en PNG-bestanden zijn compatibel"
+    },
+    "submitResponse": {
+      "success": "Media succesvol geüpload",
+      "error": "Media kon niet worden geüpload. Probeer het opnieuw."
+    }
+  },
+  "error": {
+    "title": "Media kon niet worden geladen",
+    "description": "Probeer het opnieuw. Als het probleem aanhoudt, ververs dan de pagina.",
+    "retry": "Opnieuw proberen"
+  },
+  "search": {
+    "tooltip": "Media zoeken"
+  },
+  "filters": {
+    "label": "Filter",
+    "is": "is",
+    "category": {
+      "label": "Categorie",
+      "searchPlaceholder": "Zoek categorieën"
+    },
+    "level": {
+      "label": "Niveau"
+    },
+    "teacher": {
+      "label": "Docent",
+      "searchPlaceholder": "Zoek docenten"
+    },
+    "format": {
+      "label": "Formaat",
+      "video": "Video's",
+      "ebook": "eBook"
+    },
+    "duration": {
+      "label": "Duur",
+      "lt15": "Minder dan 15 min",
+      "15to30": "15 tot 30 min",
+      "30to60": "30 - 60 min",
+      "gt60": "Meer dan 60 min"
+    },
+    "emptySearch": {
+      "title": "Geen resultaten gevonden",
+      "subtitle": "Probeer je zoekopdracht of filters aan te passen",
+      "cta": "Wis filters"
+    }
+  }
+}

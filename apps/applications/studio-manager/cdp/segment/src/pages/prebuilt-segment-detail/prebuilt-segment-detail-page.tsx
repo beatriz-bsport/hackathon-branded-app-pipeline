@@ -106,7 +106,9 @@ export const PrebuiltSegmentTabLayout = ({
           pageTabs={tabsConfig}
           BreadcrumbsItems={breadcrumbsItems}
         />
-        <ListLayout.Content>{children}</ListLayout.Content>
+        <ListLayout.Content className="flex flex-col">
+          {children}
+        </ListLayout.Content>
       </ListLayout>
     );
   }

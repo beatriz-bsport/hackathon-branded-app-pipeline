@@ -1,0 +1,44 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titolo",
+      "placeholder": "Aggiungi un nome per questa collezione",
+      "errorMaxLength": "Il titolo non deve superare i {{maxLength}} caratteri"
+    },
+    "description": {
+      "label": "Descrizione",
+      "placeholder": "Descrivi la tua collezione",
+      "errorMaxLength": "La descrizione non deve superare i {{maxLength}} caratteri"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Carica un'immagine di copertina per questa collezione."
+    },
+    "errors": {
+      "fieldIsRequired": "Questo campo è obbligatorio"
+    }
+  },
+  "createModal": {
+    "title": "Crea una collezione",
+    "buttons": {
+      "create": "Crea",
+      "cancel": "Chiudi"
+    },
+    "submitResponse": {
+      "success": "Collezione creata",
+      "open": "Apri",
+      "error": "Non è stato possibile creare la collezione. Riprova. "
+    }
+  },
+  "editModal": {
+    "title": "Modifica collezione",
+    "buttons": {
+      "save": "Salva",
+      "cancel": "Chiudi"
+    },
+    "submitResponse": {
+      "success": "Crediti aggiornati",
+      "error": "Non è stato possibile aggiornare la collezione. Riprova. "
+    }
+  }
+}

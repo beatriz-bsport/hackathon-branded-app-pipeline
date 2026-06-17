@@ -1,0 +1,95 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titel",
+      "placeholder": "Mediatitel toevoegen",
+      "errorMaxLength": "Titel mag maximaal {{maxLength}} tekens bevatten"
+    },
+    "description": {
+      "label": "Beschrijving",
+      "placeholder": "Beschrijf je media",
+      "errorMaxLength": "Beschrijving mag maximaal {{maxLength}} tekens bevatten"
+    },
+    "credit_price": {
+      "errorInvalid": "Prijs moet een geldig niet-negatief getal zijn",
+      "equivalentCredits": "Deze pas bevat {{ creditsDisplay }}"
+    },
+    "manager_only": {
+      "label": "Niet vermeld",
+      "helperText": "Deze media is niet te koop via je website of app "
+    },
+    "rental": {
+      "label": "Te huur",
+      "helperText": "Klanten kunnen deze video voor een vast aantal dagen huren"
+    },
+    "rental_days": {
+      "label": "Huurperiode (dagen)",
+      "helperText": "Hoeveel dagen klanten toegang hebben tot de video na het huren",
+      "errorInvalid": "De huurperiode moet minimaal {{min}} dagen zijn"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Upload een afbeelding om weer te geven in je klant-app en op de studiowebsite."
+    },
+    "category": {
+      "label": "Categorie",
+      "placeholder": "Selecteer een categorie"
+    },
+    "level": {
+      "label": "Niveau",
+      "placeholder": "Selecteer een niveau",
+      "byDefault": "Voorinstellingen",
+      "custom": "Personalisatie",
+      "create": "Maak een nieuw niveau",
+      "add": "Niveau toevoegen",
+      "nameLabel": "Naam",
+      "nameTooLong": "De naam van het niveau mag niet langer zijn dan 50 tekens",
+      "colorLabel": "Kleur",
+      "confirmCreate": "Maken",
+      "cancel": "Behouden",
+      "edit": "Bewerk niveau",
+      "save": "Opslaan",
+      "deleteTitle": "Niveau verwijderen?",
+      "deleteMessage": "Bestaande media behouden dit niveau, maar ze zijn niet beschikbaar voor nieuwe media.",
+      "delete": "Verwijderen",
+      "error": "Er is iets misgegaan. Probeer het opnieuw. ",
+      "defaults": {
+        "1": "Alle niveaus",
+        "2": "Beginner",
+        "3": "Gevorderd",
+        "4": "Expert",
+        "5": "Zonder niveau"
+      }
+    },
+    "teachers": {
+      "label": "Instructeur",
+      "placeholder": "Selecteer docent"
+    },
+    "errors": {
+      "fieldIsRequired": "Dit veld kan niet leeg zijn"
+    }
+  },
+  "createModal": {
+    "title": "Maak media",
+    "buttons": {
+      "create": "Maken",
+      "cancel": "Sluiten"
+    },
+    "submitResponse": {
+      "success": "Media aangemaakt",
+      "open": "Open",
+      "error": "Kon geen media aanmaken. Probeer het opnieuw. "
+    }
+  },
+  "editModal": {
+    "title": "Media bewerken",
+    "buttons": {
+      "save": "Opslaan",
+      "cancel": "Sluiten"
+    },
+    "submitResponse": {
+      "success": "Wijzigingen opgeslagen",
+      "error": "Media kon niet worden bijgewerkt. Probeer het opnieuw. "
+    }
+  }
+}

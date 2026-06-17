@@ -1,1 +1,49 @@
-{}
+{
+  "table": {
+    "headers": {
+      "name": "Sammlungen",
+      "createCollection": "Sammlung erstellen",
+      "videosCount": "Videos",
+      "actions": "Aktionen"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} Medien",
+    "videosCountLabel_other": "{{count}} Medien",
+    "loading": "Sammlungen werden geladen...",
+    "emptyList": {
+      "title": "Noch keine Sammlungen",
+      "subtitle": "Deine Sammlungen erscheinen hier, sobald du eine erstellt hast"
+    },
+    "emptySearch": {
+      "title": "Keine Sammlungen gefunden",
+      "subtitle": "Versuche, deine Suche anzupassen"
+    },
+    "actions": {
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    }
+  },
+  "deleteModal": {
+    "title": "Sammlung löschen?",
+    "description": "Kund:innen haben keinen Zugriff mehr auf diese Sammlung.",
+    "buttons": {
+      "cancel": "Behalten",
+      "delete": "Löschen"
+    },
+    "submitResponse": {
+      "success": "Sammlung gelöscht",
+      "error": "Die Sammlung konnte nicht gelöscht werden. Versuch es noch einmal. "
+    },
+    "undoAction": {
+      "label": "Änderung rückgängig machen"
+    },
+    "undoResponse": {
+      "success": "Änderung rückgängig gemacht"
+    }
+  },
+  "error": {
+    "title": "Sammlungen konnten nicht geladen werden",
+    "description": "Versuch es noch einmal. Wenn das Problem weiterhin besteht, aktualisiere die Seite.",
+    "retry": "Noch ein Mal versuchen"
+  }
+}

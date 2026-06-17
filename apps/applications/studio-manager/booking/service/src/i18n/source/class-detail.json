@@ -11,18 +11,18 @@
       "empty": {
         "title": "No compatible passes added yet",
         "description": "Add passes to control which ones can be used to book this class",
-        "cta": "Go to Passes"
+        "cta": "Go to passes"
       },
       "flags": {
         "universal": "Universal",
         "unlisted": "Unlisted",
         "staffRestricted": "Staff-restricted",
-        "newMembersOnly": "New members only",
+        "newMembersOnly": "New clients only",
         "tooltips": {
           "universal": "Shared credits for classes and appointments",
-          "unlisted": "Hidden from members. Staff-only sale",
+          "unlisted": "This pass won't display on the client website or app",
           "staffRestricted": "Staff can't sell manually. Online only",
-          "newMembersOnly": "Can only be purchased by members with no prior purchase history"
+          "newMembersOnly": "Can only be purchased by clients with no prior purchase history"
         }
       },
       "filter": {

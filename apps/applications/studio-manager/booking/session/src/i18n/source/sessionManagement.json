@@ -38,6 +38,10 @@
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",
   "bookButton": "Book client",
+  "classIsFull": "This class is full",
+  "bookAndOverride": "Book & override capacity",
+  "addToWaitlist": "Add to waitlist",
+  "addBookingOptions": "Add client to the waitlist",
   "bookingsSectionTitle": "Class roster",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
   "waitlistSectionTitle": "Waitlist",
@@ -48,7 +52,13 @@
       "client": "Client"
     },
     "emptyState": {
-      "title": "No clients in this class yet"
+      "title": "No clients in this class yet",
+      "emptySearch": "We couldn't find any clients matching your search.",
+      "clearSearch": "Clear search",
+      "emptyCancelledTitle": "No cancellations",
+      "emptyCancelledSubtitle": "Clients who cancelled their booking will appear here.",
+      "emptyNoShowTitle": "No no-shows",
+      "emptyNoShowSubtitle": "Clients marked as no-show after attendance is confirmed will appear here."
     },
     "loadingMessage": "Loading class roster...",
     "chips": {
@@ -100,6 +110,7 @@
     "copyClientPhone": "Copy client phone number",
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
+    "impossibleToBookToClass": "Couldn't book clients because class has already started",
     "removeFromWaitlist": "Remove from waitlist",
     "impossibleToRemoveFromWaitlist": "Couldn't remove clients from waitlist because class has already started",
     "assignSpot": {
@@ -245,7 +256,7 @@
       "description": "A spot will be reserved for clients on the waitlist until they book"
     },
     "checkCredit": {
-      "title": "Require valid pass with sufficient credit",
+      "title": "Requires a valid pass with sufficient credit",
       "description": "Clients can only join the waitlist for this class if they have a compatible pass with enough credits."
     },
     "oneByOne": {
@@ -305,7 +316,7 @@
       "saveAriaLabel": "Save note",
       "cancelAriaLabel": "Cancel editing note",
       "deleteAriaLabel": "Delete note",
-      "placeholder": "Leave a note about this session",
+      "placeholder": "Leave a note about this class",
       "errorToast": "Could not save the note. Please try again.",
       "deleteModal": {
         "title": "Delete this note?",
@@ -343,6 +354,22 @@
   },
   "bookingFlow": {
     "title": "Book a client",
+    "addToWaitlist": {
+      "title": "Add to waitlist",
+      "successToast": "Client added to waitlist",
+      "errors": {
+        "4505": "Staff role is not allowed to exceed waiting list capacity.",
+        "6002": "The waiting list is full. Impossible to register.",
+        "6003": "Already registered on this waiting list.",
+        "6005": "Someone is currently trying to book this spot. Please retry.",
+        "23001": "No compatible pass allows this member to book this offer.",
+        "23002": "Too many upcoming bookings or booking options.",
+        "generic": "Couldn't add client to waitlist"
+      }
+    },
+    "conversion": {
+      "fromWaitlist": "Converting from waitlist"
+    },
     "steps": {
       "memberSelection": "Choose a client",
       "passSelection": "Pick a pass",
@@ -410,7 +437,8 @@
       "pass": "Pass",
       "notifications": {
         "title": "Notifications",
-        "toggleLabel": "Send booking confirmation to client"
+        "toggleLabel": "Send booking confirmation to client",
+        "toggleHelperText": "No email address on file. You can add one in the client profile."
       },
       "creditsUsed": "{{count}} credit used",
       "creditsUsed_zero": "No credits used",
@@ -418,8 +446,22 @@
       "unlimited": "Unlimited pass",
       "creditsRemainingAfterBooking": "{{availableAfterBooking}} remaining after booking",
       "confirmationToast": "Booking confirmed",
-      "errorToast": "An error occurred while booking this client. Please try again later.",
-      "quickInvoiceErrorToast": "An error occurred while creating an invoice for this booking. Please try again later.",
+      "registerBookingErrors": {
+        "1234": "Too many bookings this month.",
+        "4500": "Staff role is not allowed to overbook.",
+        "8001": "The spot may have been booked while you were booking. Refresh the page.",
+        "85101": "This spot is already locked. Please try again.",
+        "85000": "This spot is already locked. Please try again.",
+        "generic": "An error occurred while booking this client. Please try again later."
+      },
+      "quickInvoiceErrors": {
+        "4500": "Staff role is not allowed to overbook.",
+        "8001": "The spot may have been booked while you were booking. Refresh the page.",
+        "15000": "Cannot create an invoice with buyable items that are unusable by staff.",
+        "20000": "Company mismatch between member, payment pack and offer.",
+        "99000": "Cannot use an item that is unusable by staff.",
+        "generic": "An error occurred while creating an invoice for this booking. Please try again later."
+      },
       "newPass": "New pass",
       "paymentDueAfterBooking": "Payment due after booking",
       "spotLabel": "Spot: {{label}}",
@@ -476,7 +518,39 @@
         "reasonRequired": "A reason is required when applying a discount",
         "exceedsPrice": "Discount cannot exceed the pass price",
         "exceedsPercentage": "Percentage cannot exceed 100%"
+      },
+      "universal": "Universal",
+      "validity": {
+        "year": "{{count}} year",
+        "year_other": "{{count}} years",
+        "month": "{{count}} month",
+        "month_other": "{{count}} months",
+        "day": "{{count}} day",
+        "day_other": "{{count}} days",
+        "validAnd": "{{first}} and {{second}}",
+        "validDaysMonthsYears": "{{years}}, {{months}} and {{days}}",
+        "validFromTo": "Valid from {{start}} to {{end}}",
+        "startOnBooking": "Starts on first booking",
+        "startOnAttendance": "Starts on first attendance",
+        "startOnPurchase": "Starts on purchase"
       }
+    }
+  },
+  "swapBookingPassModal": {
+    "title": "Swap pass",
+    "description": "Pick an existing pass",
+    "confirmButton": "Swap pass",
+    "cancelButton": "Back",
+    "successMessage": "Pass swapped",
+    "errors": {
+      "5347000": "Pass not found.",
+      "5347001": "Booking already uses this pass.",
+      "5347002": "Pass belongs to another member.",
+      "5347003": "Pass is not compatible with this session.",
+      "5347004": "Pass is blocked.",
+      "5347005": "Pass does not have enough credits.",
+      "5347006": "Cannot swap pass on a partnership booking.",
+      "generic": "An error occurred while swapping the pass. Please try again."
     }
   }
 }

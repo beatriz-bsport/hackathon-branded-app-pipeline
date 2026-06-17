@@ -4,6 +4,9 @@ import { Navigate, Route, Routes } from "react-router";
 import { URLS } from "./urls";
 
 const ContractListPage = lazy(() => import("#src/pages/contract-list"));
+const ContractArchivedListPage = lazy(
+  () => import("#src/pages/contract-archived-list"),
+);
 const ContractEditorPage = lazy(() => import("#src/pages/contract-editor"));
 const ContractOverviewPage = lazy(() => import("#src/pages/contract-overview"));
 const ContractPausesListPage = lazy(
@@ -16,7 +19,9 @@ const MembershipPlanPage = lazy(
 export const AppRoutes = () => {
   return (
     <Routes>
+      {/** List pages */}
       <Route element={<ContractListPage />} index />
+      <Route element={<ContractArchivedListPage />} path={URLS.ARCHIVED} />
 
       {/** Details pages */}
       <Route element={<ContractEditorPage />} path={URLS.EDITOR_SLUG} />

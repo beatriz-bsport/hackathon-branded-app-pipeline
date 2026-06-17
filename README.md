@@ -190,6 +190,23 @@ pnpm exec nx run @bsport/sm-giftcard:dev:watch --watchDeps=false
 
 For more details, see [tools/nx/README.md](./tools/nx/README.md).
 
+#### Parallel local Studio Manager worktrees
+
+Studio Manager dev ports are deterministic. By default, apps use the base
+`4000-4549` range from their `package.json#federation.devPort`. To run multiple
+worktrees at the same time, set `BSPORT_DEV_SLOT` on every related dev server in
+that worktree:
+
+```sh
+BSPORT_DEV_SLOT=1 pnpm exec nx run @bsport/sm-host:dev:watch --remotes=@bsport/sm-navigation-sidebar
+BSPORT_DEV_SLOT=2 pnpm exec nx run @bsport/sm-host:dev:watch --remotes=@bsport/sm-navigation-sidebar
+```
+
+Slot `1` maps `4000-4549` to `10000-10549`, slot `2` maps it to
+`11000-11549`, and unset or `0` keeps the base range. Use the same slot for
+`saas-legacy` and `@bsport/sm-navigation-sidebar` when testing the revamped
+sidebar inside legacy.
+
 #### Run all revamped application
 
 One day you may want to have a full vision of the future Studio Manager backoffice, we have a special app : the [host app](./apps/applications/studio-manager/host/README.md).

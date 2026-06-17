@@ -8,7 +8,7 @@ import {
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
 import { useSessionHeaderBase } from "#src/hooks/use-session-header-base";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 
 import { BookButton } from "./action-buttons/book-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
@@ -24,14 +24,15 @@ export const Header: FC<{
   const { data: session } = useRetrieveSession(sessionId);
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
-  const { pageTitle, startGroupActions, endGroupActions, isMobile } =
-    useSessionHeaderBase(session, { openModal });
+  const { pageTitle, startGroupActions, isMobile } = useSessionHeaderBase(
+    session,
+    { openModal },
+  );
 
   return (
     <DetailsLayout.Header
       pageTitle={pageTitle}
       startGroupActions={startGroupActions}
-      endGroupActions={endGroupActions}
       onDisplayPopover={() => (
         <div className="flex flex-col gap-sm max-w-[260px]">
           <OrderingBookings />
@@ -40,11 +41,7 @@ export const Header: FC<{
       )}
       callToActionButton={
         session.available && !isMobile ? (
-          <BookButton
-            onClick={() => {
-              openModal(SessionManagementModalType.BOOK);
-            }}
-          />
+          <BookButton sessionId={sessionId} openModal={openModal} />
         ) : !session.group && !isMobile ? (
           <RestoreSessionButton openModal={openModal} />
         ) : undefined

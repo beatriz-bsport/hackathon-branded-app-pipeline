@@ -1,1 +1,49 @@
-{}
+{
+  "table": {
+    "headers": {
+      "name": "Collecties",
+      "createCollection": "Collectie aanmaken",
+      "videosCount": "Aantal video's",
+      "actions": "Acties"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} media",
+    "videosCountLabel_other": "{{count}} media",
+    "loading": "Collecties laden...",
+    "emptyList": {
+      "title": "Nog geen collecties",
+      "subtitle": "Je collecties verschijnen hier zodra je er een aanmaakt"
+    },
+    "emptySearch": {
+      "title": "Geen collecties gevonden",
+      "subtitle": "Probeer je zoekopdracht aan te passen"
+    },
+    "actions": {
+      "edit": "Bewerken",
+      "delete": "Verwijderen"
+    }
+  },
+  "deleteModal": {
+    "title": "Collectie verwijderen?",
+    "description": "Klanten hebben geen toegang meer tot deze collectie.",
+    "buttons": {
+      "cancel": "Behouden",
+      "delete": "Verwijderen"
+    },
+    "submitResponse": {
+      "success": "Collectie verwijderd",
+      "error": "De collectie kon niet worden verwijderd. Probeer het opnieuw. "
+    },
+    "undoAction": {
+      "label": "Terug"
+    },
+    "undoResponse": {
+      "success": "Wijziging ongedaan gemaakt"
+    }
+  },
+  "error": {
+    "title": "Collectie kon niet worden geladen",
+    "description": "Probeer het opnieuw. Als het probleem aanhoudt, ververs dan de pagina.",
+    "retry": "Opnieuw proberen"
+  }
+}

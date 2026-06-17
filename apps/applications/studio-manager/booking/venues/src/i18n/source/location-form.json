@@ -1,8 +1,8 @@
 {
-  "description": "A location groups venues for shared marketing, products, and reporting.",
+  "description": "A location groups venues for shared marketing, sales and reporting",
   "create": {
     "title": "Create location",
-    "submit": "Create location"
+    "submit": "Create"
   },
   "edit": {
     "title": "Edit location",
@@ -11,43 +11,43 @@
   "fields": {
     "name": {
       "label": "Name",
-      "placeholder": "Give your location a name e.g. Paris Venues"
+      "placeholder": "Add a location name "
     },
     "venues": {
-      "label": "Add venues",
+      "label": "Assigned venues",
       "placeholder": "Search venues..."
     }
   },
   "errors": {
-    "required": "This field is required",
+    "required": "This field can't be empty",
     "venuesRequired": "Select at least one venue"
   },
   "cancel": "Close",
   "delete": "Delete location",
   "deleteModal": {
-    "title": "Delete location",
+    "title": "Delete location?",
     "confirm": "Delete",
-    "cancel": "Cancel",
+    "cancel": "Keep",
     "alert": {
-      "blocking": "This location cannot be deleted because of the following reasons:"
+      "blocking": "This location can't be deleted due to the following:"
     },
     "errors": {
-      "hasExclusiveMarketplaceConfigs": "This location has exclusive marketplace component configurations. Please update them before deleting.",
-      "exclusiveCoaches": "The following coach(es) are exclusively associated with this location: {{names}}. Please update their configuration before deleting."
+      "hasExclusiveMarketplaceConfigs": "This location is used in some website widgets. Update them before archiving.",
+      "exclusiveCoaches": "These teachers are only associated with this location: {{names}}. Update their settings before deleting."
     },
     "warnings": {
-      "hasRelatedStaffConfigurations": "Some staff are configured for this location.",
-      "hasRelatedMarketplaceConfigs": "Some marketplace components are configured for this location.",
-      "hasRelatedMarketingNotifications": "Some marketing notifications target this location.",
-      "relatedCoaches": "Some coaches are associated with this location."
+      "hasRelatedStaffConfigurations": "Some staff members have settings linked to this location.",
+      "hasRelatedMarketplaceConfigs": "Some website widgets are linked to this location.",
+      "hasRelatedMarketingNotifications": "Some auto-messages target this location.",
+      "relatedCoaches": "Some teachers are associated with this location."
     }
   },
   "toasts": {
     "createSuccess": "Location created",
-    "createError": "Failed to create location",
+    "createError": "Couldn't create location. Try again. ",
     "updateSuccess": "Location updated",
-    "updateError": "Failed to update location",
+    "updateError": "Couldn't update location. Try again. ",
     "deleteSuccess": "Location deleted",
-    "deleteError": "Failed to delete location"
+    "deleteError": "Couldn't delete location. Try again. "
   }
 }

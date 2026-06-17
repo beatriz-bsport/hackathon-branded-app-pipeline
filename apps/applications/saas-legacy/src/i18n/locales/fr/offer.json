@@ -319,7 +319,7 @@
               },
               "COMBINED": {
                 "singleAggregatorHelperText": "Définissez un nombre maximum de places pour l’agrégateur activé.",
-                "helperText": "Définissez un nombre maximum de places pour les agrégateurs activés combinés parmi myClubs, Wellhub et Urban Sports Club (les autres agrégateurs ne sont pas affectés par ce paramètre).",
+                "helperText": "Définissez un nombre maximum de places pour les agrégateurs activés combinés parmi myClubs, Wellhub, Wellpass et Urban Sports Club (Classpass n'est pas affecté par ce paramètre).",
                 "singleAggregatorLabel": "Places limitées",
                 "label": "Places limitées (combinées)"
               },

@@ -272,7 +272,7 @@
               },
               "COMBINED": {
                 "singleAggregatorHelperText": "Stel een maximaal aantal plaatsen in voor de ingeschakelde aggregator.",
-                "helperText": "Stel een maximaal aantal plaatsen in voor de ingeschakelde aggregators myClubs, Wellhub en Urban Sports Club gecombineerd (andere aggregators worden niet beïnvloed door deze instelling).",
+                "helperText": "Stel een maximaal aantal plaatsen in voor de ingeschakelde aggregators myClubs, Wellhub, Wellpass en Urban Sports Club gecombineerd (Classpass wordt niet beïnvloed door deze instelling).",
                 "singleAggregatorLabel": "Beperkte plaatsen",
                 "label": "Beperkte plaatsen (gecombineerd)"
               },

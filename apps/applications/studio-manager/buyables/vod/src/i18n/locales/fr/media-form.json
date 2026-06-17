@@ -20,7 +20,7 @@
     },
     "rental": {
       "label": "Disponible à la location",
-      "helperText": "Les Adhérents peuvent louer cette vidéo pour un nombre de jours défini"
+      "helperText": "Les adhérents peuvent louer cette vidéo pour une durée déterminée."
     },
     "rental_days": {
       "label": "Période de location (jours)",
@@ -29,7 +29,7 @@
     },
     "cover": {
       "extensions": "JPG, PNG, GIF, WEBP",
-      "helperText": "Téléchargez une image à afficher sur votre application adhérent et le site web de votre studio."
+      "helperText": "Téléchargez une image pour l'afficher sur votre application adhérent et sur le site web de votre studio."
     },
     "category": {
       "label": "Catégorie",
@@ -57,8 +57,8 @@
         "1": "Tous les niveaux",
         "2": "Débutant",
         "3": "Intermédiaire",
-        "4": "Options avancées",
-        "5": "Aucun niveau affiché"
+        "4": "Avancé",
+        "5": "Aucun niveau"
       }
     },
     "teachers": {
@@ -88,7 +88,7 @@
       "cancel": "Fermer"
     },
     "submitResponse": {
-      "success": "Crédits mis à jour",
+      "success": "Modifications enregistrées",
       "error": "Impossible de mettre à jour le média. Veuillez réessayer. "
     }
   }

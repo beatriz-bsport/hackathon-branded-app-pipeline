@@ -124,6 +124,7 @@
     },
     "isLoading": "Loading appointments...",
     "unpaidTooltip": "Appointment is unpaid",
+    "noTeacher": "No teacher",
     "filters": {
       "label": "Filters",
       "is": "is",

@@ -297,7 +297,7 @@
               "COMBINED": {
                 "label": "Limited spots (combined)",
                 "singleAggregatorLabel": "Limited spots",
-                "helperText": "Set a maximum number of spots for enabled aggregators combined among myClubs, Wellhub and Urban Sports Club (the other aggregators are not affected by this setting)",
+                "helperText": "Set a maximum number of spots for enabled aggregators combined among myClubs, Wellhub, Wellpass and Urban Sports Club (Classpass not affected by this setting)",
                 "singleAggregatorHelperText": "Set a maximum number of spots for the enabled aggregator"
               },
               "PER_PARTNER": {

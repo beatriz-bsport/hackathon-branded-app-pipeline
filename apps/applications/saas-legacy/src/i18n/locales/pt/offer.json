@@ -56,7 +56,7 @@
               },
               "COMBINED": {
                 "singleAggregatorHelperText": "Defina um número máximo de vagas para o agregador ativado.",
-                "helperText": "Defina um número máximo de vagas para os agregadores ativados combinados entre myClubs, Wellhub e Urban Sports Club (os outros agregadores não são afetados por esta definição).",
+                "helperText": "Defina um número máximo de vagas para os agregadores ativados combinados entre myClubs, Wellhub, Wellpass e Urban Sports Club (Classpass não é afetado por esta definição).",
                 "singleAggregatorLabel": "Vagas limitadas",
                 "label": "Vagas limitadas (combinadas)"
               },

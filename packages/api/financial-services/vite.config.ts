@@ -15,13 +15,18 @@ export default defineConfig({
   build: {
     outDir: "build",
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"), // Entry point of your library
+      entry: {
+        // -> build/lib.es.js (unchanged: keeps `.`, `./*`, `./constants`, `./types` valid)
+        "lib.es": path.resolve(__dirname, "src/index.ts"),
+        // -> build/invoice/mocks.js (dev-only mocks, kept out of the shared lib bundle)
+        "invoice/mocks": path.resolve(__dirname, "src/invoice/mocks/index.ts"),
+      },
       formats: ["es"], // Specify the output formats
-      fileName: (format) => `lib.${format}.js`, // Customize the output file name
+      fileName: (_format, entryName) => `${entryName}.js`, // Customize the output file name
     },
     rollupOptions: {
       // External dependencies that shouldn't be bundled
-      external: ["react", "react/jsx-dev-runtime", "react/jsx-runtime"],
+      external: ["react", "react/jsx-dev-runtime", "react/jsx-runtime", "msw"],
     },
   },
   resolve: {

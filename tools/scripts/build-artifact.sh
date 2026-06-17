@@ -107,11 +107,11 @@ upload_widget_artifact() {
     --only-show-errors \
     --delete \
     --cache-control "$ARTIFACT_IMMUTABLE_CACHE_CONTROL" \
-    --exclude "widget.js" \
+    --exclude "scripts/widget.js" \
     --exclude "*.map" \
     --exclude "*.map.*"
 
-  aws s3 cp "$source_dir/widget.js" "$s3_url/widget.js" \
+  aws s3 cp "$source_dir/scripts/widget.js" "$s3_url/scripts/widget.js" \
     --only-show-errors \
     --cache-control "$ARTIFACT_NO_CACHE_CONTROL" \
     --content-type application/javascript
@@ -163,9 +163,9 @@ echo "⏳ Building projects"
 pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "dev" true
 pnpm exec nx ci:build:mfe @bsport/sm-host "$STUDIO_MFE"
 
-if [ "$ARTIFACT_MODE" = "release" ]; then
-  pnpm --filter @bsport/widget-legacy ci:build dev
+pnpm --filter @bsport/widget-legacy ci:build dev
 
+if [ "$ARTIFACT_MODE" = "release" ]; then
   echo "⏳ Building Kaizen docs"
   pnpm -C apps/docs install --frozen-lockfile --prefer-offline
   pnpm -C apps/docs ci:build
@@ -192,19 +192,21 @@ if [ -f "$BACKOFFICE_BUILD_DIR/studio/index.html" ]; then
   sed -i'' -e "s/__RELEASE_SHA_PLACEHOLDER__/$RELEASE_SHA/g" "$BACKOFFICE_BUILD_DIR/studio/index.html"
 fi
 
+mkdir -p "$WIDGET_BUILD_DIR/scripts"
+cp -r apps/widgets/widget-legacy/dist/* "$WIDGET_BUILD_DIR/scripts/"
+
 if [ "$ARTIFACT_MODE" = "release" ]; then
-  mkdir -p "$WIDGET_BUILD_DIR"
   mkdir -p "$KAIZEN_DOCS_BUILD_DIR"
   mkdir -p "$KAIZEN_STORYBOOK_BUILD_DIR"
   cp -r apps/widgets/widget-debugger/src/html "$BACKOFFICE_BUILD_DIR/widget-debugger"
-  cp -r apps/widgets/widget-legacy/dist/* "$WIDGET_BUILD_DIR/"
   cp -r apps/docs/dist/* "$KAIZEN_DOCS_BUILD_DIR/"
   cp -r packages/design-system/kaizen/storybook/storybook-static/* "$KAIZEN_STORYBOOK_BUILD_DIR/"
 fi
 
+require_release_file "$WIDGET_BUILD_DIR/scripts/widget.js"
+
 if [ "$ARTIFACT_MODE" = "release" ]; then
   require_release_file "$BACKOFFICE_BUILD_DIR/index.html"
-  require_release_file "$WIDGET_BUILD_DIR/widget.js"
   require_release_file "$KAIZEN_DOCS_BUILD_DIR/index.html"
   require_release_file "$KAIZEN_STORYBOOK_BUILD_DIR/index.html"
 
@@ -215,9 +217,9 @@ echo "✅ Build outputs aggregated successfully"
 
 echo "⏳ Pushing build outputs to S3 for deployment"
 upload_web_artifact "$BACKOFFICE_BUILD_DIR" "$(artifact_s3_url "$BACKOFFICE_ARTIFACT_PREFIX" "$ARTIFACT_VERSION")"
+upload_widget_artifact "$WIDGET_BUILD_DIR" "$(artifact_s3_url "$WIDGET_ARTIFACT_PREFIX" "$ARTIFACT_VERSION")"
 
 if [ "$ARTIFACT_MODE" = "release" ]; then
-  upload_widget_artifact "$WIDGET_BUILD_DIR" "$(artifact_s3_url "$WIDGET_ARTIFACT_PREFIX" "$ARTIFACT_VERSION")"
   upload_web_artifact "$KAIZEN_DOCS_BUILD_DIR" "$(artifact_s3_url "$KAIZEN_DOCS_ARTIFACT_PREFIX" "$ARTIFACT_VERSION")"
   upload_web_artifact "$KAIZEN_STORYBOOK_BUILD_DIR" "$(artifact_s3_url "$KAIZEN_STORYBOOK_ARTIFACT_PREFIX" "$ARTIFACT_VERSION")"
 fi
@@ -227,9 +229,9 @@ echo "✅ Artifacts pushed to S3 successfully"
 if [ "${CI_COMMIT_BRANCH:-}" = "dev" ]; then
   echo "⏳ Tagging latest dev build artifacts"
   upload_web_artifact "$BACKOFFICE_BUILD_DIR" "$(artifact_s3_url "$BACKOFFICE_ARTIFACT_PREFIX" "dev")"
+  upload_widget_artifact "$WIDGET_BUILD_DIR" "$(artifact_s3_url "$WIDGET_ARTIFACT_PREFIX" "dev")"
 
   if [ "$ARTIFACT_MODE" = "release" ]; then
-    upload_widget_artifact "$WIDGET_BUILD_DIR" "$(artifact_s3_url "$WIDGET_ARTIFACT_PREFIX" "dev")"
     upload_web_artifact "$KAIZEN_DOCS_BUILD_DIR" "$(artifact_s3_url "$KAIZEN_DOCS_ARTIFACT_PREFIX" "dev")"
     upload_web_artifact "$KAIZEN_STORYBOOK_BUILD_DIR" "$(artifact_s3_url "$KAIZEN_STORYBOOK_ARTIFACT_PREFIX" "dev")"
   fi

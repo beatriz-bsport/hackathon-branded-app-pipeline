@@ -6,3 +6,4 @@ coverage
 *~
 config.prod.js
 .idea
+public/env.js

@@ -46,7 +46,7 @@ export const useAppointmentTeacherFilter = (): FilterField => {
     availableFilters: [AppointmentFilters.FILTER_IS],
     label: t("appointmentTable.filters.teacher.label"),
     searchPlaceholder: t("appointmentTable.filters.searchPlaceholder"),
-    multiSelect: false,
+    multiSelect: true,
     persistedItems: persistedTeachers,
     useSearch: (query) => useSearchTeachers(query, restrictParams),
   });

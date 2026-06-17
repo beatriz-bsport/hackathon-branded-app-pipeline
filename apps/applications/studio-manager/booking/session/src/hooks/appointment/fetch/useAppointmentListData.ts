@@ -130,14 +130,16 @@ export const useAppointmentListData = (
 
   const filters = useCalendarStore(selectAppointmentFilters);
   const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
-  const filterParams = useMemo(
-    () => ({
-      ...getAppointmentParamsFromFilters(filters),
-      // TODO: Replace with coach__in once the API supports filtering by multiple coaches
-      ...(restrictedTeachers.length > 0 && { coach: restrictedTeachers[0] }),
-    }),
-    [filters, restrictedTeachers],
-  );
+  const filterParams = useMemo(() => {
+    const params = getAppointmentParamsFromFilters(filters);
+    // Enforce restricted teacher access. An active teacher filter already only
+    // offers allowed teachers, so don't overwrite it — only constrain to the
+    // full restricted set when the user hasn't narrowed it down themselves.
+    if (restrictedTeachers.length > 0 && params.coach__in === undefined) {
+      params.coach__in = restrictedTeachers;
+    }
+    return params;
+  }, [filters, restrictedTeachers]);
 
   const showCancelled = useCalendarStore(selectAppointmentShowCancelled);
 

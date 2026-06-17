@@ -37,7 +37,7 @@ export const useAppointmentParticipantFilter = (): FilterField => {
     availableFilters: [AppointmentFilters.FILTER_IS],
     label: t("appointmentTable.filters.participant.label"),
     searchPlaceholder: t("appointmentTable.filters.searchPlaceholder"),
-    multiSelect: false,
+    multiSelect: true,
     persistedItems: persistedMembers,
     useSearch: (query) => useSearchMembersForFilter(query),
   });

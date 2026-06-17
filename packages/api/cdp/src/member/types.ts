@@ -31,7 +31,9 @@ export type Member = {
 };
 
 export type MemberDetail = Member & {
+  accept_sms?: boolean;
   notes: MemberNote[];
+  phone_number?: string;
 };
 
 export type GetMemberParams = {

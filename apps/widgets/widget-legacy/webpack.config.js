@@ -9,37 +9,17 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
-const getConfig = () => {
-  const configOverride = process.env.DEST_CONFIG;
-  if (configOverride) {
-    const configPath = `./config.${configOverride}`;
-    try {
-      require.resolve(configPath);
-      return configPath;
-    } catch (e) {
-      // Config file doesn't exist, fall through to default logic
-    }
-  }
-  if (devMode) {
-    return './config.local';
-  }
-  return './config.production';
-};
-
-const publicPath = devMode
-  ? 'http://localhost:3100/'
-  : `https://${process.env.CDN_DOMAIN}/scripts/`;
 const distDir = path.join(__dirname, 'dist');
 const publicDir = path.join(__dirname, 'public');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: [require.resolve(getConfig()), './src/index.tsx'],
+  entry: ['./src/index.tsx'],
   output: {
     path: distDir,
     filename: 'widget.js',
     chunkFilename: 'widget.[chunkhash:8].chunk.js',
-    publicPath,
+    publicPath: 'auto',
     library: 'BsportWidget',
     libraryExport: 'default',
     libraryTarget: 'window',
@@ -175,11 +155,11 @@ module.exports = {
       process: 'process/browser',
     }),
     process.env.ANALYZE === 'true' &&
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        openAnalyzer: true,
-        reportFilename: 'bundle-report.html',
-      }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: true,
+      reportFilename: 'bundle-report.html',
+    }),
   ].filter(Boolean),
   optimization: {
     minimize: !devMode,

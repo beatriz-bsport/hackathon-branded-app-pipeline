@@ -19,9 +19,9 @@ echo "⏳ Start building @bsport/saas-legacy for environment: $ENVIRONMENT"
 # Update release files
 echo "*"
 echo "Update version files"
-echo "\"$VERSION\"" > public/version.json
+echo "\"$VERSION_SHA\"" > public/version.json
 echo "export default '`date +%F+%H+%M`';" > src/release-date.js
-echo "export default '$VERSION';" > src/release.js
+echo "export default '$VERSION_SHA';" > src/release.js
 echo "export default '$VERSION_SHA';" > src/release-sha.js
 
 # Build the application

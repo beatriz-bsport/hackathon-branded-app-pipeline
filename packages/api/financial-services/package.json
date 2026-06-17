@@ -17,6 +17,11 @@
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
     },
+    "./invoice/mocks": {
+      "types": "./build/invoice/mocks/index.d.ts",
+      "import": "./build/invoice/mocks.js",
+      "default": "./build/invoice/mocks.js"
+    },
     "./constants": {
       "types": "./build/constants.d.ts",
       "import": "./build/lib.es.js",
@@ -41,19 +46,30 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
+    "@bsport/fetch": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
+    "@testing-library/react": "^16.3.0",
+    "msw": "^2.7.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [
+      "execute:unit-tests",
       "postinstall"
     ]
   }

@@ -2,6 +2,7 @@
   "header": {
     "loading": "Loading memberships...",
     "actions": {
+      "pauseMembershipPlan": "Pause membership plan",
       "cancelSubscription": "Cancel"
     },
     "breadcrumbs": {
@@ -123,5 +124,30 @@
       "remainingUntil": "Until {{date}}"
     },
     "paymentMethodPlaceholder": "Payment method details will appear here."
+  },
+  "pauseModal": {
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "title": {
+      "create": "Pause subscription?",
+      "edit": "Change pause date"
+    },
+    "toasts": {
+      "cancelSuccess": "Pause deactivated",
+      "createSuccess": "Membership plan paused",
+      "error": "Something went wrong. Please try again.",
+      "updateSuccess": "Pause date changed"
+    },
+    "overlapError": "This invoice is already paused during this period. Select another time frame to pause the subscription."
+  },
+  "deactivatePauseModal": {
+    "title": "Deactivate pause",
+    "body": "Are you sure you want to deactivate the pause from {{fromDate}} to {{untilDate}} ({{name}})?",
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }

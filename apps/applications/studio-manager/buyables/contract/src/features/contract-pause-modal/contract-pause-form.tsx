@@ -4,7 +4,10 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { DateTime, calculateDiffDuration } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  calculateDiffDuration,
+} from "@bsport/datetime-manipulation";
 import { FormField } from "@bsport/form";
 import {
   Alert,
@@ -26,6 +29,7 @@ import {
 import { useDisablePast } from "./utils";
 
 type DatePickerWithAlertProps = {
+  errorAlert?: string;
   formId: string;
   value: [DateTime | null, DateTime | null];
   onChange: (nextValue: [DateTime | null, DateTime | null]) => void;
@@ -36,11 +40,12 @@ type DatePickerWithAlertProps = {
  * methods.getValues() is "one render behind" and does not allow to use the latest form value.
  */
 const DatePickerWithAlert: FC<DatePickerWithAlertProps> = ({
+  errorAlert,
   formId,
-  value,
   onChange,
   status,
   statusText,
+  value,
 }) => {
   const { t } = useTranslation("contract-features");
 
@@ -98,27 +103,39 @@ const DatePickerWithAlert: FC<DatePickerWithAlertProps> = ({
         )}
       </div>
 
-      <Alert status="info" layout="banner" customIcon="info-circle">
-        <p>{pauseDaterangeInformation}</p>
-        <ul className="list-disc ml-lg">
-          <li>{t("pauseModal.periodField.description.body2")}</li>
-          <li>
-            {t("pauseModal.periodField.description.body3", {
-              daysDuration: daysDurationMessage,
-            })}
-          </li>
-          <li>{t("pauseModal.periodField.description.body4")}</li>
-        </ul>
-      </Alert>
+      {fromDate &&
+        untilDate &&
+        (errorAlert ? (
+          <Alert status="critical" layout="banner" customIcon="alert-circle">
+            {errorAlert}
+          </Alert>
+        ) : (
+          <Alert status="info" layout="banner" customIcon="info-circle">
+            <p>{pauseDaterangeInformation}</p>
+            <ul className="list-disc ml-lg">
+              <li>{t("pauseModal.periodField.description.body2")}</li>
+              <li>
+                {t("pauseModal.periodField.description.body3", {
+                  daysDuration: daysDurationMessage,
+                })}
+              </li>
+              <li>{t("pauseModal.periodField.description.body4")}</li>
+            </ul>
+          </Alert>
+        ))}
     </>
   );
 };
 
 type ContractPauseFormProps = {
+  errorAlert?: string;
   formId: string;
 };
 
-export const ContractPauseForm: FC<ContractPauseFormProps> = ({ formId }) => {
+export const ContractPauseForm: FC<ContractPauseFormProps> = ({
+  errorAlert,
+  formId,
+}) => {
   const { t } = useTranslation("contract-features");
 
   const defaultData = useDefaultData();
@@ -152,7 +169,7 @@ export const ContractPauseForm: FC<ContractPauseFormProps> = ({ formId }) => {
         DatePickerWithAlertProps
       > name="dateRange">
         {/** @ts-expect-error value and onChange are provided by the wrapper */}
-        <DatePickerWithAlert formId={formId} />
+        <DatePickerWithAlert errorAlert={errorAlert} formId={formId} />
       </FormField>
     </section>
   );

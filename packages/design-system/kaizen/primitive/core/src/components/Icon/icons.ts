@@ -103,6 +103,9 @@ const icons = {
   "clock-rewind": React.lazy(
     async () => await import("./assets/clock-rewind.svg?react"),
   ),
+  "clock-slash": React.lazy(
+    async () => await import("./assets/clock-slash.svg?react"),
+  ),
   "clock-stopwatch": React.lazy(
     async () => await import("./assets/clock-stopwatch.svg?react"),
   ),

@@ -192,8 +192,8 @@ export const ContractPauseModal: FC<ContractPauseModalProps> = ({
 
     const commonData = {
       contract: contractId,
-      from_date: fromDate.toISO() || "",
-      until_date: untilDate.toISO() || "",
+      from_date: fromDate.toISODate() || "",
+      until_date: untilDate.toISODate() || "",
     };
 
     if (step === STEPS.FORM_COMPLETION) {

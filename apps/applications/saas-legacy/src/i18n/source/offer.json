@@ -272,7 +272,7 @@
             "subtitle": "Includes: ClassPass, myClubs, Urban Sports Club, Wellpass and Wellhub for external bookings.",
             "uscIntegrationWarning": "Your integration to Urban Sports Club is active, any session spanning 2 days or more will not appear.",
             "uscIntegrationWorkshopWarning": "Workshops are not compatible with Urban Sports Club, so this session will not be included.",
-            "partnerMaxBookingCountHelperText": "This setting will only affect myClubs, Urban Sports Club and Wellhub.",
+            "partnerMaxBookingCountHelperText": "This setting will only affect myClubs, Urban Sports Club, Wellhub and Wellpass.",
             "name": {
               "usc": "Urban Sports Club",
               "classpass": "ClassPass",

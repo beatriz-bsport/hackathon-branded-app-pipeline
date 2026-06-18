@@ -290,7 +290,7 @@
               "wellpass": "De zichtbaarheid van sessies op Wellpass en limieten kunnen nog niet worden beheerd via bsport. Deze configuratie zal hier beschikbaar zijn in een toekomstige update.",
               "classpass": "De zichtbaarheid van sessies op ClassPass en limieten kunnen rechtstreeks worden aangepast in je ClassPass-partnerportaal."
             },
-            "partnerMaxBookingCountHelperText": "Deze instelling heeft alleen invloed op myClubs, Urban Sports Club en Wellhub.",
+            "partnerMaxBookingCountHelperText": "Deze instelling heeft alleen invloed op myClubs, Urban Sports Club, Wellhub en Wellpass.",
             "partnerMaxBookingCount": "Beschikbare plaatsen voor aggregators",
             "name": {
               "usc": "Urban Sports Club"

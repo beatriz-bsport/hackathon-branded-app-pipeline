@@ -290,7 +290,7 @@
               "wellpass": "Die Sichtbarkeit von Sessions auf Wellpass und Limits können derzeit noch nicht über bsport verwaltet werden. Diese Konfiguration wird in einem zukünftigen Update hier verfügbar sein.",
               "classpass": "Die Sichtbarkeit von Sessions auf ClassPass und Limits können direkt im ClassPass-Partnerportal angepasst werden."
             },
-            "partnerMaxBookingCountHelperText": "Diese Einstellung betrifft nur myClubs, Urban Sports Club und Wellhub.",
+            "partnerMaxBookingCountHelperText": "Diese Einstellung betrifft nur myClubs, Urban Sports Club, Wellhub und Wellpass.",
             "partnerMaxBookingCount": "Verfügbare Plätze für Aggregatoren",
             "name": {
               "usc": "Urban Sports Club"

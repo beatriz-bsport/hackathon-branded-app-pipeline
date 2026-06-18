@@ -20,18 +20,43 @@
     - ICHIZEN_SKIP_POSTINSTALL=true pnpm install --frozen-lockfile --prefer-offline
     - echo "✅ Node modules have been installed successfully"
 
+# Pre-merge gate. apps/docs is outside the Nx workspace, so `nx affected` in
+# analyze.yml never covers it — this job is the only thing validating docs
+# before merge. Runs on MRs that touch apps/docs, or Kaizen (docs content is
+# generated from Kaizen components/tokens, so a Kaizen change can break it).
 Check Kaizen Docs:
-  stage: build
+  stage: analyze
   extends:
     - .Kaizen Docs Base
+  interruptible: true
   allow_failure: false
   rules:
-    - if: $CI_COMMIT_BRANCH == "dev"
-      allow_failure: false
-      when: on_success
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - apps/docs/**/*
+        - packages/design-system/kaizen/**/*
   script:
     - echo "🔱 Checking Kaizen docs"
     - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
     - pnpm -C apps/docs format:check
     - pnpm -C apps/docs typecheck
     - pnpm -C apps/docs lint
+
+# Post-merge publish. Builds and copies the static site to
+# s3://bsport-eu-docs/docs/kaizen/dev (served by docs.infra.bsport.io via
+# CloudFront). No format/typecheck/lint here — that gate lives in the MR
+# pipeline above, so a check failure can never block the docs deploy after
+# merge. allow_failure keeps a deploy hiccup from reddening the dev pipeline.
+Deploy Kaizen Docs:
+  stage: deploy
+  extends:
+    - .Kaizen Docs Base
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: on_success
+  script:
+    - echo "🔱 Building and deploying Kaizen docs static site"
+    - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
+    - pnpm -C apps/docs ci:build
+    - apps/docs/scripts/ci-deploy.sh

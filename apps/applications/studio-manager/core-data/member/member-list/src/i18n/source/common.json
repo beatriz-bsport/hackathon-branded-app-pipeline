@@ -50,7 +50,7 @@
         "effect": "You can restore this profile at any time from your archive."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Before you archive this profile, we recommend that you settle the profile's account balance first. This is due to one of the following: ",
+        "adviseRegularization": "Before you archive this profile, we recommend that you settle the client's account balance first. This is due to one of the following: ",
         "items": {
           "negativeBalance": "Negative account balance",
           "unpaidInvoices": "One or more unpaid invoices",

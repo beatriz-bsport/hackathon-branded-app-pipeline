@@ -30,7 +30,7 @@ export const SessionDuration: FC<{
             id={`${fieldIdPrefix}-duration-days`}
             type="number"
             onChange={handleDurationChange("days")}
-            prefix={{
+            suffix={{
               type: "text",
               value: t(
                 "addSessionModal.steps.configureSession.timeAndDate.duration.day",
@@ -47,7 +47,7 @@ export const SessionDuration: FC<{
             id={`${fieldIdPrefix}-duration-hours`}
             type="number"
             onChange={handleDurationChange("hours")}
-            prefix={{
+            suffix={{
               type: "text",
               value: t(
                 "addSessionModal.steps.configureSession.timeAndDate.duration.hour",
@@ -64,7 +64,7 @@ export const SessionDuration: FC<{
             id={`${fieldIdPrefix}-duration-minutes`}
             type="number"
             onChange={handleDurationChange("minutes")}
-            prefix={{
+            suffix={{
               type: "text",
               value: t(
                 "addSessionModal.steps.configureSession.timeAndDate.duration.minute",

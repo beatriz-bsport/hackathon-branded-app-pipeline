@@ -108,7 +108,9 @@ export const useSessionPayload = () => {
         level: sessionData.level,
         is_hybrid: sessionData.is_hybrid,
         coach: sessionData.coach!,
-        coach_payment_rule: sessionData.coach_payment_rule,
+        coach_payment_rule: sessionData.overrideTeacherPayrollRule
+          ? sessionData.coach_payment_rule
+          : null,
         broadcast_link: sessionData.broadcast_link,
         establishment: sessionData.establishment!,
         room_blueprint: sessionData.room_blueprint,

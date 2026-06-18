@@ -23,6 +23,7 @@ type PassFormOnDemandToggleProps<
   formId?: string;
   toggleProps?: Partial<ToggleProps>;
   checkboxProps?: Partial<CheckboxProps>;
+  disabled?: boolean;
 };
 
 export const PassFormOnDemandToggle = <
@@ -37,6 +38,7 @@ export const PassFormOnDemandToggle = <
   restrictFieldName,
   toggleProps = {},
   checkboxProps = {},
+  disabled,
 }: PassFormOnDemandToggleProps<TFormValues, TFieldName>): ReactElement => {
   const { t } = useTranslation("buyables", { i18n: i18nInstance });
 
@@ -64,6 +66,7 @@ export const PassFormOnDemandToggle = <
         fieldName={enableFieldName}
         label={t("passForm.onDemandToggle.label")}
         {...toggleProps}
+        disabled={disabled != null ? disabled : toggleProps.disabled}
       />
       <Activity mode={hasEnableOnDemand ? "visible" : "hidden"}>
         <FormField<TFormValues, TFieldName, CheckboxProps>
@@ -73,6 +76,7 @@ export const PassFormOnDemandToggle = <
             return {
               ...otherProps,
               ...checkboxProps,
+              disabled: disabled != null ? disabled : checkboxProps.disabled,
               value: value ? "checked" : "unchecked",
             };
           }}

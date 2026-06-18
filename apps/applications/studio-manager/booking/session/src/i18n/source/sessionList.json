@@ -42,15 +42,15 @@
       "is": "is",
       "not": "is not",
       "activityCategory": {
-        "label": "Activity category"
+        "label": "Service type"
       },
       "activityName": {
-        "label": "Activity name"
+        "label": "Service"
       },
       "activityType": {
-        "label": "Activity type",
+        "label": "Service",
         "workshop": "Workshop",
-        "groupActivity": "Group activity"
+        "groupActivity": "Group class"
       },
       "establishment": {
         "label": "Venue"
@@ -124,6 +124,7 @@
     },
     "isLoading": "Loading appointments...",
     "unpaidTooltip": "Appointment is unpaid",
+    "noTeacher": "No teacher",
     "filters": {
       "label": "Filters",
       "is": "is",

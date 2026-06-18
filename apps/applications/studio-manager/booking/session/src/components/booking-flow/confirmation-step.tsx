@@ -1,4 +1,4 @@
-import { type FC, useMemo } from "react";
+import { type FC, useEffect, useMemo } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
@@ -132,12 +132,12 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
         const spotType = spotData.spotTypes.find(
           (s) => s.id === element.data.spotTypeId,
         );
-        return composeLabel(
+        return `${spotType?.name ?? ""} ${composeLabel(
           spotType?.prefix,
           element.data.indexType,
           spotIndex,
           spotType?.suffix,
-        );
+        )}`;
       }
     }
     return String(spotIndex);
@@ -174,6 +174,13 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
         };
       });
   }, [multiSessions, storeSessionIds, i18n.language, getSessionCreditCost, t]);
+
+  useEffect(() => {
+    if (memberIsLoading) return;
+    if (!member?.email && notifyMember) {
+      setNotifyMember(false);
+    }
+  }, [member?.email, memberIsLoading, notifyMember]);
 
   if (
     memberIsLoading ||
@@ -268,8 +275,14 @@ export const ConfirmationStep: FC<ConfirmationStepProps> = ({ sessionId }) => {
           <Toggle
             label={t("bookingFlow.confirmation.notifications.toggleLabel")}
             checked={notifyMember}
+            disabled={!member?.email}
             id="notify-member-toggle"
             onToggleChange={(checked) => setNotifyMember(checked)}
+            helperText={
+              !member?.email
+                ? t("bookingFlow.confirmation.notifications.toggleHelperText")
+                : undefined
+            }
           />
         </div>
       </div>

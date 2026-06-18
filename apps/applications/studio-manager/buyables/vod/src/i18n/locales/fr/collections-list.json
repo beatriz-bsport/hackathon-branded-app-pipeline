@@ -1,1 +1,49 @@
-{}
+{
+  "table": {
+    "headers": {
+      "name": "Collections",
+      "createCollection": "Créer une collection",
+      "videosCount": "Nombre de vidéos",
+      "actions": "Actions"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} médias",
+    "videosCountLabel_other": "{{count}} médias",
+    "loading": "Chargement des collections...",
+    "emptyList": {
+      "title": "Aucune collection pour le moment",
+      "subtitle": "Vos collections apparaîtront ici une fois que vous en aurez créé une"
+    },
+    "emptySearch": {
+      "title": "Aucune collection trouvée",
+      "subtitle": "Essayez d'ajuster votre recherche"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  },
+  "deleteModal": {
+    "title": "Supprimer la collection ?",
+    "description": "Les adhérents n'auront plus accès à cette collection.",
+    "buttons": {
+      "cancel": "Garder",
+      "delete": "Supprimer"
+    },
+    "submitResponse": {
+      "success": "Collection supprimée",
+      "error": "Impossible de supprimer la collection. Veuillez réessayer. "
+    },
+    "undoAction": {
+      "label": "Retour"
+    },
+    "undoResponse": {
+      "success": "Modification annulée"
+    }
+  },
+  "error": {
+    "title": "Impossible de charger les collections",
+    "description": "Veuillez réessayer. Si le problème persiste, veuillez rafraîchir la page.",
+    "retry": "Veuillez réessayer."
+  }
+}

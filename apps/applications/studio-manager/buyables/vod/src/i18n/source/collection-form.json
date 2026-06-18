@@ -2,13 +2,13 @@
   "formFields": {
     "name": {
       "label": "Title",
-      "placeholder": "Add collection name",
-      "errorMaxLength": "Title must be at most {{maxLength}} characters"
+      "placeholder": "Add a name for this collection",
+      "errorMaxLength": "Title must no longer than{{maxLength}} characters"
     },
     "description": {
       "label": "Description",
       "placeholder": "Describe your collection",
-      "errorMaxLength": "Description must be at most {{maxLength}} characters"
+      "errorMaxLength": "Description must no longer than {{maxLength}} characters"
     },
     "cover": {
       "extensions": "JPG, PNG, GIF, WEBP",
@@ -22,23 +22,23 @@
     "title": "Create a collection",
     "buttons": {
       "create": "Create",
-      "cancel": "Cancel"
+      "cancel": "Close"
     },
     "submitResponse": {
       "success": "Collection created",
       "open": "Open",
-      "error": "Failed to create the collection"
+      "error": "Couldn't create collection. Try again. "
     }
   },
   "editModal": {
     "title": "Edit collection",
     "buttons": {
       "save": "Save",
-      "cancel": "Cancel"
+      "cancel": "Close"
     },
     "submitResponse": {
       "success": "Changes saved",
-      "error": "Failed to update the collection"
+      "error": "Couldn't update the collection. Try again. "
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "memberSelectorModal": {
     "title": "Select a client",
-    "cancel": "Cancel",
+    "cancel": "Close",
     "selectMember": "Select client",
     "searchPlaceholder": "Search clients...",
     "emptyState": "Choose a client to create an invoice",

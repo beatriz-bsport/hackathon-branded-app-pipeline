@@ -79,7 +79,7 @@
   "search": "Search segments",
   "emptyState": {
     "title": "No segments yet",
-    "subtitle": "Create your first segment to group members with tags, send targeted messages and track engagement."
+    "subtitle": "Create your first segment to group clients with tags, send targeted messages and track engagement."
   },
   "emptySearch": {
     "title": "No segments found",
@@ -96,7 +96,7 @@
   },
   "deleteModal": {
     "title": "Delete segment?",
-    "description": "Once you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will no longer run. Previously tagged members won't be affected.",
+    "description": "Once you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will no longer run. Previously tagged clients won't be affected.",
     "warning": "Heads up: this change is permanent and cannot be undone",
     "audienceWarning": "Segments used in Audience workflows can't be deleted. ",
     "cannotBeDeleted": "This segment is currently being used in Audience workflows and can't be deleted on this page.",

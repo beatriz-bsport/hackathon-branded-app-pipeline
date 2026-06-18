@@ -51,6 +51,7 @@ const variants = {
   layout: {
     banner: ["w-full"],
     inline: ["w-fit"],
+    "banner-flush": ["w-full", "rounded-none", "shadow-none"],
   },
 } as const;
 
@@ -72,7 +73,7 @@ export const statuses = [
 
 export const types = ["weak", "strong"] as const;
 
-export const layouts = ["banner", "inline"] as const;
+export const layouts = ["banner", "inline", "banner-flush"] as const;
 
 const alert = cva(defaultClasses, {
   variants,
@@ -97,7 +98,7 @@ export type AlertProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
  * @param props.className Classname to add to the alert.
  * @param props.status Status of the alert. Can be "default", "warning", "info", "critical", or "positive".
  * @param props.type Type of the alert. Can be "weak" or "strong".
- * @param props.layout Layout of the alert. "banner" (default) for full-width, "inline" for fit-content.
+ * @param props.layout Layout of the alert. "banner" (default) for full-width, "inline" for fit-content, "banner-flush" for full-width edge-to-edge (no rounded corners, no border) when the alert sits flush inside a container.
  * @param props.title Title of the alert.
  * @param props.buttonLabel Text label of the button.
  * @param props.onClearClick Function to call when the alert is cleared.

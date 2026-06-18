@@ -93,6 +93,10 @@ import { ReferredMembersFilterCard } from "./referred-members-filter/components/
 import { createDefaultReferredMembersFilter } from "./referred-members-filter/default-value";
 import { mapReferredMemberFilterToFormValue } from "./referred-members-filter/mappers/api-to-form-value";
 import type { ReferredMembersFilterFormValue } from "./referred-members-filter/types";
+import { ReferrerFilterCard } from "./referrer-filter/components/referrer-filter-card";
+import { createDefaultReferrerFilter } from "./referrer-filter/default-value";
+import { mapReferrerFilterToFormValue } from "./referrer-filter/mappers/api-to-form-value";
+import type { ReferrerFilterFormValue } from "./referrer-filter/types";
 import {
   SegmentFiltersEmptyStateHeader,
   SegmentFiltersTopFilterShortcuts,
@@ -153,6 +157,7 @@ type FilterValueByType = {
   lastBooking: LastBookingFilterFormValue;
   internalNotes: InternalNotesFilterFormValue;
   paymentMethod: PaymentMethodFilterFormValue;
+  referrer: ReferrerFilterFormValue;
 };
 
 type DraftFilter =
@@ -275,6 +280,11 @@ type DraftFilter =
       clientId: string;
       filterType: "paymentMethod";
       value: FilterValueByType["paymentMethod"];
+    }
+  | {
+      clientId: string;
+      filterType: "referrer";
+      value: FilterValueByType["referrer"];
     };
 
 type SavedFilter =
@@ -407,6 +417,11 @@ type SavedFilter =
       key: string;
       filterType: "paymentMethod";
       value: FilterValueByType["paymentMethod"];
+    }
+  | {
+      key: string;
+      filterType: "referrer";
+      value: FilterValueByType["referrer"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -484,6 +499,7 @@ export const SegmentFiltersManager = ({
   const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
   const internalNotesFilters = smartlistFilters?.internalNotesFilters ?? [];
   const paymentMethodFilters = smartlistFilters?.paymentMethodFilters ?? [];
+  const referrerFilters = smartlistFilters?.referrerFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -773,6 +789,16 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+
+    referrer: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <ReferrerFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -892,6 +918,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.paymentMethod),
       filterType: FILTER_TYPES.paymentMethod,
       value: createDefaultPaymentMethodFilter(smartlistNumericId),
+    }),
+    referrer: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.referrer),
+      filterType: FILTER_TYPES.referrer,
+      value: createDefaultReferrerFilter(smartlistNumericId),
     }),
   };
 
@@ -1055,6 +1086,12 @@ export const SegmentFiltersManager = ({
         description: t("filterSelector.options.hasPassword.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
+      {
+        id: FILTER_TYPES.referrer,
+        label: t("filters.29.title"),
+        description: t("filterSelector.options.referrer.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
@@ -1176,6 +1213,11 @@ export const SegmentFiltersManager = ({
       key: `saved-payment-method-${paymentMethodFilter.id}`,
       filterType: FILTER_TYPES.paymentMethod,
       value: mapPaymentMethodFilterToFormValue(paymentMethodFilter),
+    })),
+    ...referrerFilters.map((referrerFilter) => ({
+      key: `saved-referrer-${referrerFilter.id}`,
+      filterType: FILTER_TYPES.referrer,
+      value: mapReferrerFilterToFormValue(referrerFilter),
     })),
   ];
 

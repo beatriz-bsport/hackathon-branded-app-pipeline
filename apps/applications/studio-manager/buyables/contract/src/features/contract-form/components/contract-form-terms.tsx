@@ -5,7 +5,6 @@ import { TextArea, type TextAreaProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { FIELD_CONSTRAINTS } from "../constants";
 import type { ContractFormData } from "../types";
 
 type ContractFormTermsProps = {
@@ -22,12 +21,9 @@ export const ContractFormTerms: FC<ContractFormTermsProps> = ({
   return (
     <FormField<ContractFormData, "contract", TextAreaProps>
       name="contract"
-      mapProps={({ defaultProps, field }) => ({
+      mapProps={({ defaultProps }) => ({
         ...defaultProps,
-        statusText: t("formFields.terms.helperText", {
-          currentLength: (field.value ?? "").length,
-          maxLength: FIELD_CONSTRAINTS.TERMS_LENGTH_MAX,
-        }),
+        statusText: t("formFields.terms.helperText"),
       })}
     >
       <TextArea

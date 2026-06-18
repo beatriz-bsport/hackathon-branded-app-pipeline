@@ -42,7 +42,7 @@
     },
     "bookedBadge": {
       "label": "Booked",
-      "tooltip": "Client booked after receiving the communication"
+      "tooltip": "Client booked after being contacted"
     }
   },
   "section": {

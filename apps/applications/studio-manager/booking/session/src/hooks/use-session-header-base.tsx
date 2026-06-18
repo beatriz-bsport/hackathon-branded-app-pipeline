@@ -6,7 +6,6 @@ import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { MoreActionsButton } from "#src/components/session-management/action-buttons/more-actions-button";
-import { SendCommunicationButton } from "#src/components/session-management/action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "#src/components/session-management/action-buttons/session-navigation-buttons";
 import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
 import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
@@ -75,11 +74,5 @@ export const useSessionHeaderBase = (
     [session.id, openModal, queryClient, t, isMobile],
   );
 
-  const endGroupActions = useMemo(
-    () =>
-      isMobile ? [] : [<SendCommunicationButton key="send-communication" />],
-    [isMobile],
-  );
-
-  return { pageTitle, startGroupActions, endGroupActions, isMobile };
+  return { pageTitle, startGroupActions, isMobile };
 };

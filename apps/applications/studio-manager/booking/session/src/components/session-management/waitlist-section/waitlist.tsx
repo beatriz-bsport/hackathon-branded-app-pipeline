@@ -45,12 +45,14 @@ export const WaitList: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
+  setSearchQuery?: (query: string) => void;
 }> = ({
   sessionId,
   searchQuery,
   readOnly = false,
   paginationNamespace = WaitlistFilter.ON_WAITLIST,
   openModal,
+  setSearchQuery,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -158,7 +160,11 @@ export const WaitList: FC<{
               <div className="flex gap-sm items-center">
                 <ResponsiveTooltip
                   placement="bottom"
-                  label={t("actions.bookToClass")}
+                  label={
+                    hasSessionStarted
+                      ? t("actions.impossibleToBookToClass")
+                      : t("actions.bookToClass")
+                  }
                 >
                   <Button
                     kind="icon-button"
@@ -167,7 +173,14 @@ export const WaitList: FC<{
                     intent="default"
                     size="md"
                     color="main"
-                    disabled
+                    disabled={hasSessionStarted || !openModal}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal?.(SessionManagementModalType.BOOK, {
+                        bookingOptionId: row.id,
+                        memberId: row.member,
+                      });
+                    }}
                   />
                 </ResponsiveTooltip>
                 <ResponsiveTooltip
@@ -216,7 +229,12 @@ export const WaitList: FC<{
               intent: "default",
               size: "md",
               color: "main",
-              disabled: true,
+              disabled: !openModal,
+              onClick: () =>
+                openModal?.(SessionManagementModalType.BOOK, {
+                  bookingOptionId: bookingOption.id,
+                  memberId: bookingOption.member,
+                }),
             },
             {
               id: `waitlist-remove-${bookingOption.id}`,
@@ -288,18 +306,38 @@ export const WaitList: FC<{
             ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
               ? {
                   emptyConfig: {
-                    title: t("waitList.emptyState.title"),
+                    title: "",
+                    subtitle: t("waitList.emptyState.title"),
                     ctaButtonConfig: {
-                      label: t("bookButton"),
+                      label: t("addBookingOptions"),
                       onClick: () => {
-                        openModal?.(SessionManagementModalType.BOOK);
+                        openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
                       },
                     },
                   },
                 }
               : {
-                  emptyConfig: { title: t("waitList.emptyState.pending") },
+                  emptyConfig: {
+                    title: "",
+                    subtitle: t("waitList.emptyState.pending"),
+                  },
                 }),
+            isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              ...(setSearchQuery
+                ? {
+                    secondaryButtonConfig: {
+                      label: t("bookingsTable.emptyState.clearSearch"),
+                      iconLeft: "x",
+                      onClick: () => {
+                        setSearchQuery("");
+                      },
+                    },
+                  }
+                : undefined),
+            },
           }}
           loadingProps={{
             isLoading,
@@ -343,18 +381,38 @@ export const WaitList: FC<{
           ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
             ? {
                 emptyConfig: {
-                  title: t("waitList.emptyState.title"),
+                  title: "",
+                  subtitle: t("waitList.emptyState.title"),
                   ctaButtonConfig: {
-                    label: t("bookButton"),
+                    label: t("addBookingOptions"),
                     onClick: () => {
-                      openModal?.(SessionManagementModalType.BOOK);
+                      openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
                     },
                   },
                 },
               }
             : {
-                emptyConfig: { title: t("waitList.emptyState.pending") },
+                emptyConfig: {
+                  title: "",
+                  subtitle: t("waitList.emptyState.pending"),
+                },
               }),
+          isEmptySearch: hasSearchQuery && !searchedBookingOptions.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            ...(setSearchQuery
+              ? {
+                  secondaryButtonConfig: {
+                    label: t("bookingsTable.emptyState.clearSearch"),
+                    iconLeft: "x",
+                    onClick: () => {
+                      setSearchQuery("");
+                    },
+                  },
+                }
+              : undefined),
+          },
         }}
         loadingProps={{
           isLoading,

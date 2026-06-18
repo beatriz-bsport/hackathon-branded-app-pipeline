@@ -60,14 +60,14 @@ const OtherPlanCard: FC<OtherPlanCardProps> = ({
           onClick={openIntercomConversation}
         />
         {learnMoreUrl && (
-          <a href={learnMoreUrl} target="_blank" rel="noopener noreferrer">
-            <Button
-              label={t("plan.learn-more")}
-              intent="default"
-              size="md"
-              color="main"
-            />
-          </a>
+          <Button
+            label={t("plan.learn-more")}
+            intent="default"
+            size="md"
+            color="main"
+            href={learnMoreUrl}
+            target="_blank"
+          />
         )}
       </div>
     </Card>

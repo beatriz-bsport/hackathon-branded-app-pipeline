@@ -74,12 +74,28 @@
     },
     "terms": {
       "label": "Terms",
-      "helperText": "Terms & conditions must comply with the law in your country. ({{ currentLength }}/{{ maxLength }})"
+      "helperText": "Terms & conditions must comply with the law in your country."
     },
     "commitmentPeriod": {
       "label": "Commitment period",
       "sublabel": "Duration",
       "alertInfo": "Set minimum subscription duration. Future changes apply to new purchases only."
+    },
+    "benefit": {
+      "kind": {
+        "label": "Benefit type",
+        "pass": "Pass",
+        "appointmentPass": "Appointment pass",
+        "universalPass": "Universal pass"
+      },
+      "restrictions": {
+        "categoriesHelper": "Only selected categories will be compatible",
+        "establishmentsHelper": "Only selected venues will be compatible",
+        "activitiesHelper": "Only selected classes will be compatible"
+      },
+      "penaltiesError": {
+        "positive": "This field must be positive."
+      }
     }
   },
   "intervals": {
@@ -115,7 +131,7 @@
       "loading": "Loading active subscriptions…",
       "headers": {
         "startDate": "Start date",
-        "member": "Member",
+        "member": "Client",
         "status": "Status",
         "actions": "Actions"
       },

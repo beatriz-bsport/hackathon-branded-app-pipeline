@@ -15,7 +15,7 @@
       }
     },
     "User": {
-      "name": "Member",
+      "name": "Client",
       "tags": {
         "firstname": "First name",
         "lastname": "Last name",
@@ -26,9 +26,9 @@
       }
     },
     "Booking": {
-      "name": "Activity",
+      "name": "Service",
       "tags": {
-        "activity": "Activity",
+        "activity": "Service",
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Venue",
@@ -42,11 +42,11 @@
         "workshop": "Workshop",
         "establishment_group": "Location",
         "establishment": "Venue",
-        "meta_activity": "Activity"
+        "meta_activity": "Service"
       }
     },
     "ConsumerPaymentPack": {
-      "name": "Passes",
+      "name": "Class passes",
       "tags": {
         "pass_price": "Price of the pass",
         "pass_name": "Name of the pass",
@@ -74,7 +74,7 @@
     "BookingOption": {
       "name": "Waitlist",
       "tags": {
-        "activity": "Activity",
+        "activity": "Service",
         "coach": "Teacher",
         "date": "Time and date",
         "establishment": "Venue",
@@ -92,7 +92,7 @@
         "address": "Address",
         "date": "Time and date",
         "coach": "Teacher",
-        "activity": "Activity",
+        "activity": "Service",
         "establishment": "Venue",
         "ics_calendar_link": "ICS Calendar Link"
       },
@@ -214,14 +214,14 @@
     "ReferralProgram": {
       "name": "Referrals",
       "tags": {
-        "reduction_purchase_referred": "Discount for referred member",
-        "referring_reward": "Reward for referring member",
+        "reduction_purchase_referred": "Discount for referred client",
+        "referring_reward": "Reward for referring client",
         "minimum_purchase_referral": "Minimum purchase required",
         "deadline_use_referral": "Referral deadline",
-        "referring_firstname": "Referring member first name",
-        "referring_lastname": "Referring member last name",
-        "referred_firstname": "Referred member first name",
-        "referred_lastname": "Referred member last name",
+        "referring_firstname": "Referring client's first name",
+        "referring_lastname": "Referring client's last name",
+        "referred_firstname": "Referred client's first name",
+        "referred_lastname": "Referred client's last name",
         "referral_link": "Referral link",
         "registration_date": "Registration date"
       }

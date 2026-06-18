@@ -1,1 +1,49 @@
-{}
+{
+  "table": {
+    "headers": {
+      "name": "Colecciones",
+      "createCollection": "Crear colección",
+      "videosCount": "Vídeos",
+      "actions": "Acciones"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} contenido multimedia",
+    "videosCountLabel_other": "{{count}} contenido multimedia",
+    "loading": "Cargando colecciones...",
+    "emptyList": {
+      "title": "Aún no hay colecciones",
+      "subtitle": "Tus colecciones aparecerán aquí una vez que crees una"
+    },
+    "emptySearch": {
+      "title": "No se encontraron colecciones",
+      "subtitle": "Prueba a ajustar tu búsqueda"
+    },
+    "actions": {
+      "edit": "Modificar",
+      "delete": "Eliminar"
+    }
+  },
+  "deleteModal": {
+    "title": "¿Eliminar colección?",
+    "description": "Los clientes ya no tendrán acceso a esta colección.",
+    "buttons": {
+      "cancel": "Mantener",
+      "delete": "Eliminar"
+    },
+    "submitResponse": {
+      "success": "Colección eliminada",
+      "error": "No se pudo eliminar la colección. Inténtalo de nuevo. "
+    },
+    "undoAction": {
+      "label": "Revertir"
+    },
+    "undoResponse": {
+      "success": "Cambio deshecho"
+    }
+  },
+  "error": {
+    "title": "No se pudieron cargar las colecciones",
+    "description": "Inténtalo de nuevo. Si el problema persiste, actualiza la página.",
+    "retry": "Intentar de nuevo"
+  }
+}

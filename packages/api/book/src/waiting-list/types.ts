@@ -23,6 +23,12 @@ export type DiscardBookingOptionParams = {
   update_waiting_list?: boolean;
 };
 
+// === Request Body (POST register) ===
+export type RegisterToWaitlistParams = {
+  offer: number;
+  member: number;
+};
+
 // === API Response Types === GET waiting-list/booking-option/
 export type BookingOption = {
   id: number;

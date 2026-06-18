@@ -15,6 +15,7 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
+import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label.js";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
@@ -49,7 +50,8 @@ export const BookingsTable: FC<{
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
   ) => void;
-}> = ({ sessionId, searchQuery, openModal }) => {
+  setSearchQuery: (query: string) => void;
+}> = ({ sessionId, searchQuery, openModal, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -114,7 +116,12 @@ export const BookingsTable: FC<{
         const spotName = listedInformation.includes(
           BookingListedInformation.SPOT,
         )
-          ? row.spot_information?.name
+          ? `${row.spot_information?.name ?? ""} ${composeLabel(
+              row.spot_information?.prefix,
+              row.spot_information?.indexType,
+              null, // index is not used in this context
+              row.spot_information?.suffix,
+            )}`
           : null;
 
         const passName = listedInformation.includes(
@@ -167,6 +174,7 @@ export const BookingsTable: FC<{
           sessionId={sessionId}
           bookingId={row.id}
           memberId={row.memberData?.id}
+          consumerPaymentPackId={row.consumer_payment_pack}
           openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}
@@ -200,7 +208,12 @@ export const BookingsTable: FC<{
 
   const listItems: ListProps["items"] = searchedBookings.map((booking) => {
     const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? booking.spot_information?.name
+      ? `${booking.spot_information?.name ?? ""} ${composeLabel(
+          booking.spot_information?.prefix,
+          booking.spot_information?.indexType,
+          null, // index is not used in this context
+          booking.spot_information?.suffix,
+        )}`
       : null;
     const passName = listedInformation.includes(BookingListedInformation.PASS)
       ? booking.passData?.name
@@ -251,6 +264,7 @@ export const BookingsTable: FC<{
             sessionId={sessionId}
             bookingId={booking.id}
             memberId={booking.memberData?.id}
+            consumerPaymentPackId={booking.consumer_payment_pack}
             openModal={openModal}
             participantEmail={booking.memberData?.email}
             participantPhone={booking.memberData?.phone}
@@ -276,11 +290,24 @@ export const BookingsTable: FC<{
           emptyStateProps={{
             isEmpty: !searchedBookings.length,
             emptyConfig: {
-              title: t("bookingsTable.emptyState.title"),
+              title: "",
+              subtitle: t("bookingsTable.emptyState.title"),
               ctaButtonConfig: {
                 label: t("bookButton"),
                 onClick: () => {
                   openModal(SessionManagementModalType.BOOK);
+                },
+              },
+            },
+            isEmptySearch: hasSearchQuery && !searchedBookings.length,
+            emptySearchConfig: {
+              title: "",
+              subtitle: t("bookingsTable.emptyState.emptySearch"),
+              secondaryButtonConfig: {
+                label: t("bookingsTable.emptyState.clearSearch"),
+                iconLeft: "x",
+                onClick: () => {
+                  setSearchQuery("");
                 },
               },
             },
@@ -320,11 +347,24 @@ export const BookingsTable: FC<{
         emptyStateProps={{
           isEmpty: !searchedBookings.length,
           emptyConfig: {
-            title: t("bookingsTable.emptyState.title"),
+            title: "",
+            subtitle: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {
               label: t("bookButton"),
               onClick: () => {
                 openModal(SessionManagementModalType.BOOK);
+              },
+            },
+          },
+          isEmptySearch: hasSearchQuery && !searchedBookings.length,
+          emptySearchConfig: {
+            title: "",
+            subtitle: t("bookingsTable.emptyState.emptySearch"),
+            secondaryButtonConfig: {
+              label: t("bookingsTable.emptyState.clearSearch"),
+              iconLeft: "x",
+              onClick: () => {
+                setSearchQuery("");
               },
             },
           },

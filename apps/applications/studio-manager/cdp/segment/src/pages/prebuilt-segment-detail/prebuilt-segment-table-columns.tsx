@@ -16,6 +16,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { MemberAvatar } from "#src/components/member-avatar";
+import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
@@ -42,6 +43,7 @@ type PrebuiltSegmentTableRow = {
   email: string | null;
   photo?: string | null;
   values: PrebuiltSegmentMetadataValueMap;
+  link: string;
 };
 
 type TableColumn = GenericTableColumn<PrebuiltSegmentTableRow>;
@@ -147,6 +149,7 @@ export function usePrebuiltSegmentTableRows(
         email: row.member.email,
         photo: row.member.photo,
         values: row.values,
+        link: SMARTLIST_LEGACY_URLS.memberProfile(row.member.id),
       })),
     [rows],
   );
@@ -155,10 +158,41 @@ export function usePrebuiltSegmentTableRows(
 export function usePrebuiltSegmentTableColumns(
   prebuiltSegmentId: PrebuiltSegmentId,
   definition: PrebuiltSegmentDefinitionResponse | undefined,
+  isMobile: boolean,
 ) {
   const { t, i18n } = useTranslation("list");
 
   return useMemo<Array<TableColumn>>(() => {
+    if (isMobile) {
+      return [
+        {
+          header: t("prebuilt.columns.name"),
+          id: `${prebuiltSegmentId}-member`,
+          type: "custom",
+          align: "start",
+          render: (row) => (
+            <div className="flex flex-row items-center gap-sm">
+              <MemberAvatar name={row.name ?? ""} photo={row.photo} />
+              <div className="flex flex-col gap-2xs">
+                {row.name ? (
+                  <Body htmlVariant="span" size="md">
+                    {row.name}
+                  </Body>
+                ) : (
+                  EMPTY_CELL
+                )}
+                {row.email ? (
+                  <Body htmlVariant="span" size="sm" color="weak">
+                    {row.email}
+                  </Body>
+                ) : null}
+              </div>
+            </div>
+          ),
+        },
+      ];
+    }
+
     const metadataColumnConfigById: Record<
       PrebuiltSegmentMetadataColumnId,
       MetadataColumnConfig
@@ -283,5 +317,5 @@ export function usePrebuiltSegmentTableColumns(
     }));
 
     return [...fixedColumns, ...metadataColumns];
-  }, [definition, prebuiltSegmentId, i18n.language]);
+  }, [definition, prebuiltSegmentId, i18n.language, isMobile]);
 }

@@ -8,10 +8,10 @@
       "notificationTypeLabel": {
         "location": "Location",
         "appointment": "Appointment",
-        "groupActivity": "Group Activity",
+        "groupActivity": "Group class",
         "workshop": "Workshop",
         "establishment": "Venue",
-        "pass": "Pass",
+        "pass": "Class pass",
         "appointmentPass": "Appointment Pass",
         "subscription": "Subscription",
         "birthday": "Birthday"
@@ -53,12 +53,12 @@
     },
     "notificationType": {
       "location": "Location",
-      "groupActivity": "Group Activity",
+      "groupActivity": "Group class",
       "workshop": "Workshop",
       "establishment": "Venue",
       "appointment": "Appointment",
       "appointmentPass": "Appointment Pass",
-      "pass": "Pass",
+      "pass": "Class pass",
       "subscription": "Subscription",
       "birthday": "Birthday",
       "metaActivity": "Booking"
@@ -86,13 +86,13 @@
         "stillWorking": "Push notifications are still working."
       },
       "missingEntity": {
-        "groupActivity": "Missing linked group activity",
+        "groupActivity": "Missing linked group class",
         "workshop": "Missing linked workshop",
         "location": "Missing linked location",
         "establishment": "Missing linked venue",
         "appointment": "Missing linked appointment",
         "subscription": "Missing linked subscription",
-        "pass": "Missing linked pass",
+        "pass": "Missing linked class pass",
         "appointmentPass": "Missing linked appointment pass",
         "description": "The object linked to this automation was deleted. This automation cannot be used anymore, you can delete it."
       }

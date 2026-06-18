@@ -69,7 +69,7 @@
       "selectAllPasses": {
         "checkbox": {
           "label": {
-            "pass": "Apply this notification to all passes",
+            "pass": "Apply this notification to all class passes",
             "appointmentPass": "Apply this notification to all appointment passes"
           }
         }
@@ -77,13 +77,13 @@
       "notificationType": {
         "label": "Trigger type",
         "choices": {
-          "groupActivity": "Group Activity",
+          "groupActivity": "Group class",
           "location": "Location",
           "establishment": "Venue",
           "workshop": "Workshop",
           "appointment": "Appointment",
-          "pass": "Standard Pass",
-          "appointmentPass": "Appointment Pass",
+          "pass": "Class pass",
+          "appointmentPass": "Appointment pass",
           "subscription": "Subscription",
           "birthday": "Birthday"
         }
@@ -125,9 +125,9 @@
           "loading": "Searching subscriptions..."
         },
         "pass": {
-          "label": "Pass",
-          "placeholder": "Select a pass",
-          "loading": "Searching passes..."
+          "label": "Class pass",
+          "placeholder": "Select a class pass",
+          "loading": "Searching class passes..."
         },
         "appointmentPass": {
           "label": "Appointment pass",
@@ -135,9 +135,9 @@
           "loading": "Searching appointment passes..."
         },
         "smartlists": {
-          "label": "Associated Smartlists",
-          "placeholder": "Select associated Smartlists",
-          "loading": "Searching Smartlists..."
+          "label": "Associated segments",
+          "placeholder": "Select associated segments",
+          "loading": "Searching segments..."
         },
         "errors": {
           "notEmpty": "Select an item to continue",
@@ -153,7 +153,7 @@
           "hour": "Timing must be 0 hour or longer",
           "day": "Timing must be 0 day or longer"
         },
-        "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue",
+        "smartlistShouldBeFilledWhenToggled": "Select a segment or deactivate this option to continue",
         "bookingOccurence": {
           "atLeastOne": {
             "makesBooking": "Must be 1 booking or more",

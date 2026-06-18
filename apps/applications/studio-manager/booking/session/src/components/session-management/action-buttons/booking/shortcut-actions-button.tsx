@@ -24,6 +24,7 @@ export const ShortcutActionsButton: FC<{
   bookingId?: number;
   bookingOptionId?: number;
   memberId?: number;
+  consumerPaymentPackId?: number | null;
   openModal?: (
     type: SessionManagementModalType,
     params?: SessionManagementModalParams,
@@ -37,6 +38,7 @@ export const ShortcutActionsButton: FC<{
   bookingId,
   bookingOptionId,
   memberId,
+  consumerPaymentPackId,
   openModal,
   allowedItemIds,
   participantEmail,
@@ -69,10 +71,6 @@ export const ShortcutActionsButton: FC<{
 
   const hasCreateInvoicePermission = useObjectLevelPermission(
     "billing.allowed_actions.createInvoice",
-  );
-
-  const hasReadInvoicePermission = useObjectLevelPermission(
-    "billing.allowed_actions.readInvoices",
   );
 
   const hasCancelBookingPermission = useObjectLevelPermission(
@@ -124,8 +122,14 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.swapPass"),
         iconLeft: "switch-horizontal-01",
         type: "button",
+        disabled: !openModal || !bookingId || !memberId,
         onClick: () => {
-          // TODO: implement swap pass action
+          if (!openModal || !bookingId || !memberId) return;
+          openModal(SessionManagementModalType.SWAP_PASS, {
+            bookingId,
+            memberId,
+            consumerPaymentPackId,
+          });
           setIsPopoverOpened(false);
         },
       };
@@ -153,28 +157,6 @@ export const ShortcutActionsButton: FC<{
             memberId,
             navigate: (url) => navigate(url),
           });
-          setIsPopoverOpened(false);
-        },
-      };
-
-      const resolveUnpaidInvoicesAction: Item = {
-        id: BookingActionItemId.RESOLVE_UNPAID_INVOICES,
-        label: t("actions.resolveUnpaidInvoices"),
-        iconLeft: "file-attachment-02",
-        type: "button",
-        onClick: () => {
-          // TODO: implement resolve unpaid invoices action
-          setIsPopoverOpened(false);
-        },
-      };
-
-      const sendMessageAction: Item = {
-        id: BookingActionItemId.SEND_MESSAGE,
-        label: t("actions.sendMessage"),
-        iconLeft: "send-01",
-        type: "button",
-        onClick: () => {
-          // TODO: implement send message action
           setIsPopoverOpened(false);
         },
       };
@@ -219,8 +201,14 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.bookToClass"),
         iconLeft: "plus",
         type: "button",
+        disabled:
+          hasSessionStarted || !openModal || !bookingOptionId || !memberId,
         onClick: () => {
-          // TODO: implement book option action
+          if (!openModal || !bookingOptionId || !memberId) return;
+          openModal(SessionManagementModalType.BOOK, {
+            bookingOptionId,
+            memberId,
+          });
           setIsPopoverOpened(false);
         },
       };
@@ -252,10 +240,8 @@ export const ShortcutActionsButton: FC<{
         divider,
         sectionTitle(t("billing")),
         ...(hasCreateInvoicePermission ? [sellItemsAction] : []),
-        ...(hasReadInvoicePermission ? [resolveUnpaidInvoicesAction] : []),
         divider,
         sectionTitle(t("contact")),
-        sendMessageAction,
         ...(hasSeeProfileDetailsPermission && memberId
           ? [updateMemberNotesAction]
           : []),
@@ -282,11 +268,11 @@ export const ShortcutActionsButton: FC<{
       hasChangeSpotPermission,
       hasCancelBookingPermission,
       hasCreateInvoicePermission,
-      hasReadInvoicePermission,
       participantEmail,
       participantPhone,
       copyToClipboard,
       bookingId,
+      consumerPaymentPackId,
       openModal,
       openAssignSpotModal,
       navigate,

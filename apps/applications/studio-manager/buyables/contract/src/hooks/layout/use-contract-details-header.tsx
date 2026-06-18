@@ -119,6 +119,7 @@ export const useContractDetailsHeader = ({
     <ContractPauseModal
       closeModal={closePauseModal}
       contractId={contract.id}
+      contractName={contract.name}
       isOpen={isPauseModalOpen}
     />
   );

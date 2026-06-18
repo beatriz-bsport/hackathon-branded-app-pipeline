@@ -2,7 +2,7 @@
   "appleDeveloperProgram": {
     "alert": {
       "title": "Action required",
-      "paragraph1": "Apple now requires your iOS app to be linked to your own Apple Developer account (not bsport's). To keep your app live and allow future updates, you must complete this setup <0>before May 31 2026.</0>",
+      "paragraph1": "Apple now requires your iOS app to be linked to your own Apple Developer account (not bsport's). If you do not complete this process before the end of the month, your access to the Back Office will be blocked.",
       "paragraph2": "Follow the step-by-step instructions in our <0>playbook</0>.",
       "paragraph3": "If you need help, contact our support team at <0>support@bsport.io</0>.",
       "contactUs": "Contact us for help"

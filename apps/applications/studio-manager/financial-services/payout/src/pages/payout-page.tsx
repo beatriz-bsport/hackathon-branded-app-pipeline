@@ -149,7 +149,7 @@ const PayoutPage: FC = () => {
       <ListLayout.Content className="flex flex-col">
         {hasPaypalActivated ? (
           <Alert
-            className="shadow-none rounded-none"
+            layout="banner-flush"
             status="warning"
             type="weak"
             title={t("paypalWarning.title")}

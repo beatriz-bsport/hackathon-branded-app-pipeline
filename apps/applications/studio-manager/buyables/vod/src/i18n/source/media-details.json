@@ -3,28 +3,28 @@
   "ebook": {
     "download": "Download"
   },
-  "managerOnly": "Manager only",
+  "managerOnly": "Unlisted",
   "rentalDays": "",
   "rentalDays_one": "{{count}} rental day",
   "rentalDays_other": "{{count}} rental days",
   "panel": {
-    "viewingTitle": "Viewing",
+    "viewingTitle": "Activity",
     "uploadedAt": "Media uploaded on {{date}}",
     "totalViews": "Total",
     "viewsLastWeek": "Last 7 days",
     "distinctViewers": "Unique views",
-    "viewersTitle": "List of views",
-    "viewersEmpty": "No viewers yet",
+    "viewersTitle": "Views",
+    "viewersEmpty": "No views yet",
     "viewedAt": "Viewed on {{date}}",
     "viewersCount": "{{count}} elements",
-    "buyersTitle": "List of purchases",
+    "buyersTitle": "Purchases",
     "buyersEmpty": "No purchases yet",
     "purchasedAt": "Purchased on {{date}}",
     "buyersCount": "{{count}} elements"
   },
   "notFound": {
     "title": "Media not found",
-    "description": "The requested media could not be found.",
-    "backToMedia": "Back to media"
+    "description": "Media couldn't be found. It may have been deleted or you don't have access to it. ",
+    "backToMedia": "Back to all media"
   }
 }

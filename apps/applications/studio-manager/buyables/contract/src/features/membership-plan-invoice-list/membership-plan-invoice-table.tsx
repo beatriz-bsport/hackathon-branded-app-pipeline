@@ -11,8 +11,9 @@ export const MembershipPlanInvoiceTable: FC<MembershipPlanInvoiceListProps> = ({
   emptyConfig,
   paginationProps,
   loadingProps,
+  onEditBillingDate,
 }) => {
-  const columns = useMembershipPlanInvoiceColumns();
+  const columns = useMembershipPlanInvoiceColumns(onEditBillingDate);
 
   return (
     <Table

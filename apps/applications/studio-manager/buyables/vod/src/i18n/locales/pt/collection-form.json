@@ -1,0 +1,44 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Título",
+      "placeholder": "Adicione um nome para esta coleção",
+      "errorMaxLength": "O título não pode ter mais de {{maxLength}} caracteres"
+    },
+    "description": {
+      "label": "Descrição",
+      "placeholder": "Descreva suas coleções",
+      "errorMaxLength": "A descrição não pode ter mais de {{maxLength}} caracteres"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Faça upload de uma imagem de capa para esta coleção."
+    },
+    "errors": {
+      "fieldIsRequired": "Este campo é obrigatório"
+    }
+  },
+  "createModal": {
+    "title": "Criar uma coleção",
+    "buttons": {
+      "create": "Criar",
+      "cancel": "Fechar"
+    },
+    "submitResponse": {
+      "success": "Coleção criada",
+      "open": "Abrir",
+      "error": "Não foi possível criar a coleção. Tente novamente. "
+    }
+  },
+  "editModal": {
+    "title": "Editar Coleção",
+    "buttons": {
+      "save": "Guardar",
+      "cancel": "Fechar"
+    },
+    "submitResponse": {
+      "success": "Créditos atualizados",
+      "error": "Não foi possível atualizar a coleção. Tente novamente. "
+    }
+  }
+}

@@ -39,7 +39,7 @@ export const useAppointmentEstablishmentFilter = (): FilterField => {
     availableFilters: [AppointmentFilters.FILTER_IS],
     label: t("appointmentTable.filters.establishment.label"),
     searchPlaceholder: t("appointmentTable.filters.searchPlaceholder"),
-    multiSelect: false,
+    multiSelect: true,
     persistedItems: persistedEstablishments,
     useSearch: (query) => useSearchEstablishments(query),
   });

@@ -1,0 +1,44 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Titel",
+      "placeholder": "Geef deze collectie een naam",
+      "errorMaxLength": "De titel mag niet langer zijn dan {{maxLength}} tekens"
+    },
+    "description": {
+      "label": "Beschrijving",
+      "placeholder": "Beschrijf je collectie",
+      "errorMaxLength": "Beschrijving mag niet langer zijn dan {{maxLength}} tekens"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Upload een omslagafbeelding voor deze collectie."
+    },
+    "errors": {
+      "fieldIsRequired": "Dit veld is verplicht"
+    }
+  },
+  "createModal": {
+    "title": "Maak een collectie",
+    "buttons": {
+      "create": "Maken",
+      "cancel": "Sluiten"
+    },
+    "submitResponse": {
+      "success": "Collectie aangemaakt",
+      "open": "Open",
+      "error": "Collectie kon niet worden aangemaakt. Probeer het opnieuw. "
+    }
+  },
+  "editModal": {
+    "title": "Collectie bewerken",
+    "buttons": {
+      "save": "Opslaan",
+      "cancel": "Sluiten"
+    },
+    "submitResponse": {
+      "success": "Wijzigingen opgeslagen",
+      "error": "De collectie kon niet worden bijgewerkt. Probeer het opnieuw. "
+    }
+  }
+}

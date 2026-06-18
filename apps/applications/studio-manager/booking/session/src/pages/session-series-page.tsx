@@ -34,8 +34,9 @@ const SessionSeriesPageContent: FC<{ session: SessionWithGroup }> = ({
   const { closeModal, modalState, openModal } = useSessionManagementModals();
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
-  const { pageTitle, startGroupActions, endGroupActions } =
-    useSessionHeaderBase(session, { openModal });
+  const { pageTitle, startGroupActions } = useSessionHeaderBase(session, {
+    openModal,
+  });
 
   const paginationNamespace = `series-${session.group}`;
   const { status, filterConfig } =
@@ -47,7 +48,6 @@ const SessionSeriesPageContent: FC<{ session: SessionWithGroup }> = ({
         <ListLayout.Header
           pageTitle={pageTitle}
           startGroupActions={startGroupActions}
-          endGroupActions={endGroupActions}
           filterConfig={filterConfig}
           {...headerConfig}
         />

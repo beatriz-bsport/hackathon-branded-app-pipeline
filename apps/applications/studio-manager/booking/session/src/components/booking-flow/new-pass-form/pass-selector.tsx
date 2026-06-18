@@ -7,9 +7,11 @@ import {
   AutocompleteControlled,
   Body,
   Button,
+  Chip,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { usePassValidity } from "#src/hooks/booking/format/use-pass-validity";
 import { setNewPass } from "#src/stores/booking-flow/actions";
 import { getDiscountedPrice } from "#src/stores/booking-flow/get-discounted-price";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
@@ -29,26 +31,46 @@ export const PassSelector: FC<{
   const { getCreditsDividedValue } = useCreditFactor(
     companyTheme?.pass_credit_factor,
   );
+  const { formatValidity } = usePassValidity();
 
   const selectedPassId = useBookingFlowStore((state) => state.paymentPackId);
   const discount = useBookingFlowStore((state) => state.discount);
 
   const selectedPass = passes.find((pass) => pass.id === selectedPassId);
 
-  const autocompleteItems = passes.map((pass) => ({
-    id: String(pass.id),
-    label: pass.name,
-    description: pass.unlimited
+  const autocompleteItems = passes.map((pass) => {
+    const credits = pass.unlimited
       ? t("bookingFlow.newPass.unlimited")
       : t("bookingFlow.newPass.credits", {
           count: getCreditsDividedValue(pass.credits ?? 0),
-        }),
-    rightSlot: (
-      <Body htmlVariant="span" size="md" color="weak">
-        {getCurrencyDisplayWithPrice(getPassPrice(pass))}
-      </Body>
-    ),
-  }));
+        });
+    const validity = formatValidity(pass);
+    const description = validity ? `${credits} · ${validity}` : credits;
+    const isUniversal = pass.linked_private_pass != null;
+    const price = getCurrencyDisplayWithPrice(getPassPrice(pass));
+
+    return {
+      id: String(pass.id),
+      label: pass.name,
+      description,
+      rightSlot: (
+        <div className="flex items-center gap-xs">
+          {isUniversal && (
+            <Chip
+              color="default"
+              type="weak"
+              size="lg"
+              iconLeft="globe-02"
+              label={t("bookingFlow.newPass.universal")}
+            />
+          )}
+          <Body htmlVariant="span" size="md" color="weak">
+            {price}
+          </Body>
+        </div>
+      ),
+    };
+  });
 
   const handlePassChange = (next: string[]) => {
     const id = next[0];

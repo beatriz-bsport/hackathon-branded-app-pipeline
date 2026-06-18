@@ -7,6 +7,7 @@ import {
   passesInfiniteQueryOptions,
 } from "@bsport/api-buyables";
 
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { fetch } from "#src/utils/fetch";
 
 const AVAILABLE_PASSES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
@@ -30,6 +31,8 @@ export const useAvailablePasses = ({
     ...(searchQuery ? { q: searchQuery } : {}),
   };
 
+  const { data: session } = useRetrieveSession(sessionId);
+
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
       ...passesInfiniteQueryOptions(fetch, params),
@@ -41,9 +44,14 @@ export const useAvailablePasses = ({
   const passes = useMemo<Pass[]>(
     () =>
       (data?.pages.flatMap((page) => page.results) ?? []).filter(
-        (pass) => !pass.manager_only,
+        (pass) =>
+          !pass.manager_only &&
+          (pass.unlimited ||
+            (!!pass.credits &&
+              pass.credits >=
+                (session.credit_price_override ?? session.credit_price ?? 0))),
       ),
-    [data?.pages],
+    [data?.pages, session.credit_price_override, session.credit_price],
   );
 
   return {

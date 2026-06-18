@@ -1,9 +1,5 @@
 import { bookingFlowStore, getInitialState } from "./store";
-import type { BookingFlowVariant, DiscountState } from "./types";
-
-export const setVariant = (variant: BookingFlowVariant) => {
-  bookingFlowStore.setState({ variant });
-};
+import type { DiscountState } from "./types";
 
 export const setMember = (memberId: number) => {
   bookingFlowStore.setState({ memberId });

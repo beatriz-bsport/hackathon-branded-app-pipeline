@@ -195,10 +195,11 @@ fi
 mkdir -p "$WIDGET_BUILD_DIR/scripts"
 cp -r apps/widgets/widget-legacy/dist/* "$WIDGET_BUILD_DIR/scripts/"
 
+cp -r apps/widgets/widget-debugger/src/html "$BACKOFFICE_BUILD_DIR/widget-debugger"
+
 if [ "$ARTIFACT_MODE" = "release" ]; then
   mkdir -p "$KAIZEN_DOCS_BUILD_DIR"
   mkdir -p "$KAIZEN_STORYBOOK_BUILD_DIR"
-  cp -r apps/widgets/widget-debugger/src/html "$BACKOFFICE_BUILD_DIR/widget-debugger"
   cp -r apps/docs/dist/* "$KAIZEN_DOCS_BUILD_DIR/"
   cp -r packages/design-system/kaizen/storybook/storybook-static/* "$KAIZEN_STORYBOOK_BUILD_DIR/"
 fi

@@ -1,7 +1,7 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
+import { getCurrencyCodeSuffix } from "#src/utils/format-price-with-currency-code";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { FirstPurchaseSubFilterSectionProps } from "../first-purchase-sub-filter-section-props";
@@ -17,7 +17,6 @@ export const PurchaseAmountSubFilterSection = ({
   onRemove,
 }: FirstPurchaseSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const currencyDisplay = dataAccessLayer.useCompanyTheme()?.currency_display;
 
   return (
     <Card className="w-full">
@@ -47,7 +46,7 @@ export const PurchaseAmountSubFilterSection = ({
               shouldValidate: true,
             })
           }
-          suffix={currencyDisplay}
+          suffix={getCurrencyCodeSuffix()}
           errors={{
             firstValue: errors.purchaseAmount?.firstValue?.message
               ? String(errors.purchaseAmount.firstValue.message)

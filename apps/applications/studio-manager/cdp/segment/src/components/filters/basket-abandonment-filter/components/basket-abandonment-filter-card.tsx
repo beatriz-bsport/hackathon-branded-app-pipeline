@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteBasketAbandonmentFilterMutation } from "#src/api/use-delete-basket-abandonment-filter-mutation";
 import { useUpsertBasketAbandonmentFilterMutation } from "#src/api/use-upsert-basket-abandonment-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
@@ -167,18 +168,13 @@ export const BasketAbandonmentFilterCard = ({
           setValue={methods.setValue}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.20.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

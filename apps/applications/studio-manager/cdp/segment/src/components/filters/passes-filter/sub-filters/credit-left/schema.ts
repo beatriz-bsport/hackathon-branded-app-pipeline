@@ -2,12 +2,11 @@ import { z } from "zod";
 
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `creditLeft` slot (remaining credits comparator).
@@ -40,7 +39,7 @@ export const refineCreditLeftSubFilter = (
       code: z.ZodIssueCode.custom,
       path: ["creditLeft", "firstValue"],
       message: i18nInstance.t("filters.19.validation.creditValueRequired", {
-        ns: I18N_NAMESPACE,
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
       }),
     });
   }
@@ -54,7 +53,7 @@ export const refineCreditLeftSubFilter = (
       path: ["creditLeft", "secondValue"],
       message: i18nInstance.t(
         "filters.19.validation.creditSecondValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

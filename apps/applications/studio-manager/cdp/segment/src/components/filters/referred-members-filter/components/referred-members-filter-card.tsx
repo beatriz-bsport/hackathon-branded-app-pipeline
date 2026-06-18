@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteReferredMemberFilterMutation } from "#src/api/use-delete-referred-member-filter-mutation";
 import { useUpsertReferredMemberFilterMutation } from "#src/api/use-upsert-referred-member-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
@@ -175,18 +176,13 @@ export const ReferredMembersFilterCard = ({
           />
         ) : null}
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.30.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

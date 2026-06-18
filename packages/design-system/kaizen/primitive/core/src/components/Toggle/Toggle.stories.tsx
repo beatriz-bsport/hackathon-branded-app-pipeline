@@ -37,6 +37,10 @@ const meta: Meta<typeof Toggle> = {
       options: ["start", "end"],
       control: { type: "inline-radio" },
     },
+    fullWidth: {
+      control: { type: "boolean" },
+      table: { defaultValue: { summary: "false" } },
+    },
     onToggleChange: {
       table: { type: { summary: "function" } },
     },
@@ -68,6 +72,31 @@ export const Primary: Story = {
     helperText: "",
     errorText: "",
     direction: "start",
+    onToggleChange: () => console.log("onToggleChange"),
+  },
+};
+
+export const FullWidth: Story = {
+  name: "Toggle Full Width",
+  render: (args) => {
+    const [checked, setChecked] = useState(args.checked);
+    return (
+      <div className="w-[360px] rounded-md border border-stroke-thin p-md">
+        <Toggle
+          {...args}
+          checked={checked}
+          onToggleChange={() => setChecked(!checked)}
+        />
+      </div>
+    );
+  },
+  args: {
+    checked: false,
+    label: "Enable notifications",
+    id: "toggle-full-width",
+    helperText: "Receive updates about your segment activity.",
+    direction: "end",
+    fullWidth: true,
     onToggleChange: () => console.log("onToggleChange"),
   },
 };

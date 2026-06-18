@@ -4,6 +4,7 @@ import { deletePaymentMethodFilterMutationOptions } from "@bsport/api-cdp/smartl
 
 import { fetch } from "#src/utils/fetch";
 
+import { showFilterDeleteSuccessToast } from "../utils/filter-delete-success-toast";
 import { smartlistQueryKeys } from "./api";
 
 type UseDeletePaymentMethodFilterMutationParams = {
@@ -26,6 +27,7 @@ export const useDeletePaymentMethodFilterMutation = (
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
+      showFilterDeleteSuccessToast();
       params.onSuccess?.();
     },
     onError: (error) => params.onError?.(error),

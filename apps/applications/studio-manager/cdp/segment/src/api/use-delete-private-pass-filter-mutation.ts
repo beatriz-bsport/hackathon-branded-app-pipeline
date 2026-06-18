@@ -4,6 +4,7 @@ import { deletePrivatePassFilter } from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
+import { showFilterDeleteSuccessToast } from "../utils/filter-delete-success-toast";
 import { smartlistQueryKeys } from "./api";
 
 type UseDeletePrivatePassFilterMutationParams = {
@@ -23,6 +24,7 @@ export const useDeletePrivatePassFilterMutation = (
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
+      showFilterDeleteSuccessToast();
       params.onSuccess?.();
     },
     onError: (error) => params.onError?.(error),

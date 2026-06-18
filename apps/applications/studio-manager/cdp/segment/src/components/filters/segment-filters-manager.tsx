@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
+import { Divider } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
@@ -1241,6 +1242,8 @@ export const SegmentFiltersManager = ({
     <div className="flex flex-col gap-sm w-full">
       <ProfileStatusFilterCard key={smartlistId} />
 
+      <Divider />
+
       <FilterManager isLoading={isLoading} isError={isError}>
         <div className="flex flex-col gap-sm w-full">
           {!hasFilters ? <SegmentFiltersEmptyStateHeader /> : null}
@@ -1262,10 +1265,10 @@ export const SegmentFiltersManager = ({
           )}
 
           <FilterSelectorPopover
+            key={`${savedFilters.length}-${draftFilters.length}`}
             options={addableFilterOptions}
             onSelectOption={handleAddFilter}
           />
-
           {!hasFilters ? (
             <SegmentFiltersTopFilterShortcuts
               onSelectShortcut={handleAddFilterShortcut}

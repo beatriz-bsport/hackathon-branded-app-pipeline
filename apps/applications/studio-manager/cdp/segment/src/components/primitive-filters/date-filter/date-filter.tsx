@@ -48,6 +48,12 @@ type DateFilterProps = {
   };
 };
 
+const TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES = {
+  DAYS_AGO: "w-[100px]",
+  DAYS_FROM_NOW: "w-[180px]",
+  DAYS: "w-[50px]",
+};
+
 /**
  * Date primitive filter that supports absolute and relative date logic in controlled mode.
  */
@@ -164,6 +170,25 @@ export const DateFilter = ({
   const isRelativeBetween =
     currentValue.relative.operator === RELATIVE_DATE_OPERATORS.pastBetween ||
     currentValue.relative.operator === RELATIVE_DATE_OPERATORS.futureBetween;
+
+  const formatRelativeDaysSuffix = (days: number | null): string => {
+    if (isRelativeBetween) {
+      return t("filters.date.fields.days", {
+        count: days ?? 0,
+      });
+    }
+
+    return PAST_DATE_OPERATORS.includes(currentValue.relative.operator)
+      ? t("filters.date.fields.daysAgo", { count: days ?? 0 })
+      : t("filters.date.fields.daysFromNow", { count: days ?? 0 });
+  };
+
+  const relativeDaysSuffixClassName = isRelativeBetween
+    ? TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES.DAYS
+    : PAST_DATE_OPERATORS.includes(currentValue.relative.operator)
+      ? TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES.DAYS_AGO
+      : TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES.DAYS_FROM_NOW;
+
   const relativeAlertMessagePayload = getRelativeAlertMessage(
     currentValue.relative.operator,
     currentValue.relative.firstDays,
@@ -251,7 +276,7 @@ export const DateFilter = ({
       <div className="flex flex-col gap-xs p-xs">
         <SegmentedControl
           id={`${id}-type`}
-          className="h-[26px]"
+          className="h-xl"
           options={segmentedControlOptions}
           value={currentValue.dateType}
           onChangeValue={onDateTypeChange}
@@ -333,11 +358,10 @@ export const DateFilter = ({
                 disabled={disabled}
                 suffix={{
                   type: "text",
-                  value: PAST_DATE_OPERATORS.includes(
-                    currentValue.relative.operator,
-                  )
-                    ? t("filters.date.fields.daysAgo")
-                    : t("filters.date.fields.daysFromNow"),
+                  value: formatRelativeDaysSuffix(
+                    currentValue.relative.firstDays,
+                  ),
+                  className: relativeDaysSuffixClassName,
                 }}
                 fullWidth
                 status={errors?.relativeFirstDays ? "error" : "default"}
@@ -371,8 +395,17 @@ export const DateFilter = ({
                     value:
                       currentValue.relative.operator ===
                       RELATIVE_DATE_OPERATORS.pastBetween
-                        ? t("filters.date.fields.daysAgo")
-                        : t("filters.date.fields.daysFromNow"),
+                        ? t("filters.date.fields.daysAgo", {
+                            count: currentValue.relative.secondDays ?? 0,
+                          })
+                        : t("filters.date.fields.daysFromNow", {
+                            count: currentValue.relative.secondDays ?? 0,
+                          }),
+                    className: PAST_DATE_OPERATORS.includes(
+                      currentValue.relative.operator,
+                    )
+                      ? TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES.DAYS_AGO
+                      : TEXTFIELD_SUFFIX_CUSTOM_SIZE_CLASSES.DAYS_FROM_NOW,
                   }}
                   fullWidth
                   status={errors?.relativeSecondDays ? "error" : "default"}

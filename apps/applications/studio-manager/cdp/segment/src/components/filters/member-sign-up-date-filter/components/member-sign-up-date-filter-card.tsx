@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteMemberDateJoinedFilterMutation } from "#src/api/use-delete-member-date-joined-filter-mutation";
 import { useUpsertMemberDateJoinedFilterMutation } from "#src/api/use-upsert-member-date-joined-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { DateFilter } from "#src/components/primitive-filters/date-filter/date-filter";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
@@ -37,6 +38,7 @@ export const MemberSignUpDateFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertMemberDateJoinedFilterMutate, isLoading: isSaving } =
     useUpsertMemberDateJoinedFilterMutation(smartlistId, {
@@ -149,17 +151,13 @@ export const MemberSignUpDateFilterCard = ({
           }}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.18.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

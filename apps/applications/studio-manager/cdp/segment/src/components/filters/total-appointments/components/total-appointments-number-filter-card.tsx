@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteTotalAppointmentsFilterMutation } from "#src/api/use-delete-total-appointments-filter-mutation";
 import { useUpsertTotalAppointmentsFilterMutation } from "#src/api/use-upsert-total-appointments-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -49,6 +50,7 @@ export const TotalAppointmentsNumberFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, isDirty, dirtyFields } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertTotalAppointmentsFilterMutate, isLoading: isSaving } =
     useUpsertTotalAppointmentsFilterMutation(smartlistId, {
@@ -202,17 +204,13 @@ export const TotalAppointmentsNumberFilterCard = ({
           setValue={methods.setValue}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.26.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

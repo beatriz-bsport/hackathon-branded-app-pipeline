@@ -5,6 +5,7 @@ import {
   isInvalidHourRangeTimeInput,
   normalizeBookingHourRangeFormValue,
 } from "#src/components/filters/shared/booking-hour-range/normalize-booking-hour-range";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import {
@@ -13,8 +14,6 @@ import {
 } from "../../constants";
 import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
 import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod refinement for the appointment hour-range sub-filter when it is
@@ -41,7 +40,7 @@ export const refineBookingHourRangeSubFilter = (
       message: i18nInstance.t(
         "filters.26.validation.appointmentHourRangeRequired",
         {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         },
       ),
     });
@@ -55,7 +54,7 @@ export const refineBookingHourRangeSubFilter = (
       message: i18nInstance.t(
         "filters.26.validation.appointmentHourRangeRequired",
         {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         },
       ),
     });
@@ -81,7 +80,7 @@ export const refineBookingHourRangeSubFilter = (
       path: ["bookingHourRange", "hourSecond"],
       message: i18nInstance.t(
         "filters.26.validation.appointmentHourRangeOrderInvalid",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

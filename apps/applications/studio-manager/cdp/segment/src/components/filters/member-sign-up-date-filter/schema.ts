@@ -8,11 +8,10 @@ import {
   ABSOLUTE_DATE_OPERATOR_BETWEEN,
   DATE_FILTER_TYPE_ABSOLUTE,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { MemberSignUpDateFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const refineSignUpDateFilter = (
   value: MemberSignUpDateFilterFormValue,
@@ -31,7 +30,7 @@ const refineSignUpDateFilter = (
         path: ["signUpDate", "absolute", "toDate"],
         message: i18nInstance.t(
           "filters.18.validation.signUpDateBetweenRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
       return;
@@ -44,7 +43,7 @@ const refineSignUpDateFilter = (
         code: z.ZodIssueCode.custom,
         path: ["signUpDate", "absolute", "fromDate"],
         message: i18nInstance.t("filters.18.validation.signUpDateRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
     }
@@ -60,7 +59,7 @@ const refineSignUpDateFilter = (
         path: ["signUpDate", "relative", "secondDays"],
         message: i18nInstance.t(
           "filters.18.validation.signUpDateDurationBetweenRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }
@@ -73,7 +72,7 @@ const refineSignUpDateFilter = (
       path: ["signUpDate", "relative", "firstDays"],
       message: i18nInstance.t(
         "filters.18.validation.signUpDateDurationRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

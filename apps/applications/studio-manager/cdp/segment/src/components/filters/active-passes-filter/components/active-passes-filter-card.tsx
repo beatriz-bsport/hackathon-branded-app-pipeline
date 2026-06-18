@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
+import { formatInternationalizedPriceWithCurrency } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 import {
   Alert,
@@ -16,6 +16,7 @@ import { useDeleteActivePassesFilterMutation } from "#src/api/use-delete-active-
 import { usePassesQuery } from "#src/api/use-passes-query";
 import { useUpsertActivePassesFilterMutation } from "#src/api/use-upsert-active-passes-filter-mutation";
 import { PassSelectorWithToggle } from "#src/components/filters/active-passes-filter/pass-selector-with-toggle";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -37,12 +38,15 @@ import type {
  */
 const getFormattedPassPrice = (
   price: ActivePassesPassOption["price"],
+  locale: string,
 ): string => {
-  if (price === undefined) return getCurrencyDisplayWithPrice(0);
-  if (typeof price === "number") return getCurrencyDisplayWithPrice(price);
+  if (price === undefined)
+    return formatInternationalizedPriceWithCurrency(0, locale);
+  if (typeof price === "number")
+    return formatInternationalizedPriceWithCurrency(price, locale);
   if (typeof price === "string")
-    return getCurrencyDisplayWithPrice(parseFloat(price));
-  return getCurrencyDisplayWithPrice(price.parsedValue);
+    return formatInternationalizedPriceWithCurrency(parseFloat(price), locale);
+  return formatInternationalizedPriceWithCurrency(price.parsedValue, locale);
 };
 
 /**
@@ -51,6 +55,7 @@ const getFormattedPassPrice = (
 const toSearchOptions = (
   options: ActivePassesPassOption[],
   creditsLabel: string,
+  locale: string,
 ) =>
   options.map((option) => ({
     id: option.id,
@@ -58,7 +63,7 @@ const toSearchOptions = (
     description:
       option.credits === null
         ? creditsLabel
-        : `${option.credits} ${creditsLabel} - ${getFormattedPassPrice(option.price)}`,
+        : `${option.credits} ${creditsLabel} - ${getFormattedPassPrice(option.price, locale)}`,
   }));
 
 /**
@@ -72,8 +77,9 @@ export const ActivePassesFilterCard = ({
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: ActivePassesFilterCardProps) => {
-  const { t } = useTranslation("filters");
+  const { t, i18n } = useTranslation("filters");
   const baseId = useId();
+  const locale = i18n.language;
 
   const { data: passData } = usePassesQuery("");
   const { data: appointmentPassData } = useAppointmentPassesQuery("");
@@ -97,6 +103,7 @@ export const ActivePassesFilterCard = ({
   const watchedValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedValue.id);
 
   const { upsertActivePassesFilterMutate, isLoading: isSaving } =
     useUpsertActivePassesFilterMutation(smartlistId, {
@@ -179,10 +186,11 @@ export const ActivePassesFilterCard = ({
   };
 
   const creditsLabel = t("filters.27.fields.sessionsSuffix");
-  const passSearchOptions = toSearchOptions(passOptions, creditsLabel);
+  const passSearchOptions = toSearchOptions(passOptions, creditsLabel, locale);
   const appointmentPassSearchOptions = toSearchOptions(
     appointmentPassOptions,
     creditsLabel,
+    locale,
   );
 
   const paymentPacksError = errors.paymentPacksSelector?.selectedIds?.message
@@ -305,18 +313,13 @@ export const ActivePassesFilterCard = ({
           emptySelectionLabel={t("filters.27.appointmentPasses.emptySelection")}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.27.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

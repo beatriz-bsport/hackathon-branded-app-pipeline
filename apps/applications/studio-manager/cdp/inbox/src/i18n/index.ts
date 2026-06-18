@@ -33,4 +33,5 @@ export const i18nNamespaces: string[] = [
   "thread-list",
   "thread-messages",
   "message-composer",
+  "member-detail",
 ];

@@ -1,6 +1,8 @@
 import type { Decorator } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import { setCurrencyCode, setCurrencyDisplay } from "@bsport/currency";
+
 import { AppI18nextProvider } from "#src/utils/i18n";
 
 // One QueryClient per story (keyed by Storybook's stable story id) so a
@@ -27,6 +29,15 @@ const getStoryQueryClient = (storyId: string): QueryClient => {
  * alongside the i18n provider.
  */
 export const storybookDecorator: Decorator[] = [
+  // Storybook never runs sm-backbone's `DataLayerWrapper`, which is what seeds
+  // the active currency into storage at app startup. Without this seed,
+  // `@bsport/currency` silently falls back to its € / eur default. Use
+  // "session" storage so it doesn't leak into the developer's real localStorage.
+  (Story) => {
+    setCurrencyCode("eur", "session");
+    setCurrencyDisplay("€", "session");
+    return <Story />;
+  },
   (Story) => (
     <AppI18nextProvider>
       <Story />

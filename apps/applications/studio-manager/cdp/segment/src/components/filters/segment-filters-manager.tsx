@@ -85,6 +85,7 @@ import { PaymentMethodFilterCard } from "./payment-method-filter/components/paym
 import { createDefaultPaymentMethodFilter } from "./payment-method-filter/default-value";
 import { mapPaymentMethodFilterToFormValue } from "./payment-method-filter/mappers/api-to-form-value";
 import type { PaymentMethodFilterFormValue } from "./payment-method-filter/types";
+import { ProfileStatusFilterCard } from "./profile-status-filter/profile-status-filter-card";
 import { PurchaseHistoryFilterCard } from "./purchase-history-filter/components/purchase-history-filter-card";
 import { createDefaultPurchaseHistoryFilter } from "./purchase-history-filter/default-value";
 import { mapPurchaseHistoryFilterToFormValue } from "./purchase-history-filter/mappers/api-to-form-value";
@@ -1237,37 +1238,41 @@ export const SegmentFiltersManager = ({
   };
 
   return (
-    <FilterManager isLoading={isLoading} isError={isError}>
-      <div className="flex flex-col gap-sm w-full">
-        {!hasFilters ? <SegmentFiltersEmptyStateHeader /> : null}
+    <div className="flex flex-col gap-sm w-full">
+      <ProfileStatusFilterCard key={smartlistId} />
 
-        {savedFilters.map((savedFilter) =>
-          renderFilterCard(savedFilter.filterType, {
-            key: savedFilter.key,
-            value: savedFilter.value,
-          }),
-        )}
+      <FilterManager isLoading={isLoading} isError={isError}>
+        <div className="flex flex-col gap-sm w-full">
+          {!hasFilters ? <SegmentFiltersEmptyStateHeader /> : null}
 
-        {draftFilters.map((draftFilter) =>
-          renderFilterCard(draftFilter.filterType, {
-            key: draftFilter.clientId,
-            value: draftFilter.value,
-            onDeleteUnsavedFilter: () => removeDraft(draftFilter.clientId),
-            onSaveSuccess: () => removeDraft(draftFilter.clientId),
-          }),
-        )}
+          {savedFilters.map((savedFilter) =>
+            renderFilterCard(savedFilter.filterType, {
+              key: savedFilter.key,
+              value: savedFilter.value,
+            }),
+          )}
 
-        <FilterSelectorPopover
-          options={addableFilterOptions}
-          onSelectOption={handleAddFilter}
-        />
+          {draftFilters.map((draftFilter) =>
+            renderFilterCard(draftFilter.filterType, {
+              key: draftFilter.clientId,
+              value: draftFilter.value,
+              onDeleteUnsavedFilter: () => removeDraft(draftFilter.clientId),
+              onSaveSuccess: () => removeDraft(draftFilter.clientId),
+            }),
+          )}
 
-        {!hasFilters ? (
-          <SegmentFiltersTopFilterShortcuts
-            onSelectShortcut={handleAddFilterShortcut}
+          <FilterSelectorPopover
+            options={addableFilterOptions}
+            onSelectOption={handleAddFilter}
           />
-        ) : null}
-      </div>
-    </FilterManager>
+
+          {!hasFilters ? (
+            <SegmentFiltersTopFilterShortcuts
+              onSelectShortcut={handleAddFilterShortcut}
+            />
+          ) : null}
+        </div>
+      </FilterManager>
+    </div>
   );
 };

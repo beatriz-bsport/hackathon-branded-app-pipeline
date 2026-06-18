@@ -3,6 +3,22 @@
     "loading": "Loading segment filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
+  "profileStatus": {
+    "title": "Profile Status",
+    "helper": "Filter for profiles that are:",
+    "options": {
+      "active": "Active",
+      "archived": "Archived",
+      "both": "Both"
+    },
+    "actions": {
+      "update": "Update"
+    },
+    "toasts": {
+      "saveSuccess": "Profile status updated.",
+      "saveError": "Profile status couldn't be updated. Please try again."
+    }
+  },
   "emptyState": {
     "title": "No filters added yet.",
     "description": "Click 'Add filter' below to start building your segment.",

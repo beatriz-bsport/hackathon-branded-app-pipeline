@@ -71,3 +71,18 @@ export const getMockBillingPlanInvoicesPage = ({
     results,
   };
 };
+
+const UPCOMING_INVOICES_PAGE_SIZE = 12;
+
+const isUpcomingInvoice = (invoice: PlannedInvoice) =>
+  (invoice.status === "draft" || invoice.status === "open") &&
+  new Date(invoice.date).getTime() >= Date.now();
+
+export const getMockUpcomingBillingPlanInvoices = (
+  billingPlanId: number,
+): PlannedInvoice[] =>
+  getMockBillingPlanInvoicesPage({
+    billing_plan: billingPlanId,
+    page: 1,
+    page_size: UPCOMING_INVOICES_PAGE_SIZE,
+  }).results.filter(isUpcomingInvoice);

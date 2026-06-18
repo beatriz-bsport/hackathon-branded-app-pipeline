@@ -45,7 +45,7 @@ export const SessionCappingStrategyRadio: FC<{
     setValue(
       "partner_spot_capping_strategy",
       PartnerSpotCappingStrategy.COMBINED,
-      { shouldDirty: true },
+      { shouldDirty: false },
     );
   }, [cappingStrategy, setValue, shouldShowPerPartnerOption]);
 

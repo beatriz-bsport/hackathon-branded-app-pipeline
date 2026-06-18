@@ -26,6 +26,9 @@ export const queryKeys = {
   listByPlan: (planId: number) => [...queryKeys.lists(), planId] as const,
   list: (params: FetchPlannedInvoicesParams) =>
     [...queryKeys.listByPlan(params.billing_plan), params] as const,
+
+  upcomingList: (billingPlanId: number) =>
+    [...queryKeys.lists(), "upcoming", billingPlanId] as const,
 } as const;
 
 // ----------------------------------------------------------------------------

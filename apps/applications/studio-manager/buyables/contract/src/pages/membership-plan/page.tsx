@@ -43,7 +43,7 @@ const MembershipPlanPageInner: FC<{
   const { data: contract } = useFetchContract({ id: contractId });
   const { data: membershipPlan } = useFetchMembershipPlan(membershipPlanId);
 
-  const headerConfig = useMembershipPlanHeader({
+  const { modals, ...headerConfig } = useMembershipPlanHeader({
     contract,
     membershipPlan,
     membershipPlanId,
@@ -92,6 +92,8 @@ const MembershipPlanPageInner: FC<{
           <Body size="md">{t("panel.paymentMethodPlaceholder")}</Body>
         )}
       </DetailsLayout.Panel>
+
+      {modals}
     </DetailsLayout>
   );
 };

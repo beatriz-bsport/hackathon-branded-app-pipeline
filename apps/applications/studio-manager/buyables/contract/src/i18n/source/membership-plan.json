@@ -1,6 +1,9 @@
 {
   "header": {
     "loading": "Loading memberships...",
+    "actions": {
+      "cancelSubscription": "Cancel"
+    },
     "breadcrumbs": {
       "subscription": "Subscription"
     }
@@ -16,6 +19,33 @@
   "content": {
     "billingPlaceholder": "Billing details will appear here.",
     "historyPlaceholder": "Membership billing history will appear here"
+  },
+  "cancelModal": {
+    "title": "Cancel subscription?",
+    "requiredField": "This field is required",
+    "reasonField": {
+      "label": "Reason",
+      "errorMaxLength": "Reason length must be under {{ maxLength }} characters."
+    },
+    "invoicesField": {
+      "label": "Choose upcoming invoices to cancel",
+      "toggle": "Choose upcoming invoices to cancel",
+      "loading": "Loading upcoming invoices...",
+      "noInvoice": "No invoice (cancel at end of current period)",
+      "empty": "No upcoming invoices. The subscription will be canceled at the end of the current period.",
+      "statusTooltip": {
+        "pending": "Pending",
+        "canceled": "Canceled"
+      }
+    },
+    "actions": {
+      "close": "Close",
+      "save": "Save"
+    },
+    "toasts": {
+      "success": "Subscription canceled",
+      "error": "Failed to cancel subscription"
+    }
   },
   "invoiceList": {
     "actions": {

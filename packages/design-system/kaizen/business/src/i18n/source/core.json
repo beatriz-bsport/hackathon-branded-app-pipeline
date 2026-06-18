@@ -3,6 +3,7 @@
     "title": "Checkout",
     "payLater": "Pay later",
     "payNow": "Pay now",
+    "createInvoice": "Create invoice",
     "toasts": {
       "invoicePendingPayment": "Invoice still pending payment",
       "invoiceAction": "Invoice"

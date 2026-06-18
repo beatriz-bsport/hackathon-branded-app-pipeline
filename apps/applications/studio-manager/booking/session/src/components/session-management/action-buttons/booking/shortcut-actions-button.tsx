@@ -2,7 +2,7 @@ import { FC, useCallback } from "react";
 import { useNavigate } from "react-router";
 
 import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
-import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
+import { openFullPaymentFlow } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
@@ -152,7 +152,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "shopping-cart-01",
         type: "button",
         onClick: () => {
-          openCheckoutFlow({
+          openFullPaymentFlow({
             basketStartTrigger: "session_management_page",
             memberId,
             navigate: (url) => navigate(url),

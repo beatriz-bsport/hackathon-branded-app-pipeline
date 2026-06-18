@@ -1,5 +1,14 @@
 export const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
 
+/** Smartlist member base filter values (`member_base` on the smartlist resource). */
+export const MEMBER_BASE = {
+  BOTH: 0,
+  ACTIVE: 1,
+  ARCHIVED: 2,
+} as const;
+
+export type MemberBaseValue = (typeof MEMBER_BASE)[keyof typeof MEMBER_BASE];
+
 /** Default page size for smartlist member lists in Studio Manager. */
 export const SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE = 25;
 export const CDP_API_V0 = "customer-data-platform/v0";

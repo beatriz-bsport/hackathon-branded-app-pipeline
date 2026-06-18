@@ -1,15 +1,18 @@
 import type { PaginatedResponse } from "@bsport/store-base";
 
-import type { TagRuleKind } from "../constants";
+import type { MemberBaseValue, TagRuleKind } from "../constants";
 
 export type Smartlist = {
   id: number;
   name: string;
   company: number;
   description: string;
-  member_base: number;
+  member_base: MemberBaseValue;
   has_active_communication_group_configs: boolean;
 };
+
+/** Full smartlist body for PATCH updates on the CDP smartlist group resource. */
+export type UpdateSmartlistParams = Smartlist;
 
 export type PaginatedTagRules = PaginatedResponse<TagRule>;
 

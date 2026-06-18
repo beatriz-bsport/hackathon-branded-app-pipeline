@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@bsport/api-cdp": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@tanstack/react-virtual": "^3.14.2",
     "dompurify": "^3.2.6"
   },

@@ -2198,6 +2198,12 @@ importers:
       '@bsport/api-cdp':
         specifier: workspace:*
         version: link:../../../../../packages/api/cdp
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/financial-services
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

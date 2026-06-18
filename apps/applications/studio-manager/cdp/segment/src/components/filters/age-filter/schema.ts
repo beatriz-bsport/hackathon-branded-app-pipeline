@@ -1,11 +1,10 @@
 import { z } from "zod";
 
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { AGE_FILTER_NUMBER_TYPE } from "./constants";
 import type { AgeFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const MAX_AGE = 120;
 
@@ -32,7 +31,7 @@ export const ageFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["secondValue"],
         message: i18nInstance.t("filters.101.validation.secondValueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -45,7 +44,7 @@ export const ageFilterSchema = z
         message: i18nInstance.t(
           "filters.101.validation.secondValueGreaterThanFirst",
           {
-            ns: I18N_NAMESPACE,
+            ns: I18N_SEGMENT_NAMESPACES.FILTERS,
           },
         ),
       });

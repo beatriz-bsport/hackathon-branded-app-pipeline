@@ -1,11 +1,10 @@
 import { z } from "zod";
 
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { CREDIT_ACCOUNT_NUMBER_TYPE } from "./constants";
 import type { CreditAccountFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 export const creditAccountFilterSchema = z
   .object({
@@ -30,7 +29,7 @@ export const creditAccountFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["secondValue"],
         message: i18nInstance.t("filters.1.validation.secondValueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -43,7 +42,7 @@ export const creditAccountFilterSchema = z
         message: i18nInstance.t(
           "filters.1.validation.secondValueGreaterThanFirst",
           {
-            ns: I18N_NAMESPACE,
+            ns: I18N_SEGMENT_NAMESPACES.FILTERS,
           },
         ),
       });

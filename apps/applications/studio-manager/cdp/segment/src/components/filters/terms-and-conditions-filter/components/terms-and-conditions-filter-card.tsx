@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteTermsAndConditionsFilterMutation } from "#src/api/use-delete-terms-and-conditions-filter-mutation";
 import { useUpsertTermsAndConditionsFilterMutation } from "#src/api/use-upsert-terms-and-conditions-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -148,22 +149,13 @@ export const TermsAndConditionsFilterCard = ({
           }
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={
-              isSavedFilter
-                ? t("filters.107.actions.update")
-                : t("filters.107.actions.save")
-            }
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

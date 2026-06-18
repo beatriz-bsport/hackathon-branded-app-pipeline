@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteTotalBookingFilterMutation } from "#src/api/use-delete-total-booking-filter-mutation";
 import { useUpsertTotalBookingFilterMutation } from "#src/api/use-upsert-total-booking-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -48,6 +49,7 @@ export const TotalBookingNumberFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {
@@ -203,17 +205,13 @@ export const TotalBookingNumberFilterCard = ({
           setValue={methods.setValue}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.22.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

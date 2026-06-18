@@ -3,6 +3,12 @@
     "loading": "Loading segment filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
+  "shared": {
+    "actions": {
+      "apply": "Apply",
+      "applied": "Applied"
+    }
+  },
   "profileStatus": {
     "title": "Profile Status",
     "helper": "Filter for profiles that are:",
@@ -910,5 +916,8 @@
       "allItemsSelected_one": "{{count}} item selected (all)",
       "allItemsSelected_other": "{{count}} items selected (all)"
     }
+  },
+  "toasts": {
+    "deleteSuccess": "Filter successfully deleted"
   }
 }

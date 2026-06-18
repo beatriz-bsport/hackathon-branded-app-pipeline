@@ -4,6 +4,7 @@ import { deleteHasPasswordFilterMutationOptions } from "@bsport/api-cdp/smartlis
 
 import { fetch } from "#src/utils/fetch";
 
+import { showFilterDeleteSuccessToast } from "../utils/filter-delete-success-toast";
 import { smartlistQueryKeys } from "./api";
 
 type UseDeleteHasPasswordFilterMutationParams = {
@@ -23,6 +24,7 @@ export const useDeleteHasPasswordFilterMutation = (
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
+      showFilterDeleteSuccessToast();
       params.onSuccess?.();
     },
     onError: (error) => params.onError?.(error),

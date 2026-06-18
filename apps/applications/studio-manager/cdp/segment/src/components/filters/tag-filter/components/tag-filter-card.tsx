@@ -18,6 +18,7 @@ import {
 import { useDeleteTagFilterMutation } from "#src/api/use-delete-tag-filter-mutation";
 import { useUpsertTagFilterMutation } from "#src/api/use-upsert-tag-filter-mutation";
 import { QueryBoundary } from "#src/components/QueryBoundary";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
@@ -61,6 +62,7 @@ export const TagFilterCard = ({
   const watchedValue = methods.watch();
   const { errors, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedValue.id);
 
   const tagRequirementErrorMessage =
     errors.tagsIncluded?.message === "atLeastOneTagRequired"
@@ -192,6 +194,7 @@ export const TagFilterCard = ({
           <div className="flex flex-col gap-xs">
             <div className="flex items-start justify-between gap-sm">
               <Toggle
+                fullWidth
                 id={fieldIds.includeToggle}
                 direction="end"
                 label={t("filters.11.include.title")}
@@ -225,6 +228,7 @@ export const TagFilterCard = ({
           <div className="flex flex-col gap-xs">
             <div className="flex items-start justify-between gap-sm">
               <Toggle
+                fullWidth
                 id={fieldIds.excludeToggle}
                 direction="end"
                 label={t("filters.11.exclude.title")}
@@ -258,18 +262,14 @@ export const TagFilterCard = ({
               {tagRequirementErrorMessage}
             </Body>
           ) : null}
-          <div className="flex justify-end">
-            <Button
-              label={t("filters.11.actions.save")}
-              size="sm"
-              color="main"
-              intent="default"
-              iconLeft="check"
-              loading={isSaving}
-              disabled={isSaving || isDeleting || !isDirty}
-              onClick={() => void handleSave()}
-            />
-          </div>
+
+          <FilterCardSaveButton
+            isSavedFilter={isSavedFilter}
+            isDirty={isDirty}
+            isSaving={isSaving}
+            isDeleting={isDeleting}
+            onSave={handleSave}
+          />
         </div>
       </Card>
     </QueryBoundary>

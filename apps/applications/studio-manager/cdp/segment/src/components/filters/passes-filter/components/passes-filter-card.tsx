@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeletePaymentPackFilterMutation } from "#src/api/use-delete-payment-pack-filter-mutation";
 import { useUpsertPaymentPackFilterMutation } from "#src/api/use-upsert-payment-pack-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -49,6 +50,7 @@ export const PassesFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertPaymentPackFilterMutate, isLoading: isSaving } =
     useUpsertPaymentPackFilterMutation(smartlistId, {
@@ -178,17 +180,13 @@ export const PassesFilterCard = ({
           selectedPassesInvalid={selectedPassesInvalid}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.19.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

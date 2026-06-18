@@ -1,4 +1,4 @@
-import { getCurrencyDisplay } from "#src/storage";
+import { getCurrencyCode, getCurrencyDisplay } from "#src/storage";
 
 /**
  * Formats a price with the given currency symbol.
@@ -30,6 +30,26 @@ export const formatPriceWithCurrency = (
   return symbolAfter
     ? `${negativeSign}${absolutePrice}\u00A0${symbol}`
     : `${negativeSign}${symbol}${absolutePrice}`;
+};
+
+/**
+ * Formats in an internationalized way a price with the given currency code.
+ * Thanks to this, to string generated will always have the good currency symbol
+ * and the correct placement for the given locale.
+ *
+ * @param price - The price to format.
+ * @param locale - The locale to use for formatting.
+ * @returns The formatted price string (e.g., "12.50 €" or "$12.50").
+ */
+export const formatInternationalizedPriceWithCurrency = (
+  price: number,
+  locale: string,
+): string => {
+  const currencyCode = getCurrencyCode();
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currencyCode,
+  }).format(price);
 };
 
 /**

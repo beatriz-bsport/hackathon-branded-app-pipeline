@@ -58,6 +58,7 @@ export const PassSelectorWithToggle = ({
     <div className="flex flex-col gap-xs">
       <div className="flex items-start justify-between gap-sm">
         <Toggle
+          fullWidth
           id={`${id}-toggle`}
           direction="end"
           label={label}

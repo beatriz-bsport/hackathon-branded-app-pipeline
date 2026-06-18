@@ -5,13 +5,12 @@ import { ALL_EXPENSES_COMPLETE_BUYABLE_IDS } from "@bsport/api-cdp/smartlist";
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { PURCHASE_HISTORY_SUB_FILTER_IDS } from "./sub-filters/purchase-history-sub-filter-id";
 import { REGISTERED_PURCHASE_HISTORY_SUB_FILTERS } from "./sub-filters/registry";
 import type { PurchaseHistoryFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const allowedBuyableIdSet = new Set<number>(ALL_EXPENSES_COMPLETE_BUYABLE_IDS);
 
@@ -37,7 +36,7 @@ const refineTotalSpent = (
       code: z.ZodIssueCode.custom,
       path: ["totalSpent", "firstValue"],
       message: i18nInstance.t("filters.24.validation.totalSpentValueRequired", {
-        ns: I18N_NAMESPACE,
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
       }),
     });
   }
@@ -51,7 +50,7 @@ const refineTotalSpent = (
       path: ["totalSpent", "secondValue"],
       message: i18nInstance.t(
         "filters.24.validation.totalSpentSecondValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }
@@ -67,7 +66,7 @@ const refineTotalSpent = (
       path: ["totalSpent", "secondValue"],
       message: i18nInstance.t(
         "filters.24.validation.totalSpentSecondValueGreaterThanFirst",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }
@@ -82,7 +81,7 @@ const refineSpentOn = (
       code: z.ZodIssueCode.custom,
       path: ["spentOn"],
       message: i18nInstance.t("filters.24.validation.spentOnRequired", {
-        ns: I18N_NAMESPACE,
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
       }),
     });
     return;
@@ -96,7 +95,7 @@ const refineSpentOn = (
       code: z.ZodIssueCode.custom,
       path: ["spentOn"],
       message: i18nInstance.t("filters.24.validation.spentOnInvalid", {
-        ns: I18N_NAMESPACE,
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
       }),
     });
   }

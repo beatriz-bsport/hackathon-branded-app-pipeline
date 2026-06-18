@@ -12,6 +12,7 @@ import {
 
 import { useDeleteMarketingNotificationFilterMutation } from "#src/api/use-delete-marketing-notification-filter-mutation";
 import { useUpsertMarketingNotificationFilterMutation } from "#src/api/use-upsert-marketing-notification-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -172,6 +173,7 @@ export const MarketingNotificationFilterCard = ({
 
         <div className="flex flex-col gap-xs">
           <Toggle
+            fullWidth
             id={fieldIds.smsToggle}
             direction="end"
             label={t("filters.103.fields.sms.toggle")}
@@ -204,6 +206,7 @@ export const MarketingNotificationFilterCard = ({
 
         <div className="flex flex-col gap-xs">
           <Toggle
+            fullWidth
             id={fieldIds.emailToggle}
             direction="end"
             label={t("filters.103.fields.email.toggle")}
@@ -238,22 +241,13 @@ export const MarketingNotificationFilterCard = ({
           </Body>
         ) : null}
 
-        <div className="flex justify-end">
-          <Button
-            label={
-              isSavedFilter
-                ? t("filters.103.actions.update")
-                : t("filters.103.actions.save")
-            }
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

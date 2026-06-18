@@ -2,15 +2,10 @@ import { useId, useState } from "react";
 import { useOutletContext } from "react-router";
 
 import { MEMBER_BASE } from "@bsport/api-cdp/smartlist";
-import {
-  Body,
-  Button,
-  Card,
-  Select,
-  toast,
-} from "@bsport/kaizen-primitive-core";
+import { Body, Card, Select, toast } from "@bsport/kaizen-primitive-core";
 
 import { useUpdateSmartlistMutation } from "#src/api/use-update-smartlist-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import type { DetailsPageOutletContext } from "#src/pages/DetailsPage/details-page-outlet-context";
 import { useTranslation } from "#src/utils/i18n";
@@ -97,18 +92,13 @@ export const ProfileStatusFilterCard = () => {
           }}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("profileStatus.actions.update")}
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || !isDirty}
-            onClick={handleSave}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={false}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

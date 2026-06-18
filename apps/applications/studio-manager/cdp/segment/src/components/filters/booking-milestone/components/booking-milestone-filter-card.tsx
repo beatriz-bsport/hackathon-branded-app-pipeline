@@ -11,6 +11,7 @@ import { buildDirtyPatchPayload } from "#src/components/filters/booking-mileston
 import { createBookingMilestonePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
 import { bookingMilestoneFilterSchema } from "#src/components/filters/booking-milestone/schema";
 import type { BookingMilestoneFilterCardProps } from "#src/components/filters/booking-milestone/types";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { TotalBookingSubFiltersArea } from "#src/components/filters/total-booking/components/total-booking-sub-filters-area";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
@@ -44,6 +45,7 @@ export const BookingMilestoneFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertBookingMilestoneFilterMutate, isLoading: isSaving } =
     useUpsertBookingMilestoneFilterMutation(smartlistId, {
@@ -169,17 +171,13 @@ export const BookingMilestoneFilterCard = ({
           setValue={methods.setValue}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.21.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

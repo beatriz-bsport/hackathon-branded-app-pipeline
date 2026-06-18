@@ -7,12 +7,11 @@ import {
   ABSOLUTE_DATE_OPERATOR_BETWEEN,
   DATE_FILTER_TYPE_ABSOLUTE,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
 import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Conditional validation for the appointment date sub-filter when it is
@@ -41,7 +40,7 @@ export const refineBookingDateSubFilter = (
         path: ["bookingDate", "absolute", "toDate"],
         message: i18nInstance.t(
           "filters.26.validation.appointmentDateBetweenRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
       return;
@@ -56,7 +55,7 @@ export const refineBookingDateSubFilter = (
         message: i18nInstance.t(
           "filters.26.validation.appointmentDateRequired",
           {
-            ns: I18N_NAMESPACE,
+            ns: I18N_SEGMENT_NAMESPACES.FILTERS,
           },
         ),
       });
@@ -73,7 +72,7 @@ export const refineBookingDateSubFilter = (
         path: ["bookingDate", "relative", "secondDays"],
         message: i18nInstance.t(
           "filters.26.validation.appointmentDateDurationBetweenRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }
@@ -86,7 +85,7 @@ export const refineBookingDateSubFilter = (
       path: ["bookingDate", "relative", "firstDays"],
       message: i18nInstance.t(
         "filters.26.validation.appointmentDateDurationRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

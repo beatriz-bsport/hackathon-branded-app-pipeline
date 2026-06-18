@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteReferrerFilterMutation } from "#src/api/use-delete-referrer-filter-mutation";
 import { useUpsertReferrerFilterMutation } from "#src/api/use-upsert-referrer-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -44,6 +45,7 @@ export const ReferrerFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertReferrerFilterMutate, isLoading: isSaving } =
     useUpsertReferrerFilterMutation(smartlistId, {
@@ -195,18 +197,13 @@ export const ReferrerFilterCard = ({
           }}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.29.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

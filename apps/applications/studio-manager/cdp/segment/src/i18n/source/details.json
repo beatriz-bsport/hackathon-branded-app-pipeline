@@ -426,8 +426,15 @@
       },
       "fields": {
         "and": "And",
-        "daysAgo": "Days ago",
-        "daysFromNow": "Days from now"
+        "days": "",
+        "days_one": "day",
+        "days_other": "days",
+        "daysAgo": "",
+        "daysAgo_one": "Day ago",
+        "daysAgo_other": "Days ago",
+        "daysFromNow": "",
+        "daysFromNow_one": "Day from now",
+        "daysFromNow_other": "Days from now"
       },
       "alerts": {
         "onAndBefore": "On {{date}} and all dates before this",

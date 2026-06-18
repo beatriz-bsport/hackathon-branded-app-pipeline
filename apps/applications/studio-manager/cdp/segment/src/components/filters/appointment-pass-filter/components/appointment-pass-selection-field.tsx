@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
+import { formatInternationalizedPriceWithCurrency } from "@bsport/currency";
 
 import type { PassOption } from "#src/components/filters/passes-filter/types";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -15,13 +15,13 @@ type AppointmentPassSelectionFieldProps = {
   onChange: (nextSelectedIds: number[]) => void;
 };
 
-const getPassPrice = (passOption: PassOption): string => {
+const getPassPrice = (passOption: PassOption, locale: string): string => {
   const price = !passOption.price
     ? 0
     : typeof passOption.price === "number"
       ? passOption.price
       : passOption.price.parsedValue;
-  return getCurrencyDisplayWithPrice(price);
+  return formatInternationalizedPriceWithCurrency(price, locale);
 };
 
 /**
@@ -35,8 +35,8 @@ export const AppointmentPassSelectionField = ({
   errorText,
   onChange,
 }: AppointmentPassSelectionFieldProps) => {
-  const { t } = useTranslation("filters");
-
+  const { t, i18n } = useTranslation("filters");
+  const locale = i18n.language;
   const items = useMemo(
     () =>
       passOptions.map((passOption) => ({
@@ -45,9 +45,9 @@ export const AppointmentPassSelectionField = ({
         description:
           passOption.credits === null
             ? t("filters.25.fields.unlimitedCredits")
-            : `${passOption.credits} ${t("filters.25.fields.creditsSuffix")} - ${getPassPrice(passOption)}`,
+            : `${passOption.credits} ${t("filters.25.fields.creditsSuffix")} - ${getPassPrice(passOption, locale)}`,
       })),
-    [passOptions, t],
+    [passOptions, t, locale],
   );
 
   return (

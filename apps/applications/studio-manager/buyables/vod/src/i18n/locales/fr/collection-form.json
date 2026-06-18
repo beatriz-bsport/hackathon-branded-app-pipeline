@@ -37,7 +37,7 @@
       "cancel": "Fermer"
     },
     "submitResponse": {
-      "success": "Crédits mis à jour",
+      "success": "Modifications enregistrées",
       "error": "Impossible de mettre à jour la collection. Veuillez réessayer. "
     }
   }

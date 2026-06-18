@@ -79,7 +79,6 @@ const ConsumerPrivateBookingListItem: React.FC<Props> = ({
       isLoading={isLoading}
       isSelected={isSelected}
       isUnpaid={item.is_unpaid}
-      menuId={item.id.toString()}
       offerDate={selectedBookingDate}
       onBookingCancelClick={handleCancelBookingClick}
       onDetailsClick={handleSeeDetailsClick}

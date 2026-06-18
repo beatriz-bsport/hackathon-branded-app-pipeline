@@ -153,7 +153,6 @@ const ConsumerBookingListItem: React.FC<Props> = ({
       isNoShow={item.is_no_show}
       isOnline={item.meta_activity?.is_broadcast}
       isSelected={isSelected}
-      menuId={item.id.toString()}
       offerDate={selectedBookingDate}
       onBookingCancelClick={handleCancelBookingClick}
       onBookingForAGuestClick={handleSelectBookingForBookingForAGuest}

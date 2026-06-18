@@ -94,7 +94,6 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
       isItemInThePast={isBookingOptionInThePast}
       isLoading={isLoading}
       isSelected={isSelected}
-      menuId={item.id.toString()}
       offerDate={selectedBookingDate}
       onBookClick={handleBookSessionClick}
       onBookingCancelClick={handleCancelBookingClick}

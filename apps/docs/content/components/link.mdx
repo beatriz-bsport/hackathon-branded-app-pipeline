@@ -17,18 +17,6 @@ Links take users to another destination. Use them for navigation, not for mutati
 
 Links are interactive text elements that take the user to another destination — a different page, an external URL, a section anchor, or a downloadable resource. They appear inline within body copy, in standalone navigation contexts, or alongside an avatar to attribute content to a user. A Link communicates "this is something you can click to go elsewhere" and should always look distinct from surrounding text.
 
-### Use cases
-
-- _Inline navigation:_ Direct the user to a related page or section from within a paragraph of body text.
-- _External references:_ Point to a resource outside the current product, opened in a new tab via `target="_blank"`.
-- _User attribution:_ Pair with `avatarProps` to link to a client's profile.
-- _Iconified actions:_ Use `icon` to add a leading glyph that reinforces the link's destination (e.g. external, download, document).
-- _Calls to action in dense UI:_ Replace a button when the action is navigational rather than transactional and visual weight should stay low.
-
-## Guidelines
-
-### Examples
-
 <StorybookEmbed
   id="primitive-components-link--primary"
   mode="playground"
@@ -40,6 +28,16 @@ Links are interactive text elements that take the user to another destination �
     },
   ]}
 />
+
+### Use cases
+
+- _Inline navigation:_ Direct the user to a related page or section from within a paragraph of body text.
+- _External references:_ Point to a resource outside the current product, opened in a new tab via `target="_blank"`.
+- _User attribution:_ Pair with `avatarProps` to link to a client's profile.
+- _Iconified actions:_ Use `icon` to add a leading glyph that reinforces the link's destination (e.g. external, download, document).
+- _Calls to action in dense UI:_ Replace a button when the action is navigational rather than transactional and visual weight should stay low.
+
+## Guidelines
 
 <DoDont>
   <Do
@@ -67,6 +65,46 @@ Links are interactive text elements that take the user to another destination �
 <DoDont>
   <Do caption="Caution when stacking multiple links in the same sentence; it fragments reading flow and makes the destination of each link ambiguous." />
   <Do caption="Caution when removing the underline in body copy — without it, the link must rely on color alone, which fails users with color-vision deficiencies unless another affordance is present." />
+</DoDont>
+
+### Links vs buttons
+
+A button _does something_; a link _goes somewhere_. Use [Button](/components/button)
+when the interaction triggers an in-context action (save, delete, submit, toggle).
+
+For navigation, pick between two components:
+
+| Need                                 | Component                                | Example                                               |
+| ------------------------------------ | ---------------------------------------- | ----------------------------------------------------- |
+| Inline text, low visual weight       | [Link](/components/link)                 | Session name in a message card, link inside body copy |
+| Button appearance, fixed short label | [Button](/components/button) with `href` | "Learn more" on a subscription add-on card            |
+
+[Button](/components/button) accepts an optional `href` prop — the **link button**
+variant. When `href` is set, the component renders a native `<a>` (not a
+`<button>`), navigates to the URL on click, and keeps the same intent, size,
+color, and icon styling as a regular button. `disabled` and `loading` are not
+available on link buttons. When `target="_blank"`, `rel="noopener noreferrer"`
+is applied automatically.
+
+Use a text Link when the label is dynamic or may wrap across lines. Use a link
+button when the label is short and fixed and the action area needs button-level
+emphasis.
+
+See also the [Buttons vs links](/components/button#buttons-vs-links) guidance on
+the Button page.
+
+#### Dynamic labels in cards
+
+When the link label comes from user- or system-generated content — a session
+name, a member name, a free-text title — prefer a plain text Link over a Button.
+
+Dynamic labels are unpredictable in length. A text Link wraps with the surrounding
+flow and stays readable across lines. A Button truncates with an ellipsis when
+space is tight, which reads as broken UI for content the user did not choose.
+
+<DoDont>
+  <Do caption="Use a plain text Link when the label is dynamic — e.g. the session name on a group message card that opens session management." />
+  <Dont caption="Don't use a Button — including the link-button variant with `href` — when the label is an unpredictable entity name. Truncated button labels look unfinished and hide information the user needs to scan." />
 </DoDont>
 
 ### Content

@@ -56,7 +56,8 @@ animate as a group; persistent page-level warnings belong in
   is unnecessary (e.g. "Could not copy link").
 - **Async completion** — report background work the user triggered (e.g.
   "Export ready — download started").
-- **Clipboard feedback** — confirm copy-to-clipboard with a title-only toast.
+- **High-impact completion** — payment taken, record saved, item deleted, or a
+  multi-step flow finished when the outcome matters beyond a local UI shift.
 
 <Callout type="info" title="Imperative API">
   In applications, call `toast()` and `dismissToast()` from
@@ -70,8 +71,56 @@ For when toast is the right confirmation pattern, see
 
 ## Guidelines
 
+Toast is warranted when there is **zero visual feedback** that a change occurred.
+If the UI already shows the outcome, a toast is redundant — and **no toast is the
+right choice**. The interface carries the message instead.
+
+#### When the UI is enough
+
+Skip toast when the action already updates what the user is looking at:
+
+- **Form state** — saved values appear in fields, validation clears, errors resolve,
+  or the submit control reflects a completed save.
+- **Chips and indicators** — a filter chip appears, a badge updates, or the trigger
+  control shows an active or selected state.
+- **Lists and counts** — rows added, removed, or reordered; result counts or empty
+  states shift to match the new filter or sort.
+- **Inline edits** — text, toggles, or drag-and-drop reorder change on the surface
+  the user just touched.
+
+#### Skip the toast
+
+- **Filters and refine actions** — applying a filter that instantly updates a
+  list; the filtered results are the feedback. Product today fires a toast on
+  every filter apply — that was not intentional.
+- **Spammable, low-impact actions** — repeated clicks that already move the UI
+  (toggles, tab switches, view changes).
+
+<Callout type="info" title="Documented preference, not a law">
+  This is a team guideline for when toast helps versus annoys — not enforced by
+  the component API. See [Confirmation](/patterns/confirmation) for the full
+  decision framework.
+</Callout>
+
+#### Use a toast
+
+- **High-impact completions** — payment taken, record saved, item deleted, flow
+  completed.
+- **Off-screen or delayed outcomes** — the result is not visible in the current
+  viewport, or async work finishes later.
+- **Operation failure** — an API call failed and no inline error already covers
+  it.
+
+| Situation                            | UI already shows the change? | Toast?    |
+| ------------------------------------ | ---------------------------- | --------- |
+| Filter applied, list updates         | Yes                          | No        |
+| Record saved, user stays on the form | Partially                    | Often yes |
+| Payment taken                        | No                           | Yes       |
+| Export ready in the background       | No                           | Yes       |
+
 <DoDont>
   <Do caption="Confirm saves and deletes with a toast when the result is off-screen or not obvious from the UI." />
+  <Dont caption="Fire a toast on every filter apply — the updated list is the feedback." />
   <Do caption="Front-load the meaningful word in the title so users scanning the stack grasp the outcome quickly." />
   <Do caption="Use buttonLabel for Undo or a single recovery action that fits in one short label." />
   <Dont caption="Long explanations and multi-option choices belong in a Modal, not a toast." />
@@ -296,8 +345,9 @@ label and visible text depending on browser.
 
 Keep titles short and outcome-first. Do not rely on icon semantics alone.
 
-Action buttons use `aria-label={`Dismiss ${title || "toast"}`}` even for Undo
-actions — the visible `buttonLabel` may differ from what assistive tech announces.
+Action buttons use `aria-label` formatted as `Dismiss \{title\}` (fallback
+`"toast"`) even for Undo actions — the visible `buttonLabel` may differ from
+what assistive tech announces.
 
 ### Focus management
 

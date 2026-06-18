@@ -68,10 +68,13 @@ type CheckoutPhaseState = SharedCheckoutPaymentFlowState & {
       type: "submit";
       form: string;
       disabled: boolean;
+      loading: boolean;
     };
-    cancelButton: {
+    cancelButton?: {
       label: string;
       onClick: () => void;
+      disabled: boolean;
+      loading: boolean;
     };
   };
 };
@@ -311,22 +314,38 @@ export const useCheckoutPaymentFlowState = ({
     close: paymentStep.handleClose,
   });
 
-  const checkoutFooter = {
-    confirmButton: {
-      color: "main" as const,
-      label: tCore("checkoutFlowModal.payNow"),
-      type: "submit" as const,
-      form: checkoutStep.formId,
-      disabled: checkoutStep.isConfirmDisabled,
-      loading: checkoutStep.isPayNowLoading,
-    },
-    cancelButton: {
-      label: tCore("checkoutFlowModal.payLater"),
-      disabled: checkoutStep.isConfirmDisabled,
-      loading: checkoutStep.isPayLaterLoading,
-      onClick: checkoutStep.handlePayLaterSubmit,
-    },
-  };
+  // In checkout-only mode the flow just creates an invoice (no payment step),
+  // so "Pay now" / "Pay later" are misleading. Show a single "Create invoice"
+  // action instead. The pay-now / pay-later split only makes sense in full mode,
+  // where "Pay now" transitions to the payment step.
+  const checkoutFooter =
+    mode === CHECKOUT_PAYMENT_FLOW_MODE.CHECKOUT
+      ? {
+          confirmButton: {
+            color: "main" as const,
+            label: tCore("checkoutFlowModal.createInvoice"),
+            type: "submit" as const,
+            form: checkoutStep.formId,
+            disabled: checkoutStep.isConfirmDisabled,
+            loading: checkoutStep.isPayNowLoading,
+          },
+        }
+      : {
+          confirmButton: {
+            color: "main" as const,
+            label: tCore("checkoutFlowModal.payNow"),
+            type: "submit" as const,
+            form: checkoutStep.formId,
+            disabled: checkoutStep.isConfirmDisabled,
+            loading: checkoutStep.isPayNowLoading,
+          },
+          cancelButton: {
+            label: tCore("checkoutFlowModal.payLater"),
+            disabled: checkoutStep.isConfirmDisabled,
+            loading: checkoutStep.isPayLaterLoading,
+            onClick: checkoutStep.handlePayLaterSubmit,
+          },
+        };
 
   const paymentFooter = isPaymentStepActive
     ? {

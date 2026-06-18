@@ -14,7 +14,7 @@
       "fields": {
         "accountNumber": "Account number",
         "accountName": "Account name",
-        "vatRate": "VAT rate"
+        "vatRate": "Sales tax rate"
       },
       "buttons": {
         "close": "Close",
@@ -266,8 +266,8 @@
       "empty": "No gift cards available for this client.",
       "remaining": "{{available}} of {{total}} remaining",
       "expiresOn": "Expires on {{date}}",
-      "loadMore": "Load more",
-      "loadingMore": "Loading more...",
+      "loadMore": "Show more gift cards",
+      "loadingMore": "Loading gift cards...",
       "addGiftCard": "Add gift card",
       "giftCardCodePlaceholder": "Gift card code",
       "applyGiftCardCode": "Apply gift card code",

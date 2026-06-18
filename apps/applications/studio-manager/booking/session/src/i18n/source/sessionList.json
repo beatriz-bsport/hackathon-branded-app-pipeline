@@ -277,7 +277,7 @@
     "cancelButton": "Close",
     "confirmButton": "Reschedule",
     "successMessage": "Appointment rescheduled",
-    "overlapWarning": "Please confirm there is no schedule conflict with the teacher and venue before rescheduling."
+    "overlapWarning": "Please confirm there is no schedule conflict with the teacher or venue before rescheduling."
   },
   "swapPassModal": {
     "title": "Swap pass?",
@@ -295,24 +295,24 @@
     "searchPlaceholder": "Search teachers",
     "loading": "Loading teachers...",
     "emptyState": "No teachers found",
-    "errorMessage": "An error occurred while swapping the teacher. Please try again.",
+    "errorMessage": "Couldn't swap teacher. Try again.",
     "cancelButton": "Close",
-    "confirmButton": "Swap",
+    "confirmButton": "Swap teacher",
     "successMessage": "Teacher updated",
-    "overlapWarning": "Please confirm the selected teacher has no scheduling overlap at this time."
+    "overlapWarning": "Check the selected teacher has no scheduling overlap at this time."
   },
   "resourceAllocation": {
-    "unavailableMessage": "The following elements are not available at this time:",
+    "unavailableMessage": "The following are not available at this time:",
     "teacher": "Teacher",
     "establishment": "Venue",
-    "rescheduleConfirmation": "Are you sure you want to reschedule this appointment?",
-    "swapTeacherConfirmation": "Are you sure you want to swap to this teacher anyway?"
+    "rescheduleConfirmation": "Once you reschedule this appointment, you will need to set it up again. ",
+    "swapTeacherConfirmation": " Both teachers will be notified of this change"
   },
   "wellhub": {
     "alert": {
       "title": "Some classes are missing a Wellhub product",
-      "message_one": "{{count}} class does not have a Wellhub product assigned.",
-      "message_other": "{{count}} classes do not have a Wellhub product assigned.",
+      "message_one": "{{count}} class does not have a Wellhub product assigned",
+      "message_other": "{{count}} classes do not have a Wellhub product assigned",
       "action": "Assign products"
     },
     "modal": {
@@ -320,18 +320,18 @@
       "stepSelectSession": "Select class",
       "stepSetProduct": "Set product",
       "loadingOffers": "Loading classes…",
-      "noOffersEmpty": "No classes missing a Wellhub product.",
-      "successMessage": "Wellhub product assigned successfully",
-      "errorMessage": "An error occurred while assigning the Wellhub product. Please try again.",
+      "noOffersEmpty": "No classes missing a Wellhub product",
+      "successMessage": "Wellhub product assigned",
+      "errorMessage": "Couldn't assign Wellhub product. Try again.",
       "confirmButton": "Confirm",
-      "cancelButton": "Cancel",
+      "cancelButton": "Close",
       "form": {
         "productLabel": "Wellhub product",
         "applySimilarLabel": "Apply to similar classes",
         "similarSessionsTitle": "Similar classes",
         "loadingProducts": "Loading products…",
-        "noAccountError": "No active Wellhub partnership account found for this class.",
-        "noProductsError": "No Wellhub products available for this class type."
+        "noAccountError": "No active Wellhub account found for this class",
+        "noProductsError": "No Wellhub products available for this class type"
       }
     }
   }

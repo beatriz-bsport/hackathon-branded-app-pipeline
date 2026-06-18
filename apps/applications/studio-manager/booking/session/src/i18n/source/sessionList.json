@@ -179,11 +179,11 @@
     "applyFilterDescription": "If unselected, the rosters will be exported without filters",
     "cancelButton": "Close",
     "confirmButton": "Export",
-    "errorMessage": "An error occurred while exporting the participant list. Please try again.",
+    "errorMessage": "Couldn't export class rosters. Try again.",
     "successMessage": "File exported successfully"
   },
   "backgroundTask": {
-    "genericError": "An error occurred. Check your connection and try refreshing the page.",
+    "genericError": "Something went wrong. Check your connection or try refreshing the page.",
     "timeoutError": "The server took too long to respond. Try refreshing the page"
   },
   "cancelModal": {
@@ -217,7 +217,7 @@
     "confirmTickDescription": "I understand that canceling multiple classes will remove these bookings from my calendar and automatically refund credits to clients.",
     "confirmButton": "Cancel",
     "cancelButton": "Keep",
-    "errorMessage": "An error occurred while canceling the classes. Please try again later.",
+    "errorMessage": "Couldn't cancel classes. Try again.",
     "successMessage_one": "Multiple classes canceled on {{startDate}}",
     "successMessage_other": "Multiple classes canceled between {{startDate}} and {{endDate}}",
     "helperText": "Cancel classes on a single-day by selecting the same start and end date"
@@ -225,15 +225,15 @@
   "deleteModal": {
     "title": "Permanently delete class?",
     "description": "Deleting this class will remove any booking records. If there were bookings and clients weren’t refunded when it was canceled, their credits will also be lost.",
-    "commonAlert": "Just a heads up: this action is permanent and cannot be undone.",
-    "groupSessionAlert": "This class is part of the Series <strong>{{groupName}}</strong>",
+    "commonAlert": "Heads up: this action is permanent and cannot be undone.",
+    "groupSessionAlert": "This class is part of the series <strong>{{groupName}}</strong>",
     "deleteFutureSessions": "Delete future classes",
     "deleteFutureSessionsForGroup": "Delete future classes of {{groupName}}",
     "futureSessionsHeader": "Classes ({{number}})",
     "descriptionFutureSessions": "Select which classes will be deleted",
-    "cancelButton": "Back",
-    "confirmButton": "Permanently delete",
-    "errorMessage": "An error occurred while deleting the class. Please try again later.",
+    "cancelButton": "Keep",
+    "confirmButton": "Delete",
+    "errorMessage": "Couldn't delete class. Try again.",
     "successMessage_one": "Class deleted",
     "successMessage_other": "Classes deleted"
   },
@@ -246,34 +246,34 @@
     "hybridSessionNotice": "Duplicating this hybrid class will create both online and on-site classes. Both will use the same settings as the duplicated one.",
     "linkToOriginalSession_one": "Link to the original class",
     "linkToOriginalSession_other": "Link to the original classes",
-    "linkToOriginalSessionDescription_one": "Link this duplicate to the original class to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this class separate.",
-    "linkToOriginalSessionDescription_other": "Link this duplicate to the original classes to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this class separate.",
-    "errorMessage": "An error occurred while duplicating the class. Please try again later."
+    "linkToOriginalSessionDescription_one": "Link this duplicate to the original class to edit them all together and enable clients to book them as a series. Leave unchecked to keep this class separate.",
+    "linkToOriginalSessionDescription_other": "Link this duplicate to the original classes to edit them all together and enable clients to book them as a series. Leave unchecked to keep this class separate.",
+    "errorMessage": "Couldn't duplicate class. Try again."
   },
   "restoreModal": {
     "title": "Restore class?",
     "description": "Restoring this class will make it available for clients to book. You can archive it again at any time.",
-    "cancelButton": "Back",
+    "cancelButton": "Close",
     "confirmButton": "Restore",
-    "errorMessage": "An error occurred while restoring the class. Please try again later.",
+    "errorMessage": "Couldn't restore class. Try again.",
     "successMessage": "Class restored"
   },
   "cancelAppointmentModal": {
     "title": "Cancel appointment?",
-    "description": "Are you sure you want to cancel this appointment?",
-    "cancelButton": "Close",
-    "confirmButton": "Cancel appointment",
-    "errorMessage": "An error occurred while cancelling the appointment. Please try again",
-    "successMessage": "Appointment cancelled",
-    "refundCredits": "Refund the credits",
-    "sendNotification": "Send a notification"
+    "description": "Deleting this appointment will make it unavailable to clients. Any bookings will also be canceled. ",
+    "cancelButton": "Keep",
+    "confirmButton": "Cancel",
+    "errorMessage": "Couldn't cancel appointment. Try again",
+    "successMessage": "Appointment canceled",
+    "refundCredits": "Refund credits to client",
+    "sendNotification": "Send a notification to client"
   },
   "rescheduleAppointmentModal": {
     "title": "Reschedule appointment?",
     "dateLabel": "Date",
     "timeLabel": "Time",
-    "infoMessage": "Clients will automatically receive a notification of these changes.",
-    "errorMessage": "An error occurred while rescheduling the appointment. Please try again.",
+    "infoMessage": "Clients will be automatically notified of these changes.",
+    "errorMessage": "Couldn't reschedule appointment. Try again.",
     "cancelButton": "Close",
     "confirmButton": "Reschedule",
     "successMessage": "Appointment rescheduled",

@@ -16,6 +16,7 @@ import {
   retrieveStripeCompanyAPI,
   getPayPalOnboardingLink as getPayPalOnboardingLinkAPI,
   retrieveStripeAccountStatusAPI,
+  retrieveStripeComplianceStatusAPI,
   retrievePOSMember as retrievePOSMemberAPI,
   checkNoOtherCompanyWithSamePayPalAccount as checkNoOtherCompanyWithSamePayPalAccountAPI,
 } from './api';
@@ -27,6 +28,7 @@ import type {
   FeatureList,
   PayPalCompany,
   StripeAccountStatus,
+  StripeCompanyComplianceStatus,
   StripeCompany,
 } from './types';
 import { memberBulkActions } from '#src/libs/member/actions';
@@ -402,7 +404,7 @@ export const retrieveStripeAccountStatusActions = {
 };
 
 export function retrieveStripeAccountStatusAction(
-  options: OptionCallback<StripeAccountStatus>,
+  options?: OptionCallback<StripeAccountStatus>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveStripeAccountStatusActions.isLoading(true));
@@ -419,6 +421,39 @@ export function retrieveStripeAccountStatusAction(
       if (options && options.onError) options.onError();
     }
     dispatch(retrieveStripeAccountStatusActions.isLoading(false));
+  };
+}
+
+export const retrieveStripeComplianceStatusActions = {
+  isLoading: createAction<boolean>('RETRIEVE_STRIPE_COMPLIANCE_STATUS/LOADING'),
+  error: createAction<Error | null>('RETRIEVE_STRIPE_COMPLIANCE_STATUS/ERROR'),
+  success: createAction<StripeCompanyComplianceStatus>(
+    'RETRIEVE_STRIPE_COMPLIANCE_STATUS/SUCCESS',
+  ),
+};
+
+export function retrieveStripeComplianceStatusAction(
+  options?: OptionCallback<StripeCompanyComplianceStatus>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveStripeComplianceStatusActions.isLoading(true));
+    dispatch(retrieveStripeComplianceStatusActions.error(null));
+    try {
+      const response = await retrieveStripeComplianceStatusAPI();
+      dispatch(retrieveStripeComplianceStatusActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        retrieveStripeComplianceStatusActions.error(
+          err instanceof Error ? err : new Error(String(err)),
+        ),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(retrieveStripeComplianceStatusActions.isLoading(false));
   };
 }
 

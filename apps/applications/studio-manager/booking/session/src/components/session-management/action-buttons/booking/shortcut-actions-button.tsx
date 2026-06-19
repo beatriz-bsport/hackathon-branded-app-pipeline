@@ -83,6 +83,16 @@ export const ShortcutActionsButton: FC<{
     "member.allowed_actions.accessProfile",
   );
 
+  const hasReadMemberInfoPermission = useObjectLevelPermission(
+    "member.allowed_actions.readInfo",
+  );
+
+  const hasEditBookingPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.edit"
+      : "reservation.activity.allowed_actions.edit",
+  );
+
   const hasSessionStarted = (() => {
     const startDateTime = fromIsoString(session.date_start, {
       zone: session.timezone_name,
@@ -233,7 +243,7 @@ export const ShortcutActionsButton: FC<{
         ...(hasChangeSpotPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
-        ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
+        ...(hasEditBookingPermission && bookingId ? [swapPassAction] : []),
         ...(hasCancelBookingPermission && openModal && bookingId
           ? [cancelBookingAction]
           : []),
@@ -245,8 +255,12 @@ export const ShortcutActionsButton: FC<{
         ...(hasSeeProfileDetailsPermission && memberId
           ? [updateMemberNotesAction]
           : []),
-        ...(participantEmail?.length ? [copyEmailAction] : []),
-        ...(participantPhone?.length ? [copyPhoneAction] : []),
+        ...(hasReadMemberInfoPermission && participantEmail?.length
+          ? [copyEmailAction]
+          : []),
+        ...(hasReadMemberInfoPermission && participantPhone?.length
+          ? [copyPhoneAction]
+          : []),
         ...(hasCreateBookingPermission && bookingOptionId
           ? [bookOptionAction]
           : []),
@@ -266,8 +280,10 @@ export const ShortcutActionsButton: FC<{
       allowedItemIds,
       hasCreateBookingPermission,
       hasChangeSpotPermission,
+      hasEditBookingPermission,
       hasCancelBookingPermission,
       hasCreateInvoicePermission,
+      hasReadMemberInfoPermission,
       participantEmail,
       participantPhone,
       copyToClipboard,

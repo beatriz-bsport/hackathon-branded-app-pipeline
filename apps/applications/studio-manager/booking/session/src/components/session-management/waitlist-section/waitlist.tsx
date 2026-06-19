@@ -19,6 +19,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import {
   SessionManagementModalParams,
   SessionManagementModalType,
@@ -35,6 +36,7 @@ import { WaitlistFilter } from "#src/stores/session-management/types";
 import type { RefinedBookingOption } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 export const WaitList: FC<{
   sessionId: number;
@@ -57,6 +59,15 @@ export const WaitList: FC<{
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const { activity } = useRetrieveSessionDetails(session);
+  const isWorkshop = activity.is_workshop;
+
+  const hasAddToWaitlistPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.addToWaitlist"
+      : "reservation.activity.allowed_actions.addToWaitlist",
+  );
 
   const waitlistFilters = useSessionManagementStore(
     (state) => state.waitlistFilters,
@@ -308,12 +319,16 @@ export const WaitList: FC<{
                   emptyConfig: {
                     title: "",
                     subtitle: t("waitList.emptyState.title"),
-                    ctaButtonConfig: {
-                      label: t("addBookingOptions"),
-                      onClick: () => {
-                        openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
+                    ...(hasAddToWaitlistPermission && {
+                      ctaButtonConfig: {
+                        label: t("addBookingOptions"),
+                        onClick: () => {
+                          openModal?.(
+                            SessionManagementModalType.ADD_TO_WAITLIST,
+                          );
+                        },
                       },
-                    },
+                    }),
                   },
                 }
               : {
@@ -383,12 +398,14 @@ export const WaitList: FC<{
                 emptyConfig: {
                   title: "",
                   subtitle: t("waitList.emptyState.title"),
-                  ctaButtonConfig: {
-                    label: t("addBookingOptions"),
-                    onClick: () => {
-                      openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
+                  ...(hasAddToWaitlistPermission && {
+                    ctaButtonConfig: {
+                      label: t("addBookingOptions"),
+                      onClick: () => {
+                        openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
+                      },
                     },
-                  },
+                  }),
                 },
               }
             : {

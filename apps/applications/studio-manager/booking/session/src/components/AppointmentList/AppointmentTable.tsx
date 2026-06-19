@@ -32,7 +32,11 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({
     return <AppointmentCards columns={filteredColumns} rows={appointments} />;
   }
 
-  return <Table columns={filteredColumns} rowHeight="sm" rows={appointments} />;
+  return (
+    <div className="overflow-x-auto">
+      <Table columns={filteredColumns} rowHeight="lg" rows={appointments} />
+    </div>
+  );
 };
 
 export default memo(AppointmentTable);

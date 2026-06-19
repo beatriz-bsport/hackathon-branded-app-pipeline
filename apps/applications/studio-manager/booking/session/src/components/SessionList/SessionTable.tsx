@@ -33,12 +33,14 @@ const SessionTable: React.FC<SessionTableProps> = ({
   }
 
   return (
-    <Table
-      className="cursor-pointer"
-      columns={filteredColumns}
-      rowHeight="sm"
-      rows={sessions}
-    />
+    <div className="overflow-x-auto">
+      <Table
+        className="cursor-pointer"
+        columns={filteredColumns}
+        rowHeight="lg"
+        rows={sessions}
+      />
+    </div>
   );
 };
 

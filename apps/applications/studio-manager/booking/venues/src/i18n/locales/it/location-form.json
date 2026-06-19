@@ -1,0 +1,53 @@
+{
+  "description": "Un gruppo di stabilimenti per marketing, vendite e reportistica condivisi",
+  "create": {
+    "title": "Crea posizione",
+    "submit": "Crea"
+  },
+  "edit": {
+    "title": "Modifica sede",
+    "submit": "Modifica sede"
+  },
+  "fields": {
+    "name": {
+      "label": "Nome",
+      "placeholder": "Aggiungi un nome per la sede "
+    },
+    "venues": {
+      "label": "Stabilimenti assegnati",
+      "placeholder": "Cerca stabilimenti..."
+    }
+  },
+  "errors": {
+    "required": "Questo campo non può essere vuoto",
+    "venuesRequired": "Seleziona almeno uno stabilimento"
+  },
+  "cancel": "Chiudi",
+  "delete": "Elimina sede",
+  "deleteModal": {
+    "title": "Vuoi eliminare la sede?",
+    "confirm": "Elimina",
+    "cancel": "Mantieni",
+    "alert": {
+      "blocking": "Questa sede non può essere eliminata per i seguenti motivi:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Questa sede è utilizzata in alcuni widget del sito web. Aggiornali prima di archiviare.",
+      "exclusiveCoaches": "Questi insegnanti sono associati solo a questa sede: {{names}}. Aggiorna le loro impostazioni prima di eliminarli."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Alcuni Membri dello staff hanno impostazioni collegate a questa sede.",
+      "hasRelatedMarketplaceConfigs": "Alcuni widget del sito web sono collegati a questa sede.",
+      "hasRelatedMarketingNotifications": "Alcuni messaggi automatici sono indirizzati a questa sede.",
+      "relatedCoaches": "Alcuni insegnanti sono associati a questa sede."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Sede creata",
+    "createError": "Non è stato possibile creare la sede. Riprova. ",
+    "updateSuccess": "Sede aggiornata",
+    "updateError": "Impossibile aggiornare la sede. Riprova. ",
+    "deleteSuccess": "Sede eliminata",
+    "deleteError": "Impossibile eliminare la sede. Riprova. "
+  }
+}

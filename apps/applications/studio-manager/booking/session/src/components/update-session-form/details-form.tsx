@@ -9,9 +9,13 @@ import ActivitySelector from "./activity-selector";
 
 type DetailsFormProps = {
   fieldIdPrefix: string;
+  isGroupSession?: boolean;
 };
 
-const DetailsForm: FC<DetailsFormProps> = ({ fieldIdPrefix }) => {
+const DetailsForm: FC<DetailsFormProps> = ({
+  fieldIdPrefix,
+  isGroupSession = false,
+}) => {
   const { t } = useTranslation("sessionEdit");
 
   return (
@@ -19,8 +23,14 @@ const DetailsForm: FC<DetailsFormProps> = ({ fieldIdPrefix }) => {
       <Title htmlVariant="h5" weight="stronger">
         {t("editSessionForm.content.detailsForm.title")}
       </Title>
-      <ActivitySelector fieldIdPrefix={fieldIdPrefix} />
-      <OverrideForm fieldIdPrefix={fieldIdPrefix} />
+      <ActivitySelector
+        fieldIdPrefix={fieldIdPrefix}
+        isGroupSession={isGroupSession}
+      />
+      <OverrideForm
+        fieldIdPrefix={fieldIdPrefix}
+        isGroupSession={isGroupSession}
+      />
     </div>
   );
 };

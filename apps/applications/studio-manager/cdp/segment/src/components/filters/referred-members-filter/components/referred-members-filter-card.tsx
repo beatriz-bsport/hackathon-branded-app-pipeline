@@ -25,8 +25,7 @@ import { ReferredStatusRadioGroup } from "./referred-status-radio-group";
 export const ReferredMembersFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: ReferredMembersFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -54,7 +53,7 @@ export const ReferredMembersFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapReferredMemberFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -117,7 +116,7 @@ export const ReferredMembersFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

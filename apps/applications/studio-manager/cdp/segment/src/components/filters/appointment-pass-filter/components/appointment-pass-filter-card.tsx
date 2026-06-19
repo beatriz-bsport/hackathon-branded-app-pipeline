@@ -26,8 +26,7 @@ export const AppointmentPassFilterCard = ({
   smartlistId,
   filterValue,
   passOptions,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: AppointmentPassFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -59,7 +58,7 @@ export const AppointmentPassFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPrivatePassFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -121,7 +120,7 @@ export const AppointmentPassFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

@@ -24,8 +24,7 @@ export const TotalBookingNumberFilterCard = ({
   smartlistId,
   companyId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: TotalBookingNumberFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -61,7 +60,7 @@ export const TotalBookingNumberFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapTotalBookingFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -116,7 +115,7 @@ export const TotalBookingNumberFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

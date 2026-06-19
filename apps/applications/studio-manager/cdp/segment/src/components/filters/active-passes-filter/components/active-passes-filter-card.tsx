@@ -74,8 +74,7 @@ const toSearchOptions = (
 export const ActivePassesFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: ActivePassesFilterCardProps) => {
   const { t, i18n } = useTranslation("filters");
   const baseId = useId();
@@ -115,7 +114,7 @@ export const ActivePassesFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapActivePassesFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -141,7 +140,7 @@ export const ActivePassesFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
     deleteActivePassesFilterMutate(watchedValue.id);

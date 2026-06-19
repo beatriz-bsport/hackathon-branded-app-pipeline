@@ -24,8 +24,7 @@ import { BasketAbandonmentSubFiltersArea } from "./basket-abandonment-sub-filter
 export const BasketAbandonmentFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: BasketAbandonmentFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -53,7 +52,7 @@ export const BasketAbandonmentFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapBasketAbandonmentFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -110,7 +109,7 @@ export const BasketAbandonmentFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

@@ -29,8 +29,7 @@ import type { ReferrerFilterCardProps } from "../types";
 export const ReferrerFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: ReferrerFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -58,7 +57,7 @@ export const ReferrerFilterCard = ({
         });
         const newValues = methods.getValues();
         methods.reset(newValues);
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -116,7 +115,7 @@ export const ReferrerFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

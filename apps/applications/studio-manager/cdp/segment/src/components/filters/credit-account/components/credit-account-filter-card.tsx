@@ -23,8 +23,7 @@ import type { CreditAccountFilterCardProps } from "../types";
 export const CreditAccountFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: CreditAccountFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -52,7 +51,7 @@ export const CreditAccountFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapCreditAccountFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -110,7 +109,7 @@ export const CreditAccountFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

@@ -23,8 +23,7 @@ import type { MemberSignUpDateFilterCardProps } from "../types";
 export const MemberSignUpDateFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: MemberSignUpDateFilterCardProps) => {
   const baseId = useId();
   const signUpDateFieldId = `${baseId}-sign-up-date`;
@@ -50,7 +49,7 @@ export const MemberSignUpDateFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapMemberDateJoinedFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -105,7 +104,7 @@ export const MemberSignUpDateFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

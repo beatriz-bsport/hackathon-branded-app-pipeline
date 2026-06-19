@@ -23,8 +23,7 @@ import { LiabilityWaiverRadioGroup } from "./liability-waiver-radio-group";
 export const LiabilityWaiverFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: LiabilityWaiverFilterCardProps) => {
   const baseId = useId();
   const waiverFieldId = `${baseId}-liability-waiver-value`;
@@ -49,7 +48,7 @@ export const LiabilityWaiverFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapLiabilityWaiverFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -109,7 +108,7 @@ export const LiabilityWaiverFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

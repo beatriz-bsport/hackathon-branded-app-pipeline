@@ -24,8 +24,7 @@ import { FirstPurchaseSubFiltersArea } from "./first-purchase-sub-filters-area";
 export const FirstPurchaseFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: FirstPurchaseFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -54,7 +53,7 @@ export const FirstPurchaseFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapFirstPurchaseFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -116,7 +115,7 @@ export const FirstPurchaseFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

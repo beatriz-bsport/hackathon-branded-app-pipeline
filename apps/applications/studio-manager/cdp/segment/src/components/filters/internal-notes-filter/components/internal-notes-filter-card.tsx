@@ -23,8 +23,7 @@ import { NoteTypeRadioGroup } from "./note-type-radio-group";
 export const InternalNotesFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: InternalNotesFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -52,7 +51,7 @@ export const InternalNotesFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapInternalNotesFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -112,7 +111,7 @@ export const InternalNotesFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

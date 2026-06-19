@@ -23,8 +23,7 @@ import { HasPhoneRadioGroup } from "./has-phone-radio-group";
 export const HasPhoneFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: HasPhoneFilterCardProps) => {
   const baseId = useId();
   const hasPhoneFieldId = `${baseId}-has-phone-value`;
@@ -49,7 +48,7 @@ export const HasPhoneFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapHasPhoneFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -109,7 +108,7 @@ export const HasPhoneFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

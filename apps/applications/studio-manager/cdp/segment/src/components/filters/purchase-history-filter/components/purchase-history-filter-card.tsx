@@ -25,8 +25,7 @@ import { SpentOnField } from "./spent-on-field";
 export const PurchaseHistoryFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PurchaseHistoryFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -55,7 +54,7 @@ export const PurchaseHistoryFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPurchaseHistoryFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -112,7 +111,7 @@ export const PurchaseHistoryFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

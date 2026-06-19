@@ -3,6 +3,8 @@ import type {
   UpdateTermsAndConditionsFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type TermsAndConditionsFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -15,9 +17,5 @@ export type TermsAndConditionsFilterCreatePayload =
 export type TermsAndConditionsFilterDirtyPatchPayload =
   UpdateTermsAndConditionsFilterPayload;
 
-export type TermsAndConditionsFilterCardProps = {
-  smartlistId: string;
-  filterValue: TermsAndConditionsFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type TermsAndConditionsFilterCardProps =
+  SegmentFilterCardProps<TermsAndConditionsFilterFormValue>;

@@ -24,8 +24,7 @@ import { getAgeYearSuffix } from "../utils";
 export const AgeFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: AgeFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -53,7 +52,7 @@ export const AgeFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapAgeFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -108,7 +107,7 @@ export const AgeFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

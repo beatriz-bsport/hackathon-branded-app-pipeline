@@ -3,6 +3,7 @@ import type {
   CreateAgeFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { AgeFilterNumberTypeValue } from "./constants";
 
 export type AgeFilterNumberType = AgeFilterNumberTypeValue;
@@ -21,9 +22,4 @@ export type AgeFilterDirtyPatchPayload = Partial<
 
 export type AgeFilterCreatePayload = CreateAgeFilterPayload;
 
-export type AgeFilterCardProps = {
-  smartlistId: string;
-  filterValue: AgeFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type AgeFilterCardProps = SegmentFilterCardProps<AgeFilterFormValue>;

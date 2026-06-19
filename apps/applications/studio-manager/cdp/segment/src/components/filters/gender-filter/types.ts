@@ -3,6 +3,7 @@ import type {
   UpdateGenderFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { GenderOption } from "./constants";
 
 export type GenderFilterFormValue = {
@@ -15,9 +16,5 @@ export type GenderFilterCreatePayload = CreateGenderFilterPayload;
 
 export type GenderFilterDirtyPatchPayload = UpdateGenderFilterPayload;
 
-export type GenderFilterCardProps = {
-  smartlistId: string;
-  filterValue: GenderFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type GenderFilterCardProps =
+  SegmentFilterCardProps<GenderFilterFormValue>;

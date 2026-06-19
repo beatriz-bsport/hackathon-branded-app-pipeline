@@ -3,6 +3,7 @@ import type { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { OWNERSHIP_OPTIONS } from "./constants";
 import type { PassSubFilterId } from "./sub-filters/pass-sub-filter-id";
 
@@ -50,10 +51,7 @@ export type DirtyPatchPayload = Partial<
   Omit<PaymentPackFilter, "id" | "company_id" | "filter_identifier">
 >;
 
-export type PassesFilterCardProps = {
-  smartlistId: string;
-  filterValue: PassesFilterFormValue;
-  passOptions: PassOption[];
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type PassesFilterCardProps =
+  SegmentFilterCardProps<PassesFilterFormValue> & {
+    passOptions: PassOption[];
+  };

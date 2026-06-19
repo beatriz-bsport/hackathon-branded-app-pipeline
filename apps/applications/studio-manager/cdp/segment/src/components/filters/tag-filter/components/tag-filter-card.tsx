@@ -38,8 +38,7 @@ import { TagFilterItemsSearch } from "./tag-filter-items-search";
 export const TagFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: TagFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -79,7 +78,7 @@ export const TagFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapTagFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -134,7 +133,7 @@ export const TagFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

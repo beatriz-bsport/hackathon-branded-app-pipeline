@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 
 import type { SavedPaymentMethod } from "@bsport/api-financial-services/payment-method";
 import {
@@ -21,7 +21,12 @@ import {
   SAVED_METHOD_LOGO_TYPE,
   SAVED_PAYMENT_METHOD_TYPE,
 } from "./constants";
-import { isSameSelection, parseSelectValue, toSelectValue } from "./helpers";
+import {
+  enrichSavedSelection,
+  isSameSelection,
+  parseSelectValue,
+  toSelectValue,
+} from "./helpers";
 import {
   PAYMENT_METHOD_SELECTOR_SELECTION_KIND,
   type PaymentMethodSelectorResolvedSelection,
@@ -37,6 +42,7 @@ type SavedPaymentMethodMappedOption = {
   logoType?: PaymentMethodLogoProps["type"];
   savedType: SavedPaymentMethod["type"];
   expirationDate?: string;
+  paymentBackendIdentifier?: number;
 };
 
 const formatSavedPaymentMethodLabel = (
@@ -124,6 +130,7 @@ const mapSavedPaymentMethodsToOptions = (
     savedType: paymentMethod.type,
     expirationDate: formatExpirationDate(paymentMethod.additional_info),
     logoType: savedPaymentMethodToLogoType(paymentMethod),
+    paymentBackendIdentifier: paymentMethod.payment_backend_identifier,
   }));
 };
 
@@ -153,14 +160,19 @@ const getTriggerIconLeftForSelection = (
  * Business selector for payment flows.
  *
  * Behavior:
- * - Always uncontrolled.
- * - Auto-selects the first saved payment method when available.
- * - Falls back to "new card" when there are no saved methods.
- * - Emits selection through `onSelectionChange`.
+ * - Supports controlled (`value` + `onSelectionChange`) and uncontrolled modes.
+ * - Uncontrolled with `defaultValue`: seeds the initial selection once and
+ *   keeps it (no auto-select override).
+ * - Uncontrolled without `defaultValue`: auto-selects the first saved payment
+ *   method when available, falling back to "new card" otherwise.
+ * - Emits selection through `onSelectionChange`; `saved` selections are
+ *   enriched with `paymentMethodType` and `payment_backend_identifier`.
  */
 export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   memberId,
   fetch,
+  value,
+  defaultValue,
   onSelectionChange,
   allMethodsConfig,
   disabled,
@@ -194,15 +206,26 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     disabled: disabledAllMethodIds?.includes(option.id),
   }));
 
-  const [currentSelection, setCurrentSelection] =
-    useState<PaymentMethodSelectorSelection>(null);
+  const isControlled = value !== undefined;
+  const hasExplicitInitialSelection =
+    isControlled || defaultValue !== undefined;
 
-  const applySelection = (
-    selection: PaymentMethodSelectorResolvedSelection,
-  ): void => {
-    setCurrentSelection(selection);
-    onSelectionChange?.(selection);
-  };
+  const [internalSelection, setInternalSelection] =
+    useState<PaymentMethodSelectorSelection>(defaultValue ?? null);
+
+  const currentSelection: PaymentMethodSelectorSelection = isControlled
+    ? (value ?? null)
+    : internalSelection;
+
+  const applySelection = useCallback(
+    (selection: PaymentMethodSelectorResolvedSelection): void => {
+      if (!isControlled) {
+        setInternalSelection(selection);
+      }
+      onSelectionChange?.(selection);
+    },
+    [isControlled, onSelectionChange],
+  );
 
   const currentValue = currentSelection
     ? toSelectValue(currentSelection)
@@ -266,6 +289,12 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   );
 
   useEffect(() => {
+    // Controlled mode and explicit `defaultValue` both opt out of the
+    // auto-select default so the consumer's selection is preserved.
+    if (hasExplicitInitialSelection) {
+      return;
+    }
+
     if ((isLoading || isError) && !currentSelection) {
       return;
     }
@@ -283,6 +312,8 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
             kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED,
             id: firstSavedMethod.id,
             paymentMethodType: firstSavedMethod.savedType,
+            payment_backend_identifier:
+              firstSavedMethod.paymentBackendIdentifier,
           }
         : {
             kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL,
@@ -297,24 +328,26 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       return;
 
     applySelection(nextSelection);
-  }, [applySelection, currentSelection, isLoading, savedMethodItems]);
+  }, [
+    applySelection,
+    currentSelection,
+    hasExplicitInitialSelection,
+    isError,
+    isLoading,
+    savedMethodItems,
+  ]);
 
   const handleChange = (selectedValue: string): void => {
     const parsedSelection = parseSelectValue(selectedValue);
     if (!parsedSelection) return;
 
-    if (parsedSelection.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED) {
-      const matchedSavedMethod = savedMethodItems.find(
-        (item) => item.id === parsedSelection.id,
-      );
-      applySelection({
-        ...parsedSelection,
-        paymentMethodType: matchedSavedMethod?.savedType,
-      });
-      return;
-    }
+    const enrichedSelection = enrichSavedSelection(
+      parsedSelection,
+      savedMethodItems,
+    );
+    if (!enrichedSelection) return;
 
-    applySelection(parsedSelection);
+    applySelection(enrichedSelection);
   };
 
   return (

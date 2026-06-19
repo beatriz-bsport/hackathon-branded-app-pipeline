@@ -21,12 +21,28 @@ The selector itself should stay focused on **selection UX** (grouping, labels, f
 - selecting \`saved\` usually means "use existing method as-is";
 - selecting \`all\` is where parent logic typically mounts Stripe Elements or internal forms.
 
-### Default behavior
+### Control modes
 
-- Always **uncontrolled**.
-- If saved methods exist, the selector auto-selects the first one.
-- If no saved method exists, it auto-selects **new card** (\`all:card\`).
+- **Uncontrolled (default):** omit \`value\`/\`defaultValue\`. If saved methods exist, the selector auto-selects the first one; otherwise it auto-selects **new card** (\`all:card\`).
+- **Uncontrolled with initial value:** pass \`defaultValue\` to seed the selection once (auto-select is disabled so your value is preserved). Useful for read-only display of the current method.
+- **Controlled:** pass \`value\` and update it from \`onSelectionChange\`. The parent fully owns the selection.
+
+### Identifier mapping
+
+- \`saved\` selections emitted through \`onSelectionChange\` are enriched with \`paymentMethodType\` and \`payment_backend_identifier\`, so consumers can map the textual frontend id back to the numeric backend id.
 - Saved methods can show \`PaymentMethodLogo\` when the saved method maps to a supported logo \`type\` (for example Visa/Mastercard/SEPA/BACS).
+
+### Required peerDependencies
+
+The host app must provide these (see \`@bsport/kaizen-business-components\` \`peerDependencies\`):
+
+| Package | Role |
+|---------|------|
+| \`react\` | Component runtime |
+| \`@tanstack/react-query\` | Saved payment methods query |
+| \`@bsport/fetch\` | Business API client (\`fetch\` prop) |
+| \`@bsport/i18n\` | \`financial-services\` namespace translations |
+| \`@bsport/kaizen-primitive-core\` | Select and Body primitives |
 
 ### How to import?
 
@@ -139,6 +155,71 @@ export const Disabled: StoryObj<PaymentMethodSelectorComponent> = {
   ),
 };
 
+const ControlledSelectorPreview = ({
+  memberId,
+  fetch,
+}: {
+  memberId: number;
+  fetch: Fetch;
+}) => {
+  const [selection, setSelection] =
+    useState<PaymentMethodSelectorSelection>(null);
+
+  return (
+    <div className="w-[320px]">
+      <PaymentMethodSelector
+        memberId={memberId}
+        fetch={fetch}
+        value={selection}
+        onSelectionChange={setSelection}
+      />
+      <hr className="my-md border-t border-surface-divider" />
+      <p className="text-body-sm text-onsurface-weak">
+        <strong>Story helper —</strong> Controlled value:{" "}
+        {selection ? `${selection.kind} - ${selection.id}` : "none"}
+      </p>
+    </div>
+  );
+};
+
+// Controlled - The parent owns the selection via `value` + `onSelectionChange`.
+export const Controlled: StoryObj<PaymentMethodSelectorComponent> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Fully controlled: the parent stores the selection and feeds it back through `value`. Auto-select is disabled in this mode.",
+      },
+    },
+  },
+  render: (args) => (
+    <ControlledSelectorPreview fetch={args.fetch} memberId={args.memberId} />
+  ),
+};
+
+// Initialized - Seeds an initial selection via `defaultValue`, read-only.
+// Mirrors the membership-plan "current payment method" display use case.
+export const Initialized: StoryObj<PaymentMethodSelectorComponent> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Uncontrolled with an initial `defaultValue` and `disabled` for read-only display. The seeded value is preserved (no auto-select fallback). A saved method can be seeded the same way with `{ kind: "saved", id: stripePaymentMethodId }`.',
+      },
+    },
+  },
+  render: (args) => (
+    <div className="w-[320px]">
+      <PaymentMethodSelector
+        memberId={args.memberId}
+        fetch={args.fetch}
+        defaultValue={{ kind: "all", id: "sepa_debit" }}
+        disabled
+      />
+    </div>
+  ),
+};
+
 // Documentation - Inherit configuration from the meta object.
 // Goal: Add story description to dive into implementation details.
 export const Documentation: StoryObj<PaymentMethodSelectorComponent> = {
@@ -153,10 +234,15 @@ export const Documentation: StoryObj<PaymentMethodSelectorComponent> = {
 | \`onSelectionChange\` | \`{ kind: "saved"; id: string }\` | Use an existing saved method |
 | \`onSelectionChange\` | \`{ kind: "all"; id: AllPaymentMethodKey }\` | Mount the matching payment form in the parent flow |
 
-### Selection defaults
+### Control modes
 
-- If at least one saved method exists, the first saved method is auto-selected.
-- If no saved method exists, \`all:card\` is auto-selected.
+- **Uncontrolled (no \`value\`/\`defaultValue\`):** auto-selects the first saved method, or \`all:card\` when none exist.
+- **Uncontrolled with \`defaultValue\`:** seeds the initial selection once; auto-select is disabled.
+- **Controlled (\`value\` + \`onSelectionChange\`):** the parent owns the selection at all times.
+
+### Identifier mapping
+
+- Emitted \`saved\` selections include \`paymentMethodType\` and \`payment_backend_identifier\`, bridging the textual frontend id and numeric backend id.
 
 ### Saved method visuals
 

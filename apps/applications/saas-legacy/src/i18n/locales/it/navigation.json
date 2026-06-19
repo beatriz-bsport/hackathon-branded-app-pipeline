@@ -178,6 +178,27 @@
   "stripeOnboardingPending": {
     "banner": "Se non hai completato l'impostazione della contabilizzazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
   },
+  "stripeCompliance": {
+    "banner": "Stripe richiede informazioni aggiornate entro il {{ date }}. Fai clic qui per verificarle.",
+    "bannerWithoutDate": "Stripe richiede informazioni aggiornate. Fai clic qui per verificarle.",
+    "cta": {
+      "company_settings": "Aggiorna le impostazioni della mia azienda",
+      "none": "Verifica",
+      "stripe_onboarding": "Aggiorna le mie informazioni su Stripe"
+    },
+    "modal": {
+      "genericImpact": "Se il problema non viene risolto, le funzionalità di pagamento e trasferimento potrebbero essere interessate.",
+      "restricted": {
+        "description": "Stripe ha limitato il tuo account. Aggiorna le informazioni richieste per ripristinare tutte le funzionalità di pagamento.",
+        "title": "Account Stripe limitato"
+      },
+      "restrictedSoon": {
+        "description": "Stripe richiede informazioni aggiornate entro il {{ date }} per mantenere il tuo account conforme.",
+        "descriptionWithoutDate": "Stripe richiede informazioni aggiornate per mantenere il tuo account conforme.",
+        "title": "Aggiornamento Stripe richiesto"
+      }
+    }
+  },
   "tab": {
     "coach": {
       "calendar": "Calendario",

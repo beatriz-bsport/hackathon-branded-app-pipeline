@@ -178,6 +178,27 @@
   "stripeOnboardingPending": {
     "banner": "Klicken Sie hier, um Ihre Rechnungsstellung abzuschließen und Online-Zahlungen zu aktivieren."
   },
+  "stripeCompliance": {
+    "banner": "Stripe benötigt vor dem {{ date }} aktualisierte Informationen. Klicke hier, um sie zu prüfen.",
+    "bannerWithoutDate": "Stripe benötigt aktualisierte Informationen. Klicke hier, um sie zu prüfen.",
+    "cta": {
+      "company_settings": "Meine Unternehmenseinstellungen aktualisieren",
+      "none": "Prüfen",
+      "stripe_onboarding": "Meine Informationen in Stripe aktualisieren"
+    },
+    "modal": {
+      "genericImpact": "Wenn dies nicht behoben wird, können Zahlungs- und Auszahlungsfunktionen beeinträchtigt werden.",
+      "restricted": {
+        "description": "Stripe hat dein Konto eingeschränkt. Bitte aktualisiere die erforderlichen Informationen, um die Zahlungsfunktionen vollständig wiederherzustellen.",
+        "title": "Stripe-Konto eingeschränkt"
+      },
+      "restrictedSoon": {
+        "description": "Stripe benötigt vor dem {{ date }} aktualisierte Informationen, damit dein Konto konform bleibt.",
+        "descriptionWithoutDate": "Stripe benötigt aktualisierte Informationen, damit dein Konto konform bleibt.",
+        "title": "Stripe-Aktualisierung erforderlich"
+      }
+    }
+  },
   "tab": {
     "member": {
       "invoices": "Rechnungen und Mitgliedsbeiträge",

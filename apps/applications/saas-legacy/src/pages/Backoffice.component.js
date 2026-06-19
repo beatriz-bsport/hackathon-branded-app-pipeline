@@ -12,6 +12,7 @@ import { DateTime } from 'luxon';
 import Intercom from '#src/components/intercom/Intercom.component';
 import {
   retrieveStripeAccountStatusAction,
+  retrieveStripeComplianceStatusAction,
   retrieveStripeCompanyAction,
   getFeatureList,
 } from '#src/libs/company/actions';
@@ -131,7 +132,11 @@ import {
   FAILED_PAYMENT,
   DISPUTED_PAYMENT,
 } from '../libs/platform-billing/constant';
-import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
+import type {
+  StripeAccountStatus,
+  StripeCompany,
+  StripeCompanyComplianceStatus,
+} from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
 import type { OptionCallback } from '../state/types';
 import { getStripeOnboardingPending } from '../libs/company/selectors';
@@ -171,6 +176,11 @@ import {
   type FeatureFlagProps,
   withFeatureFlags,
 } from '#src/utils/feature-flag/withFeatureFlags';
+import {
+  StripeComplianceStatusBanner,
+  StripeComplianceStatusModal,
+} from '#src/libs/settings/components/StripeComplianceStatusAlert.component';
+import { ADMIN_ROLE, OWNER_ROLE } from '#src/libs/role/role-types';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -385,6 +395,8 @@ type Props = {
   stampLastStripeAccountConfigurationWarningDate: () => void,
   retrieveStripeAccountStatus: () => void,
   stripeAccountStatus: StripeAccountStatus,
+  retrieveStripeComplianceStatus: () => void,
+  stripeComplianceStatus: StripeCompanyComplianceStatus | null,
   lastStripeConfigurationWarningDate: string,
   fetchUserTutorialCompletion: () => void,
   updateUserAcknowlegdeTutorial: () => void,
@@ -439,6 +451,10 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
           path="/settings/company_onboarding"
         />
         <Route component={CompanyDetailPage} path="/settings/company" />
+        <Route
+          component={PlatformBillingSettingPage}
+          path="/settings/platform-billing"
+        />
 
         <Redirect to="/settings/company" />
       </Switch>
@@ -515,6 +531,7 @@ export class Backoffice extends Component<Props, State> {
     need_regularizing_failed_invoice_modal: false,
     need_regularizing_disputed_invoice_modal: false,
     need_regularizing_vat_information_modal: false,
+    need_stripe_compliance_status_dialog: false,
   };
 
   countAlerting: number = 0;
@@ -574,6 +591,9 @@ export class Backoffice extends Component<Props, State> {
       );
     }
     this.props.retrieveStripeCompany();
+    if (this.shouldFetchStripeComplianceStatus()) {
+      this.props.retrieveStripeComplianceStatus();
+    }
     this.props.retrievePlatformSubscriptionPaymentStatus({
       onSuccess: () => {
         this.props.retrieveStripeAccountStatus();
@@ -592,6 +612,12 @@ export class Backoffice extends Component<Props, State> {
     if (
       prevProps.stripeAccountStatus !== this.props.stripeAccountStatus &&
       this.props.stripeAccountStatus
+    ) {
+      this.checkPlatformSubscriptionPaymentStatusAndStripeConfiguration();
+    }
+    if (
+      prevProps.stripeComplianceStatus !== this.props.stripeComplianceStatus &&
+      this.props.stripeComplianceStatus
     ) {
       this.checkPlatformSubscriptionPaymentStatusAndStripeConfiguration();
     }
@@ -691,6 +717,11 @@ export class Backoffice extends Component<Props, State> {
   };
 
   checkStripeAccountConfiguration = () => {
+    if (this.shouldUseStripeComplianceStatusAlert()) {
+      this.checkStripeComplianceStatus();
+      return;
+    }
+
     switch (this.props.stripeAccountStatus?.action) {
       case BLOCK_BACKOFFICE:
         this.setState({ need_configuring_stripe_account_dialog: true });
@@ -710,6 +741,37 @@ export class Backoffice extends Component<Props, State> {
       default:
         break;
     }
+  };
+
+  checkStripeComplianceStatus = () => {
+    switch (this.props.stripeComplianceStatus?.status) {
+      case 'restricted':
+        this.setState({ need_stripe_compliance_status_dialog: true });
+        return;
+
+      case 'restricted_soon':
+        if (
+          !this.props.lastStripeConfigurationWarningDate ||
+          !DateTime.fromISO(
+            this.props.lastStripeConfigurationWarningDate,
+          ).hasSame(DateTime.now(), 'day')
+        ) {
+          this.openStripeComplianceStatusModal();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  openStripeComplianceStatusModal = () => {
+    this.setState(
+      { need_stripe_compliance_status_dialog: true },
+      this.props.stripeComplianceStatus?.status === 'restricted_soon'
+        ? this.props.stampLastStripeAccountConfigurationWarningDate
+        : undefined,
+    );
   };
 
   openStripeConfigurationModal = () => {
@@ -762,8 +824,43 @@ export class Backoffice extends Component<Props, State> {
     this.props.pushRouter('/settings/company');
     this.setState({
       need_configuring_stripe_account_dialog: false,
+      need_stripe_compliance_status_dialog: false,
       need_regularizing_vat_information_modal: false,
     });
+  };
+
+  shouldFetchStripeComplianceStatus = () =>
+    this.props.isStripeComplianceStatusAlertEnabled &&
+    [OWNER_ROLE, ADMIN_ROLE].includes(this.props.roleId);
+
+  shouldUseStripeComplianceStatusAlert = () =>
+    this.shouldFetchStripeComplianceStatus() &&
+    !!this.props.stripeComplianceStatus &&
+    this.props.stripeComplianceStatus.status !== 'not_configured';
+
+  shouldBlockBackofficeToConfigureStripe = () => {
+    if (this.shouldUseStripeComplianceStatusAlert()) {
+      return this.props.stripeComplianceStatus?.status === 'restricted';
+    }
+
+    return this.props.stripeAccountStatus?.action === BLOCK_BACKOFFICE;
+  };
+
+  shouldShowStripeComplianceStatusBanner = () =>
+    this.shouldUseStripeComplianceStatusAlert() &&
+    this.props.stripeComplianceStatus?.status === 'restricted_soon';
+
+  handleStripeComplianceStatusCta = () => {
+    const cta = this.props.stripeComplianceStatus?.cta;
+    if (!cta || cta.kind === 'none') return;
+
+    if (cta.kind === 'stripe_onboarding' && cta.url) {
+      window.open(cta.url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    this.props.pushRouter(cta.path || '/settings/company');
+    this.setState({ need_stripe_compliance_status_dialog: false });
   };
 
   deleteAlert = (alert_kind: number, id: number) =>
@@ -829,6 +926,9 @@ export class Backoffice extends Component<Props, State> {
     const isInboxPath = this.props.browserLocation.pathname.includes('/inbox/');
 
     const toggleAppcues = this.props.toggleAppcues;
+    const stripeComplianceStatus = this.shouldUseStripeComplianceStatusAlert()
+      ? this.props.stripeComplianceStatus
+      : null;
 
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
@@ -969,11 +1069,14 @@ export class Backoffice extends Component<Props, State> {
                       ),
                   })}
                 >
+                  {this.shouldShowStripeComplianceStatusBanner() && (
+                    <StripeComplianceStatusBanner
+                      complianceStatus={stripeComplianceStatus}
+                      onClick={this.openStripeComplianceStatusModal}
+                    />
+                  )}
                   <BackofficeRoute
-                    blockBackofficeToConfigureStripe={
-                      this.props.stripeAccountStatus?.action ===
-                      BLOCK_BACKOFFICE
-                    }
+                    blockBackofficeToConfigureStripe={this.shouldBlockBackofficeToConfigureStripe()}
                     blockBackofficeToPayPlatformBilling={
                       this.props.platformSubscriptionPaymentStatus?.action ===
                       BLOCK_BACKOFFICE
@@ -1037,30 +1140,50 @@ export class Backoffice extends Component<Props, State> {
             kind={this.props.adpModalKind}
           />
         </GenericResponsiveDialog>
-        {this.props.stripeAccountStatus && (
+        {stripeComplianceStatus && (
           <GenericResponsiveDialog
-            open={!!this.state.need_configuring_stripe_account_dialog}
+            open={!!this.state.need_stripe_compliance_status_dialog}
           >
-            <StripeAccountConfiguration
+            <StripeComplianceStatusModal
               cancel={
-                this.props.stripeAccountStatus.action === WARN
+                stripeComplianceStatus.status === 'restricted_soon'
                   ? () => {
                       this.setState({
-                        need_configuring_stripe_account_dialog: false,
+                        need_stripe_compliance_status_dialog: false,
                       });
                     }
                   : undefined
               }
-              contactSupport={this.redirectToCompanySettings}
-              dateAccountIsBlocked={
-                this.props.stripeAccountStatus.action === BLOCK_BACKOFFICE
-                  ? undefined
-                  : this.props.stripeAccountStatus?.date_account_blocked
-              }
-              goNext={this.redirectToCompanySettings}
+              complianceStatus={stripeComplianceStatus}
+              goNext={this.handleStripeComplianceStatusCta}
             />
           </GenericResponsiveDialog>
         )}
+        {this.props.stripeAccountStatus &&
+          !this.shouldUseStripeComplianceStatusAlert() && (
+            <GenericResponsiveDialog
+              open={!!this.state.need_configuring_stripe_account_dialog}
+            >
+              <StripeAccountConfiguration
+                cancel={
+                  this.props.stripeAccountStatus.action === WARN
+                    ? () => {
+                        this.setState({
+                          need_configuring_stripe_account_dialog: false,
+                        });
+                      }
+                    : undefined
+                }
+                contactSupport={this.redirectToCompanySettings}
+                dateAccountIsBlocked={
+                  this.props.stripeAccountStatus.action === BLOCK_BACKOFFICE
+                    ? undefined
+                    : this.props.stripeAccountStatus?.date_account_blocked
+                }
+                goNext={this.redirectToCompanySettings}
+              />
+            </GenericResponsiveDialog>
+          )}
         {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
           !WidgetUtils.isWidget() && <FeatureBaseSurvey />}
       </MuiThemeProvider>
@@ -1158,6 +1281,7 @@ export default compose(
       platformCustomerEntityLoading:
         state.platformBilling.platformCustomerEntity?.loading,
       stripeAccountStatus: state.company.stripeAccountStatus.data,
+      stripeComplianceStatus: state.company.stripeComplianceStatus.data,
       establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
       hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
       isAdpModalOpen: getIsAdpModalOpen(state),
@@ -1170,6 +1294,7 @@ export default compose(
       retrievePlatformSubscriptionPaymentStatus:
         retrievePlatformSubscriptionPaymentStatusAction,
       retrieveStripeAccountStatus: retrieveStripeAccountStatusAction,
+      retrieveStripeComplianceStatus: retrieveStripeComplianceStatusAction,
       fetchCompanyTheme,
       fetchTags,
       fetchCompanyRoles,

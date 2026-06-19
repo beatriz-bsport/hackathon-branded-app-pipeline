@@ -16,6 +16,7 @@ export type FeatureFlagProps = {
   isAgentChatEnabled: boolean;
   isNewWellpassConfigurationEnabled: boolean;
   shouldSendFileNotJson: boolean;
+  isStripeComplianceStatusAlertEnabled: boolean;
 };
 
 /**
@@ -56,6 +57,9 @@ export const withFeatureFlags = <TProps extends object>(
     const shouldSendFileNotJson = useSafeFlag(
       FeatureFlags.SIGNUP_SEND_FILE_NOT_JSON,
     );
+    const isStripeComplianceStatusAlertEnabled = useSafeFlag(
+      FeatureFlags.STRIPE_COMPLIANCE_STATUS_ALERT,
+    );
 
     return (
       <WrappedComponent
@@ -70,6 +74,9 @@ export const withFeatureFlags = <TProps extends object>(
           isInvoiceSequentialNumberingEnabled
         }
         isNewWellpassConfigurationEnabled={isNewWellpassConfigurationEnabled}
+        isStripeComplianceStatusAlertEnabled={
+          isStripeComplianceStatusAlertEnabled
+        }
         paymentFlowModalEnabled={paymentFlowModalEnabled}
         shouldDisplayNewSubscriptionContracts={
           shouldDisplayNewSubscriptionContracts

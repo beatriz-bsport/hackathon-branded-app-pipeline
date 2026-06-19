@@ -31,8 +31,7 @@ import { ConsentRadioGroup } from "./consent-radio-group";
 export const MarketingNotificationFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: MarketingNotificationFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -63,7 +62,7 @@ export const MarketingNotificationFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapMarketingNotificationFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -130,7 +129,7 @@ export const MarketingNotificationFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

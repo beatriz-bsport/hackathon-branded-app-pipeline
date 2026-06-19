@@ -5,6 +5,8 @@ import type {
 
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type MemberSignUpDateFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -17,9 +19,5 @@ export type MemberSignUpDateFilterCreatePayload =
 export type MemberSignUpDateDirtyPatchPayload =
   UpdateMemberDateJoinedFilterPayload;
 
-export type MemberSignUpDateFilterCardProps = {
-  smartlistId: string;
-  filterValue: MemberSignUpDateFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type MemberSignUpDateFilterCardProps =
+  SegmentFilterCardProps<MemberSignUpDateFilterFormValue>;

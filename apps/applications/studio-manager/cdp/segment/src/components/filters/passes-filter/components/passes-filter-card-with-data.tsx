@@ -12,8 +12,7 @@ type PassesFilterCardWithDataProps = Omit<PassesFilterCardProps, "passOptions">;
 export const PassesFilterCardWithData = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PassesFilterCardWithDataProps) => {
   const { data } = usePassesQuery("");
   const passOptions = data?.results ?? [];
@@ -23,8 +22,7 @@ export const PassesFilterCardWithData = ({
       smartlistId={smartlistId}
       filterValue={filterValue}
       passOptions={passOptions}
-      onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-      onSaveSuccess={onSaveSuccess}
+      cleanDraftComponent={cleanDraftComponent}
     />
   );
 };

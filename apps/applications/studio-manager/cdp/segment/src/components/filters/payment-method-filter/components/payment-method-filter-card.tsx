@@ -24,8 +24,7 @@ import { PaymentMethodSubFiltersArea } from "./payment-method-sub-filters-area";
 export const PaymentMethodFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PaymentMethodFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -53,7 +52,7 @@ export const PaymentMethodFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPaymentMethodFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -115,7 +114,7 @@ export const PaymentMethodFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

@@ -23,8 +23,7 @@ import { LastBookingDaysField } from "./last-booking-days-field";
 export const LastBookingFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: LastBookingFilterCardProps) => {
   const baseId = useId();
   const daysFieldId = `${baseId}-last-booking-days`;
@@ -49,7 +48,7 @@ export const LastBookingFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapLastBookingFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -109,7 +108,7 @@ export const LastBookingFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

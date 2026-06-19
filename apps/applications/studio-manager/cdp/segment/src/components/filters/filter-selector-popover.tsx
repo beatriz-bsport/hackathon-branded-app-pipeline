@@ -15,6 +15,10 @@ import {
   FILTER_SELECTOR_CATEGORY_ORDER,
   type FilterSelectorCategory,
 } from "./filter-selector.constants";
+import {
+  SmartlistFiltersManagerFilterType,
+  isSmartlistFiltersManagerFilterType,
+} from "./shared/types-guards";
 
 export type FilterSelectorOption = {
   id: string;
@@ -25,7 +29,7 @@ export type FilterSelectorOption = {
 
 type FilterSelectorPopoverProps = {
   options: FilterSelectorOption[];
-  onSelectOption: (selectedOptionId: string) => void;
+  onSelectOption: (selectedOptionId: SmartlistFiltersManagerFilterType) => void;
 };
 
 /**
@@ -107,6 +111,14 @@ export const FilterSelectorPopover = ({
                           <Menu
                             items={categoryOptions}
                             onSelectOption={(selectedOptionId) => {
+                              if (
+                                !isSmartlistFiltersManagerFilterType(
+                                  selectedOptionId,
+                                )
+                              ) {
+                                return;
+                              }
+
                               onSelectOption(selectedOptionId);
                               setSearchValue("");
                               setIsPopoverOpened(false);

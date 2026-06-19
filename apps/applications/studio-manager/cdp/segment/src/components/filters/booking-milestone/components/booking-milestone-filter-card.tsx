@@ -20,8 +20,7 @@ export const BookingMilestoneFilterCard = ({
   smartlistId,
   companyId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: BookingMilestoneFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -57,7 +56,7 @@ export const BookingMilestoneFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapBookingMilestoneFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -112,7 +111,7 @@ export const BookingMilestoneFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

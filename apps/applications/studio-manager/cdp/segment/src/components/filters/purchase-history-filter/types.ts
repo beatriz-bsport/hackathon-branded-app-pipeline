@@ -7,6 +7,7 @@ import type {
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { PurchaseHistorySubFilterId } from "./sub-filters/purchase-history-sub-filter-id";
 
 export type PurchaseHistoryFilterFormValue = {
@@ -18,12 +19,8 @@ export type PurchaseHistoryFilterFormValue = {
   purchaseDate: DateFilterValue;
 };
 
-export type PurchaseHistoryFilterCardProps = {
-  smartlistId: string;
-  filterValue: PurchaseHistoryFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type PurchaseHistoryFilterCardProps =
+  SegmentFilterCardProps<PurchaseHistoryFilterFormValue>;
 
 export type PurchaseHistoryFilterCreatePayload =
   CreateExpensesCompleteFilterPayload;

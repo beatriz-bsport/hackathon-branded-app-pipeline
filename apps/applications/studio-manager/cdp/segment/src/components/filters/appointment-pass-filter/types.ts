@@ -8,6 +8,8 @@ import type {
   PassesFilterFormValue,
 } from "#src/components/filters/passes-filter/types";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 /**
  * Form value used by the appointment pass (private pass, id 25) card.
  *
@@ -24,10 +26,7 @@ export type AppointmentPassDirtyPatchPayload = Partial<
 
 export type AppointmentPassFilterCreatePayload = CreatePrivatePassFilterPayload;
 
-export type AppointmentPassFilterCardProps = {
-  smartlistId: string;
-  filterValue: AppointmentPassFilterFormValue;
-  passOptions: PassOption[];
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type AppointmentPassFilterCardProps =
+  SegmentFilterCardProps<AppointmentPassFilterFormValue> & {
+    passOptions: PassOption[];
+  };

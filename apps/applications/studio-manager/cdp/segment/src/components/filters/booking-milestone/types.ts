@@ -5,6 +5,8 @@ import type {
 
 import type { TotalBookingNumberFilterFormValue } from "#src/components/filters/total-booking/types";
 
+import type { CompanyScopedSegmentFilterCardProps } from "../segment-filters-registry/types";
+
 /**
  * Form value used by the booking milestone (id 21) card.
  *
@@ -25,13 +27,7 @@ export type BookingMilestoneDirtyPatchPayload = Partial<
 export type BookingMilestoneFilterCreatePayload =
   CreateBookingMilestoneFilterPayload;
 
-export type BookingMilestoneFilterCardProps = {
-  smartlistId: string;
-  /** Studio tenant from the smartlist shell (same pattern as total-booking filter). */
-  companyId: number;
-  filterValue: BookingMilestoneFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type BookingMilestoneFilterCardProps =
+  CompanyScopedSegmentFilterCardProps<BookingMilestoneFilterFormValue>;
 
 export type { BookingMilestoneSubFilterId } from "./sub-filters/booking-milestone-sub-filter-id";

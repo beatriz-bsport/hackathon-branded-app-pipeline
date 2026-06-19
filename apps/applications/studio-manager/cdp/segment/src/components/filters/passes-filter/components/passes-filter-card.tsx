@@ -29,8 +29,7 @@ export const PassesFilterCard = ({
   smartlistId,
   filterValue,
   passOptions,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PassesFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -62,7 +61,7 @@ export const PassesFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapApiFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -119,7 +118,7 @@ export const PassesFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

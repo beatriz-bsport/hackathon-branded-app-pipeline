@@ -81,7 +81,7 @@ import {
 } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
 
-type SmartlistFiltersQueryData = {
+export type SmartlistFiltersQueryData = {
   ageFilters: AgeFilter[];
   genderFilters: GenderFilter[];
   memberDateJoinedFilters: MemberDateJoinedFilter[];

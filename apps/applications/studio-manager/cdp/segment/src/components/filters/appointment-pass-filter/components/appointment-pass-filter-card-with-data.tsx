@@ -26,8 +26,7 @@ const mapAppointmentPassToPassOption = (
 export const AppointmentPassFilterCardWithData = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: AppointmentPassFilterCardWithDataProps) => {
   const { data } = useAppointmentPassesQuery("");
   const passOptions = (data?.results ?? []).map(mapAppointmentPassToPassOption);
@@ -37,8 +36,7 @@ export const AppointmentPassFilterCardWithData = ({
       smartlistId={smartlistId}
       filterValue={filterValue}
       passOptions={passOptions}
-      onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-      onSaveSuccess={onSaveSuccess}
+      cleanDraftComponent={cleanDraftComponent}
     />
   );
 };

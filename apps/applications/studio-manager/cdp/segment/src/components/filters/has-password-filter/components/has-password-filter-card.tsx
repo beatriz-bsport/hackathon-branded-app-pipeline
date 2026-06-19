@@ -23,8 +23,7 @@ import { HasPasswordRadioGroup } from "./has-password-radio-group";
 export const HasPasswordFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: HasPasswordFilterCardProps) => {
   const baseId = useId();
   const hasPasswordFieldId = `${baseId}-has-password-value`;
@@ -49,7 +48,7 @@ export const HasPasswordFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapHasPasswordFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -109,7 +108,7 @@ export const HasPasswordFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

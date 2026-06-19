@@ -24,8 +24,7 @@ import { TermsAndConditionsRadioGroup } from "./terms-and-conditions-radio-group
 export const TermsAndConditionsFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: TermsAndConditionsFilterCardProps) => {
   const baseId = useId();
   const acceptanceFieldId = `${baseId}-terms-and-conditions-value`;
@@ -50,7 +49,7 @@ export const TermsAndConditionsFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapTermsAndConditionsFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -110,7 +109,7 @@ export const TermsAndConditionsFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

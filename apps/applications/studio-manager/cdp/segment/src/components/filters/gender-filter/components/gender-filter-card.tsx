@@ -23,8 +23,7 @@ import { GenderField } from "./gender-field";
 export const GenderFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: GenderFilterCardProps) => {
   const baseId = useId();
   const genderFieldId = `${baseId}-gender-value`;
@@ -49,7 +48,7 @@ export const GenderFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapGenderFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -106,7 +105,7 @@ export const GenderFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 

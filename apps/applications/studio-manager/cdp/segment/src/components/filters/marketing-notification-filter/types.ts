@@ -3,6 +3,7 @@ import type {
   UpdateMarketingNotificationFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { CombineModeOption, ConsentOption } from "./constants";
 
 export type MarketingNotificationFilterFormValue = {
@@ -22,9 +23,5 @@ export type MarketingNotificationFilterCreatePayload =
 export type MarketingNotificationFilterDirtyPatchPayload =
   UpdateMarketingNotificationFilterPayload;
 
-export type MarketingNotificationFilterCardProps = {
-  smartlistId: string;
-  filterValue: MarketingNotificationFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type MarketingNotificationFilterCardProps =
+  SegmentFilterCardProps<MarketingNotificationFilterFormValue>;

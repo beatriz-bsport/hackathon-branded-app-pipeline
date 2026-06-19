@@ -76,7 +76,6 @@ const ListPage: FC = () => {
   const {
     modalState,
     openVenueCreateModal,
-    openVenueEditModal,
     openArchiveModal,
     openLocationCreateModal,
     openLocationEditModal,
@@ -179,7 +178,7 @@ const ListPage: FC = () => {
             <>
               <VenuesList
                 onCreate={openVenueCreateModal}
-                onEdit={openVenueEditModal}
+                onEdit={(venue) => navigate(ABSOLUTE_ROUTES.DETAIL(venue.id))}
                 activeFilters={activeFilters}
                 searchQuery={searchQuery}
                 onArchive={openArchiveModal}
@@ -230,10 +229,6 @@ const ListPage: FC = () => {
 
       {modalState?.type === "venue-create" && (
         <VenueFormModal onClose={closeModal} />
-      )}
-
-      {modalState?.type === "venue-edit" && (
-        <VenueFormModal venue={modalState.venue} onClose={closeModal} />
       )}
     </>
   );

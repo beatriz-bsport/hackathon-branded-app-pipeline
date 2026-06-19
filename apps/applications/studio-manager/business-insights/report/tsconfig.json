@@ -1,0 +1,11 @@
+{
+  "extends": "../../../../../tools/config/typescript/src/application/tsconfig.json",
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}

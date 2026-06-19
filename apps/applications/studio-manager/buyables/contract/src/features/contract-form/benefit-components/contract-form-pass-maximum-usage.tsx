@@ -23,14 +23,13 @@ export const ContractFormPassMaximumUsage: FC<
       | "payment_pack_details.max_bookings_per_day"
       | "payment_pack_details.max_bookings_per_week"
       | "payment_pack_details.max_bookings_per_month"
-      | "payment_pack_details.max_purchase_per_member"
     >
       formId={formId}
       hasMaximumUsageFieldName="payment_pack_details.hasMaximumUsage"
       maximumPerDayFieldName="payment_pack_details.max_bookings_per_day"
       maximumPerWeekFieldName="payment_pack_details.max_bookings_per_week"
       maximumPerMonthFieldName="payment_pack_details.max_bookings_per_month"
-      maximumPerMemberFieldName="payment_pack_details.max_purchase_per_member"
+      maximumPerMemberFieldName={null}
       disabled={readonly}
     />
   );

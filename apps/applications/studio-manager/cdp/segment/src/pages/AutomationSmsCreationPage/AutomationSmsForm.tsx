@@ -5,12 +5,7 @@ import {
   type ControlledFormProps,
   FormField,
 } from "@bsport/form";
-import {
-  Select,
-  type SelectProps,
-  TextField,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Select, type SelectProps, Title } from "@bsport/kaizen-primitive-core";
 
 import { ToggleButtonGroup } from "#src/components/ToggleButtonGroup/ToggleButtonGroup";
 import { SmsContent } from "#src/components/sms-content-generic-field/sms-content";
@@ -18,7 +13,6 @@ import { useTranslation } from "#src/utils/i18n";
 
 import {
   SMS_AUTOMATION_EVENT_VALUES,
-  SMS_AUTOMATION_MAX_NAME_LENGTH,
   SMS_AUTOMATION_TRIGGER_LIMIT_VALUES,
   type SmsAutomationEventValue,
   type SmsAutomationFormData,
@@ -41,11 +35,9 @@ export const AutomationSmsForm: React.FC<AutomationSmsFormProps> = ({
   const { setValue, watch } = methods;
   const formIdPrefix = useId();
   const watchedEventKind = watch("eventKind");
-  const watchedAutomationName = watch("automationName");
 
   const ids = {
     fields: {
-      automationName: `${formIdPrefix}-field-automation-name`,
       condition: `${formIdPrefix}-field-condition`,
       limit: `${formIdPrefix}-field-limit`,
     },
@@ -118,23 +110,6 @@ export const AutomationSmsForm: React.FC<AutomationSmsFormProps> = ({
         onSubmit={onSubmit}
         {...methods}
       >
-        <div className="flex flex-col gap-xs">
-          <FormField<
-            SmsAutomationFormData,
-            "automationName"
-          > name="automationName">
-            <TextField
-              id={ids.fields.automationName}
-              label={t("automation.sms.form.automationName.label")}
-              placeholder={t("automation.sms.form.automationName.placeholder")}
-              required
-              fullWidth
-              maxLength={SMS_AUTOMATION_MAX_NAME_LENGTH}
-              helperText={`${watchedAutomationName.length}/${SMS_AUTOMATION_MAX_NAME_LENGTH}`}
-            />
-          </FormField>
-        </div>
-
         <div className="flex flex-col gap-sm">
           <Title htmlVariant="h2" weight="strong">
             {t("automation.sms.sections.delivery")}

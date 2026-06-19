@@ -5,7 +5,6 @@ import {
   type PushAutomationTriggerLimitValue,
 } from "../AutomationPushCreationPage/types";
 
-export const SMS_AUTOMATION_MAX_NAME_LENGTH = 150;
 export const SMS_AUTOMATION_MAX_MESSAGE_LENGTH = 160;
 
 export {
@@ -19,6 +18,5 @@ export type SmsAutomationTriggerLimitValue = PushAutomationTriggerLimitValue;
 export type SmsAutomationFormData = {
   eventKind: SmsAutomationEventValue;
   triggerLimit: SmsAutomationTriggerLimitValue;
-  automationName: string;
   message: string;
 };

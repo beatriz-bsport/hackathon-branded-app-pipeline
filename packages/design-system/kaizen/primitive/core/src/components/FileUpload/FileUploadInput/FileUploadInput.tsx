@@ -2,6 +2,7 @@ import { cva } from "class-variance-authority";
 import React, { useMemo } from "react";
 
 import type { FileType, FileUploadTracker } from "../constants";
+import type { FileUploadFieldStatus } from "../file-upload-status";
 import { getFormattedExtensionForInput } from "../utils";
 import DefaultVariant from "./DefaultVariant";
 import InlineVariant from "./InlineVariant";
@@ -41,6 +42,7 @@ type FileUploadInputProps = {
     fileList: FileList | null;
     newItems: FileUploadTracker[];
   }) => void;
+  status?: FileUploadFieldStatus;
 };
 
 /**
@@ -69,6 +71,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
   multiple,
   onFileDrop,
   onInputChange,
+  status = "default",
 }) => {
   const acceptedExtensions = getFormattedExtensionForInput(fileExtensionList);
 
@@ -89,7 +92,11 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
       fileExtensionList: fileExtensionListText,
     } = customTexts;
     return inline ? (
-      <InlineVariant buttonTitle={uploadFileCTA} disabled={disabled ?? false} />
+      <InlineVariant
+        buttonTitle={uploadFileCTA}
+        disabled={disabled ?? false}
+        status={status}
+      />
     ) : (
       <DefaultVariant
         dragAndDropFileCTAText={dragAndDropFileCTA}
@@ -97,9 +104,10 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
         handleDropFiles={handleAddFilesFromDropzone}
         uploadFileCTAText={uploadFileCTA}
         disabled={disabled ?? false}
+        status={status}
       />
     );
-  }, [inline, customTexts, disabled, handleAddFiles, onFileDrop]);
+  }, [inline, customTexts, disabled, handleAddFiles, onFileDrop, status]);
 
   const { fileExtensionList: fileExtensionListText } = customTexts;
 
@@ -107,7 +115,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
     <label
       data-component="Kaizen-FileUpload-Input"
       htmlFor={inputId}
-      className={fileUploadInput({ className })}
+      className={fileUploadInput({ className, disabled: !!disabled })}
     >
       <input
         className="hidden"

@@ -47,6 +47,7 @@ const combineAutomatedCampaignAnalytics = (
       communication_kind,
       date_created,
       title,
+      text,
     }): AutomatedCampaignWithAnalytics => {
       const analytics = analyticsMap.get(id) ?? {
         total_recipients: 0,
@@ -61,6 +62,7 @@ const combineAutomatedCampaignAnalytics = (
         communication_kind,
         date_created,
         title,
+        text,
         total_recipients: analytics.total_recipients,
         total_read: analytics.total_read,
         total_click: analytics.total_click,

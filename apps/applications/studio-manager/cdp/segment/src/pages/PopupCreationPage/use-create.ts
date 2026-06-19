@@ -20,6 +20,13 @@ export const useCreate = ({
       onSuccess: (popup: Popup | null) => {
         onSuccess?.();
 
+        toast({
+          status: "positive",
+          icon: "check",
+          title: t("popup.creation.toasts.success.created"),
+          buttonIcon: "x-close",
+        });
+
         if (popup?.smartlist_id) {
           navigateToSmartlistCampaigns(popup.smartlist_id.toString());
         }

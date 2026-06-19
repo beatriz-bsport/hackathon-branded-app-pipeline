@@ -16,7 +16,7 @@ import {
 import { CAMPAIGN_NAME_MAX_LENGTH } from "./campaign-name-field";
 
 export type CampaignBaseSchemaData = {
-  campaignName: string;
+  campaignName?: string;
   deliveryMode: string;
   scheduledDate?: string;
   scheduledTime?: string;
@@ -24,6 +24,7 @@ export type CampaignBaseSchemaData = {
 
 export const getCampaignBaseObjectSchema = () =>
   z.object({
+    // Campaign name UI is hidden until backend support is released.
     campaignName: z
       .string()
       .max(CAMPAIGN_NAME_MAX_LENGTH, {
@@ -32,14 +33,7 @@ export const getCampaignBaseObjectSchema = () =>
           count: CAMPAIGN_NAME_MAX_LENGTH,
         }),
       })
-      .refine((value) => value.trim().length > 0, {
-        message: i18nInstance.t(
-          "generic.creation.form.errors.campaignNameRequired",
-          {
-            ns: "sm-smartlists_campaign",
-          },
-        ),
-      }),
+      .optional(),
     deliveryMode: z.enum(DELIVERY_MODE_VALUES),
     scheduledDate: z.string().optional(),
     scheduledTime: z.string().optional(),

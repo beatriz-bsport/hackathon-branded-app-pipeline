@@ -121,12 +121,7 @@ function AutomationEmailCreationDetail() {
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <AutomationEmailForm
-          id={formId}
-          smartlistId={smartlist.id}
-          onSubmit={handleSubmit}
-          {...methods}
-        />
+        <AutomationEmailForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
     </DetailsLayout>
   );

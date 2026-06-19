@@ -185,10 +185,11 @@ export const MessagesSection = (
               ? t("automation.messages.conditions.onJoin")
               : t("automation.messages.conditions.onLeave");
 
+            const title = row.title || row.text;
             return (
               <div className="flex flex-col gap-xs">
                 <Body size="md" className="whitespace-normal break-words">
-                  {row.title ?? ""}
+                  {title}
                 </Body>
                 <div className="flex items-center gap-xs">
                   <AutomationTriggerIcon trigger={row.event_kind} size="sm" />

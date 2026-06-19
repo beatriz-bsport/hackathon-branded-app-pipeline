@@ -5,7 +5,6 @@ import { Alert } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { CampaignDeliveryModeSelector } from "#src/components/campaign-generic-fields/campaign-delivery-mode-selector";
-import { CampaignNameField } from "#src/components/campaign-generic-fields/campaign-name-field";
 import { PushNotificationContent } from "#src/components/push-notification-generic-field/push-notification-content";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -32,7 +31,6 @@ export const PushCampaignForm: React.FC<PushCampaignFormProps> = ({
       {...methods}
     >
       <Alert status="default">{t("push.creation.alertMessage")}</Alert>
-      <CampaignNameField />
       <CampaignDeliveryModeSelector
         companyTimezone={companyTheme?.timezone_name ?? "UTC"}
         locale={i18n.language}

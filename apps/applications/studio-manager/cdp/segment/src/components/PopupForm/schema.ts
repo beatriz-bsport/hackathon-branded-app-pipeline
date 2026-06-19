@@ -54,7 +54,12 @@ export const getPopupSchema = () =>
           ns: "sm-smartlists_campaign",
         }),
       }),
-    image: z.instanceof(File),
+    image: z.custom<File>(
+      (value) => value instanceof File,
+      i18nInstance.t("popup.creation.form.image.required", {
+        ns: "sm-smartlists_campaign",
+      }),
+    ),
   }) satisfies z.ZodType<PopupFormData>;
 
 export type PopupFormSchema = z.infer<ReturnType<typeof getPopupSchema>>;

@@ -2,7 +2,9 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import type { CreateSmartlistParams } from "@bsport/store-cdp-smartlist";
 
 import { useCreateSmartlist } from "#src/api/use-create-smartlist";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_LEGACY_URLS } from "#src/urls";
+import { flags, useFlag } from "#src/utils/feature-flags";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useCreate = ({
@@ -12,20 +14,22 @@ export const useCreate = ({
   onSuccess?: () => void;
   onFailure?: () => void;
 }) => {
+  const isSmartlistEnabled = useFlag(flags.smartlist);
   const { t } = useTranslation("list");
+  const { navigateToSmartlistParameters } = useSmartlistNavigation();
 
   const { createSmartlist: createTrigger, isLoading: isCreating } =
     useCreateSmartlist({
       onSuccess: (smartlist) => {
         onSuccess?.();
 
-        /**
-         * After creating a smartlist we navigate to the legacy app
-         * to show the smartlist details
-         */
-        window.location.assign(
-          SMARTLIST_LEGACY_URLS.smartlistMember(smartlist.id),
-        );
+        if (isSmartlistEnabled) {
+          navigateToSmartlistParameters(String(smartlist.id));
+        } else {
+          window.location.assign(
+            SMARTLIST_LEGACY_URLS.smartlistMember(smartlist.id),
+          );
+        }
       },
       onFailure: () => {
         onFailure?.();

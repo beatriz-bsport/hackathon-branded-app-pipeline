@@ -5,17 +5,9 @@ import {
   type ControlledFormProps,
   FormField,
 } from "@bsport/form";
-import {
-  Card,
-  Select,
-  type SelectProps,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Select, type SelectProps, Title } from "@bsport/kaizen-primitive-core";
 
-import { EMAIL_TYPE_MARKETING } from "#src/components/EmailCampaignForm/constants";
 import { ContentSection } from "#src/components/EmailCampaignForm/content-section";
-import { EmailTypeField } from "#src/components/EmailCampaignForm/email-type-field";
-import { RecipientCountPreview } from "#src/components/EmailCampaignForm/recipient-count-preview";
 import { ToggleButtonGroup } from "#src/components/ToggleButtonGroup/ToggleButtonGroup";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -29,19 +21,15 @@ import {
 type AutomationEmailFormProps = Omit<
   ControlledFormProps<AutomationEmailFormData>,
   "children"
-> & {
-  smartlistId: number;
-};
+>;
 
 export const AutomationEmailForm: React.FC<AutomationEmailFormProps> = ({
   id,
   onSubmit,
-  smartlistId,
   ...methods
 }) => {
   const { t } = useTranslation("details");
   const formIdPrefix = useId();
-  const selectedEmailType = methods.watch("emailType");
 
   const ids = {
     fields: {
@@ -94,14 +82,6 @@ export const AutomationEmailForm: React.FC<AutomationEmailFormProps> = ({
         onSubmit={onSubmit}
         {...methods}
       >
-        <Card padding="default" elevated className="flex flex-col gap-md">
-          <EmailTypeField />
-          <RecipientCountPreview
-            smartlistId={smartlistId}
-            isMarketing={selectedEmailType === EMAIL_TYPE_MARKETING}
-          />
-        </Card>
-
         <div className="flex flex-col gap-sm">
           <Title htmlVariant="h2" weight="strong">
             {t("automation.email.sections.delivery")}

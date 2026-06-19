@@ -6,7 +6,6 @@ import { Card } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { CampaignDeliveryModeSelector } from "#src/components/campaign-generic-fields/campaign-delivery-mode-selector";
-import { CampaignNameField } from "#src/components/campaign-generic-fields/campaign-name-field";
 import { SmsContent } from "#src/components/sms-content-generic-field/sms-content";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -58,7 +57,6 @@ export const SmsCampaignForm: React.FC<SmsCampaignFormProps> = ({
           <SmsRecipientCountPreview smartlistId={smartlistId} />
         )}
       </Card>
-      <CampaignNameField />
       <CampaignDeliveryModeSelector
         companyTimezone={companyTheme?.timezone_name ?? "UTC"}
         locale={i18n.language}

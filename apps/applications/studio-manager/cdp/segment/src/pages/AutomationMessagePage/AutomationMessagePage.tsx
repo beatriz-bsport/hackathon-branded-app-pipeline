@@ -82,7 +82,7 @@ function AutomationMessageDetail() {
     </Link>,
   ];
 
-  const pageTitle = automation.title ?? "";
+  const pageTitle = automation.title || automation.text || "";
 
   const endGroupActions = [
     <Button

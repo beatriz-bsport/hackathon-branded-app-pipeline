@@ -21,7 +21,7 @@ export const smsAutomationFormDataToPayload = (
 ): SmsAutomationPayload => {
   return {
     event_kind: mapFormEventKindToApiEventKind(formData.eventKind),
-    title: formData.automationName,
+    title: "",
     text: formData.message,
     max_communications_sent_per_member:
       mapTriggerLimitToMaxCommunicationsSentPerMember(formData.triggerLimit),
@@ -36,7 +36,6 @@ export const automatedCampaignToFormData = (
     triggerLimit: mapMaxCommunicationsSentPerMemberToTriggerLimit(
       campaign.max_communications_sent_per_member,
     ),
-    automationName: campaign.title ?? "",
     message: campaign.text ?? "",
   };
 };

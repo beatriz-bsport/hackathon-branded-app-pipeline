@@ -43,6 +43,7 @@ export type AutomatedCampaignWithAnalytics = {
   communication_kind: CommunicationKind;
   date_created: string;
   title: string | null;
+  text: string | null;
   total_recipients: number;
   total_read: number;
   total_click: number;

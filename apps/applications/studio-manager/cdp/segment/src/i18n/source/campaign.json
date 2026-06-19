@@ -287,10 +287,14 @@
           "dragAndDropLabel": "or drag and drop it here",
           "fileTypes": "JPG, PNG, SVG",
           "uploadInstructions": "Recommended: 1280 x 720 pixels, file size under 2MB",
-          "previewAlt": "Pop-up image preview"
+          "previewAlt": "Pop-up image preview",
+          "required": "An image is required"
         }
       },
       "toasts": {
+        "success": {
+          "created": "Pop-up created"
+        },
         "error": {
           "createFailed": "Segment pop-up couldn't be created. Please try again."
         },
@@ -304,6 +308,9 @@
       "continueButtonLabel": "Continue",
       "alertMessage": "Only clients who have downloaded your studio app will receive this notification.",
       "toasts": {
+        "success": {
+          "saved": "Pop-up changes saved"
+        },
         "error": {
           "editFailed": "Segment pop-up changes couldn't be saved. Please try again."
         },

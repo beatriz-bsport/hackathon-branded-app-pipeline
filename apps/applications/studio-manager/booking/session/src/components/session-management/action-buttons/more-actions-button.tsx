@@ -41,6 +41,18 @@ export const MoreActionsButton: React.FC<{
       : "session.activity.allowed_actions.create",
   );
 
+  const hasAddToWaitlistPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.addToWaitlist"
+      : "reservation.activity.allowed_actions.addToWaitlist",
+  );
+
+  const hasCreateBookingPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.create"
+      : "reservation.activity.allowed_actions.create",
+  );
+
   const canSessionBeDuplicated =
     !session.group &&
     !establishment.disabled &&
@@ -51,38 +63,42 @@ export const MoreActionsButton: React.FC<{
     (
       setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>,
     ): Item[] => {
-      const mobileCtaItem: Item | null = session.available
-        ? {
-            id: "book-action",
-            label: session.full
-              ? t("bookAndOverride", {
-                  ns: "sessionManagement",
-                })
-              : t("bookButton", { ns: "sessionManagement" }),
-            iconLeft: "plus",
-            type: "button",
-            onClick: () => {
-              setIsPopoverOpened(false);
-              openModal(SessionManagementModalType.BOOK);
-            },
-          }
-        : !session.group
+      const mobileCtaItem: Item | null =
+        hasCreateBookingPermission && session.available
           ? {
-              id: "restore-action",
-              label: t("table.shortcutActions.restore", {
-                ns: "sessionManagement",
-              }),
-              iconLeft: "unarchive",
+              id: "book-action",
+              label: session.full
+                ? t("bookAndOverride", {
+                    ns: "sessionManagement",
+                  })
+                : t("bookButton", { ns: "sessionManagement" }),
+              iconLeft: "plus",
               type: "button",
               onClick: () => {
-                openModal(SessionManagementModalType.RESTORE);
                 setIsPopoverOpened(false);
+                openModal(SessionManagementModalType.BOOK);
               },
             }
-          : null;
+          : !session.available && !session.group
+            ? {
+                id: "restore-action",
+                label: t("table.shortcutActions.restore", {
+                  ns: "sessionManagement",
+                }),
+                iconLeft: "unarchive",
+                type: "button",
+                onClick: () => {
+                  openModal(SessionManagementModalType.RESTORE);
+                  setIsPopoverOpened(false);
+                },
+              }
+            : null;
 
       const mobileAddToWaitlistItem: Item | null =
-        session.available && session.full && !session.group
+        hasAddToWaitlistPermission &&
+        session.available &&
+        session.full &&
+        !session.group
           ? {
               id: "add-to-waitlist-action",
               label: t("addToWaitlist", {
@@ -204,6 +220,8 @@ export const MoreActionsButton: React.FC<{
       canSessionBeDuplicated,
       isMobile,
       queryClient,
+      hasAddToWaitlistPermission,
+      hasCreateBookingPermission,
     ],
   );
 

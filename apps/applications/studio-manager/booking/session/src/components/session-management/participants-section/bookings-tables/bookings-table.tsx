@@ -19,6 +19,8 @@ import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-lab
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import {
   type SessionManagementModalParams,
   SessionManagementModalType,
@@ -32,6 +34,7 @@ import { BookingListedInformation } from "#src/stores/session-management/types";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { ChipsCell } from "./chips-cell";
 
@@ -60,6 +63,22 @@ export const BookingsTable: FC<{
   const { mutate: setAttendance, isPending: isSettingAttendance } =
     useSetAttendance();
 
+  const { data: session } = useRetrieveSession(sessionId);
+  const { activity } = useRetrieveSessionDetails(session);
+  const isWorkshop = activity.is_workshop;
+
+  const hasAttendancePermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.attendance"
+      : "reservation.activity.allowed_actions.attendance",
+  );
+
+  const hasCreateBookingPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.create"
+      : "reservation.activity.allowed_actions.create",
+  );
+
   const {
     isLoading,
     results: refinedBookings,
@@ -83,30 +102,34 @@ export const BookingsTable: FC<{
   const isMobile = !useMatchMedia("lg");
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
-    {
-      header: t("bookingsTable.headers.present"),
-      id: BookingColumns.PRESENT,
-      type: "custom",
-      align: "start",
-      render: (row) => (
-        <Toggle
-          checked={row.attendance}
-          id={`attendance-toggle-${row.id}`}
-          label=""
-          disabled={isSettingAttendance}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          onChange={() =>
-            setAttendance({
-              bookingId: row.id,
-              attendance: !row.attendance,
-              sessionId,
-            })
-          }
-        />
-      ),
-    },
+    ...(hasAttendancePermission
+      ? [
+          {
+            header: t("bookingsTable.headers.present"),
+            id: BookingColumns.PRESENT,
+            type: "custom" as const,
+            align: "start" as const,
+            render: (row: RefinedBooking) => (
+              <Toggle
+                checked={row.attendance}
+                id={`attendance-toggle-${row.id}`}
+                label=""
+                disabled={isSettingAttendance}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onChange={() =>
+                  setAttendance({
+                    bookingId: row.id,
+                    attendance: !row.attendance,
+                    sessionId,
+                  })
+                }
+              />
+            ),
+          },
+        ]
+      : []),
     {
       header: t("bookingsTable.headers.client"),
       id: BookingColumns.CLIENT,
@@ -247,19 +270,21 @@ export const BookingsTable: FC<{
           onClick={(e) => e.stopPropagation()}
           className="flex items-center gap-sm"
         >
-          <Toggle
-            checked={booking.attendance}
-            id={`attendance-toggle-${booking.id}`}
-            label=""
-            disabled={isSettingAttendance}
-            onChange={() =>
-              setAttendance({
-                bookingId: booking.id,
-                attendance: !booking.attendance,
-                sessionId,
-              })
-            }
-          />
+          {hasAttendancePermission && (
+            <Toggle
+              checked={booking.attendance}
+              id={`attendance-toggle-${booking.id}`}
+              label=""
+              disabled={isSettingAttendance}
+              onChange={() =>
+                setAttendance({
+                  bookingId: booking.id,
+                  attendance: !booking.attendance,
+                  sessionId,
+                })
+              }
+            />
+          )}
           <ShortcutActionsButton
             sessionId={sessionId}
             bookingId={booking.id}
@@ -292,12 +317,14 @@ export const BookingsTable: FC<{
             emptyConfig: {
               title: "",
               subtitle: t("bookingsTable.emptyState.title"),
-              ctaButtonConfig: {
-                label: t("bookButton"),
-                onClick: () => {
-                  openModal(SessionManagementModalType.BOOK);
+              ...(hasCreateBookingPermission && {
+                ctaButtonConfig: {
+                  label: t("bookButton"),
+                  onClick: () => {
+                    openModal(SessionManagementModalType.BOOK);
+                  },
                 },
-              },
+              }),
             },
             isEmptySearch: hasSearchQuery && !searchedBookings.length,
             emptySearchConfig: {
@@ -349,12 +376,14 @@ export const BookingsTable: FC<{
           emptyConfig: {
             title: "",
             subtitle: t("bookingsTable.emptyState.title"),
-            ctaButtonConfig: {
-              label: t("bookButton"),
-              onClick: () => {
-                openModal(SessionManagementModalType.BOOK);
+            ...(hasCreateBookingPermission && {
+              ctaButtonConfig: {
+                label: t("bookButton"),
+                onClick: () => {
+                  openModal(SessionManagementModalType.BOOK);
+                },
               },
-            },
+            }),
           },
           isEmptySearch: hasSearchQuery && !searchedBookings.length,
           emptySearchConfig: {

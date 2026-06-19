@@ -15,6 +15,7 @@ import { resetBookingFlow, setMember } from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { MemberCard } from "./member-card";
 
@@ -37,6 +38,14 @@ export const MemberSelectionStep: FC = () => {
     memberId: selectedMemberId!,
   });
 
+  const hasAccessProfilePermission = useObjectLevelPermission(
+    "member.allowed_actions.accessProfile",
+  );
+
+  const hasReadInfoPermission = useObjectLevelPermission(
+    "member.allowed_actions.readInfo",
+  );
+
   const items = useMemo(
     (): ListItemProps[] =>
       members.map((member) => {
@@ -54,14 +63,14 @@ export const MemberSelectionStep: FC = () => {
             initials,
           },
           title: finalName,
-          description: email,
+          description: hasReadInfoPermission ? email : undefined,
           isActive: id === selectedMemberId,
           onItemClick: () => {
             if (id === selectedMemberId) return;
             resetBookingFlow();
             setMember(id);
           },
-          customNode: (
+          customNode: hasAccessProfilePermission ? (
             <Button
               kind="icon-button"
               icon="share-03"
@@ -78,10 +87,16 @@ export const MemberSelectionStep: FC = () => {
                 );
               }}
             />
-          ),
+          ) : undefined,
         };
       }),
-    [members, selectedMemberId, t],
+    [
+      members,
+      selectedMemberId,
+      t,
+      hasAccessProfilePermission,
+      hasReadInfoPermission,
+    ],
   );
 
   return (

@@ -32,6 +32,12 @@
         "broadcastDescription": "This online class is linked to an in-person one. Certain details can only be updated from the in-person class. ",
         "goToOnsiteSession": "In-person class",
         "goToOnlineSession": "Online class"
+      },
+      "seriesSessionRestrictions": {
+        "alertDescription": "Some fields are disabled because they can only be edited at the Series level.",
+        "editSeriesButton": "Edit Series",
+        "aggregatorsDescription": "Aggregators are not available for Series.",
+        "guestBookingDescription": "Booking for a guest is not available for Series."
       }
     }
   },

@@ -18,9 +18,15 @@ export type TagSelectorProps = {
   id: string;
   label: string;
   name: "whitelist_tags" | "blacklist_tags";
+  isGroupSession: boolean;
 };
 
-export const TagSelectorField: FC<TagSelectorProps> = ({ id, label, name }) => {
+export const TagSelectorField: FC<TagSelectorProps> = ({
+  id,
+  label,
+  name,
+  isGroupSession,
+}) => {
   const { t } = useTranslation("sessionCreation");
   const { watch } = useFormContext<SessionCreationFormAdvancedOptionsData>();
 
@@ -65,6 +71,7 @@ export const TagSelectorField: FC<TagSelectorProps> = ({ id, label, name }) => {
               { shouldDirty: true, shouldValidate: true },
             );
           },
+          disabled: isGroupSession,
         })}
       >
         <Autocomplete

@@ -3,11 +3,13 @@ import { FC, useCallback, useEffect, useId, useRef } from "react";
 import { SessionEditActions, SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
+  Body,
   DetailsLayout,
   Divider,
+  Icon,
+  Title,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
-import { Title } from "@bsport/kaizen-primitive-core";
 
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
 import TagSelectorForm from "#src/components/SessionForm/advanced-options/tag-selector-form";
@@ -31,6 +33,7 @@ import { RestoreSessionModal } from "../SessionList/detail-actions/restore-sessi
 import DetailsForm from "./details-form";
 import { HybridSessionAlert } from "./hybrid-session-alert";
 import { SaveSessionModal } from "./save-modal";
+import { SeriesSessionAlert } from "./series-session-alert";
 import { SettingsSection } from "./settings-section";
 import { TimeAndDateSection } from "./time-and-date-section";
 
@@ -38,6 +41,7 @@ type PropsType = { session: SessionWithActivity };
 
 const UpdateSessionForm: FC<PropsType> = ({ session }) => {
   const { t } = useTranslation("sessionEdit");
+  const isGroupSession = session.group !== null;
 
   const {
     isOpen: isCancelSessionModalOpen,
@@ -146,10 +150,12 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           />
           <DetailsLayout.Content className="max-w-none">
-            <HybridSessionAlert session={session} />
+            <SeriesSessionAlert session={session} />
+            {!isGroupSession && <HybridSessionAlert session={session} />}
             <SettingsSection
               metaActivity={session.metaActivity}
               fieldIdPrefix={formId}
+              isGroupSession={isGroupSession}
             />
             <TeacherSection fieldIdPrefix={formId} />
             <EstablishmentSection
@@ -169,13 +175,31 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
                   fieldName="manager_only"
                   title={t("editSessionForm.content.visibilitySelector.label")}
                   buttonClassName="w-full max-w-component-select"
+                  disabled={isGroupSession}
                 />
-                <BookForAGuestField fieldIdPrefix={formId} />
+                {isGroupSession ? (
+                  <div className="flex items-center gap-xs">
+                    <Icon icon="info-circle" size="sm" />
+                    <Body htmlVariant="p" size="sm" color="weak">
+                      {t(
+                        "editSessionForm.content.seriesSessionRestrictions.guestBookingDescription",
+                      )}
+                    </Body>
+                  </div>
+                ) : (
+                  <BookForAGuestField fieldIdPrefix={formId} />
+                )}
               </div>
               <Divider orientation="horizontal" weight="thin" />
-              <DetailsForm fieldIdPrefix={formId} />
+              <DetailsForm
+                fieldIdPrefix={formId}
+                isGroupSession={isGroupSession}
+              />
               <Divider orientation="horizontal" weight="thin" />
-              <TagSelectorForm fieldIdPrefix={formId} />
+              <TagSelectorForm
+                fieldIdPrefix={formId}
+                isGroupSession={isGroupSession}
+              />
             </div>
           </DetailsLayout.Panel>
           <DetailsLayout.Confirmation

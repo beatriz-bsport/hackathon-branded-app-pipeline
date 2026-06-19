@@ -70,6 +70,10 @@ export type MarketplacePassParams = {
   hidePaymentCombo?: string;
   paymentPackCategories?: number[] | null;
   privatePassCategories?: number[] | null;
+  /** Id of the buyable whose detail dialog should open by default (shareable link). */
+  selected?: string;
+  /** Buyable kind of the `selected` id, used to know which detail dialog to open. */
+  kind?: `${PassTypes}`;
 };
 
 export type MarketplacePassData = {

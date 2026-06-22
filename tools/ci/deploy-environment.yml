@@ -40,11 +40,13 @@ Deploy Production:
     ENV: "production"
 
 Deploy Backoffice Dev Local:
-  stage: deploy
-  needs:
-    - Build Artifact Dev
   extends:
-    - .ci-runner-small
+    - .deploy-frontend
+  needs:
+    - job: Release:Tag
+      artifacts: true
+    - job: Release:Build Artifact
+      artifacts: false
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -54,6 +56,6 @@ Deploy Backoffice Dev Local:
       when: "on_success"
     - if: $CI_COMMIT_BRANCH == "dev"
       when: "on_success"
-  script:
-    - echo "🔱 Deploying dev artifact on backoffice local"
-    - bash tools/scripts/deploy-dev-local.sh
+  variables:
+    ENV: "dev"
+    APPLICATION: "backoffice-local"

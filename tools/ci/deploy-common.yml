@@ -5,3 +5,43 @@
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
+
+# Job to trigger a new deployment from bsport-config
+.deploy-frontend:
+  stage: deploy-gitops
+  resource_group: deployment-ci
+  image: debian:bookworm-slim
+  retry: 1
+  extends:
+    - .ci-runner-nano
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ca-certificates curl git
+    - curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_$(dpkg --print-architecture)" -o /usr/local/bin/yq
+    - chmod +x /usr/local/bin/yq
+    - rm -rf /var/lib/apt/lists/*
+  tags:
+    - deployment
+    - cluster:bsport-tooling
+  script:
+    # - echo "FAILED" > .job_status # for ticket SRE-840
+    - '[ -z "$ENV" ] && echo "⚠️⚠️⚠️ Missing env variable ENV ⚠️⚠️⚠️" && exit 1'
+    - export VALUE_FILE_PATH=./$CLUSTER_DIRECTORY/$AWS_REGION/ipv6/$APPLICATION/$VALUE_FILE_NAME
+    - export APP_VERSION=$RELEASE_TAG
+    - |
+      if [ "${RELEASE_TAG_AVAILABLE:-false}" != "true" ] || [ -z "$APP_VERSION" ]; then
+        echo "🟡 No new release tag in this pipeline — skipping $APPLICATION GitOps deployment."
+        exit 0
+      fi
+    - bash tools/scripts/clone-bsport-config-repo.sh
+    - bash tools/scripts/commit-frontend-version.sh
+    - bash tools/scripts/push-to-bsport-config-repo.sh
+    # - echo "SUCCESS" > .job_status # for ticket SRE-840
+  # after_script:
+  # - Anything related to sentry ?
+  # - ./scripts/notify-slack.sh # for ticket SRE-840
+  variables:
+    CLUSTER_DIRECTORY: bsport-$ENV
+    AWS_REGION: eu-west-3
+    VALUE_FILE_NAME: frontend.yaml
+    YAML_PATH: .version

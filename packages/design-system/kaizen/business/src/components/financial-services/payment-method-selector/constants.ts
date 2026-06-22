@@ -25,14 +25,6 @@ export const SAVED_PAYMENT_METHOD_TYPE = {
 export type SavedPaymentMethodDiscriminator =
   (typeof SAVED_PAYMENT_METHOD_TYPE)[keyof typeof SAVED_PAYMENT_METHOD_TYPE];
 
-/** Logo asset ids used when mapping saved payment methods to `PaymentMethodLogo`. */
-export const SAVED_METHOD_LOGO_TYPE = {
-  VISA: "visa",
-  MASTERCARD: "mastercard",
-  SEPA_DEBIT: "sepa_debit",
-  BACS_DEBIT: "bacs_debit",
-} as const;
-
 type AllPaymentMethodOption = {
   id: AllPaymentMethodKey;
   labelKey:

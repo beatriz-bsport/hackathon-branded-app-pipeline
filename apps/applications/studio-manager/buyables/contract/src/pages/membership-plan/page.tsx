@@ -14,6 +14,7 @@ import { QueryBoundary } from "#src/components/query-boundary";
 import { MembershipPlanInvoiceListLoading } from "#src/features/membership-plan-invoice-list/loading";
 import { MembershipPlanInvoiceList } from "#src/features/membership-plan-invoice-list/membership-plan-invoice-list";
 import { MembershipPlanDetailsPanel } from "#src/features/membership-plan-panel/panel";
+import { MembershipPlanPaymentMethodPanel } from "#src/features/membership-plan-panel/payment-method-panel";
 import { useFetchContract } from "#src/hooks/api/use-fetch-contract";
 import { useFetchMembershipPlan } from "#src/hooks/api/use-fetch-membership-plan";
 import { useMembershipPlanHeader } from "#src/hooks/layout/use-membership-plan-header";
@@ -83,13 +84,13 @@ const MembershipPlanPageInner: FC<{
           fullWidth
           options={panelOptions}
           value={panelTab}
-          onChangeValue={(value) => setPanelTab(value as PanelTab)}
+          onChangeValue={(value: string) => setPanelTab(value as PanelTab)}
         />
 
         {panelTab === PANEL_TABS.DETAILS ? (
           <MembershipPlanDetailsPanel membershipPlan={membershipPlan} />
         ) : (
-          <Body size="md">{t("panel.paymentMethodPlaceholder")}</Body>
+          <MembershipPlanPaymentMethodPanel membershipPlan={membershipPlan} />
         )}
       </DetailsLayout.Panel>
 

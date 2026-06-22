@@ -1,25 +1,45 @@
 import { buildUrlParams } from "@bsport/store-base";
 
 import {
+  API_V0_URL_SUBSCRIPTION,
+  API_V1_URL_SUBSCRIPTION,
+  QUERY_KEY_MAIN,
+} from "#src/constants";
+import {
   createAPI,
   createMutationOptions,
   createQueryOptions,
 } from "#src/shared";
 
-import {
-  API_V0_URL_CONTRACT,
-  API_V1_URL_CONTRACT,
-  queryKeys,
-} from "./constants";
 import type { Contract, ContractWithBenefits } from "./types/models";
 import type {
   ArchiveContractParams,
   FetchContractParams,
   FetchContractsParams,
   RestoreContractParams,
+  SearchContractsParams,
   UpdateContractParams,
-  UpdateLegacyContractParams,
 } from "./types/params";
+
+// ----------------------------------------------------------------------------
+
+export const API_V0_URL_CONTRACT = `${API_V0_URL_SUBSCRIPTION}/contract`;
+export const API_V1_URL_CONTRACT = `${API_V1_URL_SUBSCRIPTION}/contract`;
+
+export const queryKeys = {
+  all: [QUERY_KEY_MAIN, "contract"] as const,
+
+  lists: () => [...queryKeys.all, "list"] as const,
+  list: (params: FetchContractsParams) =>
+    [...queryKeys.lists(), params] as const,
+
+  searches: () => [...queryKeys.lists(), "search"] as const,
+  search: (params: SearchContractsParams) =>
+    [...queryKeys.searches(), params] as const,
+
+  details: () => [...queryKeys.all, "detail"] as const,
+  detail: (id: number) => [...queryKeys.details(), id] as const,
+} as const;
 
 // ----------------------------------------------------------------------------
 
@@ -43,6 +63,16 @@ export const fetchContractQueryOptions = createQueryOptions<
 
 // ----------------------------------------------------------------------------
 
+export const searchContractsQueryOptions = createQueryOptions<
+  Contract,
+  SearchContractsParams
+>(
+  (params) => [`${API_V0_URL_CONTRACT}/search/${buildUrlParams(params)}/`],
+  (params) => queryKeys.search(params),
+);
+
+// ----------------------------------------------------------------------------
+
 export const updateContractAPI = createAPI<
   ContractWithBenefits,
   UpdateContractParams
@@ -50,19 +80,6 @@ export const updateContractAPI = createAPI<
   `${API_V1_URL_CONTRACT}/${params.id}/?with_benefits=true`,
   {
     method: "PUT",
-    body: JSON.stringify(params),
-  },
-]);
-
-// ----------------------------------------------------------------------------
-
-export const updateLegacyContractAPI = createAPI<
-  Contract,
-  UpdateLegacyContractParams
->((params) => [
-  `${API_V0_URL_CONTRACT}/${params.id}/`,
-  {
-    method: "PATCH",
     body: JSON.stringify(params),
   },
 ]);

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useOutletContext } from "react-router";
 
 import {
+  type AutomatedCampaign,
   CommunicationKind,
   EventKind,
 } from "@bsport/api-cdp/automated-campaign";
@@ -15,15 +16,10 @@ import {
   type GenericTableColumn,
   Table,
   Tooltip,
-  toast,
 } from "@bsport/kaizen-primitive-core";
 
 import type { Smartlist } from "#src/api/types";
-import {
-  type AutomatedCampaignWithAnalytics,
-  useAutomatedCampaignAnalytics,
-} from "#src/api/use-automated-campaign-analytics";
-import { useExportCampaign } from "#src/api/use-export-campaign";
+import { useAutomatedCampaignsSuspenseQuery } from "#src/api/use-automated-campaigns";
 import { AutomationTriggerIcon } from "#src/components/AutomationTriggerIcon/AutomationTriggerIcon";
 import {
   DeleteAutomationModal,
@@ -33,34 +29,27 @@ import { StopPropagationWrapper } from "#src/components/StopPropagationWrapper";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
-import { downloadFileFromUrl } from "#src/utils/utils";
 
 type AutomationPageContext = {
   smartlistId: string;
   smartlist: Smartlist | undefined;
 };
 
-type TableRow = AutomatedCampaignWithAnalytics & {
-  id: number;
+type TableRow = AutomatedCampaign & {
+  onRowClick?: () => void;
 };
 
 const COLUMN_IDS = {
   CREATED_ON: "created-on",
   CHANNEL: "channel",
   CONDITION: "condition",
-  OPEN: "open",
-  CLICKS: "clicks",
-  RECIPIENTS: "recipients",
   ACTIONS: "actions",
 };
 
 const INLINE_ACTIONS = {
-  EXPORT: "export",
   EDIT: "edit",
   DELETE: "delete",
 };
-
-const TOAST_TIMEOUT = 3000;
 
 export const MessagesSection = (
   { compact }: { compact?: boolean } = { compact: false },
@@ -77,7 +66,7 @@ export const MessagesSection = (
 
   const { t, i18n } = useTranslation("details");
 
-  const campaigns = useAutomatedCampaignAnalytics(smartlistId);
+  const { data: campaigns } = useAutomatedCampaignsSuspenseQuery(smartlistId);
 
   const {
     isOpen: isDeleteAutomationOpen,
@@ -85,37 +74,6 @@ export const MessagesSection = (
     requestDelete,
     cancelDelete,
   } = useDeleteAutomationModal();
-
-  const exportCampaign = useExportCampaign({
-    onSuccess: (cdnUrl) => {
-      downloadFileFromUrl(cdnUrl, {
-        onSuccess: () => {
-          toast({
-            status: "positive",
-            icon: "download-01",
-            description: t("automation.messages.toasts.success.exported"),
-            buttonIcon: "x-close",
-          });
-        },
-        onError: () => {
-          toast({
-            status: "critical",
-            icon: "alert-circle",
-            description: t("automation.messages.toasts.error.exportFailed"),
-            buttonIcon: "x-close",
-          });
-        },
-      });
-    },
-    onError: () => {
-      toast({
-        status: "critical",
-        icon: "alert-circle",
-        description: t("automation.messages.toasts.error.exportFailed"),
-        buttonIcon: "x-close",
-      });
-    },
-  });
 
   const columns: GenericTableColumn<TableRow>[] = useMemo(
     () => {
@@ -206,62 +164,6 @@ export const MessagesSection = (
           },
         },
         {
-          id: COLUMN_IDS.RECIPIENTS,
-          header: t("automation.messages.columns.analytics"),
-          type: "custom",
-          align: "center",
-          render: (row) => (
-            <div className="flex flex-col items-center">
-              <Body size="lg">{row.total_recipients}</Body>
-              <Body size="sm" color="weak">
-                {t("automation.messages.columns.recipients")}
-              </Body>
-            </div>
-          ),
-        },
-        {
-          id: COLUMN_IDS.OPEN,
-          header: "",
-          type: "custom",
-          align: "center",
-          render: (row) => {
-            // Only show for email campaigns
-            if (row.communication_kind !== CommunicationKind.EMAIL) {
-              return <span />;
-            }
-
-            return (
-              <div className="flex flex-col items-center">
-                <Body size="lg">{row.total_read}</Body>
-                <Body size="sm" color="weak">
-                  {t("automation.messages.columns.opens")}
-                </Body>
-              </div>
-            );
-          },
-        },
-        {
-          id: COLUMN_IDS.CLICKS,
-          header: "",
-          type: "custom",
-          align: "center",
-          render: (row) => {
-            // Only show for email campaigns
-            if (row.communication_kind !== CommunicationKind.EMAIL) {
-              return <span />;
-            }
-
-            return (
-              <div className="flex flex-col items-center">
-                <Body size="lg">{row.total_click}</Body>
-                <Body size="sm" color="weak">
-                  {t("automation.messages.columns.clicks")}
-                </Body>
-              </div>
-            );
-          },
-        },
-        {
           id: COLUMN_IDS.ACTIONS,
           type: "custom",
           align: "end",
@@ -280,17 +182,6 @@ export const MessagesSection = (
               },
             ];
 
-            if (
-              row.communication_kind === CommunicationKind.EMAIL &&
-              row.campaign_sent_uuid !== null
-            ) {
-              items.push({
-                id: INLINE_ACTIONS.EXPORT,
-                label: t("automation.messages.actions.export"),
-                iconLeft: "download-01",
-              });
-            }
-
             return (
               <StopPropagationWrapper>
                 <DropdownMenu
@@ -298,22 +189,7 @@ export const MessagesSection = (
                   onSelectOption={({ setIsPopoverOpened, id }) => {
                     setIsPopoverOpened(false);
 
-                    if (id === INLINE_ACTIONS.EXPORT) {
-                      invariant(
-                        row.campaign_sent_uuid !== null,
-                        "Export only available for rows with campaign_sent_uuid",
-                      );
-                      toast({
-                        status: "default",
-                        icon: "send-01",
-                        description: t(
-                          "automation.messages.toasts.info.exportPending",
-                        ),
-                        duration: TOAST_TIMEOUT,
-                        buttonIcon: "x-close",
-                      });
-                      exportCampaign.mutate(row.campaign_sent_uuid);
-                    } else if (id === INLINE_ACTIONS.DELETE) {
+                    if (id === INLINE_ACTIONS.DELETE) {
                       requestDelete(row.id);
                     } else if (id === INLINE_ACTIONS.EDIT) {
                       if (row.communication_kind === CommunicationKind.EMAIL) {
@@ -359,12 +235,7 @@ export const MessagesSection = (
         },
       ];
 
-      const compactHiddenColumns = [
-        COLUMN_IDS.CREATED_ON,
-        COLUMN_IDS.RECIPIENTS,
-        COLUMN_IDS.OPEN,
-        COLUMN_IDS.CLICKS,
-      ];
+      const compactHiddenColumns = [COLUMN_IDS.CREATED_ON];
 
       return compact
         ? allColumns.filter((col) => !compactHiddenColumns.includes(col.id))
@@ -376,9 +247,8 @@ export const MessagesSection = (
 
   const rows: TableRow[] = useMemo(
     () =>
-      campaigns.map((campaign: AutomatedCampaignWithAnalytics) => ({
+      campaigns.map((campaign) => ({
         ...campaign,
-        id: campaign.id,
         onRowClick:
           campaign.communication_kind === CommunicationKind.EMAIL
             ? () =>

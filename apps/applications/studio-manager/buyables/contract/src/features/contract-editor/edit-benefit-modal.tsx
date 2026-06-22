@@ -17,7 +17,8 @@ type ContractEditBenefitModalProps = {
   methods: ContractFormMethods;
   isOpen: boolean;
   onClose: () => void;
-  readonly?: boolean;
+  isFromMigration: boolean;
+  isShared: boolean;
 };
 
 /**
@@ -32,7 +33,8 @@ export const ContractEditBenefitModal: FC<ContractEditBenefitModalProps> = ({
   methods,
   isOpen,
   onClose,
-  readonly,
+  isFromMigration,
+  isShared,
 }) => {
   const { t } = useTranslation("contract-features");
 
@@ -59,7 +61,8 @@ export const ContractEditBenefitModal: FC<ContractEditBenefitModalProps> = ({
           benefitKind={benefitKind}
           formId={formId}
           methods={methods}
-          readonly={readonly}
+          isFromMigration={isFromMigration}
+          isShared={isShared}
         />
       </FormProvider>
     </Modal>

@@ -13,6 +13,7 @@ import { ContractEditNameModal } from "./edit-name-modal";
 type ContractEditorHeaderProps = {
   methods: ContractFormMethods;
   contract: Contract;
+  isShared: boolean;
 };
 
 /**
@@ -23,6 +24,7 @@ type ContractEditorHeaderProps = {
 export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
   contract,
   methods,
+  isShared,
 }) => {
   const { t } = useTranslation("contract-details");
 
@@ -34,10 +36,10 @@ export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
   } = useContractDetailsHeader({
     contract,
     isVisible: !methods.watch("manager_only"),
+    isShared,
   });
 
   // When contract is inherited from template, name is readonly and object can't be deleted
-  const readonly = contract.contract_template != null;
   const currentName = methods.watch("name");
 
   const {
@@ -49,7 +51,7 @@ export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
   const { endGroupActions, startGroupActions, isMobile } =
     DetailsLayout.useAdaptiveActions({
       startGroupActions: startGroupActionsRaw,
-      mobileOnlyActions: readonly
+      mobileOnlyActions: isShared
         ? []
         : [
             <Button
@@ -77,7 +79,7 @@ export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
    * -> it's desktop view (in mobile, the button is in the dropdown menu)
    * -> it's editable
    */
-  const onEditTitleClick = isMobile || readonly ? undefined : openEditNameModal;
+  const onEditTitleClick = isMobile || isShared ? undefined : openEditNameModal;
 
   return (
     <>

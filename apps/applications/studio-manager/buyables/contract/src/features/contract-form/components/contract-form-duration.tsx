@@ -10,7 +10,7 @@ import type { ContractFormData, ContractFormMethods } from "../types";
 
 type ContractFormDurationProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
   methods: ContractFormMethods;
 };
 

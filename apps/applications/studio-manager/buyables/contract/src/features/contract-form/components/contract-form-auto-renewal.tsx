@@ -10,13 +10,15 @@ import type { ContractFormData, ContractFormMethods } from "../types";
 type ContractFormAutoRenewalProps = {
   formId: string;
   methods: ContractFormMethods;
-  readonly?: boolean;
+  isFromMigration: boolean;
+  isShared: boolean;
 };
 
 export const ContractFormAutoRenewal: FC<ContractFormAutoRenewalProps> = ({
   formId,
   methods,
-  readonly,
+  isFromMigration,
+  isShared,
 }) => {
   const { t } = useTranslation("contract-details");
 
@@ -28,7 +30,7 @@ export const ContractFormAutoRenewal: FC<ContractFormAutoRenewalProps> = ({
         fieldName="auto_renewal"
         id={`${formId}-auto-renewal`}
         label={t("formFields.autoRenewal.label")}
-        disabled={readonly}
+        disabled={isFromMigration || isShared}
       />
 
       {hasAutoRenewal && (
@@ -39,7 +41,7 @@ export const ContractFormAutoRenewal: FC<ContractFormAutoRenewalProps> = ({
           helperText={t("formFields.autoRenewal.helperText")}
           label={t("formFields.autoRenewal.sublabel")}
           maxDigits={0}
-          disabled={readonly}
+          disabled={isFromMigration}
           containerProps={{
             className: "ml-[40px]",
           }}

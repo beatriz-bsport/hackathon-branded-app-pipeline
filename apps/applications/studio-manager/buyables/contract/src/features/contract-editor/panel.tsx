@@ -9,12 +9,12 @@ import { useTranslation } from "#src/utils/i18n";
 
 type ContractEditorPanelProps = {
   formId: string;
-  readonly?: boolean;
+  isShared: boolean;
 };
 
 export const ContractEditorPanel: FC<ContractEditorPanelProps> = ({
   formId,
-  readonly,
+  isShared,
 }) => {
   const { t } = useTranslation("contract-details");
   return (
@@ -23,11 +23,11 @@ export const ContractEditorPanel: FC<ContractEditorPanelProps> = ({
         <Title htmlVariant="h4" weight="strong">
           {t("formSections.visibility")}
         </Title>
-        <ContractFormVisibilitySelector readonly={readonly} />
-        <ContractFormVisibilityRules formId={formId} readonly={readonly} />
+        <ContractFormVisibilitySelector readonly={isShared} />
+        <ContractFormVisibilityRules formId={formId} />
       </section>
 
-      <ContractFormTagsOnFirstBilling formId={formId} />
+      <ContractFormTagsOnFirstBilling formId={formId} readonly={false} />
     </DetailsLayout.Panel>
   );
 };

@@ -23,9 +23,10 @@ stages:
   - build
   - deploy-ephemeral-environment
   - release-tag
-  - deploy
-  - post-deploy
+  - deploy # will be removed in the future
   - release-artifact
+  - deploy-gitops
+  - post-deploy
   - release-tracking
   - maintenance
 

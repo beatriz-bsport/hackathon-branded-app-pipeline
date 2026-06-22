@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeletePrivatePassFilterMutation } from "#src/api/use-delete-private-pass-filter-mutation";
 import { useUpsertPrivatePassFilterMutation } from "#src/api/use-upsert-private-pass-filter-mutation";
 import { PassesFilterSubFiltersArea } from "#src/components/filters/passes-filter/components/passes-filter-sub-filters-area";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,8 +26,7 @@ export const AppointmentPassFilterCard = ({
   smartlistId,
   filterValue,
   passOptions,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: AppointmentPassFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -46,6 +46,7 @@ export const AppointmentPassFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertPrivatePassFilterMutate, isLoading: isSaving } =
     useUpsertPrivatePassFilterMutation(smartlistId, {
@@ -57,7 +58,7 @@ export const AppointmentPassFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPrivatePassFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -119,7 +120,7 @@ export const AppointmentPassFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -179,17 +180,13 @@ export const AppointmentPassFilterCard = ({
           selectedPassesInvalid={selectedPassesInvalid}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.25.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

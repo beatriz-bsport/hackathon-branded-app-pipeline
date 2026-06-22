@@ -13,6 +13,16 @@
       "import": "./build/inbox/mocks.js",
       "default": "./build/inbox/mocks.js"
     },
+    "./member/mocks": {
+      "types": "./build/member/mocks/index.d.ts",
+      "import": "./build/member/mocks.js",
+      "default": "./build/member/mocks.js"
+    },
+    "./tags/mocks": {
+      "types": "./build/tags/mocks/index.d.ts",
+      "import": "./build/tags/mocks.js",
+      "default": "./build/tags/mocks.js"
+    },
     "./*": {
       "types": "./build/*/index.d.ts",
       "import": "./build/*.js",

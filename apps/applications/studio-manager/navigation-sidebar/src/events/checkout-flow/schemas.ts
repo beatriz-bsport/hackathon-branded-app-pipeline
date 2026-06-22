@@ -81,11 +81,11 @@ export const checkoutFlowMemberSearchMemberInformationButtonClickedEventSchema =
       "When the user clicks the member information button in the member search modal",
     );
 
-export const checkoutFlowMemberSearchEscapeKeyButtonClickedEventSchema = z
+export const checkoutFlowMemberSearchEscapeKeyPressedEventSchema = z
   .object({
     eventType: z
       .string()
-      .default("checkout_flow_member_search_escape_key_button_clicked"),
+      .default("checkout_flow_member_search_escape_key_pressed"),
     ...memberSearchBase,
   })
   .describe("When the user closes the member search modal with Escape");
@@ -335,11 +335,9 @@ export const checkoutFlowFootnoteCrossButtonClickedEventSchema = z
   })
   .describe("When the user closes the footnote modal with the cross button");
 
-export const checkoutFlowFootnoteEscapeKeyButtonClickedEventSchema = z
+export const checkoutFlowFootnoteEscapeKeyPressedEventSchema = z
   .object({
-    eventType: z
-      .string()
-      .default("checkout_flow_footnote_escape_key_button_clicked"),
+    eventType: z.string().default("checkout_flow_footnote_escape_key_pressed"),
     ...footnoteBase,
   })
   .describe("When the user closes the footnote modal with Escape");
@@ -424,9 +422,9 @@ const cancelPayloadFields = {
     .describe("Sum of all item quantities in the basket"),
 } as const;
 
-export const checkoutFlowEscapeKeyButtonClickedEventSchema = z
+export const checkoutFlowEscapeKeyPressedEventSchema = z
   .object({
-    eventType: z.string().default("checkout_flow_escape_key_button_clicked"),
+    eventType: z.string().default("checkout_flow_escape_key_pressed"),
     ...cancelPayloadFields,
   })
   .describe("When the user closes the checkout flow with Escape");

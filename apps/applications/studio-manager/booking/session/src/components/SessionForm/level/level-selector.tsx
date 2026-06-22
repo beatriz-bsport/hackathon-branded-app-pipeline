@@ -14,6 +14,7 @@ import { LevelItemRightSlot } from "./level-item-right-slot";
 
 export type LevelSelectorProps = {
   fieldIdPrefix: string;
+  disabled?: boolean;
   onLevelSelect?: (levelId: number) => void;
   openCreateLevelModal: () => void;
   openEditLevelModal: (levelId: number) => void;
@@ -29,6 +30,7 @@ const ColorIndicator: FC<{ color: string }> = ({ color }) => (
 
 export const LevelSelector: FC<LevelSelectorProps> = ({
   fieldIdPrefix,
+  disabled = false,
   onLevelSelect,
   openCreateLevelModal,
   openEditLevelModal,
@@ -123,6 +125,7 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
               iconRight="chevron-down"
               onClick={() => setIsPopoverOpened(true)}
               className="max-w-component-select justify-between"
+              disabled={disabled}
             />
           </div>
         )}

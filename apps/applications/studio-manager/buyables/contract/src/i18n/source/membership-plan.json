@@ -1,6 +1,10 @@
 {
   "header": {
     "loading": "Loading memberships...",
+    "actions": {
+      "pauseMembershipPlan": "Pause membership plan",
+      "cancelSubscription": "Cancel"
+    },
     "breadcrumbs": {
       "subscription": "Subscription"
     }
@@ -17,9 +21,37 @@
     "billingPlaceholder": "Billing details will appear here.",
     "historyPlaceholder": "Membership billing history will appear here"
   },
+  "cancelModal": {
+    "title": "Cancel subscription?",
+    "requiredField": "This field is required",
+    "reasonField": {
+      "label": "Reason",
+      "errorMaxLength": "Reason length must be under {{ maxLength }} characters."
+    },
+    "invoicesField": {
+      "label": "Choose upcoming invoices to cancel",
+      "toggle": "Choose upcoming invoices to cancel",
+      "loading": "Loading upcoming invoices...",
+      "noInvoice": "No invoice (cancel at end of current period)",
+      "empty": "No upcoming invoices. The subscription will be canceled at the end of the current period.",
+      "statusTooltip": {
+        "pending": "Pending",
+        "canceled": "Canceled"
+      }
+    },
+    "actions": {
+      "close": "Close",
+      "save": "Save"
+    },
+    "toasts": {
+      "success": "Subscription canceled",
+      "error": "Failed to cancel subscription"
+    }
+  },
   "invoiceList": {
     "actions": {
       "editBillingDate": "Edit billing date",
+      "editPrice": "Edit price",
       "openActions": "Open invoice actions"
     },
     "editBillingDateModal": {
@@ -31,6 +63,22 @@
       "error": "Could not save billing date. Please try again.",
       "helpText": "This change applies to this invoice only",
       "title": "Edit billing date"
+    },
+    "editPriceModal": {
+      "buttons": {
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      },
+      "currentPriceLabel": "Current price",
+      "error": "Could not save price. Please try again.",
+      "firstInvoiceWarning": "This invoice includes a one-time join fee that won't appear on future invoices.",
+      "joinFeeHelpText": "Join fee will also be added to the first invoice",
+      "newPriceLabel": "New price",
+      "title": "Edit price",
+      "toggles": {
+        "afterRenewal": "Apply to all future payments after the auto-renewal",
+        "beforeRenewal": "Apply to all invoices before the auto-renewal"
+      }
     },
     "headers": {
       "billingDate": "Billing date",
@@ -76,5 +124,30 @@
       "remainingUntil": "Until {{date}}"
     },
     "paymentMethodPlaceholder": "Payment method details will appear here."
+  },
+  "pauseModal": {
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "title": {
+      "create": "Pause subscription?",
+      "edit": "Change pause date"
+    },
+    "toasts": {
+      "cancelSuccess": "Pause deactivated",
+      "createSuccess": "Membership plan paused",
+      "error": "Something went wrong. Please try again.",
+      "updateSuccess": "Pause date changed"
+    },
+    "overlapError": "This invoice is already paused during this period. Select another time frame to pause the subscription."
+  },
+  "deactivatePauseModal": {
+    "title": "Deactivate pause",
+    "body": "Are you sure you want to deactivate the pause from {{fromDate}} to {{untilDate}} ({{name}})?",
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }

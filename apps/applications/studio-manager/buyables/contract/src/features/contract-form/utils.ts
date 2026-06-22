@@ -65,7 +65,6 @@ function toPassFormDetails(pass: Pass): PassFormDetails {
     // Frontend-only helpers
     hasUnlimitedCredits: unlimited,
     hasMaximumUsage:
-      pass.max_purchase_per_member != null ||
       pass.max_bookings_per_day != null ||
       pass.max_bookings_per_week != null ||
       pass.max_bookings_per_month != null,

@@ -4,7 +4,7 @@ import { Navigate, useParams } from "react-router";
 
 import { flatUserRolesQueryOptions } from "@bsport/api-staff-management/role";
 
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 

@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeletePurchaseHistoryFilterMutation } from "#src/api/use-delete-purchase-history-filter-mutation";
 import { useUpsertPurchaseHistoryFilterMutation } from "#src/api/use-upsert-purchase-history-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
@@ -24,8 +25,7 @@ import { SpentOnField } from "./spent-on-field";
 export const PurchaseHistoryFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PurchaseHistoryFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -54,7 +54,7 @@ export const PurchaseHistoryFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPurchaseHistoryFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -111,7 +111,7 @@ export const PurchaseHistoryFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -184,18 +184,13 @@ export const PurchaseHistoryFilterCard = ({
           setValue={methods.setValue}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.24.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

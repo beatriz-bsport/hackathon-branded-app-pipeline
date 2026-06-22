@@ -3,6 +3,8 @@ import type {
   UpdateLastBookingFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type LastBookingFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -14,9 +16,5 @@ export type LastBookingFilterCreatePayload = CreateLastBookingFilterPayload;
 
 export type LastBookingFilterDirtyPatchPayload = UpdateLastBookingFilterPayload;
 
-export type LastBookingFilterCardProps = {
-  smartlistId: string;
-  filterValue: LastBookingFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type LastBookingFilterCardProps =
+  SegmentFilterCardProps<LastBookingFilterFormValue>;

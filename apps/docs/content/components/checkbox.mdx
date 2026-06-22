@@ -52,23 +52,6 @@ with a form — not when a setting should flip instantly (use
 
 ## Guidelines
 
-- **Deferred commit** — use Checkbox when the value is saved on submit; use
-  [Toggle](/components/toggle) when the UI updates immediately.
-- **Sensible default** — default to `checked` or `unchecked` based on what most
-  users need; avoid forcing a flip on every visit.
-- **Independent options** — each checkbox stands alone; for exactly-one choice
-  use [Radio](/components/radio).
-- **Controlled state** — parent owns `value` and `onChange`; the component does
-  not store selection internally.
-- **Indeterminate for parents** — set `value=\"indeterminate\"` on a "select
-  all" row when child rows are mixed.
-- **Group long lists** — stack options vertically; use `CheckboxGroup` when you
-  need shared group label, helper, or selection state.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Phrase labels as positive, direct statements — 'Send booking reminders' — so checked means enabled." />
   <Do caption="Use indeterminate on a parent checkbox when a nested list is only partly selected." />
@@ -76,9 +59,15 @@ with a form — not when a setting should flip instantly (use
   <Dont caption="Single on/off settings that save immediately belong on Toggle, not Checkbox." />
   <Dont caption="Negative labels like 'Do not send emails' confuse intent — phrase positively with unchecked as the safe default." />
   <Dont caption="A lone checkbox still needs a visible label — hiding it leaves the control without context." />
+  <Do caption="Deferred commit — use Checkbox when the value is saved on submit; use `Toggle` when the UI updates immediately." />
+  <Do caption="Sensible default — default to `checked` or `unchecked` based on what most users need; avoid forcing a flip on every visit." />
+  <Do caption="Independent options — each checkbox stands alone; for exactly-one choice use `Radio`." />
+  <Do caption="Controlled state — parent owns `value` and `onChange`; the component does not store selection internally." />
+  <Do caption='Indeterminate for parents — set `value="indeterminate"` on a "select all" row when child rows are mixed.' />
+  <Do caption="Group long lists — stack options vertically; use `CheckboxGroup` when you need shared group label, helper, or selection state." />
 </DoDont>
 
-#### indeterminate value
+### indeterminate value
 
 <DoDont>
   <Do caption="Set indeterminate on 'Select all' when some child rows are checked and others are not." />

@@ -4,61 +4,8 @@ description: How the sidebar and top bar divide global wayfinding from feature-i
 category: patterns
 sections:
   - "Overview"
-  - "Guidelines"
 ---
 
 ## Overview
 
-The left sidebar owns global wayfinding; the top bar owns feature-internal navigation.
-
-<StorybookEmbed
-  id="primitive-components-navigationmenu--default"
-  mode="playground"
-  height={700}
-  stories={[
-    {
-      id: "primitive-components-navigationmenu--default",
-      label: "Navigation menu",
-    },
-    {
-      id: "primitive-components-navigationmenu--with-active-sub-item",
-      label: "With active sub-item",
-    },
-  ]}
-/>
-
-The _left sidebar owns global wayfinding_ across the entire Back Office, while the _top bar owns feature-internal wayfinding_ that adapts to whichever module is currently active. This creates a clear spatial contract so users always know which layer of the system they are interacting with.
-
-This is the persistent backbone of the application. It answers the question _"Where can I go in the entire Back Office?"_ and should remain visible (or easily collapsible) across all screens.
-
-### What belongs here
-
-- _Feature Modules_: High-level product areas such as _Scheduling_, _Profiles_, _Payments_, _Marketing_, or _Analytics_
-- _Cross-Cutting tools_: Utilities that span all features, such as _Global Search_, _Notifications…_
-- _Quick Actions / Shortcuts_: Frequently used creation entry points like Sales, _Create Booking(idea)_ or _Add Member_
-- _System & Utility Items_: _Settings_, _Help Center_, _Account/Profile_, and _Logout_ — visually de-emphasized and grouped at the bottom of the sidebar
-
-### Why this works
-
-Side navigation scales comfortably to 10–20+ items and supports logical grouping without forcing hierarchy into cramped dropdowns. Eye-tracking research also shows that left navigation reduces cursor movement and selection errors compared to top navigation alone.
-
-### Top Bar: Feature-internal navigation
-
-This bar is scoped to the current feature and answers the question _"What can I do inside this feature?"_ It should update dynamically based on which sidebar item is active.
-
-### What belongs here
-
-- _Sub-Feature Tabs_: Sections within the active module. For example, inside _Members_ you might find _Related passes_, Object overview, _Import/Export, etc_
-- _Contextual Actions_: Primary and secondary actions tied to the current view, such as _Add Member_, _Export CSV_, or _Apply Filters_
-- _Breadcrumbs_: Hierarchical wayfinding when a feature has nested pages, helping users orient themselves without overloading the sidebar
-- _Page Title & Status Badges_: The current page name plus optional indicators like _Listed_
-
-## Guidelines
-
-### `CONSIDERING: Double top-navigation`
-
-### Anti-Patterns to Avoid
-
-- _Duplicating hierarchy_: If _Clients_ is a top-level sidebar item, its sub-sections (_Profiles, Tags_) should live only in the top bar, not repeat in both locations
-- _Deep nesting in the sidebar_: Avoid multi-level flyouts in the left bar; diagonal cursor movement makes them error-prone and they clutter the global view
-- _Global actions in the top bar_: Actions like switching organizations or account settings belong in the sidebar; placing them in the top bar falsely implies they are scoped to the current feature
+This pattern is documented on the **[App navigation](/components/app-navigation)** component page, which covers the two-layer shell model, Sidebar, NavigationMenu, and feature header composition in one place.

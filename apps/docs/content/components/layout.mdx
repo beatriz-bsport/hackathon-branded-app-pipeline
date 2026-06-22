@@ -46,16 +46,6 @@ and [Header layout](/components/header-layout) for title and action bars.
 
 ## Guidelines
 
-- **Pick shell by job** — list vs detail vs settings, not one generic wrapper.
-- **Header actions consistent** — primary action top-right per Header layout spec.
-- **Panel optional** — Details layout panel toggles for secondary context.
-- **Respect federation bridge** — local dev injects navigation sidebar via `dev:watch`.
-- **Do not nest shells** — one layout component per route root.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use ListLayout when the primary task is browsing a collection." />
   <Do caption="Use DetailsLayout when users edit one record with related side context." />
@@ -63,6 +53,11 @@ and [Header layout](/components/header-layout) for title and action bars.
   <Dont caption="Custom page padding that fights layout gutters — use layout slots." />
   <Dont caption="Multiple competing headers from layout and ad-hoc Title stacks." />
   <Dont caption="Details panel for primary form fields — main content owns the form." />
+  <Do caption="Pick shell by job — list vs detail vs settings, not one generic wrapper." />
+  <Do caption="Header actions consistent — primary action top-right per Header layout spec." />
+  <Do caption="Panel optional — Details layout panel toggles for secondary context." />
+  <Do caption="Respect federation bridge — local dev injects navigation sidebar via `dev:watch`." />
+  <Dont caption="Do not nest shells — one layout component per route root." />
 </DoDont>
 
 ### Content rules

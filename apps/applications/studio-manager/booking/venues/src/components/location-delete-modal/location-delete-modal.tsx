@@ -99,34 +99,28 @@ const getWarningMessages = (
   return messages;
 };
 
-type InfoListProps = { t: NamespacedTFunction<"venues-list"> };
+type InfoParagraphsProps = { t: NamespacedTFunction<"venues-list"> };
 
-const InfoList: FC<InfoListProps> = ({ t }) => (
-  <ul className="flex flex-col gap-xs list-disc pl-md">
-    <li>
-      <Body htmlVariant="span" color="default">
-        {t("locations.deleteModal.info.reportsDefault")}
-      </Body>
-    </li>
-    <li>
-      <Body htmlVariant="span" color="default">
-        {t("locations.deleteModal.info.widgetsDefault")}
-      </Body>
-    </li>
-  </ul>
+const InfoParagraphs: FC<InfoParagraphsProps> = ({ t }) => (
+  <div className="flex flex-col gap-xs">
+    <Body htmlVariant="p" color="default">
+      {t("locations.deleteModal.info.reportsDefault")}
+    </Body>
+    <Body htmlVariant="p" color="default">
+      {t("locations.deleteModal.info.widgetsDefault")}
+    </Body>
+  </div>
 );
 
-type MessageListProps = { messages: ModalMessage[] };
-const MessageList: FC<MessageListProps> = ({ messages }) => (
-  <ul className="flex flex-col gap-xs list-disc pl-md">
+type MessageParagraphsProps = { messages: ModalMessage[] };
+const MessageParagraphs: FC<MessageParagraphsProps> = ({ messages }) => (
+  <div className="flex flex-col gap-xs">
     {messages.map(({ key, label }) => (
-      <li key={key}>
-        <Body htmlVariant="span" color="default">
-          {label}
-        </Body>
-      </li>
+      <Body key={key} htmlVariant="p" color="default">
+        {label}
+      </Body>
     ))}
-  </ul>
+  </div>
 );
 
 type LocationDeleteModalProps = {
@@ -218,7 +212,7 @@ export const LocationDeleteModal: FC<LocationDeleteModalProps> = ({
             type="weak"
             title={t("locations.deleteModal.alert.blocking")}
           />
-          <MessageList messages={errorMessages} />
+          <MessageParagraphs messages={errorMessages} />
         </div>
       ) : (
         <>
@@ -229,10 +223,10 @@ export const LocationDeleteModal: FC<LocationDeleteModalProps> = ({
                 type="weak"
                 title={t("locations.deleteModal.alert.warning")}
               />
-              <MessageList messages={warningMessages} />
+              <MessageParagraphs messages={warningMessages} />
             </div>
           )}
-          <InfoList t={t} />
+          <InfoParagraphs t={t} />
         </>
       )}
     </Modal>

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { ChipProps, IconName } from "@bsport/kaizen-primitive-core";
+import { FillRateChip } from "@bsport/kaizen-business-components/booking/fill-rate-chip";
 import { Chip, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -26,21 +26,6 @@ export const UpcomingActivityFillRate: FC<UpcomingActivityFillRateProps> = ({
 
   const hasPeopleInWaitingList = hasWaitingList && waitingListCount > 0;
 
-  // Determine occupancy chip color and icon
-  let rateColor: ChipProps["color"];
-  let rateIcon: IconName;
-  if (fillRate < 50) {
-    rateColor = "critical";
-    rateIcon = "alert-circle";
-  } else if (fillRate < 70) {
-    rateColor = "warning";
-    rateIcon = "contrast-02";
-  } else {
-    rateColor = "positive";
-    rateIcon = "check-circle";
-  }
-
-  // Occupancy tooltip
   const occupancyTooltip: string =
     fillRate >= RATE_FULL
       ? t("upcomingClassesPanel.rates.tooltip.classIsFull")
@@ -51,15 +36,11 @@ export const UpcomingActivityFillRate: FC<UpcomingActivityFillRateProps> = ({
   return (
     <div className="flex flex-col sm:flex-row items-center gap-2xs ">
       <div className="h-6 flex items-center">
-        <Tooltip placement={tooltipPlacement} label={occupancyTooltip}>
-          <Chip
-            type="weak"
-            size="lg"
-            color={rateColor}
-            iconLeft={rateIcon}
-            label={`${fillRate}%`}
-          />
-        </Tooltip>
+        <FillRateChip
+          fillRate={fillRate}
+          tooltipLabel={occupancyTooltip}
+          tooltipPlacement={tooltipPlacement}
+        />
       </div>
       {hasPeopleInWaitingList && (
         <div className="h-6 flex items-center">

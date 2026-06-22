@@ -42,7 +42,6 @@ type Props = {
   isNoShow?: boolean;
   isCancellable?: boolean;
   isBookableForAGuest?: boolean;
-  menuId?: string;
   className?: string;
   isSelected?: boolean;
   displayWaitingListPosition?: boolean;
@@ -79,7 +78,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isNoShow,
   isCancellable,
   isBookableForAGuest,
-  menuId,
   isSelected,
   displayWaitingListPosition,
   waitingListPosition,
@@ -134,7 +132,6 @@ const ConsumerBookingCard: React.FC<Props> = ({
             isJoinableOnline={isJoinableOnline}
             isJoinableOnlineDisabled={isJoinableOnlineDisabled}
             isMobile={isMobile}
-            menuId={menuId}
             onBookClick={onBookClick}
             onBookingCancelClick={onBookingCancelClick}
             onBookingForAGuestClick={onBookingForAGuestClick}

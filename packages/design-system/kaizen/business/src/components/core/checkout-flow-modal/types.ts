@@ -224,46 +224,6 @@ export type CheckoutFlowStartContext = {
   origin_url?: string;
 };
 
-export type CheckoutFlowEventName =
-  | "checkout_flow_start"
-  | "checkout_flow_navbar_button_clicked"
-  | "checkout_flow_bill_member_profile_button_clicked"
-  | "checkout_flow_bill_offer_button_clicked"
-  | "checkout_flow_member_search_select_member_button_clicked"
-  | "checkout_flow_member_search_member_selected"
-  | "checkout_flow_member_search_member_information_button_clicked"
-  | "checkout_flow_member_search_escape_key_button_clicked"
-  | "checkout_flow_member_search_cross_button_clicked"
-  | "checkout_flow_member_search_click_outside"
-  | "checkout_flow_member_search_cancel_button_clicked"
-  | "checkout_flow_member_edit_button_clicked"
-  | "checkout_flow_billing_group_list_clicked"
-  | "checkout_flow_billing_group_selected"
-  | "checkout_flow_item_type_section_selected"
-  | "checkout_flow_item_selected"
-  | "checkout_flow_item_clear_button_clicked"
-  | "checkout_flow_item_add_item_button_clicked"
-  | "checkout_flow_item_delete_button_clicked"
-  | "checkout_flow_item_unselected_cross_button_clicked"
-  | "checkout_flow_item_information_button_clicked"
-  | "checkout_flow_add_promo_code_button_clicked"
-  | "checkout_flow_apply_promo_code_button_clicked"
-  | "checkout_flow_delete_promo_code_button_clicked"
-  | "checkout_flow_add_footnote_button_clicked"
-  | "checkout_flow_footnote_edit_button_clicked"
-  | "checkout_flow_footnote_save_button_clicked"
-  | "checkout_flow_footnote_delete_button_clicked"
-  | "checkout_flow_footnote_cancel_button_clicked"
-  | "checkout_flow_footnote_cross_button_clicked"
-  | "checkout_flow_footnote_escape_key_button_clicked"
-  | "checkout_flow_subscription_button_clicked"
-  | "checkout_flow_completion"
-  | "checkout_flow_escape_key_button_clicked"
-  | "checkout_flow_cross_button_clicked"
-  | "checkout_flow_cancel_button_clicked"
-  | "checkout_flow_click_outside"
-  | "checkout_flow_pay_cancel";
-
 type StartPayload = {
   basket_session_id?: string;
   basket_start_trigger?: CheckoutFlowStartContext["basket_start_trigger"];
@@ -363,7 +323,7 @@ export type CheckoutFlowEventPayloadMap = {
   checkout_flow_member_search_select_member_button_clicked: MemberSearchPayload;
   checkout_flow_member_search_member_selected: MemberSearchPayload;
   checkout_flow_member_search_member_information_button_clicked: MemberSearchPayload;
-  checkout_flow_member_search_escape_key_button_clicked: MemberSearchPayload;
+  checkout_flow_member_search_escape_key_pressed: MemberSearchPayload;
   checkout_flow_member_search_cross_button_clicked: MemberSearchPayload;
   checkout_flow_member_search_click_outside: MemberSearchPayload;
   checkout_flow_member_search_cancel_button_clicked: MemberSearchPayload;
@@ -395,10 +355,10 @@ export type CheckoutFlowEventPayloadMap = {
   checkout_flow_footnote_delete_button_clicked: FootnotePayload;
   checkout_flow_footnote_cancel_button_clicked: FootnotePayload;
   checkout_flow_footnote_cross_button_clicked: FootnotePayload;
-  checkout_flow_footnote_escape_key_button_clicked: FootnotePayload;
+  checkout_flow_footnote_escape_key_pressed: FootnotePayload;
   checkout_flow_subscription_button_clicked: MemberSearchPayload;
   checkout_flow_completion: CompletionPayload;
-  checkout_flow_escape_key_button_clicked: CancelPayload;
+  checkout_flow_escape_key_pressed: CancelPayload;
   checkout_flow_cross_button_clicked: CancelPayload;
   checkout_flow_cancel_button_clicked: CancelPayload;
   checkout_flow_click_outside: CancelPayload;
@@ -410,6 +370,8 @@ export type CheckoutFlowEventPayloadMap = {
       | "backdrop_click";
   };
 };
+
+export type CheckoutFlowEventName = keyof CheckoutFlowEventPayloadMap;
 
 /**
  * Tracking function signature: the host provides this callback to receive
@@ -423,22 +385,6 @@ export type CheckoutFlowTrackFn = <
   eventName: E,
   properties: CheckoutFlowEventPayloadMap[E],
 ) => void;
-
-/**
- * Props for CheckoutFlowModal component
- */
-export type CheckoutFlowModalProps = {
-  companyId: number;
-  fetch: Fetch;
-  isOpen: boolean;
-  memberId?: number;
-  onClose?: () => void;
-  onError?: (error: Error) => void;
-  onSubmit?: (data: CheckoutFlowFormData, invoiceUuid: string) => void;
-  onTrack: CheckoutFlowTrackFn;
-  startContext?: CheckoutFlowStartContext;
-  basketSessionId?: string;
-};
 
 /**
  * Props for CheckoutFlowStep (checkout phase content without modal chrome).
@@ -460,7 +406,7 @@ export type CheckoutFlowStepProps = {
   ) => void;
   onTrack: CheckoutFlowTrackFn;
   startContext?: CheckoutFlowStartContext;
-  basketSessionId?: string;
+  trackingSessionId: string;
 };
 
 /** Delivery format for giftcard (PDF or email). */

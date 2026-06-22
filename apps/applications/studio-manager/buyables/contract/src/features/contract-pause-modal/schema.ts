@@ -3,9 +3,8 @@ import { z } from "zod";
 import type { DateTime } from "@bsport/datetime-manipulation";
 import { UseFormControllerOutput } from "@bsport/form";
 
+import { useToday } from "#src/utils/date";
 import { useTranslation } from "#src/utils/i18n";
-
-import { useToday } from "./utils";
 
 export const FIELD_CONSTRAINTS = {
   NAME_MIN_LENGTH: 1,

@@ -1,0 +1,18 @@
+{
+  "accountDetails": "Account details",
+  "birthday": "Birthday {{date}}",
+  "creditAccountBalance": "Credit account balance",
+  "emptyNotes": "No notes yet",
+  "emptyTags": "No tags yet",
+  "invoices": "Invoices",
+  "invoicesPaid": "Invoices paid",
+  "joined": "Joined {{date}}",
+  "notes": "Notes",
+  "retry": "Try again",
+  "showLess": "Show less",
+  "showMore": "Show more",
+  "tags": "Tags",
+  "today": "Today!",
+  "unpaidInvoice": "{{count}} Invoice unpaid",
+  "unpaidInvoices": "{{count}} Invoices unpaid"
+}

@@ -26,3 +26,11 @@ export const i18nNamespaces: string[] = [
   "filters",
   "communicationVariables",
 ];
+
+export const I18N_SEGMENT_NAMESPACES = {
+  FILTERS: `${i18nNamespacePrefix}_filters`,
+  DETAILS: `${i18nNamespacePrefix}_details`,
+  CAMPAIGN: `${i18nNamespacePrefix}_campaign`,
+  COMMUNICATION_VARIABLES: `${i18nNamespacePrefix}_communicationVariables`,
+  LIST: `${i18nNamespacePrefix}_list`,
+};

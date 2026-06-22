@@ -4,6 +4,8 @@ import React from "react";
 import Icon from "#src/components/Icon";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import type { FileUploadFieldStatus } from "../file-upload-status";
+
 const inlineVariantStyle = cva(
   [
     "transition ease-in duration-default",
@@ -32,9 +34,15 @@ const inlineVariantStyle = cva(
           "active:bg-surface-action-main-strong-pressed",
         ],
       },
+      status: {
+        default: [],
+        error: ["shadow-border-thin-critical"],
+        positive: ["shadow-border-thin-positive"],
+      },
     },
     defaultVariants: {
       disabled: false,
+      status: "default",
     },
   },
 );
@@ -43,11 +51,13 @@ const inlineVariantStyle = cva(
  * Inline variant for FileUploadInput, mirroring the aspect of a Button.
  * @param props.buttonTitle Optional. Text to override the default title of the button.
  * @param props.disabled Optional. Whether to apply disabled style.
+ * @param props.status Visual status of the upload trigger.
  */
-const InlineVariant: React.FC<{ buttonTitle?: string; disabled?: boolean }> = ({
-  buttonTitle,
-  disabled,
-}) => {
+const InlineVariant: React.FC<{
+  buttonTitle?: string;
+  disabled?: boolean;
+  status?: FileUploadFieldStatus;
+}> = ({ buttonTitle, disabled, status = "default" }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const uploadFileLabel = buttonTitle || t("fileUpload.uploadFileCTA");
@@ -55,7 +65,7 @@ const InlineVariant: React.FC<{ buttonTitle?: string; disabled?: boolean }> = ({
   return (
     <div
       aria-disabled={disabled ? "true" : "false"}
-      className={inlineVariantStyle({ disabled: !!disabled })}
+      className={inlineVariantStyle({ disabled: !!disabled, status })}
     >
       <Icon size="sm" icon="upload-01" />
       <p className="mx-xs">{uploadFileLabel}</p>

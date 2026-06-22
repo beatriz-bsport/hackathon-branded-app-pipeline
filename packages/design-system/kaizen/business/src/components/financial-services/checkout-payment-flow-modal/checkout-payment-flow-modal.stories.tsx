@@ -118,7 +118,6 @@ const meta: Meta<CheckoutPaymentFlowModalComponent> = {
       fetch,
       companyTheme: storybookCompanyTheme,
       startContext,
-      basketSessionId: args.basketSessionId,
       onClose: close,
       onTrack: () => {},
       onPaymentConfirm: (remainingAmountCts: number) => {
@@ -192,7 +191,6 @@ const meta: Meta<CheckoutPaymentFlowModalComponent> = {
     companyId: { control: "number" },
     memberId: { control: "number" },
     invoiceId: { control: "text" },
-    basketSessionId: { control: "text" },
     fetch: { table: { disable: true } },
     onClose: { table: { disable: true } },
     onTrack: { table: { disable: true } },
@@ -275,7 +273,7 @@ export const Documentation: Story = {
 | \`companyId\` | Company for checkout config and invoice creation. |
 | \`fetch\` | Fetch instance for business APIs. |
 | \`onClose\` | Called when the user dismisses the flow. |
-| \`onTrack\` | Checkout analytics callback (required for checkout phase). |
+| \`onTrack\` | Analytics callback for checkout and payment events. |
 
 ### Mode-specific props
 

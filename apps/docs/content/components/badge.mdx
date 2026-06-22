@@ -45,22 +45,6 @@ Not sure whether Badge, Chip, or Indicator fits? See
 
 ## Guidelines
 
-- **Supplementary only** — place Badge beside content it qualifies; never use it
-  as the sole label for an object or row.
-- **Non-dismissible** — users cannot remove a Badge; use [Chip](/components/chip)
-  when the token must be cleared or filtered out.
-- **Not anchored** — Badge sits inline in the layout flow; use
-  [Indicator](/components/indicator) for dots or counts on a host element
-  (avatar, icon button, nav icon).
-- **Keep copy short** — one or two words, or a compact number; long strings break
-  the pill layout.
-- **Pick color for emphasis** — `default` for neutral metadata, `main` for
-  product highlights, `critical` only when urgency is intentional.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption='Pair Badge beside a nav or list label for qualifiers like "New" or "Beta" — the parent label stays the primary readable text.' />
   <Do caption="Use dot mode (omit text and icon) for compact color previews or purely visual markers where surrounding copy already names the value." />
@@ -68,6 +52,10 @@ Not sure whether Badge, Chip, or Indicator fits? See
   <Dont caption="Removable filters, tags, and object statuses belong on Chip, not Badge." />
   <Dont caption="Counts and alert dots on icons or avatars belong on Indicator for consistent placement." />
   <Dont caption="Critical meaning needs more than color — pair color=critical with explicit text when the message must land without color." />
+  <Do caption="Supplementary only — place Badge beside content it qualifies; never use it as the sole label for an object or row." />
+  <Do caption="Non-dismissible — users cannot remove a Badge; use `Chip` when the token must be cleared or filtered out." />
+  <Do caption="Not anchored — Badge sits inline in the layout flow; use `Indicator` for dots or counts on a host element (avatar, icon button, nav icon)." />
+  <Do caption="Keep copy short — one or two words, or a compact number; long strings break the pill layout." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -78,21 +66,21 @@ properties.
 
 </Callout>
 
-#### default color
+### default color
 
 <DoDont>
   <Do caption='Use for neutral tallies and secondary metadata (e.g. "24" on a sidebar item, "3+" in a table cell).' />
   <Dont caption='Labels that need launch attention read better on color="main" than on default.' />
 </DoDont>
 
-#### main color
+### main color
 
 <DoDont>
   <Do caption='Use for product-facing qualifiers such as "New", "Beta", or "Now" that should stand out without alarming the user.' />
   <Dont caption="Apply main to every nav item — reserve it for entries that genuinely need extra visibility." />
 </DoDont>
 
-#### critical color
+### critical color
 
 <DoDont>
   <Do caption='Reserve for urgent or high-salience metadata when the surrounding label already names the subject (e.g. "Overdue" beside an invoice title).' />
@@ -105,7 +93,7 @@ Write short, scannable labels in sentence case. Prefer common product words over
 internal jargon. Numbers should stay compact — use `3+` or `99+` when the exact
 count is less important than signaling overflow.
 
-#### Common labels
+### Common labels
 
 **Feature qualifier** — `size="sm"`, `color="main"`.
 
@@ -123,7 +111,7 @@ count is less important than signaling overflow.
 
 > Overdue
 
-#### Badge vs Chip vs Indicator
+### Badge vs Chip vs Indicator
 
 | Need                                      | Component                          |
 | ----------------------------------------- | ---------------------------------- |

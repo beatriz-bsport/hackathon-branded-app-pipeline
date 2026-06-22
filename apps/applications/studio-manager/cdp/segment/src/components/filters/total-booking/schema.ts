@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";
@@ -8,11 +9,9 @@ import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "./sub-filters/registry";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "./sub-filters/total-booking-sub-filter-id";
 import type { TotalBookingNumberFilterFormValue } from "./types";
 
-const I18N_NAMESPACE = "sm-smartlists_filters";
-
 const VALUE_REQUIRED_MESSAGE = i18nInstance.t(
   "filters.22.validation.valueRequired",
-  { ns: I18N_NAMESPACE },
+  { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
 );
 
 export const totalBookingNumberFilterSchema = z
@@ -77,7 +76,7 @@ export const totalBookingNumberFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["secondValue"],
         message: i18nInstance.t("filters.22.validation.secondValueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -90,7 +89,7 @@ export const totalBookingNumberFilterSchema = z
         message: i18nInstance.t(
           "filters.22.validation.secondValueGreaterThanFirst",
           {
-            ns: I18N_NAMESPACE,
+            ns: I18N_SEGMENT_NAMESPACES.FILTERS,
           },
         ),
       });

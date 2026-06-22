@@ -13,9 +13,11 @@ import type { MembershipPlanInvoiceRowData } from "./types";
 type TableColumn = GenericTableColumn<MembershipPlanInvoiceRowData>;
 
 const EDIT_BILLING_DATE_ACTION_ID = "edit-billing-date";
+const EDIT_PRICE_ACTION_ID = "edit-price";
 
 export const useMembershipPlanInvoiceColumns = (
   onEditBillingDate: (row: MembershipPlanInvoiceRowData) => void,
+  onEditPrice: (row: MembershipPlanInvoiceRowData) => void,
 ): TableColumn[] => {
   const { t } = useTranslation("membership-plan");
 
@@ -49,11 +51,25 @@ export const useMembershipPlanInvoiceColumns = (
     align: "end",
     header: "",
     render: (row) => {
+      // Legacy parity (apps/applications/saas-legacy .../PlannedInvoiceListDetail
+      // → PlannedInvoiceEditMenu) still has two rules we can't mirror yet:
+      // 1. `disableActions`: every invoice after the one flagged as last before a
+      //    scheduled stop is fully disabled. Needs `is_last_invoice_before_scheduled_stop`,
+      //    absent from the current mock PlannedInvoice.
+      // 2. A third "Stop after invoice" action (disabled when >31 days old), gated
+      //    by the end-after-invoice permission — no scheduled-stop concept here yet.
+      // Revisit both when the real /subscription/planned-invoice/ endpoint lands.
       const items: DropdownMenuItems = [
         {
           id: EDIT_BILLING_DATE_ACTION_ID,
           label: t("invoiceList.actions.editBillingDate"),
           iconLeft: "calendar",
+          disabled: row.isDateEditDisabled,
+        },
+        {
+          id: EDIT_PRICE_ACTION_ID,
+          label: t("invoiceList.actions.editPrice"),
+          iconLeft: "coins-stacked-01",
           disabled: row.isPast,
         },
       ];
@@ -64,6 +80,9 @@ export const useMembershipPlanInvoiceColumns = (
           onSelectOption={({ id, setIsPopoverOpened }) => {
             if (id === EDIT_BILLING_DATE_ACTION_ID) {
               onEditBillingDate(row);
+            }
+            if (id === EDIT_PRICE_ACTION_ID) {
+              onEditPrice(row);
             }
 
             setIsPopoverOpened(false);

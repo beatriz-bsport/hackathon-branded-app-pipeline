@@ -41,23 +41,6 @@ Save or Submit.
 
 ## Guidelines
 
-- **Immediate effect** — wire `onToggleChange` to persist or update UI state;
-  do not wait for a form footer.
-- **Sensible default** — set `checked` to the state users expect in production
-  so most sessions need zero toggles.
-- **Positive labels** — describe what is on when checked: "Online booking
-  enabled", not "Disable online booking".
-- **Nested fields** — indent related inputs below an enabled toggle; align
-  spacing with surrounding form sections until a shared indent token ships.
-- **Not for submit forms** — legal consent and invoice options that need Confirm
-  belong on Checkbox.
-- **Error sparingly** — toggles rarely fail validation; use `errorText` only when
-  the server rejects the last toggle attempt.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Label what is on when checked — 'Auto-renew membership' — and persist in onToggleChange." />
   <Do caption="Disable the toggle when the user lacks permission, with helper text explaining why." />
@@ -65,6 +48,12 @@ Save or Submit.
   <Dont caption="Modals that still need Save work better with Checkbox — Toggle implies immediate persistence." />
   <Dont caption="Many toggles without section headings blur related settings — group them with headings or spacing." />
   <Dont caption="When the API fails, revert checked and surface errorText or a toast so the flip does not feel successful." />
+  <Do caption="Immediate effect — wire `onToggleChange` to persist or update UI state; do not wait for a form footer." />
+  <Do caption="Sensible default — set `checked` to the state users expect in production so most sessions need zero toggles." />
+  <Do caption='Positive labels — describe what is on when checked: "Online booking enabled", not "Disable online booking".' />
+  <Do caption="Nested fields — indent related inputs below an enabled toggle; align spacing with surrounding form sections until a shared indent token ships." />
+  <Dont caption="Not for submit forms — legal consent and invoice options that need Confirm belong on Checkbox." />
+  <Do caption="Error sparingly — toggles rarely fail validation; use `errorText` only when the server rejects the last toggle attempt." />
 </DoDont>
 
 <Callout type="warning" title="Caution">

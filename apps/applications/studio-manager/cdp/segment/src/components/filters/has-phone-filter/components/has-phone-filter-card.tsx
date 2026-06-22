@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteHasPhoneFilterMutation } from "#src/api/use-delete-has-phone-filter-mutation";
 import { useUpsertHasPhoneFilterMutation } from "#src/api/use-upsert-has-phone-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -22,8 +23,7 @@ import { HasPhoneRadioGroup } from "./has-phone-radio-group";
 export const HasPhoneFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: HasPhoneFilterCardProps) => {
   const baseId = useId();
   const hasPhoneFieldId = `${baseId}-has-phone-value`;
@@ -48,7 +48,7 @@ export const HasPhoneFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapHasPhoneFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -108,7 +108,7 @@ export const HasPhoneFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -147,22 +147,13 @@ export const HasPhoneFilterCard = ({
           }
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={
-              isSavedFilter
-                ? t("filters.106.actions.update")
-                : t("filters.106.actions.save")
-            }
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

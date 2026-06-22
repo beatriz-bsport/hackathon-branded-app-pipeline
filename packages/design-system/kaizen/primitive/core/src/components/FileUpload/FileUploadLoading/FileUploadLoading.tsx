@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
 import { type FileUploadTracker, UPLOAD_STATUSES } from "../constants";
+import type { FileUploadFieldStatus } from "../file-upload-status";
 import LoaderProgressBar from "./LoaderProgressBar";
 import LoadingIcon from "./LoadingIcon";
 
@@ -13,17 +14,42 @@ const defaultClasses = [
 const variants = {
   inline: {
     true: "",
-    false: [
-      "border-stroke-thin",
-      "border-dashed",
-      "border-stroke-action-default-rest/md",
-      "bg-surface-default",
-    ],
+    false: ["border-stroke-thin", "bg-surface-default"],
+  },
+  status: {
+    default: "",
+    error: "",
+    positive: "",
   },
 } as const;
 
 const fileUploadLoading = cva(defaultClasses, {
   variants,
+  compoundVariants: [
+    {
+      inline: false,
+      status: "default",
+      className: ["border-dashed", "border-stroke-action-default-rest/md"],
+    },
+    {
+      inline: false,
+      status: "error",
+      className: [
+        "border-solid",
+        "border-stroke-status-critical",
+        "shadow-border-thin-critical",
+      ],
+    },
+    {
+      inline: false,
+      status: "positive",
+      className: [
+        "border-solid",
+        "border-stroke-status-positive",
+        "shadow-border-thin-positive",
+      ],
+    },
+  ],
 });
 
 type FileUploadLoadingProps = {
@@ -33,6 +59,7 @@ type FileUploadLoadingProps = {
   handleRemoveFileFromList: (fileUploadTracker: FileUploadTracker) => void;
   handleRetryUpload: (fileUploadTracker: FileUploadTracker) => void;
   inline?: boolean;
+  status?: FileUploadFieldStatus;
 };
 
 /**
@@ -50,6 +77,7 @@ const FileUploadLoading = ({
   handleRemoveFileFromList,
   handleRetryUpload,
   inline,
+  status = "default",
 }: FileUploadLoadingProps) => {
   const _fileUploadTrackerList = fileUploadTrackerList || [];
   const isUploading = _fileUploadTrackerList.some(
@@ -58,7 +86,7 @@ const FileUploadLoading = ({
   return (
     <div
       data-component="Kaizen-FileUpload-Loading"
-      className={fileUploadLoading({ className, inline })}
+      className={fileUploadLoading({ className, inline, status })}
     >
       {!inline && <LoadingIcon isUploading={isUploading} />}
       {_fileUploadTrackerList.map((fileUploadTracker) => (

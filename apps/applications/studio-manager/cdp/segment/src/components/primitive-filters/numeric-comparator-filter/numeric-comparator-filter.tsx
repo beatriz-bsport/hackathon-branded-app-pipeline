@@ -151,7 +151,10 @@ export const NumericComparatorFilter = ({
             statusText={errors?.firstValue}
             suffix={
               firstSuffixText
-                ? { type: "text", value: firstSuffixText }
+                ? {
+                    type: "text",
+                    value: firstSuffixText,
+                  }
                 : undefined
             }
             fullWidth

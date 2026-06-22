@@ -178,6 +178,27 @@
   "stripeOnboardingPending": {
     "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
   },
+  "stripeCompliance": {
+    "banner": "Stripe heeft voor {{ date }} bijgewerkte informatie nodig. Klik hier om dit te controleren.",
+    "bannerWithoutDate": "Stripe heeft bijgewerkte informatie nodig. Klik hier om dit te controleren.",
+    "cta": {
+      "company_settings": "Mijn bedrijfsinstellingen bijwerken",
+      "none": "Controleren",
+      "stripe_onboarding": "Mijn informatie in Stripe bijwerken"
+    },
+    "modal": {
+      "genericImpact": "Als dit niet wordt opgelost, kunnen betaal- en uitbetalingsfuncties worden beïnvloed.",
+      "restricted": {
+        "description": "Stripe heeft je account beperkt. Werk de vereiste informatie bij om alle betaalfuncties te herstellen.",
+        "title": "Stripe-account beperkt"
+      },
+      "restrictedSoon": {
+        "description": "Stripe heeft voor {{ date }} bijgewerkte informatie nodig om je account compliant te houden.",
+        "descriptionWithoutDate": "Stripe heeft bijgewerkte informatie nodig om je account compliant te houden.",
+        "title": "Stripe-update vereist"
+      }
+    }
+  },
   "tab": {
     "coach": {
       "calendar": "Agenda",

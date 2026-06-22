@@ -90,10 +90,6 @@ HeaderLayout is the standardized header region that sits at the top of any appli
   ]}
 />
 
-### Best practices
-
-#### General
-
 <DoDont>
   <Do
     caption={
@@ -117,13 +113,11 @@ HeaderLayout is the standardized header region that sits at the top of any appli
   />
 </DoDont>
 
-<Callout type="warning" title="Caution">
+<DoDont>
+  <Do caption="Caution when combining `pageStatusBadge` and `pageStatusChip` — pick one to avoid visual noise next to the title." />
+</DoDont>
 
-- Caution when combining `pageStatusBadge` and `pageStatusChip` — pick one to avoid visual noise next to the title.
-
-</Callout>
-
-#### Variants
+### Variants
 
 HeaderLayout exposes all props in every context, but in practice it is used in two distinct configurations: _ListLayout_ and _DetailsLayout_. The variant is a usage convention — not a prop — and it determines which sections should be populated.
 
@@ -167,7 +161,7 @@ HeaderLayout exposes all props in every context, but in practice it is used in t
   />
 </DoDont>
 
-#### Content
+### Content
 
 tbd
 

@@ -45,16 +45,6 @@ Embed at the bottom of [List](/components/list) or [Table](/components/table) vi
 
 ## Guidelines
 
-- **Sync with data fetch** — changing page triggers new query with offset/limit.
-- **Show total when helpful** — users gauge result set size.
-- **Disable during load** — prevent double page jumps while fetching.
-- **Preserve sort and filters** — page changes must not reset facet state.
-- **Default page size** — match API default; offer size change only if product supports it.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Reset to page 1 when filters change materially." />
   <Do caption="Scroll list header into view after page change on long pages." />
@@ -62,6 +52,11 @@ Embed at the bottom of [List](/components/list) or [Table](/components/table) vi
   <Dont caption="Infinite scroll plus pagination on the same list." />
   <Dont caption="Page numbers that do not match backend total count." />
   <Dont caption="Pagination on sets smaller than one page — hide control." />
+  <Do caption="Sync with data fetch — changing page triggers new query with offset/limit." />
+  <Do caption="Show total when helpful — users gauge result set size." />
+  <Do caption="Disable during load — prevent double page jumps while fetching." />
+  <Do caption="Preserve sort and filters — page changes must not reset facet state." />
+  <Do caption="Default page size — match API default; offer size change only if product supports it." />
 </DoDont>
 
 ### Content rules

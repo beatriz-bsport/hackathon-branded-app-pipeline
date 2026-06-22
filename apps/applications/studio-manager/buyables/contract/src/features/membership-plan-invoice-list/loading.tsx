@@ -24,6 +24,7 @@ export const MembershipPlanInvoiceListLoading: FC = () => {
       message: t("invoiceList.loading"),
     },
     onEditBillingDate: () => {},
+    onEditPrice: () => {},
   };
 
   return isMobile ? (

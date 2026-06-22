@@ -226,7 +226,7 @@ describe("build artifact release publication", () => {
     }
 
     const widgetEntrypointUpload = result.awsCalls.find((call) =>
-      call.includes("s3://bsport-frontends-artifacts-euw3/widget/v1.2.3/widget.js"),
+      call.includes("s3://bsport-frontends-artifacts-euw3/widget/v1.2.3/scripts/widget.js"),
     );
     expect(widgetEntrypointUpload).toContain(
       "--cache-control max-age=0,no-cache,no-store,must-revalidate",

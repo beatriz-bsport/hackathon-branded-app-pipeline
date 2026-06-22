@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { type FC, useState } from "react";
 
+import { FillRateChip } from "@bsport/kaizen-business-components/booking/fill-rate-chip";
 import {
   Body,
   ErrorFallback,
@@ -60,7 +61,7 @@ export const SmartfillTargetedOffersList: FC = () => {
 
   return (
     <>
-      <div className="[&_[data-component='Kaizen-Table-Cell']:nth-child(2)]:w-full">
+      <div className="[&_[data-component='Kaizen-Table-Cell']:nth-child(2)]:w-full [&_[data-component='Kaizen-Table-Cell']]:px-[40px] [&_[data-component='Kaizen-Table-Cell']:last-child]:pr-[80px]">
         <Table<
           SmartfillTargetedOffer & { isActive: boolean; onRowClick: () => void }
         >
@@ -118,6 +119,17 @@ export const SmartfillTargetedOffersList: FC = () => {
                   </div>
                 );
               },
+            },
+            {
+              header: t("targetedOffersList.columns.fillRate"),
+              id: "fill-rate",
+              type: "custom",
+              render: (row) =>
+                row.fill_rate == null ? (
+                  <Body size="md">—</Body>
+                ) : (
+                  <FillRateChip fillRate={row.fill_rate} />
+                ),
             },
             {
               header: t("targetedOffersList.columns.analytics"),

@@ -16,10 +16,10 @@ type PassFormMaximumUsageProps<
     NumberFieldPath<TFormValues> = NumberFieldPath<TFormValues>,
 > = {
   hasMaximumUsageFieldName: HasMaximumUsageFieldName;
-  maximumPerDayFieldName: MaximumUsageFieldsName;
-  maximumPerWeekFieldName: MaximumUsageFieldsName;
-  maximumPerMonthFieldName: MaximumUsageFieldsName;
-  maximumPerMemberFieldName: MaximumUsageFieldsName;
+  maximumPerDayFieldName: MaximumUsageFieldsName | null;
+  maximumPerWeekFieldName: MaximumUsageFieldsName | null;
+  maximumPerMonthFieldName: MaximumUsageFieldsName | null;
+  maximumPerMemberFieldName: MaximumUsageFieldsName | null;
   hasMaximumUsageId?: string;
   maximumPerDayId?: string;
   maximumPerWeekId?: string;
@@ -115,21 +115,23 @@ export const PassFormMaximumUsage = <
           <Body>{t("passForm.maximumUsage.gridColumns.maximumUsage")}</Body>
           <Body>{t("passForm.maximumUsage.gridColumns.scope")}</Body>
 
-          {items.map((item) => (
-            <Fragment key={`${item.id}-fragment`}>
-              <FormNumberField<TFormValues, MaximumUsageFieldsName>
-                fieldName={item.fieldName}
-                key={`${item.id}-input`}
-                id={item.id}
-                step={1}
-                maxDigits={0}
-                min={0}
-                aria-label={item.label}
-              />
+          {items.map((item) =>
+            item.fieldName ? (
+              <Fragment key={`${item.id}-fragment`}>
+                <FormNumberField<TFormValues, MaximumUsageFieldsName>
+                  fieldName={item.fieldName}
+                  key={`${item.id}-input`}
+                  id={item.id}
+                  step={1}
+                  maxDigits={0}
+                  min={0}
+                  aria-label={item.label}
+                />
 
-              <Body key={`${item.id}-label`}>{item.label}</Body>
-            </Fragment>
-          ))}
+                <Body key={`${item.id}-label`}>{item.label}</Body>
+              </Fragment>
+            ) : null,
+          )}
         </div>
       </Activity>
     </div>

@@ -28,74 +28,41 @@ descriptions and supporting text.
   stories={[{ id: "primitive-components-title--primary", label: "Title" }]}
 />
 
-### Use cases
-
-- **Page header** — primary screen name in
-  [Header layout](/components/header-layout) (`htmlVariant="h1"`,
-  `weight="stronger"`).
-- **Section heading** — divide a long settings or detail page with
-  `htmlVariant="h2"`.
-- **Modal title** — set via the `title` prop on [Modal](/components/modal) or
-  [Alert](/components/alert); Kaizen renders it as `h4` automatically.
-- **Detail drawer header** — name the open record in
-  [Detail drawer](/components/detail-drawer) with `h2`; step down inside the
-  drawer body.
-- **Card title** — `htmlVariant="h4"` on cards, panels, and nested form
-  sections.
-
 ## Guidelines
 
-- **Size follows semantics** — pick `htmlVariant` for the heading level you need;
-  you cannot set title size independently of the element.
-- **Page titles use `default`** — `color="inherit"` is the component default,
-  but page and card titles should set `color="default"` for full contrast on
-  standard surfaces.
-- **One clear peak** — reserve the largest heading on a view for the primary
-  title; step down for sections instead of stacking multiple `h1` elements.
-- **Sentence case** — headings read faster in dense back-office UI when you
-  avoid title case.
-- **No interactive colour** — Title does not expose `main`; interactive text
-  belongs on [Link](/components/link) or [Body](/components/body).
-
-### Best practices
-
-#### General
-
 <DoDont>
-  <Do caption="Match htmlVariant to the real outline — h1 for the page name, h2 for sections and drawer record names, h4 for modal titles and cards." />
-  <Do caption="Set color=default on page and card titles so contrast stays at onsurface-default, not inherited muted tones." />
+  <Do caption="Match htmlVariant to the real outline — h1 for the page name, h2 for sections, drawer record names, and modal dialog titles, h4 for cards." />
   <Do caption="Use weight=strong or stronger on page, modal, and drawer titles; weak only for de-emphasised supporting labels." />
   <Dont caption="Skipping heading levels for styling alone breaks the document outline — pick the correct htmlVariant instead." />
-  <Dont caption="Stronger weight on every heading in a view removes hierarchy — keep one level visually dominant." />
   <Dont caption="Long paragraphs belong on Body — Title is for short labels that name a section or surface." />
+  <Do caption="Size follows semantics — pick `htmlVariant` for the heading level you need; you cannot set title size independently of the element." />
+  <Do caption='Page titles use `default` — `color="inherit"` is the component default, but page and card titles should set `color="default"` for full contrast on standard surfaces.' />
+  <Do caption="One clear peak — reserve the largest heading on a view for the primary title; step down for sections instead of stacking multiple `h1` elements." />
+  <Do caption="Sentence case — headings read faster in dense back-office UI when you avoid title case." />
+  <Do caption="No interactive colour — Title does not expose `main`; interactive text belongs on `Link` or `Body`." />
 </DoDont>
-
-<Callout type="warning" title="Caution">
-
-`htmlVariant` bundles semantic level and visual size. There should be **one
-`h1` per page** — the page title. Do not use `h1` inside cards or modals
-because you want larger text; step down to `h4` and let weight carry emphasis.
-
-</Callout>
 
 ### Modals and detail drawers
 
 Overlays sit on top of a page that already has an `h1`. Do not add another
 `h1` inside a modal or drawer.
 
-#### Modal
+### Modal
 
-[Modal](/components/modal) and [Alert](/components/alert) own the header title.
-They render `Title htmlVariant="h4" weight="stronger"` and wire
-`aria-labelledby` to it — pass copy through the `title` prop, not a custom Title
-in the header.
+[Modal](/components/modal) owns the header title — pass copy through the `title` prop. Continue the page outline: the page behind
+the overlay still owns the `h1`.
 
-The modal title names the decision or task (`Cancel session?`, `Delete gift
-card?`). The page `h1` remains in the document underneath. For structure inside
-modal body content, use `h5` or emphasised [Body](/components/body) — Title has
-no `h6`. See [Modal — Titles](/components/modal) for copy patterns.
+| Modal part            | Level | Example                            |
+| --------------------- | ----- | ---------------------------------- |
+| Dialog title          | `h2`  | Cancel session?, Delete gift card? |
+| Section in modal body | `h3`  | Payment details, affected sessions |
+| Subsection / group    | `h4`  | Line items, payment breakdown      |
 
-#### Detail drawer
+Use `color="default"` and `weight="strong"` or `stronger` on the dialog title.
+Modal still renders the `title` prop as `h4` today — the target is `h2`
+to match drawer record naming.
+
+### Detail drawer
 
 [Detail drawer](/components/detail-drawer) has **no built-in title** — you
 compose the header and body. Continue the page outline: the list or board behind
@@ -108,52 +75,6 @@ the drawer still owns the `h1`.
 | Subsection / group | `h4`  | Quick actions, payment breakdown |
 
 Use `color="default"` and `weight="strong"` or `stronger` on the record name.
-Avoid using modal's `h4` for the primary drawer title — that level is for dialog
-chrome and nested containers, not the main object you are inspecting.
-
-### Content rules
-
-Keep titles short and specific — name the section or object, not the action.
-Avoid trailing punctuation unless the title is a question.
-
-**Page title** — `htmlVariant="h1"`, `weight="stronger"`, `color="default"`.
-
-> Gift cards
-
-**Page section** — `htmlVariant="h2"`, `weight="strong"`, `color="default"`.
-
-> Active cards
-
-**Modal title** — via Modal `title` prop (rendered as `h4` by Kaizen).
-
-> Cancel session?
-
-**Drawer record name** — `htmlVariant="h2"`, `weight="strong"`, `color="default"`.
-
-> Jane Doe
-
-**Card title** — `htmlVariant="h4"`, `weight="strong"`, `color="default"`.
-
-> Payment method
-
-## Reference
-
-### Anatomy
-
-<Anatomy
-  parts={[
-    {
-      label: "Root (`h1`–`h5`)",
-      description:
-        "Semantic heading element selected by `htmlVariant`. Size and line-height tokens are derived from the variant, not set separately.",
-    },
-    {
-      label: "Children",
-      description:
-        "Short heading text. Long strings wrap; consumers often add `line-clamp-*` or truncation classes via `className`.",
-    },
-  ]}
-/>
 
 ### Type scale
 
@@ -194,12 +115,12 @@ level.
 
 ### Behaviors
 
-#### Variant and styling
+### Variant and styling
 
 `htmlVariant` is the sole control for title size — there is no separate `size`
 prop. `color` and `weight` layer on top without changing the type ramp step.
 
-#### Responsiveness
+### Responsiveness
 
 Title does not switch variants at breakpoints. Truncate or clamp long titles at
 the consumer when horizontal space is tight (Header layout uses
@@ -207,14 +128,12 @@ the consumer when horizontal space is tight (Header layout uses
 
 ### Edge cases
 
-- **Default `color="inherit"`** — without an explicit `default`, titles inside
-  tinted parents may render lower contrast than page-level guidance expects.
-- **Very long titles** — wrap by default; add `className` truncation or
-  hyphenation when the header row is space-constrained.
-- **Missing `weight`** — only variant size and colour apply; the heading renders
-  at the inherited font weight of the page until you set `weight`.
-- **No `main` colour** — interactive styling is out of scope; use Link or
-  Body for clickable inline text near a title.
+<DoDont>
+  <Do caption='Default `color="inherit"` — without an explicit `default`, titles inside tinted parents may render lower contrast than page-level guidance expects.' />
+  <Do caption="Very long titles — wrap by default; add `className` truncation or hyphenation when the header row is space-constrained." />
+  <Do caption="Missing `weight` — only variant size and colour apply; the heading renders at the inherited font weight of the page until you set `weight`." />
+  <Do caption="No `main` colour — interactive styling is out of scope; use Link or Body for clickable inline text near a title." />
+</DoDont>
 
 ## Accessibility
 

@@ -33,7 +33,7 @@ export const useCheckoutFlowStep = ({
   onInvoiceCreated,
   onTrack,
   startContext,
-  basketSessionId: externalBasketSessionId,
+  trackingSessionId,
 }: CheckoutFlowStepProps) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const formId = `checkout-flow-modal-${useId()}`;
@@ -69,7 +69,7 @@ export const useCheckoutFlowStep = ({
     memberId,
     startContext,
     onTrack,
-    externalBasketSessionId,
+    trackingSessionId,
   });
 
   useEffect(() => {
@@ -289,7 +289,7 @@ export const useCheckoutFlowStep = ({
       } else if (cancelTrigger === "backdrop_click") {
         track("checkout_flow_click_outside", cancelPayload);
       } else {
-        track("checkout_flow_escape_key_button_clicked", cancelPayload);
+        track("checkout_flow_escape_key_pressed", cancelPayload);
       }
       track("checkout_flow_pay_cancel", {
         ...cancelPayload,

@@ -21,6 +21,13 @@ export const useEdit = ({
     onSuccess: () => {
       onSuccess?.();
 
+      toast({
+        status: "positive",
+        icon: "check",
+        title: t("popup.edit.toasts.success.saved"),
+        buttonIcon: "x-close",
+      });
+
       navigateToSmartlistCampaigns(smartlistId.toString());
     },
     onFailure: () => {

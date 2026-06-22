@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "Pas encore de cartes cadeaux",
-      "subtitle": "Créer des cartes cadeaux pour que les membres puissent les partager avec leurs amis et leur famille"
+      "subtitle": "Créez des cartes cadeaux pour que les adhérents puissent les partager avec leurs amis et leur famille"
     },
     "archiveModal": {
       "title": "Archiver la carte cadeau ?",
       "description": {
-        "lineOne": "'{{ name }}' ne sera plus visible pour les membres, mais les achats actuels ou précédents ne seront pas affectés.",
+        "lineOne": "'{{ name }}' ne sera plus visible pour les Adhérents, mais les achats actuels ou précédents ne seront pas affectés.",
         "lineTwo": "Vous pouvez restaurer cette carte cadeau à tout moment depuis votre archive."
       },
       "buttons": {
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Bibliothèque d'images",
     "uploadButton": "Télécharger l'image",
-    "description": "Ajoutez des images personnalisées à votre bibliothèque pour que vos membres puissent personnaliser leurs cartes cadeaux",
+    "description": "Ajoutez des images personnalisées à votre bibliothèque pour que vos adhérents puissent personnaliser leurs cartes cadeaux",
     "selectImage": "Sélectionnez une image pour la prévisualiser dans le design des cartes cadeaux",
     "emptyList": "Pas encore d'images personnalisées"
   }

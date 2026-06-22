@@ -28,7 +28,7 @@ type Props = Required<
     | 'isJoinableOnlineDisabled'
     | 'isMobile'
   >
-> & { menuId: string; isCancelDisabled: boolean };
+> & { isCancelDisabled: boolean };
 
 const ConsumerBookingCardFooter: React.FC<Props> = ({
   isBookable,
@@ -42,29 +42,28 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
   onBookingForAGuestClick,
   onBookClick,
   onJoinOnlineClick,
-  menuId,
   isMobile,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  const isMoreDisplayed = true;
-  const isMoreDisabled = false;
   const secondaryButtonsList = React.useMemo(
     () => [
       {
-        shouldDisplay: !isMoreDisplayed,
+        shouldDisplay: isBookableForAGuest,
         color: 'grey' as ButtonColor,
-        onClick: onBookingCancelClick,
-        leftIcon: <CalendarMinus02 stroke="currentColor" />,
+        onClick: onBookingForAGuestClick,
+        leftIcon: <UserPlus01 stroke="currentColor" />,
         variant: 'outlined' as ButtonVariant,
-        isDisabled: isCancelDisabled,
-        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.cancel'),
+        isDisabled: false,
+        label: t(
+          'reworked.myBookings.consumerBookingCard.buttonsLabel.bookForAGuest',
+        ),
         buttonClassName: 'bs-consumer-booking-card__footer__secondary-button',
         typographyClassName:
           'bs-consumer-booking-card__footer__secondary-button__label',
       },
     ],
-    [isCancelDisabled, onBookingCancelClick, isMoreDisplayed, t],
+    [isBookableForAGuest, onBookingForAGuestClick, t],
   );
 
   const mainButtonsList = React.useMemo(
@@ -95,6 +94,18 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
         typographyClassName:
           'bs-consumer-booking-card__footer__primary-button__label',
       },
+      {
+        shouldDisplay: isCancellable,
+        color: 'error' as ButtonColor,
+        onClick: onBookingCancelClick,
+        leftIcon: <CalendarMinus02 stroke="currentColor" />,
+        variant: 'outlined' as ButtonVariant,
+        isDisabled: isCancelDisabled,
+        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.cancel'),
+        buttonClassName: 'bs-consumer-booking-card__footer__cancel-button',
+        typographyClassName:
+          'bs-consumer-booking-card__footer__cancel-button__label',
+      },
     ],
     [
       isBookable,
@@ -103,52 +114,18 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
       isJoinableOnline,
       isJoinableOnlineDisabled,
       onJoinOnlineClick,
+      isCancellable,
+      isCancelDisabled,
+      onBookingCancelClick,
       t,
     ],
   );
 
-  // NEED TO GIVE DISABLED STATE WHEN MENUITEMLIST HAVE DISABLED STATE
-  const menuItemsList = React.useMemo(
-    () => [
-      {
-        menuItemClassName: 'bs-consumer-booking-card__menu-item',
-        shouldDisplay: isBookableForAGuest,
-        label: t(
-          'reworked.myBookings.consumerBookingCard.buttonsLabel.bookForAGuest',
-        ),
-        leftIcon: <UserPlus01 stroke="currentColor" />,
-        onClick: onBookingForAGuestClick,
-      },
-      {
-        menuItemClassName: 'bs-consumer-booking-card__menu-item',
-        shouldDisplay: isCancellable,
-        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.cancel'),
-        leftIcon: <CalendarMinus02 stroke="currentColor" />,
-        onClick: onBookingCancelClick,
-      },
-    ],
-    [
-      isCancellable,
-      onBookingCancelClick,
-      isBookableForAGuest,
-      onBookingForAGuestClick,
-      t,
-    ],
-  );
   return (
     <ConsumerGenericCardFooter
       className="bs-consumer__booking-card__footer"
-      isMenuButtonDisabled={isMoreDisabled}
       isMobile={isMobile}
       mainButtonsList={mainButtonsList}
-      menuButtonClassName="bs-consumer__booking-card__footer__menu-button"
-      menuButtonLabel={t(
-        'reworked.myBookings.consumerBookingCard.buttonsLabel.more',
-      )}
-      menuClassName="bs-consumer__booking-card__footer__menu"
-      menuId={menuId}
-      menuItemsList={menuItemsList}
-      secondaryButtonsHidden={isMoreDisplayed}
       secondaryButtonsList={secondaryButtonsList}
     />
   );

@@ -115,7 +115,6 @@ function AutomationEmailEditDetail() {
       <DetailsLayout.Content>
         <AutomationEmailForm
           id={formId}
-          smartlistId={smartlist.id}
           onSubmit={updateEmailAutomation}
           {...methods}
         />

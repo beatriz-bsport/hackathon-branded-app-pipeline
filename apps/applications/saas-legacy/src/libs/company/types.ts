@@ -81,6 +81,55 @@ export type StripeAccountStatus = {
   date_account_blocked: string;
 };
 
+export type StripeCompanyComplianceStatusValue =
+  | 'unknown'
+  | 'not_configured'
+  | 'enabled'
+  | 'restricted_soon'
+  | 'restricted'
+  | 'in_review'
+  | 'rejected';
+
+export type StripeCompanyComplianceSeverity = 'none' | 'warning' | 'blocking';
+
+export type StripeCompanyComplianceRequirementScope =
+  | 'requirements'
+  | 'future_requirements';
+
+export type StripeCompanyComplianceRequirementCategory =
+  | 'external_account'
+  | 'kyc'
+  | 'business'
+  | 'company_address'
+  | 'other';
+
+export type StripeCompanyComplianceCta = {
+  kind: 'none' | 'company_settings' | 'stripe_onboarding';
+  path: string | null;
+  url: string | null;
+};
+
+export type StripeCompanyComplianceStatus = {
+  status: StripeCompanyComplianceStatusValue;
+  severity: StripeCompanyComplianceSeverity;
+  snapshot_id: number | null;
+  snapshot_created_at: string | null;
+  due_date: string | null;
+  restricted_on: string | null;
+  requirement_scope: StripeCompanyComplianceRequirementScope | null;
+  requirement_fields: string[];
+  requirement_categories: StripeCompanyComplianceRequirementCategory[];
+  cta: StripeCompanyComplianceCta;
+  raw: {
+    charges_enabled: boolean | null;
+    payouts_enabled: boolean | null;
+    card_payments_capability: string;
+    transfers_capability: string;
+    requirements_disabled_reason: string;
+    future_requirements_disabled_reason: string;
+  };
+};
+
 export type StripePaymentElementConfig = {
   isDefaultForRegion: boolean;
   stripeId: string | null;
@@ -180,6 +229,9 @@ export type PlatformSubscription = {
 
 export type CompanyState = {
   stripeAccountStatus: ErrorAndLoading & { data: StripeAccountStatus };
+  stripeComplianceStatus: ErrorAndLoading & {
+    data: StripeCompanyComplianceStatus | null;
+  };
   setupLoading: boolean;
   stripeCompany?: { data: StripeCompany } & ErrorAndLoading;
   paypalCompanyStatus: { data: PayPalCompanyStatus } & ErrorAndLoading;

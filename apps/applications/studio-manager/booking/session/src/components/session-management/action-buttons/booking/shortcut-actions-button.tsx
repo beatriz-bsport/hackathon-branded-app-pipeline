@@ -2,7 +2,7 @@ import { FC, useCallback } from "react";
 import { useNavigate } from "react-router";
 
 import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
-import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
+import { openFullPaymentFlow } from "@bsport/kaizen-business-components/financial-services/checkout-payment-flow-modal";
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
@@ -83,6 +83,16 @@ export const ShortcutActionsButton: FC<{
     "member.allowed_actions.accessProfile",
   );
 
+  const hasReadMemberInfoPermission = useObjectLevelPermission(
+    "member.allowed_actions.readInfo",
+  );
+
+  const hasEditBookingPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "reservation.workshop.allowed_actions.edit"
+      : "reservation.activity.allowed_actions.edit",
+  );
+
   const hasSessionStarted = (() => {
     const startDateTime = fromIsoString(session.date_start, {
       zone: session.timezone_name,
@@ -152,7 +162,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "shopping-cart-01",
         type: "button",
         onClick: () => {
-          openCheckoutFlow({
+          openFullPaymentFlow({
             basketStartTrigger: "session_management_page",
             memberId,
             navigate: (url) => navigate(url),
@@ -233,7 +243,7 @@ export const ShortcutActionsButton: FC<{
         ...(hasChangeSpotPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
-        ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
+        ...(hasEditBookingPermission && bookingId ? [swapPassAction] : []),
         ...(hasCancelBookingPermission && openModal && bookingId
           ? [cancelBookingAction]
           : []),
@@ -245,8 +255,12 @@ export const ShortcutActionsButton: FC<{
         ...(hasSeeProfileDetailsPermission && memberId
           ? [updateMemberNotesAction]
           : []),
-        ...(participantEmail?.length ? [copyEmailAction] : []),
-        ...(participantPhone?.length ? [copyPhoneAction] : []),
+        ...(hasReadMemberInfoPermission && participantEmail?.length
+          ? [copyEmailAction]
+          : []),
+        ...(hasReadMemberInfoPermission && participantPhone?.length
+          ? [copyPhoneAction]
+          : []),
         ...(hasCreateBookingPermission && bookingOptionId
           ? [bookOptionAction]
           : []),
@@ -266,8 +280,10 @@ export const ShortcutActionsButton: FC<{
       allowedItemIds,
       hasCreateBookingPermission,
       hasChangeSpotPermission,
+      hasEditBookingPermission,
       hasCancelBookingPermission,
       hasCreateInvoicePermission,
+      hasReadMemberInfoPermission,
       participantEmail,
       participantPhone,
       copyToClipboard,

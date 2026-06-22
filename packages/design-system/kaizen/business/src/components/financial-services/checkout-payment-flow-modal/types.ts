@@ -2,11 +2,16 @@ import type { CompanyTheme } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
 
 import type {
+  CheckoutFlowEventName,
   CheckoutFlowFormData,
   CheckoutFlowStartContext,
   CheckoutFlowTrackFn,
   InvoiceCompletionIntent,
 } from "#src/components/core/checkout-flow-modal/types";
+import type {
+  PaymentFlowEventName,
+  PaymentFlowTrackFn,
+} from "#src/components/financial-services/payment-flow-modal/types";
 
 import { CHECKOUT_PAYMENT_FLOW_MODE } from "./constants";
 
@@ -24,6 +29,19 @@ export type CheckoutPaymentFlowMode =
 export type FullPaymentFlowBasketStartTrigger =
   CheckoutFlowStartContext["basket_start_trigger"];
 
+export type CheckoutPaymentFlowEventName =
+  | CheckoutFlowEventName
+  | PaymentFlowEventName;
+
+/**
+ * Single tracking callback for the unified flow: receives every checkout and
+ * payment event with its event-specific payload. Intersecting the two flow
+ * track fns keeps per-event payload narrowing and stays assignable to each
+ * flow's own track-fn slot, so the state hook can fan it out to both steps.
+ */
+export type CheckoutPaymentFlowTrackFn = CheckoutFlowTrackFn &
+  PaymentFlowTrackFn;
+
 type CheckoutPaymentFlowModalBaseProps = {
   isOpen: boolean;
   companyId: number;
@@ -31,9 +49,8 @@ type CheckoutPaymentFlowModalBaseProps = {
   onClose: () => void;
   onPaymentConfirm?: (remainingAmountCts: number) => void;
   onError?: (error: Error) => void;
-  onTrack: CheckoutFlowTrackFn;
+  onTrack: CheckoutPaymentFlowTrackFn;
   startContext?: CheckoutFlowStartContext;
-  basketSessionId?: string;
   companyTheme?: CompanyTheme;
 };
 

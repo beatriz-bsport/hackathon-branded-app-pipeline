@@ -4,6 +4,7 @@ import { deleteBasketAbandonmentFilter } from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
+import { showFilterDeleteSuccessToast } from "../utils/filter-delete-success-toast";
 import { smartlistQueryKeys } from "./api";
 
 type UseDeleteBasketAbandonmentFilterMutationParams = {
@@ -28,6 +29,7 @@ export const useDeleteBasketAbandonmentFilterMutation = (
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
       });
+      showFilterDeleteSuccessToast();
       params.onSuccess?.();
     },
     onError: (error) => params.onError?.(error),

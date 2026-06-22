@@ -28,6 +28,8 @@ spec:
   frontends:
     backoffice:
       version: "$CI_COMMIT_SHORT_SHA"
+    widget:
+      version: "$CI_COMMIT_SHORT_SHA"
   type: frontend-only
 EOF
 

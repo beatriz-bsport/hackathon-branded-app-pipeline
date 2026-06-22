@@ -1,6 +1,7 @@
 import {
   ALL_PAYMENT_METHOD_OPTIONS,
   type AllPaymentMethodKey,
+  type SavedPaymentMethodDiscriminator,
 } from "./constants";
 import {
   PAYMENT_METHOD_SELECTOR_SELECTION_KIND,
@@ -61,4 +62,39 @@ export const isSameSelection = (
   }
 
   return a.kind === b.kind && a.id === b.id;
+};
+
+/** Minimal saved-method shape needed to enrich a `saved` selection. */
+export type SavedSelectionSource = {
+  id: string;
+  savedType: SavedPaymentMethodDiscriminator;
+  paymentBackendIdentifier?: number;
+};
+
+/**
+ * Enriches a `saved` selection with `paymentMethodType` and
+ * `payment_backend_identifier` resolved from the fetched saved methods.
+ * Other selections (and unmatched ids) are returned unchanged.
+ */
+export const enrichSavedSelection = (
+  selection: PaymentMethodSelectorSelection,
+  savedMethods: ReadonlyArray<SavedSelectionSource>,
+): PaymentMethodSelectorSelection => {
+  if (
+    !selection ||
+    selection.kind !== PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED
+  ) {
+    return selection;
+  }
+
+  const matched = savedMethods.find((method) => method.id === selection.id);
+  if (!matched) {
+    return selection;
+  }
+
+  return {
+    ...selection,
+    paymentMethodType: matched.savedType,
+    payment_backend_identifier: matched.paymentBackendIdentifier,
+  };
 };

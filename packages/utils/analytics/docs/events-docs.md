@@ -315,6 +315,22 @@
 `total_basket_price`: Total basket price in cents
 `total_item_quantity`: Sum of all item quantities in the basket
 
+### `checkout_flow_click_outside`
+
+**Description:** When the user closes the checkout flow by clicking outside
+
+**Parameters:**
+`basket_session_id`: Session UUID
+`member_id`: Current member ID if any
+`nb_of_promo_code_applied`: Number of promo codes applied
+`billing_group_id_selected`: Billing group ID selected
+`service_date`: Service/pass activation date
+`invoice_creation_success`: Whether invoice was created (if attempted)
+`invoice_id`: Invoice ID if created
+`invoice_creation_error`: Error message if invoice creation failed
+`total_basket_price`: Total basket price in cents
+`total_item_quantity`: Sum of all item quantities in the basket
+
 ### `checkout_flow_completion`
 
 **Description:** When the basket is completed (confirm clicked)
@@ -361,7 +377,7 @@
 `promo_code_value`: Promo code value that was applied
 `promo_code_id`: Promo code ID
 
-### `checkout_flow_escape_key_button_clicked`
+### `checkout_flow_escape_key_pressed`
 
 **Description:** When the user closes the checkout flow with Escape
 
@@ -417,7 +433,7 @@
 `has_footnote`: Whether a footnote is present
 `footnote_length`: Footnote length in characters
 
-### `checkout_flow_footnote_escape_key_button_clicked`
+### `checkout_flow_footnote_escape_key_pressed`
 
 **Description:** When the user closes the footnote modal with Escape
 
@@ -568,7 +584,7 @@
 `basket_session_id`: Session UUID
 `member_id`: Member ID when available
 
-### `checkout_flow_member_search_escape_key_button_clicked`
+### `checkout_flow_member_search_escape_key_pressed`
 
 **Description:** When the user closes the member search modal with Escape
 
@@ -635,9 +651,179 @@
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
 
+### `payment_flow_cancel_button_clicked`
+
+**Description:** When the user closes the payment flow with the cancel button
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_click_outside`
+
+**Description:** When the user closes the payment flow by clicking outside
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_confirm_button_clicked`
+
+**Description:** When the user submits the payment (confirm/pay button clicked)
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_cross_button_clicked`
+
+**Description:** When the user closes the payment flow with the cross button
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_escape_key_pressed`
+
+**Description:** When the user closes the payment flow by pressing Escape
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_installments_selected`
+
+**Description:** When the user selects the installments payment tab
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+
+### `payment_flow_invoice_button_clicked`
+
+**Description:** When the user clicks the invoice external link button
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_member_button_clicked`
+
+**Description:** When the user clicks the member external link button
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_one_time_selected`
+
+**Description:** When the user selects the one-time payment tab
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+
+### `payment_flow_partial_payment_toggle_off`
+
+**Description:** When the user deactivates the partial payment toggle
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_partial_payment_toggle_on`
+
+**Description:** When the user activates the partial payment toggle
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_payment_method_selected`
+
+**Description:** When the user selects a payment method
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`amount_to_pay`: Amount being charged in cents; may differ from total when partial payment is used
+
+### `payment_flow_start`
+
+**Description:** When the payment flow modal opens
+
+**Parameters:**
+`basket_session_id`: Session UUID grouping all events for this payment flow
+`member_id`: Member ID
+`invoice_id`: Invoice UUID
+`total_amount_to_pay`: Total invoice remaining amount in cents
+`payment_method_selected`: Identifier of the currently selected payment method
+`payment_start_trigger`: Entry point that opened the payment flow
+`origin_url`: URL of the page where the payment flow was opened
+
 ---
 
 ## sm-session
+
+### `aggregator_chips_status`
+
+**Description:** When the user clicks on an aggregator chip
+
+**Parameters:**
+`allowed_on_aggregator_chip_enabled`: Whether the aggregator chip was toggled on or off
+`aggregator_name`: The identifier of the aggregator chip that was clicked
+
+### `aggregator_toggle_status`
+
+**Description:** When the user clicks on the aggregator availability toggle
+
+**Parameters:**
+`available_on_aggregators_toggle_enabled`: Whether the aggregator toggle was enabled or disabled
 
 ### `session_creation_activity_selected`
 
@@ -1088,3 +1274,10 @@
 `old_waiting_list_max_size`: The old waiting list max size of the session before the update
 `new_waiting_list_max_size`: The new waiting list max size of the session after the update
 `delta`: The difference between the new and old waiting list max size of the session after the update
+
+### `spot_capping_radio_button`
+
+**Description:** When the user clicks on the capping strategy radio button
+
+**Parameters:**
+`spot_capping_mode`: The capping strategy mode selected by the user

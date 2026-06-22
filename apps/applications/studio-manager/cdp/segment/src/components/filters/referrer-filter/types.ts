@@ -4,6 +4,8 @@ import type {
   SmartlistReferrerComparator,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type ReferrerFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -26,9 +28,5 @@ export type ReferrerFilterDirtyPatchPayload = Partial<
 
 export type ReferrerFilterCreatePayload = CreateReferrerFilterPayload;
 
-export type ReferrerFilterCardProps = {
-  smartlistId: string;
-  filterValue: ReferrerFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type ReferrerFilterCardProps =
+  SegmentFilterCardProps<ReferrerFilterFormValue>;

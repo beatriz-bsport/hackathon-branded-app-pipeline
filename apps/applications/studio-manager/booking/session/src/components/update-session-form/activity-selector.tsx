@@ -18,9 +18,13 @@ import { SessionEditFormData } from "../SessionForm/types";
 
 type ActivitySelectorProps = {
   fieldIdPrefix: string;
+  isGroupSession?: boolean;
 };
 
-const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
+const ActivitySelector: FC<ActivitySelectorProps> = ({
+  fieldIdPrefix,
+  isGroupSession = false,
+}) => {
   const { watch } = useFormContext<SessionEditFormData>();
   const { t } = useTranslation("sessionEdit");
 
@@ -79,6 +83,7 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
         name="meta_activity"
         mapProps={({ form: { setValue } }) => ({
           onSelect: (value: string) => {
+            if (isGroupSession) return;
             if (!value) return;
             setValue("meta_activity", Number(value), {
               shouldDirty: true,
@@ -99,6 +104,7 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
             required: true,
             label: t("editSessionForm.content.chooseActivity.label"),
             className: "max-w-component-select",
+            disabled: isGroupSession,
           }}
           menuProps={{
             className: "max-h-component-select overflow-y-auto",

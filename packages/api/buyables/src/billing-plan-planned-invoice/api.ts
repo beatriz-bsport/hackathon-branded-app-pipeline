@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -9,7 +9,11 @@ import {
 
 import { API_V0_URL_SUBSCRIPTION, QUERY_KEY_MAIN } from "#src/constants";
 
-import type { FetchPlannedInvoicesParams, PlannedInvoice } from "./types";
+import type {
+  FetchPlannedInvoicesParams,
+  PlannedInvoice,
+  UpdateInvoicePriceParams,
+} from "./types";
 
 // ----------------------------------------------------------------------------
 
@@ -22,6 +26,9 @@ export const queryKeys = {
   listByPlan: (planId: number) => [...queryKeys.lists(), planId] as const,
   list: (params: FetchPlannedInvoicesParams) =>
     [...queryKeys.listByPlan(params.billing_plan), params] as const,
+
+  upcomingList: (billingPlanId: number) =>
+    [...queryKeys.lists(), "upcoming", billingPlanId] as const,
 } as const;
 
 // ----------------------------------------------------------------------------
@@ -50,4 +57,18 @@ export const fetchPlannedInvoicesQueryOptions = (
   queryOptions({
     queryKey: queryKeys.list(params),
     queryFn: () => fetchPlannedInvoicesAPI(fetch, params),
+  });
+
+// ----------------------------------------------------------------------------
+
+// TODO: wire POST /subscription/billing-plan/:id/update_price/ when available.
+export const updateInvoicePriceMutationOptions = (
+  _fetch: Fetch<UpdateInvoicePriceParams>,
+) =>
+  mutationOptions({
+    mutationFn: async (
+      _params: UpdateInvoicePriceParams,
+    ): Promise<UpdateInvoicePriceParams> => {
+      throw new Error("Invoice price update is not available yet.");
+    },
   });

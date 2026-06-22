@@ -36,6 +36,14 @@ const meta: Meta<typeof FileUpload> = {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
     },
+    status: {
+      control: { type: "select" },
+      options: ["default", "critical", "positive"],
+      table: { defaultValue: { summary: "default" } },
+    },
+    statusText: {
+      control: { type: "text" },
+    },
   },
 };
 
@@ -48,11 +56,13 @@ export const FileUploadStory: Story = {
   args: {
     autoUpload: true,
     className: "w-fit",
+
     customTexts: {
       dragAndDropFileCTA: "Or drag and drop the core of your desire here",
       uploadFileCTA: "Upload something you desire",
       fileExtensionList: "JPG, PNG, all kinds of images",
     },
+
     disabled: false,
     fileExtensionList: ["png", "jpg", "image/*"] as FileType[],
     fileUploadTrackerList: undefined,
@@ -65,6 +75,43 @@ export const FileUploadStory: Story = {
     onInputChange: undefined,
     setFileUploadTrackerList: undefined,
     uploadCallback: undefined,
+    status: "error",
+  },
+};
+
+export const FileUploadStatus: Story = {
+  name: "FileUpload Status",
+  render: (args) => (
+    <div className="flex w-full max-w-md flex-col gap-lg">
+      <FileUpload
+        {...args}
+        id="file-upload-status-default"
+        status="default"
+        statusText="Default status"
+      />
+      <FileUpload
+        {...args}
+        id="file-upload-status-critical"
+        status="error"
+        statusText="Critical status — e.g. validation error"
+      />
+      <FileUpload
+        {...args}
+        id="file-upload-status-positive"
+        status="positive"
+        statusText="Positive status — e.g. file accepted"
+      />
+    </div>
+  ),
+  args: {
+    autoUpload: false,
+    className: "w-full",
+    handleUploadFile: simulateUploadToBackend,
+    customTexts: {
+      fileExtensionList: "PNG, JPG",
+    },
+    fileExtensionList: ["png", "jpg"],
+    multiple: false,
   },
 };
 

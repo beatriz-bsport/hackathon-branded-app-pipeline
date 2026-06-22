@@ -5,6 +5,7 @@ import type {
 
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 
+import type { CompanyScopedSegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { TotalAppointmentsNumberTypeValue } from "./constants";
 import type { TotalAppointmentsSubFilterId } from "./sub-filters/total-appointments-sub-filter-id";
 
@@ -48,13 +49,7 @@ export type TotalAppointmentsNumberDirtyPatchPayload = Partial<
 export type TotalAppointmentsFilterCreatePayload =
   CreatePrivateBookingsFilterPayload;
 
-export type TotalAppointmentsNumberFilterCardProps = {
-  smartlistId: string;
-  /** Studio tenant, resolved once by the parent smartlist screen. */
-  companyId: number;
-  filterValue: TotalAppointmentsNumberFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type TotalAppointmentsNumberFilterCardProps =
+  CompanyScopedSegmentFilterCardProps<TotalAppointmentsNumberFilterFormValue>;
 
 export type { TotalAppointmentsSubFilterId } from "./sub-filters/total-appointments-sub-filter-id";

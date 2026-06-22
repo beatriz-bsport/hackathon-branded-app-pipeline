@@ -1,4 +1,4 @@
-import { type FC, useEffect, useId, useState } from "react";
+import { type FC, useId, useState } from "react";
 
 import {
   type DateTime,
@@ -25,20 +25,17 @@ export const EditBillingDateModal: FC<EditBillingDateModalProps> = ({
 }) => {
   const { t } = useTranslation("membership-plan");
   const datePickerId = useId();
-  const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
+  const [selectedDate, setSelectedDate] = useState<DateTime | null>(
+    invoice ? fromIsoString(invoice.rawDate) : null,
+  );
   const [hasMutationError, setHasMutationError] = useState(false);
 
   const { mutateAsync, isPending } = useUpdateInvoiceBillingDateMutation({
     onError: () => setHasMutationError(true),
   });
 
-  useEffect(() => {
-    setSelectedDate(invoice ? fromIsoString(invoice.rawDate) : null);
-    setHasMutationError(false);
-  }, [invoice]);
-
   const handleSave = async () => {
-    if (!invoice || !selectedDate) {
+    if (!invoice || invoice.isDateEditDisabled || !selectedDate) {
       return;
     }
 

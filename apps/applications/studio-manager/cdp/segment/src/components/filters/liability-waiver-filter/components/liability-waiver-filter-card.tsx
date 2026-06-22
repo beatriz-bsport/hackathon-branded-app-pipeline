@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLiabilityWaiverFilterMutation } from "#src/api/use-delete-liability-waiver-filter-mutation";
 import { useUpsertLiabilityWaiverFilterMutation } from "#src/api/use-upsert-liability-waiver-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -22,8 +23,7 @@ import { LiabilityWaiverRadioGroup } from "./liability-waiver-radio-group";
 export const LiabilityWaiverFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: LiabilityWaiverFilterCardProps) => {
   const baseId = useId();
   const waiverFieldId = `${baseId}-liability-waiver-value`;
@@ -48,7 +48,7 @@ export const LiabilityWaiverFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapLiabilityWaiverFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -108,7 +108,7 @@ export const LiabilityWaiverFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -147,22 +147,13 @@ export const LiabilityWaiverFilterCard = ({
           }
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={
-              isSavedFilter
-                ? t("filters.410.actions.update")
-                : t("filters.410.actions.save")
-            }
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

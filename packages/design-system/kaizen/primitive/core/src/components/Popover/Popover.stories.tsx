@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
+import React, { useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -184,40 +184,81 @@ export const PopoverInAScrollableContainer: Story = {
 export const PopoverFullWidth: Story = {
   name: "Popover with full width",
   render: (args) => {
+    const [elementNb, setElementNb] = useState(0);
+    const handleAddElement = () => {
+      setElementNb((prev) => prev + 1);
+    };
+    const handleRemoveElement = () => {
+      setElementNb((prev) => prev - 1);
+    };
     return (
-      <div className="relative h-[30vh] w-full px-lg">
+      <div className="relative h-[30vh] w-full px-lg flex flex-col gap-sm">
+        <div className="flex flex-row gap-lg">
+          <Button
+            label="Add element"
+            intent="default"
+            color="main"
+            size="md"
+            onClick={handleAddElement}
+          />
+          <Button
+            label="Remove element"
+            intent="default"
+            color="main"
+            size="md"
+            onClick={handleRemoveElement}
+          />
+        </div>
         <div className="flex flex-col gap-lg">
-          <Popover fullWidth={args.fullWidth}>
-            <Popover.Anchor>
-              {({ setIsPopoverOpened }) => (
+          {Array.from({ length: elementNb }, (_, index) => (
+            <div
+              key={index}
+              className="bg-cupid-red-500 w-[100px] h-[100px]"
+            ></div>
+          ))}
+        </div>
+        <Popover fullWidth={args.fullWidth}>
+          <Popover.Anchor>
+            {({ setIsPopoverOpened }) => (
+              <Button
+                label="Open full width popover"
+                intent="default"
+                color="main"
+                size="md"
+                onClick={() => setIsPopoverOpened((prev) => !prev)}
+              />
+            )}
+          </Popover.Anchor>
+          <Popover.Content placement={args.placement}>
+            {({ setIsPopoverOpened }) => (
+              <div className="flex flex-col gap-sm">
+                <Body htmlVariant="p" size="sm" color="default">
+                  This popover takes the full width of its container when
+                  fullWidth is true. Toggle the control to see the difference.
+                </Body>
+                <Body htmlVariant="p" size="sm" color="default">
+                  This popover takes the full width of its container when
+                  fullWidth is true. Toggle the control to see the difference.
+                </Body>
+                <Body htmlVariant="p" size="sm" color="default">
+                  This popover takes the full width of its container when
+                  fullWidth is true. Toggle the control to see the difference.
+                </Body>
+                <Body htmlVariant="p" size="sm" color="default">
+                  This popover takes the full width of its container when
+                  fullWidth is true. Toggle the control to see the difference.
+                </Body>
                 <Button
-                  label="Open full width popover"
+                  label="Close popover"
                   intent="default"
                   color="main"
                   size="md"
-                  onClick={() => setIsPopoverOpened((prev) => !prev)}
+                  onClick={() => setIsPopoverOpened(false)}
                 />
-              )}
-            </Popover.Anchor>
-            <Popover.Content placement={args.placement}>
-              {({ setIsPopoverOpened }) => (
-                <div className="flex flex-col gap-sm">
-                  <Body htmlVariant="p" size="sm" color="default">
-                    This popover takes the full width of its container when
-                    fullWidth is true. Toggle the control to see the difference.
-                  </Body>
-                  <Button
-                    label="Close popover"
-                    intent="default"
-                    color="main"
-                    size="md"
-                    onClick={() => setIsPopoverOpened(false)}
-                  />
-                </div>
-              )}
-            </Popover.Content>
-          </Popover>
-        </div>
+              </div>
+            )}
+          </Popover.Content>
+        </Popover>
       </div>
     );
   },

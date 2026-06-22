@@ -9,7 +9,8 @@ import { TagSelectorField } from "./tag-selector-field";
 
 const TagSelectorForm: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  isGroupSession?: boolean;
+}> = ({ fieldIdPrefix, isGroupSession = false }) => {
   const { t } = useTranslation("sessionCreation");
 
   return (
@@ -28,6 +29,7 @@ const TagSelectorForm: FC<{
         )}
         id={`${fieldIdPrefix}-whitelist-tags`}
         name="whitelist_tags"
+        isGroupSession={isGroupSession}
       />
       <TagSelectorField
         label={t(
@@ -35,6 +37,7 @@ const TagSelectorForm: FC<{
         )}
         id={`${fieldIdPrefix}-blacklist-tags`}
         name="blacklist_tags"
+        isGroupSession={isGroupSession}
       />
     </>
   );

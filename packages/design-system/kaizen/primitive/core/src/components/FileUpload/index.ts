@@ -4,4 +4,5 @@ export {
   type FileUploadTracker,
   type FileUploadStatus,
 } from "./constants";
+export type { FileUploadFieldStatus } from "./file-upload-status";
 export { default } from "./FileUpload";

@@ -45,16 +45,6 @@ admin configuration where hierarchy depth is shallow (typically one nest level).
 
 ## Guidelines
 
-- **Shallow nesting** — avoid deep trees; flatten IA when depth exceeds two levels.
-- **Distinct group labels** — each sub-list needs a visible heading.
-- **Cross-list moves** — confirm API supports parent change, not just index.
-- **Performance** — extended stories show many lists; gate feature for large datasets.
-- **Undo** — destructive reorder deserves toast with undo when feasible.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Explain in copy that dragging across groups changes category membership." />
   <Do caption="Collapse groups sparingly — hiding drag targets frustrates admins." />
@@ -62,6 +52,11 @@ admin configuration where hierarchy depth is shallow (typically one nest level).
   <Dont caption="Nested sortable for member-facing navigation — too fragile." />
   <Dont caption="Identical group titles — users cannot predict drop targets." />
   <Dont caption="Mobile-first flows relying on precision drag between columns." />
+  <Do caption="Shallow nesting — avoid deep trees; flatten IA when depth exceeds two levels." />
+  <Do caption="Distinct group labels — each sub-list needs a visible heading." />
+  <Do caption="Cross-list moves — confirm API supports parent change, not just index." />
+  <Do caption="Performance — extended stories show many lists; gate feature for large datasets." />
+  <Do caption="Undo — destructive reorder deserves toast with undo when feasible." />
 </DoDont>
 
 ### Content rules

@@ -3,18 +3,18 @@
     "selector": {
       "label": "Bookkeeping account",
       "noAccounts": "No account found",
-      "tax": "Sales Tax / VAT: {{ value }}%",
+      "tax": "Sales Tax {{ value }}%",
       "clearSelection": "Clear selected account",
       "placeholder": "Select an account",
       "createAccount": "Create new account"
     },
     "createModal": {
       "title": "Create a new account",
-      "fieldRequired": "Field is required",
+      "fieldRequired": "This field can't be empty",
       "fields": {
         "accountNumber": "Account number",
         "accountName": "Account name",
-        "vatRate": "VAT rate"
+        "vatRate": "Sales tax rate"
       },
       "buttons": {
         "close": "Close",
@@ -23,7 +23,7 @@
       "success": "Account created",
       "errors": {
         "accountNameMustBeUnique": "Bookkeeping Account name already used. It must be unique.",
-        "generic": "An error occured."
+        "generic": "Something went wrong. Try again. "
       }
     }
   },
@@ -33,17 +33,17 @@
     "bacsDebit": "BACS",
     "selector": {
       "label": "Payment method",
-      "savedMethodsLabel": "Saved methods",
-      "savedMethodsPlaceholder": "Select a saved method",
-      "loadingSavedMethods": "Loading saved methods...",
+      "savedMethodsLabel": "Saved payment methods",
+      "savedMethodsPlaceholder": "Select payment method",
+      "loadingSavedMethods": "Loading payment methods...",
       "noSavedMethods": "No saved payment methods",
-      "allMethodsLabel": "All methods",
-      "allMethodsPlaceholder": "Select a method",
+      "allMethodsLabel": "All payment methods",
+      "allMethodsPlaceholder": "Select payment method",
       "allMethodsOptions": {
         "card": "Credit card",
         "sepaDebit": "SEPA payment",
-        "giftCardCode": "Gift Card",
-        "accountBalance": "Account balance",
+        "giftCardCode": "Gift card",
+        "accountBalance": "Client account balance",
         "terminal": "Terminal",
         "manual": "Manual"
       }
@@ -65,139 +65,139 @@
       "drawerDescription": "Your account has {{ count }} issues that require attention. Resolve them to keep your account in good standing."
     },
     "apple-developer-program-enrollment": {
-      "title": "Apple Developer Program enrollment required",
-      "description": "Your studio distributes an app through the App Store. To keep it live, you must enroll in the Apple Developer Program.",
-      "ctaLabel": "Enroll now"
+      "title": "Your App Store app needs to be transferred",
+      "description": "Your studio app is currently registered under bsport's Apple account. Create your own Apple Developer account to take ownership of it.",
+      "ctaLabel": "Get started"
     },
     "unpaid-invoice": {
-      "title": "Unpaid invoice",
-      "description": "An invoice is overdue. Please resolve this to avoid or lift account restrictions.",
+      "title": "You have an unpaid invoice",
+      "description": " Pay your outstanding invoice or your account will be restricted.",
       "ctaLabel": "Pay invoice"
     },
     "disputed-invoice": {
-      "title": "Disputed invoice",
-      "description": "An invoice is being disputed. Please resolve this to avoid or lift account restrictions.",
+      "title": "You have a dispute on one of your invoices",
+      "description": "Resolve this as soon as possible to avoid or lift account restrictions.",
       "ctaLabel": "View dispute"
     },
     "missing-vat-number": {
-      "title": "VAT number required",
-      "description": "Your VAT number is missing from your billing profile. Please add it in your account settings to remain compliant.",
+      "title": "Your VAT number is missing",
+      "description": "Add it in your business details to stay compliant in your country.",
       "ctaLabel": "Add VAT number"
     },
     "stripe-not-configured": {
-      "title": "Stripe account requires attention",
-      "description": "Your Stripe account is not configured or requires action. Please resolve this to maintain payment functionality.",
-      "ctaLabel": "Configure Stripe"
+      "title": "Your Stripe account needs attention",
+      "description": "Resolve the issue on your Stripe account to keep taking payments via the Back Office. ",
+      "ctaLabel": "Go to Stripe"
     }
   },
   "paymentFlowModal": {
     "title": "Payment",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Close",
       "confirm": "Confirm",
       "pay": "Pay {{amount}}"
     },
     "errors": {
-      "generic": "Could not confirm this payment. Please try again.",
-      "fraudProtectionBlocked": "The payment cannot be processed because fraud protection has temporarily blocked this client after several failed card attempts. Please try again later or contact support.",
-      "giftCardPayment": "Could not pay this invoice with this gift card.",
-      "invoiceAlreadyPaid": "This invoice is already paid.",
-      "invalidInstallmentSchedule": "Installment schedule is invalid.",
-      "missingSelectedPaymentMethod": "Missing selected payment method.",
-      "missingPaymentContext": "Missing payment context.",
-      "paymentMethodNotReady": "Payment method is not ready.",
-      "cardPaymentNotCompleted": "Card payment was not completed.",
-      "sepaPaymentNotConfirmed": "SEPA payment could not be confirmed.",
-      "unsupportedPaymentMethodForInstallments": "Unsupported payment method for installments.",
-      "stripeNotConfigured": "Stripe is not configured.",
-      "paymentConfirmationFailed": "Payment confirmation failed."
+      "generic": "Couldn't confirm payment. Try again.",
+      "fraudProtectionBlocked": "Couldn't process this payment as fraud protection has temporarily blocked this client after several failed attempts. Try again later or contact support.",
+      "giftCardPayment": "Couldn't pay invoice with gift card. Try again or check the gift card settings.",
+      "invoiceAlreadyPaid": "This invoice is already paid",
+      "invalidInstallmentSchedule": "Enter a valid payment plan schedule",
+      "missingSelectedPaymentMethod": "Enter a valid payment method",
+      "missingPaymentContext": "Something went wrong with the payment setup. Refresh the page and try again.",
+      "paymentMethodNotReady": "The payment form isn't ready yet. Wait a moment and try again.",
+      "cardPaymentNotCompleted": "Couldn't complete the card payment. Try again or use a different payment method.",
+      "sepaPaymentNotConfirmed": "Couldn't confirm the SEPA payment. Try again or contact support if the issue persists.",
+      "unsupportedPaymentMethodForInstallments": "This payment method doesn't support payment plans. Use a card or SEPA direct debit instead.",
+      "stripeNotConfigured": "Stripe isn't set up for this account. Complete your Stripe onboarding to accept payments.",
+      "paymentConfirmationFailed": "Couldn't confirm the payment method. Try again or contact support."
     },
     "stripe": {
       "errors": {
-        "incomplete_number": "Your card number is incomplete.",
-        "incomplete_expiry": "Your card's expiration date is incomplete.",
-        "invalid_expiry_year_past": "Your card has expired.",
-        "invalid_expiry_year": "Your card's expiration year is invalid.",
-        "incomplete_cvc": "Your card's security code is incomplete.",
-        "invalid_number": "Your card's number is invalid.",
-        "card_declined": "Your card was declined.",
-        "expired_card": "Your card has expired.",
-        "incorrect_cvc": "Your card's security code is incorrect.",
-        "processing_error": "An error occurred while processing your card. Try again later.",
-        "insufficient_funds": "Your card has insufficient funds.",
-        "payment_intent_authentication_failure": "Your bank refused the payment.",
+        "incomplete_number": "Enter a valid card number",
+        "incomplete_expiry": "Enter a valid expiration date",
+        "invalid_expiry_year_past": "Enter a card with a valid expiration date",
+        "invalid_expiry_year": "Enter a valid expiration date",
+        "incomplete_cvc": "Enter a valid security code",
+        "invalid_number": "Enter a valid card number",
+        "card_declined": "Card declined. Ask the client to contact their bank.",
+        "expired_card": "Enter a card with a valid expiration date",
+        "incorrect_cvc": "Enter a valid security code",
+        "processing_error": "Couldn't process the card. Try again later.",
+        "insufficient_funds": "The card has insufficient funds. Try a different payment method.",
+        "payment_intent_authentication_failure": "The client's bank refused this payment. Ask them to contact their bank.",
         "unknown": "A network error occurred. Try again later.",
-        "invalid_bank_account": "The bank account provided is invalid.",
-        "invalid_bank_account_account_number": "The bank account number is invalid.",
-        "invalid_bank_account_routing_number": "The sort code provided is invalid.",
-        "email_invalid": "The email address is invalid.",
-        "setup_intent_authentication_failure": "Unable to save this card. Please try another payment method.",
-        "charge_exceeds_source_limit": "This charge exceeds the SEPA source limit.",
-        "charge_exceeds_transaction_limit": "This charge exceeds the SEPA transaction limit.",
-        "charge_exceeds_weekly_limit": "This charge exceeds the weekly SEPA limit.",
+        "invalid_bank_account": "The bank account is invalid. Ask the client to check their account details.",
+        "invalid_bank_account_account_number": "Enter a valid bank account number",
+        "invalid_bank_account_routing_number": "Enter a valid sort code",
+        "email_invalid": "Enter a valid email address ",
+        "setup_intent_authentication_failure": "Couldn't save this card. Ask the client to try a different card",
+        "charge_exceeds_source_limit": "This SEPA mandate has reached its total charge limit",
+        "charge_exceeds_transaction_limit": "This transaction exceeds the per-transaction limit for this SEPA mandate",
+        "charge_exceeds_weekly_limit": "The weekly charge limit for this SEPA mandate has been reached",
         "none": " "
       },
       "error_code": {
-        "incomplete_number": "Your card number is incomplete.",
-        "incomplete_expiry": "Your card's expiration date is incomplete.",
-        "invalid_expiry_year_past": "Your card is no longer valid.",
-        "invalid_expiry_year": "Your card's expiration date is invalid.",
-        "incomplete_cvc": "Your security code is incomplete.",
-        "invalid_number": "Your card's number is invalid.",
-        "expired_card": "Your card has expired.",
-        "card_declined": "Card declined",
-        "payment_intent_authentication_failure": "Your bank refused the payment.",
-        "payment_intent_payment_attempt_failed": "Your bank refused the payment.",
-        "processing_error": "An error occurred while processing your payment. Try again later.",
-        "unknown": "A network error occurred. Try again later.",
-        "setup_intent_authentication_failure": "This card cannot be saved. Please try another payment method.",
-        "invalid_bank_account_account_number": "The bank account number is invalid.",
-        "invalid_bank_account_routing_number": "The sort code provided is invalid.",
-        "email_invalid": "The email address is invalid.",
+        "incomplete_number": "Enter a valid card number",
+        "incomplete_expiry": "Enter a valid expiration date",
+        "invalid_expiry_year_past": "Enter a card with a valid expiration date",
+        "invalid_expiry_year": "Enter a valid expiration date",
+        "incomplete_cvc": "Enter a valid security code",
+        "invalid_number": "Enter a valid card number",
+        "expired_card": "Enter a card with a valid expiration date",
+        "card_declined": "The card was declined. Ask the client to contact their bank.",
+        "payment_intent_authentication_failure": "The bank refused this payment. Ask the client to contact their bank.",
+        "payment_intent_payment_attempt_failed": "The bank refused this payment. Ask the client to contact their bank.",
+        "processing_error": "Couldn't process the payment. Try again.",
+        "unknown": "Couldn't process the payment due to network. Try again.",
+        "setup_intent_authentication_failure": "Couldn't save this card. Ask the client to try a different payment method.",
+        "invalid_bank_account_account_number": "Enter a valid bank account number",
+        "invalid_bank_account_routing_number": "Enter a valid sort code",
+        "email_invalid": "Enter a valid email address",
         "none": " "
       },
       "decline_code": {
-        "card_not_supported": "Your card couldn't be recognized.",
-        "incorrect_number": "Your card's number is invalid.",
-        "incorrect_cvc": "Your security code is invalid.",
-        "insufficient_funds": "Your card has insufficient funds.",
-        "restricted_card": "Your bank refused your card.",
-        "stolen_card": "Your bank has marked your card as stolen.",
-        "transaction_not_allowed": "Your bank refused your transaction.",
-        "generic_decline": "Your bank has refused your payment.",
-        "withdrawal_count_limit_exceeded": "Your bank declined your card, as you exceeded your withdrawal limit.",
-        "do_not_honor": "Your bank refused your payment. Contact your bank to authorize the payment.",
-        "incorrect_pin": "Wrong pin code",
-        "invalid_pin": "Wrong pin code",
-        "offline_pin_required": "Required pin code",
-        "online_or_offline_pin_required": "Required pin code",
-        "pin_try_exceeded": "Max number of attempts reached. Try another payment method",
-        "call_issuer": "Your card has been declined for an unknown reason. Please contact your bank",
-        "lost_card": "Your card has been reported lost by your bank",
-        "test_mode_live_card": "Your card has been rejected because you are using a test card. Please use a real card",
+        "card_not_supported": "Enter a valid card number",
+        "incorrect_number": "Enter a valid card number",
+        "incorrect_cvc": "Enter a valid security code",
+        "insufficient_funds": "The card has insufficient funds. Try a different payment method.",
+        "restricted_card": "The bank has restricted this card. Ask the client to try a different card.",
+        "stolen_card": "This card has been flagged as stolen. Ask the client to contact their bank.",
+        "transaction_not_allowed": "The bank doesn't permit this type of transaction. Ask the client to try a different payment method.",
+        "generic_decline": "The bank refused this payment. Ask the client to contact their bank.",
+        "withdrawal_count_limit_exceeded": "The client has exceeded their withdrawal limit. Ask them to try a different payment method.",
+        "do_not_honor": "The bank has declined this payment. Ask the client to call their bank to authorize it.",
+        "incorrect_pin": "Incorrect PIN. Ask the client to try again.",
+        "invalid_pin": "Incorrect PIN. Ask the client to try again.",
+        "offline_pin_required": "A PIN is required. Ask the client to enter their PIN.",
+        "online_or_offline_pin_required": "A PIN is required. Ask the client to enter their PIN.",
+        "pin_try_exceeded": "Too many incorrect PIN attempts. Ask the client to try a different card.",
+        "call_issuer": "The payment was declined. Ask the client to contact their bank.",
+        "lost_card": "This card has been reported lost. Ask the client to contact their bank.",
+        "test_mode_live_card": "A test card was used in a live environment. Check your Stripe configuration.",
         "none": " "
       }
     },
     "tabs": {
-      "oneTime": "One time",
-      "installments": "Installments"
+      "oneTime": "One-time",
+      "installments": "Payment plans"
     },
     "installmentsEligibility": {
-      "reverseOrCreditNote": "Installments are not available on reverse or credit-note invoices.",
-      "reverted": "This invoice was reverted; installments cannot be scheduled.",
-      "notRegularInvoice": "Installments are only available on standard invoices.",
-      "subscriptionPlannedInvoice": "This invoice is linked to a subscription; use subscription billing instead of installments here.",
-      "noMember": "Assign a client to this invoice before scheduling installments.",
-      "nothingToPay": "There is no remaining balance to split into installments."
+      "reverseOrCreditNote": "Payment plans aren't available on refunds or credit notes",
+      "reverted": "This invoice has been reversed and can't be paid",
+      "notRegularInvoice": "Payment plans are only available on standard invoices",
+      "subscriptionPlannedInvoice": "This invoice is linked to a membership. Manage payments on the membership billing page. ",
+      "noMember": "Assign a client to this invoice before setting up a payment plan",
+      "nothingToPay": "This invoice has no outstanding balance to split into payment plans"
     },
     "installments": {
-      "timelineTitle": "Installment timeline",
+      "timelineTitle": "Payment plan timeline",
       "showFullCycle": "Show full cycle",
-      "fullCyclePreviewUnavailable": "Enter a valid timeline to preview all installments.",
+      "fullCyclePreviewUnavailable": "Enter a valid timeline to preview all payment plans",
       "intervalLabel": "Interval",
       "repeatEveryLabel": "Repeat every",
       "numberOfInvoicesLabel": "Number of invoices",
-      "firstInstallmentLabel": "First installment",
+      "firstInstallmentLabel": "First payment plan",
       "interval": {
         "day": "Daily",
         "week": "Weekly",
@@ -205,9 +205,9 @@
         "year": "Yearly"
       },
       "errors": {
-        "recurrenceBasis": "Enter a value of at least 1.",
-        "nbIntervalMin": "Enter at least 1 invoice.",
-        "nbIntervalMax": "You cannot schedule more than 90 invoices."
+        "recurrenceBasis": "Enter a value of at least 1",
+        "nbIntervalMin": "Enter at least 1 invoice",
+        "nbIntervalMax": " Payment plans can't exceed 90 invoices"
       },
       "unitDay": "",
       "unitDay_one": "Day",
@@ -234,8 +234,8 @@
       "scheduleIntervalYear_one": "year",
       "scheduleIntervalYear_other": "years",
       "scheduleBillingWord": "",
-      "scheduleBillingWord_one": "billing",
-      "scheduleBillingWord_other": "billings",
+      "scheduleBillingWord_one": "invoice",
+      "scheduleBillingWord_other": "invoices",
       "scheduleExplainer": "Every {{recurrenceSpan}}, a payment will be processed for a total of {{totalSpan}}. The client will be billed {{invoiceCount}} times in total.",
       "perIntervalCaption": "{{amount}} per {{recurrenceSpan}}"
     },
@@ -246,8 +246,8 @@
       "remainingHelper": "{{amount}} will be left to pay",
       "unsupportedMethod": "Partial payment is not available with this payment method.",
       "errors": {
-        "min": "Amount must be greater than 0.",
-        "max": "Amount cannot be higher than the total due."
+        "min": "Amount must be greater than 0",
+        "max": "Amount cannot be higher than the total due"
       }
     },
     "partialSuccess": {
@@ -266,32 +266,32 @@
       "empty": "No gift cards available for this client.",
       "remaining": "{{available}} of {{total}} remaining",
       "expiresOn": "Expires on {{date}}",
-      "loadMore": "Load more",
-      "loadingMore": "Loading more...",
+      "loadMore": "Show more gift cards",
+      "loadingMore": "Loading gift cards...",
       "addGiftCard": "Add gift card",
       "giftCardCodePlaceholder": "Gift card code",
       "applyGiftCardCode": "Apply gift card code",
       "errors": {
-        "emptyCode": "You need to add a gift card code",
-        "invalidCode": "This gift card code is not valid",
-        "generic": "Could not apply this gift card code"
+        "emptyCode": "Enter a gift card code",
+        "invalidCode": "Enter a valid gift card code",
+        "generic": "Couldn't apply gift card code. Try again. "
       }
     },
     "newCard": {
       "title": "Pay with new credit card",
       "saveLabel": "Save this card for future payments",
-      "paymentError": "Could not process card details. Please try again."
+      "paymentError": "Couldn't process card details. Try again."
     },
     "newSepa": {
       "title": "Pay with new SEPA direct debit",
       "saveLabel": "Save this SEPA mandate for future payments",
-      "paymentError": "Could not process SEPA details. Please try again."
+      "paymentError": "Couldn't process SEPA details. Try again."
     },
     "terminal": {
       "title": "Select a terminal",
       "loading": "Loading terminals...",
-      "empty": "No terminal available.",
-      "unknownSerial": "Unknown serial number",
+      "empty": "No terminal available",
+      "unknownSerial": "This terminal's serial number wasn't recognized. Check the serial number and try again.",
       "saveLabel": "Save this card for future payments"
     },
     "manual": {
@@ -299,7 +299,7 @@
         "type": {
           "label": "Payment method",
           "options": {
-            "cardManualMachine": "Card (manual - card machine)",
+            "cardManualMachine": "Card (payment terminal)",
             "cash": "Cash",
             "check": "Check",
             "vacationCheck": "Vacation check",

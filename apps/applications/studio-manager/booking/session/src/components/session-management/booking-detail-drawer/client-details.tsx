@@ -21,6 +21,7 @@ import {
   SessionManagementModalType,
 } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { ShortcutActionsButton } from "../action-buttons/booking/shortcut-actions-button";
 import { BookingActionItemId } from "../action-buttons/booking/types";
@@ -45,6 +46,10 @@ export const ClientDetails: FC<{
   const locale = i18n.language;
 
   const { copyToClipboard } = useCopyToClipboard();
+
+  const hasReadInfoPermission = useObjectLevelPermission(
+    "member.allowed_actions.readInfo",
+  );
 
   const { data: memberTags } = useFetchTags((tags) =>
     tags.filter((tag) => (memberData?.tags ?? []).includes(tag.id)),
@@ -101,7 +106,7 @@ export const ClientDetails: FC<{
         )}
       </div>
       <Section>
-        {memberData.email && (
+        {hasReadInfoPermission && memberData.email && (
           <div className="flex gap-xs items-center">
             <Body color="default">{memberData.email}</Body>
             <Button
@@ -117,7 +122,7 @@ export const ClientDetails: FC<{
             />
           </div>
         )}
-        {memberData.phone && (
+        {hasReadInfoPermission && memberData.phone && (
           <div className="flex gap-xs items-center">
             <Body color="default">{memberData.phone}</Body>
             <Button

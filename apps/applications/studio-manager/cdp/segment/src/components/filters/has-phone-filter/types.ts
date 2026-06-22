@@ -3,6 +3,8 @@ import type {
   UpdateHasPhoneFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type HasPhoneFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -13,9 +15,5 @@ export type HasPhoneFilterCreatePayload = CreateHasPhoneFilterPayload;
 
 export type HasPhoneFilterDirtyPatchPayload = UpdateHasPhoneFilterPayload;
 
-export type HasPhoneFilterCardProps = {
-  smartlistId: string;
-  filterValue: HasPhoneFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type HasPhoneFilterCardProps =
+  SegmentFilterCardProps<HasPhoneFilterFormValue>;

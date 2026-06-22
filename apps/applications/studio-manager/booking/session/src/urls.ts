@@ -28,6 +28,7 @@ export const URLS = {
 
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
+  GROUPED_OFFER_LIST: "/workshop-activity/tabs/groups",
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
   MEMBER_BOOKINGS: (memberId: number) => `/member/${memberId}/bookings`,
   ADD_MEMBER: "/member/add",
@@ -76,6 +77,16 @@ export const useUrls = () => {
   const resolveSeriesPath = (id: number) =>
     generatePath(URLS.SERIES_PATH, { sessionId: String(id) });
 
+  const resolveSeriesDetailsPath = () => {
+    // TODO: when series detail feature is ready, redirect to grouped-session detail page.
+    return LEGACY_URLS.GROUPED_OFFER_LIST;
+  };
+
+  const navigateToSeriesDetails = () => {
+    const path = resolveSeriesDetailsPath();
+    window.location.assign(path);
+  };
+
   const resolveAllOccurrencesPath = (id: number) =>
     generatePath(URLS.ALL_OCCURRENCES_PATH, { sessionId: String(id) });
 
@@ -96,8 +107,10 @@ export const useUrls = () => {
     getIndexUrl,
     resolveEditPath,
     resolveSeriesPath,
+    resolveSeriesDetailsPath,
     resolveAllOccurrencesPath,
     navigateToIndex,
     navigateToEdit,
+    navigateToSeriesDetails,
   };
 };

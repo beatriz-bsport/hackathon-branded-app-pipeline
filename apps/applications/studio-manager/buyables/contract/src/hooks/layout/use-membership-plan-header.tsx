@@ -4,11 +4,17 @@ import type { BillingPlan } from "@bsport/api-buyables/billing-plan";
 import type { Contract } from "@bsport/api-buyables/contract";
 import {
   Breadcrumbs,
+  Button,
+  DetailsLayout,
   Tabs,
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { MembershipPlanCancelModal } from "#src/features/membership-plan-cancel-modal/membership-plan-cancel-modal";
+import { MembershipPlanPauseModal } from "#src/features/membership-plan-pause-modal";
+import { useDisclosure } from "#src/hooks/utils/use-disclosure";
 import { URLS, getHrefFromRoot } from "#src/urls";
+import { useToday } from "#src/utils/date";
 import { useTranslation } from "#src/utils/i18n";
 
 /**
@@ -31,6 +37,25 @@ export const useMembershipPlanHeader = ({
   membershipPlanId: number;
 }) => {
   const { t } = useTranslation("membership-plan");
+
+  const {
+    isOpen: isPauseModalOpen,
+    onClose: closePauseModal,
+    onOpen: openPauseModal,
+  } = useDisclosure();
+
+  const today = useToday().toISODate()!;
+
+  const hasCurrentPause =
+    membershipPlan?.pauses.some(
+      (pause) => pause.from_date <= today && today <= pause.until_date,
+    ) ?? false;
+
+  const {
+    isOpen: isCancelModalOpen,
+    onClose: closeCancelModal,
+    onOpen: openCancelModal,
+  } = useDisclosure();
 
   const TABS_CONFIG = [
     {
@@ -57,6 +82,38 @@ export const useMembershipPlanHeader = ({
     orientation: "horizontal",
   };
 
+  const pauseButton = (
+    <Button
+      key="membership-plan-button-pause"
+      color="default"
+      intent="flat"
+      size="md"
+      icon="pause-square"
+      kind="icon-button"
+      label={t("header.actions.pauseMembershipPlan")}
+      onClick={openPauseModal}
+      disabled={!membershipPlan?.editable || hasCurrentPause}
+    />
+  );
+  const cancelButton = (
+    <Button
+      key="membership-plan-button-cancel"
+      color="default"
+      intent="flat"
+      size="md"
+      icon="x-circle"
+      kind="icon-button"
+      label={t("header.actions.cancelSubscription")}
+      onClick={openCancelModal}
+      disabled={!membershipPlan || !!membershipPlan.canceled_at}
+    />
+  );
+
+  const { startGroupActions, endGroupActions } =
+    DetailsLayout.useAdaptiveActions({
+      startGroupActions: [pauseButton, cancelButton],
+    });
+
   return {
     pageTitle: membershipPlan?.memberName ?? "",
     BreadcrumbsItems: [
@@ -71,5 +128,22 @@ export const useMembershipPlanHeader = ({
       </Link>,
     ],
     pageTabs,
+    startGroupActions,
+    endGroupActions,
+    modals: (
+      <>
+        <MembershipPlanPauseModal
+          billingPlanId={membershipPlanId}
+          closeModal={closePauseModal}
+          existingPauses={membershipPlan?.pauses ?? []}
+          isOpen={isPauseModalOpen}
+        />
+        <MembershipPlanCancelModal
+          billingPlanId={membershipPlanId}
+          closeModal={closeCancelModal}
+          isOpen={isCancelModalOpen}
+        />
+      </>
+    ),
   };
 };

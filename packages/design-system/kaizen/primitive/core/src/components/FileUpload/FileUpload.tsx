@@ -6,6 +6,8 @@ import React, {
   useState,
 } from "react";
 
+import Body from "#src/components/Body";
+
 import FileUploadInput from "./FileUploadInput";
 import FileUploadLoading from "./FileUploadLoading";
 import {
@@ -14,6 +16,7 @@ import {
   type FileUploadTracker,
   UPLOAD_STATUSES,
 } from "./constants";
+import { type FileUploadFieldStatus } from "./file-upload-status";
 import { getNewFileUploadTrackerItems } from "./utils";
 
 export type FileUploadProps = {
@@ -46,6 +49,8 @@ export type FileUploadProps = {
   }) => void;
   onRemoveFile?: (fileUploadTracker: FileUploadTracker) => void;
   setFileUploadTrackerList?: Dispatch<SetStateAction<FileUploadTracker[]>>;
+  status?: FileUploadFieldStatus;
+  statusText?: string;
   uploadCallback?: () => void;
 };
 
@@ -73,6 +78,8 @@ export type FileUploadProps = {
  * @param props.onInputChange Callback function invoked after a FileList is added to the file input.
  * @param props.onRemoveFile Callback function invoked after a file is removed from the tracker list.
  * @param props.setFileUploadTrackerList State setter function to manage `fileUploadTrackerList`.
+ * @param props.status Visual status of the upload area. Can be "default", "error" or "positive".
+ * @param props.statusText Optional message displayed below the upload area.
  * @param props.uploadCallback Callback function invoked after the upload process starts.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-fileupload--docs
  */
@@ -92,6 +99,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onInputChange,
   onRemoveFile,
   setFileUploadTrackerList,
+  status = "default",
+  statusText,
   uploadCallback,
 }) => {
   // ----- State -----
@@ -284,7 +293,10 @@ const FileUpload: React.FC<FileUploadProps> = ({
   ]);
 
   return (
-    <div data-component="Kaizen-FileUpload" className="w-full">
+    <div
+      data-component="Kaizen-FileUpload"
+      className="flex w-full flex-col gap-2xs"
+    >
       {renderFileUploadInput ? (
         <FileUploadInput
           className={className}
@@ -298,6 +310,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           multiple={multiple}
           onFileDrop={onFileDrop}
           onInputChange={onInputChange}
+          status={status}
         />
       ) : (
         <FileUploadLoading
@@ -307,8 +320,25 @@ const FileUpload: React.FC<FileUploadProps> = ({
           handleAbortUpload={handleAbortUpload}
           handleRemoveFileFromList={handleRemoveFileFromList}
           handleRetryUpload={makeFileUpload}
+          status={status}
         />
       )}
+      {statusText ? (
+        <Body
+          className="self-center"
+          htmlVariant="span"
+          size="sm"
+          color={
+            status === "error"
+              ? "critical"
+              : status === "positive"
+                ? "positive"
+                : "weak"
+          }
+        >
+          {statusText}
+        </Body>
+      ) : null}
     </div>
   );
 };

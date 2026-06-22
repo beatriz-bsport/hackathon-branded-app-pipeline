@@ -44,10 +44,6 @@ The Tooltip is a compact, contextual overlay that surfaces a small piece of info
   ]}
 />
 
-### Best practices
-
-#### General
-
 <DoDont>
   <Do
     caption={
@@ -71,14 +67,12 @@ The Tooltip is a compact, contextual overlay that surfaces a small piece of info
   />
 </DoDont>
 
-<Callout type="warning" title="Caution">
+<DoDont>
+  <Dont caption="Don't rely on tooltips for essential information on touch devices. Hover-based tooltips are not natively accessible on mobile; ensure the core experience doesn't depend on them." />
+  <Dont caption="Don't use tooltips for long-form content. If you need more than one sentence, consider an inline description, a popover, or a help drawer instead." />
+</DoDont>
 
-- Don't rely on tooltips for essential information on touch devices. Hover-based tooltips are not natively accessible on mobile; ensure the core experience doesn't depend on them.
-- Don't use tooltips for long-form content. If you need more than one sentence, consider an inline description, a popover, or a help drawer instead.
-
-</Callout>
-
-#### Anchors
+### Anchors
 
 <DoDont>
   <Do
@@ -113,9 +107,9 @@ The Tooltip is a compact, contextual overlay that surfaces a small piece of info
   />
 </DoDont>
 
-#### Content
+### Content
 
-#### `Common uses`
+### `Common uses`
 
 ##### `1. [Pattern name — e.g. Informational, no action]`
 

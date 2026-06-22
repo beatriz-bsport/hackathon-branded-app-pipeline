@@ -2,12 +2,11 @@ import { z } from "zod";
 
 import { refineSmartlistDateSubFilter } from "#src/components/filters/shared/smartlist-date-filter/refine-smartlist-date-sub-filter";
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `expirationDate` slot (identical shape to purchase date).
@@ -30,19 +29,19 @@ export const refineExpirationDateSubFilter = (
     messages: {
       dateRequired: i18nInstance.t(
         "filters.19.validation.expirationDateRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
       dateBetweenRequired: i18nInstance.t(
         "filters.19.validation.expirationDateBetweenRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
       durationRequired: i18nInstance.t(
         "filters.19.validation.expirationDateDurationRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
       durationBetweenRequired: i18nInstance.t(
         "filters.19.validation.expirationDateDurationBetweenRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     },
   });

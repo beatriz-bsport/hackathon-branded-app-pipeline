@@ -1,3 +1,5 @@
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 /**
  * Form model for a single smartlist tag filter row (include / exclude sections).
  */
@@ -10,12 +12,7 @@ export type TagFilterFormValue = {
   tagsExcluded: number[];
 };
 
-export type TagFilterCardProps = {
-  smartlistId: string;
-  filterValue: TagFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type TagFilterCardProps = SegmentFilterCardProps<TagFilterFormValue>;
 
 /**
  * Minimal tag fields required to render the picker (matches CDP tagging API).

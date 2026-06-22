@@ -58,14 +58,8 @@ export const emailMessageContentSchema = z.discriminatedUnion("isTextOnly", [
 ]) satisfies z.ZodType<EmailMessageContentFormData>;
 
 export const emailChannelSchema = z.object({
-  emailType: z.enum(EMAIL_TYPE_VALUES, {
-    required_error: i18nInstance.t(
-      "email.creation.form.errors.emailTypeRequired",
-      {
-        ns: "sm-smartlists_campaign",
-      },
-    ),
-  }),
+  // Email type UI is hidden; forms always default to marketing.
+  emailType: z.enum(EMAIL_TYPE_VALUES),
 }) satisfies z.ZodType<EmailChannelFormData>;
 
 export const getEmailCampaignSchema = (companyTimezone: string) => {

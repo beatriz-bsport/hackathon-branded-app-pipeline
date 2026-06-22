@@ -20,6 +20,7 @@
     "columns": {
       "date": "Date",
       "session": "Class",
+      "fillRate": "Fill rate",
       "analytics": "Analytics"
     },
     "unknownSession": "Offer #{{offerId}}",
@@ -36,9 +37,10 @@
   "notifications": {
     "title": "Clients contacted ({{count}})",
     "unknownMember": "Client #{{memberId}}",
+    "openMemberProfile": "Open member profile",
     "subtitle": {
       "scheduled": "Email scheduled: {{date}}",
-      "sent": "Message: {{date}}"
+      "sent": "Email sent: {{date}}"
     },
     "bookedBadge": {
       "label": "Booked",

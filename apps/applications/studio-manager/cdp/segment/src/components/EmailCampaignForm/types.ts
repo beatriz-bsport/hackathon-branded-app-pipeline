@@ -39,7 +39,7 @@ export type EmailMessageContentFormData =
 
 export type EmailCampaignFormData = EmailChannelFormData &
   EmailMessageContentFormData & {
-    campaignName: string;
+    campaignName?: string;
     deliveryMode: DeliveryMode;
     scheduledDate?: string;
     scheduledTime?: string;

@@ -48,6 +48,7 @@ export const FeatureFlags = {
     'booking_activate_new_wellpass_configuration',
   WELLHUB_NEW_CONFIGURATION: 'booking_activate_new_wellhub_configuration',
   SIGNUP_SEND_FILE_NOT_JSON: 'signup_send_file_not_json',
+  STRIPE_COMPLIANCE_STATUS_ALERT: 'stripe_compliance_status_alert',
   TAG_MEMBER_EVENT_WEBHOOK: 'tag-member-event-webhook',
 } as const;
 

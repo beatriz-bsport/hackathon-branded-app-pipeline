@@ -47,16 +47,6 @@ inline field validation.
 
 ## Guidelines
 
-- **Full region replacement** — center in the content area; do not stack inside a table row.
-- **Action matches recovery** — reload for transient errors; navigate home for dead routes.
-- **Human copy** — default i18n strings are approachable; override for domain context.
-- **Not for validation** — field errors belong on inputs, not Error fallback.
-- **Optional feedback** — enable crash report only when product captures diagnostics.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Place Error fallback in the main content slot when the entire view fails to load." />
   <Do caption="Offer one clear primary action — Retry or Reload — before secondary links." />
@@ -64,6 +54,10 @@ inline field validation.
   <Dont caption="Inline form errors in Error fallback — use field helpers instead." />
   <Dont caption="Generic error copy when you know the failure — payment timeout deserves specific guidance." />
   <Dont caption="Multiple stacked error fallbacks from nested boundaries — hoist to one boundary." />
+  <Do caption="Full region replacement — center in the content area; do not stack inside a table row." />
+  <Do caption="Action matches recovery — reload for transient errors; navigate home for dead routes." />
+  <Do caption="Human copy — default i18n strings are approachable; override for domain context." />
+  <Do caption="Optional feedback — enable crash report only when product captures diagnostics." />
 </DoDont>
 
 ### Content rules

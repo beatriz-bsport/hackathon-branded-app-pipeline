@@ -4,7 +4,6 @@ import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
 
 export type VenuesModalState =
   | { type: "venue-create" }
-  | { type: "venue-edit"; venue: Establishment }
   | { type: "archive"; venue: Establishment }
   | { type: "location-create"; preselectedVenue?: Establishment }
   | { type: "location-edit"; location: EstablishmentGroup }
@@ -13,7 +12,6 @@ export type VenuesModalState =
 
 type Action =
   | { action: "venue-create" }
-  | { action: "venue-edit"; venue: Establishment }
   | { action: "archive"; venue: Establishment }
   | { action: "location-create"; preselectedVenue?: Establishment }
   | { action: "location-edit"; location: EstablishmentGroup }
@@ -27,8 +25,6 @@ const reducer = (
   switch (action.action) {
     case "venue-create":
       return { type: "venue-create" };
-    case "venue-edit":
-      return { type: "venue-edit", venue: action.venue };
     case "archive":
       return { type: "archive", venue: action.venue };
     case "location-create":
@@ -50,11 +46,6 @@ export const useVenuesModals = () => {
 
   const openVenueCreateModal = useCallback(
     () => dispatch({ action: "venue-create" }),
-    [],
-  );
-
-  const openVenueEditModal = useCallback(
-    (venue: Establishment) => dispatch({ action: "venue-edit", venue }),
     [],
   );
 
@@ -86,7 +77,6 @@ export const useVenuesModals = () => {
   return {
     modalState,
     openVenueCreateModal,
-    openVenueEditModal,
     openArchiveModal,
     openLocationCreateModal,
     openLocationEditModal,

@@ -33,16 +33,6 @@ dialog until they dismiss it or complete the task.
 
 ## Guidelines
 
-- **Do not hand-roll scrims** — use Modal/Drawer components that apply `bg-surface-blanket`.
-- **One blocking layer** — avoid triple-stacked blankets; refactor flow to single modal.
-- **Click outside** — blanket click may close dismissible dialogs; destructive flows disable it.
-- **Motion** — fade in/out with panel open transition (~default duration token).
-- **Not for hover** — blankets block the page; popovers use lighter overlays.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use Modal or Drawer primitives so blanket z-index and focus trap stay consistent." />
   <Do caption="Match blanket opacity to design token — do not hardcode rgba values." />
@@ -50,6 +40,11 @@ dialog until they dismiss it or complete the task.
   <Dont caption="Custom fixed divs with arbitrary opacity — breaks theme and dark mode." />
   <Dont caption="Blanket on non-blocking tooltips or menus." />
   <Dont caption="Leaving blanket mounted after panel closes — causes invisible click blocking." />
+  <Dont caption="Do not hand-roll scrims — use Modal/Drawer components that apply `bg-surface-blanket`." />
+  <Do caption="One blocking layer — avoid triple-stacked blankets; refactor flow to single modal." />
+  <Do caption="Click outside — blanket click may close dismissible dialogs; destructive flows disable it." />
+  <Do caption="Motion — fade in/out with panel open transition (~default duration token)." />
+  <Dont caption="Not for hover — blankets block the page; popovers use lighter overlays." />
 </DoDont>
 
 ### Content rules

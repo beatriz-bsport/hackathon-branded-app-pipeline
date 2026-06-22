@@ -28,11 +28,11 @@
       "paymentPack": "This notification will no longer be active for the associated passes.",
       "privatePass": "This notification will no longer be active for the associated appointment passes.",
       "other": "All notifications associated with this automation will no longer be active. ",
-      "warning": "Heads up: this action is permanent and cannot be undone. "
+      "warning": "Heads up: this change is permanent and can't be undone. "
     },
     "actions": {
       "confirm": "Delete",
-      "cancel": "Back"
+      "cancel": "Keep"
     }
   },
   "steps": {

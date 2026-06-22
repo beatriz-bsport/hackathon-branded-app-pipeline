@@ -25,6 +25,7 @@ export type SmartfillTargetedOffer = {
   date_created: string;
   notifications_count: number;
   booked_count: number;
+  fill_rate: number | null;
   latest_run_date_created: string | null;
 };
 

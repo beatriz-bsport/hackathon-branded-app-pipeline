@@ -45,11 +45,18 @@ const NotificationRow: FC<{
 
   return (
     <li className="flex items-center gap-md p-md">
-      <Avatar
-        size="md"
-        shape="round"
-        src={notification.member?.avatar_url ?? ""}
-      />
+      <a
+        href={`/member/${notification.member_id}/info`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t("notifications.openMemberProfile")}
+      >
+        <Avatar
+          size="md"
+          shape="round"
+          src={notification.member?.avatar_url ?? ""}
+        />
+      </a>
       <div className="flex min-w-0 flex-1 flex-col">
         <Body size="md" weight="strong">
           {notification.member?.full_name ??

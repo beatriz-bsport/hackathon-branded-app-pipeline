@@ -240,9 +240,15 @@ export default compose<Props, OwnProps>(
       );
 
       return {
-        booked_session_time_interval_after_visit_hours: afterVisit.hour,
-        booked_session_time_interval_after_visit_minutes: afterVisit.minute,
-        booked_session_time_interval_before_visit_minutes: beforeVisit.minute,
+        booked_session_time_interval_after_visit_hours: afterVisit.isValid
+          ? afterVisit.hour
+          : 0,
+        booked_session_time_interval_after_visit_minutes: afterVisit.isValid
+          ? afterVisit.minute
+          : 0,
+        booked_session_time_interval_before_visit_minutes: beforeVisit.isValid
+          ? beforeVisit.minute
+          : 0,
         automatic_check_in_enabled,
       };
     },

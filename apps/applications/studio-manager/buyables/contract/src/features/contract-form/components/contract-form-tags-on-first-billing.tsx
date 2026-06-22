@@ -8,7 +8,7 @@ import type { ContractFormData } from "../types";
 
 type ContractFormTagsOnFirstBillingProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormTagsOnFirstBilling: FC<

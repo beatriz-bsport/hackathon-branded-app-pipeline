@@ -6,7 +6,7 @@ import type { ContractFormData } from "../types";
 
 type ContractFormPassPenaltyProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 // Anchor to the personalisation settings where no-show penalties are configured.

@@ -14,25 +14,18 @@ import type { ContractFormData, ContractFormMethods } from "../types";
 type ContractFormTaxProps = {
   formId: string;
   watch: ContractFormMethods["watch"];
-  isRevampedContract: boolean;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormTax: FC<ContractFormTaxProps> = ({
   formId,
   watch,
-  isRevampedContract,
   readonly,
 }) => {
   const { t } = useTranslation("contract-details");
   const bookkeepingAccount = watch("bookkeeping_account_id");
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
-
-  if (!isRevampedContract) {
-    // Tax is inherited from the selected benefit
-    return null;
-  }
 
   const enableBookkeepingAccountSelector =
     isBookkeepingAccountActive(companyTheme);

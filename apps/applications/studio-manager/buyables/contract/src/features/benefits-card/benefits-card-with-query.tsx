@@ -11,13 +11,11 @@ import { BenefitsCard } from "./benefits-card";
 type BenefitsCardWithQueryProps = {
   passId: number | null;
   appointmentPassId: number | null;
-  onEditClick?: () => void;
 };
 
 const BenefitsCardWithQueryInner: FC<BenefitsCardWithQueryProps> = ({
   passId,
   appointmentPassId,
-  onEditClick,
 }) => {
   const { passBenefit, appointmentPassBenefit } = useBenefitsQueries({
     passId,
@@ -47,7 +45,6 @@ const BenefitsCardWithQueryInner: FC<BenefitsCardWithQueryProps> = ({
       credits={credits}
       hasAccessToOnDemand={hasAccessToOnDemand}
       kind={getBenefitKind({ hasAppointmentPass, hasPass })}
-      onEditClick={onEditClick}
     />
   );
 };

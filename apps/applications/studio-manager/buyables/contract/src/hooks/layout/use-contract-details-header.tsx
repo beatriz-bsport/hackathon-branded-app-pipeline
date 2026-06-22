@@ -23,15 +23,17 @@ import { useTranslation } from "#src/utils/i18n";
 export const useContractDetailsHeader = ({
   contract,
   isVisible,
+  isShared,
 }: {
   contract: Contract;
   isVisible?: boolean;
+  isShared: boolean;
 }) => {
   const { t } = useTranslation("contract-details");
 
-  const { id, company, contract_template, month_billing_day } = contract;
+  const { id, company, month_billing_day } = contract;
 
-  const canBeArchived = !contract_template;
+  const canBeArchived = !isShared;
   const canBePaused = month_billing_day == null; // Pause is disabled for fixed-day contracts
 
   const navigate = useNavigate();

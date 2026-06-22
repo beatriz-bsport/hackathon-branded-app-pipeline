@@ -31,6 +31,10 @@
     "card": "Card",
     "sepaDebit": "SEPA",
     "bacsDebit": "BACS",
+    "display": {
+      "expires": "Expires {{date}}",
+      "unknownIdentifier": "—"
+    },
     "selector": {
       "label": "Payment method",
       "savedMethodsLabel": "Saved payment methods",

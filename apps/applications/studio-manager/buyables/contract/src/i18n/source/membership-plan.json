@@ -123,7 +123,12 @@
       "remainingPeriod": "Remaining period",
       "remainingUntil": "Until {{date}}"
     },
-    "paymentMethodPlaceholder": "Payment method details will appear here."
+    "paymentMethod": {
+      "current": "Payment method",
+      "emptyTitle": "No payment method added yet",
+      "error": "Could not load payment methods.",
+      "loading": "Loading payment methods..."
+    }
   },
   "pauseModal": {
     "actions": {

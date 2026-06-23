@@ -21,12 +21,6 @@ include:
     - echo "Previous latest commit, serving as base, is $CI_COMMIT_BEFORE_SHA"
     - bash tools/scripts/deploy.sh $CI_COMMIT_BEFORE_SHA $ENV
 
-Deploy Dev:
-  extends: .Deploy Base
-  variables:
-    TARGET_BRANCH: "dev"
-    ENV: "dev"
-
 Deploy Staging:
   extends: .Deploy Base
   variables:
@@ -39,7 +33,9 @@ Deploy Production:
     TARGET_BRANCH: "production"
     ENV: "production"
 
-Deploy Backoffice Dev Local:
+# ---------- GitOps Jobs ----------
+
+.deploy-frontend-dev:
   extends:
     - .deploy-frontend
   needs:
@@ -48,6 +44,8 @@ Deploy Backoffice Dev Local:
     - job: Release:Build Artifact
       artifacts: false
   rules:
+    - if: $MAINTENANCE_ENV
+      when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -56,6 +54,24 @@ Deploy Backoffice Dev Local:
       when: "on_success"
     - if: $CI_COMMIT_BRANCH == "dev"
       when: "on_success"
+
+Deploy Backoffice Dev:
+  extends:
+    - .deploy-frontend-dev
+  variables:
+    ENV: "dev"
+    APPLICATION: "backoffice"
+
+Deploy Widget Dev:
+  extends:
+    - .deploy-frontend-dev
+  variables:
+    ENV: "dev"
+    APPLICATION: "widget"
+
+Deploy Backoffice Dev Local:
+  extends:
+    - .deploy-frontend-dev
   variables:
     ENV: "dev"
     APPLICATION: "backoffice-local"

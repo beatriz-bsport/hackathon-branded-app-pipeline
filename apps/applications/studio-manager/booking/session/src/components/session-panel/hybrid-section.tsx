@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { Body, Divider, Icon, Title } from "@bsport/kaizen-primitive-core";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details.js";
+import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 

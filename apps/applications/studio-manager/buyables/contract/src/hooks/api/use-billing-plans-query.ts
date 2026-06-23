@@ -17,6 +17,14 @@ export const useBillingPlansPaginatedSuspenseQuery = (
     staleTime: 5 * 60_000,
   });
 
+export const useMembershipPlansSuspenseQuery = (
+  params: FetchBillingPlansParams,
+) =>
+  useSuspenseQuery({
+    ...fetchBillingPlansQueryOptions(fetch, params),
+    staleTime: 5 * 60_000,
+  });
+
 export const useBillingPlansQuery = (params: FetchBillingPlansParams) =>
   useQuery({
     ...fetchBillingPlansQueryOptions(fetch, params),

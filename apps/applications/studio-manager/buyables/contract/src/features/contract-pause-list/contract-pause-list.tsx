@@ -15,9 +15,11 @@ import {
 import { QueryBoundary } from "#src/components/query-boundary";
 import { ContractPauseModal } from "#src/features/contract-pause-modal/contract-pause-modal";
 import { useContractPausesSuspenseQuery } from "#src/hooks/api/use-contract-pauses-query";
+import { useListItemDetailDrawer } from "#src/hooks/layout/use-list-item-detail-drawer";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CancelContractPauseModal } from "./cancel-pause-modal";
+import { ContractPauseDetailDrawer } from "./contract-pause-detail-drawer";
 import { useContractPauseListRows } from "./rows";
 
 type ContractPauseListProps = { contract: Contract };
@@ -37,10 +39,15 @@ const ContractPauseListInner: FC<ContractPauseListProps> = ({ contract }) => {
     page_size: currentPageSize,
   });
 
+  const { onItemClick, selectedItem, ...detailDrawerParams } =
+    useListItemDetailDrawer<ContractPause>(data.results);
+
   const rows = useContractPauseListRows({
     contractPauses: data.results,
     onEditClick: setPauseToEdit,
     onCancelClick: setPauseToCancel,
+    onItemClick,
+    selectedItem,
   });
 
   const paginationProps: PaginationProps = {
@@ -71,6 +78,7 @@ const ContractPauseListInner: FC<ContractPauseListProps> = ({ contract }) => {
         emptyStateProps={emptyConfig}
         paginationProps={paginationProps}
         items={rows}
+        className={emptyConfig.isEmpty ? "my-auto" : ""}
       />
 
       <ContractPauseModal
@@ -100,6 +108,11 @@ const ContractPauseListInner: FC<ContractPauseListProps> = ({ contract }) => {
         contractPauseId={pauseToCancel}
         isOpen={pauseToCancel != null}
       />
+
+      <ContractPauseDetailDrawer
+        {...detailDrawerParams}
+        selectedItem={selectedItem}
+      />
     </>
   );
 };
@@ -113,6 +126,7 @@ export const ContractPauseList: FC<ContractPauseListProps> = ({ contract }) => {
           items={[]}
           id="contract-pause-list-loading"
           loadingProps={{ isLoading: true, message: t("pauseList.loading") }}
+          className="my-auto"
         />
       }
     >

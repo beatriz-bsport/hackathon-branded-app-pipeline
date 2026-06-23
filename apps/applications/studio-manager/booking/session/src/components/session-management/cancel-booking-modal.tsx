@@ -32,6 +32,11 @@ export const CancelBookingModal: FC<{
 
   const cancelBooking = useCancelBooking();
 
+  const handleClose = () => {
+    if (cancelBooking.isPending) return;
+    onClose();
+  };
+
   const handleConfirm = () => {
     cancelBooking.mutate(
       {
@@ -51,7 +56,7 @@ export const CancelBookingModal: FC<{
       open={isOpen}
       size="md"
       title={t("modals.cancelBooking.title")}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("modals.cancelBooking.confirmButton"),
         onClick: handleConfirm,

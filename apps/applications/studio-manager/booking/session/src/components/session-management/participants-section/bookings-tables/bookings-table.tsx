@@ -57,6 +57,38 @@ export const BookingsTable: FC<{
 }> = ({ sessionId, searchQuery, openModal, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
+  const clean = (value?: string | null) => value?.trim() ?? "";
+
+  const joinClean = (
+    parts: Array<string | null | undefined>,
+    separator: string,
+  ) => parts.map(clean).filter(Boolean).join(separator);
+
+  const getSecondaryText = (
+    booking: Pick<RefinedBooking, "spot_information" | "passData">,
+  ) => {
+    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
+      ? joinClean(
+          [
+            booking.spot_information?.name,
+            composeLabel(
+              booking.spot_information?.prefix,
+              booking.spot_information?.indexType,
+              null, // index is not used in this context
+              booking.spot_information?.suffix,
+            ),
+          ],
+          " ",
+        )
+      : "";
+
+    const passName = listedInformation.includes(BookingListedInformation.PASS)
+      ? clean(booking.passData?.name)
+      : "";
+
+    return joinClean([spotName, passName], " • ");
+  };
+
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({ namespace: "bookings" });
 
@@ -136,24 +168,7 @@ export const BookingsTable: FC<{
       type: "custom",
       align: "start",
       render: (row) => {
-        const spotName = listedInformation.includes(
-          BookingListedInformation.SPOT,
-        )
-          ? `${row.spot_information?.name ?? ""} ${composeLabel(
-              row.spot_information?.prefix,
-              row.spot_information?.indexType,
-              null, // index is not used in this context
-              row.spot_information?.suffix,
-            )}`
-          : null;
-
-        const passName = listedInformation.includes(
-          BookingListedInformation.PASS,
-        )
-          ? row.passData?.name
-          : null;
-
-        const secondaryText = [spotName, passName].filter(Boolean).join(" • ");
+        const secondaryText = getSecondaryText(row);
 
         return (
           <div className="flex gap-md items-center">
@@ -230,19 +245,7 @@ export const BookingsTable: FC<{
   );
 
   const listItems: ListProps["items"] = searchedBookings.map((booking) => {
-    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? `${booking.spot_information?.name ?? ""} ${composeLabel(
-          booking.spot_information?.prefix,
-          booking.spot_information?.indexType,
-          null, // index is not used in this context
-          booking.spot_information?.suffix,
-        )}`
-      : null;
-    const passName = listedInformation.includes(BookingListedInformation.PASS)
-      ? booking.passData?.name
-      : null;
-    // Join the spot and pass name with a bullet if both exist, otherwise just show the one that exists
-    const secondaryText = [spotName, passName].filter(Boolean).join(" \u2022 ");
+    const secondaryText = getSecondaryText(booking);
 
     return {
       id: `booking-${booking.id}`,

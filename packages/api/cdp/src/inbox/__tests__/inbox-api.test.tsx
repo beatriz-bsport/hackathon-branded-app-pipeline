@@ -19,7 +19,10 @@ import {
   makeInboxHandlers,
   mockInboxConversations,
 } from "#src/inbox/mocks";
-import type { FetchInboxConversationsParams } from "#src/inbox/types";
+import type {
+  FetchInboxConversationsParams,
+  RawStudioManagerConversationsResponse,
+} from "#src/inbox/types";
 
 const createQueryClient = () =>
   new QueryClient({
@@ -30,13 +33,18 @@ const createQueryClient = () =>
     },
   });
 
+// The builder exports only queryKey/queryFn; the consumer supplies the
+// cursor-pagination options (mirroring the app hook).
 const useInboxConversationsQuery = (
   params: FetchInboxConversationsParams = {},
 ) =>
   useInfiniteQuery({
     ...inboxConversationsInfiniteQueryOptions(createTestFetch(), params),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage: RawStudioManagerConversationsResponse) =>
+      lastPage.more_conversations
+        ? lastPage.results.at(-1)?.last_inbox_activity_at
+        : undefined,
   });
 
 const renderInboxConversationsQuery = (
@@ -53,29 +61,20 @@ const renderInboxConversationsQuery = (
 };
 
 describe("inboxConversationsInfiniteQueryOptions", () => {
-  it("loads the first page with default pagination metadata", async () => {
+  it("loads the most-recent page of raw conversations", async () => {
     const { result } = renderInboxConversationsQuery();
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     const firstPage = result.current.data?.pages[0];
 
-    expect(firstPage).toEqual({
-      count: mockInboxConversations.length,
-      page: 1,
-      next_page: 2,
-      links: {
-        next: 2,
-        previous: null,
-      },
-      results: mockInboxConversations.slice(0, 20),
-    });
+    expect(firstPage?.more_conversations).toBe(true);
     expect(firstPage?.results).toHaveLength(20);
-    expect(firstPage?.results[0]).toEqual(mockInboxConversations[0]);
+    expect(firstPage?.results).toEqual(mockInboxConversations.slice(0, 20));
     expect(result.current.hasNextPage).toBe(true);
   });
 
-  it("uses the pageParam path to fetch and append the next page", async () => {
+  it("fetches the next page with an older-than cursor", async () => {
     const { result } = renderInboxConversationsQuery();
 
     await waitFor(() => expect(result.current.hasNextPage).toBe(true));
@@ -86,13 +85,11 @@ describe("inboxConversationsInfiniteQueryOptions", () => {
 
     const secondPage = nextPageResult.data?.pages[1];
 
-    expect(secondPage?.page).toBe(2);
-    expect(secondPage?.links.previous).toBe(1);
     expect(secondPage?.results).toEqual(mockInboxConversations.slice(20, 40));
   });
 
-  it("keeps explicit params in the query key and uses them for page slicing", async () => {
-    const params = { page_size: 3, filter: "unread" } as const;
+  it("keeps explicit params in the query key and honors the limit", async () => {
+    const params = { limit: 3 } as const;
     const { queryClient, result } = renderInboxConversationsQuery(params);
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
@@ -105,24 +102,16 @@ describe("inboxConversationsInfiniteQueryOptions", () => {
     );
   });
 
-  it("returns final-page metadata for a short dataset", async () => {
+  it("flags the final page for a short dataset", async () => {
     const dataset = makeInboxConversations(4);
     server.use(...makeInboxHandlers({ dataset, delayMs: 0 }));
 
-    const { result } = renderInboxConversationsQuery({ page_size: 10 });
+    const { result } = renderInboxConversationsQuery({ limit: 10 });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(result.current.data?.pages[0]).toEqual({
-      count: dataset.length,
-      page: 1,
-      next_page: null,
-      links: {
-        next: null,
-        previous: null,
-      },
-      results: dataset,
-    });
+    expect(result.current.data?.pages[0]?.more_conversations).toBe(false);
+    expect(result.current.data?.pages[0]?.results).toEqual(dataset);
     expect(result.current.hasNextPage).toBe(false);
   });
 

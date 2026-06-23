@@ -11,6 +11,7 @@ import type messageComposerTranslations from "#src/i18n/source/message-composer.
 import type pageTranslations from "#src/i18n/source/page.json";
 import type threadListTranslations from "#src/i18n/source/thread-list.json";
 import type threadMessagesTranslations from "#src/i18n/source/thread-messages.json";
+import type threadPlaceholderTranslations from "#src/i18n/source/thread-placeholder.json";
 
 type Translations = {
   page: typeof pageTranslations;
@@ -19,6 +20,7 @@ type Translations = {
   "message-composer": typeof messageComposerTranslations;
   "member-detail": typeof memberDetailTranslations;
   "inbox-layout": typeof inboxLayoutTranslations;
+  "thread-placeholder": typeof threadPlaceholderTranslations;
 };
 
 export const {

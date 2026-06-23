@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Stabilimenti",
+  "tabs": {
+    "venues": "Stabilimenti",
+    "locations": "Sedi"
+  },
+  "locations": {
+    "columns": {
+      "name": "Sede",
+      "venues": "Stabilimenti"
+    },
+    "actions": {
+      "edit": "Modifica",
+      "delete": "Elimina"
+    },
+    "emptyState": {
+      "title": "Ancora nessuna sede",
+      "subtitle": "Raggruppa gli stabilimenti per località e appariranno qui",
+      "cta": "Aggiungi sede",
+      "noResults": "Nessuna sede corrisponde alla tua ricerca"
+    },
+    "deleteModal": {
+      "title": "Vuoi eliminare la sede?",
+      "warningsTitle": "L'eliminazione di questa sede avrà effetto sui seguenti elementi:",
+      "confirm": "Elimina",
+      "cancel": "Mantieni",
+      "alert": {
+        "blocking": "Questa sede non può essere eliminata perché:",
+        "warning": "L'eliminazione di questa sede avrà effetto sui seguenti elementi:"
+      },
+      "preflightError": "Non è stato possibile verificare se questa sede può essere eliminata. Riprova.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del tuo sito web sono impostate per mostrare solo l'orario di questa sede. Aggiornale prima di eliminare questa sede."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Uno o più membri dello staff utilizzano questa sede per il controllo accessi. Se la elimini senza assegnare una sostituzione, perderanno il controllo accessi.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} riceve richieste di sostituzione solo per questa sede. Eliminandola, riceverà richieste da tutte le sedi.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} riceve richieste di sostituzione solo per questa sede. Eliminandola, riceverà richieste da tutte le sedi.",
+        "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono richieste di sostituzione solo per questa sede. Eliminandola, non riceveranno più le notifiche di sostituzione.",
+        "hasRelatedMarketplaceComponentConfigs": "Gli orari e workshops configurati per il tuo sito web non saranno più mostrati in questa sede.",
+        "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate."
+      },
+      "info": {
+        "reportsDefault": "La sede verrà cancellata dai report precedenti.",
+        "widgetsDefault": "I widget del programma e dei workshop configurati per questa sede dovranno essere aggiornati manualmente."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Ancora nessuno stabilimento",
+    "cta": "Crea il tuo primo stabilimento per iniziare a programmare classi e appuntamenti"
+  },
+  "search": {
+    "placeholder": "Cerca stabilimenti",
+    "locationsPlaceholder": "Cerca sedi",
+    "emptyState": {
+      "title": "Nessun stabilimento trovato",
+      "subtitle": "Prova un termine di ricerca diverso"
+    }
+  },
+  "filters": {
+    "selectField": "Filtrare",
+    "location": "Sede",
+    "city": "Città",
+    "noLocation": "Nessuna sede",
+    "operators": {
+      "is": "è"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Aggiungi alla sede",
+    "addTooltip": "Assegna questi stabilimenti a una località per applicare le sue impostazioni di notifica e marketing.",
+    "edit": "Modifica sede"
+  },
+  "venueRow": {
+    "edit": "Modifica",
+    "archive": "Archivia"
+  },
+  "actions": {
+    "archive": "Stabilimenti archiviati",
+    "createLocation": "Crea sede",
+    "createLocationTooltip": "Aggiungi una sede per raggruppare le strutture e condividere attività di marketing, vendite e report.",
+    "createVenue": "Crea stabilimento",
+    "createVenueTooltip": "Crea un nuovo spazio per lo svolgimento di Classi e Appuntamenti"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Stabilimenti"
+    },
+    "actions": {
+      "archive": "Archivia",
+      "configureWidget": "Configura widget"
+    },
+    "notFound": "Stabilimento non trovato",
+    "editor": {
+      "discard": {
+        "title": "Scartare le modifiche?",
+        "description": "Le modifiche non salvate andranno perse.",
+        "confirm": "Scarta le modifiche",
+        "keepEditing": "Continua a modificare",
+        "toast": "Modifiche scartate"
+      }
+    },
+    "spotScheduling": {
+      "title": "Scelta Del Posto",
+      "subtitle": "Aggiungi una mappatura dei posti per permettere ai clienti di prenotare posti specifici (es. bici, tappetini, reformer).",
+      "createCta": "Crea",
+      "noSpots": "Nessun posto è ancora configurato",
+      "spotCount_one": "{{count}} posto",
+      "spotCount_other": "{{count}} posti",
+      "empty": "Nessuna mappatura dei posti",
+      "rowMenu": {
+        "label": "Apri mappa dei posti",
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "deleteModal": {
+        "title": "Elimina la selezione del posto?",
+        "description": "L'eliminazione di questa mappatura dei posti non può essere annullata",
+        "confirm": "Elimina",
+        "cancel": "Mantieni"
+      },
+      "untitledBlueprint": "Mappa dei posti senza titolo",
+      "toasts": {
+        "delete": "Scelta del posto eliminata",
+        "deleteError": "Impossibile eliminare la selezione del posto. Riprova. ",
+        "createError": "Non è stato possibile creare la selezione del posto. Riprova. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Stabilimenti archiviati",
+    "breadcrumbs": {
+      "venues": "Stabilimenti",
+      "archivedVenues": "Stabilimenti archiviati"
+    },
+    "sectionHeader": "Tutti gli stabilimenti ({{count}})",
+    "emptyState": {
+      "title": "Nessuno stabilimento ancora archiviato",
+      "subtitle": "Qualsiasi stabilimento spostato qui può essere ripristinato"
+    },
+    "venueRow": {
+      "unarchive": "Ripristinare"
+    }
+  },
+  "modal": {
+    "title": "Archivia stabilimento",
+    "confirm": "Archivia",
+    "cancel": "Mantieni",
+    "alert": {
+      "blocking": "Non è possibile archiviare questo stabilimento per i seguenti motivi:",
+      "warning": "L'archiviazione di questo stabilimento avrà un impatto su quanto segue:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Questo stabilimento ha delle classi in programma. Annullale o eliminale prima di archiviare.",
+      "hasUpcomingPrivateBookings": "Questo stabilimento ha appuntamenti futuri. Annullali o eliminali prima di archiviare.",
+      "hasExclusiveBillingGroup": "Questo Stabilimento è collegato a una Sede di fatturazione. Aggiorna o elimina la Sede di fatturazione prima di archiviare.",
+      "exclusiveEstablishmentGroups": "questo stabilimento verrà rimosso dalle seguenti posizioni: {{names}}. aggiornale prima di archiviare.",
+      "exclusivePaymentPacks": "I seguenti pass sono validi solo in questo stabilimento: {{names}}. Aggiorna le loro restrizioni prima di archiviare.",
+      "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del tuo sito web sono impostate per mostrare solo il programma di questa sede. Aggiornale prima di eliminare questa sede.",
+      "isIntegratedInPartnership": "Questi stabilimenti sono collegati a uno o più Aggregatori. Aggiorna queste connessioni prima di archiviare."
+    },
+    "warnings": {
+      "title": "L'archiviazione di questi stabilimenti avrà le seguenti conseguenze:",
+      "hasBillingGroup": "Questo stabilimento appartiene alla sede di fatturazione {{name}}.",
+      "exclusivePrivateServices": "Questi Appuntamenti sono disponibili solo in questi stabilimenti: {{names}}.",
+      "relatedPaymentPacks": "Questi pacchetti {{names}} sono utilizzabili solo in questi stabilimenti.",
+      "hasExclusiveStaffConfigurations": "Alcuni Membri dello staff sono assegnati solo a questo stabilimento.",
+      "hasRelatedStaffConfigurations": "Alcuni membri dello staff hanno impostazioni collegate a questo stabilimento.",
+      "exclusiveCoachAvailabilitySlots": "Questi coach hanno disponibilità solo in questo stabilimento: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Alcuni coach hanno slot di disponibilità in questi stabilimenti.",
+      "exclusiveAssociatedCoaches": "Questi coach sono associati solo a questo stabilimento: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Alcuni coach sono associati a questo stabilimento.",
+      "hasRelatedAvailabilitySlots": "Alcuni slot di disponibilità sono collegati a questo stabilimento.",
+      "hasRelatedMarketplaceComponentConfigs": "Una o più schede del tuo sito web sono impostate per mostrare solo il programma di questo stabilimento. ",
+      "hasRelatedZoomEstablishment": "È stata configurata un'integrazione Zoom per questo stabilimento.",
+      "hasRelatedMarketingNotifications": "Alcuni messaggi automatici sono indirizzati a questo stabilimento."
+    },
+    "info": {
+      "noReports": "Lo stabilimento non verrà eliminato dai report passati.",
+      "widgets": "I widget di gestione dei posti e workshop configurati per questa sede dovranno essere aggiornati manualmente.",
+      "sessions": "Le classi in corso e le prenotazioni passate non saranno influenzate",
+      "appointments": "Gli appuntamenti passati non saranno modificati"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Crea stabilimento",
+    "editTitle": "Modifica stabilimento",
+    "createConfirm": "Crea",
+    "editConfirm": "Salva modifiche",
+    "cancel": "Chiudi",
+    "errors": {
+      "requiredField": "Questo campo non può essere vuoto"
+    },
+    "cover": {
+      "label": "Immagine",
+      "helper": "Visualizzato ai clienti sull'app e sul sito web. Orizzontale (16:9) — ritagliato automaticamente."
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Aggiungi un nome per lo stabilimento"
+    },
+    "description": {
+      "label": "Descrizione",
+      "placeholder": "Descrivi lo stabilimento ",
+      "helper": "Mostrato sul profilo del tuo studio nell'app. Descrivi lo spazio, l'atmosfera o ciò che lo rende unico."
+    },
+    "address": {
+      "label": "Indirizzo",
+      "placeholder": "Cercare un indirizzo"
+    },
+    "location": {
+      "label": "Sede",
+      "placeholder": "Selezionare una sede"
+    },
+    "capacity": {
+      "label": "Capacità massima della sala",
+      "helper": "Il numero di posti disponibili in questo stabilimento. Inserisci 0 per illimitato."
+    },
+    "accessInformation": {
+      "label": "Informazioni per i clienti",
+      "placeholder": "Indica ai clienti come accedere a questo stabilimento",
+      "helper": "Visualizzate ai tuoi clienti dopo la prenotazione (es. codice d'ingresso, piano, istruzioni)."
+    }
+  },
+  "toasts": {
+    "undo": "Annulla",
+    "archive": "Stabilimenti archiviati",
+    "archiveError": "Impossibile archiviare lo stabilimento. Riprova. ",
+    "unarchive": "Stabilimento ripristinato",
+    "unarchiveError": "Impossibile ripristinare lo stabilimento. Riprova. ",
+    "addVenueToLocation": "\"{{venue}}\" è stato aggiunto a \"{{location}}\"",
+    "locationDelete": "Sede eliminata",
+    "locationDeleteError": "Impossibile eliminare la sede. Riprova.",
+    "create": "Stabilimento creato",
+    "createPartial": "Stabilimento creato, ma non è stato possibile assegnarlo alla posizione selezionata. Assegnalo manualmente.",
+    "createError": "Impossibile creare lo stabilimento. Riprova. ",
+    "update": "Stabilimento aggiornato",
+    "updateError": "Impossibile aggiornare lo stabilimento. Riprova. "
+  }
+}

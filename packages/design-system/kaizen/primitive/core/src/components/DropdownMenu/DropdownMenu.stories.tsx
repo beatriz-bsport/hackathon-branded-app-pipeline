@@ -76,6 +76,8 @@ const menuItemsWithRightSlot: Item[] = [
  *
  * This component is useful for creating dropdown menus, context menus, or any interface
  * where a list of options should appear in response to a user action.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/dropdown-menu" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<DropdownMenuManagedProps> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

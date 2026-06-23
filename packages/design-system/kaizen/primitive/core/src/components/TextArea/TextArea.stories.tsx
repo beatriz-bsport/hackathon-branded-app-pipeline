@@ -5,7 +5,8 @@ import TextArea, { statuses } from "./TextArea";
 
 /**
  * A component that allows users to input multiple lines of text.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2112-7351" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2112-7351" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/text-area" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof TextArea> = {
   component: TextArea,

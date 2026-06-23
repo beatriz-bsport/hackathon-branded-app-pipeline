@@ -59,7 +59,7 @@ import TextField from "#src/components/TextField";
  *
  * ## See Also
  * - [FormRadioField](./FormRadioField)
- * - [Storybook Docs](https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-radiogroup--docs)
+ * - <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/form-radio-group" target="_blank">Kaizen docs</a>
  *
  * @component
  */

@@ -15,6 +15,7 @@ import Popover from "#src/components/Popover";
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=642-5125" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/list" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof List> = {
   component: List,

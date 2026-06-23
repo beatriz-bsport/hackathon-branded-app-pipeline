@@ -11,6 +11,8 @@ import ErrorFallback from "./ErrorFallback";
  *
  * @figma https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=14638-44849&m=dev
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-errorfallback--docs
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/error-fallback" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof ErrorFallback> = {
   component: ErrorFallback,

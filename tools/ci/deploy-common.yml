@@ -10,16 +10,10 @@
 .deploy-frontend:
   stage: deploy-gitops
   resource_group: deployment-ci
-  image: debian:bookworm-slim
+  image: $REGISTRY_ENDPOINT/bsport-infra/gitlab-trigger-frontend-deploy:v1.0.0
   retry: 1
   extends:
     - .ci-runner-nano
-  before_script:
-    - apt-get update
-    - apt-get install -y --no-install-recommends ca-certificates curl git
-    - curl -fsSL "https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_$(dpkg --print-architecture)" -o /usr/local/bin/yq
-    - chmod +x /usr/local/bin/yq
-    - rm -rf /var/lib/apt/lists/*
   tags:
     - deployment
     - cluster:bsport-tooling

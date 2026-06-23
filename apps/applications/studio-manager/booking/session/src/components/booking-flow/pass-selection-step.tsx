@@ -43,12 +43,14 @@ type PassSelectionStepProps = {
   sessionId: number;
   isBookMultiSessionsSelected: boolean;
   onSelectBookMultiSessions: (value: boolean) => void;
+  isConvertBookingOption: boolean;
 };
 
 export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   sessionId,
   isBookMultiSessionsSelected,
   onSelectBookMultiSessions,
+  isConvertBookingOption,
 }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
@@ -294,7 +296,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
           <NewPassForm sessionId={sessionId} />
         )}
       </div>
-      {!!similarSessions?.length && (
+      {!!similarSessions?.length && !isConvertBookingOption && (
         <>
           <Body size="lg">
             {t("bookingFlow.passSelection.moreBookingOptions")}

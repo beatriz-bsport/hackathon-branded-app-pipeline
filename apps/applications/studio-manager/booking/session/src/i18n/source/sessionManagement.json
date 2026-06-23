@@ -330,7 +330,9 @@
     "hybrid": {
       "title": "Hybrid class",
       "body": "This in-person class is paired with an online one.",
-      "linkAriaLabel": "Open paired online class"
+      "bodyOnline": "This online class is paired with an in-person one.",
+      "linkAriaLabel": "Open paired online class",
+      "linkAriaLabelOnline": "Open paired in-person class"
     },
     "tags": {
       "title": "Tags",

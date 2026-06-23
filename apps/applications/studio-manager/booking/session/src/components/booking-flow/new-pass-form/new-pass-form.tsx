@@ -5,7 +5,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useAvailablePasses } from "#src/hooks/buyables/fetch/use-available-passes";
 import { useInfiniteScroll } from "#src/hooks/use-infinite-scroll";
-import { setDiscount } from "#src/stores/booking-flow/actions";
+import { setDiscount, setKeepCredits } from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,6 +25,7 @@ export const NewPassForm: FC<NewPassFormProps> = ({ sessionId }) => {
 
   const selectedPassId = useBookingFlowStore((state) => state.paymentPackId);
   const discount = useBookingFlowStore((state) => state.discount);
+  const keepCredits = useBookingFlowStore((state) => state.keepCredits);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -77,6 +78,14 @@ export const NewPassForm: FC<NewPassFormProps> = ({ sessionId }) => {
           label={t("bookingFlow.newPass.discountToggleLabel")}
           checked={discount?.enabled ?? false}
           onToggleChange={handleDiscountToggle}
+        />
+
+        <Toggle
+          id="waive-credit-toggle"
+          label={t("bookingFlow.passSelection.keepCreditsLabel")}
+          helperText={t("bookingFlow.passSelection.keepCreditsDescription")}
+          checked={keepCredits}
+          onToggleChange={setKeepCredits}
         />
 
         <DiscountForm selectedPass={selectedPass} />

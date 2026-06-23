@@ -36,6 +36,7 @@ export const NotesSection: FC<{ sessionId: number }> = ({ sessionId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(persistedNote);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [noteExistedOnEditOpen, setNoteExistedOnEditOpen] = useState(false);
 
   // Resync draft from cache only when not editing — protects in-flight typing.
   useEffect(() => {
@@ -106,16 +107,18 @@ export const NotesSection: FC<{ sessionId: number }> = ({ sessionId }) => {
                     onClick={handleCancel}
                     disabled={isPending}
                   />
-                  <Button
-                    kind="icon-button"
-                    icon="trash-01"
-                    size="md"
-                    intent="flat"
-                    color="default"
-                    label={t("sessionPanel.notes.deleteAriaLabel")}
-                    onClick={() => setIsDeleteOpen(true)}
-                    disabled={isPending}
-                  />
+                  {noteExistedOnEditOpen && (
+                    <Button
+                      kind="icon-button"
+                      icon="trash-01"
+                      size="md"
+                      intent="flat"
+                      color="default"
+                      label={t("sessionPanel.notes.deleteAriaLabel")}
+                      onClick={() => setIsDeleteOpen(true)}
+                      disabled={isPending}
+                    />
+                  )}
                   <Button
                     kind="icon-button"
                     icon="check"
@@ -135,7 +138,10 @@ export const NotesSection: FC<{ sessionId: number }> = ({ sessionId }) => {
                   intent="flat"
                   color="default"
                   label={t("sessionPanel.notes.editAriaLabel")}
-                  onClick={() => setIsEditing(true)}
+                  onClick={() => {
+                    setNoteExistedOnEditOpen(persistedNote.length > 0);
+                    setIsEditing(true);
+                  }}
                 />
               ))}
           </div>

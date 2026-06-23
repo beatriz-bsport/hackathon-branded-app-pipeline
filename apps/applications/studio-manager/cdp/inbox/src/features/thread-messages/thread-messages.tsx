@@ -4,7 +4,6 @@ import type {
 } from "@bsport/api-cdp/inbox";
 import { cx } from "@bsport/kaizen-primitive-core";
 
-import { ThreadMessagesHeader } from "./header/thread-messages-header";
 import { ThreadMessagesContent } from "./thread-messages-content";
 import { useThreadMessages } from "./use-thread-messages";
 
@@ -52,8 +51,6 @@ export function ThreadMessages({
         className,
       )}
     >
-      <ThreadMessagesHeader title={participant.fullName} />
-
       <div className="flex-1 overflow-hidden">
         <ThreadMessagesContent
           messages={messages}

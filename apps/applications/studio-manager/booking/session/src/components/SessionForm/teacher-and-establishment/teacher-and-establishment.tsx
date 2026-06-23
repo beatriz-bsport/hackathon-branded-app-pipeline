@@ -18,12 +18,23 @@ import { WellhubProductSelectorField } from "./wellhub-product-selector-field";
 
 export const SessionTeacherAndEstablishment: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  isWorkshop?: boolean;
+  showPayrollOverrideToggle?: boolean;
+  showSpiviField?: boolean;
+  showWellhubField?: boolean;
+}> = ({
+  fieldIdPrefix,
+  isWorkshop,
+  showPayrollOverrideToggle = true,
+  showSpiviField = true,
+  showWellhubField = true,
+}) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
 
-  const shouldOverrideTeacherPayrollRule = watch("overrideTeacherPayrollRule");
+  const shouldOverrideTeacherPayrollRule =
+    showPayrollOverrideToggle && watch("overrideTeacherPayrollRule");
 
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -37,28 +48,42 @@ export const SessionTeacherAndEstablishment: FC<{
         )}
       </Title>
       <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <OverridePayrollRuleToggle
-        fieldIdPrefix={fieldIdPrefix}
-        label={t(
-          "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.overrideLabel",
-        )}
-        helperText={t(
-          "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.overrideDescription",
-        )}
-      />
-      {shouldOverrideTeacherPayrollRule && (
-        // Indent matches the toggle's label text (switch w-xl + label pl-xs).
-        <div className="ml-xl pl-xs">
-          <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
-        </div>
+      {showPayrollOverrideToggle ? (
+        <>
+          <OverridePayrollRuleToggle
+            fieldIdPrefix={fieldIdPrefix}
+            label={t(
+              "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.overrideLabel",
+            )}
+            helperText={t(
+              "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.overrideDescription",
+            )}
+          />
+          {shouldOverrideTeacherPayrollRule && (
+            // Indent matches the toggle's label text (switch w-xl + label pl-xs).
+            <div className="ml-xl pl-xs">
+              <TeacherPaymentRuleSelectorField
+                fieldIdPrefix={fieldIdPrefix}
+                isWorkshop={isWorkshop}
+              />
+            </div>
+          )}
+        </>
+      ) : (
+        <TeacherPaymentRuleSelectorField
+          fieldIdPrefix={fieldIdPrefix}
+          isWorkshop={isWorkshop}
+        />
       )}
       <EstablishmentSelectorField fieldIdPrefix={fieldIdPrefix} />
       <RoomBlueprintSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <WellhubProductSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        isLivestream={selectedGroupActivity?.is_broadcast || false}
-      />
-      <SyncOnSpiviField fieldIdPrefix={fieldIdPrefix} />
+      {showWellhubField && (
+        <WellhubProductSelectorField
+          fieldIdPrefix={fieldIdPrefix}
+          isLivestream={selectedGroupActivity?.is_broadcast || false}
+        />
+      )}
+      {showSpiviField && <SyncOnSpiviField fieldIdPrefix={fieldIdPrefix} />}
     </section>
   );
 };

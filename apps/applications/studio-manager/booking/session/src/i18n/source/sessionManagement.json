@@ -4,7 +4,6 @@
     "overview": "Overview",
     "editor": "Editor",
     "occurrences": "All occurrences",
-    "series": "Series",
     "statusFilter": {
       "label": "Status",
       "is": "is",
@@ -12,16 +11,6 @@
       "ongoing": "Ongoing",
       "past": "Past",
       "cancelled": "Cancelled"
-    },
-    "seriesTable": {
-      "date": "Date",
-      "time": "Time",
-      "participants": "Participants",
-      "teacher": "Teacher",
-      "establishment": "Venue",
-      "status": "Status",
-      "empty": "No classes to display",
-      "openSession": "Open class"
     },
     "allOccurrencesTable": {
       "date": "Date",
@@ -311,6 +300,14 @@
       "credits": "{{count}} credit",
       "credits_other": "{{count}} credits",
       "recurring": "Recurring"
+    },
+    "series": {
+      "title": "Series",
+      "dateRange": "{{firstDate}} - {{lastDate}}",
+      "summary": "{{dateRange}} · {{count}} class",
+      "summary_other": "{{dateRange}} · {{count}} classes",
+      "missingDate": "No class date",
+      "linkAriaLabel": "Open series classes"
     },
     "notes": {
       "title": "Notes",

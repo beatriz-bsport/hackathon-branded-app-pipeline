@@ -10,7 +10,7 @@ import { DatePicker, DatePickerProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { MAX_YEARS_AHEAD } from "#src/components/SessionForm/schemas";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
@@ -22,7 +22,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
 
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  const { watch, setValue } = useFormContext<SessionCreationFormData>();
+  const { watch, setValue } = useFormContext<SessionDateTimeFormValues>();
 
   const startDate = watch("startDateTime");
 
@@ -71,7 +71,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
   );
 
   return (
-    <FormField<SessionCreationFormData, "recurrenceEndDate", DatePickerProps>
+    <FormField<SessionDateTimeFormValues, "recurrenceEndDate", DatePickerProps>
       name="recurrenceEndDate"
       mapProps={({ fieldState }) => ({
         onSelect: (date) => handleDateChange(date as DateTime | null),

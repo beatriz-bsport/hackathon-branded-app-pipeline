@@ -16,7 +16,7 @@ import {
   type ISOWeekday,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
@@ -25,7 +25,7 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
   const { t } = useTranslation(["common", "sessionCreation"]);
 
   const { watch, setValue, formState, clearErrors } =
-    useFormContext<SessionCreationFormData>();
+    useFormContext<SessionDateTimeFormValues>();
 
   const error = formState.errors.recurrenceWeekdays;
 
@@ -169,7 +169,7 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
           {() => {
             return (
               <FormField<
-                SessionCreationFormData,
+                SessionDateTimeFormValues,
                 "recurrenceWeekdays",
                 MenuProps
               >

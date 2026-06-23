@@ -3,7 +3,10 @@ import { FC } from "react";
 import { FormField } from "@bsport/form";
 import { TextField } from "@bsport/kaizen-primitive-core";
 
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type {
+  SessionCapacityFieldName,
+  SessionCapacityFormValues,
+} from "#src/types";
 
 /**
  * Field component for setting session capacity (effectif, waiting list max size or partner max booking count).
@@ -28,12 +31,19 @@ import { SessionCreationFormData } from "#src/stores/session-creation/types";
  */
 export const SessionCapacityField: FC<{
   fieldIdPrefix: string;
-  fieldName: "effectif" | "waiting_list_max_size" | "partner_max_booking_count";
+  fieldName: SessionCapacityFieldName;
   label: string;
   helperText?: string;
-}> = ({ fieldIdPrefix, fieldName, label, helperText }) => {
+  triggerPartnerCapacityValidation?: boolean;
+}> = ({
+  fieldIdPrefix,
+  fieldName,
+  label,
+  helperText,
+  triggerPartnerCapacityValidation = true,
+}) => {
   return (
-    <FormField<SessionCreationFormData, typeof fieldName>
+    <FormField<SessionCapacityFormValues, typeof fieldName>
       name={fieldName}
       mapProps={({ defaultProps, fieldState, form }) => ({
         ...defaultProps,
@@ -43,7 +53,9 @@ export const SessionCapacityField: FC<{
           defaultProps.onChange(isNaN(numValue) ? 0 : Math.max(0, numValue));
           if (fieldName === "effectif") {
             form.trigger("effectif"); // Trigger validation to check against roomBlueprintCapacity
-            form.trigger("partner_max_booking_count"); // Trigger validation to check against effectif
+            if (triggerPartnerCapacityValidation) {
+              form.trigger("partner_max_booking_count"); // Trigger validation to check against effectif
+            }
           }
         },
         status: fieldState.error ? "error" : "default",

@@ -3,13 +3,13 @@ import { FC } from "react";
 import { FormField } from "@bsport/form";
 import { TextField, TextFieldProps } from "@bsport/kaizen-primitive-core";
 
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 
 export const RecurrenceInterval: FC<{ fieldIdPrefix: string }> = ({
   fieldIdPrefix,
 }) => {
   return (
-    <FormField<SessionCreationFormData, "recurrenceInterval", TextFieldProps>
+    <FormField<SessionDateTimeFormValues, "recurrenceInterval", TextFieldProps>
       name="recurrenceInterval"
       mapProps={({ defaultProps, fieldState }) => ({
         ...defaultProps,

@@ -10,7 +10,7 @@ import {
   useFetchEstablishment,
 } from "#src/hooks/use-fetch-establishments";
 import { useGroupedEstablishments } from "#src/hooks/use-grouped-establishments";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionTeacherAndEstablishmentFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const EstablishmentSelectorField: FC<{
@@ -18,7 +18,7 @@ export const EstablishmentSelectorField: FC<{
 }> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionTeacherAndEstablishmentFormValues>();
 
   const establishmentId = watch("establishment");
   const company = dataAccessLayer.useCompanyTheme()?.company;
@@ -60,7 +60,11 @@ export const EstablishmentSelectorField: FC<{
   }, [establishmentId, groupedEstablishments]);
 
   return (
-    <FormField<SessionCreationFormData, "establishment", AutocompleteProps>
+    <FormField<
+      SessionTeacherAndEstablishmentFormValues,
+      "establishment",
+      AutocompleteProps
+    >
       name="establishment"
       mapProps={({ form }) => ({
         onSelect: (selectedEstablishmentId: string) => {

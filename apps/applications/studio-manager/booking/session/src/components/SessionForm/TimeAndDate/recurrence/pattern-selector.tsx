@@ -12,7 +12,7 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const RecurrencePatternSelector: FC<{
@@ -21,7 +21,7 @@ export const RecurrencePatternSelector: FC<{
 }> = ({ fieldIdPrefix, trackRecurrenceRule }) => {
   const { t } = useTranslation(["common", "sessionCreation"]);
 
-  const { watch, setValue } = useFormContext<SessionCreationFormData>();
+  const { watch, setValue } = useFormContext<SessionDateTimeFormValues>();
 
   const selectedValue = watch("recurrencePattern");
 
@@ -85,7 +85,7 @@ export const RecurrencePatternSelector: FC<{
   ];
 
   return (
-    <FormField<SessionCreationFormData, "recurrencePattern", SelectProps>
+    <FormField<SessionDateTimeFormValues, "recurrencePattern", SelectProps>
       name="recurrencePattern"
       mapProps={() => ({
         onChange: (selectedOptionId) => {

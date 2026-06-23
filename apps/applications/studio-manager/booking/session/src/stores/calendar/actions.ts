@@ -1,14 +1,18 @@
 import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
+import { DEFAULT_SERIES_COLUMNS } from "#src/constants";
 import {
   AppointmentColumn,
   AppointmentModalType,
   CalendarDataTab,
+  CalendarTab,
   CalendarView,
   EnrichedAppointment,
   EnrichedSession,
   ModalType,
+  SeriesColumn,
+  SeriesOrdering,
   SessionColumns,
 } from "#src/types";
 
@@ -84,13 +88,40 @@ export const setLocale = (locale: string) => {
 
 // Tab-aware actions
 
-export const setFilters = (
-  tab: CalendarDataTab,
-  filters: FilterElementState[],
-) => {
+export const setFilters = (tab: CalendarTab, filters: FilterElementState[]) => {
   calendarStore.setState((state) => ({
     [tab]: { ...state[tab], filters },
   }));
+};
+
+export const setSeriesOrdering = (ordering: SeriesOrdering) => {
+  calendarStore.setState((state) => ({
+    series: { ...state.series, ordering },
+  }));
+};
+
+export const setSeriesShowCancelled = (showCancelled: boolean) => {
+  calendarStore.setState((state) => ({
+    series: { ...state.series, showCancelled },
+  }));
+};
+
+export const toggleSeriesColumn = (column: SeriesColumn) => {
+  calendarStore.setState((state) => {
+    const displayedColumns =
+      state.series.displayedColumns ?? DEFAULT_SERIES_COLUMNS;
+
+    return {
+      series: {
+        ...state.series,
+        displayedColumns: displayedColumns.includes(column)
+          ? displayedColumns.filter(
+              (displayedColumn) => displayedColumn !== column,
+            )
+          : [...displayedColumns, column],
+      },
+    };
+  });
 };
 
 export const setShowCancelled = (tab: CalendarDataTab, show: boolean) => {

@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Navigate, useParams } from "react-router";
+import { FC, useCallback } from "react";
+import { Navigate, generatePath, useParams } from "react-router";
 
 import {
   type Session,
@@ -19,7 +19,7 @@ import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retr
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
 import { useSessionHeaderBase } from "#src/hooks/use-session-header-base";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
-import { useUrls } from "#src/urls";
+import { ABSOLUTE_ROUTES, useUrls } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 
 const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
@@ -35,9 +35,18 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
   const { closeModal, modalState, openModal } = useSessionManagementModals();
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
+
   const { pageTitle, startGroupActions } = useSessionHeaderBase(session, {
     openModal,
   });
+
+  const resolveSessionManagementPath = useCallback(
+    (sessionId: number) =>
+      generatePath(ABSOLUTE_ROUTES.BOOKINGS_MANAGEMENT_REVAMP, {
+        sessionId: String(sessionId),
+      }),
+    [],
+  );
 
   const paginationNamespace = `occurrences-${session.recurrence_id}`;
   const { status, filterConfig } =
@@ -64,7 +73,8 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
                 params,
               )
             }
-            labelGroup="allOccurrencesTable"
+            currentSessionId={session.id}
+            getSessionPath={resolveSessionManagementPath}
           />
         </ListLayout.Content>
       </ListLayout>

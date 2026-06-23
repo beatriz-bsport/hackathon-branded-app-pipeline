@@ -2,13 +2,15 @@ import { useCallback, useMemo } from "react";
 
 import { useFormContext } from "@bsport/form";
 
+import type { SessionDateTimeFormValues } from "#src/types";
 import {
   convertDurationToMinutes,
   convertMinutesToDuration,
 } from "#src/utils/duration";
 
 export const useDurationChange = () => {
-  const { watch, setValue, formState } = useFormContext();
+  const { watch, setValue, formState } =
+    useFormContext<SessionDateTimeFormValues>();
   const durationMinute = watch("duration_minute");
 
   const error = formState.errors.duration_minute?.message;

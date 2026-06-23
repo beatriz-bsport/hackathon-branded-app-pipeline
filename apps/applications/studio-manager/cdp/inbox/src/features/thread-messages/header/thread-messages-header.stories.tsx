@@ -12,7 +12,7 @@ const meta: Meta<typeof ThreadMessagesHeader> = {
     docs: {
       description: {
         component:
-          "Header for the Inbox thread messages area: conversation title with flat filter and more-actions icon buttons.",
+          "Layout-agnostic content row for the Inbox thread header: conversation title with flat filter and more-actions icon buttons. It carries no bar chrome (border/background/padding) of its own — it is meant to sit inside `InboxLayout.Header`, which owns that chrome.",
       },
     },
   },
@@ -31,7 +31,7 @@ export const Default: Story = {};
 
 export const InColumn: Story = {
   render: (args) => (
-    <div className="w-[480px] border border-stroke-thin border-stroke-weak">
+    <div className="w-[480px] border-b-stroke-thin border-b-stroke-divider bg-surface-default px-sm py-xs">
       <ThreadMessagesHeader {...args} />
     </div>
   ),

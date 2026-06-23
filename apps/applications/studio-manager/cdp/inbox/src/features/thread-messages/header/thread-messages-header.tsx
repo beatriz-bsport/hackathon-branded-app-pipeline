@@ -21,41 +21,34 @@ export function ThreadMessagesHeader({
   const { t } = useTranslation("thread-messages");
 
   return (
-    <header
-      className={cx(
-        "flex flex-col items-start justify-center gap-2xs border-b-stroke-thin border-b-stroke-divider bg-surface-default px-sm py-xs",
-        className,
-      )}
-    >
-      <div className="flex w-full items-center gap-sm">
-        <Title
-          htmlVariant="h2"
-          weight="strong"
+    <header className={cx("flex w-full items-center gap-sm", className)}>
+      <Title
+        htmlVariant="h2"
+        weight="strong"
+        color="default"
+        className="min-w-px flex-1 break-words"
+      >
+        {title}
+      </Title>
+      <div className="flex items-center gap-2xs">
+        <Button
+          kind="icon-button"
+          intent="flat"
           color="default"
-          className="min-w-px flex-1 break-words"
-        >
-          {title}
-        </Title>
-        <div className="flex items-center gap-2xs">
-          <Button
-            kind="icon-button"
-            intent="flat"
-            color="default"
-            size="md"
-            icon="filter-lines"
-            label={t("threadMessagesHeader.filterLabel")}
-            onClick={onFilter}
-          />
-          <Button
-            kind="icon-button"
-            intent="flat"
-            color="default"
-            size="md"
-            icon="dots-vertical"
-            label={t("threadMessagesHeader.moreActionsLabel")}
-            onClick={onMoreActions}
-          />
-        </div>
+          size="md"
+          icon="filter-lines"
+          label={t("threadMessagesHeader.filterLabel")}
+          onClick={onFilter}
+        />
+        <Button
+          kind="icon-button"
+          intent="flat"
+          color="default"
+          size="md"
+          icon="dots-vertical"
+          label={t("threadMessagesHeader.moreActionsLabel")}
+          onClick={onMoreActions}
+        />
       </div>
     </header>
   );

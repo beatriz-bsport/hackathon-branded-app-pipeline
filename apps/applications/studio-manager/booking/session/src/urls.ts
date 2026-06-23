@@ -69,6 +69,7 @@ export const LEGACY_URLS = {
   COACH_DETAILS: (coachId: number) => `/coach/${coachId}`,
   GROUP_ACTIVITY_DETAIL: (id: number) => `/activity/${id}/general`,
   WORKSHOP_DETAIL: (id: number) => `/workshop-activity/${id}/general`,
+  WAITLIST_SETTINGS: "/settings/waiting-list",
 } as const;
 
 export const useUrls = () => {

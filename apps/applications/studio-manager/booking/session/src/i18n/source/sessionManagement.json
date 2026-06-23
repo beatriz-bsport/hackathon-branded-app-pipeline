@@ -365,7 +365,8 @@
         "6005": "Someone is currently trying to book this spot. Please retry.",
         "23001": "No compatible pass allows this member to book this offer.",
         "23002": "Too many upcoming bookings or booking options.",
-        "generic": "Couldn't add client to waitlist"
+        "generic": "Couldn't add client to waitlist",
+        "settings": "Settings"
       }
     },
     "conversion": {

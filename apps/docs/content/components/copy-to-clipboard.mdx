@@ -1,5 +1,5 @@
 ---
-title: Copy to clipboard [LLM]
+title: Copy to clipboard
 description: A button that copies a value and confirms with toast feedback
 status: stable
 category: components
@@ -11,6 +11,7 @@ sections:
   - "Reference"
   - "Accessibility"
   - "Resources"
+  - "Improvements"
 ---
 
 ## Overview
@@ -38,23 +39,13 @@ payment references, share links, or API keys without selecting text manually.
 
 ### Use cases
 
-- **Invoice references** — copy payment ID from finance detail drawers.
-- **Member email** — flat button beside read-only contact fields.
-- **Webhook URLs** — copy integration endpoint from settings with tooltip hint.
-- **Share links** — marketing campaign URLs in analytics views.
-- **Support diagnostics** — copy error correlation IDs from [Error fallback](/components/error-fallback) actions.
+- **Reference IDs** — copy a payment, order, or transaction ID from a detail panel.
+- **Read-only fields** — flat button beside email, phone, or other non-editable values.
+- **Technical URLs** — copy webhook, API, or callback URLs from settings with tooltip hint.
+- **Share links** — copy a public or tracked URL for sharing outside the app.
+- **Support diagnostics** — copy error or correlation IDs from [Error fallback](/components/error-fallback) actions.
 
 ## Guidelines
-
-- **Label the action** — button `label` states what is copied ("Copy invoice ID").
-- **value vs label** — pass `value` for the clipboard payload when it differs from button text.
-- **Toast confirms success** — default i18n message; override `toastMessage` for domain copy.
-- **Tooltip on hover** — defaults to "Click to copy"; customize for long values.
-- **Disable when empty** — omit the component or disable when there is nothing to copy.
-
-### Best practices
-
-#### General
 
 <DoDont>
   <Do caption="Use a specific label — Copy member ID — instead of a generic Copy button." />
@@ -63,17 +54,10 @@ payment references, share links, or API keys without selecting text manually.
   <Dont caption="Copy buttons on every table cell — offer row-level copy for the primary identifier." />
   <Dont caption="Sensitive secrets without access control — copy does not replace permission checks." />
   <Dont caption="Relying on toast alone for failure — clipboard denial should surface error toast automatically." />
+  <Do caption="Toast confirms success — default i18n message; override `toastMessage` for domain copy." />
+  <Do caption='Tooltip on hover — defaults to "Click to copy"; customize for long values.' />
+  <Do caption="Disable when empty — omit the component or disable when there is nothing to copy." />
 </DoDont>
-
-### Content rules
-
-Button and toast copy stay short:
-
-> Copy link
-
-> Copied to clipboard
-
-> Unable to copy. Try selecting the text manually.
 
 ## Reference
 
@@ -159,3 +143,15 @@ Focus remains on the button after copy.
 - **[Button](/components/button)** — base control for styling and intents.
 - **[Toast](/components/toast)** — confirmation channel after copy.
 - **[Tooltip](/components/tooltip)** — hover hint for abbreviated labels.
+
+## Improvements
+
+### Icon placement
+
+Align on a single copy icon position — **left or right** — across Studio Manager. Today
+the component inherits [Button](/components/button) `iconLeft` and `iconRight`, which lets
+teams place any icon on either side.
+
+The API should instead expose whether to show the default copy icon — on or off — with
+placement fixed by the design system. Track in
+[KAI-855](https://linear.app/bsport/issue/KAI-855/kz-improvement-align-copytoclipboard-icon-placement-api).

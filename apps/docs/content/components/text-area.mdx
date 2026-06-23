@@ -38,16 +38,6 @@ disabled/read-only modes consistent with [Text field](/components/text-field).
 
 ## Guidelines
 
-- **Pair with Label** — always visible label via [Label](/components/label) or `label` prop.
-- **Set expectations** — helper text for character limits or formatting rules.
-- **Resize thoughtfully** — default vertical resize; constrain height in dense layouts.
-- **Error below field** — match single-line field error placement.
-- **Not for single-line data** — names and emails belong in Text field.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="State character limits in helper text when the API enforces max length." />
   <Do caption="Use read-only mode for displayed long text that must not edit inline." />
@@ -55,6 +45,10 @@ disabled/read-only modes consistent with [Text field](/components/text-field).
   <Dont caption="Tiny two-row text areas for content that routinely exceeds five lines." />
   <Dont caption="Validation only on blur without inline error message." />
   <Dont caption="Rich formatting expectations in a plain text area without a rich editor." />
+  <Do caption="Pair with Label — always visible label via `Label` or `label` prop." />
+  <Do caption="Resize thoughtfully — default vertical resize; constrain height in dense layouts." />
+  <Do caption="Error below field — match single-line field error placement." />
+  <Dont caption="Not for single-line data — names and emails belong in Text field." />
 </DoDont>
 
 ### Content rules

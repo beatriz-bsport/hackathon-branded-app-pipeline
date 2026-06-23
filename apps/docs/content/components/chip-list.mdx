@@ -49,16 +49,6 @@ filter summaries, and multi-value fields in read-only detail views.
 
 ## Guidelines
 
-- **maxDisplay default 7** — tune per layout width.
-- **Consistent chip props** — type, color, size uniform within one list.
-- **Overflow popover** — clicking +N reveals hidden chips in [Popover](/components/popover).
-- **Disabled state** — entire list non-interactive when context is read-only.
-- **Editing tags** — use [Tag input](/components/tag-input) or autocomplete for entry; Chip list for display.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Sort chips by importance so the most critical tags stay visible." />
   <Do caption="Use dismissible chips only when removal immediately updates data." />
@@ -66,6 +56,11 @@ filter summaries, and multi-value fields in read-only detail views.
   <Dont caption="Chip list as the only way to see all tags — overflow must be discoverable." />
   <Dont caption="Mixing chip sizes in one list." />
   <Dont caption="Twenty visible chips without overflow — use compact summary link." />
+  <Do caption="maxDisplay default 7 — tune per layout width." />
+  <Do caption="Consistent chip props — type, color, size uniform within one list." />
+  <Do caption="Overflow popover — clicking +N reveals hidden chips in `Popover`." />
+  <Do caption="Disabled state — entire list non-interactive when context is read-only." />
+  <Do caption="Editing tags — use `Tag input` or autocomplete for entry; Chip list for display." />
 </DoDont>
 
 ### Content rules

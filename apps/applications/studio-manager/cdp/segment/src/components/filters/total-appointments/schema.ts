@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { dateFilterValueSchema } from "#src/components/filters/passes-filter/sub-filters/purchase-date/schema";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "./constants";
@@ -8,11 +9,9 @@ import { REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS } from "./sub-filters/registr
 import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "./sub-filters/total-appointments-sub-filter-id";
 import type { TotalAppointmentsNumberFilterFormValue } from "./types";
 
-const I18N_NAMESPACE = "sm-smartlists_filters";
-
 const VALUE_REQUIRED_MESSAGE = i18nInstance.t(
   "filters.26.validation.valueRequired",
-  { ns: I18N_NAMESPACE },
+  { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
 );
 
 export const totalAppointmentsNumberFilterSchema = z
@@ -70,7 +69,7 @@ export const totalAppointmentsNumberFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["secondValue"],
         message: i18nInstance.t("filters.26.validation.secondValueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -83,7 +82,7 @@ export const totalAppointmentsNumberFilterSchema = z
         message: i18nInstance.t(
           "filters.26.validation.secondValueGreaterThanFirst",
           {
-            ns: I18N_NAMESPACE,
+            ns: I18N_SEGMENT_NAMESPACES.FILTERS,
           },
         ),
       });

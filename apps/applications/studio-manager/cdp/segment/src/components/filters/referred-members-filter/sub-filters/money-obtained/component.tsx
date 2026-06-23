@@ -1,8 +1,8 @@
-import { getCurrencyDisplay } from "@bsport/currency";
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";
+import { getCurrencyCodeSuffix } from "#src/utils/format-price-with-currency-code";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { ReferredMembersSubFilterSectionProps } from "../referred-members-sub-filter-section-props";
@@ -18,7 +18,6 @@ export const MoneyObtainedSubFilterSection = ({
   onRemove,
 }: ReferredMembersSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const currencyDisplay = getCurrencyDisplay();
 
   return (
     <Card className="w-full">
@@ -58,7 +57,7 @@ export const MoneyObtainedSubFilterSection = ({
               shouldValidate: true,
             })
           }
-          suffix={currencyDisplay}
+          suffix={getCurrencyCodeSuffix()}
           errors={{
             firstValue: errors.moneyObtained?.firstValue?.message
               ? String(errors.moneyObtained.firstValue.message)

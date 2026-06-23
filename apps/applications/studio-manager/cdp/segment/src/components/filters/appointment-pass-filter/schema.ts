@@ -6,11 +6,10 @@ import { expirationDateValueSchema } from "#src/components/filters/passes-filter
 import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 import { REGISTERED_PASS_SUB_FILTERS } from "#src/components/filters/passes-filter/sub-filters/registry";
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { AppointmentPassFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const subFilterIdSchema = z.array(
   z.union([
@@ -46,7 +45,7 @@ export const appointmentPassFilterSchema = z
         path: ["selectedPaymentPackIds"],
         message: i18nInstance.t(
           "filters.25.validation.selectedPassesRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }

@@ -9,9 +9,10 @@ import { DeleteLevelModal } from "./delete-level-modal";
 import { EditLevelModal } from "./edit-level-modal";
 import { LevelSelector, type LevelSelectorProps } from "./level-selector";
 
-export const LevelSelectorField: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const LevelSelectorField: FC<{
+  fieldIdPrefix: string;
+  disabled?: boolean;
+}> = ({ fieldIdPrefix, disabled = false }) => {
   const [isCreateLevelModalOpen, setIsCreateLevelModalOpen] = useState(false);
 
   const [isEditLevelModalOpen, setIsEditLevelModalOpen] = useState(false);
@@ -55,6 +56,7 @@ export const LevelSelectorField: FC<{ fieldIdPrefix: string }> = ({
       >
         <LevelSelector
           fieldIdPrefix={fieldIdPrefix}
+          disabled={disabled}
           openCreateLevelModal={() => setIsCreateLevelModalOpen(true)}
           openEditLevelModal={openEditLevelModal}
           openDeleteLevelModal={openDeleteLevelModal}

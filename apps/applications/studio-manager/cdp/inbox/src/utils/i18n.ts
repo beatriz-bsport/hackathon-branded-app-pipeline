@@ -5,6 +5,7 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "#src/i18n";
+import type memberDetailTranslations from "#src/i18n/source/member-detail.json";
 import type messageComposerTranslations from "#src/i18n/source/message-composer.json";
 import type pageTranslations from "#src/i18n/source/page.json";
 import type threadListTranslations from "#src/i18n/source/thread-list.json";
@@ -15,6 +16,7 @@ type Translations = {
   "thread-list": typeof threadListTranslations;
   "thread-messages": typeof threadMessagesTranslations;
   "message-composer": typeof messageComposerTranslations;
+  "member-detail": typeof memberDetailTranslations;
 };
 
 export const {

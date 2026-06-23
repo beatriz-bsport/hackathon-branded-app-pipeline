@@ -32,6 +32,8 @@ type FormMediaFieldProps<
   | "onInputChange"
   | "uploadCallback"
   | "disabled"
+  | "status"
+  | "statusText"
 >;
 
 function createObjectUrl(value: File | Blob | null | undefined): string | null {
@@ -97,7 +99,8 @@ export const FormMediaField = <
 
       <FormField<TFormValues, TFieldName, FileUploadProps>
         name={fieldName}
-        mapProps={({ field, form: fieldForm }) => ({
+        mapProps={({ defaultProps, field, form: fieldForm }) => ({
+          ...defaultProps,
           handleUploadFile: async (file) => {
             if (!file) return { status: FILE_UPLOAD_STATUSES.error };
             fieldForm.setValue(fieldName, file as never, {
@@ -132,7 +135,7 @@ export const FormMediaField = <
         />
       </FormField>
 
-      {!preview && helperText && (
+      {!preview && helperText && !form.formState.errors[fieldName] && (
         <Body color="weak" size="sm">
           {helperText}
         </Body>

@@ -1,5 +1,5 @@
 ---
-title: Color indicator [LLM]
+title: Color indicator
 description: A small color swatch for categories, tags, or calendar color coding
 status: stable
 category: components
@@ -16,8 +16,9 @@ sections:
 ## Overview
 
 Color indicator renders a solid color sample as either a vertical line or a
-rounded block. It encodes category color, room color, or tag color beside labels
-in lists and filters — the color carries meaning only when explained in adjacent text.
+rounded block. It encodes activity, category, or tag color beside labels in
+lists, tables, and pickers — the swatch reinforces meaning that adjacent text
+must already carry.
 
 <StorybookEmbed
   id="primitive-components-colorindicator--primary"
@@ -31,48 +32,29 @@ in lists and filters — the color carries meaning only when explained in adjace
   ]}
 />
 
-### Use cases
+### Examples
 
-- **Activity categories** — line indicator at the start of a list row in scheduling.
-- **Room or resource color** — block swatch beside venue name in booking settings.
-- **Tag color preview** — in tag management before saving a hex value.
-- **Legend entries** — paired with category name in filter sidebars.
-- **Calendar list items** — via [List item](/components/list-item) `color` prop.
+- **Session calendar** — line stripe on table rows via [Table](/components/table) `row.color` (activity color from scheduling).
+- **Activity picker** — line stripe on mobile list rows via [List item](/components/list-item) `color`.
+- **Tag list** — line stripe on tag rows in CDP tag management via List item `color`.
+- **Tag detail header** — block swatch beside the tag name on the detail page.
+- **Tag pickers and filters** — block swatch in [Autocomplete](/components/autocomplete) or menu `leftSlot` / `rightSlot` (session form, segment filters).
 
 ## Guidelines
 
-- **Never color alone** — always show the category or tag name beside the swatch.
-- **Line in rows** — `type="line"` fills row height in dense lists.
-- **Block in forms** — `type="block"` for picker previews and legends.
-- **Valid CSS colors** — pass hex or token-backed values the design system allows.
-- **Consistent mapping** — one color per category across calendar, list, and filters.
-
-### Best practices
-
-<Callout type="warning" title="Caution">
-
-Relying on color alone fails WCAG 1.4.1 — pair every swatch with a text label or icon.
-
-</Callout>
-
-#### General
-
 <DoDont>
-  <Do caption="Repeat the category name next to the swatch in every list row." />
-  <Do caption="Use line type in full-height list items for quick scanning." />
-  <Do caption="Keep hex values in sync with backend category color fields." />
-  <Dont caption="Different colors for the same category in calendar vs list views." />
-  <Dont caption="Tiny block swatches as the only filter label in a toolbar." />
+  <Do caption="Use List item or Table row color props for scheduling and tag lists." />
+  <Do caption="Keep hex values in sync with backend category and tag color fields." />
+  <Dont caption="Different colors for the same entity in calendar vs list vs filter views." />
   <Dont caption="Critical status encoded only with red/green swatches — use Badge or Alert." />
 </DoDont>
 
-### Content rules
+### Line type
 
-Labels carry meaning; the swatch reinforces:
-
-> Strength
-
-> Room A — Main studio
+<DoDont>
+  <Do caption="Use line type when the swatch spans the full row height in List or Table." />
+  <Dont caption="Use line type without a positioned parent — it needs a container with defined height." />
+</DoDont>
 
 ## Reference
 
@@ -89,13 +71,29 @@ Labels carry meaning; the swatch reinforces:
 
 ### Props
 
-<PropsTable component="ColorIndicator" />
+<PropsTable
+  component="ColorIndicator"
+  overrides={{
+    color: {
+      description:
+        "CSS color value (typically hex from a category or tag field). Required.",
+    },
+    type: {
+      description:
+        'Visual shape: "line" (vertical stripe) or "block" (rounded square).',
+    },
+    size: {
+      description:
+        "Token-backed dimensions. Studio Manager uses 2xs in tables and filters, xs on List rows, sm in tag detail and autocomplete.",
+    },
+    sizeByType: {
+      description:
+        "Internal variant key — do not pass from product code. Set type and size instead.",
+    },
+  }}
+/>
 
 ### Behaviors
-
-#### Responsiveness
-
-Line type stretches to container height. Block type uses fixed token dimensions per size.
 
 ### Edge cases
 
@@ -106,8 +104,9 @@ Line type stretches to container height. Block type uses fixed token dimensions 
 
 ### ARIA roles & attributes
 
-Decorative when redundant with visible text — use `aria-hidden="true"`. If color
-is the only differentiator, add visible text or `aria-label` on the parent row.
+The component sets no ARIA attributes. When the swatch repeats information already
+in visible text, pass `aria-hidden="true"` on the indicator. If color is the only
+differentiator, add visible text or `aria-label` on the parent row or option.
 
 ### Keyboard navigation
 
@@ -115,7 +114,8 @@ is the only differentiator, add visible text or `aria-label` on the parent row.
   keyboard={[
     {
       keys: ["Tab"],
-      description: "Not focusable alone; follows parent list item.",
+      description:
+        "Not focusable alone; follows parent list item or menu option.",
     },
   ]}
 />
@@ -123,7 +123,7 @@ is the only differentiator, add visible text or `aria-label` on the parent row.
 ### Screen reader behavior
 
 Screen readers do not announce background color — the adjacent title must include
-the category name.
+the category or tag name.
 
 ### Focus management
 
@@ -143,6 +143,16 @@ Not applicable.
 
 ### Related components
 
-- **[List](/components/list)** — passes color into list items for category stripes.
+- **[List item](/components/list-item)** — `color` prop renders a line stripe at the row edge.
+- **[Table](/components/table)** — `row.color` renders a line stripe on the first cell.
+- **[Autocomplete](/components/autocomplete)** — `leftSlot` / `rightSlot` for block swatches in tag pickers.
 - **[Chip](/components/chip)** — text labels with optional customColor for named tags.
 - **[Badge](/components/badge)** — textual status when color coding is insufficient.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Local swatch duplicates** — level selectors (session, VOD) and the referral-program tag selector use inline div swatches instead of ColorIndicator; radius and size differ from the primitive.
+- **Props table noise** — `sizeByType` appears in the generated table but is an internal CVA key, not part of the public API.
+- **`aria-hidden` not built in** — decorative hiding is the consumer's responsibility; the component does not set it by default.

@@ -7,40 +7,33 @@ type UseCheckoutFlowTrackingOptions = {
   memberId?: number;
   startContext?: CheckoutFlowStartContext;
   onTrack: CheckoutFlowTrackFn;
-  externalBasketSessionId?: string;
+  trackingSessionId: string;
 };
 
 type UseCheckoutFlowTrackingReturn = {
-  basketSessionId: string;
   track: CheckoutFlowTrackFn;
 };
-
-const generateSessionId = () => crypto.randomUUID();
 
 export const useCheckoutFlowTracking = ({
   isOpen,
   memberId,
   startContext,
   onTrack,
-  externalBasketSessionId,
+  trackingSessionId,
 }: UseCheckoutFlowTrackingOptions): UseCheckoutFlowTrackingReturn => {
-  const [basketSessionId, setBasketSessionId] = useState("");
   /** Prevents tracking start events more than once while the modal stays open. */
   const [hasTrackedSessionStartEvents, setHasTrackedSessionStartEvents] =
     useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setBasketSessionId(externalBasketSessionId ?? generateSessionId());
-    } else {
-      setBasketSessionId("");
+    if (!isOpen) {
       setHasTrackedSessionStartEvents(false);
     }
-  }, [isOpen, externalBasketSessionId]);
+  }, [isOpen]);
 
   const track: CheckoutFlowTrackFn = useCallback(
     (eventName, properties) => {
-      if (!onTrack || !basketSessionId) {
+      if (!onTrack || !trackingSessionId) {
         if (process.env.NODE_ENV === "development") {
           throw new Error(
             "[useCheckoutFlowTracking] Tracking is not properly configured",
@@ -50,11 +43,11 @@ export const useCheckoutFlowTracking = ({
           "[useCheckoutFlowTracking] Skipping track call due to missing dependencies",
           {
             onTrackMissing: !onTrack,
-            basketSessionIdMissing: !basketSessionId,
+            basketSessionIdMissing: !trackingSessionId,
             eventName,
             properties,
             onTrack,
-            basketSessionId,
+            trackingSessionId,
           },
         );
         return;
@@ -62,15 +55,20 @@ export const useCheckoutFlowTracking = ({
 
       const payload = {
         ...properties,
-        basket_session_id: basketSessionId,
+        basket_session_id: trackingSessionId,
       };
       onTrack(eventName, payload);
     },
-    [onTrack, basketSessionId],
+    [onTrack, trackingSessionId],
   );
 
   useEffect(() => {
-    if (!isOpen || hasTrackedSessionStartEvents || !basketSessionId || !onTrack)
+    if (
+      !isOpen ||
+      hasTrackedSessionStartEvents ||
+      !trackingSessionId ||
+      !onTrack
+    )
       return;
 
     const startPayload = {
@@ -100,12 +98,12 @@ export const useCheckoutFlowTracking = ({
   }, [
     isOpen,
     hasTrackedSessionStartEvents,
-    basketSessionId,
+    trackingSessionId,
     onTrack,
     track,
     startContext,
     memberId,
   ]);
 
-  return { basketSessionId, track };
+  return { track };
 };

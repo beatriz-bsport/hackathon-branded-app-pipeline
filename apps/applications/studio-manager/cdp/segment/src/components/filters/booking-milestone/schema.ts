@@ -3,9 +3,8 @@ import { z } from "zod";
 import { BOOKING_MILESTONE_MIN_VALUE } from "#src/components/filters/booking-milestone/constants";
 import type { BookingMilestoneFilterFormValue } from "#src/components/filters/booking-milestone/types";
 import { totalBookingNumberFilterSchema } from "#src/components/filters/total-booking/schema";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Schema for the booking milestone (filter 21) form. Inherits all sub-filter
@@ -20,7 +19,7 @@ export const bookingMilestoneFilterSchema =
         code: z.ZodIssueCode.custom,
         path: ["value"],
         message: i18nInstance.t("filters.21.validation.valueMustBeInteger", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -31,7 +30,7 @@ export const bookingMilestoneFilterSchema =
         code: z.ZodIssueCode.custom,
         path: ["value"],
         message: i18nInstance.t("filters.21.validation.valueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
     }

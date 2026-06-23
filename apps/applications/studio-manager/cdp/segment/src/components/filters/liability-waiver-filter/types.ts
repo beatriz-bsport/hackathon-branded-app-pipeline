@@ -3,6 +3,8 @@ import type {
   UpdateLiabilityWaiverFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
+
 export type LiabilityWaiverFilterFormValue = {
   id?: number;
   smartlist: number;
@@ -15,9 +17,5 @@ export type LiabilityWaiverFilterCreatePayload =
 export type LiabilityWaiverFilterDirtyPatchPayload =
   UpdateLiabilityWaiverFilterPayload;
 
-export type LiabilityWaiverFilterCardProps = {
-  smartlistId: string;
-  filterValue: LiabilityWaiverFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type LiabilityWaiverFilterCardProps =
+  SegmentFilterCardProps<LiabilityWaiverFilterFormValue>;

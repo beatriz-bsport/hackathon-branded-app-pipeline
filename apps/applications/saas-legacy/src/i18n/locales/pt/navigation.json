@@ -132,6 +132,27 @@
   "stripeOnboardingPending": {
     "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
   },
+  "stripeCompliance": {
+    "banner": "A Stripe precisa de informações atualizadas antes de {{ date }}. Clique aqui para rever.",
+    "bannerWithoutDate": "A Stripe precisa de informações atualizadas. Clique aqui para rever.",
+    "cta": {
+      "company_settings": "Atualizar as definições da minha empresa",
+      "none": "Rever",
+      "stripe_onboarding": "Atualizar as minhas informações na Stripe"
+    },
+    "modal": {
+      "genericImpact": "Se isto não for resolvido, as funcionalidades de pagamentos e transferências podem ser afetadas.",
+      "restricted": {
+        "description": "A Stripe restringiu a sua conta. Atualize as informações necessárias para restaurar todas as funcionalidades de pagamento.",
+        "title": "Conta Stripe restringida"
+      },
+      "restrictedSoon": {
+        "description": "A Stripe precisa de informações atualizadas antes de {{ date }} para manter a sua conta em conformidade.",
+        "descriptionWithoutDate": "A Stripe precisa de informações atualizadas para manter a sua conta em conformidade.",
+        "title": "Atualização Stripe necessária"
+      }
+    }
+  },
   "franchiseMenu": {
     "reporting": "Relatórios",
     "staff": "Staff",

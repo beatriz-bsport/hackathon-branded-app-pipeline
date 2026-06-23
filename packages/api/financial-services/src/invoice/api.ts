@@ -1,4 +1,11 @@
-import { type ApiConfig, type Fetch } from "@bsport/store-base";
+import { queryOptions } from "@tanstack/react-query";
+
+import {
+  type ApiConfig,
+  type Fetch,
+  type PaginatedResponse,
+  buildUrlParams,
+} from "@bsport/store-base";
 
 import { API_URL_PAYMENT_INVOICES, QUERY_KEY_MAIN } from "../constants";
 import type {
@@ -12,6 +19,8 @@ export const invoiceKeys = {
   all: [QUERY_KEY_MAIN, "invoice"] as const,
   detail: (invoiceId: string) =>
     [...invoiceKeys.all, "detail", invoiceId] as const,
+  unpaidCount: (memberId: number) =>
+    [...invoiceKeys.all, memberId, "unpaid-count"] as const,
 } as const;
 
 const fetchInvoiceAPIConfig = (invoiceId: string): ApiConfig => {
@@ -29,6 +38,22 @@ export const fetchInvoiceAPI = async (
   const { data } = await fetch(uri, init);
 
   return data;
+};
+
+export const fetchUnpaidInvoiceCountAPI = async (
+  fetch: Fetch<PaginatedResponse<FetchInvoiceResponse>>,
+  memberId: number,
+): Promise<number> => {
+  const { data } = await fetch(
+    `${API_URL_PAYMENT_INVOICES}/${buildUrlParams({
+      unpaid: true,
+      member: memberId,
+      is_v2: true,
+      page_size: 1,
+    })}`,
+  );
+
+  return data.count;
 };
 
 export const applyBalanceToInvoiceAPIConfig = (
@@ -92,3 +117,12 @@ export const scheduleInvoicePaymentAPI = async (
 
   return data;
 };
+
+export const unpaidInvoiceCountQueryOptions = (
+  fetch: Fetch<PaginatedResponse<FetchInvoiceResponse>>,
+  memberId: number,
+) =>
+  queryOptions({
+    queryKey: invoiceKeys.unpaidCount(memberId),
+    queryFn: () => fetchUnpaidInvoiceCountAPI(fetch, memberId),
+  });

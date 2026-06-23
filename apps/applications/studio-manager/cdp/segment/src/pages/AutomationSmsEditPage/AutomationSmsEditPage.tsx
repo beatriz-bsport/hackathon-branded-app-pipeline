@@ -124,7 +124,9 @@ function AutomationSmsEditDetail() {
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
         pageTitle={
-          campaign.title ?? t("automation.sms.pageTitle", { ns: "details" })
+          campaign.title ||
+          campaign.text ||
+          t("automation.sms.pageTitle", { ns: "details" })
         }
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}

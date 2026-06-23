@@ -1,0 +1,118 @@
+import type { MemberDetail } from "../types";
+
+export const mockMemberDetail: MemberDetail = {
+  accept_email: true,
+  accept_sms: true,
+  archived: false,
+  birthday: "1992-06-16",
+  consumer: 1000,
+  credit_account_balance: 48.5,
+  date_joined: "2023-03-12",
+  email: "abigail.stone@example.com",
+  first_name: "Abigail",
+  has_bought_pack: true,
+  id: 1000,
+  is_pos: false,
+  last_name: "Stone",
+  name: "Abigail Stone",
+  notes: [
+    {
+      id: 501,
+      member: 1000,
+      date: "2026-05-03T10:30:00Z",
+      text: "Prefers reformer classes in the evening. Mentioned she is training for a half marathon and likes lower-impact options when possible.",
+      highlighted: false,
+      is_medical: false,
+      editable: true,
+    },
+    {
+      id: 502,
+      member: 1000,
+      date: "2026-04-21T14:12:00Z",
+      text: "Asked to be notified when the Tuesday 7pm slot opens again.",
+      highlighted: true,
+      is_medical: false,
+      editable: true,
+    },
+    {
+      id: 503,
+      member: 1000,
+      date: "2026-03-10T08:45:00Z",
+      text: "Birthday offer sent by SMS.",
+      highlighted: false,
+      is_medical: false,
+      editable: false,
+    },
+  ],
+  phone: "+33 6 12 34 56 78",
+  phone_number: "+33 6 12 34 56 78",
+  tags: [11, 12, 13, 14],
+  total_unpaid_amount: "32.00",
+  user_id: 2000,
+};
+
+export const mockMemberDetailWithoutDebt: MemberDetail = {
+  ...mockMemberDetail,
+  id: 1001,
+  consumer: 1001,
+  user_id: 2001,
+  name: "Abigail Stone",
+  total_unpaid_amount: "0.00",
+};
+
+export const mockMemberDetailWithLongNotes: MemberDetail = {
+  ...mockMemberDetail,
+  id: 1003,
+  consumer: 1003,
+  user_id: 2003,
+  name: "Abigail Stone",
+  notes: [
+    {
+      id: 601,
+      member: 1003,
+      date: "2026-05-12T09:00:00Z",
+      text: "Showed strong interest in participating in the upcoming reformer workshop and asked whether Claire would be attending too. Wants a follow-up once the schedule is confirmed, ideally an evening slot, and mentioned she may bring a friend from her dance class.",
+      highlighted: false,
+      is_medical: false,
+      editable: true,
+    },
+    {
+      id: 602,
+      member: 1003,
+      date: "2026-05-12T09:05:00Z",
+      text: "Knows Claire, friend from Dance class.",
+      highlighted: false,
+      is_medical: false,
+      editable: true,
+    },
+    {
+      id: 603,
+      member: 1003,
+      date: "2026-02-01T11:30:00Z",
+      text: "Call — I changed her bookings as they didn't match what she wanted. Had booked the wrong slot, follow up if it happens again.",
+      highlighted: false,
+      is_medical: false,
+      editable: true,
+    },
+    {
+      id: 604,
+      member: 1003,
+      date: "2026-01-15T08:00:00Z",
+      text: "Private note that must never be shown in the panel.",
+      highlighted: true,
+      is_medical: false,
+      editable: true,
+    },
+  ],
+};
+
+export const mockMemberDetailWithoutTagsOrNotes: MemberDetail = {
+  ...mockMemberDetail,
+  id: 1002,
+  consumer: 1002,
+  user_id: 2002,
+  name: "Abigail Stone",
+  notes: [],
+  tags: [],
+  total_unpaid_amount: "0.00",
+};

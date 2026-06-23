@@ -1,11 +1,10 @@
 import { z } from "zod";
 
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { ACTIVE_PASSES_COMPARATOR_TYPE } from "./constants";
 import type { ActivePassesFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const selectorSchema = z.object({
   enabled: z.boolean(),
@@ -50,7 +49,7 @@ export const activePassesFilterSchema =
         path: ["paymentPacksSelector", "enabled"],
         message: i18nInstance.t(
           "filters.27.validation.atLeastOneSectionRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }
@@ -65,7 +64,7 @@ export const activePassesFilterSchema =
         path: ["paymentPacksSelector", "selectedIds"],
         message: i18nInstance.t(
           "filters.27.validation.atLeastOnePassSelectedRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }
@@ -80,7 +79,7 @@ export const activePassesFilterSchema =
         path: ["appointmentPassesSelector", "selectedIds"],
         message: i18nInstance.t(
           "filters.27.validation.atLeastOneAppointmentPassSelectedRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }
@@ -94,7 +93,7 @@ export const activePassesFilterSchema =
         code: z.ZodIssueCode.custom,
         path: ["comparatorValueSecond"],
         message: i18nInstance.t("filters.27.validation.secondValueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -106,7 +105,7 @@ export const activePassesFilterSchema =
         path: ["comparatorValueSecond"],
         message: i18nInstance.t(
           "filters.27.validation.secondValueGreaterThanFirst",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }

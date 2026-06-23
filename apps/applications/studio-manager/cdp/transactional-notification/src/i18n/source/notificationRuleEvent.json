@@ -73,8 +73,8 @@
     "1001": "Spivi account created (for clients)",
     "1002": "Spinning class performance",
     "1003": "Spivi account created (for teachers)",
-    "1101": "Referral grant available (for referred client)",
-    "1102": "Referral grant available (for referring client)",
+    "1101": "Referral reward available (for referred client)",
+    "1102": "Referral reward available (for referring client)",
     "1200": "Payment method expiring for installment payment - first reminder",
     "1201": "Payment method expiring for installment payment - second reminder"
   }

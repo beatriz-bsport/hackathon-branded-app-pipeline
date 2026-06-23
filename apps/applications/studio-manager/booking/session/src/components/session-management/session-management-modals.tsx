@@ -85,6 +85,7 @@ export const SessionManagementModals: FC<Props> = ({
         modalState?.type === SessionManagementModalType.CANCEL_BOOKING && (
           <CancelBookingModal
             bookingId={modalState.bookingId}
+            sessionId={sessionId}
             isOpen
             onClose={closeModal}
           />

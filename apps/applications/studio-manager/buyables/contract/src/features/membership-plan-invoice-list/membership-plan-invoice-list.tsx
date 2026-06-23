@@ -1,5 +1,6 @@
 import { type FC, useState } from "react";
 
+import type { BillingPlan } from "@bsport/api-buyables/billing-plan";
 import {
   type PaginationProps,
   type UseEmptyStateProps,
@@ -11,6 +12,7 @@ import { useBillingPlanInvoicesPaginatedSuspenseQuery } from "#src/hooks/api/use
 import { useTranslation } from "#src/utils/i18n";
 
 import { EditBillingDateModal } from "./edit-billing-date-modal";
+import { EditPriceModal } from "./edit-price-modal";
 import { MembershipPlanInvoiceMobile } from "./membership-plan-invoice-mobile";
 import { MembershipPlanInvoiceTable } from "./membership-plan-invoice-table";
 import type {
@@ -19,24 +21,26 @@ import type {
 } from "./types";
 import { useMembershipPlanInvoiceRows } from "./use-membership-plan-invoice-rows";
 
-export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
-  billingPlanId,
+export const MembershipPlanInvoiceList: FC<{ billingPlan: BillingPlan }> = ({
+  billingPlan,
 }) => {
   const { t } = useTranslation("membership-plan");
   const isMobile = !useMatchMedia("sm");
-  const [editingRow, setEditingRow] =
+  const [editingBillingDateRow, setEditingBillingDateRow] =
+    useState<MembershipPlanInvoiceRowData | null>(null);
+  const [editingPriceRow, setEditingPriceRow] =
     useState<MembershipPlanInvoiceRowData | null>(null);
 
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
   const { data } = useBillingPlanInvoicesPaginatedSuspenseQuery({
-    billing_plan: billingPlanId,
+    billing_plan: billingPlan.id,
     page: currentPage,
     page_size: currentPageSize,
   });
 
-  const rows = useMembershipPlanInvoiceRows(data.results);
+  const rows = useMembershipPlanInvoiceRows(data.results, billingPlan);
   const totalItems = data.count;
 
   const paginationProps: PaginationProps = {
@@ -57,7 +61,8 @@ export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
     emptyConfig,
     paginationProps,
     loadingProps: {},
-    onEditBillingDate: setEditingRow,
+    onEditBillingDate: setEditingBillingDateRow,
+    onEditPrice: setEditingPriceRow,
   };
 
   return (
@@ -69,9 +74,17 @@ export const MembershipPlanInvoiceList: FC<{ billingPlanId: number }> = ({
       )}
 
       <EditBillingDateModal
-        invoice={editingRow}
-        billingPlanId={billingPlanId}
-        onClose={() => setEditingRow(null)}
+        key={editingBillingDateRow?.id}
+        invoice={editingBillingDateRow}
+        billingPlanId={billingPlan.id}
+        onClose={() => setEditingBillingDateRow(null)}
+      />
+
+      <EditPriceModal
+        key={editingPriceRow?.id}
+        invoice={editingPriceRow}
+        billingPlanId={billingPlan.id}
+        onClose={() => setEditingPriceRow(null)}
       />
     </>
   );

@@ -1,9 +1,14 @@
 const isLocal =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
+const ephemeralEnvName = window.location.hostname.match(
+  /^([^.]+)\.backoffice\.chaos\.bsport\.io$/,
+)?.[1];
 const defaultCdnUrl = isLocal
   ? "http://localhost:3100"
-  : "https://cdn.dev.bsport.io";
+  : ephemeralEnvName
+    ? `https://${ephemeralEnvName}.cdn.chaos.bsport.io`
+    : "https://cdn.dev.bsport.io";
 
 const companyId = parseInt(localStorage.getItem("widget:companyId")) || 2;
 const cdnUrl = localStorage.getItem("widget:cdnUrl") ?? defaultCdnUrl;

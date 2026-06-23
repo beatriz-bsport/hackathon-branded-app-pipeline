@@ -1,5 +1,6 @@
 import type { ActivePassesFilter } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { ActivePassesComparatorTypeValue } from "./constants";
 
 /**
@@ -34,12 +35,9 @@ export type ActivePassesFilterFormValue = {
 /**
  * Card component props for the active passes filter.
  */
-export type ActivePassesFilterCardProps = {
-  smartlistId: string;
-  filterValue: ActivePassesFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+
+export type ActivePassesFilterCardProps =
+  SegmentFilterCardProps<ActivePassesFilterFormValue>;
 
 /**
  * Lightweight pass option for the filter pickers.

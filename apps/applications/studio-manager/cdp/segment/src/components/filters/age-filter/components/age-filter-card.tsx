@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteAgeFilterMutation } from "#src/api/use-delete-age-filter-mutation";
 import { useUpsertAgeFilterMutation } from "#src/api/use-upsert-age-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -23,8 +24,7 @@ import { getAgeYearSuffix } from "../utils";
 export const AgeFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: AgeFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -40,6 +40,7 @@ export const AgeFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertAgeFilterMutate, isLoading: isSaving } =
     useUpsertAgeFilterMutation(smartlistId, {
@@ -51,7 +52,7 @@ export const AgeFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapAgeFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -106,7 +107,7 @@ export const AgeFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -185,18 +186,13 @@ export const AgeFilterCard = ({
           }}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.101.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

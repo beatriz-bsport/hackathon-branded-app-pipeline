@@ -153,7 +153,7 @@
               "placeholder": "Choose a venue..."
             },
             "spotScheduling": {
-              "label": "Spot scheduling",
+              "label": "Spot selection",
               "placeholder": "Choose an option...",
               "helper": "Allow clients to book a spot in the room in advance",
               "error": "A room plan must be selected for classes synchronized with Spivi"

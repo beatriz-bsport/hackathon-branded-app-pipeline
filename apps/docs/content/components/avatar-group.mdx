@@ -1,5 +1,5 @@
 ---
-title: Avatar group [LLM]
+title: Avatar group
 description: Overlapping avatars with overflow count and popover for additional members
 status: stable
 category: components
@@ -31,44 +31,15 @@ images, then a "+N" tile that opens a [Popover](/components/popover) menu listin
   ]}
 />
 
-### Use cases
-
-- **Session roster preview** — coaches and assistants on a class row.
-- **Project collaborators** — shared admin resources with many assignees.
-- **Attendance modal** — compact member stack before expanding full list.
-- **Comment thread faces** — few recent authors with overflow.
-- **List row compact mode** — alongside title in [List item](/components/list-item).
-
 ## Guidelines
-
-- **Max three visible** — additional members appear only via +N popover.
-- **Consistent size and shape** — match single Avatar rules (`round` for people).
-- **Meaningful names in data** — `name` drives initials fallback and menu labels.
-- **Cap overflow display** — shows up to 99 extra in the counter label.
-- **Read-only stack** — avatars in group use `pointer-events-none`; navigate via popover items.
-
-### Best practices
-
-#### General
 
 <DoDont>
   <Do caption="Pass stable id per avatar for keys and menu item identity." />
   <Do caption="Use round shape for people; squared only when matching product thumbnails." />
   <Do caption="Open popover menu to let users jump to individual profiles when items are links." />
   <Dont caption="Avatar group as the only way to see full roster — link to full list." />
-  <Dont caption="Single person — use Avatar alone without +0 overflow." />
   <Dont caption="Mixing photo and generic icons without names in popover." />
 </DoDont>
-
-### Content rules
-
-Overflow tile shows count:
-
-> +4
-
-Popover lists full names:
-
-> Emma Johnson
 
 ## Reference
 
@@ -88,16 +59,6 @@ Popover lists full names:
 ### Props
 
 <PropsTable component="AvatarGroup" />
-
-### Behaviors
-
-#### Dismissal
-
-Popover closes on outside click per Popover defaults.
-
-#### Responsiveness
-
-Negative margin overlap scales with `size` token.
 
 ### Edge cases
 

@@ -1,11 +1,10 @@
 import { z } from "zod";
 
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { LAST_BOOKING_MIN_VALUE } from "./constants";
 import type { LastBookingFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 export const lastBookingFilterSchema = z
   .object({
@@ -19,7 +18,7 @@ export const lastBookingFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["value"],
         message: i18nInstance.t("filters.501.validation.valueRequired", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
       return;
@@ -30,7 +29,7 @@ export const lastBookingFilterSchema = z
         code: z.ZodIssueCode.custom,
         path: ["value"],
         message: i18nInstance.t("filters.501.validation.valueMin", {
-          ns: I18N_NAMESPACE,
+          ns: I18N_SEGMENT_NAMESPACES.FILTERS,
         }),
       });
     }

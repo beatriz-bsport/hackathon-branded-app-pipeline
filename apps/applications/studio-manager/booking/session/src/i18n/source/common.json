@@ -2,7 +2,7 @@
   "session": {
     "tooltips": {
       "recurring": "Class is recurring",
-      "groupedSession": "Class is part of a Series",
+      "groupedSession": "Class is part of a series",
       "online": "Class is online",
       "hybrid": "Class is hybrid: both in-person and online"
     },
@@ -39,7 +39,7 @@
   },
   "backgroundTask": {
     "processing": "Processing...",
-    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "genericError": "Something went wrong. Check your connection and try refreshing the page.",
     "timeoutError": "The server took too long to respond. Try refreshing the page"
   }
 }

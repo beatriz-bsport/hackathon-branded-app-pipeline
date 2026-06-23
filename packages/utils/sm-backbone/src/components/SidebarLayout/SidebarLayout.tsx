@@ -76,7 +76,7 @@ export const SidebarLayout = ({
 }: SidebarLayoutProps) => {
   return (
     <div
-      className={`flex-1 h-layout-content-mobile md:h-layout-content-desktop ${className}`}
+      className={`flex-1 min-w-0 h-layout-content-mobile md:h-layout-content-desktop ${className}`}
     >
       {children}
     </div>

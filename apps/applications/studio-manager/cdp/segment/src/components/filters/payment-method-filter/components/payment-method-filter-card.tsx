@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeletePaymentMethodFilterMutation } from "#src/api/use-delete-payment-method-filter-mutation";
 import { useUpsertPaymentMethodFilterMutation } from "#src/api/use-upsert-payment-method-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -23,8 +24,7 @@ import { PaymentMethodSubFiltersArea } from "./payment-method-sub-filters-area";
 export const PaymentMethodFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: PaymentMethodFilterCardProps) => {
   const baseId = useId();
   const fieldIds = {
@@ -52,7 +52,7 @@ export const PaymentMethodFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapPaymentMethodFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -114,7 +114,7 @@ export const PaymentMethodFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -176,18 +176,13 @@ export const PaymentMethodFilterCard = ({
           />
         ) : null}
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.600.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || (isSavedFilter && !isDirty)}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

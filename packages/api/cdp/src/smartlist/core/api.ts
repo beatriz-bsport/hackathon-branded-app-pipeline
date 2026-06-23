@@ -1,3 +1,5 @@
+import { mutationOptions } from "@tanstack/react-query";
+
 import { type Fetch, buildUrlParams } from "@bsport/store-base";
 
 import {
@@ -13,6 +15,7 @@ import type {
   CreateTagRuleParams,
   Smartlist,
   TagRule,
+  UpdateSmartlistParams,
   UpdateTagRuleParams,
 } from "./types";
 
@@ -145,3 +148,24 @@ export const fetchSmartlistFiltersAPI = async (
 
   return data;
 };
+
+/**
+ * Updates a smartlist (e.g. profile status via `member_base`).
+ */
+export const updateSmartlistAPI = async (
+  fetch: Fetch<Smartlist>,
+  params: UpdateSmartlistParams,
+): Promise<Smartlist> => {
+  const { data } = await fetch(`${SMARTLIST_API_V1}/group/${params.id}/`, {
+    method: "PATCH",
+    body: JSON.stringify(params),
+  });
+
+  return data;
+};
+
+export const updateSmartlistMutationOptions = (fetch: Fetch<Smartlist>) =>
+  mutationOptions({
+    mutationFn: (params: UpdateSmartlistParams) =>
+      updateSmartlistAPI(fetch, params),
+  });

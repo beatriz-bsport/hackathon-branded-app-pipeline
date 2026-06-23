@@ -8,6 +8,7 @@ import {
   stripeCompanyRetrieveActions,
   validateAccountConfigurationStepActions,
   retrieveStripeAccountStatusActions,
+  retrieveStripeComplianceStatusActions,
   retrievePayPalAccountStatusActions,
   fetchPayPalOnboardingLinkActions,
 } from './actions';
@@ -19,6 +20,7 @@ import type {
   FeatureList,
   PayPalCompanyStatus,
   StripeAccountStatus,
+  StripeCompanyComplianceStatus,
   StripeCompany,
 } from './types';
 import {
@@ -62,6 +64,11 @@ const initialState: Immutable.Immutable<CompanyState> = Immutable<CompanyState>(
       data: null,
     },
     stripeAccountStatus: {
+      data: null,
+      loading: false,
+      error: null,
+    },
+    stripeComplianceStatus: {
       data: null,
       loading: false,
       error: null,
@@ -203,6 +210,24 @@ export default handleActions<Immutable.Immutable<CompanyState>, any>(
       { payload }: { payload: StripeAccountStatus },
     ) => {
       return state.setIn(['stripeAccountStatus', 'data'], payload);
+    },
+    [retrieveStripeComplianceStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['stripeComplianceStatus', 'loading'], payload);
+    },
+    [retrieveStripeComplianceStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['stripeComplianceStatus', 'error'], payload);
+    },
+    [retrieveStripeComplianceStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: StripeCompanyComplianceStatus },
+    ) => {
+      return state.setIn(['stripeComplianceStatus', 'data'], payload);
     },
     [retrievePayPalAccountStatusActions.isLoading.toString()]: (
       state,

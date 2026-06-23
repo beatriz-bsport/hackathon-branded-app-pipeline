@@ -5,6 +5,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteLastBookingFilterMutation } from "#src/api/use-delete-last-booking-filter-mutation";
 import { useUpsertLastBookingFilterMutation } from "#src/api/use-upsert-last-booking-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -22,8 +23,7 @@ import { LastBookingDaysField } from "./last-booking-days-field";
 export const LastBookingFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: LastBookingFilterCardProps) => {
   const baseId = useId();
   const daysFieldId = `${baseId}-last-booking-days`;
@@ -48,7 +48,7 @@ export const LastBookingFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapLastBookingFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -108,7 +108,7 @@ export const LastBookingFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -150,27 +150,13 @@ export const LastBookingFilterCard = ({
           }
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={
-              isSavedFilter
-                ? t("filters.501.actions.update")
-                : t("filters.501.actions.save")
-            }
-            iconLeft="check"
-            size="sm"
-            color="main"
-            intent="default"
-            loading={isSaving}
-            disabled={
-              isSaving ||
-              isDeleting ||
-              (isSavedFilter && !isDirty) ||
-              (!isSavedFilter && watchedFilterValue.value === null)
-            }
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

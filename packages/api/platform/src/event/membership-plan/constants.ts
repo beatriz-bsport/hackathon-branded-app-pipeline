@@ -1,0 +1,15 @@
+export const BILLING_PLAN_EVENT_TYPES = {
+  create: "billing_plan-create",
+  update: "billing_plan-update",
+  pause: "billing_plan-pause",
+  pause_deleted: "billing_plan-pause_deleted",
+  stop: "billing_plan-stop",
+  renew: "billing_plan-renew",
+  payment_dispute: "billing_plan-payment_dispute",
+  payment_success: "billing_plan-payment_success",
+  payment_failure: "billing_plan-payment_failure",
+  update_payment_method: "billing_plan-update_payment_method",
+  update_payment_pack: "billing_plan-update_payment_pack",
+  update_private_pass: "billing_plan-update_private_pass",
+  update_payment_combo: "billing_plan-update_payment_combo",
+} as const;

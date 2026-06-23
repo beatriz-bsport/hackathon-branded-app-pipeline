@@ -3,6 +3,7 @@ import type {
   CreditAccountFilter,
 } from "@bsport/api-cdp/smartlist";
 
+import type { SegmentFilterCardProps } from "../segment-filters-registry/types";
 import type { CreditAccountNumberTypeValue } from "./constants";
 
 export type CreditAccountNumberType = CreditAccountNumberTypeValue;
@@ -24,9 +25,5 @@ export type CreditAccountFilterDirtyPatchPayload = Partial<
 
 export type CreditAccountFilterCreatePayload = CreateCreditAccountFilterPayload;
 
-export type CreditAccountFilterCardProps = {
-  smartlistId: string;
-  filterValue: CreditAccountFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-};
+export type CreditAccountFilterCardProps =
+  SegmentFilterCardProps<CreditAccountFilterFormValue>;

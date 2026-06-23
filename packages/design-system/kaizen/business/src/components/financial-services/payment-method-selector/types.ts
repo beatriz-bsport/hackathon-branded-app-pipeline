@@ -19,6 +19,12 @@ export type PaymentMethodSelectorSelection =
       kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED;
       id: string;
       paymentMethodType?: SavedPaymentMethodDiscriminator;
+      /**
+       * Numeric backend identifier for the saved method, mapped from the
+       * fetched saved methods. Lets consumers bridge the textual frontend id
+       * and the numeric id their backend references.
+       */
+      payment_backend_identifier?: number;
     }
   | {
       kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;
@@ -39,6 +45,19 @@ export type PaymentMethodSelectorProps = Omit<
   memberId: number;
   /** Fetch client passed to financial-services API calls. */
   fetch: Fetch;
+  /**
+   * Controlled selection. When provided (including `null`), the parent owns
+   * the selection state and the component reflects it; `onSelectionChange`
+   * acts as the change callback. The auto-select default behavior is disabled
+   * in controlled mode.
+   */
+  value?: PaymentMethodSelectorSelection;
+  /**
+   * Initial selection used to seed the internal state once (uncontrolled).
+   * When provided, the auto-select default behavior is disabled so the
+   * consumer's initial value is preserved.
+   */
+  defaultValue?: PaymentMethodSelectorResolvedSelection;
   /** Main selection callback for parent payment flows. */
   onSelectionChange?: (selection: PaymentMethodSelectorSelection) => void;
   /** Optional customization for "All methods" entries. */

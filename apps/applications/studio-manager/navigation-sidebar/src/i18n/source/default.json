@@ -50,8 +50,8 @@
       "title": "Marketing",
       "marketingNotifications": "Notifications",
       "emailTemplates": "Templates",
-      "smartlists": "Smartlists",
-      "smartfill": "SmartFill",
+      "smartlists": "Segments",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promotions",
       "customForms": "Custom forms"

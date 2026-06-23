@@ -33,7 +33,7 @@ elif [ "$ENVIRONMENT" = "production" ]; then
 
 else
     echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
-    exit 0
+    exit 1
 fi
 
 WIDGET_LEGACY_PWD=$(pwd)
@@ -80,6 +80,7 @@ cd dist/
 aws s3 sync ./ $S3_BUCKET/scripts \
   --cache-control max-age=31536000,public \
   --exclude widget.js  \
+  --exclude env.js \
   --exclude "*.map*" \
   --no-progress $ACL_PARAM
 
@@ -88,8 +89,13 @@ aws s3 cp ./widget.js $S3_BUCKET/scripts/widget.js \
   --cache-control max-age=0,no-cache,no-store,must-revalidate \
   --content-type application/javascript $ACL_PARAM
 
+aws s3 cp ../envs/$ENVIRONMENT.js $S3_BUCKET/scripts/env.js \
+  --metadata-directive REPLACE \
+  --cache-control max-age=0,no-cache,no-store,must-revalidate \
+  --content-type application/javascript $ACL_PARAM
+
 curl --get \
-   --data-urlencode paths='["/scripts/widget.js"]' \
+   --data-urlencode paths='["/scripts/widget.js","/scripts/env.js"]' \
    --data-urlencode distribution_id=$CLOUDFRONT_ID \
    --data-urlencode token=$CLOUDFRONT_INVALIDATION_TOKEN \
    $CLOUDFRONT_INVALIDATION_LAMBDA_URL

@@ -12,6 +12,49 @@ import type { ManualMethodType } from "./components/payment-methods/manual/types
 import type { StripePaymentMethodHandle } from "./components/payment-methods/stripe/types";
 import type { PaymentTab } from "./lib/payment-flow-form";
 
+export type PaymentFlowStartTrigger =
+  | "checkout_flow"
+  | "invoice"
+  | "unpaid_invoice_component";
+
+type BasePayload = {
+  basket_session_id?: string;
+  member_id: number;
+  invoice_id: string;
+  total_amount_to_pay: number;
+  payment_method_selected: string | null;
+};
+
+type AmountPayload = BasePayload & { amount_to_pay: number };
+
+type StartPayload = BasePayload & {
+  payment_start_trigger: PaymentFlowStartTrigger;
+  origin_url?: string;
+};
+
+export type PaymentFlowEventPayloadMap = {
+  payment_flow_start: StartPayload;
+  payment_flow_one_time_selected: BasePayload;
+  payment_flow_installments_selected: BasePayload;
+  payment_flow_payment_method_selected: AmountPayload;
+  payment_flow_partial_payment_toggle_on: AmountPayload;
+  payment_flow_partial_payment_toggle_off: AmountPayload;
+  payment_flow_invoice_button_clicked: AmountPayload;
+  payment_flow_member_button_clicked: AmountPayload;
+  payment_flow_confirm_button_clicked: AmountPayload;
+  payment_flow_cancel_button_clicked: AmountPayload;
+  payment_flow_click_outside: AmountPayload;
+  payment_flow_cross_button_clicked: AmountPayload;
+  payment_flow_escape_key_pressed: AmountPayload;
+};
+
+export type PaymentFlowEventName = keyof PaymentFlowEventPayloadMap;
+
+export type PaymentFlowTrackFn = <E extends PaymentFlowEventName>(
+  eventName: E,
+  properties: PaymentFlowEventPayloadMap[E],
+) => void;
+
 export type PaymentFlowModalProps = {
   isOpen: boolean;
   invoiceId: string;
@@ -20,6 +63,9 @@ export type PaymentFlowModalProps = {
   onClose: () => void;
   onConfirm?: (remainingAmountCts: number) => void;
   companyTheme?: CompanyTheme;
+  onPaymentTrack?: PaymentFlowTrackFn;
+  paymentStartTrigger: PaymentFlowStartTrigger;
+  trackingSessionId: string;
 };
 
 export type PaymentFlowModalBodyState = {
@@ -54,6 +100,8 @@ export type PaymentFlowModalBodyState = {
   installmentScheduleDetail: string | null;
   installmentPerIntervalCaption: string | null;
   invoiceRemainingAmountCts: number;
+  onInvoiceButtonClick: () => void;
+  onMemberButtonClick: () => void;
 };
 
 export type ConfirmPaymentFormValues = {

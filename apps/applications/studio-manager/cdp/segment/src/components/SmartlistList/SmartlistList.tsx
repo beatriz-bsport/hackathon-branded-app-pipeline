@@ -57,7 +57,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
   const { onEdit, onDuplicate, onDelete } = actions;
 
   const isMobile = !useMatchMedia("sm");
-  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
+  const { navigateToSmartlistParameters } = useSmartlistNavigation();
 
   const listItems: ListItemProps[] = smartlists.map((smartlist: Smartlist) => ({
     id: smartlist.id.toString(),
@@ -70,7 +70,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
       if (isSmartlistEnabled) {
         prefetchSmartlistDetail(smartlist.id.toString());
 
-        navigateToSmartlistCampaigns(smartlist.id.toString());
+        navigateToSmartlistParameters(smartlist.id.toString());
       } else {
         window.location.assign(
           SMARTLIST_LEGACY_URLS.smartlistMember(smartlist.id),

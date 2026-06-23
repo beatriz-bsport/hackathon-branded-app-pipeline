@@ -48,28 +48,16 @@ enough to scan — typically two to five choices. For longer lists or search, us
 
 ## Guidelines
 
-- **Always grouped** — never render a lone radio; a single visible option belongs
-  in [Select](/components/select) or [Toggle](/components/toggle).
-- **Mutually exclusive** — one `value` on the group; updating it clears the
-  prior selection.
-- **Short lists only** — beyond ~5 options, move to Select unless every label
-  must stay visible for comparison.
-- **Children for follow-ups** — nest related fields in `option.children`; they
-  show when that option is selected (or always with `forceDisplayChildren`).
-- **Per-option errors** — pass `errorText` on an option to highlight a specific
-  row after validation.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Give the group a clear label — 'Billing period' — plus concise option labels — 'Monthly', 'Annual'." />
   <Do caption="Stack options vertically in forms so labels are easy to scan." />
   <Do caption="Use option children for fields that only apply to one choice — address fields under 'Ship to member'." />
-  <Dont caption="Multi-select belongs on [Checkbox](/components/checkbox), not Radio." />
-  <Dont caption="Immediate on/off settings belong on [Toggle](/components/toggle), not Radio." />
+  <Dont caption="Multi-select belongs on `Checkbox`, not Radio." />
+  <Dont caption="Immediate on/off settings belong on `Toggle`, not Radio." />
   <Dont caption="Ten or more options without grouping overwhelm the form — switch to Select." />
+  <Do caption="Mutually exclusive — one `value` on the group; updating it clears the prior selection." />
+  <Do caption="Short lists only — beyond ~5 options, move to Select unless every label must stay visible for comparison." />
+  <Do caption="Per-option errors — pass `errorText` on an option to highlight a specific row after validation." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -79,7 +67,7 @@ stack unless space is extremely tight and labels are very short.
 
 </Callout>
 
-#### children slot
+### children slot
 
 <DoDont>
   <Do caption="Indent nested fields under the selected option so the dependency is obvious." />

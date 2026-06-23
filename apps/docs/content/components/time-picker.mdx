@@ -38,16 +38,6 @@ both date and time matter, and respect studio timezone in displayed values.
 
 ## Guidelines
 
-- **24h vs 12h** — follow locale conventions configured for the studio.
-- **Minute steps** — align increments with scheduling granularity (5, 15 minutes).
-- **Disable past times** — on same-day bookings when combined with today's date.
-- **Label clearly** — "Start time" vs ambiguous "Time".
-- **Timezone context** — show studio timezone in helper when users work remotely.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Combine with date picker when scheduling absolute moments." />
   <Do caption="Use consistent minute increments across booking and calendar views." />
@@ -55,6 +45,11 @@ both date and time matter, and respect studio timezone in displayed values.
   <Dont caption="Free typing without mask when picker enforces valid slots." />
   <Dont caption="Sub-minute precision unless product requires it." />
   <Dont caption="Local time without indicating timezone on cross-region studios." />
+  <Do caption="24h vs 12h — follow locale conventions configured for the studio." />
+  <Do caption="Minute steps — align increments with scheduling granularity (5, 15 minutes)." />
+  <Do caption="Disable past times — on same-day bookings when combined with today's date." />
+  <Do caption='Label clearly — "Start time" vs ambiguous "Time".' />
+  <Do caption="Timezone context — show studio timezone in helper when users work remotely." />
 </DoDont>
 
 ### Content rules

@@ -90,10 +90,6 @@ Modals are blocking dialogs layered above the page that interrupt the user's flo
   ]}
 />
 
-### Best practices
-
-#### General
-
 <DoDont>
   <Do
     caption={
@@ -117,14 +113,12 @@ Modals are blocking dialogs layered above the page that interrupt the user's flo
   />
 </DoDont>
 
-<Callout type="warning" title="Caution">
+<DoDont>
+  <Do caption="Caution when stacking modals — chaining via the confirm button is supported, but more than two consecutive modals usually signals the flow belongs on a page." />
+  <Do caption="Caution when using disableClose — only use it when the user truly must take an explicit action (e.g. accept terms). It removes every escape hatch." />
+</DoDont>
 
-- Caution when stacking modals — chaining via the confirm button is supported, but more than two consecutive modals usually signals the flow belongs on a page.
-- Caution when using disableClose — only use it when the user truly must take an explicit action (e.g. accept terms). It removes every escape hatch.
-
-</Callout>
-
-#### Variants
+### Variants
 
 <DoDont>
   <Do
@@ -144,7 +138,7 @@ Modals are blocking dialogs layered above the page that interrupt the user's flo
   />
 </DoDont>
 
-#### Content
+### Content
 
 Modals should clearly demonstrate: the main action that is being referred to (Title), the consequence of taking that action (Body text), a decision (primary CTA), and a way out if the user wants to (secondary CTA).
 

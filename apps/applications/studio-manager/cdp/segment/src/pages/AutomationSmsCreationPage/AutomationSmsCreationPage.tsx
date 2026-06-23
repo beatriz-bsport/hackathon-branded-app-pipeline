@@ -45,7 +45,6 @@ export const AutomationSmsCreationPage = () => {
     defaultValues: {
       eventKind: SMS_AUTOMATION_EVENT_VALUES.ENTRY,
       triggerLimit: SMS_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT,
-      automationName: "",
       message: "",
     } satisfies SmsAutomationFormData,
   });

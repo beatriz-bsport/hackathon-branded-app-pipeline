@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
+import { formatInternationalizedPriceWithCurrency } from "@bsport/currency";
 
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
 import { useTranslation } from "#src/utils/i18n";
@@ -19,13 +19,13 @@ type PassSelectionFieldProps = {
 /**
  * Returns a localized price string for a pass option.
  */
-const getPassPrice = (passOption: PassOption): string => {
+const getPassPrice = (passOption: PassOption, locale: string): string => {
   const price = !passOption.price
     ? 0
     : typeof passOption.price === "number"
       ? passOption.price
       : passOption.price.parsedValue;
-  return getCurrencyDisplayWithPrice(price);
+  return formatInternationalizedPriceWithCurrency(price, locale);
 };
 
 /**
@@ -42,7 +42,8 @@ export const PassSelectionField = ({
   errorText,
   onChange,
 }: PassSelectionFieldProps) => {
-  const { t } = useTranslation("filters");
+  const { t, i18n } = useTranslation("filters");
+  const locale = i18n.language;
 
   const items = useMemo(
     () =>
@@ -52,9 +53,9 @@ export const PassSelectionField = ({
         description:
           passOption.credits === null
             ? t("filters.19.fields.unlimitedCredits")
-            : `${passOption.credits} ${t("filters.19.fields.creditsSuffix")} - ${getPassPrice(passOption)}`,
+            : `${passOption.credits} ${t("filters.19.fields.creditsSuffix")} - ${getPassPrice(passOption, locale)}`,
       })),
-    [passOptions, t],
+    [passOptions, t, locale],
   );
 
   return (

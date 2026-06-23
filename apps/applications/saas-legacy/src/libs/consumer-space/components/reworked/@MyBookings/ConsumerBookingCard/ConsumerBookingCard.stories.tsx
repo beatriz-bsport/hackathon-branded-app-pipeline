@@ -38,10 +38,8 @@ const withEverythingDisplayed = {
   isNoShow: true,
   isBookable: true,
   isJoinableOnline: true,
-  isMoreDisplayed: true,
   isCancellable: true,
   isBookableForAGuest: true,
-  menuId: 'consumer-booking-card-menu-storybook-all',
 };
 
 export const ConsumerBookingCardEverythingDisplayed =
@@ -62,7 +60,6 @@ ConsumerBookingCardWithSecondaryButtonsHidden.args = {
   ...defaultArgs,
   isCancellable: true,
   isBookableForAGuest: true,
-  menuId: 'consumer-booking-card-menu-storybook',
 };
 
 export const ConsumerBookingCardWithSecondaryButtonsDisplayed =

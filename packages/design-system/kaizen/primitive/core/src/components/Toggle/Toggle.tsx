@@ -19,6 +19,7 @@ export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> & {
   required?: boolean;
   disabled?: boolean;
   direction?: "start" | "end";
+  fullWidth?: boolean;
   helperText?: string;
   errorText?: string;
   onToggleChange?: (value: boolean) => void;
@@ -33,6 +34,7 @@ export type ToggleProps = React.InputHTMLAttributes<HTMLInputElement> & {
  * @param props.required Defines if the toggle is required or not.
  * @param props.disabled Defines if the toggle is disabled or not.
  * @param props.direction Direction of the toggle (start or end).
+ * @param props.fullWidth Whether the toggle should take the full available width of its parent.
  * @param props.helperText Text below the label to describe the toggle.
  * @param props.errorText Text to display when the toggle is in error.
  * @param props.onToggleChange Function to call when the toggle is changed.
@@ -46,6 +48,7 @@ const Toggle: React.FC<ToggleProps> = ({
   required,
   disabled,
   direction = "start",
+  fullWidth = false,
   helperText,
   errorText,
   onToggleChange,
@@ -63,7 +66,7 @@ const Toggle: React.FC<ToggleProps> = ({
       className={classNames(
         toggle({ className }),
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
-        { "opacity-sm pointer-events-none": disabled },
+        { "w-full": fullWidth, "opacity-sm pointer-events-none": disabled },
       )}
       style={{
         gridTemplateAreas:

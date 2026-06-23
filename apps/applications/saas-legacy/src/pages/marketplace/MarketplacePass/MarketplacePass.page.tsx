@@ -5,6 +5,7 @@ import { compose, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { replace as replaceAction } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
@@ -16,6 +17,8 @@ import {
 import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import themeSelector from '#src/libs/theme/selectors';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { buildUrlParams, parseQueryString } from '#src/http';
 
 // marketplace
 // -----------------------------
@@ -106,6 +109,10 @@ type OwnProps = {
   addPaymentPackToCart?: (id: number) => void;
   addPrivatePassToCart?: (id: number) => void;
   widgetContext: OptionalWidgetConfig;
+  location?: {
+    pathname: string;
+    search: string;
+  };
   redirectToPassExpressCheckout: ({
     passId,
     passType,
@@ -192,7 +199,21 @@ const CarouselItem = (props: CarouselItemProps) => {
   );
 };
 
+/**
+ * Maps each "details" dialog to the buyable kind it shows.
+ */
+const DETAIL_DIALOG_PASS_TYPE: Partial<
+  Record<MarketplacePassDialogStateKey, PassTypes>
+> = {
+  [MarketplacePassPageDialogState.PaymentPackDetail]: PassTypes.PAYMENTPACK,
+  [MarketplacePassPageDialogState.PrivatePassDetail]: PassTypes.PRIVATEPASS,
+  [MarketplacePassPageDialogState.PaymentComboDetail]: PassTypes.PAYMENTCOMBO,
+};
+
 export class MarketPlacePassPage extends Component<Props, State> {
+  /** Ensures the `selected` URL param only auto-opens its dialog once. */
+  private hasHandledUrlSelection = false;
+
   constructor(props: Props) {
     super(props);
 
@@ -244,6 +265,8 @@ export class MarketPlacePassPage extends Component<Props, State> {
       },
       () => this.setAvailableCategories(),
     );
+
+    this.initOpenSelectedFromUrl();
   }
 
   fetchData = () => {
@@ -310,7 +333,99 @@ export class MarketPlacePassPage extends Component<Props, State> {
     ) {
       this.setAvailableCategories();
     }
+
+    this.initOpenSelectedFromUrl();
   }
+
+  /**
+   * Reads `?selected=<id>&kind=<kind>` and opens the matching detail dialog
+   * once the relevant buyable list has loaded. Runs at most once so the dialog
+   * is not forced back open after the user closes it.
+   */
+  initOpenSelectedFromUrl = () => {
+    if (this.hasHandledUrlSelection) {
+      return;
+    }
+
+    const selectedId = parseInt(this.props.params?.selected ?? '', 10);
+    const kind = this.props.params?.kind as PassTypes | undefined;
+    if (!Number.isInteger(selectedId) || !kind) {
+      return;
+    }
+
+    if (this.openDetailFromUrl(kind, selectedId)) {
+      this.hasHandledUrlSelection = true;
+    }
+  };
+
+  /**
+   * Opens the detail dialog for the given buyable kind/id. Returns `false` when
+   * the targeted buyable is not in the loaded data yet — the lists (especially
+   * private passes, whose eligible passes are filled in only once member tags
+   * and private services have loaded) populate progressively, so the caller
+   * retries on the next update rather than opening an empty dialog.
+   */
+  openDetailFromUrl = (kind: PassTypes, id: number): boolean => {
+    switch (kind) {
+      case PassTypes.PAYMENTPACK:
+        if (
+          !this.props.paymentPackByCategory
+            .flatMap((category) => category.packs)
+            .some((pack) => pack.id === id)
+        ) {
+          return false;
+        }
+        this.handleShowPaymentPackDetail(id);
+        return true;
+      case PassTypes.PRIVATEPASS:
+        if (
+          !this.props.privatePassByCategory
+            .flatMap((category) => category.passes)
+            .some((pass) => pass.id === id)
+        ) {
+          return false;
+        }
+        this.handleShowPrivatePassDetail(id);
+        return true;
+      case PassTypes.PAYMENTCOMBO:
+        if (!this.props.paymentComboList.some((combo) => combo.id === id)) {
+          return false;
+        }
+        this.handleShowPaymentComboDetail(id);
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  /**
+   * Reflects the currently opened detail dialog in the URL so the link is
+   * shareable. Passing `null` clears the `selected`/`kind` params. No-op in
+   * widget mode, where we must not touch the host page URL.
+   */
+  syncSelectedQueryParams = (
+    selection: { selected: number; kind: PassTypes } | null,
+  ) => {
+    if (WidgetUtils.isWidget() || !this.props.location) {
+      return;
+    }
+
+    const { pathname, search } = this.props.location;
+    const {
+      selected: _selected,
+      kind: _kind,
+      ...otherParams
+    } = parseQueryString(search ?? '');
+
+    const nextParams = selection
+      ? { ...otherParams, selected: selection.selected, kind: selection.kind }
+      : otherParams;
+
+    const query = Object.keys(nextParams).length
+      ? buildUrlParams(nextParams)
+      : '';
+    this.props.replace(`${pathname}${query}`);
+  };
 
   addComboToCart = (comboId: number) => {
     if (this.props.addComboToCart) {
@@ -516,6 +631,11 @@ export class MarketPlacePassPage extends Component<Props, State> {
     key: MarketplacePassDialogStateKey,
     selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => {
+    const kind = DETAIL_DIALOG_PASS_TYPE[key];
+    if (kind && selectedItem) {
+      this.syncSelectedQueryParams({ selected: selectedItem.id, kind });
+    }
+
     if (selectedItem) {
       //      Analytics.selectPaymentPack(selectedItem);
       return this.setState((prevState) => {
@@ -535,6 +655,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
   };
 
   handleCloseDialog = (key: MarketplacePassDialogStateKey) => {
+    if (DETAIL_DIALOG_PASS_TYPE[key]) {
+      this.syncSelectedQueryParams(null);
+    }
+
     return this.setState((prevState) => {
       return {
         ...prevState,
@@ -775,6 +899,7 @@ const mapDispatchToProps = {
     }),
   fetchPaymentComboList,
   fetchMemberTagList,
+  replace: replaceAction,
 };
 
 export const MarketplacePassBase = compose<any, OwnProps>(
@@ -809,6 +934,8 @@ export default compose<any, OwnProps>(
       'hidePaymentCombo',
       'paymentPackCategories',
       'privatePassCategories',
+      'selected',
+      'kind',
     ],
     'params',
   ]),

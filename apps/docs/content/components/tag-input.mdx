@@ -46,16 +46,6 @@ or [Dropdown multi select](/components/dropdown-multi-select) depending on densi
 
 ## Guidelines
 
-- **Dismissible chips** — removable tokens with `dismissible` Chip when editing.
-- **Create vs select** — distinguish picking existing tags from creating new ones in copy.
-- **Validate on add** — reject duplicates and invalid format before chip mounts.
-- **Keyboard** — Enter adds token; Backspace removes last chip when input empty.
-- **Overflow** — use Chip list when displaying many tags read-only.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Show each tag as a chip inside the input bounding box." />
   <Do caption="Debounce autocomplete search for large tag directories." />
@@ -63,6 +53,11 @@ or [Dropdown multi select](/components/dropdown-multi-select) depending on densi
   <Dont caption="Free-text comma lists without chips — hard to edit and error-prone." />
   <Dont caption="Hundreds of tags in one field — use multi-select modal." />
   <Dont caption="Tags without color or label distinction when categories differ." />
+  <Do caption="Dismissible chips — removable tokens with `dismissible` Chip when editing." />
+  <Do caption="Create vs select — distinguish picking existing tags from creating new ones in copy." />
+  <Do caption="Validate on add — reject duplicates and invalid format before chip mounts." />
+  <Do caption="Keyboard — Enter adds token; Backspace removes last chip when input empty." />
+  <Do caption="Overflow — use Chip list when displaying many tags read-only." />
 </DoDont>
 
 ### Content rules

@@ -56,21 +56,6 @@ on selected ids. The legacy `Autocomplete` wrapper remains for existing flows.
 
 ## Guidelines
 
-- **Search when lists are long** — switch from Select past roughly twenty
-  options or when labels are not memorised.
-- **Remote vs local** — `searchMode=\"local\"` filters static `items`; remote
-  loads via `onValueChange` + `loadingProps`.
-- **Multi-select chips** — keep `hideChips={false}` so selections stay visible;
-  dismiss chips to remove items.
-- **Single select closes** — popover dismisses after one pick; multi-select stays
-  open for consecutive choices.
-- **Controlled API** — use `AutocompleteControlled` so parent state owns
-  selected ids.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Pass label, placeholder, and helper through textfieldProps — 'Search by name or email'." />
   <Do caption="Use description on items for secondary context — email under member name." />
@@ -78,6 +63,11 @@ on selected ids. The legacy `Autocomplete` wrapper remains for existing flows.
   <Dont caption="Two fixed options are simpler with Radio or Select than Autocomplete." />
   <Dont caption="Clearing the input does not reset selected ids — handle onClear or controlled state explicitly." />
   <Dont caption="Long item labels truncate at popover width — put secondary detail in description." />
+  <Do caption="Search when lists are long — switch from Select past roughly twenty options or when labels are not memorised." />
+  <Do caption='Remote vs local — `searchMode="local"` filters static `items`; remote loads via `onValueChange` + `loadingProps`.' />
+  <Do caption="Multi-select chips — keep `hideChips={false}` so selections stay visible; dismiss chips to remove items." />
+  <Do caption="Single select closes — popover dismisses after one pick; multi-select stays open for consecutive choices." />
+  <Do caption="Controlled API — use `AutocompleteControlled` so parent state owns selected ids." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -88,14 +78,14 @@ value in the menu — handle `onClear` explicitly or use controlled state until
 
 </Callout>
 
-#### multiSelect
+### multiSelect
 
 <DoDont>
   <Do caption="Show chips below the input so selected members or tags remain visible while searching." />
   <Dont caption="Hiding chips without another summary leaves users without a record of their selections." />
 </DoDont>
 
-#### clearOnSelect
+### clearOnSelect
 
 <DoDont>
   <Do caption="Enable when each pick adds to a list — instructors on a session — and the field should ready for the next search." />

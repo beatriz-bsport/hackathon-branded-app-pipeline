@@ -126,6 +126,7 @@ export const CampaignScheduledList = () => {
   return (
     <div className="flex flex-col gap-md">
       <Collapse
+        key={`${smartlistId}-${doesSmartlistHaveCampaignScheduled}`}
         initiallyOpen={doesSmartlistHaveCampaignScheduled}
         className="flex flex-col gap-md"
       >

@@ -1,9 +1,9 @@
 ---
-title: Label [LLM]
+title: Label
 description: Accessible field label text paired with form controls
 status: stable
 category: components
-tags: [forms, typography]
+tags: [forms, utility]
 source: "packages/design-system/kaizen/primitive/core/src/components/label"
 sections:
   - "Overview"
@@ -36,16 +36,6 @@ control is a standalone button with its own text.
 
 ## Guidelines
 
-- **htmlFor matches input id** — one label per control id.
-- **Sentence case** — short noun phrases, no trailing colon unless locale requires.
-- **Do not embed help** — long hints belong in helper text below the field.
-- **Clickable** — label click focuses the associated control.
-- **Not a heading** — use [Title](/components/title) for page sections, Label for fields.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Place the label immediately above or beside its control in reading order." />
   <Do caption="Use the same wording in validation errors as in the label." />
@@ -53,30 +43,14 @@ control is a standalone button with its own text.
   <Dont caption="Placeholder text replacing labels — placeholders are not labels." />
   <Dont caption="All-caps labels in dense forms — harder to read and scan." />
   <Dont caption="One label spanning multiple unrelated inputs." />
+  <Do caption="htmlFor matches input id — one label per control id." />
+  <Do caption="Sentence case — short noun phrases, no trailing colon unless locale requires." />
+  <Dont caption="Do not embed help — long hints belong in helper text below the field." />
+  <Do caption="Clickable — label click focuses the associated control." />
+  <Do caption="Not a heading — use `Title` for page sections, Label for fields." />
 </DoDont>
 
-### Content rules
-
-> Email address
-
-> Start date
-
 ## Reference
-
-### Anatomy
-
-<Anatomy
-  parts={[
-    {
-      name: "label element",
-      description: "Native label with Kaizen typography tokens.",
-    },
-  ]}
-/>
-
-### Props
-
-<PropsTable component="Label" />
 
 ### Behaviors
 
@@ -87,26 +61,6 @@ Clicking label focuses the associated control when `htmlFor` is set correctly.
 ### ARIA roles & attributes
 
 Native `<label>` — no extra role needed when `htmlFor` matches control `id`.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    {
-      keys: ["Tab"],
-      description:
-        "Focus moves to the associated control, not the label itself in most browsers.",
-    },
-  ]}
-/>
-
-### Screen reader behavior
-
-Label text is included in the control's accessible name when associated.
-
-### Focus management
-
-Label click moves focus to control.
 
 ### WCAG criteria
 
@@ -125,3 +79,29 @@ Label click moves focus to control.
 - **[Text field](/components/text-field)** — primary labeled input.
 - **[Checkbox](/components/checkbox)** — inline label pattern.
 - **[Form](/components/form)** — wiring labels through form field wrappers.
+
+### Known issues
+
+#### Implementation gaps
+
+- **Session form local label** — `booking/session` uses a custom `SessionForm/label` built on
+  `Body` inside a `div` (`text` / `isRequired` props). It is not a native `<label>`, has no
+  `htmlFor`, and does not focus the control on click.
+- **Missing `htmlFor` in product** — some standalone Kaizen `Label` usages (for example above
+  [Date picker](/components/date-picker)) omit `htmlFor` and a matching control `id`, so the
+  label is visual only.
+- **Duplicate label wiring** — [Radio group](/components/radio-group) and
+  [Checkbox group](/components/checkbox-group) already accept a `label` prop; some screens
+  render a separate `Label` above the group instead.
+
+#### Design or API debt
+
+- **Prefer composite `label` props** — Studio Manager mostly labels fields through
+  [Text field](/components/text-field), [Select](/components/select), and similar primitives.
+  Standalone `Label` is for controls that do not embed one (custom layouts, DatePicker wiring).
+- **Required indicator** — Kaizen uses a CSS `::after` asterisk on the label element; the
+  session form local label uses a separate `*` span instead.
+- **Decorative misuse** — `Label` is sometimes used as static copy above buttons or chip rows
+  where no single focusable control exists; use [Body](/components/body) instead.
+- **Parent tracking** — see [KAI-538](https://linear.app/bsport/issue/KAI-538/kz-component-label)
+  for the component; session-form migration and DatePicker label wiring are not yet tracked.

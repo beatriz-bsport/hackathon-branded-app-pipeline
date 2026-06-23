@@ -6,6 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 
 import { useDeleteCreditAccountFilterMutation } from "#src/api/use-delete-credit-account-filter-mutation";
 import { useUpsertCreditAccountFilterMutation } from "#src/api/use-upsert-credit-account-filter-mutation";
+import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
@@ -22,8 +23,7 @@ import type { CreditAccountFilterCardProps } from "../types";
 export const CreditAccountFilterCard = ({
   smartlistId,
   filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
+  cleanDraftComponent,
 }: CreditAccountFilterCardProps) => {
   const { t } = useTranslation("filters");
   const baseId = useId();
@@ -39,6 +39,7 @@ export const CreditAccountFilterCard = ({
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields, isDirty } = methods.formState;
   useRegisterSavedFilterDraft(watchedFilterValue.id, isDirty);
+  const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const { upsertCreditAccountFilterMutate, isLoading: isSaving } =
     useUpsertCreditAccountFilterMutation(smartlistId, {
@@ -50,7 +51,7 @@ export const CreditAccountFilterCard = ({
           buttonIcon: "x-close",
         });
         methods.reset(mapCreditAccountFilterToFormValue(savedFilter));
-        onSaveSuccess?.();
+        cleanDraftComponent?.();
       },
       onError: (error) => {
         toast({
@@ -108,7 +109,7 @@ export const CreditAccountFilterCard = ({
 
   const handleDelete = () => {
     if (!watchedFilterValue.id) {
-      onDeleteUnsavedFilter?.();
+      cleanDraftComponent?.();
       return;
     }
 
@@ -179,18 +180,13 @@ export const CreditAccountFilterCard = ({
           }}
         />
 
-        <div className="flex justify-end">
-          <Button
-            label={t("filters.1.actions.save")}
-            size="sm"
-            color="main"
-            intent="default"
-            iconLeft="check"
-            loading={isSaving}
-            disabled={isSaving || isDeleting || !isDirty}
-            onClick={() => void handleSave()}
-          />
-        </div>
+        <FilterCardSaveButton
+          isSavedFilter={isSavedFilter}
+          isDirty={isDirty}
+          isSaving={isSaving}
+          isDeleting={isDeleting}
+          onSave={handleSave}
+        />
       </div>
     </Card>
   );

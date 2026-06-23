@@ -20,6 +20,7 @@ export const MembershipPlanInvoiceMobile: FC<
   paginationProps,
   loadingProps,
   onEditBillingDate,
+  onEditPrice,
 }) => {
   const { t } = useTranslation("membership-plan");
 
@@ -33,8 +34,19 @@ export const MembershipPlanInvoiceMobile: FC<
         color: "default",
         label: t("invoiceList.actions.editBillingDate"),
         size: "md",
-        disabled: row.isPast,
+        disabled: row.isDateEditDisabled,
         onClick: () => onEditBillingDate(row),
+      },
+      {
+        id: `edit-price-${row.id}`,
+        kind: "icon-button",
+        intent: "flat",
+        icon: "coins-stacked-01",
+        color: "default",
+        label: t("invoiceList.actions.editPrice"),
+        size: "md",
+        disabled: row.isPast,
+        onClick: () => onEditPrice(row),
       },
     ];
 

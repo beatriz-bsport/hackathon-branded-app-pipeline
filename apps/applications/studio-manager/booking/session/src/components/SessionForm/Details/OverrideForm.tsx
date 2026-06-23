@@ -13,7 +13,13 @@ const OverrideToggle: FC<{
   fieldIdPrefix: string;
   trackOverrideToggleChange?: (checked: boolean) => void;
   isChecked: boolean;
-}> = ({ fieldIdPrefix, trackOverrideToggleChange, isChecked }) => {
+  disabled?: boolean;
+}> = ({
+  fieldIdPrefix,
+  trackOverrideToggleChange,
+  isChecked,
+  disabled = false,
+}) => {
   const { t } = useTranslation("sessionCreation");
 
   return (
@@ -35,6 +41,7 @@ const OverrideToggle: FC<{
     >
       <Toggle
         checked={isChecked}
+        disabled={disabled}
         id={`${fieldIdPrefix}-session-name-override-toggle`}
         label={t(
           "addSessionModal.steps.configureSession.details.overrideToggle.label",
@@ -50,11 +57,13 @@ const OverrideToggle: FC<{
 type OverrideFormProps = {
   fieldIdPrefix: string;
   trackOverrideToggleChange?: (checked: boolean) => void;
+  isGroupSession?: boolean;
 };
 
 const OverrideForm: FC<OverrideFormProps> = ({
   fieldIdPrefix,
   trackOverrideToggleChange,
+  isGroupSession = false,
 }) => {
   const { watch } = useFormContext();
 
@@ -65,8 +74,9 @@ const OverrideForm: FC<OverrideFormProps> = ({
         fieldIdPrefix={fieldIdPrefix}
         trackOverrideToggleChange={trackOverrideToggleChange}
         isChecked={isChecked}
+        disabled={isGroupSession}
       />
-      {isChecked && (
+      {isChecked && !isGroupSession && (
         <div className="flex flex-col gap-md ml-xl">
           <SessionNameField fieldIdPrefix={fieldIdPrefix} />
           <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />

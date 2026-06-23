@@ -44,16 +44,6 @@ filter panels, and custom disclosure patterns.
 
 ## Guidelines
 
-- **Controller owns toggle** — use `Collapse.Controller` render prop for `isOpen` and `toggle`.
-- **Initially closed by default** — expand only when users need the content immediately.
-- **Animate with care** — ~200ms transition; avoid collapsing primary actions.
-- **Id for a11y** — pass `id` when wiring `aria-controls` from custom triggers.
-- **Do not hide required fields** — required inputs must be visible or clearly marked in the header.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Label the controller with clear show/hide text or an icon plus visible text." />
   <Do caption="Use controlled mode when URL query or parent state must own open state." />
@@ -61,6 +51,11 @@ filter panels, and custom disclosure patterns.
   <Dont caption="Collapsing the only submit path on a form without an open indicator." />
   <Dont caption="Multiple nested Collapse layers without indentation — users lose context." />
   <Dont caption="Using Collapse for modal dialogs — use Modal or Detail drawer." />
+  <Do caption="Controller owns toggle — use `Collapse.Controller` render prop for `isOpen` and `toggle`." />
+  <Do caption="Initially closed by default — expand only when users need the content immediately." />
+  <Do caption="Animate with care — ~200ms transition; avoid collapsing primary actions." />
+  <Do caption="Id for a11y — pass `id` when wiring `aria-controls` from custom triggers." />
+  <Dont caption="Do not hide required fields — required inputs must be visible or clearly marked in the header." />
 </DoDont>
 
 ### Content rules

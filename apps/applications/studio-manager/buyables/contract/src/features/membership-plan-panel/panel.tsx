@@ -123,7 +123,10 @@ export const MembershipPlanDetailsPanel: FC<Props> = ({ membershipPlan }) => {
 
       <Divider className="my-xs" weight="extra-thin" />
 
-      <MembershipPlanPauseList pauses={membershipPlan.pauses} />
+      <MembershipPlanPauseList
+        billingPlanId={membershipPlan.id}
+        pauses={membershipPlan.pauses}
+      />
 
       <Divider className="my-xs" weight="extra-thin" />
 

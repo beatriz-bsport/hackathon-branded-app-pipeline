@@ -34,10 +34,12 @@ import {
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
 import { resolveConfirmAmountCts } from "#src/components/financial-services/payment-flow-modal/lib/resolve-confirm-amount-cts";
 import { showPaymentCompletedToast } from "#src/components/financial-services/payment-flow-modal/lib/show-payment-completed-toast";
-import type {
+import {
+  PaymentFlowEventName,
   PaymentFlowModalBodyState,
   PaymentFlowModalProps,
 } from "#src/components/financial-services/payment-flow-modal/types";
+import { usePaymentFlowTracking } from "#src/components/financial-services/payment-flow-modal/use-payment-flow-tracking";
 import {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
   type AllPaymentMethodKey,
@@ -46,6 +48,7 @@ import {
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
+import type { CloseTrigger } from "#src/utils/use-guarded-modal-close";
 
 import {
   INSTALLMENTS_DISABLED_ALL_METHOD_IDS,
@@ -109,6 +112,16 @@ const PARTIAL_UNSUPPORTED_METHOD_IDS = new Set<AllPaymentMethodKey>([
  * - coordinates payment client-secret lifecycle based on selected method;
  * - exposes submission state and UI-ready body props.
  */
+const serializePaymentMethod = (
+  selection: PaymentMethodSelectorSelection,
+): string | null => {
+  if (!selection) return null;
+  if (selection.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED) {
+    return `saved_${selection.paymentMethodType}`;
+  }
+  return selection.id;
+};
+
 export const usePaymentFlowModalState = ({
   isOpen,
   invoiceId,
@@ -117,6 +130,9 @@ export const usePaymentFlowModalState = ({
   onClose,
   onConfirm,
   companyTheme,
+  onPaymentTrack,
+  paymentStartTrigger,
+  trackingSessionId,
 }: UsePaymentFlowModalStateParams) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const queryClient = useQueryClient();
@@ -127,6 +143,12 @@ export const usePaymentFlowModalState = ({
   const [isPartialEnabled, setIsPartialEnabled] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethodSelectorSelection>(null);
+
+  const hasTrackedStartRef = useRef(false);
+  const { track } = usePaymentFlowTracking({
+    onTrack: onPaymentTrack,
+    trackingSessionId,
+  });
   const [clientSecretEngine, setClientSecretEngine] =
     useState<PaymentClientSecretEngine | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -164,6 +186,37 @@ export const usePaymentFlowModalState = ({
   const invoiceRemainingAmountCts = Number.isFinite(invoiceRemainingAmount)
     ? Math.round(invoiceRemainingAmount * 100)
     : 0;
+
+  useEffect(() => {
+    if (!isOpen) {
+      hasTrackedStartRef.current = false;
+      return;
+    }
+    if (hasTrackedStartRef.current || !trackingSessionId || !onPaymentTrack)
+      return;
+    if (isLoadingInvoice) return;
+
+    track("payment_flow_start", {
+      member_id: memberId,
+      invoice_id: invoiceId,
+      total_amount_to_pay: invoiceRemainingAmountCts,
+      payment_method_selected: null,
+      payment_start_trigger: paymentStartTrigger ?? "invoice",
+      origin_url:
+        typeof window !== "undefined" ? window.location.href : undefined,
+    });
+    hasTrackedStartRef.current = true;
+  }, [
+    isOpen,
+    trackingSessionId,
+    onPaymentTrack,
+    isLoadingInvoice,
+    invoiceRemainingAmountCts,
+    memberId,
+    invoiceId,
+    paymentStartTrigger,
+    track,
+  ]);
 
   const installmentsEligibility = useMemo(() => {
     if (!invoice) {
@@ -764,6 +817,14 @@ export const usePaymentFlowModalState = ({
   });
 
   const handleSubmit = () => {
+    track("payment_flow_confirm_button_clicked", {
+      member_id: memberId,
+      invoice_id: invoiceId,
+      total_amount_to_pay: invoiceRemainingAmountCts,
+      payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+      amount_to_pay: confirmAmountCts,
+    });
+
     if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
       setSubmitError(null);
       scheduleInstallmentsMutation.mutate(undefined, {
@@ -856,6 +917,28 @@ export const usePaymentFlowModalState = ({
   };
 
   const handlePartialToggle = (enabled: boolean) => {
+    track(
+      enabled
+        ? "payment_flow_partial_payment_toggle_on"
+        : "payment_flow_partial_payment_toggle_off",
+      {
+        member_id: memberId,
+        invoice_id: invoiceId,
+        total_amount_to_pay: invoiceRemainingAmountCts,
+        payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+        amount_to_pay: resolveConfirmAmountCts({
+          activeTab,
+          // Toggling in either direction resets the partial amount to the full
+          // invoice amount, so the post-toggle amount to pay is always the full
+          // remaining amount rather than the (pre-toggle) partial amount.
+          dueAmountCts: invoiceRemainingAmountCts,
+          selectedPaymentMethod,
+          accountBalance,
+          selectedGiftCard,
+          clientSecretPriceCts: paymentClientSecretQuery.data?.price_cts,
+        }),
+      },
+    );
     setIsPartialEnabled(enabled);
     if (!Number.isFinite(invoiceRemainingAmountCts)) return;
 
@@ -870,9 +953,42 @@ export const usePaymentFlowModalState = ({
 
   const setActiveTab = (tab: PaymentTab) => {
     if (tab === PAYMENT_TAB.INSTALLMENTS) {
-      handlePartialToggle(false);
+      if (isPartialEnabled) {
+        handlePartialToggle(false);
+      }
+      track("payment_flow_installments_selected", {
+        member_id: memberId,
+        invoice_id: invoiceId,
+        total_amount_to_pay: invoiceRemainingAmountCts,
+        payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+      });
+    } else {
+      track("payment_flow_one_time_selected", {
+        member_id: memberId,
+        invoice_id: invoiceId,
+        total_amount_to_pay: invoiceRemainingAmountCts,
+        payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+      });
     }
     setActiveTabState(tab);
+  };
+
+  const handleSelectionChange = (selection: PaymentMethodSelectorSelection) => {
+    setSelectedPaymentMethod(selection);
+    track("payment_flow_payment_method_selected", {
+      member_id: memberId,
+      invoice_id: invoiceId,
+      total_amount_to_pay: invoiceRemainingAmountCts,
+      payment_method_selected: serializePaymentMethod(selection),
+      amount_to_pay: resolveConfirmAmountCts({
+        activeTab,
+        dueAmountCts,
+        selectedPaymentMethod: selection,
+        accountBalance,
+        selectedGiftCard,
+        clientSecretPriceCts: paymentClientSecretQuery.data?.price_cts,
+      }),
+    });
   };
 
   const body: PaymentFlowModalBodyState = {
@@ -901,7 +1017,7 @@ export const usePaymentFlowModalState = ({
     accountBalance,
     hiddenAllMethodIds: renderers.hiddenAllMethodIds,
     disabledAllMethodIds,
-    onSelectionChange: setSelectedPaymentMethod,
+    onSelectionChange: handleSelectionChange,
     renderSelectedPaymentMethod: renderers.renderSelectedPaymentMethod,
     memberName: member?.name ?? `#${memberId}`,
     invoiceUrl: `/invoice/${invoiceId}`,
@@ -909,6 +1025,48 @@ export const usePaymentFlowModalState = ({
     installmentScheduleDetail,
     installmentPerIntervalCaption,
     invoiceRemainingAmountCts,
+    onInvoiceButtonClick: () => {
+      track("payment_flow_invoice_button_clicked", {
+        member_id: memberId,
+        invoice_id: invoiceId,
+        total_amount_to_pay: invoiceRemainingAmountCts,
+        payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+        amount_to_pay: confirmAmountCts,
+      });
+      if (typeof window !== "undefined") {
+        window.open(`/invoice/${invoiceId}`, "_blank", "noopener,noreferrer");
+      }
+    },
+    onMemberButtonClick: () => {
+      track("payment_flow_member_button_clicked", {
+        member_id: memberId,
+        invoice_id: invoiceId,
+        total_amount_to_pay: invoiceRemainingAmountCts,
+        payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+        amount_to_pay: confirmAmountCts,
+      });
+      if (typeof window !== "undefined") {
+        window.open(`/member/${memberId}`, "_blank", "noopener,noreferrer");
+      }
+    },
+  };
+
+  const CLOSE_TRIGGER_EVENT_MAP: Record<CloseTrigger, PaymentFlowEventName> = {
+    cancel_button: "payment_flow_cancel_button_clicked",
+    cross_button: "payment_flow_cross_button_clicked",
+    escape_key: "payment_flow_escape_key_pressed",
+    backdrop_click: "payment_flow_click_outside",
+  };
+
+  const handleClose = (trigger: CloseTrigger) => {
+    track(CLOSE_TRIGGER_EVENT_MAP[trigger], {
+      member_id: memberId,
+      invoice_id: invoiceId,
+      total_amount_to_pay: invoiceRemainingAmountCts,
+      payment_method_selected: serializePaymentMethod(selectedPaymentMethod),
+      amount_to_pay: confirmAmountCts,
+    });
+    closeModal();
   };
 
   return {
@@ -916,6 +1074,7 @@ export const usePaymentFlowModalState = ({
     formId,
     handleSubmit,
     closeModal,
+    handleClose,
     dismissMainModal,
     isConfirmDisabled,
     isConfirmLoading,

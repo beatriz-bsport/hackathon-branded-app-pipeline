@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 import {
   ControlledForm,
   type ControlledFormProps,
   FormField,
 } from "@bsport/form";
-import {
-  Body,
-  Button,
-  FILE_UPLOAD_STATUSES,
-  FileUpload,
-  FileUploadProps,
-  FileUploadTracker,
-  Media,
-  TextField,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { FormMediaField } from "@bsport/kaizen-business-components/form/media-field";
+import { Button, Media, TextField, Title } from "@bsport/kaizen-primitive-core";
 
 import { createFileUrl } from "#src/utils/files";
 import { useTranslation } from "#src/utils/i18n";
@@ -29,12 +20,15 @@ export const PopupForm: React.FC<PopupFormProps> = ({
   onSubmit,
   ...methods
 }: PopupFormProps) => {
+  const fieldIdPrefix = useId();
   const { t } = useTranslation("campaign");
   const { watch, getFieldState, formState } = methods;
 
   const linkValue = watch("link");
   const linkFieldState = getFieldState("link", formState);
   const isLinkValid = linkValue && !linkFieldState.error;
+
+  const imageError = formState.errors.image;
 
   const onLinkButtonClick = () => {
     window.open(linkValue, "_blank", "noopener,noreferrer");
@@ -44,7 +38,7 @@ export const PopupForm: React.FC<PopupFormProps> = ({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
-    const url = createFileUrl(image);
+    const url = createFileUrl(image ?? null);
     setImagePreview(url);
 
     return () => {
@@ -55,21 +49,6 @@ export const PopupForm: React.FC<PopupFormProps> = ({
     };
   }, [image]);
 
-  const [fileUploadTrackerList, setFileUploadTrackerList] = useState<
-    FileUploadTracker[]
-  >([]);
-
-  const animationDurationMs = 300;
-
-  const uploadCallback = async () => {
-    await new Promise<void>((resolve) =>
-      setTimeout(() => {
-        resolve();
-        setFileUploadTrackerList([]);
-      }, animationDurationMs * 2),
-    );
-  };
-
   return (
     <ControlledForm
       id={id}
@@ -77,14 +56,6 @@ export const PopupForm: React.FC<PopupFormProps> = ({
       className="flex flex-col gap-md"
       {...methods}
     >
-      <div hidden>
-        <TextField
-          id="campaign_name"
-          label={t("popup.creation.form.campaignName.label")}
-          required={true}
-          fullWidth={true}
-        />
-      </div>
       <Title htmlVariant={"h2"}>
         {t("popup.creation.messageSectionTitle")}
       </Title>
@@ -144,50 +115,21 @@ export const PopupForm: React.FC<PopupFormProps> = ({
             alt={t("popup.creation.form.image.previewAlt")}
           />
         )}
-        <FormField<PopupFormData, "image", FileUploadProps>
-          name="image"
-          mapProps={({ defaultProps, field, form }) => ({
-            ...defaultProps,
-            handleUploadFile: async (file) => {
-              form.setValue("image", file, { shouldDirty: true });
-
-              await new Promise((r) => setTimeout(r, animationDurationMs));
-
-              // Finalize loading status
-              return {
-                status: file
-                  ? FILE_UPLOAD_STATUSES.success
-                  : FILE_UPLOAD_STATUSES.error,
-              };
-            },
-            inline: !!field.value,
-            className: "flex w-full items-center flex-col",
-          })}
-        >
-          {/** @ts-expect-error Pass props implicitely - FormField is forwarding the `handleUploadFile` props */}
-          <FileUpload
-            id="message_image"
-            uploadCallback={uploadCallback}
-            fileExtensionList={["png", "jpg", "jpeg", "svg"]}
-            multiple={false}
-            autoUpload
-            customTexts={{
-              uploadFileCTA: t("popup.creation.form.image.uploadLabel"),
-              dragAndDropFileCTA: t(
-                "popup.creation.form.image.dragAndDropLabel",
-              ),
-              fileExtensionList: t("popup.creation.form.image.fileTypes"),
-            }}
-            fileUploadTrackerList={fileUploadTrackerList}
-            setFileUploadTrackerList={setFileUploadTrackerList}
-            className="w-full"
-          />
-        </FormField>
-        {!imagePreview && (
-          <Body htmlVariant="p" weight="weaker" color="weak" size="sm">
-            {t("popup.creation.form.image.uploadInstructions")}
-          </Body>
-        )}
+        <FormMediaField<PopupFormData, "image">
+          autoUpload
+          id={`${fieldIdPrefix}-image-upload`}
+          className="w-full"
+          fieldName="image"
+          inputName="edit-class-image-uploader"
+          fileExtensionList={["png", "jpg", "jpeg", "svg"]}
+          customTexts={{
+            uploadFileCTA: t("popup.creation.form.image.uploadLabel"),
+            dragAndDropFileCTA: t("popup.creation.form.image.dragAndDropLabel"),
+            fileExtensionList: t("popup.creation.form.image.fileTypes"),
+          }}
+          status={imageError ? "error" : "default"}
+          statusText={imageError?.message}
+        />
       </div>
     </ControlledForm>
   );

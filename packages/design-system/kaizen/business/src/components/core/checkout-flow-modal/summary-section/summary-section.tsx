@@ -131,7 +131,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
         member_id: member?.id,
       });
     } else if (reason === "escape") {
-      track("checkout_flow_footnote_escape_key_button_clicked", {
+      track("checkout_flow_footnote_escape_key_pressed", {
         has_footnote: hasFootnoteValue,
         footnote_length: footnoteLength,
         member_id: member?.id,

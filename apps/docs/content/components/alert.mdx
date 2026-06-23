@@ -87,30 +87,12 @@ Use a **positive** Alert only when success must **persist** in the page:
 
 ## Guidelines
 
-- **Match severity to status** — reserve `critical` and `warning` for messages
-  that need real attention; use `default` or `info` for routine context.
-- **Persistent by design** — Alert does not auto-dismiss; remove it when the
-  underlying issue is resolved or the user dismisses it.
-- **One message per alert** — keep each instance focused; consolidate related
-  points instead of stacking many banners.
-- **Pair action with intent** — show `buttonLabel` only when a clear next step
-  exists; use `onClearClick` when dismissal alone is enough.
-- **Pick layout for context** — `banner` spans the content width; `inline` fits
-  the message for contextual callouts.
-- **Weak by default** — use `type="weak"` for page- and section-level alerts.
-  Reserve `type="strong"` for messages that block the **whole platform** (e.g.
-  global outage, maintenance, account suspended across the product).
-
-### Best practices
-
 <Callout type="warning" title="Caution">
 
 Overusing alerts — especially `critical` — trains users to ignore them. Reserve
 strong statuses for outcomes that genuinely need intervention.
 
 </Callout>
-
-#### General
 
 <DoDont>
   <Do caption="Place a banner Alert at the top of the affected view so the message is visible before the user scrolls to the problem area." />
@@ -119,51 +101,56 @@ strong statuses for outcomes that genuinely need intervention.
   <Dont caption="Routine save confirmations that auto-resolve belong in Toast, not Alert." />
   <Dont caption="More than two alerts on one screen dilute urgency — consolidate copy or fix the root cause." />
   <Dont caption="Color alone is not enough — include a title or body that states the issue in plain language." />
+  <Do caption="Persistent by design — Alert does not auto-dismiss; remove it when the underlying issue is resolved or the user dismisses it." />
+  <Do caption="One message per alert — keep each instance focused; consolidate related points instead of stacking many banners." />
+  <Do caption="Pair action with intent — show `buttonLabel` only when a clear next step exists; use `onClearClick` when dismissal alone is enough." />
+  <Do caption="Pick layout for context — `banner` spans the content width; `inline` fits the message for contextual callouts." />
+  <Do caption='Weak by default — use `type="weak"` for page- and section-level alerts. Reserve `type="strong"` for messages that block the **whole platform** (e.g. global outage, maintenance, account suspended across the product).' />
 </DoDont>
 
-#### weak type
+### weak type
 
 <DoDont>
   <Do caption="Use type=weak for every in-app banner — page warnings, form errors, section callouts, and persistent success states." />
   <Dont caption="Avoid reaching for type=strong inside a single view — stronger color or status already signals severity." />
 </DoDont>
 
-#### strong type
+### strong type
 
 <DoDont>
   <Do caption="Use type=strong only when the alert blocks the whole platform and must read as a global interrupt (outage, maintenance window, platform-wide suspension)." />
   <Dont caption="Page-level and feature-level messages stay type=weak, even when status is critical." />
 </DoDont>
 
-#### default status
+### default status
 
 <DoDont>
   <Do caption="Use for neutral system messages or routine updates that do not imply risk or failure." />
   <Dont caption="Urgent failures read more clearly on critical or warning than on default." />
 </DoDont>
 
-#### info status
+### info status
 
 <DoDont>
   <Do caption="Use to explain how a feature works or why the UI is in a particular state." />
   <Dont caption="Confirmed failures belong on critical, not info." />
 </DoDont>
 
-#### positive status
+### positive status
 
 <DoDont>
   <Do caption="Use when success must stay visible in the layout — e.g. replacing a syncing banner or surfacing an effective date the user should re-read." />
   <Dont caption="Brief settings sync or save acknowledgments belong in Toast when that is enough — see Alert vs Toast for success above." />
 </DoDont>
 
-#### warning status
+### warning status
 
 <DoDont>
   <Do caption="Use when something may go wrong but the user can still proceed or fix it proactively." />
   <Dont caption="Operations that already failed read better on critical than warning." />
 </DoDont>
 
-#### critical status
+### critical status
 
 <DoDont>
   <Do caption="Use when an operation failed or data is at risk and the user must act before continuing." />

@@ -55,6 +55,10 @@
   display: none;
 }
 
+.bs-consumer-booking-card__footer__cancel-button {
+  margin-left: auto;
+}
+
 /* SKELETON */
 .bs-consumer__booking-card__title--loading {
   width: 100%;

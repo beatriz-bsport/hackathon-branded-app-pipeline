@@ -49,21 +49,6 @@ copy.
 
 ## Guidelines
 
-- **Labels always** — pass `label` and matching `id`; placeholders supplement,
-  never replace labels.
-- **Errors on interaction** — set `status=\"error\"` and `statusText` after blur
-  or submit, not on initial render.
-- **Full width in forms** — `fullWidth` in column layouts; default max width in
-  compact toolbars.
-- **Right type** — use native `type` for format hints; still validate on the
-  server.
-- **Clear affordance** — provide `onClear` when a filled search field should
-  reset the list.
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Use helperText for format hints — 'Use the email on the member profile' — before the user types." />
   <Do caption="Pass inputRef when a modal should autofocus the first field on open." />
@@ -71,16 +56,20 @@ copy.
   <Dont caption="Placeholder alone disappears once filled — always pair it with a visible label." />
   <Dont caption="Error status on empty fields before submit or blur frustrates users who have not finished typing." />
   <Dont caption="One field should not carry multiple unrelated hints split across helper and error text." />
+  <Do caption="Labels always — pass `label` and matching `id`; placeholders supplement, never replace labels." />
+  <Do caption="Full width in forms — `fullWidth` in column layouts; default max width in compact toolbars." />
+  <Do caption="Right type — use native `type` for format hints; still validate on the server." />
+  <Do caption="Clear affordance — provide `onClear` when a filled search field should reset the list." />
 </DoDont>
 
-#### status error
+### status error
 
 <DoDont>
   <Do caption="Pair status='error' with a specific statusText — 'Enter a valid phone number'." />
   <Dont caption="Neutral warnings belong outside error styling — reserve error for failed validation." />
 </DoDont>
 
-#### status positive
+### status positive
 
 <DoDont>
   <Do caption="Use positive status sparingly to confirm a valid async check — username available." />

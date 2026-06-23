@@ -3,12 +3,11 @@ import { z } from "zod";
 import { isReferredStatusToApi } from "#src/components/filters/referred-members-filter/constants";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { ReferredMembersFilterFormValue } from "../../types";
 import { REFERRED_MEMBERS_SUB_FILTER_IDS } from "../referred-members-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `moneyObtained` slot (referral earnings comparator).
@@ -45,7 +44,7 @@ export const refineMoneyObtainedSubFilter = (
       path: ["moneyObtained", "firstValue"],
       message: i18nInstance.t(
         "filters.30.validation.moneyObtainedValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }
@@ -59,7 +58,7 @@ export const refineMoneyObtainedSubFilter = (
       path: ["moneyObtained", "secondValue"],
       message: i18nInstance.t(
         "filters.30.validation.moneyObtainedSecondValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }
@@ -75,7 +74,7 @@ export const refineMoneyObtainedSubFilter = (
       path: ["moneyObtained", "secondValue"],
       message: i18nInstance.t(
         "filters.30.validation.moneyObtainedBetweenRangeInvalid",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

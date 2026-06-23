@@ -45,17 +45,12 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
     onSelectionChange,
     renderSelectedPaymentMethod,
     memberName,
-    invoiceUrl,
-    memberUrl,
     installmentScheduleDetail,
     installmentPerIntervalCaption,
     invoiceRemainingAmountCts,
+    onInvoiceButtonClick,
+    onMemberButtonClick,
   } = body;
-
-  const openExternalLink = (url: string): void => {
-    if (typeof window === "undefined") return;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
 
   const tabs = [
     {
@@ -159,7 +154,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
           size="sm"
           label={t("paymentFlowModal.links.invoice")}
           iconRight="link-external-02"
-          onClick={() => openExternalLink(invoiceUrl)}
+          onClick={onInvoiceButtonClick}
         />
         <Button
           intent="flat"
@@ -167,7 +162,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
           size="sm"
           label={memberName}
           iconRight="link-external-02"
-          onClick={() => openExternalLink(memberUrl)}
+          onClick={onMemberButtonClick}
         />
       </div>
     </>

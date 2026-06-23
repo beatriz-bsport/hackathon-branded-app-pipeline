@@ -3,7 +3,13 @@ import { FC } from "react";
 import type { MetaActivity } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
 import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
-import { Alert, Body, Divider, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Body,
+  Divider,
+  Icon,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionCapacityField } from "#src/components/SessionForm/Settings/SessionCapacityField";
@@ -20,7 +26,8 @@ import { SessionEditFormData } from "../SessionForm/types";
 export const SettingsSection: FC<{
   fieldIdPrefix: string;
   metaActivity: MetaActivity;
-}> = ({ fieldIdPrefix, metaActivity }) => {
+  isGroupSession?: boolean;
+}> = ({ fieldIdPrefix, metaActivity, isGroupSession = false }) => {
   const { t } = useTranslation(["sessionCreation", "sessionEdit"]);
 
   const CREDITS_LIMIT_BEFORE_WARNING = 5;
@@ -76,7 +83,19 @@ export const SettingsSection: FC<{
           )}
         </Alert>
       )}
-      <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} isEditMode />
+      {isGroupSession ? (
+        <div className="flex gap-xs items-center">
+          <Icon icon="info-circle" size="sm" />
+          <Body htmlVariant="p" size="sm" color="weak">
+            {t(
+              "editSessionForm.content.seriesSessionRestrictions.aggregatorsDescription",
+              { ns: "sessionEdit" },
+            )}
+          </Body>
+        </div>
+      ) : (
+        <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} isEditMode />
+      )}
       <SessionCapacityField
         fieldIdPrefix={fieldIdPrefix}
         fieldName="waiting_list_max_size"
@@ -99,7 +118,10 @@ export const SettingsSection: FC<{
           )}
         </Alert>
       )}
-      <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <LevelSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        disabled={isGroupSession}
+      />
 
       {shouldDisplayBroadcastLinkField && (
         <BroadcastLinkField fieldIdPrefix={fieldIdPrefix} />

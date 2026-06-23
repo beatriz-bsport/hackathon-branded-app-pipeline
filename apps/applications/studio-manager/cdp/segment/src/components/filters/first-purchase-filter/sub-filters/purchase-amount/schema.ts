@@ -3,12 +3,11 @@ import { z } from "zod";
 import { firstPurchaseStatusToApi } from "#src/components/filters/first-purchase-filter/constants";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import type { FirstPurchaseFilterFormValue } from "../../types";
 import { FIRST_PURCHASE_SUB_FILTER_IDS } from "../first-purchase-sub-filter-id";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `purchaseAmount` slot (first purchase price comparator).
@@ -45,7 +44,7 @@ export const refinePurchaseAmountSubFilter = (
       path: ["purchaseAmount", "firstValue"],
       message: i18nInstance.t(
         "filters.28.validation.purchaseAmountValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }
@@ -59,7 +58,7 @@ export const refinePurchaseAmountSubFilter = (
       path: ["purchaseAmount", "secondValue"],
       message: i18nInstance.t(
         "filters.28.validation.purchaseAmountSecondValueRequired",
-        { ns: I18N_NAMESPACE },
+        { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
       ),
     });
   }

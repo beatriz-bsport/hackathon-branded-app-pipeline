@@ -160,7 +160,6 @@ type VariationsProps = Omit<
   | 'onJoinOnlineClick'
   | 'onSpotSchedulingClick'
   | 'establishmentAddress'
-  | 'menuId'
 >;
 
 export const CONSUMER_BOOKING_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
@@ -238,7 +237,6 @@ export const CONSUMER_BOOKING_CARD_PREVIEW: React.FC<{
       coachName={fakeCoach.name}
       coachPhoto={fakeCoach.photo}
       establishmentAddress="Booking's address"
-      menuId="consumer-booking-card-preview"
       offerDate={`${DateTime.fromISO(fakeBooking.date).toFormat(
         'EEE dd MMMM',
       )} • ${DateTime.fromISO(fakeBooking.date).toFormat('HH:mm')}`}

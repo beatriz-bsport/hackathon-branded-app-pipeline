@@ -4,6 +4,7 @@ import Body from "#src/components/Body";
 import Icon from "#src/components/Icon";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import type { FileUploadFieldStatus } from "../file-upload-status";
 import FileDropzone from "./FileDropzone";
 
 const fileDropzoneStyle = cva(
@@ -11,10 +12,8 @@ const fileDropzoneStyle = cva(
     "group/file-upload",
     "flex flex-col items-center gap-xs p-md w-full",
     "transition-colors ease-out duration-default",
-    "border-stroke-thin rounded-md border-dashed",
+    "border-stroke-thin rounded-md",
     "text-onsurface-default",
-    // rest
-    "border-stroke-action-default-rest",
     "bg-surface-default",
   ],
   {
@@ -22,19 +21,36 @@ const fileDropzoneStyle = cva(
       disabled: {
         true: ["opacity-md cursor-not-allowed"],
         false: [
-          // Hover
           "hover:cursor-pointer",
-          "hover:border-stroke-action-default-hovered",
           "hover:bg-surface-default-weak",
-          // Pressed / Active
-          "active:border-stroke-action-default-selected active:border-solid",
           "active:bg-surface-action-default-elevated-selected-rest",
           "active:shadow-action-default-selected",
+        ],
+      },
+      status: {
+        default: [
+          "border-dashed",
+          "border-stroke-action-default-rest",
+          "hover:border-stroke-action-default-hovered",
+          "active:border-stroke-action-default-selected active:border-dashed",
+        ],
+        error: [
+          "border-dashed",
+          "border-stroke-status-critical",
+          "hover:border-stroke-status-critical",
+          "active:border-stroke-status-critical",
+        ],
+        positive: [
+          "border-dashed",
+          "border-stroke-status-positive",
+          "hover:border-stroke-status-positive",
+          "active:border-stroke-status-positive",
         ],
       },
     },
     defaultVariants: {
       disabled: false,
+      status: "default",
     },
   },
 );
@@ -45,6 +61,7 @@ type DefaultVariantProps = {
   handleDropFiles: (files: FileList) => void;
   uploadFileCTAText?: string;
   disabled?: boolean;
+  status?: FileUploadFieldStatus;
 };
 
 /**
@@ -61,6 +78,7 @@ const DefaultVariant = ({
   handleDropFiles,
   uploadFileCTAText,
   disabled,
+  status = "default",
 }: DefaultVariantProps) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -71,14 +89,18 @@ const DefaultVariant = ({
   return (
     <FileDropzone
       handleDropFiles={handleDropFiles}
-      className={fileDropzoneStyle({ disabled: !!disabled })}
+      className={fileDropzoneStyle({ disabled: !!disabled, status })}
       dragOverClassName={cx(
         disabled
           ? "cursor-not-allowed"
           : [
               "cursor-pointer",
-              "border-stroke-action-default-hovered",
               "bg-surface-default-weak",
+              status === "default"
+                ? "border-stroke-action-default-hovered"
+                : status === "error"
+                  ? "border-stroke-status-critical"
+                  : "border-stroke-status-positive",
             ],
       )}
       disabled={disabled}

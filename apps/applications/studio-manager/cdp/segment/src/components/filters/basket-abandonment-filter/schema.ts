@@ -3,13 +3,12 @@ import { z } from "zod";
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
+import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { BASKET_ABANDONMENT_SUB_FILTER_IDS } from "./sub-filters/basket-abandonment-sub-filter-id";
 import { REGISTERED_BASKET_ABANDONMENT_SUB_FILTERS } from "./sub-filters/registry";
 import type { BasketAbandonmentFilterFormValue } from "./types";
-
-const I18N_NAMESPACE = "sm-smartlists_filters";
 
 const subFilterIdSchema = z.array(
   z.literal(BASKET_ABANDONMENT_SUB_FILTER_IDS.abandonmentDate),
@@ -36,7 +35,7 @@ const refineBasketValue = (
       code: z.ZodIssueCode.custom,
       path: ["basketValue", "firstValue"],
       message: i18nInstance.t("filters.20.validation.basketValueRequired", {
-        ns: I18N_NAMESPACE,
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
       }),
     });
   }
@@ -48,7 +47,7 @@ const refineBasketValue = (
         path: ["basketValue", "secondValue"],
         message: i18nInstance.t(
           "filters.20.validation.basketValueSecondRequired",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
       return;
@@ -63,7 +62,7 @@ const refineBasketValue = (
         path: ["basketValue", "secondValue"],
         message: i18nInstance.t(
           "filters.20.validation.basketValueSecondGreaterThanFirst",
-          { ns: I18N_NAMESPACE },
+          { ns: I18N_SEGMENT_NAMESPACES.FILTERS },
         ),
       });
     }

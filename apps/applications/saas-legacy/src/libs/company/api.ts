@@ -10,6 +10,7 @@ import type {
   FeatureList,
   GetOnboardingLinkParams,
   StripeAccountStatus,
+  StripeCompanyComplianceStatus,
   StripeCompany,
   PayPalCompany,
   GetPayPalOnboardingLinkParams,
@@ -107,6 +108,12 @@ export const validateAccountConfigurationStepAPI = ({
 export const retrieveStripeAccountStatusAPI = async () => {
   return getAuth<StripeAccountStatus>(
     `${API_V1_URI_FS}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
+  );
+};
+
+export const retrieveStripeComplianceStatusAPI = async () => {
+  return getAuth<StripeCompanyComplianceStatus>(
+    `${API_V1_URI_FS}/payment_backend/stripe/company/retrieve_compliance_status/`,
   );
 };
 

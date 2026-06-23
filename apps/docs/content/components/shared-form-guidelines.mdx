@@ -37,23 +37,6 @@ See the individual component pages for control-specific behaviour:
 
 ## Guidelines
 
-- **Label every control** — every interactive field needs a visible label
-  linked with `htmlFor` / `id`; placeholders are hints, not labels.
-- **One error per field** — surface a single actionable message below the
-  control; avoid stacking helper and error text that repeat the same idea.
-- **Required is explicit** — use `required` for mandatory fields and reserve
-  the asterisk for fields the user must complete before submit.
-- **Validate at the right moment** — show error states after blur or form
-  submit, not on first paint.
-- **Pick the right control** — binary immediate settings use
-  [Toggle](/components/toggle); deferred multi-select uses
-  [Checkbox](/components/checkbox); single choice from a short list uses
-  [Radio](/components/radio) or [Select](/components/select).
-
-### Best practices
-
-#### General
-
 <DoDont>
   <Do caption="Write labels as short nouns or phrases — 'Invoice email', 'Sport type' — so the field purpose is obvious without reading helper text." />
   <Do caption="Use helper text for format hints or consequences — 'Used on member receipts' — and keep it to one line when possible." />
@@ -61,6 +44,9 @@ See the individual component pages for control-specific behaviour:
   <Dont caption="Placeholder text alone disappears for screen readers and filled fields — always expose a visible label." />
   <Dont caption="Optional fields should not carry an asterisk — only required fields get the mandatory indicator." />
   <Dont caption="Error styling before first interaction misleads users — wait until submit unless the form was already submitted." />
+  <Do caption="Label every control — every interactive field needs a visible label linked with `htmlFor` / `id`; placeholders are hints, not labels." />
+  <Do caption="One error per field — surface a single actionable message below the control; avoid stacking helper and error text that repeat the same idea." />
+  <Do caption="Pick the right control — binary immediate settings use `Toggle`; deferred multi-select uses `Checkbox`; single choice from a short list uses `Radio` or `Select`." />
 </DoDont>
 
 <Callout type="warning" title="Caution">

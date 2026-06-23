@@ -202,7 +202,11 @@ export const ShortcutActionsButton: FC<{
         type: "button",
         onClick: () => {
           if (!memberId) return;
-          window.location.assign(LEGACY_URLS.MEMBER_NOTES(memberId));
+          window.open(
+            LEGACY_URLS.MEMBER_NOTES(memberId),
+            "_blank",
+            "noopener,noreferrer",
+          );
         },
       };
 

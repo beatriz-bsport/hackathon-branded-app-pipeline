@@ -1,4 +1,4 @@
-import { generatePath, useNavigate } from "react-router";
+import { generatePath, useHref, useNavigate } from "react-router";
 
 import { makeFeatureFlags } from "@bsport/sm-backbone";
 
@@ -6,6 +6,10 @@ export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
   BOOKINGS_MANAGEMENT_REVAMP: "booking_bookings_management_revamped",
   CALENDAR_APPOINTMENTS_TAB: "booking_calendar_appointments_tab",
   CALENDAR_SERIES_TAB: "booking_calendar_series_tab",
+} as const);
+
+const { flags: ClassFlags, useFlag: useClassFlag } = makeFeatureFlags({
+  CLASSES_DETAIL_PAGE: "booking_classes_detail_page",
 } as const);
 
 const SESSION_ID_PARAM = ":sessionId";
@@ -24,6 +28,7 @@ export const URLS = {
   SERIES_PATH: `${INDEX}/${SERIES_SLUG}`,
   ALL_OCCURRENCES_SLUG,
   ALL_OCCURRENCES_PATH: `${INDEX}/${ALL_OCCURRENCES_SLUG}`,
+  SERVICES_CLASSES_DETAIL: (id: number) => `/services/classes/${id}`,
 } as const;
 
 export const LEGACY_URLS = {
@@ -37,13 +42,19 @@ export const LEGACY_URLS = {
   ESTABLISHMENT_DETAILS: (establishmentId: number) =>
     `/establishment/details/${establishmentId}`,
   COACH_DETAILS: (coachId: number) => `/coach/${coachId}`,
+  GROUP_ACTIVITY_DETAIL: (id: number) => `/activity/${id}/general`,
+  WORKSHOP_DETAIL: (id: number) => `/workshop-activity/${id}/general`,
 } as const;
 
 export const useUrls = () => {
   const navigate = useNavigate();
+  // `window.open` resolves from browser location, so we include router basename
+  // (for example `/studio`) before absolute app paths.
+  const appBasePath = useHref("/").replace(/\/$/, "");
   const shouldUseBookingManagementRevamp = useBookingManagementFlag(
     flags.BOOKINGS_MANAGEMENT_REVAMP,
   );
+  const detailEnabled = useClassFlag(ClassFlags.CLASSES_DETAIL_PAGE);
 
   const getBookingsManagementUrl = (id: number) =>
     generatePath(
@@ -99,7 +110,18 @@ export const useUrls = () => {
     navigate(url);
   };
 
+  const navigateToClassDetail = (id: number, isWorkshop: boolean) => {
+    const url = detailEnabled
+      ? `${appBasePath}${URLS.SERVICES_CLASSES_DETAIL(id)}`
+      : isWorkshop
+        ? LEGACY_URLS.WORKSHOP_DETAIL(id)
+        : LEGACY_URLS.GROUP_ACTIVITY_DETAIL(id);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return {
+    navigateToClassDetail,
     navigateToBookingsManagement,
     getBookingsManagementUrl,
     getBookingsManagementPath,

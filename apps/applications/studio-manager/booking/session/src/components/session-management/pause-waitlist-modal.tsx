@@ -15,6 +15,11 @@ export const PauseWaitlistModal: FC<{
   const { mutate: toggleWaitingListFreeze, isPending } =
     useToggleWaitingListFreeze();
 
+  const handleClose = () => {
+    if (isPending) return;
+    onClose();
+  };
+
   const handlePauseWaitlist = () => {
     toggleWaitingListFreeze(
       { sessionId, freeze: true },
@@ -27,7 +32,7 @@ export const PauseWaitlistModal: FC<{
       open={isOpen}
       size="md"
       title={t("modals.pauseWaitlist.title")}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("modals.pauseWaitlist.confirmButton"),
         onClick: handlePauseWaitlist,

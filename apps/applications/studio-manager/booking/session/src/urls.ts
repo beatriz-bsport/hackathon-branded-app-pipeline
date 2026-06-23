@@ -13,9 +13,14 @@ const { flags: ClassFlags, useFlag: useClassFlag } = makeFeatureFlags({
 } as const);
 
 const SESSION_ID_PARAM = ":sessionId";
+const SERIES_ID_PARAM = ":seriesId";
 const EDIT_SLUG = `${SESSION_ID_PARAM}/edit`;
 const INDEX = "..";
-const SERIES_SLUG = `${SESSION_ID_PARAM}/series`;
+const CALENDAR_ROOT = "/calendar";
+const SERIES_ROOT_SLUG = "series";
+const SERIES_SLUG = `${SERIES_ROOT_SLUG}/${SERIES_ID_PARAM}`;
+const SERIES_EDIT_SLUG = `${SERIES_SLUG}/edit`;
+const SERIES_CLASSES_SLUG = `${SERIES_SLUG}/classes`;
 const ALL_OCCURRENCES_SLUG = `${SESSION_ID_PARAM}/all-occurrences`;
 
 export const URLS = {
@@ -24,16 +29,36 @@ export const URLS = {
   BOOKINGS_MANAGEMENT_REVAMP_PATH: `${INDEX}/${SESSION_ID_PARAM}`,
   EDIT_SLUG,
   EDIT_PATH: `${INDEX}/${EDIT_SLUG}`,
+  SERIES_ROOT_SLUG,
   SERIES_SLUG,
-  SERIES_PATH: `${INDEX}/${SERIES_SLUG}`,
+  SERIES_EDIT_SLUG,
+  SERIES_CLASSES_SLUG,
   ALL_OCCURRENCES_SLUG,
   ALL_OCCURRENCES_PATH: `${INDEX}/${ALL_OCCURRENCES_SLUG}`,
   SERVICES_CLASSES_DETAIL: (id: number) => `/services/classes/${id}`,
 } as const;
 
+export const ABSOLUTE_ROUTES = {
+  INDEX: CALENDAR_ROOT,
+  CLASSES_LIST: `${CALENDAR_ROOT}?tab=classes`,
+  SERIES_LIST: `${CALENDAR_ROOT}?tab=series`,
+  BOOKINGS_MANAGEMENT_REVAMP: `${CALENDAR_ROOT}/${SESSION_ID_PARAM}`,
+  SERIES_EDIT: `${CALENDAR_ROOT}/${SERIES_EDIT_SLUG}`,
+  SERIES_CLASSES: `${CALENDAR_ROOT}/${SERIES_CLASSES_SLUG}`,
+  ALL_OCCURRENCES: `${CALENDAR_ROOT}/${ALL_OCCURRENCES_SLUG}`,
+};
+
+export const EXTERNAL_ROUTES = {
+  SERVICES: "/services/classes",
+};
+
+export const resolveBookingsManagementRevampPath = (sessionId: number) =>
+  generatePath(ABSOLUTE_ROUTES.BOOKINGS_MANAGEMENT_REVAMP, {
+    sessionId: String(sessionId),
+  });
+
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
-  GROUPED_OFFER_LIST: "/workshop-activity/tabs/groups",
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
   MEMBER_BOOKINGS: (memberId: number) => `/member/${memberId}/bookings`,
   ADD_MEMBER: "/member/add",
@@ -85,17 +110,19 @@ export const useUrls = () => {
   const resolveEditPath = (id: number) =>
     generatePath(URLS.EDIT_PATH, { sessionId: String(id) });
 
-  const resolveSeriesPath = (id: number) =>
-    generatePath(URLS.SERIES_PATH, { sessionId: String(id) });
+  const resolveSeriesEditPath = (seriesId: number) =>
+    generatePath(ABSOLUTE_ROUTES.SERIES_EDIT, {
+      seriesId: String(seriesId),
+    });
 
-  const resolveSeriesDetailsPath = () => {
-    // TODO: when series detail feature is ready, redirect to grouped-session detail page.
-    return LEGACY_URLS.GROUPED_OFFER_LIST;
-  };
+  const resolveSeriesClassesPath = (seriesId: number) =>
+    generatePath(ABSOLUTE_ROUTES.SERIES_CLASSES, {
+      seriesId: String(seriesId),
+    });
 
-  const navigateToSeriesDetails = () => {
-    const path = resolveSeriesDetailsPath();
-    window.location.assign(path);
+  const navigateToSeriesDetails = (seriesId: number) => {
+    const path = resolveSeriesEditPath(seriesId);
+    navigate(path);
   };
 
   const resolveAllOccurrencesPath = (id: number) =>
@@ -128,8 +155,8 @@ export const useUrls = () => {
     getEditUrl,
     getIndexUrl,
     resolveEditPath,
-    resolveSeriesPath,
-    resolveSeriesDetailsPath,
+    resolveSeriesEditPath,
+    resolveSeriesClassesPath,
     resolveAllOccurrencesPath,
     navigateToIndex,
     navigateToEdit,

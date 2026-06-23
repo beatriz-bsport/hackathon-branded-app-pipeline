@@ -1,5 +1,5 @@
 import { BookingListedInformation } from "./stores/session-management/types";
-import { AppointmentColumn, SessionColumns } from "./types";
+import { AppointmentColumn, SeriesColumn, SessionColumns } from "./types";
 
 export const DEFAULT_SESSION_COLUMNS = [
   SessionColumns.TIME,
@@ -22,6 +22,12 @@ export const DEFAULT_APPOINTMENT_COLUMNS = [
   AppointmentColumn.ESTABLISHMENT,
   AppointmentColumn.TYPE,
   AppointmentColumn.ACTIONS,
+];
+
+export const DEFAULT_SERIES_COLUMNS = [
+  SeriesColumn.DATES,
+  SeriesColumn.BOOKING_RULE,
+  SeriesColumn.CLASSES,
 ];
 
 export const DEFAULT_SESSION_LISTED_INFORMATION = [

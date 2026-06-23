@@ -7,15 +7,16 @@ import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
 import { useFetchTeacherPaymentRules } from "#src/hooks/use-fetch-teacher-payment-rules";
 import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
 import { useSessionCreationStore } from "#src/stores/session-creation/store";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionTeacherAndEstablishmentFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const TeacherPaymentRuleSelectorField: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  isWorkshop?: boolean;
+}> = ({ fieldIdPrefix, isWorkshop: isWorkshopOverride }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionTeacherAndEstablishmentFormValues>();
 
   const coachPaymentRule = watch("coach_payment_rule");
   const isCoachSelected = !!watch("coach");
@@ -26,7 +27,7 @@ export const TeacherPaymentRuleSelectorField: FC<{
     selectSelectedGroupActivity,
   );
 
-  const isWorkshop = selectedGroupActivity?.is_workshop;
+  const isWorkshop = isWorkshopOverride ?? selectedGroupActivity?.is_workshop;
 
   const filteredPaymentRules = useMemo(() => {
     if (!paymentRules) return [];
@@ -60,7 +61,11 @@ export const TeacherPaymentRuleSelectorField: FC<{
   }, [coachPaymentRule, paymentRuleItems]);
 
   return (
-    <FormField<SessionCreationFormData, "coach_payment_rule", AutocompleteProps>
+    <FormField<
+      SessionTeacherAndEstablishmentFormValues,
+      "coach_payment_rule",
+      AutocompleteProps
+    >
       name="coach_payment_rule"
       mapProps={({ form: { setValue } }) => ({
         onSelect: (selectedTeacherPaymentRuleId: string) => {

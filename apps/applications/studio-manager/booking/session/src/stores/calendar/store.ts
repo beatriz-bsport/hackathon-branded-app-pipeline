@@ -8,6 +8,7 @@ import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import {
   DEFAULT_APPOINTMENT_COLUMNS,
+  DEFAULT_SERIES_COLUMNS,
   DEFAULT_SESSION_COLUMNS,
 } from "#src/constants";
 import {
@@ -15,6 +16,8 @@ import {
   CalendarView,
   DateSelection,
   ModalState,
+  SeriesColumn,
+  SeriesOrdering,
   SessionColumns,
 } from "#src/types";
 
@@ -30,6 +33,13 @@ export interface AppointmentTabState {
   displayedColumns: AppointmentColumn[];
 }
 
+export interface SeriesTabState {
+  filters: FilterElementState[];
+  showCancelled: boolean;
+  displayedColumns: SeriesColumn[];
+  ordering: SeriesOrdering;
+}
+
 export interface CalendarState {
   calendarView: CalendarView;
   selectedDate: DateSelection;
@@ -37,6 +47,7 @@ export interface CalendarState {
   modalState: ModalState;
   classes: SessionTabState;
   appointments: AppointmentTabState;
+  series: SeriesTabState;
 }
 
 export const getInitialState = (): CalendarState => {
@@ -55,6 +66,12 @@ export const getInitialState = (): CalendarState => {
       showCancelled: true,
       filters: [],
       displayedColumns: DEFAULT_APPOINTMENT_COLUMNS,
+    },
+    series: {
+      filters: [],
+      showCancelled: true,
+      displayedColumns: DEFAULT_SERIES_COLUMNS,
+      ordering: "upcoming",
     },
   };
 };

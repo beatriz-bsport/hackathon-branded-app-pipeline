@@ -12,7 +12,7 @@ import { SessionStatus } from "#src/components/session-details/constants";
 import { Subtitle } from "#src/components/session-details/subtitle";
 import { useFetchRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import type { DetailsHeaderSession } from "#src/types";
-import { useUrls } from "#src/urls";
+import { ABSOLUTE_ROUTES, useUrls } from "#src/urls";
 import {
   type SessionTabKey,
   getVisibleSessionTabs,
@@ -31,9 +31,7 @@ export const useSessionDetailsHeaderConfig = (
   const {
     getBookingsManagementPath,
     resolveEditPath,
-    resolveSeriesPath,
     resolveAllOccurrencesPath,
-    getIndexUrl,
   } = useUrls();
 
   // ----- Status chip (unchanged behaviour) -----
@@ -67,10 +65,10 @@ export const useSessionDetailsHeaderConfig = (
 
   const pageStatusChip = statusChips[sessionStatus];
 
-  // ----- Breadcrumbs (unchanged behaviour) -----
+  // ----- Breadcrumbs -----
 
   const BreadcrumbsItems = [
-    <Link key="link-to-calendar" to={getIndexUrl()}>
+    <Link key="link-to-classes-list" to={ABSOLUTE_ROUTES.CLASSES_LIST}>
       <Breadcrumbs.Item text={tDetails("header.breadcrumbs")} />
     </Link>,
   ];
@@ -94,7 +92,6 @@ export const useSessionDetailsHeaderConfig = (
   const hrefByKey: Record<SessionTabKey, string> = {
     overview: getBookingsManagementPath(session.id),
     editor: resolveEditPath(session.id),
-    series: resolveSeriesPath(session.id),
     occurrences: resolveAllOccurrencesPath(session.id),
   };
 

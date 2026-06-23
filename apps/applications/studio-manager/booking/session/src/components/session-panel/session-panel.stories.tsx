@@ -125,3 +125,7 @@ export const Default: Story = {
 export const Minimal: Story = {
   decorators: [withProviders("minimal")],
 };
+
+export const GroupedSeries: Story = {
+  decorators: [withProviders("groupedSeries")],
+};

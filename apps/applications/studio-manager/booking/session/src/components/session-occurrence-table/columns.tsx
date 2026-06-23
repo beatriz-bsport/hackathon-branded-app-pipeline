@@ -35,8 +35,11 @@ export type OccurrenceRow = {
   teacherAvatar?: string;
   teacherInitials?: string;
   establishmentName?: string;
+  /** React Router destination used when rows should stay in the same window. */
+  detailPath?: string;
   /** Absolute URL to the session's management page (trailing link column). */
   detailUrl?: string;
+  isCurrentSession?: boolean;
 };
 
 export type OccurrenceColumnLabels = {
@@ -51,6 +54,11 @@ export type OccurrenceColumnLabels = {
   statusPast: string;
   statusCancelled: string;
   openSession: string;
+  thisClass?: string;
+};
+
+type OccurrenceColumnsOptions = {
+  showExternalLinkColumn?: boolean;
 };
 
 const STATUS_CHIP: Record<
@@ -66,9 +74,42 @@ const STATUS_CHIP: Record<
   cancelled: { color: "critical", labelKey: "statusCancelled" },
 };
 
+const buildExternalLinkColumns = (
+  labels: OccurrenceColumnLabels,
+  showExternalLinkColumn?: boolean,
+): GenericTableColumn<OccurrenceRow>[] => {
+  if (showExternalLinkColumn === false) {
+    return [];
+  }
+
+  return [
+    {
+      header: "",
+      id: "open",
+      type: "custom",
+      align: "end",
+      render: (row) =>
+        row.detailUrl ? (
+          <a
+            href={row.detailUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={labels.openSession}
+            // mr-xs: right-edge inset to mirror the first column (cell already has `xs`).
+            className="mr-xs text-onsurface-weak hover:text-onsurface-default"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Icon icon="link-external-02" size="sm" />
+          </a>
+        ) : null,
+    },
+  ];
+};
+
 export const buildOccurrenceColumns = (
   labels: OccurrenceColumnLabels,
   locale?: string,
+  options: OccurrenceColumnsOptions = { showExternalLinkColumn: true },
 ): GenericTableColumn<OccurrenceRow>[] => [
   {
     header: labels.date,
@@ -83,10 +124,22 @@ export const buildOccurrenceColumns = (
         start,
         DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY,
       );
-      if (!row.available) {
-        return <CancelledSessionName name={formatted} />;
+      const dateLabel = !row.available ? (
+        <CancelledSessionName name={formatted} />
+      ) : (
+        <Body htmlVariant="span">{formatted}</Body>
+      );
+
+      if (!row.isCurrentSession || !labels.thisClass) {
+        return dateLabel;
       }
-      return <Body htmlVariant="span">{formatted}</Body>;
+
+      return (
+        <div className="flex items-center gap-xs">
+          {dateLabel}
+          <Chip label={labels.thisClass} color="main" type="weak" size="lg" />
+        </div>
+      );
     },
   },
   {
@@ -162,24 +215,5 @@ export const buildOccurrenceColumns = (
       );
     },
   },
-  {
-    header: "",
-    id: "open",
-    type: "custom",
-    align: "end",
-    render: (row) =>
-      row.detailUrl ? (
-        <a
-          href={row.detailUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={labels.openSession}
-          // mr-xs: right-edge inset to mirror the first column (cell already has `xs`).
-          className="mr-xs text-onsurface-weak hover:text-onsurface-default"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Icon icon="link-external-02" size="sm" />
-        </a>
-      ) : null,
-  },
+  ...buildExternalLinkColumns(labels, options.showExternalLinkColumn),
 ];

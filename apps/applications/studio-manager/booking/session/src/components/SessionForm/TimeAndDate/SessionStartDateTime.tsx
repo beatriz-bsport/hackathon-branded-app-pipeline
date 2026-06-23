@@ -10,7 +10,7 @@ import { DatePicker, TimePicker } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { MAX_YEARS_AHEAD } from "#src/components/SessionForm/schemas";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const SessionStartDateTime: FC<{
@@ -20,7 +20,7 @@ export const SessionStartDateTime: FC<{
   const { t, i18n } = useTranslation("sessionCreation");
 
   const { watch, setValue, formState } =
-    useFormContext<SessionCreationFormData>();
+    useFormContext<SessionDateTimeFormValues>();
 
   const startDateTime = watch("startDateTime");
 

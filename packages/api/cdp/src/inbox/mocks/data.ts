@@ -1,8 +1,9 @@
 import type {
   InboxChannel,
-  InboxConversationListItem,
   InboxMessage,
+  InboxMessageChannelCode,
   InboxMessageSource,
+  RawInboxConversation,
 } from "../types";
 
 // Deterministic fixture data — no randomness so stories/tests are stable.
@@ -59,25 +60,20 @@ const PREVIEWS = [
   "I'll be 10 minutes late, is that okay?",
 ];
 
-const CHANNELS: InboxChannel[] = ["chat", "email", "sms", "push"];
+// Communication-kind codes mirroring bsport-django (0=email, 1=sms, 2=push,
+// 3=in_app). The list cycles through them to exercise every channel icon.
+const CHANNEL_CODES: InboxMessageChannelCode[] = [3, 0, 1, 2]; // chat(in_app), email, sms, push
 
 const pick = <T>(arr: T[], index: number): T => arr[index % arr.length];
 
-const initialsOf = (fullName: string): string =>
-  fullName
-    .split(" ")
-    .map((part) => part.charAt(0).toUpperCase())
-    .join("")
-    .slice(0, 2);
-
 /**
- * Builds a deterministic list of inbox conversations, ordered by most recent
- * activity first. Timestamps are derived from a fixed anchor so output is
- * stable across renders.
+ * Builds a deterministic list of raw (backend-shaped) inbox conversations,
+ * ordered by most recent activity first. Timestamps are derived from a fixed
+ * anchor so output is stable across renders.
  */
 export const makeInboxConversations = (
   count: number,
-): InboxConversationListItem[] => {
+): RawInboxConversation[] => {
   // Fixed anchor (not `Date.now()`) to keep fixtures deterministic.
   const anchor = Date.UTC(2026, 4, 5, 9, 0, 0); // 2026-05-05T09:00:00Z
 
@@ -86,23 +82,25 @@ export const makeInboxConversations = (
     const lastName = pick(LAST_NAMES, index * 7 + 3);
     const fullName = `${firstName} ${lastName}`;
     const unread = index % 3 === 0 ? (index % 4) + 1 : 0;
+    // Each row is 17 minutes older than the previous one.
+    const activityAt = new Date(anchor - index * 17 * 60 * 1000).toISOString();
 
     return {
-      id: `conv-${(index + 1).toString().padStart(4, "0")}`,
-      participant: {
-        memberId: 1000 + index,
-        fullName,
-        initials: initialsOf(fullName),
-      },
-      lastMessagePreview: pick(PREVIEWS, index * 3 + 1),
-      lastMessageChannel: pick(CHANNELS, index),
-      // Each row is 17 minutes older than the previous one.
-      dateUpdated: new Date(anchor - index * 17 * 60 * 1000).toISOString(),
-      studioUnreadCount: unread,
-      favorite: index % 5 === 0,
-      muted: index % 11 === 0,
-      aiEnabled: index % 2 === 0,
-    } satisfies InboxConversationListItem;
+      uuid: `conv-${(index + 1).toString().padStart(4, "0")}`,
+      participants: [
+        {
+          name: fullName,
+          photo: `https://i.pravatar.cc/96?u=${1000 + index}`,
+        },
+      ],
+      last_message_preview: pick(PREVIEWS, index * 3 + 1),
+      last_message_channel: pick(CHANNEL_CODES, index),
+      date_created: activityAt,
+      last_inbox_activity_at: activityAt,
+      studio_unread_count: unread,
+      has_unresolved_escalation: index % 7 === 0,
+      ai_enabled: index % 2 === 0,
+    } satisfies RawInboxConversation;
   });
 };
 

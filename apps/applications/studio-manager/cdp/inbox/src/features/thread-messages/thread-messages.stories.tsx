@@ -12,7 +12,6 @@ import { storybookDecorator } from "#src/utils/storybook-decorator";
 import { ThreadMessages } from "./thread-messages";
 
 const PARTICIPANT: InboxParticipantSummary = {
-  memberId: 553,
   fullName: "Emma Martin",
   initials: "EM",
 };

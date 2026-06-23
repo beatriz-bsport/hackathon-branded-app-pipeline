@@ -217,7 +217,6 @@ export const ThreadWithDetail: Story = {
 // ----- Integration story: real features wired through MSW -----
 
 const PARTICIPANT: InboxParticipantSummary = {
-  memberId: mockMemberDetail.id,
   fullName: mockMemberDetail.name,
   initials: "AS",
 };
@@ -254,7 +253,7 @@ export const Integration: StoryObj<typeof InboxLayout> = {
               </div>
             }
           >
-            <MemberDetailContent memberId={PARTICIPANT.memberId} />
+            <MemberDetailContent memberId={mockMemberDetail.id} />
           </Suspense>
         </InboxLayout.DetailPane>
       </InboxLayout.Content>
@@ -263,10 +262,9 @@ export const Integration: StoryObj<typeof InboxLayout> = {
   parameters: {
     layout: "fullscreen",
     msw: {
-      // The conversation-list pattern ends in `*`, so it also matches the
-      // per-conversation messages URL. The more specific messages handlers
-      // must be registered first (MSW resolves first-match-wins) or the list
-      // handler hijacks the messages request and returns conversation rows.
+      // The conversation-list and messages patterns are disjoint (the list
+      // pattern is anchored to the collection path), so handler order is not
+      // load-bearing here.
       handlers: [
         ...makeInboxMessagesHandlers(),
         ...makeInboxHandlers(),

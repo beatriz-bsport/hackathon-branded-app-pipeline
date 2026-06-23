@@ -35,4 +35,5 @@ export const i18nNamespaces: string[] = [
   "message-composer",
   "member-detail",
   "inbox-layout",
+  "thread-placeholder",
 ];

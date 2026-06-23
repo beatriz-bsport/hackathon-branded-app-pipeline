@@ -163,11 +163,9 @@
   },
   "categorySelector": {
     "label": "Category",
-    "selected": "",
-    "selected_one": "{{ count }} selected category",
-    "selected_other": "{{ count }} selected categories",
     "helperText": "Only selected categories will be included",
-    "placeholder": "Leave blank for no limit"
+    "placeholder": "Leave blank for no limit",
+    "loadingMessage": "Loading categories..."
   },
   "establishmentSelector": {
     "label": "Venue",

@@ -1,4 +1,4 @@
-import { type ChangeEvent, useCallback, useId, useMemo, useState } from "react";
+import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 
 import type { MetaActivity } from "@bsport/api-book";
 import {
@@ -48,10 +48,11 @@ export const ServiceSelectionStep = ({
   paginationNamespace,
 }: ServiceSelectionStepProps) => {
   const isMobile = !useMatchMedia("lg");
-  const componentId = useId();
-  const searchInputId = `${componentId}-service-selection-search`;
-  const listId = `${componentId}-service-selection-list`;
-  const tableId = `${componentId}-service-selection-table`;
+
+  // Used by E2E selectors; keep these ids stable.
+  const searchInputId = "search-activity-input";
+  const listId = "group-activities-list";
+  const tableId = "group-activities-table";
 
   const [searchInputValue, setSearchInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");

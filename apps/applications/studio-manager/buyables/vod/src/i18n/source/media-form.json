@@ -12,7 +12,7 @@
     },
     "credit_price": {
       "errorInvalid": "Price must be a valid positive number",
-      "equivalentCredits": "This pass will contain {{ creditsDisplay }}"
+      "equivalentCredits": "This offering will cost the equivalent of {{ creditsDisplay }} at your studio"
     },
     "manager_only": {
       "label": "Unlisted",

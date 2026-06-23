@@ -212,8 +212,8 @@ return (
 - **Focused**: Scoped to single-object interactions
 - **Lightweight**: Designed for quick actions and minimal forms
 
-[See full docs](https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-detaildrawer--docs)
-        `,
+[See full docs](https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-detaildrawer--docs)<br>
+<a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/detail-drawer" target="_blank">Kaizen docs</a>`,
       },
     },
   },

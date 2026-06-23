@@ -9,7 +9,7 @@ import Checkbox from "./Checkbox";
  * Indeterminate is a checkbox that is neither checked nor unchecked, and used to indicate that an option is partially selected.<br>
  * The change of state is managed outside the component.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=101-2833&t=ILcpgvtnyTJVg8PE-4" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/form-controls/checkbox/component-overview-Lp4DvbRG" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/checkbox" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Checkbox> = {
   component: Checkbox,

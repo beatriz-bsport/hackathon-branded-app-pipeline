@@ -481,8 +481,8 @@ const watchedValue = watch('viewMode');
 - [Select](./Select) - For dropdown selection with many options
 - [Button](./Button) - For single action buttons
 - [Badge](./Badge) - For notification indicators
-- [Icon](./Icon) - For available icon options
-`,
+- [Icon](./Icon) - For available icon options<br>
+<a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/segmented-control" target="_blank">Kaizen docs</a>`,
       },
     },
   },

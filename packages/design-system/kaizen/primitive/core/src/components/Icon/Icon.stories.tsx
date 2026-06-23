@@ -8,6 +8,8 @@ import Icon, { type IconName, icons, sizes } from "./Icon";
  * Generic Icon React component allowing to render any<br>
  * The Icon inherit the color from its parent component, but it can also be defined directly inside the Icon classname. <a href="https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-icon--docs#custom%20color%20icons">Example</a><br>
  * Tutorial <a href="https://medium.com/@mateuszpalka/creating-your-custom-svg-icon-library-in-react-a5ff1c4c704a" target="_blank">here</a>
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/icon" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Icon> = {
   component: Icon,

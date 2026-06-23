@@ -19,7 +19,7 @@ type CustomProps = React.ComponentProps<typeof Popover> & {
  * The Popover is always positioned relative to a target element, which is specified by the Anchor subcomponent.<br>
  * The Content subcomponent holds the additional information or actions that the Popover provides.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5697-18089&node-type=canvas&t=obgdPQCjAySQE353-0" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/modal/component-overview-md8WHQHD" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/popover" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<CustomProps> = {
   component: Popover,

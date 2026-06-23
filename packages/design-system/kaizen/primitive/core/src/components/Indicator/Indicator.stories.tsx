@@ -8,7 +8,8 @@ import Indicator, { colors, positions, sizes } from "./Indicator";
  * React component to display an Indicator for numeric notifications or status updates,
  * appearing beside the content it accompanies.<br>
  * If the value provided is greater than 99, it renders automatically as 99+.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=4704-20301&t=ZtkrBznxVQLOUSjH-4" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=4704-20301&t=ZtkrBznxVQLOUSjH-4" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/indicator" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Indicator> = {
   component: Indicator,

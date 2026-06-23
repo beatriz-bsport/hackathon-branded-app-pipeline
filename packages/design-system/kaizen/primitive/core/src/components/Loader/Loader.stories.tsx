@@ -5,6 +5,8 @@ import Loader, { sizes } from "./Loader";
 /**
  * Rendering an animated loader with three circles.
  * It's wrapped inside a centered container where you can add custom classes to position it. * @param props.className Classname to add to the wrapper of the loader.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/loader" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Loader> = {
   component: Loader,

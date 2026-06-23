@@ -63,7 +63,8 @@ import type { BaseRow, Column } from "./types";
  * - High contrast support for visual elements
  * - Focus management for interactive elements
  *
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2023-14889" target="_blank">View Design Specs</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2023-14889" target="_blank">View Design Specs</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/table" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Table> = {
   component: Table,

@@ -17,6 +17,7 @@ import Select, { sizes, statuses } from "./Select";
  * - **Uncontrolled Mode**: Pass the `defaultValue` prop to initialize the selected value internally. The component manages its own state.<br>
  *
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=331-23641" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/select" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Select> = {
   component: Select,

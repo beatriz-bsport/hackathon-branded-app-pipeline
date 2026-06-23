@@ -241,6 +241,7 @@ import { AutocompleteControlled } from "./autocomplete-controlled";
  * - [Chip](./?path=/docs/components-chip--docs) - For selected item display
  *
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2474-3186" target="_blank">Figma Design</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/autocomplete" target="_blank">Kaizen docs</a>
  *
  * @component
  */

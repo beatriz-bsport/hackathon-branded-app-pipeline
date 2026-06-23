@@ -26,6 +26,7 @@ const CATEGORIES = {
  * It provides a consistent layout for all pages, while supporting various features
  * such as breadcrumbs, tabs, filters, and custom actions.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=9463-59076&t=9IwGiqrl7BAz2nCl-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/header-layout" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof HeaderLayout> = {
   component: HeaderLayout,

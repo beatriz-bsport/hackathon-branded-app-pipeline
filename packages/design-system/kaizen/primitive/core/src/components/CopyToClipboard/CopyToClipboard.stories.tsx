@@ -5,6 +5,10 @@ import Button from "#src/components/Button";
 import CopyToClipboard from "./CopyToClipboard";
 import { useCopyToClipboard } from "./use-copy-to-clipboard";
 
+/**
+ * Copy text to the clipboard with optional tooltip and toast feedback.<br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/copy-to-clipboard" target="_blank">Kaizen docs</a>
+ */
 const meta: Meta<typeof CopyToClipboard> = {
   component: CopyToClipboard,
   title: "Components/CopyToClipboard",

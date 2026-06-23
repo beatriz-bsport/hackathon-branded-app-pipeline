@@ -97,8 +97,8 @@ return (
 - Panel and confirmation visibility are controlled by context.
 - Panel collapses to 0px when closed.
 
-[See full docs](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs)
-        `,
+[See full docs](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs)<br>
+<a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/panel" target="_blank">Kaizen docs</a>`,
       },
     },
   },

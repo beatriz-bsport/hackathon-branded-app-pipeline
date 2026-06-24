@@ -13,7 +13,6 @@ export const useOccurrenceTableLabels = () => {
       teacher: t("pageTabs.allOccurrencesTable.teacher"),
       establishment: t("pageTabs.allOccurrencesTable.establishment"),
       status: t("pageTabs.allOccurrencesTable.status"),
-      openSession: t("pageTabs.allOccurrencesTable.openSession"),
       thisClass: t("bookingFlow.confirmation.thisClass"),
       empty: t("pageTabs.allOccurrencesTable.empty"),
     }),

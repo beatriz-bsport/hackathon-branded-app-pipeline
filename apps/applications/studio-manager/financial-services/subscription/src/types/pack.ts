@@ -26,6 +26,5 @@ export type Pack = {
   perLocation: boolean;
   category: PackCategory;
   icon: IconName;
-  features: string[];
   learnMoreUrl?: string;
 };

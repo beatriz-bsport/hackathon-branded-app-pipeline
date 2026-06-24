@@ -1,14 +1,7 @@
 import type { FC } from "react";
 
 import { formatPriceWithCurrency } from "@bsport/currency";
-import {
-  Body,
-  Button,
-  Card,
-  Chip,
-  Icon,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Body, Button, Card, Icon, Title } from "@bsport/kaizen-primitive-core";
 
 import type { Pack } from "#src/types/pack";
 import { useTranslation } from "#src/utils/i18n";
@@ -27,19 +20,7 @@ const AvailableAddonCard: FC<AvailableAddonCardProps> = ({ pack }) => {
 
   return (
     <Card className="flex flex-col gap-sm">
-      <div className="flex items-center justify-between">
-        <Icon
-          icon={pack.icon}
-          size="md"
-          className="text-onsurface-main-strong"
-        />
-        <Chip
-          type="weak"
-          color="default"
-          size="lg"
-          label={t(`addons.categories.${pack.category}`)}
-        />
-      </div>
+      <Icon icon={pack.icon} size="md" className="text-onsurface-main-strong" />
       <div className="flex flex-col gap-2xs">
         <Title htmlVariant="h3" weight="strong">
           {pack.name}
@@ -48,18 +29,6 @@ const AvailableAddonCard: FC<AvailableAddonCardProps> = ({ pack }) => {
           {pack.description}
         </Body>
       </div>
-      <ul className="flex flex-col gap-2xs">
-        {pack.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-xs">
-            <Icon
-              icon="check"
-              size="sm"
-              className="mt-[2px] shrink-0 text-onsurface-main-strong"
-            />
-            <Body size="sm">{feature}</Body>
-          </li>
-        ))}
-      </ul>
       <div className="mt-auto flex justify-between">
         <div>
           <Title htmlVariant="h4">

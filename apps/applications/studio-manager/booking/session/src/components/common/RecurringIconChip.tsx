@@ -4,8 +4,18 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { IconChip } from "./IconChip";
 
-export const RecurringIconChip: React.FC = () => {
+type RecurringIconChipProps = {
+  tooltip?: string;
+};
+
+export const RecurringIconChip: React.FC<RecurringIconChipProps> = ({
+  tooltip,
+}) => {
   const { t } = useTranslation("common");
-  const tooltip = t("session.tooltips.recurring");
-  return <IconChip tooltip={tooltip} icon="refresh-ccw-01" />;
+  return (
+    <IconChip
+      tooltip={tooltip ?? t("session.tooltips.recurring")}
+      icon="refresh-ccw-02"
+    />
+  );
 };

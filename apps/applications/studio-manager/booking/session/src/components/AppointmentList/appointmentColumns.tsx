@@ -5,6 +5,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AppointmentShortcutActionsButton } from "#src/components/AppointmentList/AppointmentShortcutActionsButton";
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
+import { RecurringIconChip } from "#src/components/common/RecurringIconChip";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import {
   AppointmentColumn,
@@ -150,7 +151,9 @@ const getColumns = (
     type: "custom",
     align: "start",
     render: (row: EnrichedAppointment) =>
-      row.isRecurring ? <Icon icon="refresh-ccw-01" size="sm" /> : null,
+      row.isRecurring ? (
+        <RecurringIconChip tooltip={t("appointmentTable.recurringTooltip")} />
+      ) : null,
   };
 
   const actionsColumn: AppointmentTableColumn = {

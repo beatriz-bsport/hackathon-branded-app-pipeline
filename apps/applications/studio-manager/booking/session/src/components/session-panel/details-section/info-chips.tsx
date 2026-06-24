@@ -34,7 +34,7 @@ export const InfoChips: FC<{
           type="weak"
           color="default"
           size="lg"
-          iconLeft="refresh-ccw-01"
+          iconLeft="refresh-ccw-02"
           label={t("sessionPanel.details.recurring")}
         />
       )}

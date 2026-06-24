@@ -7,7 +7,6 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
-  Icon,
 } from "@bsport/kaizen-primitive-core";
 
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
@@ -37,7 +36,7 @@ export type OccurrenceRow = {
   establishmentName?: string;
   /** React Router destination used when rows should stay in the same window. */
   detailPath?: string;
-  /** Absolute URL to the session's management page (trailing link column). */
+  /** Absolute URL to the session's management page; opened on row click. */
   detailUrl?: string;
   isCurrentSession?: boolean;
 };
@@ -53,12 +52,7 @@ export type OccurrenceColumnLabels = {
   statusOngoing: string;
   statusPast: string;
   statusCancelled: string;
-  openSession: string;
   thisClass?: string;
-};
-
-type OccurrenceColumnsOptions = {
-  showExternalLinkColumn?: boolean;
 };
 
 const STATUS_CHIP: Record<
@@ -74,42 +68,9 @@ const STATUS_CHIP: Record<
   cancelled: { color: "critical", labelKey: "statusCancelled" },
 };
 
-const buildExternalLinkColumns = (
-  labels: OccurrenceColumnLabels,
-  showExternalLinkColumn?: boolean,
-): GenericTableColumn<OccurrenceRow>[] => {
-  if (showExternalLinkColumn === false) {
-    return [];
-  }
-
-  return [
-    {
-      header: "",
-      id: "open",
-      type: "custom",
-      align: "end",
-      render: (row) =>
-        row.detailUrl ? (
-          <a
-            href={row.detailUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={labels.openSession}
-            // mr-xs: right-edge inset to mirror the first column (cell already has `xs`).
-            className="mr-xs text-onsurface-weak hover:text-onsurface-default"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <Icon icon="link-external-02" size="sm" />
-          </a>
-        ) : null,
-    },
-  ];
-};
-
 export const buildOccurrenceColumns = (
   labels: OccurrenceColumnLabels,
   locale?: string,
-  options: OccurrenceColumnsOptions = { showExternalLinkColumn: true },
 ): GenericTableColumn<OccurrenceRow>[] => [
   {
     header: labels.date,
@@ -197,6 +158,7 @@ export const buildOccurrenceColumns = (
     header: labels.status,
     id: "status",
     type: "custom",
+    align: "center",
     render: (row) => {
       const status = getSessionTimeStatus({
         dateStart: row.date_start,
@@ -215,5 +177,4 @@ export const buildOccurrenceColumns = (
       );
     },
   },
-  ...buildExternalLinkColumns(labels, options.showExternalLinkColumn),
 ];

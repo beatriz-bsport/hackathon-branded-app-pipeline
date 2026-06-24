@@ -19,8 +19,7 @@
       "teacher": "Teacher",
       "establishment": "Venue",
       "status": "Status",
-      "empty": "No occurrences to show",
-      "openSession": "Open class"
+      "empty": "No occurrences to show"
     }
   },
   "goToPreviousSession": "Go to previous class",

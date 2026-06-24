@@ -146,6 +146,7 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
       rowsPerPage: currentPageSize,
       disabled: isLoading,
       totalItems: data?.count ?? 0,
+      showRowsPerPageSelector: true,
       onPageSettingsChange: setPageSettings,
     }),
     [currentPage, currentPageSize, isLoading, data?.count, setPageSettings],
@@ -167,19 +168,17 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
           statusOngoing: t("pageTabs.statusFilter.ongoing"),
           statusPast: t("pageTabs.statusFilter.past"),
           statusCancelled: t("pageTabs.statusFilter.cancelled"),
-          openSession: labels.openSession,
           thisClass: labels.thisClass,
         },
         i18n.language,
-        { showExternalLinkColumn: getSessionPath === undefined },
       ),
-    [t, i18n.language, labels, getSessionPath],
+    [t, i18n.language, labels],
   );
 
   return (
     <Table
       columns={columns}
-      rowHeight="sm"
+      rowHeight="lg"
       rows={rows.map((row) => {
         const detailPath = row.detailPath;
         const detailUrl = row.detailUrl;

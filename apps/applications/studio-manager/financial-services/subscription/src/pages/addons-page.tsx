@@ -40,24 +40,26 @@ const AddonsPage: FC = () => {
 
   return (
     <div className="flex min-w-0 flex-col p-md w-full max-w-component-content-centered m-auto gap-md">
-      <section className="flex flex-col gap-sm">
-        <div>
-          <Title htmlVariant="h2" weight="strong">
-            {t("addons.your-addons")}
-          </Title>
-          <Body color="weak">
-            {/* @ts-expect-error type system doesnt consider this as a valid key */}
-            {t("addons.your-addons-subtitle", {
-              count: subscribedPacks.length,
-            })}
-          </Body>
-        </div>
-        <div className="flex flex-col gap-sm">
-          {subscribedPacks.map((pack) => (
-            <SubscribedAddonCard key={pack.id} pack={pack} />
-          ))}
-        </div>
-      </section>
+      {subscribedPacks.length > 0 && (
+        <section className="flex flex-col gap-sm">
+          <div>
+            <Title htmlVariant="h2" weight="strong">
+              {t("addons.your-addons")}
+            </Title>
+            <Body color="weak">
+              {/* @ts-expect-error type system doesnt consider this as a valid key */}
+              {t("addons.your-addons-subtitle", {
+                count: subscribedPacks.length,
+              })}
+            </Body>
+          </div>
+          <div className="flex flex-col gap-sm">
+            {subscribedPacks.map((pack) => (
+              <SubscribedAddonCard key={pack.id} pack={pack} />
+            ))}
+          </div>
+        </section>
+      )}
       <section className="flex flex-col gap-sm">
         <div>
           <Title htmlVariant="h2" weight="strong">

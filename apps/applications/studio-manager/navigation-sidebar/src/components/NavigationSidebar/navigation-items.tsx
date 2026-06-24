@@ -432,12 +432,6 @@ export const useNavigationElements = ({
               }),
             },
             {
-              id: "subscription-finance",
-              label: t("menus.finance.subscription"),
-              hidden: !isSubscriptionPageEnabled,
-              ...navigationUrls.subscriptionFinance,
-            },
-            {
               id: "direct-debits",
               label: t("menus.finance.directDebits"),
               ...navigationUrls.directDebit,
@@ -645,7 +639,9 @@ export const useNavigationElements = ({
         {
           id: "bsportSubscription",
           label: t("menus.settings.bsportSubscription"),
-          ...navigationUrls.settings_bsportSubscription,
+          ...(isSubscriptionPageEnabled
+            ? navigationUrls.subscriptionFinance
+            : navigationUrls.settings_bsportSubscription),
         },
         {
           id: "quicksale",

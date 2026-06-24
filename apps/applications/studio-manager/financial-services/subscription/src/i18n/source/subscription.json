@@ -14,7 +14,7 @@
     "per-month": "{{price}} / month",
     "renews-on": "Renews on {{date}}",
     "other-plans": "Other plans",
-    "select-plan": "Select plan",
+    "contact-us": "Contact us",
     "learn-more": "Learn more",
     "columns": {
       "feature": "Feature",
@@ -171,28 +171,23 @@
     "packs": {
       "bi-connect": {
         "name": "BI Connect",
-        "description": "Stream your bsport data into your BI warehouse.",
-        "features": ["Snowflake connector", "BigQuery connector", "Daily sync"]
+        "description": "Get a complete, always up-to-date view of your studio's performance through 70+ interactive dashboards covering bookings, revenue, client retention, instructor performance, and more — all in one place, updated daily."
       },
       "data-as-a-service": {
         "name": "Data as a Service",
-        "description": "Custom data exports run by bsport analysts.",
-        "features": ["Quarterly report", "Custom dashboards"]
+        "description": "Connect your bsport data directly to the Business Insights or analytics tools your team already uses for deeper, fully custom analyses beyond the standard dashboards."
       },
       "access-control": {
         "name": "Access Control",
-        "description": "Role-based access and permissions for your organisation.",
-        "features": ["Roles", "Permissions", "Audit trail"]
+        "description": "Automate studio access by letting members open doors directly from the app, eliminating the need for reception staff and ensuring only eligible members can enter."
       },
       "fiskaly-twint": {
-        "name": "Fiskaly / Twint",
-        "description": "Swiss fiscal signing & Twint payment.",
-        "features": ["Fiskaly signing", "Twint"]
+        "name": "Local Compliance & Payments",
+        "description": "Support regional requirements out of the box: TSE fiscal compliance (Germany) or Twint payments (Switzerland). So your studio stays legally covered and payment-ready in your market."
       },
       "branded-app": {
         "name": "Branded App",
-        "description": "Your own app, on the App Store and Google Play.",
-        "features": ["iOS app", "Android app", "Custom branding"]
+        "description": "Give members a booking experience that looks and feels like your studio — fully customised with your colors, logo, and name, on iOS and Android."
       }
     }
   }

@@ -13,6 +13,7 @@ import { simulateUploadToBackend } from "./storiesHelpers";
  * or internally by the component itself.<br>
  * Apart from the `handleUploadFile` function, all upload logic is encapsulated within the component.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=809-14283" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/file-upload" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof FileUpload> = {
   component: FileUpload,

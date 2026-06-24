@@ -14,6 +14,7 @@ import { CheckBox as CheckBoxType, Radio as RadioType } from "./types";
  * for various menu item types, including buttons, radios, checkboxes, dividers, and titles. <br>
  * It dynamically renders the appropriate menu item component based on the specified `type` prop. <br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=438-4642&node-type=section&t=aRfMusWFLPnM8iFw-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/menu" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof MenuItem> = {
   component: MenuItem,

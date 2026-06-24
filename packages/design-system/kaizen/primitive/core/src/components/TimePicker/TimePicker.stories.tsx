@@ -7,6 +7,7 @@ import TimePicker from "./TimePicker";
  * A time picker component that allows users to select a time from a list of options.
  * The input field itself triggers the popover for time selection.
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=12337-39216" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/time-picker" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof TimePicker> = {
   component: TimePicker,

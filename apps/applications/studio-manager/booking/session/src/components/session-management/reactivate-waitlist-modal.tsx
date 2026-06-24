@@ -15,6 +15,11 @@ export const ReactivateWaitlistModal: FC<{
   const { mutate: toggleWaitingListFreeze, isPending } =
     useToggleWaitingListFreeze();
 
+  const handleClose = () => {
+    if (isPending) return;
+    onClose();
+  };
+
   const handleReactivateWaitlist = () => {
     toggleWaitingListFreeze(
       { sessionId, freeze: false },
@@ -27,7 +32,7 @@ export const ReactivateWaitlistModal: FC<{
       open={isOpen}
       size="md"
       title={t("modals.reactivateWaitlist.title")}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("modals.reactivateWaitlist.confirmButton"),
         onClick: handleReactivateWaitlist,

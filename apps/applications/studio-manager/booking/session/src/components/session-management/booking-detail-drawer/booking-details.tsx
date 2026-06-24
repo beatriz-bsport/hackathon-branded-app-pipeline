@@ -200,7 +200,7 @@ export const BookingDetails: FC<{
           </Body>
         </Alert>
       )}
-      {!!selectedBooking.spot_information && (
+      {!!selectedBooking.spot_information?.name && (
         <Section title={t("participantDetails.spot")}>
           <Body weight="weak" color="default">
             {`${selectedBooking.spot_information?.name ?? ""} ${composeLabel(
@@ -216,10 +216,17 @@ export const BookingDetails: FC<{
         <Section title={t("participantDetails.pass")}>
           <div className="flex flex-col">
             <div className="flex gap-xs items-center">
-              <a href={LEGACY_URLS.PASS_DETAILS(selectedBooking.passData.id)}>
-                <Body color="default">{selectedBooking.passData.name}</Body>
+              <a
+                href={LEGACY_URLS.PASS_DETAILS(selectedBooking.passData.id)}
+                className="flex gap-xs items-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Body color="default" weight="stronger">
+                  {selectedBooking.passData.name}
+                </Body>
+                <Icon size="sm" icon="share-03" />
               </a>
-              <Icon size="sm" icon="share-03" />
             </div>
             <Body color="default">
               {t("participantDetails.passValidity", {

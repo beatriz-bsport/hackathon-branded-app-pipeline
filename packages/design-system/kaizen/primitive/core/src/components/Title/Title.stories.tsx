@@ -5,7 +5,8 @@ import Title, { colors, htmlVariants, weights } from "./Title";
 /**
  * The Title component is a fundamental component used to render text with various
  * styling options, including different colors, HTML variants, and font weights.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3578-8855&t=L0dgj1SsTNjjcAKF-4" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3578-8855&t=L0dgj1SsTNjjcAKF-4" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/title" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Title> = {
   component: Title,

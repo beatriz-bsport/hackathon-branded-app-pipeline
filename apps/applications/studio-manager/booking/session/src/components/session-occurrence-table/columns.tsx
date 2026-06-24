@@ -7,7 +7,6 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
-  Icon,
 } from "@bsport/kaizen-primitive-core";
 
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
@@ -35,8 +34,11 @@ export type OccurrenceRow = {
   teacherAvatar?: string;
   teacherInitials?: string;
   establishmentName?: string;
-  /** Absolute URL to the session's management page (trailing link column). */
+  /** React Router destination used when rows should stay in the same window. */
+  detailPath?: string;
+  /** Absolute URL to the session's management page; opened on row click. */
   detailUrl?: string;
+  isCurrentSession?: boolean;
 };
 
 export type OccurrenceColumnLabels = {
@@ -50,7 +52,7 @@ export type OccurrenceColumnLabels = {
   statusOngoing: string;
   statusPast: string;
   statusCancelled: string;
-  openSession: string;
+  thisClass?: string;
 };
 
 const STATUS_CHIP: Record<
@@ -83,10 +85,22 @@ export const buildOccurrenceColumns = (
         start,
         DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY,
       );
-      if (!row.available) {
-        return <CancelledSessionName name={formatted} />;
+      const dateLabel = !row.available ? (
+        <CancelledSessionName name={formatted} />
+      ) : (
+        <Body htmlVariant="span">{formatted}</Body>
+      );
+
+      if (!row.isCurrentSession || !labels.thisClass) {
+        return dateLabel;
       }
-      return <Body htmlVariant="span">{formatted}</Body>;
+
+      return (
+        <div className="flex items-center gap-xs">
+          {dateLabel}
+          <Chip label={labels.thisClass} color="main" type="weak" size="lg" />
+        </div>
+      );
     },
   },
   {
@@ -144,6 +158,7 @@ export const buildOccurrenceColumns = (
     header: labels.status,
     id: "status",
     type: "custom",
+    align: "center",
     render: (row) => {
       const status = getSessionTimeStatus({
         dateStart: row.date_start,
@@ -161,25 +176,5 @@ export const buildOccurrenceColumns = (
         />
       );
     },
-  },
-  {
-    header: "",
-    id: "open",
-    type: "custom",
-    align: "end",
-    render: (row) =>
-      row.detailUrl ? (
-        <a
-          href={row.detailUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={labels.openSession}
-          // mr-xs: right-edge inset to mirror the first column (cell already has `xs`).
-          className="mr-xs text-onsurface-weak hover:text-onsurface-default"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Icon icon="link-external-02" size="sm" />
-        </a>
-      ) : null,
   },
 ];

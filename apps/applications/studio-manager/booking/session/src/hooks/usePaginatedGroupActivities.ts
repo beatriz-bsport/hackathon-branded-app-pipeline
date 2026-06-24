@@ -39,9 +39,13 @@ const searchGroupActivitiesQueryOptions = (
 
 export const usePaginatedGroupActivities = ({
   customerEnabled,
+  isWorkshop,
+  paginationNamespace,
   searchParams,
 }: {
   customerEnabled: boolean;
+  isWorkshop?: boolean;
+  paginationNamespace?: string;
   searchParams?: ConfigurableSearchParams;
 }) => {
   const hasCreateActivitySessionsPermission = useObjectLevelPermission(
@@ -51,19 +55,20 @@ export const usePaginatedGroupActivities = ({
     "session.workshop.allowed_actions.create",
   );
 
-  const isWorkshop =
+  const permissionBasedIsWorkshop =
     hasCreateActivitySessionsPermission && hasCreateWorkshopSessionsPermission
       ? undefined
       : hasCreateActivitySessionsPermission
         ? false
         : true;
+  const workshopFilter = isWorkshop ?? permissionBasedIsWorkshop;
 
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams();
+  const { currentPage, currentPageSize, setPage, setPageSettings } =
+    usePaginationQueryParams({ namespace: paginationNamespace });
 
   const fetchParams: FetchGroupActivitiesParams = {
     customerEnabled,
-    ...(isWorkshop !== undefined && { isWorkshop }),
+    ...(workshopFilter !== undefined && { isWorkshop: workshopFilter }),
     page: currentPage,
     pageSize: currentPageSize,
   };
@@ -97,5 +102,6 @@ export const usePaginatedGroupActivities = ({
     groupActivities,
     paginationProps,
     isLoading,
+    setPage,
   };
 };

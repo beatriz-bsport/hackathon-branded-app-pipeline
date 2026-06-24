@@ -40,11 +40,11 @@ export const Header: FC<{
         </div>
       )}
       callToActionButton={
-        session.available && !isMobile ? (
-          <BookButton sessionId={sessionId} openModal={openModal} />
-        ) : !session.group && !isMobile ? (
+        isMobile ? undefined : !session.available && !session.group ? (
           <RestoreSessionButton openModal={openModal} />
-        ) : undefined
+        ) : (
+          <BookButton sessionId={sessionId} openModal={openModal} />
+        )
       }
       searchConfig={searchConfig}
       {...headerConfig}

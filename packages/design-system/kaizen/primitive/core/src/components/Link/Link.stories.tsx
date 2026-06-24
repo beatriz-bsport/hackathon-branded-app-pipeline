@@ -7,7 +7,8 @@ import Link, { colors, weights } from "./Link";
 /**
  * The Link component is used to render hyperlinks with various customization options
  * including different colors, font weights, and an optional icon on the left.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3008-1186&t=L0dgj1SsTNjjcAKF-4" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3008-1186&t=L0dgj1SsTNjjcAKF-4" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/link" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Link> = {
   component: Link,

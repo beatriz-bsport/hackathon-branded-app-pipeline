@@ -14,6 +14,11 @@ export const DiscardBookingOptionModal: FC<{
 
   const { mutate: discardBookingOption, isPending } = useDiscardBookingOption();
 
+  const handleClose = () => {
+    if (isPending) return;
+    onClose();
+  };
+
   const [shouldSendNotification, setShouldSendNotification] = useState(true);
 
   const handleDiscardBookingOption = () => {
@@ -31,7 +36,7 @@ export const DiscardBookingOptionModal: FC<{
       open={isOpen}
       size="md"
       title={t("modals.removeFromWaitlist.title")}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("modals.removeFromWaitlist.confirmButton"),
         onClick: handleDiscardBookingOption,

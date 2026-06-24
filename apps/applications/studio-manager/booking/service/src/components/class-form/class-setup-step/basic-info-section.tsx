@@ -3,23 +3,22 @@ import { type FC, useMemo } from "react";
 import { FormField, useFormContext } from "@bsport/form";
 import { FormMediaField } from "@bsport/kaizen-business-components/form/media-field";
 import {
+  AutocompleteControlled,
+  type AutocompleteControlledProps,
   Body,
   Divider,
   RadioButton,
-  Select,
-  type SelectProps,
   TextArea,
   type TextAreaProps,
   TextField,
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { FormSection } from "#src/components/class-form/shared/form-section";
 import { useClassesCreatePermissions } from "#src/hooks/use-permissions";
 import useSCT from "#src/hooks/use-sct";
 import { type ClassFormValues, fieldIdPrefix } from "#src/utils/class-form";
 import { useTranslation } from "#src/utils/i18n";
-
-import { FormSection } from "../shared/form-section";
 
 export const BasicInfoSection: FC = () => {
   const { t } = useTranslation("add-edit-form");
@@ -35,19 +34,21 @@ export const BasicInfoSection: FC = () => {
     useClassesCreatePermissions();
 
   const categoryItems = useMemo(
-    () => [
-      {
-        id: "",
-        label: t("addEditForm.basicInfo.category.placeholder"),
-        disabled: true,
-      },
-      ...Array.from(sctMap.entries()).map(([id, label]) => ({
-        id: String(id),
+    () =>
+      Array.from(sctMap.entries()).map(([categoryId, label]) => ({
+        id: String(categoryId),
         label,
       })),
-    ],
-    [sctMap, t],
+    [sctMap],
   );
+  const categoryTextfieldProps: TextFieldProps = {
+    id: `${fieldIdPrefix}-category-select`,
+    label: t("addEditForm.basicInfo.category.label"),
+    placeholder: t("addEditForm.basicInfo.category.placeholder"),
+    helperText: t("addEditForm.basicInfo.category.helper"),
+    required: true,
+    className: "max-w-component-select",
+  };
 
   return (
     <FormSection>
@@ -115,28 +116,30 @@ export const BasicInfoSection: FC = () => {
       </FormField>
 
       <div className="w-[320px]">
-        <FormField<ClassFormValues, "SCT", SelectProps>
+        <FormField<ClassFormValues, "SCT", AutocompleteControlledProps>
           name="SCT"
-          mapProps={({ form, defaultProps, fieldState }) => ({
-            ...defaultProps,
-            onChange: (id) => {
-              form.setValue("SCT", id, {
+          mapProps={({ form, field, fieldState }) => ({
+            value: field.value ? [field.value] : [],
+            onChange: (selectedCategoryIds) => {
+              form.setValue("SCT", selectedCategoryIds[0] ?? "", {
                 shouldValidate: true,
                 shouldDirty: true,
               });
             },
-            status: fieldState.error ? "critical" : "default",
-            errorText: fieldState.error?.message,
+            textfieldProps: {
+              ...categoryTextfieldProps,
+              status: fieldState.error ? "error" : "default",
+              statusText: fieldState.error?.message,
+            },
           })}
         >
-          <Select
-            id={`${fieldIdPrefix}-category-select`}
-            label={t("addEditForm.basicInfo.category.label")}
-            size="md"
-            required
+          {/** @ts-expect-error Props are provided by FormField. */}
+          <AutocompleteControlled
             items={categoryItems}
-            helperText={t("addEditForm.basicInfo.category.helper")}
             fullWidth
+            menuProps={{
+              className: "max-h-component-select overflow-y-auto",
+            }}
           />
         </FormField>
       </div>

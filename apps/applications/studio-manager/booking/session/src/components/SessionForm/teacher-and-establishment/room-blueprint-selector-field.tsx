@@ -5,7 +5,7 @@ import { FormField, useFormContext } from "@bsport/form";
 import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
 
 import { useFetchRoomBlueprints } from "#src/hooks/use-fetch-room-blueprint";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionTeacherAndEstablishmentFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 /**
@@ -26,7 +26,7 @@ export const RoomBlueprintSelectorField: FC<{
   const { t } = useTranslation("sessionCreation");
 
   const { watch, setValue, trigger } =
-    useFormContext<SessionCreationFormData>();
+    useFormContext<SessionTeacherAndEstablishmentFormValues>();
 
   const establishmentId = watch("establishment");
   const roomBlueprintId = watch("room_blueprint");
@@ -62,7 +62,11 @@ export const RoomBlueprintSelectorField: FC<{
   if (hasNoRoomBlueprints) return null;
 
   return (
-    <FormField<SessionCreationFormData, "room_blueprint", AutocompleteProps>
+    <FormField<
+      SessionTeacherAndEstablishmentFormValues,
+      "room_blueprint",
+      AutocompleteProps
+    >
       name="room_blueprint"
       mapProps={({ form: { setValue, trigger } }) => ({
         onSelect: (selectedRoomBlueprintId: string) => {

@@ -4,7 +4,7 @@ import { FormField } from "@bsport/form";
 import { Select, type SelectProps } from "@bsport/kaizen-primitive-core";
 
 import { useWellhubProductField } from "#src/hooks/use-wellhub-product-field";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionWellhubProductFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const WellhubProductSelectorField: FC<{
@@ -30,7 +30,11 @@ export const WellhubProductSelectorField: FC<{
     return null;
 
   return (
-    <FormField<SessionCreationFormData, "wellhub_product_id", SelectProps>
+    <FormField<
+      SessionWellhubProductFormValues,
+      "wellhub_product_id",
+      SelectProps
+    >
       name="wellhub_product_id"
       mapProps={({ form: { setValue } }) => ({
         onChange: (selectedOptionId) => {

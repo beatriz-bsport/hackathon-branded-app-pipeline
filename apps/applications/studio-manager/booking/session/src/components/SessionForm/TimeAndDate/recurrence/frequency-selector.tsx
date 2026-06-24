@@ -5,7 +5,7 @@ import { useFormContext } from "@bsport/form";
 import { Label } from "#src/components/SessionForm/label";
 import { RecurrenceIntervalType } from "#src/events/constants";
 import { RecurrenceType } from "#src/helpers/recurrence/types";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { RecurrenceInterval } from "./interval";
@@ -17,7 +17,7 @@ export const RecurrenceFrequencySelector: FC<{
 }> = ({ fieldIdPrefix, trackRecurrenceType }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionDateTimeFormValues>();
 
   const recurrenceType = watch("recurrenceType");
 

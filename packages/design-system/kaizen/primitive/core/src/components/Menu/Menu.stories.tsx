@@ -208,6 +208,7 @@ const MENU_OPTIONS_WITH_EVERYTHING: Item[] = [
  * - Provides callback for item selection, enabling interactivity. <br>
  * <br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=438-4642&node-type=section&t=aRfMusWFLPnM8iFw-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/menu" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Menu> = {
   component: Menu,

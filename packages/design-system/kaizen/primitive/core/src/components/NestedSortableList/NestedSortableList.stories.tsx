@@ -3,6 +3,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Sortable, SortableListProps } from "../SortableList";
 import NestedSortableList from "./NestedSortableList";
 
+/**
+ * Nested sortable lists support drag-and-drop reordering across multiple grouped lists.<br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/nested-sortable-list" target="_blank">Kaizen docs</a>
+ */
 const meta: Meta<typeof NestedSortableList> = {
   component: NestedSortableList,
   argTypes: {

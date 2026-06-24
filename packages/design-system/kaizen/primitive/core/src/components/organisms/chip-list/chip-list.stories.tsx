@@ -6,6 +6,8 @@ import { type ChipItem, ChipList } from "./chip-list";
 /**
  * React component for a list of chips. It is a flexible container for displaying multiple chips,
  * with support for overflow handling via a popover.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/chip-list" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof ChipList> = {
   component: ChipList,

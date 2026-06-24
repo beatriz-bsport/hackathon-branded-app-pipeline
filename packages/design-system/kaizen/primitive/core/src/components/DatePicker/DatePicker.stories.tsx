@@ -22,6 +22,7 @@ import {
  * A configurable date picker component supporting single date or date range selection.<br>
  * Can be displayed as a popover, modal, or content-only with optional shortcut presets and localization support.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5920-373124" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/date-picker" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,

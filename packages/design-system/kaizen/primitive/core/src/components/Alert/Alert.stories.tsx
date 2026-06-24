@@ -8,7 +8,7 @@ import Alert, { layouts, statuses, types } from "./Alert";
  * The Alert component is a visual element that is used to convey important information to users.
  * It can be used to display info, warnings, errors, or success messages.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=382-8381" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/button/component-overview-CR89OIn0" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/alert" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Alert> = {
   component: Alert,

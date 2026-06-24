@@ -136,7 +136,7 @@
     "description": "Het verwijderen van deze categorie zal alle bijbehorende tags permanent van {{ number }} klanten verwijderen.",
     "alerts": {
       "tagInUse": {
-        "description": "Let op: het verwijderen van deze categorie zal ook gerelateerde tagregels verwijderen die nog actief zijn in voorwaardelijke workflows, zoals Audience of Smartlists",
+        "description": "Het verwijderen van deze categorie zal ook gerelateerde tagregels verwijderen die nog actief zijn in voorwaardelijke workflows, zoals Journeys of Smartlists",
         "confirmCheckbox": {
           "label": "Vink aan om te bevestigen: ",
           "description": "Ik begrijp dat het verwijderen van deze categorie de bijbehorende tags permanent zal verwijderen en dat dit invloed kan hebben op eventuele voorwaardelijke workflows waarin ze worden gebruikt.",
@@ -162,7 +162,7 @@
     "description": "Het verwijderen van deze tag zal het permanent verwijderen van {{number}} klanten waaraan het is toegewezen.",
     "alerts": {
       "tagInUse": {
-        "description": "Let op: het verwijderen van deze tag zal ook invloed hebben op eventuele voorwaardelijke workflows waarin het wordt gebruikt (zoals Smartlists of Audience)",
+        "description": "Het verwijderen van deze tag heeft ook invloed op alle voorwaardelijke workflows waarin deze wordt gebruikt (zoals Smartlists of Journeys)",
         "confirmCheckbox": {
           "label": "Vink aan om te bevestigen:",
           "description": "Ik begrijp dat het verwijderen van deze tag een permanente wijziging is die invloed kan hebben op alle bijbehorende workflows.",

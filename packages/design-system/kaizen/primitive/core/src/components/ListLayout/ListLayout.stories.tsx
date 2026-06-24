@@ -12,6 +12,7 @@ import ListLayout from "./ListLayout";
  * The Header will stick to the top of the page while the Content
  * will be scrollable if its content exceeds the window height.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=9463-59076&t=9IwGiqrl7BAz2nCl-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/list-layout" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof ListLayout> = {
   component: ListLayout,

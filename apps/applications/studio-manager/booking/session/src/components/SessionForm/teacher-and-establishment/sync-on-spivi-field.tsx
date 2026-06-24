@@ -4,7 +4,7 @@ import { FormField, useFormContext } from "@bsport/form";
 import { Toggle } from "@bsport/kaizen-primitive-core";
 
 import { useFetchRoomBlueprints } from "#src/hooks/use-fetch-room-blueprint";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionSpiviFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import {
   ADD_ON_IDENTIFIER_SPIVI,
@@ -16,7 +16,7 @@ export const SyncOnSpiviField: FC<{ fieldIdPrefix: string }> = ({
 }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch, setValue } = useFormContext<SessionCreationFormData>();
+  const { watch, setValue } = useFormContext<SessionSpiviFormValues>();
 
   const isChecked = watch("sync_on_spivi") ?? false;
 
@@ -44,7 +44,7 @@ export const SyncOnSpiviField: FC<{ fieldIdPrefix: string }> = ({
   if (!hasSpiviAddOn || !selectedBlueprintHasSpiviBox) return null;
 
   return (
-    <FormField<SessionCreationFormData, "sync_on_spivi"> name="sync_on_spivi">
+    <FormField<SessionSpiviFormValues, "sync_on_spivi"> name="sync_on_spivi">
       <Toggle
         checked={isChecked}
         id={`${fieldIdPrefix}-sync_on_spivi-session-field`}

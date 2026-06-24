@@ -20,7 +20,7 @@ const positionOptions: DialogPosition[] = ["centered", "bottom"];
  * interact with it before returning to the main flow, and can be used to
  * display important information or confirm an action.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=528-3960" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/modal/component-overview-md8WHQHD" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/modal" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Modal> = {
   component: Modal,

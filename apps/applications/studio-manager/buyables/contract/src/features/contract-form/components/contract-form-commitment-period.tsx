@@ -13,7 +13,7 @@ import { ContractFormIntervalSelector } from "./contract-form-interval-selector"
 type ContractFormCommitmentPeriodProps = {
   formId: string;
   methods: ContractFormMethods;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormCommitmentPeriod: FC<

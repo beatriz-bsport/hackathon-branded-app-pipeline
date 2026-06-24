@@ -1,9 +1,9 @@
 import { clsx } from "clsx";
 import React from "react";
-import { type FieldPath } from "react-hook-form";
 import type { z } from "zod";
 
 import {
+  type FieldPath,
   FormField,
   type UseFormControllerOutput,
   useFormContext,
@@ -76,6 +76,7 @@ export type VisibilitySelectorProps<
    * Custom onChange handler that receives the new value and form instance
    * Use this to perform side effects when the value changes
    */
+  labels?: VisibilitySelectorLabels;
   onFormChange?: (
     value: boolean,
     form?: UseFormControllerOutput<TSchema>,
@@ -124,12 +125,13 @@ export const VisibilitySelector = <
   disabled = false,
   radioGroupProps,
   fieldName,
+  labels: labelsOverride,
   onFormChange,
   trackVisibilityChange,
 }: VisibilitySelectorProps<TSchema, TFieldName>): React.ReactElement => {
   const { t } = useTranslation("sessionCreation");
 
-  const labels = {
+  const defaultLabels = {
     visible: {
       label: t(
         "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.label",
@@ -153,6 +155,7 @@ export const VisibilitySelector = <
       ),
     },
   };
+  const labels = labelsOverride ?? defaultLabels;
   const { watch } = useFormContext<TSchema>();
 
   const fieldValue = watch(fieldName);

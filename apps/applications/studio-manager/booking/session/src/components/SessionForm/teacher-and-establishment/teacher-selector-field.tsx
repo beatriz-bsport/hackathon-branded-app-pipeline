@@ -13,14 +13,14 @@ import {
   useFetchTeacher,
   useFetchTeachers,
 } from "#src/hooks/use-fetch-teachers";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionTeacherAndEstablishmentFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const TeacherSelectorField: FC<{
   fieldIdPrefix: string;
 }> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionTeacherAndEstablishmentFormValues>();
 
   const coach = watch("coach");
 
@@ -57,7 +57,11 @@ export const TeacherSelectorField: FC<{
   }, [coach, teacherItems]);
 
   return (
-    <FormField<SessionCreationFormData, "coach", AutocompleteProps>
+    <FormField<
+      SessionTeacherAndEstablishmentFormValues,
+      "coach",
+      AutocompleteProps
+    >
       name="coach"
       mapProps={({ form }) => ({
         onSelect: (selectedTeacherId: string) => {

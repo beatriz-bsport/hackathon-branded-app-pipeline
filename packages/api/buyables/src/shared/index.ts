@@ -9,6 +9,7 @@ import type {
   Fetch,
   PaginatedResponse,
   ResponseType,
+  SearchResponse,
   Xhr,
   XhrApiConfig,
 } from "@bsport/store-base";
@@ -56,6 +57,33 @@ export function createInfiniteQueryOptions<
         }),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
+    });
+}
+
+export function createInfiniteSearchQueryOptions<
+  FetchResult extends SearchResponse,
+  Params,
+>(
+  apiConfigBuilder: ApiConfigBuilder<Params>,
+  queryKeyGetter: (params: Params) => readonly unknown[],
+) {
+  return (fetch: Fetch<FetchResult>, params: Params) =>
+    infiniteQueryOptions({
+      queryKey: queryKeyGetter(params),
+      queryFn: ({ pageParam }) =>
+        createAPI<FetchResult, Params>(apiConfigBuilder)(fetch, {
+          ...params,
+          page: pageParam,
+        }),
+      initialPageParam: 1,
+      getNextPageParam: (searchResponse) => {
+        if (!searchResponse.next) return undefined;
+        const searchParams = new URL(searchResponse.next).searchParams;
+        const nextPage = searchParams.get("page");
+        if (!nextPage) return undefined;
+        const parsedNextPage = Number.parseInt(nextPage, 10);
+        return Number.isNaN(parsedNextPage) ? undefined : parsedNextPage;
+      },
     });
 }
 

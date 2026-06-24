@@ -8,6 +8,8 @@ import { fetchLevelQueryOptions } from "@bsport/api-core";
 
 import { fetch } from "#src/utils/fetch.js";
 
+const DEFAULT_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
 export const useRetrieveRefinedGroupSession = (
   groupSessionId?: number | null,
 ) => {
@@ -18,6 +20,7 @@ export const useRetrieveRefinedGroupSession = (
   } = useQuery({
     ...retrieveGroupSessionQueryOption(fetch, groupSessionId!),
     enabled: groupSessionId != null,
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const metaActivityId = groupSession?.meta_activity;

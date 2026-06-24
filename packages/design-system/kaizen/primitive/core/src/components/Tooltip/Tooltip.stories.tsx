@@ -9,6 +9,7 @@ import Tooltip from "./Tooltip";
  * React component for a tooltip element. It is a compact component that can be used to
  * represent a small piece of information, such as a hint or a description.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=490-3106" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/tooltip" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,

@@ -37,10 +37,14 @@ export const useContractPauseListRows = ({
   contractPauses,
   onEditClick,
   onCancelClick,
+  onItemClick,
+  selectedItem,
 }: {
   contractPauses: ContractPause[];
   onEditClick: (selectedPause: ContractPause) => void;
   onCancelClick: (selectedPauseId: number) => void;
+  selectedItem: ContractPause | null;
+  onItemClick: (value: ContractPause) => void;
 }) => {
   const { t, i18n } = useTranslation("contract-features");
 
@@ -107,11 +111,20 @@ export const useContractPauseListRows = ({
           dropdownConfig: {
             visibleActionsDisplayLimit: isMobile ? 0 : 2,
           },
+          onClick: () => onItemClick(contractPause),
+          isActive: selectedItem?.id === contractPause.id,
         };
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [contractPauses, i18n.language, isMobile, onEditClick, onCancelClick],
+    [
+      contractPauses,
+      i18n.language,
+      isMobile,
+      onEditClick,
+      onCancelClick,
+      selectedItem?.id,
+    ],
   );
 
   return rows;

@@ -29,6 +29,7 @@
   "dependencies": {
     "@bsport/api-buyables": "workspace:*",
     "@bsport/api-cdp": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",

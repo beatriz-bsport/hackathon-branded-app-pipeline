@@ -9,7 +9,8 @@ import Pagination from "./Pagination";
  * Pagination component for navigating through large sets of data, allowing navigation between pages
  * and the option to adjust the number of rows displayed per page. It includes support for boundary
  * and range-based page selection as well as a rows-per-page selector.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=948-7024" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=948-7024" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/pagination" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Pagination> = {
   component: Pagination,

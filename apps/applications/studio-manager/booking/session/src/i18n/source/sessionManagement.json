@@ -4,7 +4,6 @@
     "overview": "Overview",
     "editor": "Editor",
     "occurrences": "All occurrences",
-    "series": "Series",
     "statusFilter": {
       "label": "Status",
       "is": "is",
@@ -13,16 +12,6 @@
       "past": "Past",
       "cancelled": "Cancelled"
     },
-    "seriesTable": {
-      "date": "Date",
-      "time": "Time",
-      "participants": "Participants",
-      "teacher": "Teacher",
-      "establishment": "Venue",
-      "status": "Status",
-      "empty": "No classes to display",
-      "openSession": "Open class"
-    },
     "allOccurrencesTable": {
       "date": "Date",
       "time": "Time",
@@ -30,13 +19,13 @@
       "teacher": "Teacher",
       "establishment": "Venue",
       "status": "Status",
-      "empty": "No occurrences to show",
-      "openSession": "Open class"
+      "empty": "No occurrences to show"
     }
   },
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",
+  "refreshSuccess": "Lists refreshed",
   "bookButton": "Book client",
   "classIsFull": "This class is full",
   "bookAndOverride": "Book & override capacity",
@@ -204,6 +193,7 @@
     }
   },
   "bookingAttendanceFilter": {
+    "label": "Filter by:",
     "present": "Present",
     "absent": "Absent"
   },
@@ -310,6 +300,14 @@
       "credits_other": "{{count}} credits",
       "recurring": "Recurring"
     },
+    "series": {
+      "title": "Series",
+      "dateRange": "{{firstDate}} - {{lastDate}}",
+      "summary": "{{dateRange}} · {{count}} class",
+      "summary_other": "{{dateRange}} · {{count}} classes",
+      "missingDate": "No class date",
+      "linkAriaLabel": "Open series classes"
+    },
     "notes": {
       "title": "Notes",
       "editAriaLabel": "Edit note",
@@ -328,7 +326,9 @@
     "hybrid": {
       "title": "Hybrid class",
       "body": "This in-person class is paired with an online one.",
-      "linkAriaLabel": "Open paired online class"
+      "bodyOnline": "This online class is paired with an in-person one.",
+      "linkAriaLabel": "Open paired online class",
+      "linkAriaLabelOnline": "Open paired in-person class"
     },
     "tags": {
       "title": "Tags",
@@ -364,7 +364,8 @@
         "6005": "Someone is currently trying to book this spot. Please retry.",
         "23001": "No compatible pass allows this member to book this offer.",
         "23002": "Too many upcoming bookings or booking options.",
-        "generic": "Couldn't add client to waitlist"
+        "generic": "Couldn't add client to waitlist",
+        "settings": "Settings"
       }
     },
     "conversion": {

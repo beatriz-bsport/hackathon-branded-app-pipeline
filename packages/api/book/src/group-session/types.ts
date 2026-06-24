@@ -3,7 +3,12 @@ import type {
   PartnershipOffer,
 } from "#src/partnership/types";
 
+export type GroupSessionStatus = "scheduled" | "past" | "cancelled";
+
 export type GroupSessionParams = {
+  /** Filter groups that allow booking after the first offer starts. */
+  allow_booking_after_start?: boolean;
+
   /** Filter by whether the group session is available. */
   available?: boolean;
 
@@ -16,6 +21,9 @@ export type GroupSessionParams = {
   /** Filter by a list of group session IDs. */
   id__in?: number[];
 
+  /** Filter groups that require booking the full group. */
+  full_booking_only?: boolean;
+
   /** Filter by a list of level IDs. */
   level__in?: number[];
 
@@ -27,6 +35,12 @@ export type GroupSessionParams = {
 
   /** Minimum first offer date, inclusive. Format: YYYY-MM-DD. */
   min_date?: string;
+
+  /** Order results, for example "name" for alphabetical order. */
+  ordering?: string;
+
+  /** Filter by lifecycle status. */
+  status?: GroupSessionStatus;
 };
 
 export type PaginatedGroupSessionParams = GroupSessionParams & {
@@ -35,6 +49,11 @@ export type PaginatedGroupSessionParams = GroupSessionParams & {
 
   /** Page number of the results*/
   page?: number;
+};
+
+export type SearchGroupSessionParams = PaginatedGroupSessionParams & {
+  /** Required fuzzy search query. */
+  q: string;
 };
 
 export enum GroupSessionRecurrenceType {
@@ -65,6 +84,7 @@ export type GroupSession = {
   manager_only: boolean;
   recurrence_index: number | null;
   first_offer_date: string;
+  last_offer_date: string | null;
   sync_on_spivi?: boolean;
 };
 
@@ -79,9 +99,19 @@ export type UpdateGroupSessionPayload = {
   whitelist_tags?: number[];
 };
 
+export type UpdateGroupSessionParams = {
+  groupSessionId: number;
+  payload: UpdateGroupSessionPayload;
+};
+
 export type DeleteGroupSessionPayload = {
   notify_if_cancelled: boolean;
   similar_group_ids: number[];
+};
+
+export type DeleteGroupSessionParams = {
+  groupSessionId: number;
+  payload: DeleteGroupSessionPayload;
 };
 
 export type GroupSessionCreationGroupData = {

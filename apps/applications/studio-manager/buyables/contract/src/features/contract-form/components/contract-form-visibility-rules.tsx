@@ -6,12 +6,11 @@ import type { ContractFormData } from "../types";
 
 type ContractFormVisibilityRulesProps = {
   formId: string;
-  readonly?: boolean;
 };
 
 export const ContractFormVisibilityRules: FC<
   ContractFormVisibilityRulesProps
-> = ({ formId, readonly }) => {
+> = ({ formId }) => {
   return (
     <VisibilityRules<
       ContractFormData,
@@ -20,9 +19,10 @@ export const ContractFormVisibilityRules: FC<
       formId={formId}
       hideFromStaffField={{ name: "is_usable_by_staff", reversed: true }}
       newMembersField={{ name: null }}
-      recommendedField={{ name: "highlighted_as_recommended" }}
+      recommendedField={{
+        name: "highlighted_as_recommended",
+      }}
       className="max-w-[450px]"
-      disabled={readonly}
     />
   );
 };

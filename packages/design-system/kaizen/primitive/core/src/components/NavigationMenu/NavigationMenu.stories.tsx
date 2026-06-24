@@ -9,6 +9,7 @@ import NavigationMenu from "#src/components/NavigationMenu";
  * It supports items with optional sub-items, icons, and customizable actions using a composable API.
  * This menu is ideal for creating sidebars, dropdowns, or hierarchical navigation structures.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=4694-20081&node-type=canvas&t=i4AToSJYBCFUaZBF-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/app-navigation" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof NavigationMenu> = {
   component: NavigationMenu,

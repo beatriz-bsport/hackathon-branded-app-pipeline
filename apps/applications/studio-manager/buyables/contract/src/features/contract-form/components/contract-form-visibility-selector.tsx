@@ -7,7 +7,7 @@ import { useTranslation } from "#src/utils/i18n";
 import type { ContractFormData } from "../types";
 
 type ContractFormVisibilitySelectorProps = {
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormVisibilitySelector: FC<

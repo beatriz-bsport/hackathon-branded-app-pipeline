@@ -4,15 +4,25 @@ import { z } from "zod";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 
+import { fetch } from "#src/utils/fetch";
 import { tanstackQueryDevToolsDecorator } from "#src/utils/stories";
 
 import { EstablishmentFormSelector } from "./establishment-form-selector";
-import { EstablishmentRawSelector } from "./establishment-raw-selector";
+import {
+  DEFAULT_PROPS,
+  EstablishmentRawSelector,
+} from "./establishment-raw-selector";
 
 const metaComponentDescription = `
-**EstablishmentSelector** is a business component using DropdownMenu to select establishments (venues).
+**EstablishmentSelector** is a business component wrapping \`AutocompleteControlled\` to select establishments (venues) in multi-select mode.
 - **EstablishmentFormSelector**: Wrapped in a FormField
 - **EstablishmentRawSelector**: Raw component
+
+It handles internally:
+- the infinite paginated fetch of establishments,
+- the switch to the search endpoint as soon as the user types,
+- the resolution of preselected ids so their labels remain visible,
+- the grouping of establishments by their location address.
 
 ### Business Context
 
@@ -20,7 +30,7 @@ This component is intended for use in workflows where **establishments** must be
 - Configuring product availability per venue
 - Filtering or grouping items by venue
 
-Establishments are grouped by their location address in the dropdown to ease selection
+Establishments are grouped by their location address to ease selection
 when the company manages multiple venues at the same address.
 
 ### How to import?
@@ -32,6 +42,7 @@ import { EstablishmentFormSelector } from "@bsport/kaizen-business-components/co
 
 const metaSourceCode = `
 import { EstablishmentFormSelector } from "@bsport/kaizen-business-components/core/establishment-selector";
+import { fetch } from "#src/utils/fetch";
 
 // ...
 
@@ -53,6 +64,7 @@ const methods = useFormController({
   >
     id="establishment-selector-example"
     fieldName="establishments"
+    fetch={fetch}
     companyId={2}
     ...
   />
@@ -102,7 +114,9 @@ const meta: Meta<EstablishmentSelectorComponent> = {
           "establishments"
         >
           {...args}
+          id={`establishment-selector-example-${formId}`}
           fieldName="establishments"
+          fetch={fetch}
           companyId={2}
         />
 
@@ -113,11 +127,10 @@ const meta: Meta<EstablishmentSelectorComponent> = {
     );
   },
   args: {
+    ...DEFAULT_PROPS,
     required: true,
     disabled: false,
     withChips: true,
-    withSelectAll: true,
-    withSearch: true,
     className: "max-w-[420px]",
   },
 };
@@ -155,7 +168,9 @@ export const WithPredefinedValues: StoryObj<typeof EstablishmentFormSelector> =
             "establishments"
           >
             {...args}
+            id={`establishment-selector-example-${formId}`}
             fieldName="establishments"
+            fetch={fetch}
             companyId={2}
           />
 
@@ -171,11 +186,16 @@ export const WithPredefinedValues: StoryObj<typeof EstablishmentFormSelector> =
 const rawSelectorSourceCode = `
 import { useState } from "react";
 
+import { fetch } from "#src/utils/fetch";
+
 const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
 <EstablishmentRawSelector
-  onChange={(values) => setSelectedIds(values)}
+  id="establishment-selector-example"
+  fetch={fetch}
+  companyId={2}
   value={selectedIds}
+  onChange={setSelectedIds}
 />
 `;
 
@@ -193,6 +213,8 @@ export const RawSelector: StoryObj<typeof EstablishmentRawSelector> = {
     return (
       <EstablishmentRawSelector
         {...args}
+        id={`establishment-selector-example-${useId()}`}
+        fetch={fetch}
         onChange={(values) => setSelectedIds(values)}
         value={selectedIds}
         companyId={2}
@@ -240,7 +262,9 @@ const schema = z.object({
 
 | Prop | Description |
 |------|------------|
+| \`id\` | HTML id forwarded to the Autocomplete |
 | \`fieldName\` | Name of the number-list field in the form |
+| \`fetch\` | Fetch instance used internally to load establishments |
 | \`companyId\` | ID of the company, used to fetch the establishments of the company |
 
 ### Additional props
@@ -249,6 +273,7 @@ They will be forwarded to the inner EstablishmentRawSelector
 
 ### Requirements
 
+- @bsport/fetch
 - @bsport/kaizen-primitive-core
 - @bsport/form
 - @tanstack/react-query

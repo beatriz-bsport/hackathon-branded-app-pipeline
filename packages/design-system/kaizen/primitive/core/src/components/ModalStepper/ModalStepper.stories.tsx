@@ -15,6 +15,8 @@ import type { StepConfig } from "./types";
 /**
  * A stepper dialog that guides users through a multi-step process.
  * It appears on top of the main content and provides a structured way to complete complex tasks.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/stepper" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<ModalStepperProps> = {
   title: "Core/ModalStepper",

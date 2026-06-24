@@ -35,6 +35,8 @@ import Sidebar from "./Sidebar";
  * ```
  *
  * **Note:** To test mobile behavior, use Storybook's viewport toolbar or resize your browser to <768px width.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/app-navigation" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,

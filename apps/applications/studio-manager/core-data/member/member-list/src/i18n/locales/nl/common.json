@@ -50,7 +50,7 @@
         "effect": "Je kunt dit profiel op elk moment uit je archief herstellen."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Voordat je dit profiel archiveert, raden we aan om eerst het saldo van het profiel te vereffenen. Dit komt door een van de volgende redenen: ",
+        "adviseRegularization": "Voordat je dit profiel archiveert, raden we aan om eerst het accounttegoed van de klant te vereffenen. Dit komt door een van de volgende redenen: ",
         "items": {
           "negativeBalance": "Negatief saldo op de rekening",
           "unpaidInvoices": "Een of meer onbetaalde facturen",

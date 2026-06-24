@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import PaymentMethodLogo, {
+  PAYMENT_METHOD_LOGO_TYPES,
   type PaymentMethodLogoProps,
 } from "./payment-method-logo";
 
@@ -33,18 +34,7 @@ import PaymentMethodLogo from "@bsport/kaizen-business-components/financial-serv
 <PaymentMethodLogo type="twint" size="sm" />
 `;
 
-const paymentMethodOptions = [
-  "visa",
-  "mastercard",
-  "bancontact",
-  "google_pay",
-  "ideal",
-  "twint",
-  "apple_pay",
-  "paypal",
-  "sepa_debit",
-  "bacs_debit",
-] satisfies PaymentMethodLogoProps["type"][];
+const paymentMethodOptions = PAYMENT_METHOD_LOGO_TYPES;
 
 const meta: Meta<PaymentMethodLogoComponent> = {
   component: PaymentMethodLogo,

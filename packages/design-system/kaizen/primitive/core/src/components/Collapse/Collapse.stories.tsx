@@ -11,7 +11,8 @@ import useEmptyState from "#src/hooks/use-empty-state.hook";
  * typically as a toggleable section. It's ideal for scenarios where you want to
  * conserve screen space or organize information hierarchically, such as FAQs,
  * filters, or expandable details.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=826-7387&node-type=canvas&t=KitDYojgfO0WC5ph-0" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=826-7387&node-type=canvas&t=KitDYojgfO0WC5ph-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/collapse" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Collapse> = {
   component: Collapse,

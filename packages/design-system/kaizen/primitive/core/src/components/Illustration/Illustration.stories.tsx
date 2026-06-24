@@ -7,6 +7,8 @@ import { sizes } from "./variants";
 /**
  * Generic Illustration React component allowing to render illustrations for empty states, warnings, errors, etc.
  * Illustrations are hidden from screen readers by default unless an alt text is provided.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/illustration" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Illustration> = {
   component: Illustration,

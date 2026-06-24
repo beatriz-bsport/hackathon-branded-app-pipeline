@@ -9,7 +9,7 @@ import AvatarImage from "./assets/avatar.jpeg";
  * A component that displays an avatar, which can be an image or an icon.<br>
  * It allows to customize the size and shape of the avatar.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=686-3148" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/avatar/alert/component-overview-7HykSjhv" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/avatar" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Avatar> = {
   component: Avatar,

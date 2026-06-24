@@ -9,7 +9,7 @@ import {
 } from "#src/events/constants";
 import { generateRecurrenceDates } from "#src/helpers/recurrence";
 import { useRecurrenceConfig } from "#src/hooks/useRecurrenceConfig";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { RecurrenceEndDate } from "./end-date";
@@ -32,7 +32,7 @@ export const SessionRecurrence: FC<{
 }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionDateTimeFormValues>();
 
   const {
     isRecurring,

@@ -171,6 +171,7 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
             <PassSelectionStep
               sessionId={sessionId}
               isBookMultiSessionsSelected={isBookMultiSessionsSelected}
+              isConvertBookingOption={isConvertBookingOption}
               onSelectBookMultiSessions={handleSelectBookMultiSessions}
             />
           ) : null,

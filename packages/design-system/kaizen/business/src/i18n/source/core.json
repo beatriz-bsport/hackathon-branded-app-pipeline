@@ -169,11 +169,9 @@
   },
   "establishmentSelector": {
     "label": "Venue",
-    "selected": "",
-    "selected_one": "{{ count }} selected venue",
-    "selected_other": "{{ count }} selected venues",
     "helperText": "Only selected venues will be included",
-    "placeholder": "Leave blank for no limit"
+    "placeholder": "Leave blank for no limit",
+    "loadingMessage": "Loading venues..."
   },
   "addressAutocomplete": {
     "label": "Address",

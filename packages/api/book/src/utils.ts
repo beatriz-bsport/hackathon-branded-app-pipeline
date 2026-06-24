@@ -1,3 +1,9 @@
+/**
+ * Set of builders to
+ * - fasten the implementation of API functions ;
+ * - reduce boilerplate ;
+ * - enforce tanstack query good practices ;
+ */
 import {
   infiniteQueryOptions,
   mutationOptions,

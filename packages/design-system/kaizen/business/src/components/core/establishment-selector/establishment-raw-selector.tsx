@@ -1,120 +1,108 @@
-import { type FC, useMemo } from "react";
+import type { FC } from "react";
 
-import type { Establishment } from "@bsport/api-book";
+import type { Fetch } from "@bsport/fetch";
 import {
-  DropdownMultiSelect,
-  type DropdownMultiSelectProps,
+  AutocompleteControlled,
+  type AutocompleteControlledProps,
+  type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import { useEstablishmentsInfiniteQuery } from "./use-establishments-infinite-query";
+import { useEstablishmentSelectorQueries } from "./use-establishments-queries";
 
-type OptionProps = { name: string };
+// eslint-disable-next-line react-refresh/only-export-components
+export const DEFAULT_PROPS: Partial<EstablishmentRawSelectorProps> = {
+  popoverPlacement: "bottom-right",
+  searchMode: "remote",
+  fullWidth: true,
+  multiSelect: true,
+  withChips: true,
+  withSelectedInBase: true,
+  className: "max-w-component-select",
+  required: false,
+};
 
 export type EstablishmentRawSelectorProps = {
+  id: string;
+  fetch: Fetch;
   companyId: number;
+  /** Selected establishment ids. */
   value: number[];
-  onChange: (values: number[]) => void;
-} & Omit<
-  DropdownMultiSelectProps<OptionProps>,
-  | "value"
-  | "onChange"
-  | "mapOptionToChip"
-  | "isLoading"
-  | "anchorLabel"
-  | "options"
->;
-
-type FinalOption = DropdownMultiSelectProps<OptionProps>["options"][number];
-
-function groupEstablishmentsByAddress(establishments: Establishment[]) {
-  if (!establishments.length) {
-    return [];
-  }
-
-  const grouped = new Map<
-    string,
-    Array<{ id: string; children: string; name: string }>
-  >();
-
-  establishments.forEach((establishment) => {
-    const address = establishment.location.address;
-    const option = {
-      id: establishment.id.toString(),
-      children: establishment.title,
-      name: establishment.title,
-    };
-
-    const existing = grouped.get(address);
-    if (existing) {
-      existing.push(option);
-    } else {
-      grouped.set(address, [option]);
-    }
-  });
-
-  return Array.from(grouped.entries()).flatMap(([address, options], index) => {
-    const groupOptions: Array<FinalOption> = [
-      {
-        type: "title" as const,
-        id: `title-${address}`,
-        children: address,
-      },
-      ...options.map((option) => ({ type: "item" as const, ...option })),
-    ];
-    if (index < grouped.size - 1) {
-      groupOptions.push({
-        type: "divider",
-        id: `divider-${address}`,
-      });
-    }
-    return groupOptions;
-  }) satisfies DropdownMultiSelectProps<OptionProps>["options"];
-}
+  onChange: (next: number[]) => void;
+} & Partial<
+  Omit<
+    AutocompleteControlledProps,
+    "value" | "onChange" | "items" | "loadingProps"
+  >
+> &
+  Pick<
+    TextFieldProps,
+    "status" | "statusText" | "placeholder" | "label" | "required"
+  >;
 
 export const EstablishmentRawSelector: FC<EstablishmentRawSelectorProps> = ({
+  id,
+  fetch,
   companyId,
   value,
   onChange,
+  textfieldProps,
+  status,
   statusText,
   label,
-  ...dropdownMultiSelectProps
+  placeholder,
+  required,
+  menuProps,
+  onValueChange: consumerOnValueChange,
+  onClear: consumerOnClear,
+  ...autocompleteProps
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
-  const { data, isLoading } = useEstablishmentsInfiniteQuery(companyId);
 
-  const establishmentsAsOptions = useMemo(
-    () => groupEstablishmentsByAddress(data),
-    [data],
-  );
-
-  const helperText = statusText || t("establishmentSelector.helperText");
-
-  const buttonLabel =
-    value.length > 0
-      ? t("establishmentSelector.selected", {
-          count: value.length,
-        })
-      : t("establishmentSelector.placeholder");
+  const { items, isLoading, onValueChange, onClear, onScroll } =
+    useEstablishmentSelectorQueries({
+      fetch,
+      companyId,
+      selectedIds: value,
+    });
 
   return (
-    <DropdownMultiSelect<OptionProps>
+    <AutocompleteControlled
+      {...DEFAULT_PROPS}
       value={value.map((id) => id.toString())}
-      onChange={(values) => onChange(values.map((id) => parseInt(id, 10)))}
-      statusText={helperText}
-      anchorLabel={buttonLabel}
-      options={establishmentsAsOptions}
-      label={label ?? t("establishmentSelector.label")}
-      mapOptionToChip={(option) => ({
-        id: option.id,
-        color: "default",
-        type: "weak",
-        size: "lg",
-        label: option.name,
-      })}
-      isLoading={isLoading}
-      {...dropdownMultiSelectProps}
+      onChange={(next) => onChange(next.map((id) => parseInt(id, 10)))}
+      items={items}
+      loadingProps={{
+        isLoading,
+        message: t("establishmentSelector.loadingMessage"),
+      }}
+      onValueChange={(searchValue) => {
+        onValueChange(searchValue);
+        consumerOnValueChange?.(searchValue);
+      }}
+      onClear={() => {
+        onClear();
+        consumerOnClear?.();
+      }}
+      {...autocompleteProps}
+      textfieldProps={{
+        id: `${id}-textfield`,
+        placeholder: placeholder ?? t("establishmentSelector.placeholder"),
+        label: label ?? t("establishmentSelector.label"),
+        iconRight: "chevron-down",
+        required,
+        status,
+        statusText: statusText ?? t("establishmentSelector.helperText"),
+        ...textfieldProps,
+      }}
+      menuProps={{
+        className: "max-h-component-select overflow-y-auto",
+        onScroll,
+        ...menuProps,
+      }}
     />
   );
 };
+
+EstablishmentRawSelector.displayName = "KaizenEstablishmentRawSelector";

@@ -22,22 +22,31 @@ import { SessionRecurrence } from "./recurrence/session-recurrence";
 
 export const SessionTimeAndDate: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  showAggregatorWarning?: boolean;
+  trackAnalytics?: boolean;
+}> = ({
+  fieldIdPrefix,
+  showAggregatorWarning = true,
+  trackAnalytics = true,
+}) => {
   const { t } = useTranslation("sessionCreation");
 
   const trackRecurrenceToggle = (isRecurring: boolean) => {
+    if (!trackAnalytics) return;
     analyticsTrackSafeEvent(sessionCreationRecurrenceToggleEnabledEvent, {
       session_is_recurrent: isRecurring,
     });
   };
 
   const trackRecurrenceType = (recurrenceType: RecurrenceIntervalType) => {
+    if (!trackAnalytics) return;
     analyticsTrackSafeEvent(sessionCreationRecurrenceIntervalEvent, {
       session_recurrence_interval_selected: recurrenceType,
     });
   };
 
   const trackRecurrenceRule = (recurrenceRule: RecurrenceRuleType) => {
+    if (!trackAnalytics) return;
     analyticsTrackSafeEvent(sessionCreationRecurrenceRuleSelectedEvent, {
       session_recurrence_rule: recurrenceRule,
     });
@@ -60,7 +69,7 @@ export const SessionTimeAndDate: FC<{
         trackRecurrenceType={trackRecurrenceType}
         trackRecurrenceRule={trackRecurrenceRule}
       />
-      <AggregatorWarning />
+      {showAggregatorWarning && <AggregatorWarning />}
     </section>
   );
 };

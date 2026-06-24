@@ -319,16 +319,17 @@ export const WaitList: FC<{
                   emptyConfig: {
                     title: "",
                     subtitle: t("waitList.emptyState.title"),
-                    ...(hasAddToWaitlistPermission && {
-                      ctaButtonConfig: {
-                        label: t("addBookingOptions"),
-                        onClick: () => {
-                          openModal?.(
-                            SessionManagementModalType.ADD_TO_WAITLIST,
-                          );
+                    ...(hasAddToWaitlistPermission &&
+                      session.full && {
+                        ctaButtonConfig: {
+                          label: t("addBookingOptions"),
+                          onClick: () => {
+                            openModal?.(
+                              SessionManagementModalType.ADD_TO_WAITLIST,
+                            );
+                          },
                         },
-                      },
-                    }),
+                      }),
                   },
                 }
               : {
@@ -398,14 +399,17 @@ export const WaitList: FC<{
                 emptyConfig: {
                   title: "",
                   subtitle: t("waitList.emptyState.title"),
-                  ...(hasAddToWaitlistPermission && {
-                    ctaButtonConfig: {
-                      label: t("addBookingOptions"),
-                      onClick: () => {
-                        openModal?.(SessionManagementModalType.ADD_TO_WAITLIST);
+                  ...(hasAddToWaitlistPermission &&
+                    session.full && {
+                      ctaButtonConfig: {
+                        label: t("addBookingOptions"),
+                        onClick: () => {
+                          openModal?.(
+                            SessionManagementModalType.ADD_TO_WAITLIST,
+                          );
+                        },
                       },
-                    },
-                  }),
+                    }),
                 },
               }
             : {

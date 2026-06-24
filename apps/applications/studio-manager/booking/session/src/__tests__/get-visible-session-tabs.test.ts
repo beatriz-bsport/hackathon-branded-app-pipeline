@@ -7,12 +7,8 @@ describe("getVisibleSessionTabs", () => {
     expect(getVisibleSessionTabs(null, 1)).toEqual(["overview", "editor"]);
   });
 
-  it("returns overview + editor + series when session belongs to a group", () => {
-    expect(getVisibleSessionTabs(123, 1)).toEqual([
-      "overview",
-      "editor",
-      "series",
-    ]);
+  it("returns overview + editor when session belongs to a group", () => {
+    expect(getVisibleSessionTabs(123, 1)).toEqual(["overview", "editor"]);
   });
 
   it("returns overview + editor + occurrences when not grouped but recurring", () => {
@@ -23,11 +19,7 @@ describe("getVisibleSessionTabs", () => {
     ]);
   });
 
-  it("prefers series over occurrences when a grouped session is also recurring", () => {
-    expect(getVisibleSessionTabs(123, 5)).toEqual([
-      "overview",
-      "editor",
-      "series",
-    ]);
+  it("returns overview + editor when a grouped session is also recurring", () => {
+    expect(getVisibleSessionTabs(123, 5)).toEqual(["overview", "editor"]);
   });
 });

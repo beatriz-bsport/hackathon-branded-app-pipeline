@@ -18,7 +18,7 @@ import RadioGroup from "./RadioGroup";
  * This component is used to render a set of radio buttons, allowing the user to select
  * a single option from the provided list.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2069-5293&t=m4qTMe7zQfpmdCzB-4" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/form-controls/radio/component-overview-sFKOXDqa" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/radio" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof RadioGroup> = {
   component: RadioGroup,

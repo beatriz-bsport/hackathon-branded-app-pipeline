@@ -8,8 +8,12 @@ import {
   Select,
 } from "@bsport/kaizen-primitive-core";
 
+import {
+  type SavedPaymentMethodTypeLabelKey,
+  getSavedPaymentMethodDisplay,
+} from "#src/components/financial-services/payment-method-display";
 import PaymentMethodLogo, {
-  type PaymentMethodLogoProps,
+  type PaymentMethodLogoType,
 } from "#src/components/financial-services/payment-method-logo";
 import type { PaymentMethodSelectorProps } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -18,7 +22,6 @@ import {
   ALL_PAYMENT_METHOD_OPTIONS,
   type AllPaymentMethodKey,
   DEFAULT_ALL_METHOD_KEY,
-  SAVED_METHOD_LOGO_TYPE,
   SAVED_PAYMENT_METHOD_TYPE,
 } from "./constants";
 import {
@@ -39,99 +42,30 @@ const PLACEHOLDER_ITEM_ID = "payment-method-selector:placeholder";
 type SavedPaymentMethodMappedOption = {
   id: string;
   label: string;
-  logoType?: PaymentMethodLogoProps["type"];
+  logoType?: PaymentMethodLogoType;
   savedType: SavedPaymentMethod["type"];
   expirationDate?: string;
   paymentBackendIdentifier?: number;
 };
 
-const formatSavedPaymentMethodLabel = (
-  paymentMethod: SavedPaymentMethod,
-  t: (
-    key:
-      | "paymentMethod.card"
-      | "paymentMethod.sepaDebit"
-      | "paymentMethod.bacsDebit",
-  ) => string,
-): string => {
-  const normalizedIdentifier = paymentMethod.readable_identifier?.trim() ?? "";
-  const identifierDigits = normalizedIdentifier.replace(/[^0-9]/g, "");
-  const maskedIdentifier = normalizedIdentifier.startsWith("****")
-    ? normalizedIdentifier
-    : identifierDigits
-      ? `****${identifierDigits.slice(-4)}`
-      : "";
-
-  return (
-    maskedIdentifier ||
-    t(
-      paymentMethod.type === SAVED_PAYMENT_METHOD_TYPE.CARD
-        ? "paymentMethod.card"
-        : paymentMethod.type === SAVED_PAYMENT_METHOD_TYPE.SEPA_DEBIT
-          ? "paymentMethod.sepaDebit"
-          : "paymentMethod.bacsDebit",
-    )
-  );
-};
-
-const savedPaymentMethodToLogoType = (
-  paymentMethod: SavedPaymentMethod,
-): PaymentMethodLogoProps["type"] | undefined => {
-  switch (paymentMethod.type) {
-    case SAVED_PAYMENT_METHOD_TYPE.CARD: {
-      const normalizedBrand = (
-        paymentMethod.display_brand ??
-        paymentMethod.brand ??
-        ""
-      ).toLowerCase();
-
-      if (normalizedBrand === SAVED_METHOD_LOGO_TYPE.VISA) {
-        return SAVED_METHOD_LOGO_TYPE.VISA;
-      }
-      if (normalizedBrand === SAVED_METHOD_LOGO_TYPE.MASTERCARD) {
-        return SAVED_METHOD_LOGO_TYPE.MASTERCARD;
-      }
-      return undefined;
-    }
-    case SAVED_PAYMENT_METHOD_TYPE.SEPA_DEBIT:
-      return SAVED_METHOD_LOGO_TYPE.SEPA_DEBIT;
-    case SAVED_PAYMENT_METHOD_TYPE.BACS_DEBIT:
-      return SAVED_METHOD_LOGO_TYPE.BACS_DEBIT;
-  }
-};
-
-const formatExpirationDate = (value?: string): string | undefined => {
-  if (!value) return undefined;
-
-  const trimmedValue = value.trim();
-  const match = trimmedValue.match(/^(\d{1,2})\s*\/\s*(\d{2}|\d{4})$/);
-
-  if (!match) return trimmedValue;
-
-  const [, month, year] = match;
-  const normalizedMonth = month.padStart(2, "0");
-  const normalizedYear = year.length === 4 ? year.slice(-2) : year;
-
-  return `${normalizedMonth}/${normalizedYear}`;
-};
-
 const mapSavedPaymentMethodsToOptions = (
   paymentMethods: SavedPaymentMethod[],
-  t: (
-    key:
-      | "paymentMethod.card"
-      | "paymentMethod.sepaDebit"
-      | "paymentMethod.bacsDebit",
-  ) => string,
+  t: (key: SavedPaymentMethodTypeLabelKey) => string,
 ): SavedPaymentMethodMappedOption[] => {
-  return paymentMethods.map((paymentMethod) => ({
-    id: paymentMethod.id,
-    label: formatSavedPaymentMethodLabel(paymentMethod, t),
-    savedType: paymentMethod.type,
-    expirationDate: formatExpirationDate(paymentMethod.additional_info),
-    logoType: savedPaymentMethodToLogoType(paymentMethod),
-    paymentBackendIdentifier: paymentMethod.payment_backend_identifier,
-  }));
+  return paymentMethods.map((paymentMethod) => {
+    const display = getSavedPaymentMethodDisplay(paymentMethod);
+
+    return {
+      id: paymentMethod.id,
+      label: display.hasMaskedDigits
+        ? display.maskedIdentifier
+        : t(display.typeLabelKey),
+      savedType: paymentMethod.type,
+      expirationDate: display.expiry,
+      logoType: display.logoType,
+      paymentBackendIdentifier: paymentMethod.payment_backend_identifier,
+    };
+  });
 };
 
 const getTriggerIconLeftForSelection = (

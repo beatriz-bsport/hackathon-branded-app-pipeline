@@ -6,7 +6,7 @@ import { type BreadcrumbItemProps, BreadcrumbsItem } from "./BreadcrumbsItem";
 /**
  * Component that show users their current location within a hierarchy of pages or sections.
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=591-6021" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/dropdown-menu/component-overview-JTn1hKTy" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/breadcrumbs" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Breadcrumbs> = {
   component: Breadcrumbs,

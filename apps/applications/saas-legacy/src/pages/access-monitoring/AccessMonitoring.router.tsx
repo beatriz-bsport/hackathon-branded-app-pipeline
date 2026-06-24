@@ -152,7 +152,7 @@ const AccessMonitoringRouter: React.FC<Props> = ({
    * BroadcastChannel is not available for some older browsers
    * Sentry - https://bsport-cg.sentry.io/issues/5487093653/
    */
-  const isBroadcastChannelAvailable = 'BroadcastChannel' in (global ?? {});
+  const isBroadcastChannelAvailable = 'BroadcastChannel' in globalThis;
 
   return (
     <div className={classes.fullHeightRelative}>

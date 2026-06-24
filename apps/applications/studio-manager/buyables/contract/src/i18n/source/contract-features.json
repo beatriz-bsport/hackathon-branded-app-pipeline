@@ -103,6 +103,17 @@
     "scheduled": "Scheduled",
     "ended": "Ended"
   },
+  "pauseDetailDrawer": {
+    "navigation": {
+      "selectPreviousItem": "Select previous item",
+      "selectNextItem": "Select next item"
+    },
+    "control": {
+      "available": "Available",
+      "unavailable": "Unavailable"
+    },
+    "emptyList": "No membership plans found"
+  },
   "benefitsCard": {
     "kinds": {
       "pass": "Class pass",

@@ -1,8 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import type { Session } from "@bsport/api-book";
-import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
+import { Button, toast, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { MoreActionsButton } from "#src/components/session-management/action-buttons/more-actions-button";
@@ -19,6 +19,8 @@ type SessionForHeader = Pick<
 type Options = {
   openModal: (type: SessionManagementModalType) => void;
 };
+
+const TOAST_DURATION = 1000;
 
 export const useSessionHeaderBase = (
   session: SessionForHeader,
@@ -38,6 +40,15 @@ export const useSessionHeaderBase = (
     sessionName,
     coachName: teacher.name,
   });
+
+  const refresh = useCallback(() => {
+    queryClient.invalidateQueries();
+    toast({
+      status: "default",
+      title: t("refreshSuccess"),
+      duration: TOAST_DURATION,
+    });
+  }, [queryClient, t]);
 
   const startGroupActions = useMemo(
     () => [
@@ -60,7 +71,7 @@ export const useSessionHeaderBase = (
                 intent="default"
                 color="main"
                 label={t("refresh")}
-                onClick={() => queryClient.invalidateQueries()}
+                onClick={refresh}
               />
             </ResponsiveTooltip>,
           ]),
@@ -71,7 +82,7 @@ export const useSessionHeaderBase = (
         isMobile={isMobile}
       />,
     ],
-    [session.id, openModal, queryClient, t, isMobile],
+    [session.id, openModal, t, isMobile, refresh],
   );
 
   return { pageTitle, startGroupActions, isMobile };

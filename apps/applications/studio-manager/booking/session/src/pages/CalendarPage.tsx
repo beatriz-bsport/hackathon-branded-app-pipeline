@@ -27,6 +27,11 @@ import { DuplicateSessionModal } from "#src/components/SessionList/detail-action
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { WellhubProductModal } from "#src/components/WellhubProductModal/WellhubProductModal";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
+import { SeriesAddModal } from "#src/components/series-add/series-add-modal";
+import { useSeriesFilterConfig } from "#src/components/series-list/filters/use-series-filter-config";
+import { SeriesListDisplaySettings } from "#src/components/series-list/series-list-display-settings";
+import { SeriesListTable } from "#src/components/series-list/series-list-table";
 import { SearchClearSource } from "#src/events/constants";
 import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
@@ -43,7 +48,10 @@ import { AppointmentModalType, ModalType } from "#src/types";
 import { flags, useBookingManagementFlag } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
-import { useAnyObjectLevelPermissions } from "#src/utils/permission";
+import {
+  useAnyObjectLevelPermissions,
+  useObjectLevelPermission,
+} from "#src/utils/permission";
 
 import { useAppointmentFilterConfig } from "../components/AppointmentList/Filters/use-appointment-filter-config";
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
@@ -134,11 +142,19 @@ const CalendarPage: React.FC = () => {
     "session.activity.allowed_actions.create",
     "session.workshop.allowed_actions.create",
   ]);
+  const hasCreateSeriesPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.create",
+  );
 
   const {
     isOpen: addSessionModalOpen,
     open: openAddSessionModal,
     close: closeAddSessionModal,
+  } = useModal();
+  const {
+    isOpen: addSeriesModalOpen,
+    open: openAddSeriesModal,
+    close: closeAddSeriesModal,
   } = useModal();
   const {
     isOpen: exportParticipantsModalOpen,
@@ -173,8 +189,11 @@ const CalendarPage: React.FC = () => {
   const fetchParams =
     selectedDate.type === "single"
       ? { date: selectedDate.date }
-      : selectedDate.minDate && selectedDate.maxDate
-        ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
+      : selectedDate.minDate
+        ? {
+            minDate: selectedDate.minDate,
+            maxDate: selectedDate.maxDate ?? selectedDate.minDate,
+          }
         : null;
 
   const {
@@ -242,14 +261,19 @@ const CalendarPage: React.FC = () => {
     [filteredAppointments],
   );
 
-  // TODO: Add Series display settings in the upcoming Series listing MR.
   const displaySettingsTab: CalendarDataTab | undefined =
-    activeTab === "series" ? undefined : activeTab;
+    activeTab === "classes" || activeTab === "appointments"
+      ? activeTab
+      : undefined;
   const displaySettings = useMemo(() => {
+    if (isSeriesTabActive) {
+      return () => <SeriesListDisplaySettings />;
+    }
+
     if (!displaySettingsTab) return undefined;
 
     return () => <DisplaySettings activeTab={displaySettingsTab} />;
-  }, [displaySettingsTab]);
+  }, [displaySettingsTab, isSeriesTabActive]);
   const endGroupActions = useMemo(() => {
     if (!isClassesTab) return undefined;
     return [
@@ -268,6 +292,8 @@ const CalendarPage: React.FC = () => {
   const { filterConfig, sessionFiltersRef } = useFilterConfig();
   const { filterConfig: appointmentFilterConfig, appointmentFiltersRef } =
     useAppointmentFilterConfig(appointments);
+  const { filterConfig: seriesFilterConfig, seriesFiltersRef } =
+    useSeriesFilterConfig({ enabled: isSeriesTabActive });
 
   const filters = useCalendarStore(selectSessionFilters);
   const hasEmptyResults =
@@ -286,6 +312,10 @@ const CalendarPage: React.FC = () => {
     openAddSessionModal();
     analyticsTrackSafeEvent(sessionCreationOpensEvent, {});
   }, [openAddSessionModal]);
+
+  const onClickAddSeries = useCallback(() => {
+    openAddSeriesModal();
+  }, [openAddSeriesModal]);
 
   // Tracks the display settings on Mixpanel when the user lands on the page.
   useTrackSessionListViewed();
@@ -377,48 +407,67 @@ const CalendarPage: React.FC = () => {
     message: t("table.isLoading"),
   });
 
-  // TODO: Add Series filters in the upcoming Series listing MR.
   const headerFilterConfig = isClassesTab
     ? filterConfig
     : isAppointmentsTab
       ? appointmentFilterConfig
-      : undefined;
+      : seriesFilterConfig;
   const headerFilterRef = isClassesTab
     ? sessionFiltersRef
     : isAppointmentsTab
       ? appointmentFiltersRef
-      : undefined;
+      : seriesFiltersRef;
 
-  // TODO: Add Series search in the upcoming Series listing MR.
-  const headerSearchConfig = isSeriesTabActive
-    ? undefined
-    : {
-        id: isClassesTab ? "session-search" : "appointment-search",
-        inputValue: searchQuery,
-        onInputValueChange: (value: string) => {
-          if (isClassesTab) {
-            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
-              search_value: value,
-            });
-          }
-          setSearchQuery(value);
-        },
-        debounceValue: DEFAULT_DEBOUNCE_DELAY,
-        onClear: () => {
-          if (isClassesTab) {
-            analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
-              search_value: searchQuery,
-              source: SearchClearSource.CLEAR_BUTTON,
-            });
-          }
-          setSearchQuery("");
-        },
-      };
+  const headerSearchConfig = {
+    id: isClassesTab
+      ? "session-search"
+      : isAppointmentsTab
+        ? "appointment-search"
+        : "series-search",
+    inputValue: searchQuery,
+    onInputValueChange: (value: string) => {
+      if (isClassesTab) {
+        analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+          search_value: value,
+        });
+      }
+      setSearchQuery(value);
+    },
+    debounceValue: DEFAULT_DEBOUNCE_DELAY,
+    onClear: () => {
+      if (isClassesTab) {
+        analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+          search_value: searchQuery,
+          source: SearchClearSource.CLEAR_BUTTON,
+        });
+      }
+      setSearchQuery("");
+    },
+  };
 
-  // TODO: Add Series list content in the upcoming Series listing MR.
-  const seriesContent = null;
+  const seriesContent = isSeriesTabActive ? (
+    <QueryBoundary>
+      <SeriesListTable
+        canCreateSeries={hasCreateSeriesPermission}
+        onAddSeriesClick={onClickAddSeries}
+        searchQuery={searchQuery}
+      />
+    </QueryBoundary>
+  ) : null;
 
   const callToActionButton = useMemo(() => {
+    if (isSeriesTabActive && hasCreateSeriesPermission) {
+      return (
+        <ListLayout.Button
+          iconLeft="plus"
+          intent="call-to-action"
+          color="main"
+          label={t("addSeries")}
+          onClick={onClickAddSeries}
+        />
+      );
+    }
+
     if (!isClassesTab || !hasCreateSessionPermission) return null;
     return (
       <ListLayout.Button
@@ -429,7 +478,15 @@ const CalendarPage: React.FC = () => {
         onClick={onClickAddSession}
       />
     );
-  }, [t, onClickAddSession, hasCreateSessionPermission, isClassesTab]);
+  }, [
+    t,
+    isSeriesTabActive,
+    hasCreateSeriesPermission,
+    onClickAddSeries,
+    isClassesTab,
+    hasCreateSessionPermission,
+    onClickAddSession,
+  ]);
 
   const sessionDays = useMemo(
     () =>
@@ -458,183 +515,194 @@ const CalendarPage: React.FC = () => {
   );
 
   return (
-    <ListLayout>
-      <ListLayout.Header
-        key={activeTab}
-        pageTitle={t("header")}
-        onDisplayPopover={displaySettings}
-        callToActionButton={callToActionButton}
-        filterConfig={headerFilterConfig}
-        filterRef={headerFilterRef}
-        endGroupActions={endGroupActions}
-        pageTabs={
-          visibleTabs.length > 1
-            ? {
-                orientation: "horizontal",
-                value: activeTab,
-                onValueChange: handleTabChange,
-                tabs: visibleTabs.map((tab) => ({
-                  id: tab,
-                  label: t(`tabs.${tab}`),
-                })),
-              }
-            : undefined
-        }
-        searchConfig={headerSearchConfig}
-      />
-      <ListLayout.Content>
-        {!isSeriesTabActive && (
-          <DateNavigationHeader
-            onScrollToNow={isClassesTab ? scrollToNow : undefined}
-          />
-        )}
-        {isClassesTab &&
-          wellhubOffersData &&
-          wellhubOffersData.total_count > 0 && (
-            <div className="mt-md mx-md">
-              <Alert
-                status="default"
-                title={t("wellhub.alert.title")}
-                buttonLabel={t("wellhub.alert.action")}
-                onButtonClick={openWellhubModal}
-              >
-                {
-                  // @ts-expect-error - The typing does not understand the count system
-                  t("wellhub.alert.message", {
-                    count: wellhubOffersData.total_count,
-                  }) as string
+    <>
+      <ListLayout>
+        <ListLayout.Header
+          key={activeTab}
+          pageTitle={t("header")}
+          onDisplayPopover={displaySettings}
+          callToActionButton={callToActionButton}
+          filterConfig={headerFilterConfig}
+          filterRef={headerFilterRef}
+          endGroupActions={endGroupActions}
+          pageTabs={
+            visibleTabs.length > 1
+              ? {
+                  orientation: "horizontal",
+                  value: activeTab,
+                  onValueChange: handleTabChange,
+                  tabs: visibleTabs.map((tab) => ({
+                    id: tab,
+                    label: t(`tabs.${tab}`),
+                  })),
                 }
-              </Alert>
-            </div>
+              : undefined
+          }
+          searchConfig={headerSearchConfig}
+        />
+        <ListLayout.Content>
+          {!isSeriesTabActive && (
+            <DateNavigationHeader
+              onScrollToNow={isClassesTab ? scrollToNow : undefined}
+            />
           )}
-        <div className="flex flex-col gap-xl h-full mt-md">
-          {isClassesTab ? (
+          {isClassesTab &&
+            wellhubOffersData &&
+            wellhubOffersData.total_count > 0 && (
+              <div className="mt-md mx-md">
+                <Alert
+                  status="default"
+                  title={t("wellhub.alert.title")}
+                  buttonLabel={t("wellhub.alert.action")}
+                  onButtonClick={openWellhubModal}
+                >
+                  {
+                    // @ts-expect-error - The typing does not understand the count system
+                    t("wellhub.alert.message", {
+                      count: wellhubOffersData.total_count,
+                    }) as string
+                  }
+                </Alert>
+              </div>
+            )}
+          <div
+            className={
+              isSeriesTabActive
+                ? "flex h-full min-h-0 flex-col"
+                : "flex h-full flex-col gap-xl mt-md"
+            }
+          >
+            {isClassesTab ? (
+              <>
+                {shouldRenderEmptyState ? (
+                  <EmptyState />
+                ) : shouldRenderLoadingState ? (
+                  <LoadingState />
+                ) : sessionDataError ? (
+                  <div className="flex flex-col items-center justify-center">
+                    <ErrorFallback
+                      actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
+                    />
+                  </div>
+                ) : (
+                  sessionDays
+                )}
+              </>
+            ) : isAppointmentsTab ? (
+              <>
+                {shouldRenderAppointmentEmptyState ? (
+                  <AppointmentEmptyState />
+                ) : shouldRenderAppointmentLoadingState ? (
+                  <AppointmentLoadingState />
+                ) : appointmentDataError ? (
+                  <div className="flex flex-col items-center justify-center">
+                    <ErrorFallback
+                      actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
+                    />
+                  </div>
+                ) : (
+                  appointmentDays
+                )}
+              </>
+            ) : (
+              seriesContent
+            )}
+          </div>
+
+          {isClassesTab && (
             <>
-              {shouldRenderEmptyState ? (
-                <EmptyState />
-              ) : shouldRenderLoadingState ? (
-                <LoadingState />
-              ) : sessionDataError ? (
-                <div className="flex flex-col items-center justify-center">
-                  <ErrorFallback
-                    actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
-                  />
-                </div>
-              ) : (
-                sessionDays
+              <AddSessionModal
+                isOpen={addSessionModalOpen}
+                onClose={closeAddSessionModal}
+              />
+              <ExportParticipantsModal
+                isOpen={exportParticipantsModalOpen}
+                onClose={closeExportParticipantsModal}
+              />
+              <CancelMultipleSessionsModal
+                isOpen={cancelMultipleSessionsModal}
+                onClose={closeCancelMultipleSessionsModal}
+              />
+              {detailsModalState?.type === ModalType.CANCEL && (
+                <CancelSessionModal
+                  session={detailsModalState.session}
+                  isOpen={detailsModalState.type === ModalType.CANCEL}
+                  onClose={closeModal}
+                />
               )}
-            </>
-          ) : isAppointmentsTab ? (
-            <>
-              {shouldRenderAppointmentEmptyState ? (
-                <AppointmentEmptyState />
-              ) : shouldRenderAppointmentLoadingState ? (
-                <AppointmentLoadingState />
-              ) : appointmentDataError ? (
-                <div className="flex flex-col items-center justify-center">
-                  <ErrorFallback
-                    actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
-                  />
-                </div>
-              ) : (
-                appointmentDays
+              {detailsModalState?.type === ModalType.RESTORE && (
+                <RestoreSessionModal
+                  session={detailsModalState.session}
+                  isOpen={detailsModalState.type === ModalType.RESTORE}
+                  onClose={closeModal}
+                />
               )}
+              {detailsModalState?.type === ModalType.DELETE && (
+                <DeleteSessionModal
+                  session={detailsModalState.session}
+                  isOpen={detailsModalState.type === ModalType.DELETE}
+                  onClose={closeModal}
+                />
+              )}
+              {detailsModalState?.type === ModalType.DUPLICATE && (
+                <DuplicateSessionModal
+                  session={detailsModalState.session}
+                  isOpen={detailsModalState.type === ModalType.DUPLICATE}
+                  onClose={closeModal}
+                />
+              )}
+              <WellhubProductModal
+                isOpen={wellhubModalOpen}
+                onClose={closeWellhubModal}
+                offers={wellhubOffersData?.results ?? []}
+                isLoading={wellhubOffersLoading}
+                currentPage={wellhubPage}
+                totalPages={wellhubOffersData?.total_pages ?? 1}
+                onChangePage={setWellhubPage}
+              />
             </>
-          ) : (
-            seriesContent
           )}
-        </div>
 
-        {isClassesTab && (
-          <>
-            <AddSessionModal
-              isOpen={addSessionModalOpen}
-              onClose={closeAddSessionModal}
-            />
-            <ExportParticipantsModal
-              isOpen={exportParticipantsModalOpen}
-              onClose={closeExportParticipantsModal}
-            />
-            <CancelMultipleSessionsModal
-              isOpen={cancelMultipleSessionsModal}
-              onClose={closeCancelMultipleSessionsModal}
-            />
-            {detailsModalState?.type === ModalType.CANCEL && (
-              <CancelSessionModal
-                session={detailsModalState.session}
-                isOpen={detailsModalState.type === ModalType.CANCEL}
+          {detailsModalState?.tab === "appointments" &&
+            detailsModalState?.type === AppointmentModalType.CANCEL && (
+              <CancelAppointmentModal
+                appointment={detailsModalState.appointment}
+                isOpen
                 onClose={closeModal}
               />
             )}
-            {detailsModalState?.type === ModalType.RESTORE && (
-              <RestoreSessionModal
-                session={detailsModalState.session}
-                isOpen={detailsModalState.type === ModalType.RESTORE}
+
+          {detailsModalState?.tab === "appointments" &&
+            detailsModalState?.type === AppointmentModalType.RESCHEDULE && (
+              <RescheduleAppointmentModal
+                appointment={detailsModalState.appointment}
+                isOpen
                 onClose={closeModal}
               />
             )}
-            {detailsModalState?.type === ModalType.DELETE && (
-              <DeleteSessionModal
-                session={detailsModalState.session}
-                isOpen={detailsModalState.type === ModalType.DELETE}
+
+          {detailsModalState?.tab === "appointments" &&
+            detailsModalState?.type === AppointmentModalType.SWAP_PASS && (
+              <SwapPassModal
+                appointment={detailsModalState.appointment}
+                isOpen
                 onClose={closeModal}
               />
             )}
-            {detailsModalState?.type === ModalType.DUPLICATE && (
-              <DuplicateSessionModal
-                session={detailsModalState.session}
-                isOpen={detailsModalState.type === ModalType.DUPLICATE}
+          {detailsModalState?.tab === "appointments" &&
+            detailsModalState?.type === AppointmentModalType.SWAP_TEACHER && (
+              <SwapTeacherModal
+                appointment={detailsModalState.appointment}
+                isOpen
                 onClose={closeModal}
               />
             )}
-            <WellhubProductModal
-              isOpen={wellhubModalOpen}
-              onClose={closeWellhubModal}
-              offers={wellhubOffersData?.results ?? []}
-              isLoading={wellhubOffersLoading}
-              currentPage={wellhubPage}
-              totalPages={wellhubOffersData?.total_pages ?? 1}
-              onChangePage={setWellhubPage}
-            />
-          </>
-        )}
-
-        {detailsModalState?.tab === "appointments" &&
-          detailsModalState?.type === AppointmentModalType.CANCEL && (
-            <CancelAppointmentModal
-              appointment={detailsModalState.appointment}
-              isOpen
-              onClose={closeModal}
-            />
-          )}
-
-        {detailsModalState?.tab === "appointments" &&
-          detailsModalState?.type === AppointmentModalType.RESCHEDULE && (
-            <RescheduleAppointmentModal
-              appointment={detailsModalState.appointment}
-              isOpen
-              onClose={closeModal}
-            />
-          )}
-
-        {detailsModalState?.tab === "appointments" &&
-          detailsModalState?.type === AppointmentModalType.SWAP_PASS && (
-            <SwapPassModal
-              appointment={detailsModalState.appointment}
-              isOpen
-              onClose={closeModal}
-            />
-          )}
-        {detailsModalState?.tab === "appointments" &&
-          detailsModalState?.type === AppointmentModalType.SWAP_TEACHER && (
-            <SwapTeacherModal
-              appointment={detailsModalState.appointment}
-              isOpen
-              onClose={closeModal}
-            />
-          )}
-      </ListLayout.Content>
-    </ListLayout>
+        </ListLayout.Content>
+      </ListLayout>
+      {addSeriesModalOpen ? (
+        <SeriesAddModal onClose={closeAddSeriesModal} />
+      ) : null}
+    </>
   );
 };
 

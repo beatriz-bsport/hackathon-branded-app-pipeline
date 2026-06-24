@@ -117,8 +117,8 @@ const data = [
  * Renders a group of avatars with a placeholder avatar indicating the number
  * of additional avatars not displayed. Supports custom shapes, sizes, and styles.
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=781-10907&t=2dJPMKNKpbmP1rmv-4">Figma</a><br>
-
-*/
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/avatar-group" target="_blank">Kaizen docs</a>
+ */
 const meta: Meta<typeof AvatarGroup> = {
   component: AvatarGroup,
   argTypes: {

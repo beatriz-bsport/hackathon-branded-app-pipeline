@@ -65,6 +65,11 @@ export const SwapBookingPassModal: FC<SwapBookingPassModalProps> = ({
 
   const swapBookingPass = useSwapBookingPass();
 
+  const handleClose = () => {
+    if (swapBookingPass.isPending) return;
+    onClose();
+  };
+
   const isUnchanged = selectedPassId === currentConsumerPaymentPackId;
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -151,7 +156,7 @@ export const SwapBookingPassModal: FC<SwapBookingPassModalProps> = ({
       open={isOpen}
       size="md"
       title={t("swapBookingPassModal.title")}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("swapBookingPassModal.confirmButton"),
         onClick: handleConfirm,
@@ -163,7 +168,8 @@ export const SwapBookingPassModal: FC<SwapBookingPassModalProps> = ({
       }}
       cancelButton={{
         label: t("swapBookingPassModal.cancelButton"),
-        onClick: onClose,
+        onClick: handleClose,
+        disabled: isLoading || swapBookingPass.isPending,
       }}
     >
       {isLoading ? (

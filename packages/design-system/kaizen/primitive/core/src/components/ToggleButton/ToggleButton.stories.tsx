@@ -80,8 +80,8 @@ Each state is configured using a config object with:
     tooltipConfig: { label: "Click to connect", placement: "top" }
   }}
 />
-\`\`\`
-        `,
+\`\`\`<br>
+<a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/toggle-button" target="_blank">Kaizen docs</a>`,
       },
     },
   },

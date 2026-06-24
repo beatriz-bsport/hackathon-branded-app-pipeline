@@ -49,6 +49,15 @@ export const fetchCompanyPaymentMethodsAPI = async (
   return data;
 };
 
+export const fetchSavedPaymentMethodsQueryOptions = (
+  fetch: Fetch<SavedPaymentMethod[]>,
+  payload: FetchSavedPaymentMethodsRequest,
+) =>
+  queryOptions({
+    queryKey: paymentMethodKeys.saved(payload.member),
+    queryFn: () => fetchSavedPaymentMethodsAPI(fetch, payload),
+  });
+
 export const fetchCompanyPaymentMethodsQueryOptions = (
   fetch: Fetch<SavedPaymentMethod[]>,
 ) =>

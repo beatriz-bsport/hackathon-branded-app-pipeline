@@ -48,6 +48,7 @@ export const useDetailsConfig = (): {
   } = useContractDetailsHeader({
     contract: contract,
     isVisible: !contract.manager_only,
+    isShared: contract.contract_template != null,
   });
 
   return {

@@ -1,6 +1,11 @@
 import type { FC } from "react";
 
-import { DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Body,
+  DetailsLayout,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import { BenefitsCard } from "#src/features/benefits-card";
 import { ContractFormAutoRenewal } from "#src/features/contract-form/components/contract-form-auto-renewal";
@@ -20,17 +25,17 @@ import { useTranslation } from "#src/utils/i18n";
 import { ContractEditBenefitModal } from "./edit-benefit-modal";
 
 type ContractEditorContentProps = {
-  isRevampedContract: boolean;
   formId: string;
   methods: ContractFormMethods;
-  readonly?: boolean;
+  isFromMigration: boolean;
+  isShared: boolean;
 };
 
 export const ContractEditorContent: FC<ContractEditorContentProps> = ({
-  isRevampedContract,
   formId,
   methods,
-  readonly,
+  isFromMigration,
+  isShared,
 }) => {
   const { t } = useTranslation("contract-details");
 
@@ -59,19 +64,32 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
 
   return (
     <DetailsLayout.Content className="flex flex-col gap-md">
-      <ContractFormDescription formId={formId} readonly={readonly} />
+      {(isShared || isFromMigration) && (
+        <Alert status="info" layout="banner" customIcon="lock-04">
+          {isShared ? (
+            <Body color="inherit">{t("alerts.sharedContract")}</Body>
+          ) : (
+            ""
+          )}
+          {isFromMigration ? (
+            <Body color="inherit">{t("alerts.migratedContract")}</Body>
+          ) : (
+            ""
+          )}
+        </Alert>
+      )}
+      <ContractFormDescription formId={formId} readonly={isShared} />
 
       <section className="flex flex-col gap-sm">
         <Title htmlVariant="h4" weight="strong">
           {t("formSections.price")}
         </Title>
-        <ContractFormRecurringAmount formId={formId} readonly={readonly} />
-        <ContractFormJoinFee formId={formId} readonly={readonly} />
+        <ContractFormRecurringAmount formId={formId} readonly={isShared} />
+        <ContractFormJoinFee formId={formId} readonly={isShared} />
         <ContractFormTax
           formId={formId}
           watch={methods.watch}
-          isRevampedContract={isRevampedContract}
-          readonly={readonly}
+          readonly={isShared}
         />
       </section>
 
@@ -91,7 +109,8 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
           isOpen={isEditBenefitsModalOpen}
           methods={methods}
           onClose={onCloseEditBenefitsModal}
-          readonly={readonly}
+          isFromMigration={isFromMigration}
+          isShared={isShared}
         />
       </section>
 
@@ -102,7 +121,7 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
         <ContractFormBillingCycle
           formId={formId}
           methods={methods}
-          readonly // Why force to true ? Because once set on a Contract, it's not editable
+          readonly={true} // Why force to true ? Because once set on a Contract, it's not editable
         />
       </section>
 
@@ -111,12 +130,13 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
         <ContractFormDuration
           formId={formId}
           methods={methods}
-          readonly={readonly}
+          readonly={isShared || isFromMigration}
         />
         <ContractFormAutoRenewal
           formId={formId}
           methods={methods}
-          readonly={readonly}
+          isFromMigration={isFromMigration}
+          isShared={isShared}
         />
       </section>
 
@@ -127,9 +147,9 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
         <ContractFormCommitmentPeriod
           formId={formId}
           methods={methods}
-          readonly={readonly}
+          readonly={isShared}
         />
-        <ContractFormTerms formId={formId} readonly={readonly} />
+        <ContractFormTerms formId={formId} readonly={isShared} />
       </section>
     </DetailsLayout.Content>
   );

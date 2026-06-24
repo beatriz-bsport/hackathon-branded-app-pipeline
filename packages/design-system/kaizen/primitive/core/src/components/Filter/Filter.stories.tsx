@@ -12,7 +12,8 @@ import Filter, { FilterElementState } from "./Filter";
  * The component maintains its visual state internally, while external state control
  * is facilitated through props callbacks.<br>
  * The number of filter elements is infinite.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3200-14891" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3200-14891" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/filter" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Filter> = {
   component: Filter,

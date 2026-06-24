@@ -1,9 +1,10 @@
-import { ZodError } from "zod";
+import { ZodError, type ZodType } from "zod";
 
 import type {
   Booking,
   BookingOption,
   BookingOptionPosition,
+  GroupSession,
   ManagerSession,
   PrivateBooking,
   Session,
@@ -12,6 +13,13 @@ import type { ConsumerPaymentPack, Pass } from "@bsport/api-buyables";
 import type { Member, MemberNote } from "@bsport/api-cdp/member";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
+
+import type {
+  CustomRecurrenceUnit,
+  MonthlyRecurrencePattern,
+  RecurrenceType,
+  WeekdaySelection,
+} from "#src/helpers/recurrence/types";
 
 // Careful, name is always present and represents the final name after overrides
 export type EnrichedSession = ManagerSession & {
@@ -77,9 +85,19 @@ export enum AppointmentColumn {
 // Tab identifiers match the user-facing labels
 // Internally, class data is modeled as sessions.
 export type CalendarTab = "classes" | "appointments" | "series";
-// TODO: Remove this split once Series has its own store/display-settings wiring.
-// this type is temporary (Include only tabs that have store data)
+
+// Series are backed by the offer_group / GroupSession API contract.
+export type Series = GroupSession;
+
 export type CalendarDataTab = Exclude<CalendarTab, "series">;
+
+export type SeriesOrdering = "upcoming" | "name";
+
+export enum SeriesColumn {
+  DATES = "dates",
+  BOOKING_RULE = "bookingRule",
+  CLASSES = "classes",
+}
 
 export enum CalendarView {
   DAILY = "daily",
@@ -89,6 +107,78 @@ export enum CalendarView {
 export type DateSelection =
   | { type: "single"; date: DateTime }
   | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
+
+export type SessionDateTimeFormValues = {
+  duration_minute: number;
+  startDateTime: DateTime;
+  isRecurring: boolean;
+  recurrenceType: RecurrenceType;
+  recurrenceWeekdays: WeekdaySelection;
+  recurrenceUnit: CustomRecurrenceUnit;
+  recurrenceInterval: number;
+  recurrencePattern: MonthlyRecurrencePattern;
+  recurrenceEndDate: DateTime | null;
+};
+
+export type SessionTeacherAndEstablishmentFormValues = {
+  coach: number | null;
+  coach_payment_rule: number | null;
+  establishment: number | null;
+  room_blueprint: number | null;
+  roomBlueprintCapacity: number | null;
+  effectif: number;
+};
+
+export type SessionCapacityFieldName =
+  | "effectif"
+  | "waiting_list_max_size"
+  | "partner_max_booking_count";
+
+export type SessionCapacityFormValues = {
+  effectif: number;
+  waiting_list_max_size?: number;
+  partner_max_booking_count?: number;
+};
+
+export type SessionCreditsFormValues = {
+  credits: number;
+};
+
+export type SeriesClassDraftFormData = SessionDateTimeFormValues &
+  SessionTeacherAndEstablishmentFormValues &
+  SessionCreditsFormValues;
+
+export type SeriesClassDraftFormSchema = ZodType<SeriesClassDraftFormData>;
+
+export type SeriesClassDraftOccurrence = {
+  id: string;
+  startDateTime: DateTime;
+};
+
+export type SeriesClassDraft = {
+  id: string;
+  data: SeriesClassDraftFormData;
+  occurrences: SeriesClassDraftOccurrence[];
+};
+
+export type SessionAggregatorWarningFormValues = {
+  available_on_partnership: boolean;
+  duration_minute: number;
+  startDateTime: DateTime;
+};
+
+export type SessionWellhubProductFormValues = {
+  available_on_partnership: boolean;
+  establishment: number | null;
+  startDateTime: DateTime;
+  wellhub_product_id?: number | null;
+};
+
+export type SessionSpiviFormValues = {
+  establishment: number | null;
+  room_blueprint: number | null;
+  sync_on_spivi?: boolean;
+};
 
 export enum ModalType {
   CANCEL = "cancel",

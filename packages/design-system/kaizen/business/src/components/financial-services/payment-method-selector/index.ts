@@ -1,7 +1,6 @@
 export type { SavedPaymentMethodDiscriminator } from "./constants";
 export {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
-  SAVED_METHOD_LOGO_TYPE,
   SAVED_PAYMENT_METHOD_TYPE,
 } from "./constants";
 export type {

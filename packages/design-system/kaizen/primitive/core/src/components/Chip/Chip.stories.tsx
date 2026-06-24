@@ -9,7 +9,7 @@ import Chip, { colors, sizes } from "./Chip";
  * React component for a chip element. It is a compact component that can be used to
  * represent a small piece of information, such as a tag, a label, a status, or an action.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=490-3106" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/chip/component-overview-W7G0WBp0" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/chip" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Chip> = {
   component: Chip,

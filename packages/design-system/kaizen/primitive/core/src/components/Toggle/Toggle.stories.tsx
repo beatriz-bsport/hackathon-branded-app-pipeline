@@ -7,7 +7,7 @@ import Toggle from "./Toggle";
  * React component implementing all the types of toggles used in Kaizen.<br>
  * The toggle is a compact component that represents a binary choice.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=2069-5647&t=2SAiXqiGuDQ3LIix-4" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/form-controls/toggle/component-overview-Aw3AueFL" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/toggle" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Toggle> = {
   component: Toggle,

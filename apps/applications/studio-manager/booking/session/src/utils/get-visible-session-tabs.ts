@@ -1,21 +1,18 @@
-export type SessionTabKey = "overview" | "editor" | "series" | "occurrences";
+export type SessionTabKey = "overview" | "editor" | "occurrences";
 
 /**
- * Series and All occurrences are mutually exclusive. A `group` only exists for
- * workshop sessions, where the Group is the canonical relationship — so Series
- * wins. Regular classes created with the "recurring" toggle never get a Group;
- * they share a session-level `recurrence_id`, and All occurrences is the right
- * view for them.
+ * Grouped classes expose their series context in the details panel and link to
+ * the canonical series page instead of adding a session-level tab.
  */
 export const getVisibleSessionTabs = (
   group: number | null,
   recurrenceCount: number,
 ): SessionTabKey[] => {
   const tabs: SessionTabKey[] = ["overview", "editor"];
-  if (group !== null) {
-    tabs.push("series");
-  } else if (recurrenceCount > 1) {
+
+  if (group === null && recurrenceCount > 1) {
     tabs.push("occurrences");
   }
+
   return tabs;
 };

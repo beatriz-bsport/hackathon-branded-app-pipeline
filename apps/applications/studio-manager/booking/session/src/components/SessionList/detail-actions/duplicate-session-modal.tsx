@@ -62,13 +62,18 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
   const { buildCreationPayload } = useSessionPayload();
   const { mutate: createSession, isPending } = useCreateSession();
 
+  const handleClose = () => {
+    if (isPending || isLoading) return;
+    onClose();
+  };
+
   return (
     <Modal
       open={isOpen}
       size="md"
       title={t("duplicateModal.title")}
       description={getDescription()}
-      onClose={onClose}
+      onClose={handleClose}
       confirmButton={{
         label: t("duplicateModal.confirmButton"),
         onClick: () => {
@@ -80,7 +85,8 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       }}
       cancelButton={{
         label: t("duplicateModal.cancelButton"),
-        onClick: onClose,
+        onClick: handleClose,
+        disabled: isLoading || isPending,
       }}
     >
       {isLoading ? (

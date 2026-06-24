@@ -65,9 +65,9 @@
     "dataUnavailable": "Data unavailable",
     "metrics": {
       "totalRevenue": "Total Revenue",
-      "totalBooking": "Total Booking",
+      "totalBooking": "Total Bookings",
       "totalAttendance": "Total Attendance",
-      "totalOccupancy": "Total Occupancy"
+      "totalOccupancy": "Total Fill Rate"
     }
   },
   "insightsPanel": {

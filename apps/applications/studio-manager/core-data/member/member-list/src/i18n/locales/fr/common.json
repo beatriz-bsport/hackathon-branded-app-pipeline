@@ -16,7 +16,7 @@
     "emptyList": {
       "activeMode": {
         "title": "Aucun profil pour le moment",
-        "subtitle": "Ajoutez des profils contacts ou importez des leads pour commencer"
+        "subtitle": "Ajoutez des profils clients ou importez des leads pour commencer"
       },
       "archivedMode": {
         "title": "Aucun profil archivé"
@@ -50,7 +50,7 @@
         "effect": "Vous pouvez restaurer ce profil à tout moment depuis votre archive."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Avant d'archiver ce profil, nous vous recommandons de régler d'abord le solde du compte du profil. Cela est dû à l'une des raisons suivantes : ",
+        "adviseRegularization": "Avant d'archiver ce profil, nous vous recommandons de régler d'abord le solde du compte du client. Cela est dû à l'une des raisons suivantes : ",
         "items": {
           "negativeBalance": "Solde de compte négatif",
           "unpaidInvoices": "Une ou plusieurs factures impayées",

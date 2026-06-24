@@ -29,6 +29,10 @@
     "title": "Couldn't retrieve Contract",
     "goToListPage": "See Contracts"
   },
+  "alerts": {
+    "sharedContract": "This Contract was created on the Central Account and some fields cannot be edited.",
+    "migratedContract": "This Contract originates from a previously completed data migration and some fields cannot be edited."
+  },
   "formFields": {
     "errors": {
       "fieldIsRequired": "This field is required."

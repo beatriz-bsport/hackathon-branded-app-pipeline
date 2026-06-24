@@ -10,6 +10,8 @@ import { DropdownMultiSelect } from "./dropdown-multi-select";
  * Options default to selectable `DropdownMenu.Item` rows. Set `type` to
  * `"divider"`, `"title"`, or `"text"` to mix in non-selectable layout helpers
  * for section headers, separators, or informational rows.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/dropdown-multi-select" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof DropdownMultiSelect> = {
   component: DropdownMultiSelect,

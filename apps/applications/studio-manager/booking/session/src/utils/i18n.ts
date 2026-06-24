@@ -6,6 +6,7 @@ import {
   inMemoryTranslationsLoader,
 } from "#src/i18n";
 import type common from "#src/i18n/source/common.json";
+import type series from "#src/i18n/source/series.json";
 import type sessionCreation from "#src/i18n/source/sessionCreation.json";
 import type sessionDetails from "#src/i18n/source/sessionDetails.json";
 import type sessionEdit from "#src/i18n/source/sessionEdit.json";
@@ -15,6 +16,7 @@ import type sessionManagement from "#src/i18n/source/sessionManagement.json";
 type Translations = {
   sessionEdit: typeof sessionEdit;
   sessionList: typeof sessionList;
+  series: typeof series;
   common: typeof common;
   sessionCreation: typeof sessionCreation;
   sessionDetails: typeof sessionDetails;

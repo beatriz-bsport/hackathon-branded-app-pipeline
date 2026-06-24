@@ -1,6 +1,11 @@
+import { clsx } from "clsx";
 import { FC } from "react";
 
-import { DetailDrawer, Divider } from "@bsport/kaizen-primitive-core";
+import {
+  DetailDrawer,
+  Divider,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { Loader } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
@@ -21,11 +26,13 @@ export const BookingDetailDrawer: FC<{
     params?: SessionManagementModalParams,
   ) => void;
 }> = ({ selectedBookingId, onClose, openModal }) => {
+  const isMobile = !useMatchMedia("lg");
   return (
     <DetailDrawer
       id="booking-detail-drawer"
       // Default z-index of the drawer is 1000, we need to set it to 999 to be below the modals that have a z-index of 1000
-      className="z-[999] max-w-component-modal-max-sm"
+      // There's no token for 420px max width, so we need to set it manually. The drawer has a min-width of 420px.
+      className={clsx("z-[999]", { "max-w-[420px]": !isMobile })}
       isOpen={selectedBookingId != null}
       onClose={onClose}
     >

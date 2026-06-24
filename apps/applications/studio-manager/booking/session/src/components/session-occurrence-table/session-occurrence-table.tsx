@@ -1,6 +1,6 @@
 import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { useHref } from "react-router";
+import { useHref, useNavigate } from "react-router";
 
 import {
   type PaginatedFetchSessionsParams,
@@ -12,10 +12,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetchAllEstablishments } from "#src/hooks/use-fetch-establishments";
 import { useFetchTeachers } from "#src/hooks/use-fetch-teachers";
-import {
-  type OccurrenceLabelGroup,
-  useOccurrenceTableLabels,
-} from "#src/hooks/use-occurrence-table-labels";
+import { useOccurrenceTableLabels } from "#src/hooks/use-occurrence-table-labels";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -44,28 +41,25 @@ type SessionOccurrenceTableProps<TQueryKey extends readonly unknown[]> = {
     PaginatedResponse<Session>,
     TQueryKey
   >;
-  labelGroup: OccurrenceLabelGroup;
+  currentSessionId?: number;
+  getSessionPath?: (sessionId: number) => string;
 };
 
 /**
- * Paginated, status-filtered table of session occurrences. Shared by the Series
- * tab (occurrences scoped to a group) and the All-occurrences tab (occurrences
- * scoped to a recurrence) — the page injects the data source and label block.
+ * Paginated, status-filtered table of session occurrences scoped to a
+ * recurrence.
  */
 export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
   companyId,
   status,
   paginationNamespace,
   getQueryOptions,
-  labelGroup,
+  currentSessionId,
+  getSessionPath,
 }: SessionOccurrenceTableProps<TQueryKey>) => {
   const { t, i18n } = useTranslation("sessionManagement");
-  // `window.open` and raw <a href> resolve relative URLs against
-  // `window.location`, not React Router's route tree. We need the full href
-  // INCLUDING the router basename so the browser navigates to the right place
-  // in any environment (dev / studio / etc.). `useHref` returns the basename-
-  // prefixed URL ("/studio/calendar"); `useResolvedPath` would strip it.
   const parentPath = useHref("..");
+  const navigate = useNavigate();
 
   // Page reset on status change is handled by the filter's onChange in the page,
   // since that's where the status state lives (the filter renders in the header).
@@ -131,10 +125,19 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
             teacherOverride: session.coach_override ? displayedTeacher : null,
           }),
           establishmentName: establishment?.title,
-          detailUrl: `${parentPath}/${session.id}`,
+          detailPath: getSessionPath?.(session.id),
+          detailUrl: getSessionPath ? undefined : `${parentPath}/${session.id}`,
+          isCurrentSession: currentSessionId === session.id,
         };
       }),
-    [sessions, teachersById, establishmentsById, parentPath],
+    [
+      sessions,
+      teachersById,
+      establishmentsById,
+      getSessionPath,
+      parentPath,
+      currentSessionId,
+    ],
   );
 
   const paginationProps: PaginationProps = useMemo(
@@ -143,12 +146,13 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
       rowsPerPage: currentPageSize,
       disabled: isLoading,
       totalItems: data?.count ?? 0,
+      showRowsPerPageSelector: true,
       onPageSettingsChange: setPageSettings,
     }),
     [currentPage, currentPageSize, isLoading, data?.count, setPageSettings],
   );
 
-  const labels = useOccurrenceTableLabels(labelGroup);
+  const labels = useOccurrenceTableLabels();
 
   const columns = useMemo(
     () =>
@@ -164,7 +168,7 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
           statusOngoing: t("pageTabs.statusFilter.ongoing"),
           statusPast: t("pageTabs.statusFilter.past"),
           statusCancelled: t("pageTabs.statusFilter.cancelled"),
-          openSession: labels.openSession,
+          thisClass: labels.thisClass,
         },
         i18n.language,
       ),
@@ -174,13 +178,28 @@ export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
   return (
     <Table
       columns={columns}
-      rowHeight="sm"
-      rows={rows.map((row) => ({
-        ...row,
-        onRowClick: () => {
-          window.open(row.detailUrl, "_blank", "noopener,noreferrer");
-        },
-      }))}
+      rowHeight="lg"
+      rows={rows.map((row) => {
+        const detailPath = row.detailPath;
+        const detailUrl = row.detailUrl;
+        const onRowClick =
+          row.isCurrentSession || (!detailPath && !detailUrl)
+            ? undefined
+            : () => {
+                if (detailPath) {
+                  navigate(detailPath);
+                  return;
+                }
+                if (detailUrl) {
+                  window.open(detailUrl, "_blank", "noopener,noreferrer");
+                }
+              };
+
+        return {
+          ...row,
+          onRowClick,
+        };
+      })}
       paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !isLoading && rows.length === 0,

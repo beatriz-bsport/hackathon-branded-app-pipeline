@@ -14,8 +14,8 @@ export type ContractPause = {
   contract: number;
   processing: boolean;
   billing_plan_errors: number[];
-  billing_plan_success: number[];
-  billing_plan_impossible: number[];
+  billing_plan_success: Array<[number, number | null]>;
+  billing_plan_impossible: Array<[number, number | null]>;
   date_created: string;
   creator_staff_name: string;
 };

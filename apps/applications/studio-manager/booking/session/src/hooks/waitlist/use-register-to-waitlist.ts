@@ -9,6 +9,7 @@ import {
 } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
+import { LEGACY_URLS } from "#src/urls.js";
 import { fetch } from "#src/utils/fetch.js";
 import { getErrorMessageFromCodes } from "#src/utils/get-error-message-from-codes";
 import { useTranslation } from "#src/utils/i18n.js";
@@ -41,7 +42,8 @@ export const useRegisterToWaitlist = () => {
         icon: "user-plus-01",
       });
     },
-    onError: (error) => {
+    onError: (error: Error & { customErrorCodes?: number[] }) => {
+      const isNoCompatiblePassError = error.customErrorCodes?.includes(23001);
       toast({
         status: "critical",
         description: getErrorMessageFromCodes(
@@ -50,6 +52,16 @@ export const useRegisterToWaitlist = () => {
           t("bookingFlow.addToWaitlist.errors.generic"),
         ),
         icon: "x-circle-solid",
+        ...(isNoCompatiblePassError && {
+          buttonLabel: t("bookingFlow.addToWaitlist.errors.settings"),
+          onButtonClick: () => {
+            window.open(
+              LEGACY_URLS.WAITLIST_SETTINGS,
+              "_blank",
+              "noopener,noreferrer",
+            );
+          },
+        }),
       });
     },
   });

@@ -17,6 +17,7 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
+import { DEFAULT_LEVEL_ID } from "#src/hooks/level/constants";
 
 import type {
   SessionCreationFormAdvancedOptionsData,
@@ -28,8 +29,6 @@ export enum SESSION_CREATION_STEPS {
   CONFIGURE_SESSION = 1,
   ADVANCED_OPTIONS = 2,
 }
-
-export const DEFAULT_LEVEL_ID = 1; // "All levels" default level id
 
 export const MAX_STEP = SESSION_CREATION_STEPS.ADVANCED_OPTIONS;
 

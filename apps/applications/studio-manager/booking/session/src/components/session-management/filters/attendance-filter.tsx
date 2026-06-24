@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Button } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { setBookingAttendanceFilter } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
@@ -24,7 +24,8 @@ export const AttendanceFilter: FC = () => {
   if (bookingStatus !== BookingStatusFilter.BOOKED) return null;
 
   return (
-    <div className="flex gap-sm">
+    <div className="flex items-center gap-sm">
+      <Body size="md">{t("bookingAttendanceFilter.label")}</Body>
       <Button
         color={
           attendance === BookingAttendanceFilter.PRESENT ? "selected" : "main"

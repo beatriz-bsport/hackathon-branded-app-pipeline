@@ -9,6 +9,7 @@
     "series": "Series"
   },
   "addSession": "Add class",
+  "addSeries": "Add series",
   "dateNavigation": {
     "todayButton": "Today",
     "previousButton": "Previous day",

@@ -1,3 +1,4 @@
+import { DEFAULT_SERIES_COLUMNS } from "#src/constants";
 import { AppointmentModalType, ModalType } from "#src/types";
 
 import { type CalendarState } from "./store";
@@ -47,6 +48,20 @@ export const selectAppointmentShowCancelled = (state: CalendarState) =>
 
 export const selectAppointmentDisplayedColumns = (state: CalendarState) =>
   state.appointments.displayedColumns;
+
+// Series tab selectors
+
+export const selectSeriesFilters = (state: CalendarState) =>
+  state.series.filters;
+
+export const selectSeriesShowCancelled = (state: CalendarState) =>
+  state.series.showCancelled ?? true;
+
+export const selectSeriesDisplayedColumns = (state: CalendarState) =>
+  state.series.displayedColumns ?? DEFAULT_SERIES_COLUMNS;
+
+export const selectSeriesOrdering = (state: CalendarState) =>
+  state.series.ordering ?? "upcoming";
 
 export const selectIsCancelAppointmentModalOpen = (state: CalendarState) =>
   state.modalState?.tab === "appointments" &&

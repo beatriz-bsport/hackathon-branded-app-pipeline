@@ -40,7 +40,6 @@ export const SmartlistMembersList = ({
   const {
     data: membersPage,
     isPending,
-    isFetching,
     isError,
     refetch,
   } = useSmartlistMembersQuery({
@@ -48,8 +47,6 @@ export const SmartlistMembersList = ({
     page: currentPage,
     page_size: currentPageSize,
   });
-
-  const isLoadingMembers = isPending || isFetching;
 
   const totalPages = membersPage
     ? Math.max(1, Math.ceil(membersPage.count / currentPageSize))
@@ -97,16 +94,16 @@ export const SmartlistMembersList = ({
     <SmartlistMembersTable
       columns={tableColumns}
       rows={tableRows}
-      isLoading={isLoadingMembers}
+      isLoading={isPending}
       paginationProps={{
         currentPage: safeCurrentPage,
         rowsPerPage: currentPageSize,
         totalItems: membersPage?.count ?? 0,
         onPageSettingsChange: setPageSettings,
-        disabled: isLoadingMembers,
+        disabled: isPending,
       }}
       emptyStateProps={{
-        isEmpty: !isLoadingMembers && (membersPage?.count ?? 0) === 0,
+        isEmpty: !isPending && (membersPage?.count ?? 0) === 0,
         emptyConfig: {
           title: t("membersTable.emptyState.title"),
           subtitle: t("membersTable.emptyState.subtitle"),

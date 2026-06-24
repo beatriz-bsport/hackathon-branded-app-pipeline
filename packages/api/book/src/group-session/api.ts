@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type Fetch,
@@ -6,15 +6,18 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { BOOKING_QUERY_KEY, DEFAULT_STALE_TIME } from "#src/constants";
+import { BOOKING_QUERY_KEY } from "#src/constants";
 
 import type {
   CreateGroupSessionsPayload,
+  DeleteGroupSessionParams,
   DeleteGroupSessionPayload,
   GroupSession,
   PaginatedGroupSessionParams,
   PrepareGroupSessionsCreationPayload,
   PrepareGroupSessionsCreationResponse,
+  SearchGroupSessionParams,
+  UpdateGroupSessionParams,
   UpdateGroupSessionPayload,
 } from "./types";
 
@@ -26,7 +29,10 @@ export const groupSessionKeys = {
   lists: () => [...groupSessionKeys.all, "list"] as const,
   list: (params?: PaginatedGroupSessionParams) =>
     [...groupSessionKeys.lists(), params] as const,
-  detail: (id: number) => [...groupSessionKeys.all, id] as const,
+  search: (params: SearchGroupSessionParams) =>
+    [...groupSessionKeys.lists(), "search", params] as const,
+  detail: (groupSessionId: number) =>
+    [...groupSessionKeys.all, groupSessionId] as const,
 };
 
 export const fetchGroupSessionsAPIConfig = (
@@ -54,7 +60,28 @@ export const fetchGroupSessionsQueryOptions = (
   return queryOptions({
     queryKey: groupSessionKeys.list(params),
     queryFn,
-    staleTime: DEFAULT_STALE_TIME,
+  });
+};
+
+export const searchGroupSessionsAPI = async (
+  fetch: Fetch<PaginatedResponse<GroupSession>>,
+  params: SearchGroupSessionParams,
+): Promise<PaginatedResponse<GroupSession>> => {
+  const { data: fetchedData } = await fetch(
+    `${API_URL_GROUP_SESSION}/search/${buildUrlParams(params)}`,
+  );
+
+  return fetchedData;
+};
+
+export const searchGroupSessionsQueryOptions = (
+  fetch: Fetch<PaginatedResponse<GroupSession>>,
+  params: SearchGroupSessionParams,
+) => {
+  const queryFn = searchGroupSessionsAPI.bind(null, fetch, params);
+  return queryOptions({
+    queryKey: groupSessionKeys.search(params),
+    queryFn,
   });
 };
 
@@ -76,14 +103,13 @@ export const retrieveGroupSessionQueryOptions = (
   return queryOptions({
     queryKey: groupSessionKeys.detail(groupSessionId),
     queryFn,
-    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
 export const retrieveGroupSessionQueryOption = retrieveGroupSessionQueryOptions;
 
 export const updateGroupSessionAPI = async (
-  fetch: Fetch<GroupSession>,
+  fetch: Fetch<void>,
   groupSessionId: number,
   payload: UpdateGroupSessionPayload,
 ): Promise<string | null> => {
@@ -98,6 +124,12 @@ export const updateGroupSessionAPI = async (
   return backgroundTaskUuid;
 };
 
+export const updateGroupSessionMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: ({ groupSessionId, payload }: UpdateGroupSessionParams) =>
+      updateGroupSessionAPI(fetch, groupSessionId, payload),
+  });
+
 export const prepareGroupSessionsCreationAPI = async (
   fetch: Fetch<PrepareGroupSessionsCreationResponse>,
   payload: PrepareGroupSessionsCreationPayload,
@@ -111,6 +143,14 @@ export const prepareGroupSessionsCreationAPI = async (
 
   return data;
 };
+
+export const prepareGroupSessionsCreationMutationOptions = (
+  fetch: Fetch<PrepareGroupSessionsCreationResponse>,
+) =>
+  mutationOptions({
+    mutationFn: (payload: PrepareGroupSessionsCreationPayload) =>
+      prepareGroupSessionsCreationAPI(fetch, payload),
+  });
 
 export const createGroupSessionsWithOffersAPI = async (
   fetch: Fetch<void>,
@@ -127,6 +167,14 @@ export const createGroupSessionsWithOffersAPI = async (
   return backgroundTaskUuid;
 };
 
+export const createGroupSessionsWithOffersMutationOptions = (
+  fetch: Fetch<void>,
+) =>
+  mutationOptions({
+    mutationFn: (payload: CreateGroupSessionsPayload) =>
+      createGroupSessionsWithOffersAPI(fetch, payload),
+  });
+
 export const deleteGroupSessionAPI = async (
   fetch: Fetch<void>,
   groupSessionId: number,
@@ -142,3 +190,9 @@ export const deleteGroupSessionAPI = async (
 
   return backgroundTaskUuid;
 };
+
+export const deleteGroupSessionMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: ({ groupSessionId, payload }: DeleteGroupSessionParams) =>
+      deleteGroupSessionAPI(fetch, groupSessionId, payload),
+  });

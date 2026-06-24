@@ -1,8 +1,4 @@
-import {
-  infiniteQueryOptions,
-  mutationOptions,
-  queryOptions,
-} from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -22,6 +18,12 @@ import type {
   SearchEstablishmentParams,
   UpdateEstablishmentPayload,
 } from "#src/establishments/types";
+import {
+  createAPI,
+  createInfiniteQueryOptions,
+  createInfiniteSearchQueryOptions,
+  createQueryOptions,
+} from "#src/utils";
 
 import {
   API_V1_URL,
@@ -48,6 +50,11 @@ export const establishmentKeys = {
   search: (params: SearchEstablishmentParams) =>
     [...establishmentKeys.searches(), params] as const,
 
+  infiniteSearches: () =>
+    [...establishmentKeys.searches(), "infinite"] as const,
+  infiniteSearch: (params: SearchEstablishmentParams) =>
+    [...establishmentKeys.infiniteSearches(), params] as const,
+
   details: () => [...establishmentKeys.all, "detail"] as const,
   detail: (id: number) => [...establishmentKeys.details(), id] as const,
 
@@ -57,79 +64,62 @@ export const establishmentKeys = {
 
 // ----------------------------------------------------------------------------
 
-const fetchEstablishmentsAPI = (
+const fetchEstablishmentsAPIConfig = (
   params: FetchEstablishmentParams = {},
 ): ApiConfig => {
   return [`${ESTABLISHMENT_API_URL}/${buildUrlParams(params)}`];
 };
 
-export const fetchEstablishments = async (
-  fetch: Fetch<PaginatedResponse<Establishment>>,
-  params: FetchEstablishmentParams = {},
-): Promise<PaginatedResponse<Establishment>> => {
-  const [uri, init] = fetchEstablishmentsAPI(params);
-  const { data } = await fetch(uri, init);
+export const fetchEstablishments = createAPI<
+  PaginatedResponse<Establishment>,
+  FetchEstablishmentParams
+>((params) => fetchEstablishmentsAPIConfig(params));
 
-  return data;
-};
+export const fetchEstablishmentsQueryOptions = createQueryOptions<
+  PaginatedResponse<Establishment>,
+  FetchEstablishmentParams
+>(
+  (params) => fetchEstablishmentsAPIConfig(params),
+  (params) => establishmentKeys.list(params),
+);
 
-export const fetchEstablishmentsQueryOptions = (
-  fetch: Fetch<PaginatedResponse<Establishment>>,
-  params: FetchEstablishmentParams = {},
-) => {
-  const queryFn = fetchEstablishments.bind(null, fetch, params);
-  return queryOptions({
-    queryKey: establishmentKeys.list(params),
-    queryFn,
-    staleTime: DEFAULT_STALE_TIME,
-  });
-};
-
-export const fetchEstablishmentsInfiniteQueryOptions = (
-  fetch: Fetch<PaginatedResponse<Establishment>>,
-  params: FetchEstablishmentParams = {},
-) => {
-  return infiniteQueryOptions({
-    queryKey: establishmentKeys.infiniteList(params),
-    queryFn: ({ pageParam }) => {
-      return fetchEstablishments(fetch, { ...params, page: pageParam });
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
-    enabled: Boolean(params.company && params.company > 0),
-    staleTime: DEFAULT_STALE_TIME,
-  });
-};
+export const fetchEstablishmentsInfiniteQueryOptions =
+  createInfiniteQueryOptions<
+    PaginatedResponse<Establishment>,
+    FetchEstablishmentParams
+  >(
+    (params) => fetchEstablishmentsAPIConfig(params),
+    (params) => establishmentKeys.infiniteList(params),
+  );
 
 // ----------------------------------------------------------------------------
 
-const searchEstablishmentsAPI = (
+const searchEstablishmentsAPIConfig = (
   params: SearchEstablishmentParams,
 ): ApiConfig => {
   return [`${ESTABLISHMENT_API_URL}/search/${buildUrlParams(params)}`];
 };
+export const searchEstablishments = createAPI<
+  SearchResponse<Establishment>,
+  SearchEstablishmentParams
+>((params) => searchEstablishmentsAPIConfig(params));
 
-export const searchEstablishments = async (
-  fetch: Fetch<SearchResponse<Establishment>>,
-  params: SearchEstablishmentParams,
-): Promise<SearchResponse<Establishment>> => {
-  const [uri, init] = searchEstablishmentsAPI(params);
-  const { data } = await fetch(uri, init);
+export const searchEstablishmentsQueryOptions = createQueryOptions<
+  SearchResponse<Establishment>,
+  SearchEstablishmentParams
+>(
+  (params) => searchEstablishmentsAPIConfig(params),
+  (params) => establishmentKeys.search(params),
+);
 
-  return data;
-};
-
-export const searchEstablishmentsQueryOptions = (
-  fetch: Fetch<SearchResponse<Establishment>>,
-  params: SearchEstablishmentParams,
-) => {
-  const queryFn = searchEstablishments.bind(null, fetch, params);
-  return queryOptions({
-    queryKey: establishmentKeys.search(params),
-    queryFn,
-    staleTime: DEFAULT_STALE_TIME,
-  });
-};
+export const searchEstablishmentsInfiniteQueryOptions =
+  createInfiniteSearchQueryOptions<
+    SearchResponse<Establishment>,
+    SearchEstablishmentParams
+  >(
+    (params) => searchEstablishmentsAPIConfig(params),
+    (params) => establishmentKeys.infiniteSearch(params),
+  );
 
 // ----------------------------------------------------------------------------
 

@@ -162,7 +162,7 @@ export const BookingDetails: FC<{
             color="default"
             type="weak"
             size="lg"
-            iconLeft="refresh-ccw-01"
+            iconLeft="refresh-ccw-02"
             label={t("bookingsTable.chips.recurring")}
           />
         )}

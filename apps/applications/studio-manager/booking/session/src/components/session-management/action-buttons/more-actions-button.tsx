@@ -41,18 +41,6 @@ export const MoreActionsButton: React.FC<{
       : "session.activity.allowed_actions.create",
   );
 
-  const hasAddToWaitlistPermission = useObjectLevelPermission(
-    isWorkshop
-      ? "reservation.workshop.allowed_actions.addToWaitlist"
-      : "reservation.activity.allowed_actions.addToWaitlist",
-  );
-
-  const hasCreateBookingPermission = useObjectLevelPermission(
-    isWorkshop
-      ? "reservation.workshop.allowed_actions.create"
-      : "reservation.activity.allowed_actions.create",
-  );
-
   const canSessionBeDuplicated =
     !session.group &&
     !establishment.disabled &&
@@ -63,56 +51,6 @@ export const MoreActionsButton: React.FC<{
     (
       setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>,
     ): Item[] => {
-      const mobileCtaItem: Item | null =
-        hasCreateBookingPermission && session.available
-          ? {
-              id: "book-action",
-              label: session.full
-                ? t("bookAndOverride", {
-                    ns: "sessionManagement",
-                  })
-                : t("bookButton", { ns: "sessionManagement" }),
-              iconLeft: "plus",
-              type: "button",
-              onClick: () => {
-                setIsPopoverOpened(false);
-                openModal(SessionManagementModalType.BOOK);
-              },
-            }
-          : !session.available && !session.group
-            ? {
-                id: "restore-action",
-                label: t("table.shortcutActions.restore", {
-                  ns: "sessionManagement",
-                }),
-                iconLeft: "unarchive",
-                type: "button",
-                onClick: () => {
-                  openModal(SessionManagementModalType.RESTORE);
-                  setIsPopoverOpened(false);
-                },
-              }
-            : null;
-
-      const mobileAddToWaitlistItem: Item | null =
-        hasAddToWaitlistPermission &&
-        session.available &&
-        session.full &&
-        !session.group
-          ? {
-              id: "add-to-waitlist-action",
-              label: t("addToWaitlist", {
-                ns: "sessionManagement",
-              }),
-              iconLeft: "user-plus-01",
-              type: "button",
-              onClick: () => {
-                setIsPopoverOpened(false);
-                openModal(SessionManagementModalType.ADD_TO_WAITLIST);
-              },
-            }
-          : null;
-
       const mobileSendCommunicationItem: Item | null = {
         id: "send-communication-action",
         label: t("actions.sendMessage", { ns: "sessionManagement" }),
@@ -135,8 +73,6 @@ export const MoreActionsButton: React.FC<{
       };
 
       const mobileItems: Item[] = [
-        mobileCtaItem,
-        mobileAddToWaitlistItem,
         mobileRefreshItem,
         mobileSendCommunicationItem,
       ].filter((item) => item !== null);
@@ -220,8 +156,6 @@ export const MoreActionsButton: React.FC<{
       canSessionBeDuplicated,
       isMobile,
       queryClient,
-      hasAddToWaitlistPermission,
-      hasCreateBookingPermission,
     ],
   );
 

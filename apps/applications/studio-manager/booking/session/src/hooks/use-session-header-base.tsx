@@ -85,5 +85,5 @@ export const useSessionHeaderBase = (
     [session.id, openModal, t, isMobile, refresh],
   );
 
-  return { pageTitle, startGroupActions, isMobile };
+  return { pageTitle, startGroupActions };
 };

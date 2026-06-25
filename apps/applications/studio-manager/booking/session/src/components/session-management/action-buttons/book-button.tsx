@@ -1,6 +1,12 @@
 import { FC } from "react";
 
-import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  Item,
+  Menu,
+  Popover,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
@@ -13,6 +19,7 @@ export const BookButton: FC<{
   openModal: (type: SessionManagementModalType) => void;
 }> = ({ sessionId, openModal }) => {
   const { t } = useTranslation("sessionManagement");
+  const isMobile = !useMatchMedia("lg");
   const { data: session } = useRetrieveSession(sessionId);
   const { activity } = useRetrieveSessionDetails(session);
 
@@ -34,11 +41,17 @@ export const BookButton: FC<{
     hasCreateBookingPermission || hasAddToWaitlistPermission;
 
   if (!session.full || session.group) {
+    const buttonProps = isMobile
+      ? ({ kind: "icon-button", icon: "plus", label: t("bookButton") } as const)
+      : ({
+          kind: "default",
+          iconLeft: "plus",
+          label: t("bookButton"),
+        } as const);
+
     return (
       <Button
-        kind="default"
-        iconLeft="plus"
-        label={t("bookButton")}
+        {...buttonProps}
         intent="call-to-action"
         size="md"
         color="main"
@@ -78,18 +91,30 @@ export const BookButton: FC<{
   return (
     <Popover>
       <Popover.Anchor>
-        {({ setIsPopoverOpened }) => (
-          <Button
-            kind="default"
-            iconLeft="chevron-down"
-            label={t("bookButton")}
-            intent="call-to-action"
-            size="md"
-            color="main"
-            disabled={!hasAnyBookingPermission || !session.available}
-            onClick={() => setIsPopoverOpened(true)}
-          />
-        )}
+        {({ setIsPopoverOpened }) => {
+          const popoverButtonProps = isMobile
+            ? ({
+                kind: "icon-button",
+                icon: "plus",
+                label: t("bookButton"),
+              } as const)
+            : ({
+                kind: "default",
+                iconLeft: "chevron-down",
+                label: t("bookButton"),
+              } as const);
+
+          return (
+            <Button
+              {...popoverButtonProps}
+              intent="call-to-action"
+              size="md"
+              color="main"
+              disabled={!hasAnyBookingPermission || !session.available}
+              onClick={() => setIsPopoverOpened(true)}
+            />
+          );
+        }}
       </Popover.Anchor>
       <Popover.Content placement="bottom-right">
         {({ setIsPopoverOpened }) => (

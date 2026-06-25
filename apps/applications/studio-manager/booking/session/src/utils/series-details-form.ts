@@ -30,25 +30,48 @@ export type SeriesDetailsFormData = {
 
 export type SeriesDetailsFormSchema = z.ZodType<SeriesDetailsFormData>;
 
+const hasSharedTagIds = ({
+  blacklist_tags,
+  whitelist_tags,
+}: Pick<SeriesDetailsFormData, "blacklist_tags" | "whitelist_tags">) => {
+  const whitelistTagIdsSet = new Set(whitelist_tags);
+
+  return blacklist_tags.some((tagId) => whitelistTagIdsSet.has(tagId));
+};
+
 export const buildSeriesDetailsFormSchema = ({
   nameRequired,
+  tagsMutuallyExclusive,
 }: {
   nameRequired: string;
+  tagsMutuallyExclusive: string;
 }): SeriesDetailsFormSchema =>
-  z.object({
-    blacklist_tags: z.array(z.number()),
-    bookingRule: z.enum(SERIES_DETAILS_BOOKING_RULES),
-    level: z.number().int().positive(),
-    manager_only: z.boolean(),
-    name: z
-      .string({
-        invalid_type_error: nameRequired,
-        required_error: nameRequired,
-      })
-      .trim()
-      .min(1, { message: nameRequired }),
-    whitelist_tags: z.array(z.number()),
-  });
+  z
+    .object({
+      blacklist_tags: z.array(z.number()),
+      bookingRule: z.enum(SERIES_DETAILS_BOOKING_RULES),
+      level: z.number().int().positive(),
+      manager_only: z.boolean(),
+      name: z
+        .string({
+          invalid_type_error: nameRequired,
+          required_error: nameRequired,
+        })
+        .trim()
+        .min(1, { message: nameRequired }),
+      whitelist_tags: z.array(z.number()),
+    })
+    .superRefine((values, context) => {
+      if (!hasSharedTagIds(values)) {
+        return;
+      }
+
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: tagsMutuallyExclusive,
+        path: ["blacklist_tags"],
+      });
+    });
 
 export const DEFAULT_SERIES_DETAILS_FORM_VALUES: SeriesDetailsFormData = {
   blacklist_tags: [],

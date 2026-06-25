@@ -89,6 +89,7 @@
     },
     "errors": {
       "nameRequired": "Enter a series name.",
+      "tagsMutuallyExclusive": "A tag cannot be both allowed and not allowed.",
       "create": "An error occurred while adding the series. Please try again later."
     },
     "toasts": {
@@ -206,7 +207,8 @@
           "service": "Service",
           "seriesType": "Series Type",
           "visibility": "Visibility",
-          "notSet": "Not set"
+          "allowedTags": "Allowed tags",
+          "notAllowedTags": "Not allowed tags"
         }
       }
     }
@@ -367,6 +369,7 @@
   },
   "errors": {
     "nameRequired": "Enter a series name.",
+    "tagsMutuallyExclusive": "A tag cannot be both allowed and not allowed.",
     "update": "Couldn't update series. Please try again."
   }
 }

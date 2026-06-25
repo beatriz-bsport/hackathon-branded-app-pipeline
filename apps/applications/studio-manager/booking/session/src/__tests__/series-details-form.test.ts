@@ -8,6 +8,7 @@ import {
 
 const seriesDetailsFormSchema = buildSeriesDetailsFormSchema({
   nameRequired: "Enter a series name.",
+  tagsMutuallyExclusive: "A tag cannot be both allowed and not allowed.",
 });
 
 describe("series-details-form", () => {
@@ -50,6 +51,28 @@ describe("series-details-form", () => {
         expect.objectContaining({
           message: "Enter a series name.",
           path: ["name"],
+        }),
+      ]);
+    });
+
+    it("rejects tags selected as both allowed and not allowed", () => {
+      const result = seriesDetailsFormSchema.safeParse({
+        ...DEFAULT_SERIES_DETAILS_FORM_VALUES,
+        blacklist_tags: [2, 3],
+        name: "Summer yoga series",
+        whitelist_tags: [1, 2],
+      });
+
+      expect(result.success).toBe(false);
+
+      if (result.success) {
+        throw new Error("Expected duplicated tag rules to be invalid.");
+      }
+
+      expect(result.error.issues).toEqual([
+        expect.objectContaining({
+          message: "A tag cannot be both allowed and not allowed.",
+          path: ["blacklist_tags"],
         }),
       ]);
     });

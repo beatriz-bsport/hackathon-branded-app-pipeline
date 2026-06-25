@@ -52,6 +52,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
     () =>
       buildSeriesDetailsFormSchema({
         nameRequired: t("seriesAddModal.errors.nameRequired"),
+        tagsMutuallyExclusive: t("seriesAddModal.errors.tagsMutuallyExclusive"),
       }),
     [t],
   );

@@ -1,9 +1,10 @@
 import { type FC, useMemo } from "react";
 
 import { FormField, useFormContext, useWatch } from "@bsport/form";
-import { TagSelector } from "@bsport/kaizen-business-components/cdp/tag-selector";
 import {
   Alert,
+  AutocompleteControlled,
+  type AutocompleteControlledProps,
   Avatar,
   Body,
   Button,
@@ -25,7 +26,7 @@ import { VisibilitySelector } from "#src/components/SessionForm/Details/Visibili
 import { Label } from "#src/components/SessionForm/label";
 import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
 import { useLevelName } from "#src/hooks/level/useLevelName";
-import { fetch } from "#src/utils/fetch";
+import { useGroupedTags } from "#src/hooks/tags/use-grouped-tags";
 import { useTranslation } from "#src/utils/i18n";
 import {
   SERIES_DETAILS_BOOKING_RULES,
@@ -44,10 +45,97 @@ type SeriesDetailsService = {
   name?: string;
 };
 
+type SeriesDetailsTagFieldName = "whitelist_tags" | "blacklist_tags";
+
 const isSeriesDetailsBookingRule = (
   value: string,
 ): value is SeriesDetailsBookingRule =>
   SERIES_DETAILS_BOOKING_RULES.some((rule) => rule === value);
+
+const SeriesDetailsTagSelector: FC<{
+  disabled: boolean;
+  fieldName: SeriesDetailsTagFieldName;
+  id: string;
+  placeholder: string;
+}> = ({ disabled, fieldName, id, placeholder }) => {
+  const groupedTags = useGroupedTags();
+  const { control } = useFormContext<SeriesDetailsFormData>();
+  const oppositeFieldName =
+    fieldName === "whitelist_tags" ? "blacklist_tags" : "whitelist_tags";
+  const excludedTagIds = useWatch({
+    control,
+    name: oppositeFieldName,
+  });
+
+  const tagItems = useMemo<AutocompleteControlledProps["items"]>(() => {
+    const excludedTagIdsSet = new Set(excludedTagIds ?? []);
+
+    return groupedTags
+      .map((group) => ({
+        title: group.name,
+        options: group.tags
+          .filter((tag) => !excludedTagIdsSet.has(tag.id))
+          .map((tag) => ({
+            id: String(tag.id),
+            label: tag.name,
+            rightSlot: (
+              <ColorIndicator color={tag.color} size="sm" type="block" />
+            ),
+            customColor: tag.color,
+          })),
+      }))
+      .filter((group) => group.options.length > 0);
+  }, [excludedTagIds, groupedTags]);
+
+  return (
+    <FormField<
+      SeriesDetailsFormData,
+      SeriesDetailsTagFieldName,
+      AutocompleteControlledProps
+    >
+      name={fieldName}
+      mapProps={({ defaultProps, form }) => {
+        const { statusText, status, value, ...otherProps } = defaultProps;
+
+        return {
+          ...otherProps,
+          value: value.map((tagId: number) => String(tagId)),
+          onChange: (selection) => {
+            form.setValue(
+              fieldName,
+              selection.map((tagId) =>
+                Number(tagId),
+              ) as SeriesDetailsFormData[SeriesDetailsTagFieldName],
+              { shouldDirty: true, shouldValidate: true },
+            );
+          },
+          multiSelect: true,
+          textfieldProps: {
+            id: `${id}-textfield`,
+            placeholder,
+            iconRight: "chevron-down" as const,
+            status,
+            statusText,
+          },
+        };
+      }}
+    >
+      {/** @ts-expect-error Props are provided by the wrapper */}
+      <AutocompleteControlled
+        key={id}
+        items={tagItems}
+        debounceValue={10}
+        popoverPlacement="bottom-right"
+        withSelectedInBase
+        className="max-w-component-select"
+        searchMode="local"
+        withChips
+        fullWidth
+        disabled={disabled}
+      />
+    </FormField>
+  );
+};
 
 export const SeriesDetailsNameField: FC<SeriesDetailsBaseProps> = ({
   disabled,
@@ -356,12 +444,10 @@ export const SeriesDetailsTagsSection: FC<
         <Body size="md">
           {t("seriesAddModal.steps.seriesDetails.tags.allowed.label")}
         </Body>
-        <TagSelector<SeriesDetailsFormData, "whitelist_tags">
+        <SeriesDetailsTagSelector
           id={`${fieldIdPrefix}-whitelist-tags`}
           fieldName="whitelist_tags"
-          fetch={fetch}
           placeholder={placeholder}
-          multiSelect
           disabled={disabled}
         />
         <Body size="sm" color="weak">
@@ -372,12 +458,10 @@ export const SeriesDetailsTagsSection: FC<
         <Body size="md">
           {t("seriesAddModal.steps.seriesDetails.tags.notAllowed.label")}
         </Body>
-        <TagSelector<SeriesDetailsFormData, "blacklist_tags">
+        <SeriesDetailsTagSelector
           id={`${fieldIdPrefix}-blacklist-tags`}
           fieldName="blacklist_tags"
-          fetch={fetch}
           placeholder={placeholder}
-          multiSelect
           disabled={disabled}
         />
         <Body size="sm" color="weak">

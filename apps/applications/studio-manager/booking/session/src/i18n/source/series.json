@@ -27,6 +27,10 @@
       "cancel": "Cancel"
     },
     "detailsButton": "Details",
+    "mobile": {
+      "classCount": "{{count}} class",
+      "classCount_other": "{{count}} classes"
+    },
     "isLoading": "Loading series...",
     "fallbacks": {
       "missingDate": "Not set"

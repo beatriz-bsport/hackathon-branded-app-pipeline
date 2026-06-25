@@ -3,7 +3,11 @@ import { useNavigate } from "react-router";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import type { DateTime } from "@bsport/datetime-manipulation";
-import { Table } from "@bsport/kaizen-primitive-core";
+import {
+  Table,
+  useLoadingState,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
@@ -12,7 +16,9 @@ import { SeriesCancelModal } from "#src/components/series-cancel/series-cancel-m
 import { SeriesDetailDrawer } from "#src/components/series-detail-drawer/series-detail-drawer";
 import { SeriesDuplicateModal } from "#src/components/series-duplicate/series-duplicate-modal";
 import { hasActiveSeriesFilters } from "#src/components/series-list/filters/get-params-from-filters";
+import { SeriesListCards } from "#src/components/series-list/series-list-cards";
 import {
+  type SeriesListColumnLabels,
   type SeriesListRow,
   buildSeriesListColumns,
 } from "#src/components/series-list/series-list-columns";
@@ -124,6 +130,7 @@ export const SeriesListTable = ({
 }: SeriesListTableProps) => {
   const { t, i18n } = useTranslation("series");
   const { t: tSessionList } = useTranslation("sessionList");
+  const isMobile = !useMatchMedia("lg");
   const locale = i18n.language;
   const today = useToday();
   const selectedDate = useCalendarStore(selectSelectedDate);
@@ -269,42 +276,47 @@ export const SeriesListTable = ({
     selectedSeriesId,
   ]);
 
+  const seriesListLabels = useMemo<SeriesListColumnLabels>(
+    () => ({
+      actions: {
+        cancel: t("seriesTable.actions.cancel"),
+        duplicate: t("seriesTable.actions.duplicate"),
+        edit: t("seriesTable.actions.edit"),
+        menu: t("seriesTable.actions.label"),
+      },
+      bookingRule: t("seriesTable.headers.bookingRule"),
+      bookingRuleInfo: {
+        description: t("seriesTable.headerInfo.bookingRule.description"),
+        fullSeriesDescription: t(
+          "seriesTable.headerInfo.bookingRule.fullSeriesDescription",
+        ),
+        openSeriesDescription: t(
+          "seriesTable.headerInfo.bookingRule.openSeriesDescription",
+        ),
+        singleClassDescription: t(
+          "seriesTable.headerInfo.bookingRule.singleClassDescription",
+        ),
+        title: t("seriesTable.headerInfo.bookingRule.title"),
+      },
+      cancelled: t("seriesFilters.status.cancelled"),
+      classes: t("seriesTable.headers.classes"),
+      dates: t("seriesTable.headers.dates"),
+      details: t("seriesTable.detailsButton"),
+      fullSeries: t("seriesTable.bookingRules.fullSeries"),
+      name: t("seriesTable.headers.name"),
+      openSeries: t("seriesTable.bookingRules.openSeries"),
+      singleClass: t("seriesTable.bookingRules.singleClass"),
+    }),
+    [t],
+  );
+
   const columns = useMemo(
     () =>
       buildSeriesListColumns({
         displayedColumns: seriesDisplayedColumns,
-        labels: {
-          actions: {
-            cancel: t("seriesTable.actions.cancel"),
-            duplicate: t("seriesTable.actions.duplicate"),
-            edit: t("seriesTable.actions.edit"),
-            menu: t("seriesTable.actions.label"),
-          },
-          bookingRule: t("seriesTable.headers.bookingRule"),
-          bookingRuleInfo: {
-            description: t("seriesTable.headerInfo.bookingRule.description"),
-            fullSeriesDescription: t(
-              "seriesTable.headerInfo.bookingRule.fullSeriesDescription",
-            ),
-            openSeriesDescription: t(
-              "seriesTable.headerInfo.bookingRule.openSeriesDescription",
-            ),
-            singleClassDescription: t(
-              "seriesTable.headerInfo.bookingRule.singleClassDescription",
-            ),
-            title: t("seriesTable.headerInfo.bookingRule.title"),
-          },
-          cancelled: t("seriesFilters.status.cancelled"),
-          classes: t("seriesTable.headers.classes"),
-          dates: t("seriesTable.headers.dates"),
-          details: t("seriesTable.detailsButton"),
-          fullSeries: t("seriesTable.bookingRules.fullSeries"),
-          name: t("seriesTable.headers.name"),
-          openSeries: t("seriesTable.bookingRules.openSeries"),
-          singleClass: t("seriesTable.bookingRules.singleClass"),
-        },
+        labels: seriesListLabels,
       }),
-    [seriesDisplayedColumns, t],
+    [seriesDisplayedColumns, seriesListLabels],
   );
   const isLoadingSeries =
     query.isLoading || (query.isFetching && query.isPlaceholderData);
@@ -371,9 +383,43 @@ export const SeriesListTable = ({
       t,
     ],
   );
+  const loadingProps = {
+    isLoading:
+      isLoadingSeries || isCheckingSeriesExistence || isLoadingActivities,
+    message: t("seriesTable.isLoading"),
+  };
+  const { LoadingState, shouldRenderLoadingState } =
+    useLoadingState(loadingProps);
+  const emptyStateProps = {
+    isEmpty:
+      !isLoadingSeries && !isCheckingSeriesExistence && rows.length === 0,
+    emptyConfig: {
+      title: t("seriesTable.emptyState.title"),
+      subtitle: t("seriesTable.emptyState.subtitle"),
+      ctaButtonConfig: canCreateSeries
+        ? {
+            label: t("seriesTable.emptyState.addSeriesButton"),
+            onClick: onAddSeriesClick,
+          }
+        : undefined,
+    },
+    isEmptySearch:
+      !isLoadingSeries &&
+      !isCheckingSeriesExistence &&
+      hasAnySeries &&
+      rows.length === 0,
+    emptySearchConfig: {
+      title: hasSearchOrFilters
+        ? t("seriesTable.emptySearchState.title")
+        : t("seriesTable.emptyUpcomingState.title"),
+      subtitle: hasSearchOrFilters
+        ? t("seriesTable.emptySearchState.subtitle")
+        : t("seriesTable.emptyUpcomingState.subtitle"),
+    },
+  };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-surface-default">
+    <div className="flex h-full min-h-0 flex-col bg-surface-default">
       <SeriesListDateSummary
         fromDate={selectedDateRange[0]}
         onDateRangeChange={handleDateRangeChange}
@@ -383,49 +429,27 @@ export const SeriesListTable = ({
       />
       {query.isError ? (
         <SectionErrorFallback onRetry={() => void query.refetch()} />
+      ) : shouldRenderLoadingState ? (
+        <div className="min-h-0 flex-1">
+          <LoadingState />
+        </div>
+      ) : isMobile ? (
+        <SeriesListCards
+          columns={columns}
+          emptyStateProps={emptyStateProps}
+          loadingProps={loadingProps}
+          paginationProps={paginationProps}
+          rows={rows}
+        />
       ) : (
-        <div className="min-h-0 flex-1 overflow-x-auto">
+        <div className="overflow-x-auto">
           <Table
             columns={columns}
             rowHeight="lg"
             rows={rows}
             paginationProps={paginationProps}
-            loadingProps={{
-              isLoading:
-                isLoadingSeries ||
-                isCheckingSeriesExistence ||
-                isLoadingActivities,
-              message: t("seriesTable.isLoading"),
-            }}
-            emptyStateProps={{
-              isEmpty:
-                !isLoadingSeries &&
-                !isCheckingSeriesExistence &&
-                rows.length === 0,
-              emptyConfig: {
-                title: t("seriesTable.emptyState.title"),
-                subtitle: t("seriesTable.emptyState.subtitle"),
-                ctaButtonConfig: canCreateSeries
-                  ? {
-                      label: t("seriesTable.emptyState.addSeriesButton"),
-                      onClick: onAddSeriesClick,
-                    }
-                  : undefined,
-              },
-              isEmptySearch:
-                !isLoadingSeries &&
-                !isCheckingSeriesExistence &&
-                hasAnySeries &&
-                rows.length === 0,
-              emptySearchConfig: {
-                title: hasSearchOrFilters
-                  ? t("seriesTable.emptySearchState.title")
-                  : t("seriesTable.emptyUpcomingState.title"),
-                subtitle: hasSearchOrFilters
-                  ? t("seriesTable.emptySearchState.subtitle")
-                  : t("seriesTable.emptyUpcomingState.subtitle"),
-              },
-            }}
+            loadingProps={loadingProps}
+            emptyStateProps={emptyStateProps}
           />
         </div>
       )}

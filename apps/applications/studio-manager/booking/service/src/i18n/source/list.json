@@ -9,23 +9,23 @@
       },
       "empty": {
         "title": "No classes yet",
-        "subtitle": "Create classes and they will display here",
-        "cta": "Create template"
+        "subtitle": "Create classes and they'll display here",
+        "cta": "Create class"
       },
       "emptySearch": {
         "title": "No results found",
-        "subtitle": "No classes match your filters.\nTry clearing them to see more results.",
+        "subtitle": "No classes match your filters. Try clearing them to see more results.",
         "cta": "Clear filters"
       }
     },
     "header": {
       "services": "Services",
       "classes": "Classes",
-      "archivedClasses": "Archived classes",
-      "add": "Create template",
+      "archivedClasses": "Archive",
+      "add": "Create class",
       "information": {
-        "label": "Classes information",
-        "description": "Create a template for your classes and appointments to schedule them from the Calendar page"
+        "label": "Setting up services",
+        "description": "Create your classes and appointments here to schedule them from the Calendar page"
       }
     },
     "filters": {
@@ -44,31 +44,31 @@
     "addModal": {
       "title": "Create a class",
       "confirm": "Create",
-      "cancel": "Cancel",
+      "cancel": "Close",
       "errors": {
-        "generic": "Something went wrong while creating the class.",
-        "requiredField": "This field is required."
+        "generic": "Something went wrong. Try again or refresh the page. ",
+        "requiredField": "This field can't be empty"
       }
     },
     "actions": {
       "duplicate": "Duplicate",
       "archive": "Archive",
-      "unarchive": "Unarchive"
+      "unarchive": "Restore"
     },
     "toasts": {
-      "create": "{{className}} has been created",
-      "createError": "Failed to create class. Please try again.",
-      "edit": "{{className}} has been updated",
-      "editError": "Failed to update class. Please try again."
+      "create": "{{className}} created",
+      "createError": "Couldn't create class. Try again.",
+      "edit": "{{className}} updated",
+      "editError": "Couldn't update class. Try again."
     },
     "table": {
       "header": {
         "columns": {
-          "name": "Template",
+          "name": "Class",
           "category": "Category",
           "type": "Type",
           "nextClass": {
-            "name": "Next class",
+            "name": "Upcoming",
             "noUpcomingSession": {
               "tooltip": "No upcoming class"
             }
@@ -84,12 +84,12 @@
         },
         "features": {
           "notifications": {
-            "title": "Notifications",
-            "popoverLabel": "Has notifications set up"
+            "title": "Notifications enabled",
+            "popoverLabel": "Clients will receive notifications from this class"
           },
           "livestream": {
-            "title": "Livestream",
-            "popoverLabel": "Live streaming available"
+            "title": "Livestream enabled",
+            "popoverLabel": "Zoom integration set up for this class"
           }
         }
       }

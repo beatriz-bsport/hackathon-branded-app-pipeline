@@ -57,6 +57,9 @@ export const SessionCapacityField: FC<{
               form.trigger("partner_max_booking_count"); // Trigger validation to check against effectif
             }
           }
+          if (fieldName === "partner_max_booking_count") {
+            form.trigger("partner_max_booking_count");
+          }
         },
         status: fieldState.error ? "error" : "default",
         statusText: fieldState.error?.message,

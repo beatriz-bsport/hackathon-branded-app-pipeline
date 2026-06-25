@@ -91,9 +91,13 @@ export const BookingDetails: FC<{
         return t("bookingsTable.cancellationReason.consumer");
       case BookingStatusCode.CANCELLED_BY_MANAGER:
         return userRole
-          ? t("bookingsTable.cancellationReason.manager", {
-              managerName: `${userRole.first_name} ${userRole.last_name}`,
-            })
+          ? userRole.first_name || userRole.last_name
+            ? t("bookingsTable.cancellationReason.manager", {
+                managerName: [userRole.first_name, userRole.last_name]
+                  .filter(Boolean)
+                  .join(" "),
+              })
+            : t("bookingsTable.cancellationReason.managerFallback")
           : t("bookingsTable.cancellationReason.studio");
       case BookingStatusCode.CANCELLED_BY_SESSION:
         return t("bookingsTable.cancellationReason.studio");
@@ -153,7 +157,7 @@ export const BookingDetails: FC<{
             bookingDate: formatDateTime(
               selectedBooking.date,
               DATETIME_FORMATS.SHORT_DATE,
-              { locale },
+              { locale, timeZone: companyTheme?.timezone_name },
             ),
           })}
         </Body>
@@ -192,7 +196,9 @@ export const BookingDetails: FC<{
           <Body color="critical">
             {t("bookingsTable.cancellationDate", {
               cancellationDate: formatDateTimeFromDate(
-                fromIsoString(selectedBooking.date_canceled ?? ""),
+                fromIsoString(selectedBooking.date_canceled ?? "", {
+                  zone: companyTheme?.timezone_name,
+                }),
                 DATETIME_FORMATS.FULL_DATETIME,
                 { locale },
               ),

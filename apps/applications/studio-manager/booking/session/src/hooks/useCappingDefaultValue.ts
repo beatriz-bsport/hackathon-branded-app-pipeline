@@ -71,7 +71,10 @@ export const useCappingDefaultValue = ({
       partnerMaxBookingCount > effectif
         ? effectif
         : Math.max(1, Math.floor(effectif * DEFAULT_SPOT_LIMIT_RATIO));
-    setValue("partner_max_booking_count", computed, { shouldDirty: false });
+    setValue("partner_max_booking_count", computed, {
+      shouldDirty: false,
+      shouldValidate: true,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectif, isEditMode]); // intentionally omit partnerMaxBookingCount/setValue
 
@@ -87,7 +90,10 @@ export const useCappingDefaultValue = ({
 
     const currentMax = partnerMaxBookingCountRef.current;
     if (currentMax != null && currentMax > effectif) {
-      setValue("partner_max_booking_count", effectif, { shouldDirty: false });
+      setValue("partner_max_booking_count", effectif, {
+        shouldDirty: false,
+        shouldValidate: true,
+      });
     }
 
     const activeAccountsCount = Math.max(1, activeAccounts.length);

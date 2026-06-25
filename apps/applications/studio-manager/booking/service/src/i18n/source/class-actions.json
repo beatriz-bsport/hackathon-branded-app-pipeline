@@ -2,12 +2,15 @@
   "classActions": {
     "archiveModal": {
       "title": "Archive class?",
+      "cantArchiveTitle": "This class has upcoming bookings",
       "confirm": "Archive",
       "cancel": "Close",
+      "keep": "Keep",
+      "viewUpcomingClasses": "Go to Calendar",
       "retry": "Retry",
       "modalContent": "{{className}} can be restored any time from your archive. Bookings for this class won't be affected.",
-      "cantArchive": "{{className}} can't be archived right now because it's scheduled. Cancel upcoming bookings first to archive this class.",
-      "checkError": "Something went wrong. Try again or refresh the page. "
+      "cantArchive": "{{className}} can't be archived as there are one or more upcoming bookings. To archive this class, go to the Calendar page and cancel all bookings for this class.",
+      "checkError": "Something went wrong. Try again or refresh the page."
     },
     "duplicateModal": {
       "title": "Duplicate class?",

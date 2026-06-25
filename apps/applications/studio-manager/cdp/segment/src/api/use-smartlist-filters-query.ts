@@ -41,8 +41,10 @@ import {
   type PrivatePassFilter,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
   REFERRER_FILTER_IDENTIFIER,
+  RELATIONS_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
   type ReferrerFilter,
+  type RelationsFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
@@ -75,13 +77,14 @@ import {
   isPrivatePassFilter,
   isReferredMemberFilter,
   isReferrerFilter,
+  isRelationsFilter,
   isTagFilter,
   isTermsAndConditionsFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
 
-export type SmartlistFiltersQueryData = {
+export type SmartlistFilterCollections = {
   ageFilters: AgeFilter[];
   genderFilters: GenderFilter[];
   memberDateJoinedFilters: MemberDateJoinedFilter[];
@@ -106,6 +109,66 @@ export type SmartlistFiltersQueryData = {
   internalNotesFilters: NotesFilter[];
   paymentMethodFilters: PaymentMethodFilter[];
   referrerFilters: ReferrerFilter[];
+  relationsFilters: RelationsFilter[];
+};
+
+export type SmartlistFiltersQueryData = SmartlistFilterCollections & {
+  filtersCount: number;
+};
+
+/**
+ * Counts every saved filter row across all supported filter families.
+ */
+export const countSmartlistFilterRows = (
+  filters: SmartlistFilterCollections,
+): number =>
+  Object.values(filters).reduce(
+    (total, filterRows) => total + filterRows.length,
+    0,
+  );
+
+const mapSmartlistFilterCollections = (
+  payload?: SmartlistGetFiltersResponse,
+): SmartlistFilterCollections => ({
+  ageFilters: mapAgeFilters(payload),
+  genderFilters: mapGenderFilters(payload),
+  memberDateJoinedFilters: mapMemberDateJoinedFilters(payload),
+  paymentPackFilters: mapPaymentPackFilters(payload),
+  privatePassFilters: mapPrivatePassFilters(payload),
+  totalBookingFilters: mapTotalBookingFilters(payload),
+  totalAppointmentsFilters: mapTotalAppointmentsFilters(payload),
+  bookingMilestoneFilters: mapBookingMilestoneFilters(payload),
+  tagFilters: mapTagFilters(payload),
+  activePassesFilters: mapActivePassesFilters(payload),
+  firstPurchaseFilters: mapFirstPurchaseFilters(payload),
+  basketAbandonmentFilters: mapBasketAbandonmentFilters(payload),
+  purchaseHistoryFilters: mapPurchaseHistoryFilters(payload),
+  referredMemberFilters: mapReferredMemberFilters(payload),
+  creditAccountFilters: mapCreditAccountFilters(payload),
+  marketingNotificationFilters: mapMarketingNotificationFilters(payload),
+  hasPhoneFilters: mapHasPhoneFilters(payload),
+  termsAndConditionsFilters: mapTermsAndConditionsFilters(payload),
+  liabilityWaiverFilters: mapLiabilityWaiverFilters(payload),
+  hasPasswordFilters: mapHasPasswordFilters(payload),
+  lastBookingFilters: mapLastBookingFilters(payload),
+  internalNotesFilters: mapInternalNotesFilters(payload),
+  paymentMethodFilters: mapPaymentMethodFilters(payload),
+  referrerFilters: mapReferrerFilters(payload),
+  relationsFilters: mapRelationsFilters(payload),
+});
+
+/**
+ * Maps the raw `get_filters` payload into query data with a precomputed row count.
+ */
+export const selectSmartlistFiltersQueryData = (
+  payload: SmartlistGetFiltersResponse,
+): SmartlistFiltersQueryData => {
+  const filters = mapSmartlistFilterCollections(payload);
+
+  return {
+    ...filters,
+    filtersCount: countSmartlistFilterRows(filters),
+  };
 };
 
 const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
@@ -425,37 +488,21 @@ const mapReferrerFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
-/**
- * Unified smartlist filters query.
- * Loads all currently supported filter families from one `get_filters` response.
- */
+const mapRelationsFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): RelationsFilter[] => {
+  const relationsFiltersMap = payload?.[RELATIONS_FILTER_IDENTIFIER];
+  if (!relationsFiltersMap) {
+    return [];
+  }
+
+  return Object.values(relationsFiltersMap)
+    .filter(isRelationsFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 export const useSmartlistFiltersQuery = (smartlistId: string) =>
   useQuery({
     ...smartlistFiltersQueryOptions(fetch, smartlistId),
-    select: (data): SmartlistFiltersQueryData => ({
-      ageFilters: mapAgeFilters(data),
-      genderFilters: mapGenderFilters(data),
-      memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
-      paymentPackFilters: mapPaymentPackFilters(data),
-      privatePassFilters: mapPrivatePassFilters(data),
-      totalBookingFilters: mapTotalBookingFilters(data),
-      totalAppointmentsFilters: mapTotalAppointmentsFilters(data),
-      bookingMilestoneFilters: mapBookingMilestoneFilters(data),
-      tagFilters: mapTagFilters(data),
-      activePassesFilters: mapActivePassesFilters(data),
-      firstPurchaseFilters: mapFirstPurchaseFilters(data),
-      basketAbandonmentFilters: mapBasketAbandonmentFilters(data),
-      purchaseHistoryFilters: mapPurchaseHistoryFilters(data),
-      referredMemberFilters: mapReferredMemberFilters(data),
-      creditAccountFilters: mapCreditAccountFilters(data),
-      marketingNotificationFilters: mapMarketingNotificationFilters(data),
-      hasPhoneFilters: mapHasPhoneFilters(data),
-      termsAndConditionsFilters: mapTermsAndConditionsFilters(data),
-      liabilityWaiverFilters: mapLiabilityWaiverFilters(data),
-      hasPasswordFilters: mapHasPasswordFilters(data),
-      lastBookingFilters: mapLastBookingFilters(data),
-      internalNotesFilters: mapInternalNotesFilters(data),
-      paymentMethodFilters: mapPaymentMethodFilters(data),
-      referrerFilters: mapReferrerFilters(data),
-    }),
+    select: selectSmartlistFiltersQueryData,
   });

@@ -1,5 +1,3 @@
-import { DateTime } from "luxon";
-
 import {
   type CreatePaymentPackFilterPayload,
   type PaymentPackFilter,
@@ -12,6 +10,11 @@ import {
   toApiDateSection,
   toFormDateSection,
 } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import {
+  DEFAULT_ABSOLUTE_START_DATE,
+  DEFAULT_RELATIVE_SECOND_DAYS,
+  DEFAULT_RELATIVE_START_DAYS,
+} from "#src/components/primitive-filters/date-filter/utils";
 
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
@@ -23,10 +26,10 @@ const EXPIRATION_DATE_INACTIVE_API_SLICE: Partial<CreatePaymentPackFilterPayload
   {
     expiration_date_filter_active: false,
     expiration_date_filter_type: SmartlistDateFilterType.DATE_AFTER,
-    expiration_date: DateTime.now().toFormat("yyyy-MM-dd"),
-    expiration_date_second: DateTime.now().toFormat("yyyy-MM-dd"),
-    expiration_duration: 0,
-    expiration_duration_second: 0,
+    expiration_date: DEFAULT_ABSOLUTE_START_DATE,
+    expiration_date_second: DEFAULT_ABSOLUTE_START_DATE,
+    expiration_duration: DEFAULT_RELATIVE_START_DAYS,
+    expiration_duration_second: DEFAULT_RELATIVE_SECOND_DAYS,
   };
 
 const toExpirationDateApiSlice = (

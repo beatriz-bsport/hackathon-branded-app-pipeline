@@ -135,7 +135,10 @@ export const MemberSignUpDateFilterCard = ({
           id={signUpDateFieldId}
           value={watchedFilterValue.signUpDate}
           onChange={(nextValue) =>
-            methods.setValue("signUpDate", nextValue, { shouldDirty: true })
+            methods.setValue("signUpDate", nextValue, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
           }
           disabled={isSaving || isDeleting}
           errors={{

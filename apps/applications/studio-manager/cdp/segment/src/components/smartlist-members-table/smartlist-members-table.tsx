@@ -1,5 +1,4 @@
 import {
-  Card,
   type GenericTableColumn,
   type PaginationProps,
   Table,
@@ -31,28 +30,19 @@ export const SmartlistMembersTable = ({
   const { t } = useTranslation("details");
 
   return (
-    <div className="flex w-full flex-col gap-md p-md">
-      <Card
-        padding="none"
-        role={isLoading ? "status" : undefined}
-        aria-busy={isLoading || undefined}
-        aria-label={isLoading ? t("membersTable.loading") : undefined}
-      >
-        <Table
-          columns={columns}
-          rows={rows}
-          rowHeight="lg"
-          loadingProps={{
-            isLoading,
-            message: t("membersTable.loading"),
-          }}
-          emptyStateProps={emptyStateProps}
-          paginationProps={{
-            ...paginationProps,
-            showRowsPerPageSelector: true,
-          }}
-        />
-      </Card>
-    </div>
+    <Table
+      columns={columns}
+      rows={rows}
+      rowHeight="lg"
+      loadingProps={{
+        isLoading,
+        message: t("membersTable.loading"),
+      }}
+      emptyStateProps={emptyStateProps}
+      paginationProps={{
+        ...paginationProps,
+        showRowsPerPageSelector: true,
+      }}
+    />
   );
 };

@@ -39,7 +39,6 @@ export const CoachSubFilterSection = ({
 
       <ItemsSearchFilter
         id={id}
-        label={coachLabel}
         options={coachOptions}
         value={value.coach.selectedCoachIds}
         onChange={(nextSelectedIds) => {

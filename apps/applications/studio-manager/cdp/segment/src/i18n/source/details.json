@@ -11,7 +11,7 @@
     "cancel": "Keep editing"
   },
   "actions": {
-    "refreshMembers": "Refresh clients",
+    "showResults": "Show results",
     "createAutomation": "Create automation",
     "createAutomationModal": {
       "title": "Create a new automation",

@@ -20,8 +20,12 @@ export const isFilterApplied = (
 
 /**
  * Save stays disabled until the form has changes worth persisting.
+ * Draft filters are always appliable so users can save default values.
  */
-export const isFilterSaveDisabled = (isDirty: boolean): boolean => !isDirty;
+export const isFilterSaveDisabled = (
+  isSavedFilter: boolean,
+  isDirty: boolean,
+): boolean => isSavedFilter && !isDirty;
 
 /**
  * Save / apply action for filter cards. Always visible: "Applied" when saved
@@ -48,7 +52,9 @@ export const FilterCardSaveButton = ({
         intent="default"
         iconLeft="check"
         loading={isSaving}
-        disabled={isFilterSaveDisabled(isDirty) || isSaving || isDeleting}
+        disabled={
+          isFilterSaveDisabled(isSavedFilter, isDirty) || isSaving || isDeleting
+        }
         onClick={() => void onSave()}
       />
     </div>

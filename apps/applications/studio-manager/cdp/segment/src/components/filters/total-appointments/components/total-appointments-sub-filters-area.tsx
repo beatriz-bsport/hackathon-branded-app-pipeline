@@ -1,11 +1,7 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import {
-  ABSOLUTE_DATE_OPERATORS,
-  DATE_FILTER_TYPES,
-  RELATIVE_DATE_OPERATORS,
-} from "#src/components/primitive-filters/date-filter/constants";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
@@ -38,19 +34,8 @@ type SubFilterFormValueMap = {
 };
 
 const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
-  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate]: {
-    dateType: DATE_FILTER_TYPES.absolute,
-    absolute: {
-      operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
-      fromDate: null,
-      toDate: null,
-    },
-    relative: {
-      operator: RELATIVE_DATE_OPERATORS.pastMoreThan,
-      firstDays: null,
-      secondDays: null,
-    },
-  },
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate]:
+    createDefaultDateFilterValue(),
   [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange]: {
     hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
     hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -117,7 +102,6 @@ export const TotalAppointmentsSubFiltersArea = ({
     const fieldToSet = totalAppointmentsSubFilterFieldMap[subFilterId];
     setValue(fieldToSet, SUB_FILTER_VALUE_MAP[subFilterId], {
       shouldDirty: true,
-      shouldValidate: true,
     });
   };
 
@@ -125,7 +109,7 @@ export const TotalAppointmentsSubFiltersArea = ({
     setValue(
       "subFilters",
       watchedFilterValue.subFilters.filter((item) => item !== subFilterId),
-      { shouldDirty: true, shouldValidate: true },
+      { shouldDirty: true },
     );
     const fieldToReset = totalAppointmentsSubFilterFieldMap[subFilterId];
     setValue(fieldToReset, SUB_FILTER_VALUE_MAP[subFilterId], {

@@ -6,11 +6,11 @@ import {
 
 import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import {
-  getDefaultApiDate,
   mapDateFilterType,
   toApiDateSection,
   toFormDateSection,
 } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 
 import type { InternalNotesFilterFormValue } from "../../types";
 import { INTERNAL_NOTES_SUB_FILTER_IDS } from "../internal-notes-sub-filter-id";

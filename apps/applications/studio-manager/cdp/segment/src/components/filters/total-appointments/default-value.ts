@@ -7,6 +7,10 @@ import {
 } from "./constants";
 import type { TotalAppointmentsNumberFilterFormValue } from "./types";
 
+export const DEFAULT_APPOINTMENTS_NUMBER_FIRST_VALUE = 1;
+export const DEFAULT_APPOINTMENTS_NUMBER_SECOND_VALUE =
+  DEFAULT_APPOINTMENTS_NUMBER_FIRST_VALUE + 1;
+
 /**
  * Default form state for a new total appointments filter row (matches contract POST defaults).
  */
@@ -15,8 +19,8 @@ export const createDefaultTotalAppointmentsNumberFilter = (
 ): TotalAppointmentsNumberFilterFormValue => ({
   smartlist: smartlistId,
   type: TOTAL_APPOINTMENTS_NUMBER_TYPE.greaterOrEqual,
-  value: 0,
-  secondValue: null,
+  value: DEFAULT_APPOINTMENTS_NUMBER_FIRST_VALUE,
+  secondValue: DEFAULT_APPOINTMENTS_NUMBER_SECOND_VALUE,
   subFilters: [],
   bookingDate: createDefaultDateFilterValue(),
   bookingHourRange: {

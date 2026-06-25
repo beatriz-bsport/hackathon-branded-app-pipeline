@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useAppointmentsQuery } from "#src/api/use-appointments-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -25,7 +25,7 @@ export const AppointmentsSubFilterSection = ({
   }));
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {appointmentLabel}
@@ -65,6 +65,6 @@ export const AppointmentsSubFilterSection = ({
             : undefined
         }
       />
-    </Card>
+    </div>
   );
 };

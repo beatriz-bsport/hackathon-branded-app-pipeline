@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useAppointmentPassesQuery } from "#src/api/use-appointment-passes-query";
 import { PassSelectionField } from "#src/components/filters/passes-filter/components/pass-selection-field";
@@ -23,7 +23,7 @@ export const AppointmentPassSubFilterSection = ({
   const passOptions = (data?.results ?? []).map(mapAppointmentPassToPassOption);
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {appointmentPassLabel}
@@ -61,6 +61,6 @@ export const AppointmentPassSubFilterSection = ({
           );
         }}
       />
-    </Card>
+    </div>
   );
 };

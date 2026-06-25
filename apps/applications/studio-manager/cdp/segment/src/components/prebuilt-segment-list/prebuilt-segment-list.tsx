@@ -101,13 +101,15 @@ function InformationPopover() {
           <Button
             kind="icon-button"
             icon="info-circle"
-            size="sm"
-            intent="flat"
-            color="default"
+            size="md"
+            intent="default"
+            color="main"
             label={t("prebuilt.information.label")}
+            onMouseOver={() => setIsPopoverOpened(true)}
+            onMouseLeave={() => setIsPopoverOpened(false)}
             onClick={(event) => {
               event.stopPropagation();
-              setIsPopoverOpened(true);
+              setIsPopoverOpened((prev) => !prev);
             }}
           />
         )}

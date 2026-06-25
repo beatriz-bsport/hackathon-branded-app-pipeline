@@ -1,4 +1,4 @@
-import { Body, Button, Card, RadioGroup } from "@bsport/kaizen-primitive-core";
+import { Body, Button, RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -34,42 +34,40 @@ export const AttendanceModeSubFilterSection = ({
   };
 
   return (
-    <Card className="w-full">
-      <div className="flex flex-col gap-xs">
-        <div className="flex items-center justify-between">
-          <Body size="lg" weight="strong">
-            {t("filters.22.subFilters.attendanceMode")}
-          </Body>
-          <Button
-            kind="icon-button"
-            icon="trash-01"
-            size="sm"
-            label={t("filters.22.actions.removeSubFilter", {
-              subFilterLabel: t("filters.22.subFilters.attendanceMode"),
-            })}
-            intent="flat"
-            color="default"
-            onClick={onRemove}
-          />
-        </div>
-
-        <RadioGroup
-          id={radioGroupId}
-          label={t("filters.22.fields.attendanceMode.radioLabel")}
-          options={[
-            {
-              value: TOTAL_BOOKING_ATTENDANCE_MODE_RADIO.present,
-              label: t("filters.22.fields.attendanceMode.present"),
-            },
-            {
-              value: TOTAL_BOOKING_ATTENDANCE_MODE_RADIO.absent,
-              label: t("filters.22.fields.attendanceMode.absent"),
-            },
-          ]}
-          value={selectedRadioValue}
-          onChange={onChange}
+    <div className="flex flex-col gap-xs">
+      <div className="flex items-center justify-between">
+        <Body size="lg" weight="strong">
+          {t("filters.22.subFilters.attendanceMode")}
+        </Body>
+        <Button
+          kind="icon-button"
+          icon="trash-01"
+          size="sm"
+          label={t("filters.22.actions.removeSubFilter", {
+            subFilterLabel: t("filters.22.subFilters.attendanceMode"),
+          })}
+          intent="flat"
+          color="default"
+          onClick={onRemove}
         />
       </div>
-    </Card>
+
+      <RadioGroup
+        id={radioGroupId}
+        label={t("filters.22.fields.attendanceMode.radioLabel")}
+        options={[
+          {
+            value: TOTAL_BOOKING_ATTENDANCE_MODE_RADIO.present,
+            label: t("filters.22.fields.attendanceMode.present"),
+          },
+          {
+            value: TOTAL_BOOKING_ATTENDANCE_MODE_RADIO.absent,
+            label: t("filters.22.fields.attendanceMode.absent"),
+          },
+        ]}
+        value={selectedRadioValue}
+        onChange={onChange}
+      />
+    </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useCoachOptionsForTotalBookingQuery } from "#src/api/use-coach-options-for-total-booking-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -19,7 +19,7 @@ export const CoachSubFilterSection = ({
   const coachLabel = t("filters.22.subFilters.coach");
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {coachLabel}
@@ -60,6 +60,6 @@ export const CoachSubFilterSection = ({
             : undefined
         }
       />
-    </Card>
+    </div>
   );
 };

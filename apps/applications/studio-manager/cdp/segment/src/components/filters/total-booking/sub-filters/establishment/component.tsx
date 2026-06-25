@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useEstablishmentsQuery } from "#src/api/use-establishments-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -18,7 +18,7 @@ export const EstablishmentSubFilterSection = ({
   const { data: establishmentOptions } = useEstablishmentsQuery();
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {establishmentLabel}
@@ -62,6 +62,6 @@ export const EstablishmentSubFilterSection = ({
             : undefined
         }
       />
-    </Card>
+    </div>
   );
 };

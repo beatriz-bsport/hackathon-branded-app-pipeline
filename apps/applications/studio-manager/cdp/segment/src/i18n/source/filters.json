@@ -7,6 +7,9 @@
     "actions": {
       "apply": "Apply",
       "applied": "Applied"
+    },
+    "operators": {
+      "and": "AND"
     }
   },
   "profileStatus": {

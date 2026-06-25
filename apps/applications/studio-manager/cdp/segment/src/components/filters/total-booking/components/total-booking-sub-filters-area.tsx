@@ -8,6 +8,7 @@ import {
 } from "#src/components/primitive-filters/date-filter/constants";
 import { useTranslation } from "#src/utils/i18n";
 
+import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
 import {
   BOOKING_HOUR_RANGE_DEFAULT_HOUR,
   BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -141,35 +142,43 @@ export const TotalBookingSubFiltersArea = ({
     });
   };
 
+  const subFilterSections = watchedFilterValue.subFilters.flatMap(
+    (subFilterId) => {
+      const subFilterModule =
+        REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID[subFilterId];
+      if (!subFilterModule) {
+        return [];
+      }
+      const Section = subFilterModule.Section;
+      const sectionId =
+        fieldIds[totalBookingSubFilterFieldMap[subFilterId]] ??
+        `${subFilterId}-section`;
+
+      return [
+        {
+          key: sectionId,
+          content: (
+            <Section
+              id={sectionId}
+              companyId={companyId}
+              value={watchedFilterValue}
+              errors={errors}
+              setValue={setValue}
+              onRemove={() => removeSubFilter(subFilterId)}
+            />
+          ),
+        },
+      ];
+    },
+  );
+
   return (
     <>
       <Body size="md" color="weak" weight="strong">
         {t("filters.22.fields.filterSpecifications")}
       </Body>
 
-      {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule =
-          REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID[subFilterId];
-        if (!subFilterModule) {
-          return null;
-        }
-        const Section = subFilterModule.Section;
-        const sectionId =
-          fieldIds[totalBookingSubFilterFieldMap[subFilterId]] ??
-          `${subFilterId}-section`;
-
-        return (
-          <Section
-            key={subFilterId}
-            id={sectionId}
-            companyId={companyId}
-            value={watchedFilterValue}
-            errors={errors}
-            setValue={setValue}
-            onRemove={() => removeSubFilter(subFilterId)}
-          />
-        );
-      })}
+      <SubFiltersCardSections sections={subFilterSections} />
 
       {availableSubFilters.length > 0 ? (
         <Popover>

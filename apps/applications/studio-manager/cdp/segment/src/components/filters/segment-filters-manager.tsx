@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { Divider } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -22,6 +22,7 @@ import {
   createSegmentDraftFilter,
   renderSegmentFilterCard,
 } from "./segment-filters-registry";
+import { FilterAndSeparator } from "./shared/filter-and-separator";
 import { type SmartlistFiltersManagerFilterType } from "./shared/types-guards";
 
 type SegmentFiltersManagerProps = {
@@ -92,6 +93,24 @@ export const SegmentFiltersManager = ({
     addDraft(createSegmentDraftFilter(filterType, smartlistNumericId));
   };
 
+  const activeFilterSections = [
+    ...savedFilters.map((savedFilter) => ({
+      key: savedFilter.key,
+      content: renderSegmentFilterCard(savedFilter.filterType, renderContext, {
+        key: savedFilter.key,
+        value: savedFilter.value,
+      }),
+    })),
+    ...draftFilters.map((draftFilter) => ({
+      key: draftFilter.clientId,
+      content: renderSegmentFilterCard(draftFilter.filterType, renderContext, {
+        key: draftFilter.clientId,
+        value: draftFilter.value,
+        cleanDraftComponent: () => removeDraft(draftFilter.clientId),
+      }),
+    })),
+  ];
+
   return (
     <div className="flex flex-col gap-sm w-full">
       <ProfileStatusFilterCard key={smartlistId} />
@@ -102,20 +121,12 @@ export const SegmentFiltersManager = ({
         <div className="flex flex-col gap-sm w-full">
           {!hasFilters ? <SegmentFiltersEmptyStateHeader /> : null}
 
-          {savedFilters.map((savedFilter) =>
-            renderSegmentFilterCard(savedFilter.filterType, renderContext, {
-              key: savedFilter.key,
-              value: savedFilter.value,
-            }),
-          )}
-
-          {draftFilters.map((draftFilter) =>
-            renderSegmentFilterCard(draftFilter.filterType, renderContext, {
-              key: draftFilter.clientId,
-              value: draftFilter.value,
-              cleanDraftComponent: () => removeDraft(draftFilter.clientId),
-            }),
-          )}
+          {activeFilterSections.map((filterSection, filterSectionIndex) => (
+            <Fragment key={filterSection.key}>
+              {filterSectionIndex > 0 ? <FilterAndSeparator /> : null}
+              {filterSection.content}
+            </Fragment>
+          ))}
 
           <FilterSelectorPopover
             key={`${savedFilters.length}-${draftFilters.length}`}

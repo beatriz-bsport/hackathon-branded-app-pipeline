@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useLevelOptionsForTotalBookingQuery } from "#src/api/use-level-options-for-total-booking-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -19,7 +19,7 @@ export const LevelSubFilterSection = ({
   const { data: levelOptions } = useLevelOptionsForTotalBookingQuery(companyId);
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {levelLabel}
@@ -58,6 +58,6 @@ export const LevelSubFilterSection = ({
             : undefined
         }
       />
-    </Card>
+    </div>
   );
 };

@@ -57,6 +57,18 @@ export const AddClassesStep: FC<AddClassesStepProps> = ({
     control: seriesDetailsMethods.control,
     name: "manager_only",
   });
+  const levelId = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "level",
+  });
+  const allowedTagIds = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "whitelist_tags",
+  });
+  const notAllowedTagIds = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "blacklist_tags",
+  });
   const classDraftOccurrencesCount =
     getSeriesClassDraftsOccurrencesCount(classDrafts);
 
@@ -65,6 +77,9 @@ export const AddClassesStep: FC<AddClassesStepProps> = ({
       <SeriesAddSummaryCard
         bookingRule={bookingRule}
         managerOnly={managerOnly}
+        levelId={levelId}
+        allowedTagIds={allowedTagIds}
+        notAllowedTagIds={notAllowedTagIds}
         seriesName={seriesName}
         serviceName={selectedService?.name}
       />

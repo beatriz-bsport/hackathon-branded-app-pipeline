@@ -129,6 +129,8 @@ export const useUrls = () => {
   const resolveAllOccurrencesPath = (id: number) =>
     generatePath(URLS.ALL_OCCURRENCES_PATH, { sessionId: String(id) });
 
+  const resolveServicesPath = () => `${appBasePath}${EXTERNAL_ROUTES.SERVICES}`;
+
   const getIndexUrl = () => URLS.INDEX;
 
   const navigateToIndex = () => navigate(URLS.INDEX);
@@ -159,6 +161,7 @@ export const useUrls = () => {
     resolveSeriesEditPath,
     resolveSeriesClassesPath,
     resolveAllOccurrencesPath,
+    resolveServicesPath,
     navigateToIndex,
     navigateToEdit,
     navigateToSeriesDetails,

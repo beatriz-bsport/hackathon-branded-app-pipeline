@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import type { MetaActivity } from "@bsport/api-book";
 
 import { ServiceSelectionStep } from "#src/components/service-selection/service-selection-step";
-import { EXTERNAL_ROUTES } from "#src/urls";
+import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const PAGINATION_NAMESPACE = "series_add_services";
@@ -18,10 +18,11 @@ export const ChooseServiceStep = ({
   onSelectService,
 }: ChooseServiceStepProps) => {
   const { t } = useTranslation("series");
+  const { resolveServicesPath } = useUrls();
 
   const handleAddServiceClick = useCallback(() => {
-    window.open(EXTERNAL_ROUTES.SERVICES, "_blank", "noopener,noreferrer");
-  }, []);
+    window.open(resolveServicesPath(), "_blank", "noopener,noreferrer");
+  }, [resolveServicesPath]);
 
   return (
     <ServiceSelectionStep

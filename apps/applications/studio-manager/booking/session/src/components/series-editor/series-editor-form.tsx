@@ -51,6 +51,7 @@ export const SeriesEditorForm: FC<SeriesEditorFormProps> = ({
     () =>
       buildSeriesDetailsFormSchema({
         nameRequired: t("errors.nameRequired"),
+        tagsMutuallyExclusive: t("errors.tagsMutuallyExclusive"),
       }),
     [t],
   );

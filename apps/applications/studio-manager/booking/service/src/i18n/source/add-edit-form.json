@@ -21,7 +21,7 @@
       },
       "workshop": {
         "label": "Workshop",
-        "helper": "Events highlighted separately from the weekly schedule. Can be one-off, recurring, or part of a series."
+        "helper": "Events highlighted separately which can be one-off, recurring, or part of a series"
       },
       "name": {
         "label": "Name",
@@ -53,50 +53,50 @@
       "color": {
         "label": "Color",
         "placeholder": "No color",
-        "description": "Makes this class stand out in your schedule"
+        "description": "Make this class stand out in your schedule"
       }
     },
     "bookingWindow": {
       "opening": {
-        "title": "Set when the booking window opens",
+        "title": "Booking window opens",
         "description": "How far in advance can clients book this class"
       },
       "closing": {
         "title": "Closing of booking window",
-        "description": "Set how far in advance clients can book this class"
+        "description": "How close to the start time clients can still book"
       },
       "cancellation": {
         "title": "Cancellation policy",
         "description": "Set the cut-off for free cancellations before this class starts"
       },
       "warnings": {
-        "nullFirstBookingUntil": "The opening of the booking window is set to 0. Clients won't be able to book this class.",
-        "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class starts. Clients may not have enough time to book.",
-        "highLastBooking": "The booking window closes more than 2 hours before the class starts. Clients will need to book well in advance."
+        "nullFirstBookingUntil": "If the booking window opens 0 days before the class, clients won't be able to book.",
+        "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class. Clients may not have enough time to book.",
+        "highLastBooking": "The booking window closes more than 2 hours before the class. Clients will need to book well in advance."
       }
     },
     "customRestrictions": {
-      "title": "Booking rules by segment",
-      "toggleLabel": "Apply different booking and cancellation rules to specific client segments.",
-      "ruleTitle": "Custom restriction {{index}}",
+      "title": "Customize booking rules per segment",
+      "toggleLabel": "Apply different booking and cancellation rules to specific client segments",
+      "ruleTitle": "Custom booking rule {{index}}",
       "remove": "Remove",
-      "applyTo": "Apply restrictions to:",
+      "applyTo": "Apply rules to:",
       "tagsPlaceholder": "Add tags",
       "addRule": "Add a rule",
-      "maxHint": "You can add up to {{max}} custom rules.",
-      "maxReached": "You already have added {{max}} custom rules.",
+      "maxHint": "You can add up to {{max}} custom rules",
+      "maxReached": "You've already added {{max}} custom rules",
       "errors": {
         "tagsRequired": "Add at least 1 tag"
       }
     },
     "automaticCancellation": {
-      "title": "Automatic Cancellation",
+      "title": "Automatic cancellation",
       "toggleLabel": "Automatically cancel underbooked classes",
       "minBookingsLabel": "Minimum capacity",
       "hoursBeforeStartLabel": "Time before the class starts",
-      "minBookingsSuffix": "people",
+      "minBookingsSuffix": "spots",
       "hoursBeforeStartSuffix": "hours",
-      "alert": "Owners, admins, teachers, and booked clients are notified automatically."
+      "alert": "Owners, admins, teachers, and clients who booked will be notified automatically"
     },
     "timeInput": {
       "days": "d",

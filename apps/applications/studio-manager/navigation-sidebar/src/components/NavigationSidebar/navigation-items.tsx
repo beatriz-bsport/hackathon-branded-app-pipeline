@@ -238,11 +238,13 @@ export const useNavigationElements = ({
             {
               id: "activities",
               label: t("menus.services.activities"),
+              hidden: isClassesMergedViewEnabled,
               ...navigationUrls.activity,
             },
             {
               id: "workshops",
               label: t("menus.services.workshops"),
+              hidden: isClassesMergedViewEnabled,
               ...navigationUrls.workshop,
             },
             {

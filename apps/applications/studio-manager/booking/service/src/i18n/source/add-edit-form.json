@@ -2,64 +2,64 @@
   "addEditForm": {
     "modal": {
       "title": "Create a class",
-      "description": "You're creating a class. Once saved, you'll be able to schedule it on your calendar.",
-      "confirm": "Create class",
-      "cancel": "Cancel",
+      "description": "Set up your class once, then schedule it as many times as you need.",
+      "confirm": "Create",
+      "cancel": "Close",
       "steps": {
-        "classSetup": "Class setup",
-        "bookingRules": "Booking rules"
+        "classSetup": "Set up your class",
+        "bookingRules": "Add booking rules"
       },
       "errors": {
-        "requiredField": "This field is required."
+        "requiredField": "This field can't be empty"
       }
     },
     "basicInfo": {
-      "typeQuestion": "What type of class do you want to create?",
+      "typeQuestion": "Type",
       "groupActivity": {
         "label": "Group class",
-        "helper": "A class with multiple participants"
+        "helper": "Classes with multiple participants that display in the weekly schedule on your website or app"
       },
       "workshop": {
         "label": "Workshop",
-        "helper": "A specialized class that happens in specific period of time"
+        "helper": "Events highlighted separately from the weekly schedule. Can be one-off, recurring, or part of a series."
       },
       "name": {
         "label": "Name",
-        "placeholder": "Give your class a name e.g. Vinyasa Yoga",
-        "error": "Enter a name."
+        "placeholder": "This name will display to clients e.g. Vinyasa Yoga",
+        "error": "Enter a name for this class"
       },
       "category": {
         "label": "Category",
         "placeholder": "Select a category",
-        "helper": "These categories will display on your branded website and app for the different types of classes",
-        "error": "Select a category."
+        "helper": "Selected category will display on your website and app",
+        "error": "Select a category for this class"
       },
       "descriptionField": {
         "label": "Description",
         "placeholder": "Add a description of the class for your clients",
-        "helper": "Default description for all classes. Can be overridden per class.",
-        "error": "Enter a description."
+        "helper": "Description applies to all classes by default. Update for individual classes when scheduling.",
+        "error": "Enter a description for this class"
       },
       "image": {
         "label": "Cover image",
-        "description": "This image will be shown to clients on your website and app when browsing classes.",
-        "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)"
+        "description": "This image will be shown to clients on your website and app for this class",
+        "recommendation": "Recommended: 1920 x 1080. Format: JPG (Full HD)"
       },
       "altText": {
         "label": "Image alt text",
-        "placeholder": "E.g. a close-up of a person meditating",
-        "helper": "Help visually impaired understand the cover image. Won't be shown visually."
+        "placeholder": "E.g. a close-up of a person doing yoga",
+        "helper": "Helps visually impaired clients understand the cover image. Not shown on screen."
       },
       "color": {
         "label": "Color",
         "placeholder": "No color",
-        "description": "A color makes this class easier to spot across your calendar and schedule"
+        "description": "Makes this class stand out in your schedule"
       }
     },
     "bookingWindow": {
       "opening": {
-        "title": "Opening of booking window",
-        "description": "Future classes can be booked if they start in less than"
+        "title": "Set when the booking window opens",
+        "description": "How far in advance can clients book this class"
       },
       "closing": {
         "title": "Closing of booking window",

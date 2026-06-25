@@ -3,7 +3,7 @@
     "title": "Add class",
     "steps": {
       "chooseActivity": {
-        "label": "Choose template",
+        "label": "Choose class",
         "description": "Search all classes, or select a group class or a workshop",
         "loadingActivities": "Loading classes...",
         "search": {
@@ -21,7 +21,7 @@
           },
           "emptyState": {
             "title": "No group classes yet",
-            "body": "Choose a class template to add it to the calendar"
+            "body": "Choose a class to add it to the calendar"
           },
           "features": {
             "livestream": {
@@ -34,16 +34,16 @@
         }
       },
       "configureSession": {
-        "label": "Set up class",
+        "label": "Setup",
         "nameAndDescription": "Details",
-        "nameAndDescriptionHelperText": "Title and description is taken from the template",
+        "nameAndDescriptionHelperText": "Title and description is taken from the class",
         "details": {
           "title": "Details",
           "sessionName": "Title",
           "description": "Description",
           "overrideToggle": {
             "label": "Customize the name and description for this class",
-            "helperText": "By default, the class uses the title and description of the template"
+            "helperText": "By default, the class uses the title and description of the selected class"
           },
           "visibilitySelector": {
             "title": "Choose if this class will be listed on your branded website",

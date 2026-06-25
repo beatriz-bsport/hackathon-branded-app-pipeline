@@ -1,4 +1,7 @@
-export type { SavedPaymentMethodDiscriminator } from "./constants";
+export type {
+  AllPaymentMethodKey,
+  SavedPaymentMethodDiscriminator,
+} from "./constants";
 export {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
   SAVED_PAYMENT_METHOD_TYPE,

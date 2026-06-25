@@ -42,6 +42,25 @@ export type FetchContractParams = {
   id: number;
 };
 
+export type SearchContractsParams = {
+  /**
+   * Query string
+   */
+  q: string;
+  /**
+   * Filter contracts that are manager-only.
+   */
+  manager_only?: boolean;
+  /**
+   * Filter contracts by disabled status.
+   */
+  disabled?: boolean;
+  /**
+   * Filter contracts usable by staff.
+   */
+  is_usable_by_staff?: boolean;
+};
+
 export type CreateContractParams = Omit<
   Contract,
   | "id"
@@ -66,21 +85,6 @@ export type CreateContractParams = Omit<
 };
 
 export type UpdateContractParams = CreateContractParams & { id: number };
-
-export type CreateLegacyContractParams = Omit<
-  Contract,
-  | "id"
-  | "company"
-  | "contract_terms_pdf_link"
-  | "disabled"
-  | "tax" // defined at benefit level
-  | "payment_pack_details"
-  | "private_pass_details"
->;
-
-export type UpdateLegacyContractParams = CreateLegacyContractParams & {
-  id: number;
-};
 
 export type RestoreContractParams = { id: number };
 

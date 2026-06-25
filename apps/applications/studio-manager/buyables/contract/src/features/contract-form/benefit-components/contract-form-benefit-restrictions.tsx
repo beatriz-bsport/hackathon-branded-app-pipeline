@@ -33,11 +33,10 @@ export const ContractFormBenefitRestrictions: FC<
     <>
       <CategoryFormSelector<ContractFormData, "payment_pack_details.sct_ids">
         fieldName="payment_pack_details.sct_ids"
+        fetch={fetch}
         companyId={companyId}
         helperText={t("formFields.benefit.restrictions.categoriesHelper")}
         withChips
-        withSearch
-        withSelectAll
         disabled={readonly}
       />
 
@@ -45,12 +44,12 @@ export const ContractFormBenefitRestrictions: FC<
         ContractFormData,
         "payment_pack_details.establishment_ids"
       >
+        id={`${formId}-compatible-establishments`}
         fieldName="payment_pack_details.establishment_ids"
+        fetch={fetch}
         companyId={companyId}
         helperText={t("formFields.benefit.restrictions.establishmentsHelper")}
         withChips
-        withSearch
-        withSelectAll
         disabled={readonly}
       />
 

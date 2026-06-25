@@ -42,7 +42,7 @@ export const BookButton: FC<{
         intent="call-to-action"
         size="md"
         color="main"
-        disabled={!hasCreateBookingPermission}
+        disabled={!hasCreateBookingPermission || !session.available}
         onClick={() => openModal(SessionManagementModalType.BOOK)}
       />
     );
@@ -86,7 +86,7 @@ export const BookButton: FC<{
             intent="call-to-action"
             size="md"
             color="main"
-            disabled={!hasAnyBookingPermission}
+            disabled={!hasAnyBookingPermission || !session.available}
             onClick={() => setIsPopoverOpened(true)}
           />
         )}

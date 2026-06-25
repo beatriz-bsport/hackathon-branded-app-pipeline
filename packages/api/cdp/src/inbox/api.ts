@@ -1,8 +1,4 @@
-import {
-  type Fetch,
-  type PaginatedResponse,
-  buildUrlParams,
-} from "@bsport/store-base";
+import { type Fetch, buildUrlParams } from "@bsport/store-base";
 
 import { QUERY_KEY_MAIN } from "#src/constants";
 
@@ -10,8 +6,8 @@ import { INBOX_CONVERSATION_API_URL, inboxMessagesApiUrl } from "./constants";
 import type {
   FetchInboxConversationsParams,
   FetchInboxMessagesParams,
-  InboxConversationListItem,
   InboxMessagesResponse,
+  RawStudioManagerConversationsResponse,
 } from "./types";
 
 export const inboxKeys = {
@@ -22,10 +18,17 @@ export const inboxKeys = {
     [...inboxKeys.infiniteLists(), params] as const,
 } as const;
 
+/**
+ * The `last_inbox_activity_at` cursor passed as the infinite-query `pageParam`.
+ * `undefined` is the initial (most-recent) load.
+ */
+export type InboxConversationsPageParam = string | undefined;
+
+/** Fetches a raw page of conversations — no transformation (normalize app-side). */
 export const fetchInboxConversationsAPI = async (
-  fetch: Fetch<PaginatedResponse<InboxConversationListItem>>,
+  fetch: Fetch<RawStudioManagerConversationsResponse>,
   params: FetchInboxConversationsParams,
-): Promise<PaginatedResponse<InboxConversationListItem>> => {
+): Promise<RawStudioManagerConversationsResponse> => {
   const { data } = await fetch(
     `${INBOX_CONVERSATION_API_URL}/${buildUrlParams(params)}`,
   );
@@ -33,12 +36,19 @@ export const fetchInboxConversationsAPI = async (
 };
 
 export const inboxConversationsInfiniteQueryOptions = (
-  fetch: Fetch<PaginatedResponse<InboxConversationListItem>>,
+  fetch: Fetch<RawStudioManagerConversationsResponse>,
   params: FetchInboxConversationsParams = {},
 ) => ({
   queryKey: inboxKeys.infinite(params),
-  queryFn: ({ pageParam }: { pageParam: number }) =>
-    fetchInboxConversationsAPI(fetch, { ...params, page: pageParam }),
+  queryFn: ({ pageParam }: { pageParam: InboxConversationsPageParam }) =>
+    fetchInboxConversationsAPI(fetch, {
+      ...params,
+      // Omit the cursor keys on the initial load — `buildUrlParams` stringifies
+      // every value, so passing `undefined` would send `?...cursor=undefined`.
+      ...(pageParam !== undefined
+        ? { last_inbox_activity_at_cursor: pageParam, direction: "older" }
+        : {}),
+    }),
 });
 
 export const inboxMessageKeys = {

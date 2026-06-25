@@ -9,7 +9,7 @@ import type { ContractFormData } from "../types";
 
 type ContractFormDescriptionProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormDescription: FC<ContractFormDescriptionProps> = ({

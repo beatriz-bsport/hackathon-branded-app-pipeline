@@ -7,7 +7,7 @@ import Button, { colorsByIntent, intents, sizes } from "./Button";
 /**
  * React component implementing all the types of buttons used in Kaizen.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Proto-designSystem?node-id=218-12159" target="_blank">Figma</a><br>
- * <a href="https://bsport.supernova-docs.io/latest/components/button/component-overview-1SAZmv8Z" target="_blank">Supernova docs</a>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/button" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Button> = {
   component: Button,

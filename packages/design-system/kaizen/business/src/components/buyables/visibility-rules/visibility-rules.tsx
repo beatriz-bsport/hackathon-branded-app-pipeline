@@ -5,11 +5,18 @@ import { type FieldValues, FormField } from "@bsport/form";
 import {
   Checkbox,
   CheckboxGroup,
+  type CheckboxGroupProps,
   type CheckboxProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 import type { BooleanFieldPath } from "#src/utils/form-types";
+
+type Option<T> = {
+  name: T | null;
+  reversed?: boolean;
+  disabled?: boolean;
+};
 
 type VisibilityRulesProps<
   TFormValues extends FieldValues,
@@ -17,26 +24,28 @@ type VisibilityRulesProps<
     BooleanFieldPath<TFormValues> = BooleanFieldPath<TFormValues>,
 > = {
   formId: string;
-  recommendedField: {
-    name: BooleanFieldName | null;
-    reversed?: boolean;
-  };
-  newMembersField: {
-    name: BooleanFieldName | null;
-    reversed?: boolean;
-  };
-  hideFromStaffField: {
-    name: BooleanFieldName | null;
-    reversed?: boolean;
-  };
-} & Omit<CheckboxProps, "id" | "label" | "Checkboxes" | "options">;
+  recommendedField: Option<BooleanFieldName>;
+  newMembersField: Option<BooleanFieldName>;
+  hideFromStaffField: Option<BooleanFieldName>;
+} & Omit<
+  CheckboxGroupProps,
+  | "id"
+  | "label"
+  | "Checkboxes"
+  | "options"
+  | "value"
+  | "initialCheckedIds"
+  | "checkedIds"
+  | "setCheckedIds"
+>;
 
 type CheckboxOption<CheckboxFields> = {
   id: string;
   label: string;
   helperText: string;
   field: CheckboxFields;
-  reverseBoolean?: boolean;
+  reverseBoolean: boolean;
+  disabled: boolean;
 };
 
 const mapValueToCheckbox = (checked: boolean) =>
@@ -51,7 +60,8 @@ export const VisibilityRules = <
   recommendedField,
   hideFromStaffField,
   newMembersField,
-  ...checkboxProps
+  disabled,
+  ...checkboxGroupProps
 }: VisibilityRulesProps<TFormValues, BooleanFieldName>): ReactElement => {
   const { t } = useTranslation("buyables", { i18n: i18nInstance });
 
@@ -63,7 +73,8 @@ export const VisibilityRules = <
       field: recommendedField.name,
       label: t("visibilityRules.checkboxes.recommended.label"),
       helperText: t("visibilityRules.checkboxes.recommended.helperText"),
-      reverseBoolean: !!recommendedField?.reversed,
+      reverseBoolean: !!recommendedField.reversed,
+      disabled: !!recommendedField.disabled,
     } as const;
     checkboxOptions.push(recommendedFieldOption);
   }
@@ -76,7 +87,8 @@ export const VisibilityRules = <
       helperText: t("visibilityRules.checkboxes.newMembersOnly.helperText", {
         minimalCurrency: getCurrencyDisplayWithPrice(0),
       }),
-      reverseBoolean: !!newMembersField?.reversed,
+      reverseBoolean: !!newMembersField.reversed,
+      disabled: !!newMembersField.disabled,
     } as const;
     checkboxOptions.push(newMembersFieldOption);
   }
@@ -88,6 +100,7 @@ export const VisibilityRules = <
       label: t("visibilityRules.checkboxes.hideFromStaff.label"),
       helperText: t("visibilityRules.checkboxes.hideFromStaff.helperText"),
       reverseBoolean: !!hideFromStaffField.reversed,
+      disabled: !!hideFromStaffField.disabled,
     } as const;
     checkboxOptions.push(hideFromStaffFieldOption);
   }
@@ -133,11 +146,12 @@ export const VisibilityRules = <
               id={key}
               label={config.label}
               helperText={config.helperText}
+              disabled={disabled || config.disabled}
             />
           </FormField>
         );
       })}
-      {...checkboxProps}
+      {...checkboxGroupProps}
     />
   );
 };

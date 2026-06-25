@@ -6,6 +6,7 @@ import ColorIndicator from "./ColorIndicator";
  * Render a visual color indication that can be either a line or a block<br>
  * As a line, it fills the entire height of the container.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=12096-5" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/color-indicator" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof ColorIndicator> = {
   component: ColorIndicator,

@@ -12,7 +12,7 @@
         "helperText": "Cash or cheque"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with clients using a link and paid for via online payment."
+    "alertVisibilityHidden": "This {{ buyable }} can still be shared with clients using a link and paid for via online payment."
   },
   "visibilitySelector": {
     "optionVisible": {

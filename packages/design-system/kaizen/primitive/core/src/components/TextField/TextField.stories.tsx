@@ -11,7 +11,8 @@ import TextField, { inputTypes, statuses } from "./TextField";
 /**
  * A component that allows users to input a single line of text.<br>
  * Icons, a prefix, and a suffix can be added to the component.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=338-24787" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=338-24787" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/text-field" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof TextField> = {
   component: TextField,

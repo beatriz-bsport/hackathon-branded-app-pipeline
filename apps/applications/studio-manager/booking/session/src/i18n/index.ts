@@ -22,6 +22,7 @@ export const i18nNamespaces: string[] = [
   "sessionList",
   "sessionCreation",
   "sessionDetails",
+  "series",
   "sessionEdit",
   "sessionManagement",
 ];

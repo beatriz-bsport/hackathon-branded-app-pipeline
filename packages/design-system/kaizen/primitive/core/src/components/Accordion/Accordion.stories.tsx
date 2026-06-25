@@ -27,6 +27,8 @@ import Title from "#src/components/Title";
  * ## Status
  *
  * **Unvalidated** – This component is not yet design-validated.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/accordion" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Accordion> = {
   component: Accordion,

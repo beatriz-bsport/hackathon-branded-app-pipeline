@@ -1,4 +1,4 @@
-import { type VariantProps, cva, cx } from "class-variance-authority";
+import { cva, cx } from "class-variance-authority";
 import React, { useCallback, useEffect, useRef } from "react";
 
 import { Label } from "#src/components/label";
@@ -15,18 +15,17 @@ const checkbox = cva(defaultClasses);
 export type CheckboxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "value"
-> &
-  VariantProps<typeof checkbox> & {
-    value: "checked" | "unchecked" | "indeterminate";
-    label?: string;
-    id: string;
-    required?: boolean;
-    disabled?: boolean;
-    direction?: "start" | "end";
-    helperText?: string;
-    errorText?: string;
-    onChange?: (value: boolean) => void;
-  };
+> & {
+  value: "checked" | "unchecked" | "indeterminate";
+  label?: string;
+  id: string;
+  required?: boolean;
+  disabled?: boolean;
+  direction?: "start" | "end";
+  helperText?: string;
+  errorText?: string;
+  onChange?: (value: boolean) => void;
+};
 
 /**
  * React component implementing all the types of checkboxes used in Kaizen.

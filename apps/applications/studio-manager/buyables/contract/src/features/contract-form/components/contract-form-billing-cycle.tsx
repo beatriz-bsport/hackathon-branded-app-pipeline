@@ -11,7 +11,7 @@ import { ContractFormIntervalSelector } from "./contract-form-interval-selector"
 
 type ContractFormBillingCycleProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
   methods: ContractFormMethods;
 };
 

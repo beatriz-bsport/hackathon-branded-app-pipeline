@@ -10,7 +10,7 @@ import type { ContractFormData } from "../types";
 
 type ContractFormRecurringAmountProps = {
   formId: string;
-  readonly?: boolean;
+  readonly: boolean;
 };
 
 export const ContractFormRecurringAmount: FC<

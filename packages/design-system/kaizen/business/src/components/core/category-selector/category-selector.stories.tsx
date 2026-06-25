@@ -4,13 +4,14 @@ import { z } from "zod";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 
+import { fetch } from "#src/utils/fetch";
 import { tanstackQueryDevToolsDecorator } from "#src/utils/stories";
 
 import { CategoryFormSelector } from "./category-form-selector";
-import { CategoryRawSelector } from "./category-raw-selector";
+import { CategoryRawSelector, DEFAULT_PROPS } from "./category-raw-selector";
 
 const metaComponentDescription = `
-**CategorySelector** is a business component using DropdownMenu to select categories (SCTs).
+**CategorySelector** is a business component wrapping \`AutocompleteControlled\` to select categories (SCTs) in multi or single select mode.
 - **CategoryFormSelector**: Wrapped in a FormField
 - **CategoryRawSelector**: Raw component
 
@@ -29,6 +30,7 @@ import { CategoryFormSelector } from "@bsport/kaizen-business-components/core/ca
 
 const metaSourceCode = `
 import { CategoryFormSelector } from "@bsport/kaizen-business-components/core/category-selector";
+import { fetch } from "#src/utils/fetch";
 
 // ...
 
@@ -50,6 +52,7 @@ const methods = useFormController({
   >
     id="category-selector-example"
     fieldName="categories"
+    fetch={fetch}
     companyId={2}
     ...
   />
@@ -97,6 +100,7 @@ const meta: Meta<CategorySelectorComponent> = {
         <CategoryFormSelector<{ categories: number[] }, "categories">
           {...args}
           fieldName="categories"
+          fetch={fetch}
           companyId={2}
         />
 
@@ -107,11 +111,10 @@ const meta: Meta<CategorySelectorComponent> = {
     );
   },
   args: {
+    ...DEFAULT_PROPS,
     required: true,
     disabled: false,
     withChips: true,
-    withSelectAll: true,
-    withSearch: true,
     className: "max-w-[420px]",
   },
 };
@@ -146,6 +149,7 @@ export const WithPredefinedValues: StoryObj<typeof CategoryFormSelector> = {
         <CategoryFormSelector<{ categories: number[] }, "categories">
           {...args}
           fieldName="categories"
+          fetch={fetch}
           companyId={2}
         />
 
@@ -161,11 +165,15 @@ export const WithPredefinedValues: StoryObj<typeof CategoryFormSelector> = {
 const rawSelectorSourceCode = `
 import { useState } from "react";
 
+import { fetch } from "#src/utils/fetch";
+
 const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
 <CategoryRawSelector
-  onChange={(values) => setSelectedIds(values)}
+  fetch={fetch}
+  companyId={2}
   value={selectedIds}
+  onChange={setSelectedIds}
 />
 `;
 
@@ -183,6 +191,7 @@ export const RawSelector: StoryObj<typeof CategoryRawSelector> = {
     return (
       <CategoryRawSelector
         {...args}
+        fetch={fetch}
         onChange={(values) => setSelectedIds(values)}
         value={selectedIds}
         companyId={2}
@@ -231,6 +240,7 @@ const schema = z.object({
 | Prop | Description |
 |------|------------|
 | \`fieldName\` | Name of the number-list field in the form |
+| \`fetch\` | Fetch instance used internally to load categories |
 | \`companyId\` | ID of the company, in order to retrieve categories in the company language |
 
 ### Additional props

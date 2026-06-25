@@ -36,7 +36,7 @@ const fetchAllEstablishments = async ({
   return results;
 };
 
-const allEstablishmentsQueryOptions = ({
+export const allEstablishmentsQueryOptions = ({
   company,
   page_size,
   disabled_establishments,

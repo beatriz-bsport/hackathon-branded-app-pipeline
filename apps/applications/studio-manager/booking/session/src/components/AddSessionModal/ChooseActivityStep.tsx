@@ -1,118 +1,80 @@
-import { useMemo, useState } from "react";
+import { useCallback } from "react";
 
 import type { MetaActivity } from "@bsport/api-book";
-import {
-  Body,
-  List,
-  ListProps,
-  Table,
-  TextField,
-  useMatchMedia,
-} from "@bsport/kaizen-primitive-core";
-import { useDebounce } from "@bsport/use-debounce";
 
-import { useRefinedGroupActivities } from "#src/hooks/useRefinedGroupActivities";
-import { useSessionActivityColumns } from "#src/hooks/useSessionActivityColumns";
+import { ServiceSelectionStep } from "#src/components/service-selection/service-selection-step";
+import { sessionCreationActivitySelectedEvent } from "#src/events/session-creation/events";
+import {
+  setSelectedGroupActivity,
+  setStepValid,
+} from "#src/stores/session-creation/actions";
+import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
+import {
+  SESSION_CREATION_STEPS,
+  useSessionCreationStore,
+} from "#src/stores/session-creation/store";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 export const ChooseActivityStep = () => {
   const { t } = useTranslation("sessionCreation");
-  const isMobile = !useMatchMedia("lg");
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const columns = useSessionActivityColumns();
-
-  const { isLoading, paginationProps, groupedActivities } =
-    useRefinedGroupActivities({
-      searchQuery,
-    });
-
-  const listItems: ListProps["items"] = useMemo(
-    () =>
-      isMobile
-        ? groupedActivities.map((activity) => {
-            return {
-              id: activity.id.toString(),
-              title: activity.name,
-              avatar: {
-                alt: activity.alt_cover_main,
-                src: activity.cover_main,
-                shape: "squared",
-                size: "lg",
-              },
-              color: activity.color,
-              onClick: activity.onRowClick,
-              isActive: activity.isActive,
-            };
-          })
-        : [],
-    [groupedActivities, isMobile],
+  const selectedGroupActivity = useSessionCreationStore(
+    selectSelectedGroupActivity,
   );
 
-  const setSearchQueryDebounced = useDebounce(setSearchQuery);
+  const handleSelectActivity = useCallback(
+    (activity: MetaActivity, { searchQuery }: { searchQuery: string }) => {
+      analyticsTrackSafeEvent(sessionCreationActivitySelectedEvent, {
+        activity_id: activity.id,
+        activity_name: activity.name,
+        activity_type: activity.is_workshop ? "workshop" : "group-activity",
+        search_value: searchQuery || null,
+      });
+      setSelectedGroupActivity(activity);
+      setStepValid(SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY, !!activity);
+    },
+    [],
+  );
 
-  const clearSearchQuery = () => {
-    setSearchQueryDebounced("");
-  };
+  const getActivityDisplayName = useCallback(
+    (activity: MetaActivity) =>
+      activity.name.charAt(0).toUpperCase() + activity.name.slice(1),
+    [],
+  );
+
+  const getActivityTypeLabel = useCallback(
+    (activity: MetaActivity) =>
+      activity.is_workshop
+        ? t("addSessionModal.steps.chooseActivity.table.type.workshop")
+        : t("addSessionModal.steps.chooseActivity.table.type.groupActivity"),
+    [t],
+  );
 
   return (
-    <div className="flex flex-col gap-lg w-full">
-      <Body>{t("addSessionModal.steps.chooseActivity.description")}</Body>
-      <TextField
-        id="search-activity-input"
-        iconLeft="search-refraction"
-        fullWidth
-        placeholder={t(
+    <ServiceSelectionStep
+      selectedServiceId={selectedGroupActivity?.id}
+      onSelectService={handleSelectActivity}
+      getServiceDisplayName={getActivityDisplayName}
+      getServiceTypeLabel={getActivityTypeLabel}
+      labels={{
+        description: t("addSessionModal.steps.chooseActivity.description"),
+        searchPlaceholder: t(
           "addSessionModal.steps.chooseActivity.search.placeholder",
-        )}
-        type="search"
-        onChange={(e) => setSearchQueryDebounced(e.target.value)}
-        onClear={clearSearchQuery}
-      />
-      {isMobile ? (
-        <List
-          id="group-activities-list"
-          items={listItems}
-          loadingProps={{
-            isLoading,
-            message: t(
-              "addSessionModal.steps.chooseActivity.loadingActivities",
-            ),
-          }}
-          emptyStateProps={{
-            isEmpty: !paginationProps.totalItems,
-            emptyConfig: {
-              title: t(
-                "addSessionModal.steps.chooseActivity.table.emptyState.title",
-              ),
-            },
-          }}
-          paginationProps={paginationProps}
-        />
-      ) : (
-        <Table<MetaActivity>
-          id="group-activities-table"
-          rowHeight="lg"
-          loadingProps={{
-            isLoading,
-            message: t(
-              "addSessionModal.steps.chooseActivity.loadingActivities",
-            ),
-          }}
-          columns={columns}
-          emptyStateProps={{
-            isEmpty: !paginationProps.totalItems,
-            emptyConfig: {
-              title: t(
-                "addSessionModal.steps.chooseActivity.table.emptyState.title",
-              ),
-            },
-          }}
-          paginationProps={paginationProps}
-          rows={groupedActivities}
-        />
-      )}
-    </div>
+        ),
+        loading: t("addSessionModal.steps.chooseActivity.loadingActivities"),
+        emptyTitle: t(
+          "addSessionModal.steps.chooseActivity.table.emptyState.title",
+        ),
+        serviceColumn: t(
+          "addSessionModal.steps.chooseActivity.table.columns.activity",
+        ),
+        serviceTypeColumn: t(
+          "addSessionModal.steps.chooseActivity.table.columns.type",
+        ),
+        livestreamTooltip: t(
+          "addSessionModal.steps.chooseActivity.table.features.livestream.popoverLabel",
+        ),
+      }}
+    />
   );
 };

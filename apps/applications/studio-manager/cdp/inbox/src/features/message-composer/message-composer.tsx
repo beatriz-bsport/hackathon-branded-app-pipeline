@@ -3,9 +3,9 @@ import { type ReactNode, useMemo } from "react";
 import { cx } from "@bsport/kaizen-primitive-core";
 
 import { type ChannelType } from "#src/components/channel/constants";
+import { useControllableState } from "#src/hooks/use-controllable-state";
 
 import { MessageComposerContext } from "./message-composer-context";
-import { useControllableState } from "./use-controllable-state";
 
 export type MessageComposerProps = {
   /** Active channel. Pass it to control the composer; omit to let it manage its own. */

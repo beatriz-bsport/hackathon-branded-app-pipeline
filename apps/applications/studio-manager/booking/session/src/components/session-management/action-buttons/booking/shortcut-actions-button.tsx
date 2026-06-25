@@ -93,6 +93,10 @@ export const ShortcutActionsButton: FC<{
       : "reservation.activity.allowed_actions.edit",
   );
 
+  const hasReadInvoicePermission = useObjectLevelPermission(
+    "billing.allowed_actions.readInvoices",
+  );
+
   const hasSessionStarted = (() => {
     const startDateTime = fromIsoString(session.date_start, {
       zone: session.timezone_name,
@@ -171,6 +175,23 @@ export const ShortcutActionsButton: FC<{
         },
       };
 
+      const resolveUnpaidInvoicesAction: Item = {
+        id: BookingActionItemId.RESOLVE_UNPAID_INVOICES,
+        label: t("actions.resolveUnpaidInvoices"),
+        iconLeft: "file-attachment-02",
+        type: "button",
+        disabled: !memberId,
+        onClick: () => {
+          if (!memberId) return;
+          window.open(
+            LEGACY_URLS.MEMBER_DETAILS(memberId),
+            "_blank",
+            "noopener,noreferrer",
+          );
+          setIsPopoverOpened(false);
+        },
+      };
+
       const copyEmailAction: Item = {
         id: BookingActionItemId.COPY_EMAIL,
         label: participantEmail ?? "",
@@ -202,7 +223,11 @@ export const ShortcutActionsButton: FC<{
         type: "button",
         onClick: () => {
           if (!memberId) return;
-          window.location.assign(LEGACY_URLS.MEMBER_NOTES(memberId));
+          window.open(
+            LEGACY_URLS.MEMBER_NOTES(memberId),
+            "_blank",
+            "noopener,noreferrer",
+          );
         },
       };
 
@@ -258,6 +283,9 @@ export const ShortcutActionsButton: FC<{
         ...(hasReadMemberInfoPermission && participantEmail?.length
           ? [copyEmailAction]
           : []),
+        ...(hasReadInvoicePermission && memberId
+          ? [resolveUnpaidInvoicesAction]
+          : []),
         ...(hasReadMemberInfoPermission && participantPhone?.length
           ? [copyPhoneAction]
           : []),
@@ -284,6 +312,7 @@ export const ShortcutActionsButton: FC<{
       hasCancelBookingPermission,
       hasCreateInvoicePermission,
       hasReadMemberInfoPermission,
+      hasReadInvoicePermission,
       participantEmail,
       participantPhone,
       copyToClipboard,

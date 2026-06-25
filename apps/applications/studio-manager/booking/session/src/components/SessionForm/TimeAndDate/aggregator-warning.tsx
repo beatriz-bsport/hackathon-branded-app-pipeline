@@ -4,7 +4,7 @@ import { modifyTime } from "@bsport/datetime-manipulation";
 import { useFormContext } from "@bsport/form";
 import { Alert, Body } from "@bsport/kaizen-primitive-core";
 
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionAggregatorWarningFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import {
   ADD_ON_WELLHUB_INTEGRATION,
@@ -17,7 +17,7 @@ const MAX_WELLHUB_SESSION_DURATION_MINUTES = 200;
 export const AggregatorWarning: FC = () => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionAggregatorWarningFormValues>();
 
   const hasWellhubIntegration = useCheckCompanyAddOn(
     ADD_ON_WELLHUB_INTEGRATION,

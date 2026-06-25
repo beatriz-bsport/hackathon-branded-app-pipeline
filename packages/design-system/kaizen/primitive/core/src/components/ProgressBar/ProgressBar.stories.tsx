@@ -17,6 +17,7 @@ import ProgressBar, { sizes, statuses } from "./ProgressBar";
  * The progression rate (value) should be between 0 and 100. If the value is outside this range,
  * it will be automatically rounded to the nearest bound (0 or 100).<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=807-3060&node-type=canvas&t=3UciOkPMOtsr2hV4-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/progress-bar" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof ProgressBar> = {
   component: ProgressBar,

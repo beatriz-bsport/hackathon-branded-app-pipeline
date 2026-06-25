@@ -14,17 +14,26 @@ import sepaDebitLogo from "./assets/sepa_debit.svg";
 import twintLogo from "./assets/twint.svg";
 import visaLogo from "./assets/visa.svg";
 
-type PaymentMethodLogoType =
-  | "visa"
-  | "mastercard"
-  | "bancontact"
-  | "google_pay"
-  | "ideal"
-  | "twint"
-  | "apple_pay"
-  | "paypal"
-  | "sepa_debit"
-  | "bacs_debit";
+/**
+ * Supported `PaymentMethodLogo` asset identifiers.
+ * Single source of truth: the {@link PaymentMethodLogoType} union and the
+ * `getSavedPaymentMethodLogoType` helper are derived from this list, so adding
+ * a new logo only requires updating this array and {@link PAYMENT_METHOD_LOGO_CONFIG}.
+ */
+export const PAYMENT_METHOD_LOGO_TYPES = [
+  "visa",
+  "mastercard",
+  "bancontact",
+  "google_pay",
+  "ideal",
+  "twint",
+  "apple_pay",
+  "paypal",
+  "sepa_debit",
+  "bacs_debit",
+] as const;
+
+export type PaymentMethodLogoType = (typeof PAYMENT_METHOD_LOGO_TYPES)[number];
 type PaymentMethodLogoSize = "lg" | "md" | "sm";
 
 type PaymentMethodLogoConfig = {

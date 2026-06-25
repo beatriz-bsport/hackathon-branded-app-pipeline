@@ -2,17 +2,30 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import {
   type FetchInboxConversationsParams,
+  type RawStudioManagerConversationsResponse,
   inboxConversationsInfiniteQueryOptions,
 } from "@bsport/api-cdp/inbox";
 
 import { fetch } from "#src/utils/fetch";
 
-const INBOX_CONVERSATIONS_STALE_TIME = 60 * 1000; // 1 minute
+import { selectInboxConversations } from "./normalize-inbox-conversation";
+
+// 1 minute: the api package stays opinion-free; this screen tolerates a short
+// cache so navigating back into the inbox (or remounting during scroll) doesn't
+// refetch the whole list every time.
+const INBOX_CONVERSATIONS_STALE_TIME = 60 * 1000;
+
+const getNextPageParam = (lastPage: RawStudioManagerConversationsResponse) =>
+  lastPage.more_conversations
+    ? lastPage.results.at(-1)?.last_inbox_activity_at
+    : undefined;
 
 /**
- * Loads the B2B inbox thread list as an infinite, page-by-page feed. Flattens
- * the paginated results into a single `conversations` array and re-exposes the
- * TanStack Query controls needed to drive infinite scroll.
+ * Loads the B2B inbox thread list as an infinite, cursor-based feed. The api
+ * package exposes only `queryKey`/`queryFn`; this hook owns the app-level
+ * options — cursor pagination (`initialPageParam`/`getNextPageParam`), the
+ * raw→UI `select`, and `staleTime` — then flattens the normalized results and
+ * re-exposes the controls that drive infinite scroll.
  */
 export const useInboxConversations = (
   params: FetchInboxConversationsParams = {},
@@ -28,8 +41,9 @@ export const useInboxConversations = (
     refetch,
   } = useInfiniteQuery({
     ...inboxConversationsInfiniteQueryOptions(fetch, params),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
+    initialPageParam: undefined,
+    getNextPageParam,
+    select: selectInboxConversations,
     staleTime: INBOX_CONVERSATIONS_STALE_TIME,
   });
 

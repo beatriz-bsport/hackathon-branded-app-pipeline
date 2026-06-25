@@ -9,7 +9,8 @@ import AnalyticCard, { Placements } from "./AnalyticCard";
  * Display-only card for analytics-style metrics. Composes Card, Body, Icon and Popover.
  * Shows a title, a prominent figure, an optional subtitle, and an optional info icon
  * that opens a popover on hover or click.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5697-18089&node-type=canvas&t=obgdPQCjAySQE353-0" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5697-18089&node-type=canvas&t=obgdPQCjAySQE353-0" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/analytic-card" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof AnalyticCard> = {
   component: AnalyticCard,

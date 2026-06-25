@@ -23,7 +23,8 @@ import { dismissToast, toast } from "./ToastManager";
  * which causes the toasts to scale up and down when the user hovers over the
  * group.
  *
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=1144-13311" target="_blank">Figma</a>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=1144-13311" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/toast" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Toast> = {
   component: Toast,

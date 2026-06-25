@@ -62,8 +62,8 @@ export const MyGroup = () => {
     />
   );
 } 
-\`\`\`
-        `,
+\`\`\`<br>
+<a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/checkbox-group" target="_blank">Kaizen docs</a>`,
       },
     },
   },

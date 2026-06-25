@@ -99,8 +99,7 @@
       },
       "actions": {
         "edit": "Edit",
-        "delete": "Delete",
-        "export": "Export"
+        "delete": "Delete"
       },
       "deleteModal": {
         "title": "Delete automation?",
@@ -112,15 +111,10 @@
       },
       "toasts": {
         "success": {
-          "deleted": "Automation message deleted",
-          "exported": "Campaign export downloaded"
+          "deleted": "Automation message deleted"
         },
         "error": {
-          "deleteFailed": "Automation couldn't be deleted. Please try again.",
-          "exportFailed": "Campaign export failed. Please try again."
-        },
-        "info": {
-          "exportPending": "Generating campaign export…"
+          "deleteFailed": "Automation couldn't be deleted. Please try again."
         }
       }
     },

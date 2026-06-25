@@ -18,7 +18,6 @@ import {
   transformFormStateIntoContractAPIParams,
 } from "#src/features/contract-form/utils";
 import { useDetailsConfig } from "#src/hooks/layout/use-details-config";
-import { useIsRevampedContract } from "#src/hooks/layout/use-is-revamped-contract";
 
 const ContractEditorPageInner: FC = () => {
   // ----- LAYOUT -----
@@ -27,8 +26,6 @@ const ContractEditorPageInner: FC = () => {
   const { detailsLayoutProps, toggleHasUnsavedChanges } = detailsLayoutConfig;
 
   // ----- EDITOR -----
-
-  const isRevampedContract = useIsRevampedContract();
 
   const contractFormSchema = useContractFormSchema();
 
@@ -46,6 +43,9 @@ const ContractEditorPageInner: FC = () => {
   const { updateRevampedContract } = useEditorForm({ methods });
 
   const formId = `contract-form-editor-${useId()}`;
+
+  const isShared = contract.contract_template != null;
+  const isFromMigration = !contract.editable;
 
   // ----- UPDATES MANAGEMENT -----
 
@@ -78,13 +78,18 @@ const ContractEditorPageInner: FC = () => {
   return (
     <ControlledForm {...methods} onSubmit={onSubmit} id={formId}>
       <DetailsLayout {...detailsLayoutProps} withPanel={true}>
-        <ContractEditorHeader methods={methods} contract={contract} />
+        <ContractEditorHeader
+          methods={methods}
+          contract={contract}
+          isShared={isShared}
+        />
         <ContractEditorContent
           formId={formId}
-          isRevampedContract={isRevampedContract}
           methods={methods}
+          isShared={isShared}
+          isFromMigration={isFromMigration}
         />
-        <ContractEditorPanel formId={formId} />
+        <ContractEditorPanel formId={formId} isShared={isShared} />
         <DetailsLayout.Confirmation
           onDiscard={discardChanges}
           formSubmit={{

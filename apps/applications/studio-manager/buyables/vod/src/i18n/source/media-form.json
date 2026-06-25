@@ -2,17 +2,17 @@
   "formFields": {
     "name": {
       "label": "Title",
-      "placeholder": "Add media title",
+      "placeholder": "Add a title for this on-demand offering",
       "errorMaxLength": "Title must be max{{maxLength}} characters"
     },
     "description": {
       "label": "Description",
-      "placeholder": "Describe your media",
+      "placeholder": "Describe this offering to your clients",
       "errorMaxLength": "Description must be max {{maxLength}} characters"
     },
     "credit_price": {
-      "errorInvalid": "Price must be a valid non-negative number",
-      "equivalentCredits": "This pass will contain {{ creditsDisplay }}"
+      "errorInvalid": "Price must be a valid positive number",
+      "equivalentCredits": "This offering will cost the equivalent of {{ creditsDisplay }} at your studio"
     },
     "manager_only": {
       "label": "Unlisted",
@@ -70,7 +70,7 @@
     }
   },
   "createModal": {
-    "title": "Create media",
+    "title": "Create on-demand offering",
     "buttons": {
       "create": "Create",
       "cancel": "Close"

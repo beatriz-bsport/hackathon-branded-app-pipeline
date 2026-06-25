@@ -19,8 +19,9 @@ export const SeriesSessionAlert: FC<{ session: SessionWithActivity }> = ({
   const { navigateToSeriesDetails } = useUrls();
 
   const isMobile = !useMatchMedia("sm");
+  const seriesId = session.group;
 
-  if (session.group === null) return null;
+  if (seriesId === null) return null;
 
   return (
     <Alert status="info" className="mb-sm">
@@ -42,7 +43,7 @@ export const SeriesSessionAlert: FC<{ session: SessionWithActivity }> = ({
           intent="default"
           color="main"
           size="sm"
-          onClick={navigateToSeriesDetails}
+          onClick={() => navigateToSeriesDetails(seriesId)}
         />
       </div>
     </Alert>

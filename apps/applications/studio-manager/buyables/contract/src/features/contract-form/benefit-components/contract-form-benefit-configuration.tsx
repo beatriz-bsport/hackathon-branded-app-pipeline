@@ -28,7 +28,8 @@ type ContractFormBenefitConfigurationProps = {
   benefitKind: BenefitKind;
   formId: string;
   methods: ContractFormMethods;
-  readonly?: boolean;
+  isFromMigration: boolean;
+  isShared: boolean;
 };
 
 /**
@@ -38,7 +39,7 @@ type ContractFormBenefitConfigurationProps = {
  */
 export const ContractFormBenefitConfiguration: FC<
   ContractFormBenefitConfigurationProps
-> = ({ benefitKind, formId, methods, readonly }) => {
+> = ({ benefitKind, formId, methods, isFromMigration, isShared }) => {
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const features = dataAccessLayer.useCompanyFeatures();
 
@@ -51,6 +52,7 @@ export const ContractFormBenefitConfiguration: FC<
   const isUnlimited =
     isPass && !!methods.watch("payment_pack_details.hasUnlimitedCredits");
   const onlyVodAccess = !!methods.watch("payment_pack_details.only_vod_access");
+  const grantDoorAccess = !!methods.watch("shared_details.grants_door_access");
 
   // A pass is access-control compatible only when it isn't VOD-only; the
   // appointment-pass benefit has no such restriction.
@@ -65,7 +67,7 @@ export const ContractFormBenefitConfiguration: FC<
         >
           formId={formId}
           fieldName="payment_pack_details.hasUnlimitedCredits"
-          disabled={readonly}
+          disabled={isShared || isFromMigration}
         />
       )}
 
@@ -75,7 +77,7 @@ export const ContractFormBenefitConfiguration: FC<
           fieldName="shared_details.credits"
           passCreditFactor={companyTheme?.pass_credit_factor}
           required
-          disabled={readonly}
+          disabled={isShared || isFromMigration}
         />
       )}
 
@@ -88,15 +90,18 @@ export const ContractFormBenefitConfiguration: FC<
             formId={formId}
             fieldName="payment_pack_details.theorical_margin_value"
             required
-            disabled={readonly}
+            disabled={isShared || isFromMigration}
           />
 
-          <ContractFormPassPenalty formId={formId} readonly={readonly} />
+          <ContractFormPassPenalty
+            formId={formId}
+            readonly={isShared || isFromMigration}
+          />
         </>
       )}
 
       {showPassConfig && (
-        <ContractFormBenefitRestrictions formId={formId} readonly={readonly} />
+        <ContractFormBenefitRestrictions formId={formId} readonly={false} />
       )}
 
       {showAppointmentConfig && (
@@ -109,7 +114,7 @@ export const ContractFormBenefitConfiguration: FC<
           fetch={fetch}
           privateServicesFieldName="private_pass_details.private_service_ids"
           compatibilityFieldName="private_pass_details.compatibility"
-          disabled={readonly}
+          disabled={false}
         />
       )}
 
@@ -123,7 +128,12 @@ export const ContractFormBenefitConfiguration: FC<
             formId={formId}
             enableFieldName="payment_pack_details.full_vod_access"
             restrictFieldName="payment_pack_details.only_vod_access"
-            disabled={readonly}
+            toggleProps={{
+              disabled: isShared, // Full VOD access toggle
+            }}
+            checkboxProps={{
+              disabled: grantDoorAccess || isShared, // Only VOD access checkbox
+            }}
           />
 
           <PassFormGuestBookingToggle<
@@ -132,7 +142,7 @@ export const ContractFormBenefitConfiguration: FC<
           >
             formId={formId}
             fieldName="payment_pack_details.allow_guest_pass"
-            disabled={readonly}
+            disabled={false}
           />
         </>
       )}
@@ -149,7 +159,7 @@ export const ContractFormBenefitConfiguration: FC<
         }
         features={features}
         isObjectValidForAccessControl={isObjectValidForAccessControl}
-        disabled={readonly}
+        disabled={false}
       />
 
       {showPassConfig && (
@@ -159,15 +169,15 @@ export const ContractFormBenefitConfiguration: FC<
         >
           formId={formId}
           fieldName="payment_pack_details.applies_for_payroll"
-          disabled={readonly}
+          disabled={isShared}
         />
       )}
 
       {isPass && (
         <>
-          <ContractFormPassMaximumUsage formId={formId} readonly={readonly} />
+          <ContractFormPassMaximumUsage formId={formId} readonly={isShared} />
 
-          <ContractFormPassTimePeriods formId={formId} readonly={readonly} />
+          <ContractFormPassTimePeriods formId={formId} readonly={isShared} />
         </>
       )}
 
@@ -178,7 +188,7 @@ export const ContractFormBenefitConfiguration: FC<
         >
           formId={formId}
           fieldName="private_pass_details.on_behalf_of_teacher"
-          disabled={readonly}
+          disabled={isShared}
         />
       )}
     </div>

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { PartnershipIdentifier } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
 
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionWellhubProductFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import {
   ADD_ON_WELLHUB_INTEGRATION,
@@ -21,7 +21,7 @@ export const useWellhubProductField = (isLivestream: boolean) => {
   );
 
   const { watch, setValue, setError, clearErrors } =
-    useFormContext<SessionCreationFormData>();
+    useFormContext<SessionWellhubProductFormValues>();
   const selectedEstablishmentId = watch("establishment");
   const isSessionAvailableOnPartnership = watch("available_on_partnership");
   const selectedWellhubProductId = watch("wellhub_product_id");

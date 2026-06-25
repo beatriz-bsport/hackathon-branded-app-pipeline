@@ -1,0 +1,372 @@
+{
+  "seriesTable": {
+    "headers": {
+      "name": "Series",
+      "dates": "Date",
+      "bookingRule": "Type",
+      "classes": "Classes"
+    },
+    "headerInfo": {
+      "bookingRule": {
+        "title": "Booking rule",
+        "description": "This defines how clients can register for classes in this series.",
+        "fullSeriesDescription": "All classes are booked at once. No one can join once the series has started.",
+        "openSeriesDescription": "Clients can join after the series starts and are booked into all remaining classes at once.",
+        "singleClassDescription": "Each class is booked independently. No commitment to the full series."
+      }
+    },
+    "bookingRules": {
+      "fullSeries": "Full series",
+      "openSeries": "Open series",
+      "singleClass": "Single class"
+    },
+    "actions": {
+      "label": "Series actions",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "cancel": "Cancel"
+    },
+    "detailsButton": "Details",
+    "isLoading": "Loading series...",
+    "fallbacks": {
+      "missingDate": "Not set"
+    },
+    "emptyState": {
+      "title": "No series yet",
+      "subtitle": "Create your first series to group related classes together.",
+      "addSeriesButton": "Add series"
+    },
+    "emptyUpcomingState": {
+      "title": "No upcoming series",
+      "subtitle": "Series exist, but none have classes from today onward."
+    },
+    "emptySearchState": {
+      "title": "No series found",
+      "subtitle": "Adjust your search or filters to find matching series."
+    }
+  },
+  "seriesFilters": {
+    "label": "Filter",
+    "is": "is",
+    "searchPlaceholder": "Search",
+    "service": {
+      "label": "Service"
+    },
+    "status": {
+      "label": "Status",
+      "scheduled": "Scheduled",
+      "past": "Past",
+      "cancelled": "Cancelled"
+    },
+    "bookingRule": {
+      "label": "Type"
+    }
+  },
+  "seriesDisplaySettings": {
+    "ordering": {
+      "label": "Ordering",
+      "options": {
+        "upcoming": "Upcoming class",
+        "name": "Alphabetical"
+      }
+    },
+    "showCancelled": {
+      "label": "Show cancelled series"
+    },
+    "displayedColumns": {
+      "label": "Listed information",
+      "dates": "Dates",
+      "bookingRule": "Type",
+      "classes": "Classes"
+    }
+  },
+  "seriesAddModal": {
+    "title": "Add series",
+    "buttons": {
+      "cancel": "Cancel",
+      "next": "Next",
+      "addSeries": "Add series"
+    },
+    "errors": {
+      "nameRequired": "Enter a series name.",
+      "create": "An error occurred while adding the series. Please try again later."
+    },
+    "toasts": {
+      "success": "Series added"
+    },
+    "steps": {
+      "chooseService": {
+        "label": "Choose service",
+        "description": "Search or select a service (workshop) to use for this series.",
+        "addServiceButton": "Add a service",
+        "loadingServices": "Loading services...",
+        "search": {
+          "placeholder": "Search"
+        },
+        "table": {
+          "columns": {
+            "service": "Service"
+          },
+          "features": {
+            "livestream": {
+              "popoverLabel": "Livestream"
+            }
+          }
+        },
+        "emptyState": {
+          "title": "No workshop services yet"
+        },
+        "emptySearchState": {
+          "title": "No workshop services found"
+        }
+      },
+      "seriesDetails": {
+        "label": "Series details",
+        "heading": "Configure the series details",
+        "basics": {
+          "title": "Basics",
+          "name": {
+            "label": "Name of the series"
+          }
+        },
+        "bookingVisibility": {
+          "title": "Booking & visibility",
+          "visibility": {
+            "label": "Choose if the classes of this series will be listed on your branded website",
+            "options": {
+              "visible": {
+                "label": "Listed",
+                "description": "This series will be listed on your branded website"
+              },
+              "hidden": {
+                "label": "Unlisted",
+                "description": "This series won't be listed on your branded website but can be shared directly via a link"
+              }
+            }
+          }
+        },
+        "tags": {
+          "title": "Tags (advanced)",
+          "description": "Control who can book this series by filtering clients based on tags.",
+          "placeholder": "Add tags",
+          "allowed": {
+            "label": "Allowed",
+            "helper": "Only clients with at least one of the selected tags can book the series."
+          },
+          "notAllowed": {
+            "label": "Not allowed",
+            "helper": "Clients with at least one of the selected tags cannot book the series."
+          }
+        }
+      },
+      "addClasses": {
+        "label": "Add classes",
+        "description": "Add classes to your series.",
+        "classCount": "{{count}} class",
+        "classCount_other": "{{count}} classes",
+        "addClass": "Add a class",
+        "form": {
+          "title": "New class",
+          "editTitle": "Edit class",
+          "cancel": "Cancel",
+          "saveClass": "Save class"
+        },
+        "list": {
+          "headers": {
+            "dateAndTime": "Date & Time",
+            "teacher": "Teacher",
+            "establishment": "Establishment"
+          },
+          "actions": {
+            "edit": "Edit class",
+            "delete": "Delete class",
+            "editRecurrence": "Edit recurrence",
+            "deleteRecurrence": "Delete recurrence"
+          },
+          "recurrence": {
+            "label": "Recurring",
+            "weekly": "Weekly",
+            "customDays": "Every {{count}} day",
+            "customDays_other": "Every {{count}} days",
+            "customWeeks": "Every {{count}} week",
+            "customWeeks_other": "Every {{count}} weeks",
+            "customMonths": "Every {{count}} month",
+            "customMonths_other": "Every {{count}} months"
+          },
+          "notSet": "Not set"
+        },
+        "booking": {
+          "title": "Booking",
+          "totalSpots": {
+            "label": "Total spots in class"
+          },
+          "waitlistUnavailable": "Waitlists are not available for series."
+        },
+        "summary": {
+          "service": "Service",
+          "seriesType": "Series Type",
+          "visibility": "Visibility",
+          "notSet": "Not set"
+        }
+      }
+    }
+  },
+  "seriesDuplicateModal": {
+    "title": "Duplicate series?",
+    "description": "This creates an independent copy of the series with its own classes. Once duplicated, it can be edited on its own.",
+    "cancelButton": "Cancel",
+    "confirmButton": "Duplicate",
+    "classCount": "The duplicated series will contain {{count}} class.",
+    "classCount_other": "The duplicated series will contain {{count}} classes.",
+    "projectedEndDate": "After duplicating, the projected end date will be {{date}}.",
+    "recap": {
+      "service": "Service",
+      "level": "Level",
+      "bookingRule": "Booking rule"
+    },
+    "form": {
+      "name": {
+        "label": "Duplicate series name",
+        "defaultValue": "{{seriesName}} (copy)"
+      },
+      "startDate": {
+        "label": "Starting date",
+        "helper": "Date of the first class. The remaining classes keep their spacing relative to this date."
+      },
+      "endDate": {
+        "label": "End date",
+        "helper": "Projected end date after all classes are duplicated."
+      }
+    },
+    "fallbacks": {
+      "notSet": "Not set"
+    },
+    "toasts": {
+      "success": "Series duplicated"
+    },
+    "errors": {
+      "nameRequired": "Enter a duplicate series name.",
+      "startDateRequired": "Select a starting date.",
+      "create": "An error occurred while duplicating the series. Please try again later."
+    }
+  },
+  "seriesCancelModal": {
+    "title": "Cancel series?",
+    "description": "This cancels the {{count}} class of this series and bookings for enrolled clients.",
+    "description_other": "This cancels the {{count}} classes of this series and bookings for enrolled clients.",
+    "irreversibleWarning": "This action can't be undone.",
+    "refundAlert": "Clients who were booked across {{count}} class will have their credits refunded.",
+    "refundAlert_other": "Clients who were booked across {{count}} classes will have their credits refunded.",
+    "notificationLabel": "Send a notification to all clients who booked a class of this series.",
+    "closeButton": "Close",
+    "confirmButton": "Cancel series",
+    "toasts": {
+      "success": "Series cancelled"
+    },
+    "errors": {
+      "cancel": "Series couldn't be cancelled. Please try again later."
+    }
+  },
+  "seriesDetailDrawer": {
+    "loading": "Loading series details...",
+    "closeOverlay": "Close series details",
+    "previousSeries": "Previous series",
+    "nextSeries": "Next series",
+    "cancelled": "Cancelled",
+    "moreDetails": "More details",
+    "actions": {
+      "label": "Series actions",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "cancel": "Cancel"
+    },
+    "metadata": {
+      "firstClass": "First class",
+      "lastClass": "Last class",
+      "service": "Service",
+      "level": "Level"
+    },
+    "bookingRule": {
+      "title": "Booking rule for clients"
+    },
+    "classes": {
+      "title": "Classes",
+      "loading": "Loading classes...",
+      "empty": "No classes to show",
+      "noStatusSummary": "No class status available",
+      "statusSummary": {
+        "ongoing": "{{count}} ongoing",
+        "ongoing_other": "{{count}} ongoing",
+        "upcoming": "{{count}} upcoming",
+        "upcoming_other": "{{count}} upcoming",
+        "past": "{{count}} completed",
+        "past_other": "{{count}} completed",
+        "cancelled": "{{count}} cancelled",
+        "cancelled_other": "{{count}} cancelled"
+      }
+    },
+    "classStatuses": {
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "past": "Past",
+      "cancelled": "Cancelled"
+    },
+    "fallbacks": {
+      "notSet": "Not set"
+    }
+  },
+  "loading": "Loading series details...",
+  "tabs": {
+    "editor": "Editor",
+    "classes": "Classes ({{count}})"
+  },
+  "header": {
+    "breadcrumbs": "Series",
+    "dateRange": "{{firstDate}} - {{lastDate}}",
+    "noDateRange": "No upcoming classes",
+    "actions": {
+      "label": "More actions",
+      "duplicate": "Duplicate",
+      "cancel": "Cancel"
+    },
+    "status": {
+      "cancelled": "Cancelled",
+      "listed": "Listed",
+      "unlisted": "Unlisted"
+    }
+  },
+  "form": {
+    "basics": {
+      "level": {
+        "label": "Level",
+        "defaultLevels": "Default levels",
+        "customLevels": "Custom levels"
+      },
+      "booking": {
+        "label": "How can clients book this series?",
+        "options": {
+          "fullSeries": "Full series",
+          "openSeries": "Open series",
+          "singleClass": "Single class"
+        },
+        "hints": {
+          "fullSeries": "All classes are booked at once. No one can join once the series has started.",
+          "openSeries": "Clients can join after the series starts and are booked into all remaining classes at once.",
+          "singleClass": "Each class is booked independently. No commitment to the full series."
+        }
+      },
+      "guestBookingUnavailable": "Booking for a guest feature is currently not available for series."
+    },
+    "details": {
+      "title": "Details",
+      "service": "Service"
+    }
+  },
+  "toasts": {
+    "seriesUpdated": "Series updated"
+  },
+  "errors": {
+    "nameRequired": "Enter a series name.",
+    "update": "Couldn't update series. Please try again."
+  }
+}

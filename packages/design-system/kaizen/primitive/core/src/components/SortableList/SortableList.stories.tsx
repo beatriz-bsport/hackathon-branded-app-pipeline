@@ -6,6 +6,7 @@ import SortableList from "#src/components/SortableList";
 /**
  * SortableList component allows for a list of items to be sorted via drag-and-drop interactions.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=9470-738307&t=3i3lyzqhsnapFIA4-11" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/sortable-list" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof SortableList> = {
   component: SortableList,

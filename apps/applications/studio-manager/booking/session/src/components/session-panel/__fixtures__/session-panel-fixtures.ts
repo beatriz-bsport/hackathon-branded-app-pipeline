@@ -2,6 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 
 import type {
   Establishment,
+  GroupSession,
   MetaActivity,
   Session,
   Teacher,
@@ -9,6 +10,7 @@ import type {
 import {
   establishmentKeys,
   groupActivityKeys,
+  groupSessionKeys,
   sessionKeys,
   teacherKeys,
 } from "@bsport/api-book";
@@ -20,6 +22,7 @@ export const TEACHER_ID = 10;
 export const ESTABLISHMENT_ID = 20;
 export const META_ACTIVITY_ID = 100;
 export const HYBRID_OFFER_ID = 999;
+const GROUP_SESSION_ID = 40;
 
 const baseTeacher = {
   id: TEACHER_ID,
@@ -39,6 +42,24 @@ const baseActivity = {
   id: META_ACTIVITY_ID,
   name: "Yoga Flow",
 } as unknown as MetaActivity;
+
+const baseGroupSession = {
+  id: GROUP_SESSION_ID,
+  allow_booking_after_start: false,
+  available: true,
+  company: 1,
+  first_offer_date: "2026-04-07",
+  full_booking_only: true,
+  last_offer_date: "2026-06-23",
+  level: 0,
+  manager_only: false,
+  meta_activity: META_ACTIVITY_ID,
+  name: "Morning Flow Yoga - April Series",
+  offers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  recurrence_id: null,
+  recurrence_index: null,
+  recurrence_rule: {},
+} satisfies GroupSession;
 
 const tagGroups: TagGroup[] = [
   {
@@ -158,6 +179,13 @@ export const sessionVariants = {
     whitelist_tags: [],
     blacklist_tags: [],
   },
+  groupedSeries: {
+    ...baseSession,
+    group: GROUP_SESSION_ID,
+    recurrence_id: "",
+    whitelist_tags: [11, 12],
+    blacklist_tags: [],
+  },
 } satisfies Record<string, Session>;
 
 export const seededSessionPanelClient = (session: Session): QueryClient => {
@@ -186,6 +214,12 @@ export const seededSessionPanelClient = (session: Session): QueryClient => {
     ...baseActivity,
     id: session.meta_activity,
   });
+  if (session.group !== null) {
+    client.setQueryData(groupSessionKeys.detail(session.group), {
+      ...baseGroupSession,
+      id: session.group,
+    });
+  }
   client.setQueryData(tagsKeys.tagList(), tags);
   client.setQueryData(tagsKeys.tagGroupList(), tagGroups);
 

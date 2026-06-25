@@ -19,6 +19,8 @@ type Task = {
  * for building drag-and-drop interactions.
  * It manages drag state, supports multiple items and drop zones,
  * and allows customization for styling and behavior.
+ * <br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/drag-and-drop" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof DragAndDrop> = {
   component: DragAndDrop,

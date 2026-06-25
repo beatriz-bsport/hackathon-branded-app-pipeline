@@ -353,6 +353,9 @@ const icons = {
     async () => await import("./assets/switch-horizontal-01.svg?react"),
   ),
   "tag-01": React.lazy(async () => await import("./assets/tag-01.svg?react")),
+  "target-04": React.lazy(
+    async () => await import("./assets/target-04.svg?react"),
+  ),
   "thumb-down": React.lazy(
     async () => await import("./assets/thumb-down.svg?react"),
   ),

@@ -3,7 +3,7 @@ import { FC } from "react";
 import { FormField, useFormContext } from "@bsport/form";
 import { Toggle, ToggleProps } from "@bsport/kaizen-primitive-core";
 
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type { SessionDateTimeFormValues } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const RecurrenceToggle: FC<{
@@ -12,12 +12,12 @@ export const RecurrenceToggle: FC<{
 }> = ({ fieldIdPrefix, trackRecurrenceToggle }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch } = useFormContext<SessionDateTimeFormValues>();
 
   const isChecked = watch("isRecurring");
 
   return (
-    <FormField<SessionCreationFormData, "isRecurring", ToggleProps>
+    <FormField<SessionDateTimeFormValues, "isRecurring", ToggleProps>
       name="isRecurring"
       mapProps={({ form }) => ({
         onToggleChange: (checked) => {

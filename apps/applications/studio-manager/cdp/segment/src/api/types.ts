@@ -1,7 +1,3 @@
-import type {
-  CommunicationKind,
-  EventKind,
-} from "@bsport/api-cdp/automated-campaign";
 import type { TagRule } from "@bsport/api-cdp/smartlist";
 
 /**
@@ -32,22 +28,6 @@ export type Popup = {
   smartlist_popup_id?: number;
   smartlist_id?: number;
   smartlist_name?: string;
-};
-
-/**
- * Combined type that includes automated campaign config + analytics
- */
-export type AutomatedCampaignWithAnalytics = {
-  id: number;
-  event_kind: EventKind;
-  communication_kind: CommunicationKind;
-  date_created: string;
-  title: string | null;
-  text: string | null;
-  total_recipients: number;
-  total_read: number;
-  total_click: number;
-  campaign_sent_uuid: string | null;
 };
 
 /**

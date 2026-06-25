@@ -7,6 +7,7 @@ import Tabs, { orientations } from "./Tabs";
  * A component that renders a set of tabs.<br>
  * One tab is composed of a unique label and reprensented by an anchor tag that may be used to navigate to another page.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=1186-12365" target="_blank">Figma</a><br>
+ * <a href="https://docs.infra.bsport.io/docs/kaizen/dev/components/tabs" target="_blank">Kaizen docs</a>
  */
 const meta: Meta<typeof Tabs> = {
   component: Tabs,

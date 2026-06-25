@@ -17,11 +17,10 @@ export type InboxConversationFilter =
   | "needs_human";
 
 /**
- * Denormalized participant summary for the list view. Derived from
- * `InboxParticipant` → `Member` in the data model.
+ * Denormalized participant summary for the list view. The B2B inbox is a
+ * one-member-per-conversation view, so we surface the first participant.
  */
 export type InboxParticipantSummary = {
-  memberId: number;
   fullName: string;
   avatarUrl?: string;
   /** Fallback initials shown when no avatar image is available. */
@@ -29,11 +28,12 @@ export type InboxParticipantSummary = {
 };
 
 /**
- * A single row in the B2B inbox list view. Denormalized from `InboxConversation`
- * (+ its `InboxParticipant`) for cheap list rendering.
+ * A single row in the B2B inbox list view. The UI-facing (camelCase) shape,
+ * produced from the raw backend payload (see {@link RawInboxConversation}) by
+ * `selectInboxConversations`.
  */
 export type InboxConversationListItem = {
-  /** Conversation id (UUID in the data model). */
+  /** Conversation id — the backend `uuid`. */
   id: string;
   participant: InboxParticipantSummary;
   /** Denormalized preview of the latest message. */
@@ -44,18 +44,69 @@ export type InboxConversationListItem = {
   dateUpdated: string;
   /** Number of unread messages from the studio's point of view. */
   studioUnreadCount: number;
-  favorite: boolean;
-  muted: boolean;
+  /** Whether the conversation has an unresolved escalation to a human. */
+  hasUnresolvedEscalation: boolean;
   aiEnabled: boolean;
 };
 
+/**
+ * Backend communication-kind code on the conversation list payload, mirroring
+ * bsport-django's `InboxMessageChannel` IntEnum: 0=email, 1=sms, 2=push,
+ * 3=in_app. The order matches the inbox app's `CHANNEL_TYPES`.
+ */
+export type InboxMessageChannelCode = 0 | 1 | 2 | 3;
+
+/**
+ * One participant as returned by the backend list serializer
+ * (`StudioManagerInboxConversationOutputSerializer.get_participants`).
+ */
+export type RawInboxParticipant = {
+  name: string;
+  /** Photo URL (the backend always supplies a default). */
+  photo: string;
+};
+
+/**
+ * A conversation exactly as the backend returns it (snake_case). Mapped onto
+ * {@link InboxConversationListItem} by `selectInboxConversations`.
+ */
+export type RawInboxConversation = {
+  uuid: string;
+  last_message_preview: string;
+  last_message_channel: InboxMessageChannelCode;
+  participants: RawInboxParticipant[];
+  ai_enabled: boolean;
+  studio_unread_count: number;
+  has_unresolved_escalation: boolean;
+  date_created: string;
+  /** Drives list ordering and the `older`/`newer` cursor. */
+  last_inbox_activity_at: string;
+};
+
+/**
+ * Raw response of the studio-manager conversation list endpoint. Cursor-based:
+ * `more_conversations` signals whether another page exists in the requested
+ * direction (there is no total count / page index).
+ */
+export type RawStudioManagerConversationsResponse = {
+  results: RawInboxConversation[];
+  more_conversations: boolean;
+};
+
 export type FetchInboxConversationsParams = {
-  /** Page number of the results (for pagination). */
-  page?: number;
-  /** Number of items per page (for pagination). */
-  page_size?: number;
-  /** Reserved quick filter — not yet honored by the backend/mock. */
-  filter?: InboxConversationFilter;
+  /**
+   * Exclusive cursor — conversations are fetched relative to this activity
+   * timestamp. Required together with `direction`.
+   */
+  last_inbox_activity_at_cursor?: string;
+  /** Page direction relative to the cursor. Required when a cursor is set. */
+  direction?: "older" | "newer";
+  /** Page size (backend default 20, max 50). */
+  limit?: number;
+  /** Filter to conversations with unread messages. */
+  unread?: boolean;
+  /** Filter to conversations with an unresolved escalation. */
+  escalated?: boolean;
 };
 
 /**

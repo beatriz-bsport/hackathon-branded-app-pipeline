@@ -13,7 +13,7 @@ const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 const fetchTeachers = fetchFlatTeachers.bind(null, fetch);
 
-const allTeachersQueryOptions = (params: FetchTeachersParams = {}) => {
+export const allTeachersQueryOptions = (params: FetchTeachersParams = {}) => {
   return queryOptions({
     queryKey: teacherKeys.list(params),
     queryFn: () => fetchTeachers(params),

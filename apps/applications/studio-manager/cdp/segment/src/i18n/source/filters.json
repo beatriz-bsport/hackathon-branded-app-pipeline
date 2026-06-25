@@ -710,11 +710,11 @@
       },
       "fields": {
         "sms": {
-          "toggle": "SMS marketing notifications",
+          "toggle": "SMS auto-messages",
           "description": "Filter by SMS marketing opt-in status."
         },
         "email": {
-          "toggle": "Email marketing notifications",
+          "toggle": "Email auto-messages",
           "description": "Filter by email marketing opt-in status."
         },
         "consent": {

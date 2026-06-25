@@ -2,7 +2,6 @@
   "addEditForm": {
     "modal": {
       "title": "Create a class",
-      "description": "Set up your class once, then schedule it as many times as you need.",
       "confirm": "Create",
       "cancel": "Close",
       "steps": {

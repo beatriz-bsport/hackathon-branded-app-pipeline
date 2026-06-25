@@ -9,20 +9,20 @@
       "loading": "Loading passes...",
       "uncategorized": "Uncategorized",
       "empty": {
-        "title": "No compatible passes added yet",
-        "description": "Add passes to control which ones can be used to book this class",
+        "title": "No compatible passes yet",
+        "description": "Set up class passes compatible with this class and they'll appear here",
         "cta": "Go to passes"
       },
       "flags": {
         "universal": "Universal",
         "unlisted": "Unlisted",
-        "staffRestricted": "Staff-restricted",
+        "staffRestricted": "Subscription only",
         "newMembersOnly": "New clients only",
         "tooltips": {
-          "universal": "Shared credits for classes and appointments",
-          "unlisted": "This pass won't display on the client website or app",
-          "staffRestricted": "Staff can't sell manually. Online only",
-          "newMembersOnly": "Can only be purchased by clients with no prior purchase history"
+          "universal": "Can be used for both classes and appointments",
+          "unlisted": "Won't display on the website or app",
+          "staffRestricted": "Can only be sold as part of a subscription",
+          "newMembersOnly": "Can only be bought by clients with no prior purchases"
         }
       },
       "filter": {
@@ -65,7 +65,7 @@
       },
       "discard": {
         "title": "Discard changes?",
-        "description": "Are you sure you want to discard your changes?",
+        "description": "If you leave now, your changes won't be saved. ",
         "confirm": "Discard changes",
         "keepEditing": "Keep editing",
         "toast": "Changes discarded"
@@ -78,7 +78,7 @@
       },
       "actions": {
         "archive": "Archive",
-        "unarchive": "Unarchive",
+        "unarchive": "Restore",
         "duplicate": "Duplicate",
         "scheduleSessions": "Schedule classes"
       }

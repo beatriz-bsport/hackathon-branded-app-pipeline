@@ -86,12 +86,13 @@ export const SessionSelectionStep: FC<SessionSelectionStepProps> = ({
 
   const filteredSessions = useMemo(() => {
     if (!sessions) return undefined;
+    if (!isSeries) return sessions;
     return sessions.filter((s) =>
       timeFilter === "upcoming"
         ? fromIsoString(s.date_start) >= now
         : fromIsoString(s.date_start) < now,
     );
-  }, [sessions, timeFilter, now]);
+  }, [sessions, timeFilter, now, isSeries]);
 
   // IDs of sessions currently visible in the filtered list
   const filteredIds = useMemo(
@@ -309,19 +310,21 @@ export const SessionSelectionStep: FC<SessionSelectionStepProps> = ({
           })}
         />
       </div>
-      <SegmentedControl
-        id="session-time-filter"
-        options={[
-          {
-            label: t("bookingFlow.sessionSelection.upcoming"),
-            value: "upcoming",
-          },
-          { label: t("bookingFlow.sessionSelection.past"), value: "past" },
-        ]}
-        value={timeFilter}
-        onChangeValue={(value) => setTimeFilter(value as "upcoming" | "past")}
-        fullWidth
-      />
+      {isSeries && (
+        <SegmentedControl
+          id="session-time-filter"
+          options={[
+            {
+              label: t("bookingFlow.sessionSelection.upcoming"),
+              value: "upcoming",
+            },
+            { label: t("bookingFlow.sessionSelection.past"), value: "past" },
+          ]}
+          value={timeFilter}
+          onChangeValue={(value) => setTimeFilter(value as "upcoming" | "past")}
+          fullWidth
+        />
+      )}
       <div className="max-h-component-content-centered overflow-y-auto">
         <List
           id="session-selection-list"
@@ -332,9 +335,14 @@ export const SessionSelectionStep: FC<SessionSelectionStepProps> = ({
           setCheckedIds={handleSessionSelect}
           header={{
             title: isSeries
-              ? t("bookingFlow.sessionSelection.classesInSeries", {
-                  count: filteredSessions?.length ?? 0,
-                })
+              ? t(
+                  timeFilter === "upcoming"
+                    ? "bookingFlow.sessionSelection.upcomingClasses"
+                    : "bookingFlow.sessionSelection.pastClasses",
+                  {
+                    count: filteredSessions?.length ?? 0,
+                  },
+                )
               : t("bookingFlow.sessionSelection.upcomingClasses", {
                   count: filteredSessions?.length ?? 0,
                 }),
@@ -343,9 +351,12 @@ export const SessionSelectionStep: FC<SessionSelectionStepProps> = ({
             isEmpty: !filteredSessions || filteredSessions.length === 0,
             emptyConfig: {
               title: isSeries
-                ? t("bookingFlow.sessionSelection.classesInSeries", {
-                    count: 0,
-                  })
+                ? t(
+                    timeFilter === "upcoming"
+                      ? "bookingFlow.sessionSelection.upcomingClasses"
+                      : "bookingFlow.sessionSelection.pastClasses",
+                    { count: 0 },
+                  )
                 : t("bookingFlow.sessionSelection.upcomingClasses", {
                     count: 0,
                   }),

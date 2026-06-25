@@ -11,6 +11,7 @@ import {
 } from "@bsport/datetime-formatting";
 import { fromIsoString } from "@bsport/datetime-manipulation";
 import { Body } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchUserRole } from "#src/hooks/user-role/use-fetch-user-roles";
 import { useTranslation } from "#src/utils/i18n";
@@ -42,6 +43,8 @@ export const CancellationStatus: FC<{
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n?.language;
 
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+
   const lastCancellationStaffHistoryEntry =
     getLastCancellationStaffHistoryEntry(staffHistory);
 
@@ -62,9 +65,13 @@ export const CancellationStatus: FC<{
         return t("bookingsTable.cancellationReason.consumer");
       case BookingStatusCode.CANCELLED_BY_MANAGER:
         return userRole
-          ? t("bookingsTable.cancellationReason.manager", {
-              managerName: `${userRole.first_name} ${userRole.last_name}`,
-            })
+          ? userRole.first_name || userRole.last_name
+            ? t("bookingsTable.cancellationReason.manager", {
+                managerName: [userRole.first_name, userRole.last_name]
+                  .filter(Boolean)
+                  .join(" "),
+              })
+            : t("bookingsTable.cancellationReason.managerFallback")
           : t("bookingsTable.cancellationReason.studio");
       case BookingStatusCode.CANCELLED_BY_SESSION:
         return t("bookingsTable.cancellationReason.studio");
@@ -74,7 +81,10 @@ export const CancellationStatus: FC<{
   };
 
   const cancellationDate = formatDateTimeFromDate(
-    fromIsoString(dateCancelled),
+    fromIsoString(dateCancelled, {
+      zone: companyTheme?.timezone_name,
+      locale,
+    }),
     DATETIME_FORMATS.FULL_DATETIME,
     { locale },
   );

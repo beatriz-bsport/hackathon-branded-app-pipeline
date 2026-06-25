@@ -4,6 +4,7 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import {
   Body,
+  Chip,
   List,
   type ListItemProps,
   Loader,
@@ -106,6 +107,14 @@ export const SwapBookingPassModal: FC<SwapBookingPassModalProps> = ({
                     count: getCreditsDividedValue(pack.available_credits),
                   })}
             </Body>
+            {pack.id === selectedPassId && (
+              <Chip
+                color="main"
+                type="strong"
+                size="lg"
+                label={t("bookingFlow.passSelection.current")}
+              />
+            )}
           </div>
         ),
       })),

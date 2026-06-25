@@ -65,6 +65,7 @@
     "cancellationReason": {
       "consumer": "Cancelled by the consumer",
       "manager": "Cancelled by {{managerName}}",
+      "managerFallback": "Cancelled by a manager",
       "studio": "Cancelled by the studio"
     },
     "cancellationDate": "On {{cancellationDate}}"
@@ -415,7 +416,8 @@
       "bookFutureDates": "Book future dates",
       "bookFutureDatesDescription": "Choose specific dates from this recurring class in the next step",
       "incompatible": "Incompatible",
-      "billNewPlaceholder": "Coming soon"
+      "billNewPlaceholder": "Coming soon",
+      "current": "Current pass"
     },
     "incompatibilities": {
       "2008": "The pass was not configured to cover this type of class",
@@ -479,6 +481,7 @@
       "description": "Which other classes would you like to add?",
       "seriesDescription": "Select the classes to book",
       "upcomingClasses": "Upcoming classes ({{count}})",
+      "pastClasses": "Past classes ({{count}})",
       "classesInSeries": "Classes ({{count}})",
       "selected": "{{count}} class",
       "selected_other": "{{count}} classes",

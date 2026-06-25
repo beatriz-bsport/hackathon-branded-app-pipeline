@@ -33,6 +33,7 @@
     "bacsDebit": "BACS",
     "display": {
       "expires": "Expires {{date}}",
+      "emptyTitle": "No payment method added yet",
       "unknownIdentifier": "—"
     },
     "selector": {

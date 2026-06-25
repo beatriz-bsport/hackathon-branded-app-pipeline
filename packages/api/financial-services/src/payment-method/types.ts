@@ -67,6 +67,10 @@ export type FetchSavedPaymentMethodsRequest = {
   member: number;
 };
 
+export type RequestMemberSetupIntentRequest = {
+  member: number;
+};
+
 export type SetupIntentResponse = {
   client_secret: string;
 };

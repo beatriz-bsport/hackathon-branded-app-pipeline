@@ -51,9 +51,9 @@ const bacs = (readable_identifier = "****0012"): SavedPaymentMethod => ({
 // ─── getMaskedPaymentMethodIdentifier ────────────────────────────────────────
 
 describe("getMaskedPaymentMethodIdentifier", () => {
-  it("masks the last 4 digits of a numeric identifier", () => {
+  it("masks the last 4 digits of a card identifier in full PAN format", () => {
     expect(getMaskedPaymentMethodIdentifier(card("4242424242424242"))).toBe(
-      "****4242",
+      "**** **** **** 4242",
     );
   });
 
@@ -63,13 +63,15 @@ describe("getMaskedPaymentMethodIdentifier", () => {
     ).toBe("****3000");
   });
 
-  it("normalizes a pre-masked identifier to exactly ****XXXX", () => {
-    expect(getMaskedPaymentMethodIdentifier(card("****1234"))).toBe("****1234");
+  it("normalizes a pre-masked card identifier to full PAN format", () => {
+    expect(getMaskedPaymentMethodIdentifier(card("****1234"))).toBe(
+      "**** **** **** 1234",
+    );
   });
 
-  it("re-masks a pre-masked identifier with trailing digits to drop the excess", () => {
+  it("re-masks a pre-masked card identifier with trailing digits to drop the excess", () => {
     expect(getMaskedPaymentMethodIdentifier(card("****1234 5678"))).toBe(
-      "****5678",
+      "**** **** **** 5678",
     );
   });
 
@@ -80,7 +82,9 @@ describe("getMaskedPaymentMethodIdentifier", () => {
   });
 
   it("trims surrounding whitespace before processing", () => {
-    expect(getMaskedPaymentMethodIdentifier(card("  4242  "))).toBe("****4242");
+    expect(getMaskedPaymentMethodIdentifier(card("  4242  "))).toBe(
+      "**** **** **** 4242",
+    );
   });
 });
 
@@ -158,7 +162,7 @@ describe("getSavedPaymentMethodDisplay", () => {
 
     expect(display).toEqual({
       logoType: "visa",
-      maskedIdentifier: "****4242",
+      maskedIdentifier: "**** **** **** 4242",
       hasMaskedDigits: true,
       expiry: "03/26",
       typeLabelKey: "paymentMethod.card",

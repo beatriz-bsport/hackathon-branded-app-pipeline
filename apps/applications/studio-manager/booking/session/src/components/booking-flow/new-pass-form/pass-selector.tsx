@@ -8,6 +8,7 @@ import {
   Body,
   Button,
   Chip,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -26,6 +27,7 @@ export const PassSelector: FC<{
   passes: Pass[];
 }> = ({ isLoading, handleMenuScroll, passes, setSearchQuery }) => {
   const { t } = useTranslation("sessionManagement");
+  const isMobile = !useMatchMedia("lg");
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const { getCreditsDividedValue } = useCreditFactor(
@@ -54,7 +56,10 @@ export const PassSelector: FC<{
       label: pass.name,
       description,
       rightSlot: (
-        <div className="flex items-center gap-xs">
+        <div className="flex flex-col items-end gap-xs">
+          <Body htmlVariant="span" size="md" color="weak">
+            {price}
+          </Body>
           {isUniversal && (
             <Chip
               color="default"
@@ -64,9 +69,6 @@ export const PassSelector: FC<{
               label={t("bookingFlow.newPass.universal")}
             />
           )}
-          <Body htmlVariant="span" size="md" color="weak">
-            {price}
-          </Body>
         </div>
       ),
     };
@@ -107,23 +109,25 @@ export const PassSelector: FC<{
             setNewPass(null);
           }}
         />
-        <Button
-          color="main"
-          intent="default"
-          label={t("bookingFlow.newPass.goToPassDetails")}
-          size="md"
-          kind="icon-button"
-          icon="share-03"
-          onClick={() => {
-            if (!selectedPassId) return;
-            window.open(
-              LEGACY_URLS.PASS_DETAILS(selectedPassId),
-              "_blank",
-              "noopener,noreferrer",
-            );
-          }}
-          disabled={!selectedPassId}
-        />
+        {!isMobile && (
+          <Button
+            color="main"
+            intent="default"
+            label={t("bookingFlow.newPass.goToPassDetails")}
+            size="md"
+            kind="icon-button"
+            icon="share-03"
+            onClick={() => {
+              if (!selectedPassId) return;
+              window.open(
+                LEGACY_URLS.PASS_DETAILS(selectedPassId),
+                "_blank",
+                "noopener,noreferrer",
+              );
+            }}
+            disabled={!selectedPassId}
+          />
+        )}
       </div>
       {selectedPass && (
         <Body size="sm" color="weak">
@@ -150,6 +154,22 @@ export const PassSelector: FC<{
             })
           )}
         </Body>
+      )}
+      {isMobile && selectedPassId && (
+        <Button
+          color="main"
+          intent="default"
+          label={t("bookingFlow.newPass.goToPassDetails")}
+          size="sm"
+          iconRight="share-03"
+          onClick={() => {
+            window.open(
+              LEGACY_URLS.PASS_DETAILS(selectedPassId),
+              "_blank",
+              "noopener,noreferrer",
+            );
+          }}
+        />
       )}
     </div>
   );

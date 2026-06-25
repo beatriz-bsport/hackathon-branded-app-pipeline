@@ -42,7 +42,6 @@ export const BillingGroupSelector: FC = () => {
   return (
     <Select
       id="billing-group-select"
-      className="min-w-component-select"
       label={t("bookingFlow.newPass.billingGroupLabel")}
       items={billingGroupOptions}
       value={
@@ -53,6 +52,7 @@ export const BillingGroupSelector: FC = () => {
         isLoading: billingGroupsLoading,
       }}
       required
+      fullWidth
     />
   );
 };

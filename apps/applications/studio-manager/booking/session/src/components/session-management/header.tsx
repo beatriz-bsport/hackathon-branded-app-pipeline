@@ -24,10 +24,9 @@ export const Header: FC<{
   const { data: session } = useRetrieveSession(sessionId);
 
   const headerConfig = useSessionDetailsHeaderConfig(session);
-  const { pageTitle, startGroupActions, isMobile } = useSessionHeaderBase(
-    session,
-    { openModal },
-  );
+  const { pageTitle, startGroupActions } = useSessionHeaderBase(session, {
+    openModal,
+  });
 
   return (
     <DetailsLayout.Header
@@ -40,7 +39,7 @@ export const Header: FC<{
         </div>
       )}
       callToActionButton={
-        isMobile ? undefined : !session.available && !session.group ? (
+        !session.available && !session.group ? (
           <RestoreSessionButton openModal={openModal} />
         ) : (
           <BookButton sessionId={sessionId} openModal={openModal} />

@@ -6,6 +6,8 @@ import {
   Button,
   DetailsLayout,
   IconName,
+  Indicator,
+  ListLayout,
   type SelectedDate,
   Tabs,
   type TabsProps,
@@ -16,6 +18,7 @@ import {
 
 import { useGenerateCampaignReport } from "#src/api/use-generate-campaign-report";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
+import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { CampaignReportModal } from "#src/components/CampaignReportModal/CampaignReportModal";
 import { CampaignTypeSelectorModal } from "#src/components/CampaignTypeSelector/CampaignTypeSelectorModal";
 import { useCampaignTypeOptions } from "#src/components/CampaignTypeSelector/use-campaign-type-options";
@@ -26,7 +29,6 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { AutomationInfoPopover } from "#src/components/SmartlistDetailHeaderActions/AutomationInfoPopover";
-import { useRefreshSmartlistMembers } from "#src/hooks/use-refresh-smartlist-members";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import {
@@ -161,7 +163,8 @@ function Details() {
   const { navigateToSmartlistParameters } = useSmartlistNavigation();
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
   const { detailsLayoutProps } = useDetailsLayout();
-  const refreshSmartlistMembers = useRefreshSmartlistMembers(id);
+  const { data: smartlistFilters } = useSmartlistFiltersQuery(id);
+  const filtersCount = smartlistFilters?.filtersCount ?? 0;
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
@@ -199,6 +202,18 @@ function Details() {
 
   const openParameterDrawer = () => setIsParameterDrawerOpen(true);
   const closeParameterDrawer = () => setIsParameterDrawerOpen(false);
+
+  const parametersButton = (
+    <Button
+      color="main"
+      intent="default"
+      label={isMobile ? "" : t("tabs.parameters", { ns: "details" })}
+      aria-label={t("tabs.parameters", { ns: "details" })}
+      iconLeft="filter-lines"
+      size="md"
+      onClick={openParameterDrawer}
+    />
+  );
 
   const detailsOutletContext: DetailsPageOutletContext = {
     smartlistId: id,
@@ -260,26 +275,18 @@ function Details() {
       case "parameters":
         return (
           <div className="flex flex-row gap-xs">
-            <Button
-              color="main"
-              intent="default"
-              label={isMobile ? "" : t("tabs.parameters", { ns: "details" })}
-              aria-label={t("tabs.parameters", { ns: "details" })}
-              iconLeft="filter-lines"
-              size="md"
-              onClick={openParameterDrawer}
-            />
-            <Button
-              color="main"
-              intent="call-to-action"
-              label={
-                isMobile ? "" : t("actions.refreshMembers", { ns: "details" })
-              }
-              aria-label={t("actions.refreshMembers", { ns: "details" })}
-              iconLeft="refresh-cw-01"
-              size="md"
-              onClick={refreshSmartlistMembers}
-            />
+            {filtersCount > 0 ? (
+              <Indicator
+                size="sm"
+                position="top"
+                color="default"
+                value={filtersCount}
+              >
+                {parametersButton}
+              </Indicator>
+            ) : (
+              parametersButton
+            )}
           </div>
         );
       case null:
@@ -313,6 +320,27 @@ function Details() {
 
   const pageTitle = smartlist?.name ?? "";
 
+  const renderTabContent = () => {
+    const outlet = <Outlet context={detailsOutletContext} />;
+
+    if (activeTabPath === PARAMETER_TAB_PATH) {
+      return (
+        <ListLayout>
+          <ListLayout.Content padding="none">{outlet}</ListLayout.Content>
+        </ListLayout>
+      );
+    }
+
+    if (
+      activeTabPath === AUTOMATION_TAB_PATH ||
+      activeTabPath === CAMPAIGN_TAB_PATH
+    ) {
+      return <DetailsLayout.Content>{outlet}</DetailsLayout.Content>;
+    }
+
+    return null;
+  };
+
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
@@ -322,9 +350,7 @@ function Details() {
         endGroupActions={getEndGroupActionItems()}
         callToActionButton={getCallToActionButton()}
       />
-      <DetailsLayout.Content>
-        <Outlet context={detailsOutletContext} />
-      </DetailsLayout.Content>
+      {renderTabContent()}
       {inlineActions === GENERATE_REPORT_ACTION_ID ? (
         <CampaignReportModal
           isOpen={true}

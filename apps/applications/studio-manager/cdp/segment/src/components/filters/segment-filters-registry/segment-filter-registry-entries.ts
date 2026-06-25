@@ -18,6 +18,7 @@ import { paymentMethodFilterRegistryEntry } from "../payment-method-filter/regis
 import { purchaseHistoryFilterRegistryEntry } from "../purchase-history-filter/registry-entry";
 import { referredMembersFilterRegistryEntry } from "../referred-members-filter/registry-entry";
 import { referrerFilterRegistryEntry } from "../referrer-filter/registry-entry";
+import { relationshipsFilterRegistryEntry } from "../relationships-filter/registry-entry";
 import { tagFilterRegistryEntry } from "../tag-filter/registry-entry";
 import { termsAndConditionsFilterRegistryEntry } from "../terms-and-conditions-filter/registry-entry";
 import { totalAppointmentsNumberFilterRegistryEntry } from "../total-appointments/registry-entry";
@@ -43,6 +44,7 @@ export const SEGMENT_FILTER_REGISTRY_ENTRIES: SegmentFilterRegistryEntry[] = [
   activePassesFilterRegistryEntry,
   firstPurchaseFilterRegistryEntry,
   referrerFilterRegistryEntry,
+  relationshipsFilterRegistryEntry,
   referredMembersFilterRegistryEntry,
   ageFilterRegistryEntry,
   marketingNotificationFilterRegistryEntry,

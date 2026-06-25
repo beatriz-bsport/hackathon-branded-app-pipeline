@@ -88,6 +88,7 @@ export const SegmentFiltersManager = ({
     : [];
 
   const hasFilters = savedFilters.length > 0 || draftFilters.length > 0;
+  const hasDraftFilter = draftFilters.length > 0;
 
   const handleAddFilter = (filterType: SmartlistFiltersManagerFilterType) => {
     addDraft(createSegmentDraftFilter(filterType, smartlistNumericId));
@@ -128,11 +129,13 @@ export const SegmentFiltersManager = ({
             </Fragment>
           ))}
 
-          <FilterSelectorPopover
-            key={`${savedFilters.length}-${draftFilters.length}`}
-            options={addableFilterOptions}
-            onSelectOption={handleAddFilter}
-          />
+          {hasDraftFilter ? null : (
+            <FilterSelectorPopover
+              key={`${savedFilters.length}-${draftFilters.length}`}
+              options={addableFilterOptions}
+              onSelectOption={handleAddFilter}
+            />
+          )}
           {!hasFilters ? (
             <SegmentFiltersTopFilterShortcuts
               onSelectShortcut={handleAddFilter}

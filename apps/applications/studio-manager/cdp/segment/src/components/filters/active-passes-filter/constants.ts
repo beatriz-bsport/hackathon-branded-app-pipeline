@@ -18,6 +18,9 @@ export const ACTIVE_PASSES_COMPARATOR_TYPE = {
 export type ActivePassesComparatorTypeValue =
   (typeof ACTIVE_PASSES_COMPARATOR_TYPE)[keyof typeof ACTIVE_PASSES_COMPARATOR_TYPE];
 
+/** Minimum pass count accepted by the active passes API (`nb_active_passes_value >= 1`). */
+export const MIN_ACTIVE_PASSES_COMPARATOR_VALUE = 1;
+
 /**
  * Narrows a `NumericComparatorOperator` to one of the four supported
  * active-passes comparator strings.

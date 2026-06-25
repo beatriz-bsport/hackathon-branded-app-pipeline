@@ -1,5 +1,3 @@
-import { DateTime } from "luxon";
-
 import {
   type CreatePaymentPackFilterPayload,
   type PaymentPackFilter,
@@ -12,6 +10,11 @@ import {
   toApiDateSection,
   toFormDateSection,
 } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import {
+  DEFAULT_ABSOLUTE_START_DATE,
+  DEFAULT_RELATIVE_SECOND_DAYS,
+  DEFAULT_RELATIVE_START_DAYS,
+} from "#src/components/primitive-filters/date-filter/utils";
 
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
@@ -23,10 +26,10 @@ const PURCHASE_DATE_INACTIVE_API_SLICE: Partial<CreatePaymentPackFilterPayload> 
   {
     date_filter_active: false,
     date_filter_type: SmartlistDateFilterType.DATE_AFTER,
-    date_bought: DateTime.now().toFormat("yyyy-MM-dd"),
-    date_bought_second: DateTime.now().toFormat("yyyy-MM-dd"),
-    duration_bought: 0,
-    duration_bought_second: 0,
+    date_bought: DEFAULT_ABSOLUTE_START_DATE,
+    date_bought_second: DEFAULT_ABSOLUTE_START_DATE,
+    duration_bought: DEFAULT_RELATIVE_START_DAYS,
+    duration_bought_second: DEFAULT_RELATIVE_SECOND_DAYS,
   };
 
 const toPurchaseDateApiSlice = (

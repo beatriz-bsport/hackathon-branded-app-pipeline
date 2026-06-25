@@ -97,10 +97,6 @@ export const DateFilter = ({
       absolute: {
         ...currentValue.absolute,
         operator: nextOperator,
-        toDate:
-          nextOperator === ABSOLUTE_DATE_OPERATORS.between
-            ? currentValue.absolute.toDate
-            : null,
       },
     });
   };
@@ -111,9 +107,8 @@ export const DateFilter = ({
     emitChange({
       ...currentValue,
       relative: {
+        ...currentValue.relative,
         operator: nextOperator,
-        firstDays: null,
-        secondDays: null,
       },
     });
   };

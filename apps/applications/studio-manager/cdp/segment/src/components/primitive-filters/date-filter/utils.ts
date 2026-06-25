@@ -19,19 +19,30 @@ import type {
 } from "./types";
 
 /**
+ * Returns today's date as an ISO `yyyy-MM-dd` string for date filter defaults and API fallbacks.
+ */
+export const getDefaultApiDate = (): string => {
+  return getLocalNow({}).toISODate() ?? "";
+};
+
+export const DEFAULT_RELATIVE_START_DAYS = 1;
+export const DEFAULT_RELATIVE_SECOND_DAYS = DEFAULT_RELATIVE_START_DAYS + 1;
+export const DEFAULT_ABSOLUTE_START_DATE = getDefaultApiDate();
+
+/**
  * Returns a fresh default date filter value for form state (avoids shared mutable references).
  */
 export const createDefaultDateFilterValue = (): DateFilterValue => ({
   dateType: DATE_FILTER_TYPES.absolute,
   absolute: {
     operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
-    fromDate: null,
-    toDate: null,
+    fromDate: DEFAULT_ABSOLUTE_START_DATE,
+    toDate: DEFAULT_ABSOLUTE_START_DATE,
   },
   relative: {
     operator: RELATIVE_DATE_OPERATORS.pastMoreThan,
-    firstDays: null,
-    secondDays: null,
+    firstDays: DEFAULT_RELATIVE_START_DAYS,
+    secondDays: DEFAULT_RELATIVE_SECOND_DAYS,
   },
 });
 

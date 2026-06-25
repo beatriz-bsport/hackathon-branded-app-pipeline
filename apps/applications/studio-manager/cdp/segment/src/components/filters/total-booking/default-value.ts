@@ -3,13 +3,17 @@ import { createDefaultDateFilterValue } from "#src/components/primitive-filters/
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";
 import type { TotalBookingNumberFilterFormValue } from "./types";
 
+export const DEFAULT_BOOKING_NUMBER_FIRST_VALUE = 1;
+const DEFAULT_BOOKING_NUMBER_SECOND_VALUE =
+  DEFAULT_BOOKING_NUMBER_FIRST_VALUE + 1;
+
 export const createDefaultTotalBookingNumberFilter = (
   smartlistId: number,
 ): TotalBookingNumberFilterFormValue => ({
   smartlist: smartlistId,
   type: TOTAL_BOOKING_NUMBER_TYPE.lowerOrEqual,
-  value: 1,
-  secondValue: null,
+  value: DEFAULT_BOOKING_NUMBER_FIRST_VALUE,
+  secondValue: DEFAULT_BOOKING_NUMBER_SECOND_VALUE,
   subFilters: [],
   activity: {
     selectAllActivities: false,

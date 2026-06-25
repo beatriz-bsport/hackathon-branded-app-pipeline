@@ -9,11 +9,11 @@ import {
 import { createDefaultPurchaseHistoryFilter } from "#src/components/filters/purchase-history-filter/default-value";
 import { createPurchaseHistoryFilterPayload } from "#src/components/filters/purchase-history-filter/mappers/form-value-to-create-payload";
 import { PURCHASE_HISTORY_SUB_FILTER_IDS } from "#src/components/filters/purchase-history-filter/sub-filters/purchase-history-sub-filter-id";
-import { getDefaultApiDate } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
 import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 describe("createPurchaseHistoryFilterPayload", () => {

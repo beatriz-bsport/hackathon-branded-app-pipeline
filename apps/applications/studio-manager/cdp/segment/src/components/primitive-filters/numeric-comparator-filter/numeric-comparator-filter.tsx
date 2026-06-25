@@ -20,6 +20,8 @@ type NumericComparatorFilterProps = {
   disabled?: boolean;
   className?: string;
   suffix?: string;
+  /** Minimum allowed value for numeric inputs (defaults to 0). */
+  minValue?: number;
   /** When set, resolves the suffix per field from the numeric value (e.g. pluralized units). */
   getSuffixForValue?: (value: number | null) => string;
   errors?: {
@@ -40,6 +42,7 @@ export const NumericComparatorFilter = ({
   disabled = false,
   className,
   suffix,
+  minValue = 0,
   getSuffixForValue,
   errors,
 }: NumericComparatorFilterProps) => {
@@ -64,17 +67,16 @@ export const NumericComparatorFilter = ({
     emitChange({
       ...currentValue,
       operator: nextOperator,
-      secondValue:
-        nextOperator === NUMERIC_COMPARATOR_OPERATORS.between
-          ? currentValue.secondValue
-          : null,
     });
   };
 
   const handleNumberChange =
     (key: "firstValue" | "secondValue") =>
     (event: ChangeEvent<HTMLInputElement>) => {
-      const sanitizedValue = getSanitizedPositiveInteger(event.target.value);
+      const sanitizedValue = getSanitizedPositiveInteger(
+        event.target.value,
+        minValue,
+      );
 
       emitChange({
         ...currentValue,
@@ -139,7 +141,7 @@ export const NumericComparatorFilter = ({
           <TextField
             id={`${id}-first-value`}
             type="number"
-            min={0}
+            min={minValue}
             value={
               currentValue.firstValue === null
                 ? ""
@@ -157,35 +159,37 @@ export const NumericComparatorFilter = ({
                   }
                 : undefined
             }
+            customNode={
+              isBetween ? (
+                <Body className="self-center" size="sm">
+                  {t("filters.date.fields.and")}
+                </Body>
+              ) : undefined
+            }
             fullWidth
           />
 
           {isBetween && (
-            <>
-              <Body size="sm" color="weak" className="self-center">
-                {t("filters.numericComparator.fields.and")}
-              </Body>
-              <TextField
-                id={`${id}-second-value`}
-                type="number"
-                min={currentValue.firstValue ?? 0}
-                value={
-                  currentValue.secondValue === null
-                    ? ""
-                    : currentValue.secondValue.toString()
-                }
-                onChange={handleNumberChange("secondValue")}
-                disabled={disabled}
-                status={errors?.secondValue ? "error" : "default"}
-                statusText={errors?.secondValue}
-                suffix={
-                  secondSuffixText
-                    ? { type: "text", value: secondSuffixText }
-                    : undefined
-                }
-                fullWidth
-              />
-            </>
+            <TextField
+              id={`${id}-second-value`}
+              type="number"
+              min={currentValue.firstValue ?? minValue}
+              value={
+                currentValue.secondValue === null
+                  ? ""
+                  : currentValue.secondValue.toString()
+              }
+              onChange={handleNumberChange("secondValue")}
+              disabled={disabled}
+              status={errors?.secondValue ? "error" : "default"}
+              statusText={errors?.secondValue}
+              suffix={
+                secondSuffixText
+                  ? { type: "text", value: secondSuffixText }
+                  : undefined
+              }
+              fullWidth
+            />
           )}
         </div>
       </div>

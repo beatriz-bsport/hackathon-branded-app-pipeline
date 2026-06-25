@@ -21,6 +21,7 @@ export * from "./filter/private-bookings/types";
 export * from "./filter/private-pass/types";
 export * from "./filter/referred-members/types";
 export * from "./filter/referrer/types";
+export * from "./filter/relations/types";
 export * from "./filter/tag/types";
 export * from "./filter/terms-and-conditions/types";
 export * from "./filter/total-booking/types";

@@ -62,6 +62,26 @@ describe("activePassesFilterSchema", () => {
     expect(result.success).toBe(true);
   });
 
+  it("rejects comparator value below 1", () => {
+    const value = createDefaultActivePassesFilter(1);
+    value.comparatorValue = 0;
+    value.paymentPacksSelector = {
+      enabled: true,
+      selectAll: true,
+      selectedIds: [],
+    };
+    value.appointmentPassesSelector = {
+      enabled: false,
+      selectAll: false,
+      selectedIds: [],
+    };
+
+    const result = activePassesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0]?.path).toEqual(["comparatorValue"]);
+  });
+
   it("rejects between when second value is null", () => {
     const value = createDefaultActivePassesFilter(1);
     value.comparatorType = ACTIVE_PASSES_COMPARATOR_TYPE.between;

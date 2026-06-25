@@ -3,7 +3,10 @@ import { z } from "zod";
 import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
-import { ACTIVE_PASSES_COMPARATOR_TYPE } from "./constants";
+import {
+  ACTIVE_PASSES_COMPARATOR_TYPE,
+  MIN_ACTIVE_PASSES_COMPARATOR_VALUE,
+} from "./constants";
 import type { ActivePassesFilterFormValue } from "./types";
 
 const selectorSchema = z.object({
@@ -21,8 +24,25 @@ const activePassesFilterBaseSchema = z.object({
     ACTIVE_PASSES_COMPARATOR_TYPE.greaterOrEqual,
     ACTIVE_PASSES_COMPARATOR_TYPE.equal,
   ]),
-  comparatorValue: z.number().int().nonnegative(),
-  comparatorValueSecond: z.number().int().nonnegative().nullable(),
+  comparatorValue: z
+    .number()
+    .int()
+    .min(
+      MIN_ACTIVE_PASSES_COMPARATOR_VALUE,
+      i18nInstance.t("filters.27.validation.minCountValue", {
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
+      }),
+    ),
+  comparatorValueSecond: z
+    .number()
+    .int()
+    .min(
+      MIN_ACTIVE_PASSES_COMPARATOR_VALUE,
+      i18nInstance.t("filters.27.validation.minCountValue", {
+        ns: I18N_SEGMENT_NAMESPACES.FILTERS,
+      }),
+    )
+    .nullable(),
   paymentPacksSelector: selectorSchema,
   appointmentPassesSelector: selectorSchema,
 });

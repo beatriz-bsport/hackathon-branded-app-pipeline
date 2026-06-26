@@ -32,7 +32,7 @@
     "loading": "Laden van verkochte pakketten",
     "emptyList": {
       "title": "Nog geen pakketten verkocht",
-      "subtitle": "Zodra een lid een pakket koopt, wordt het hier weergegeven."
+      "subtitle": "Zodra een Klant een pakket koopt, wordt het hier weergegeven."
     },
     "table": {
       "columns": {
@@ -57,8 +57,8 @@
       "save": "Opslaan"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Categorieën afspraakkaarten",
-      "passCategories": "Leskaart-categorieën",
+      "appointmentPassCategories": "Afspraakkaarten",
+      "passCategories": "Leskaarten",
       "webshopItemCategories": "Productcategorieën"
     },
     "categories": {
@@ -107,7 +107,7 @@
       },
       "buttons": {
         "addItem": "Item toevoegen",
-        "addPass": "Een leskaart toevoegen",
+        "addPass": "Leskaart toevoegen",
         "addAppointmentPass": "Een afspraakkaart toevoegen",
         "addWebshopItem": "Product toevoegen",
         "removeItem": "Verwijder item"
@@ -146,25 +146,7 @@
         "toggleLabel": "Datum aankooplimiet",
         "fieldLabel": "Beschikbaar tot",
         "errorMissingDate": "Voeg een datum toe of deactiveer deze optie om door te gaan",
-        "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Aanvullende regels",
-        "helperText": "Selecteer alle toepasselijke opties",
-        "checkboxes": {
-          "recommended": {
-            "label": "Markeer als aanbevolen",
-            "helperText": "Markeer je pakket voor klanten door het als aanbevolen te markeren."
-          },
-          "newMembersOnly": {
-            "label": "Alleen beschikbaar voor nieuwe leden",
-            "helperText": "Leden zijn 'nieuw' zolang ze geen artikel hebben gekocht met een waarde van meer dan {{ minimalCurrency }}. Zelfs als Leden een artikel kopen met 100 % korting, telt dit nog steeds als een aankoop."
-          },
-          "hideFromStaff": {
-            "label": "Onzichtbaar voor het personeel",
-            "helperText": "Personeel kan dit pakket niet bekijken of kopen."
-          }
-        }
+        "errorPastDate": "De vervaldatum moet vandaag of in de toekomst zijn"
       }
     },
     "requiredField": "Dit veld is verplicht."

@@ -2,17 +2,17 @@
   "formFields": {
     "name": {
       "label": "Titre",
-      "placeholder": "Ajouter un titre au média",
+      "placeholder": "Ajouter un titre pour cette offre on-demand",
       "errorMaxLength": "Le titre doit contenir {{maxLength}} caractères maximum"
     },
     "description": {
       "label": "Description",
-      "placeholder": "Décrivez votre média",
+      "placeholder": "Décrivez cette offre à vos Adhérents",
       "errorMaxLength": "La description doit contenir {{maxLength}} caractères maximum"
     },
     "credit_price": {
-      "errorInvalid": "Le prix doit être un nombre valide et non négatif",
-      "equivalentCredits": "Ce pass contiendra {{ creditsDisplay }}"
+      "errorInvalid": "Le prix doit être un nombre positif valide",
+      "equivalentCredits": "Cette offre coûtera l'équivalent de {{ creditsDisplay }} dans votre studio"
     },
     "manager_only": {
       "label": "Non répertorié",
@@ -70,7 +70,7 @@
     }
   },
   "createModal": {
-    "title": "Créer un média",
+    "title": "Créer une offre on-demand",
     "buttons": {
       "create": "Créer",
       "cancel": "Fermer"

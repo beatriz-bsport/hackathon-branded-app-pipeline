@@ -14,7 +14,9 @@
   "threadListItem": {
     "markAsRead": "Mark as read",
     "markAsUnread": "Mark as unread",
-    "moreActionsLabel": "More actions"
+    "moreActionsLabel": "More actions",
+    "markAsReadError": "Couldn't mark conversation as read",
+    "markAsUnreadError": "Couldn't mark conversation as unread"
   },
   "threadList": {
     "empty": "No conversations",

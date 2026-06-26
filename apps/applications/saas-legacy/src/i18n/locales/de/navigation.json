@@ -187,7 +187,28 @@
       "stripe_onboarding": "Meine Informationen in Stripe aktualisieren"
     },
     "modal": {
+      "faqLink": "Brauchst du Hilfe?",
       "genericImpact": "Wenn dies nicht behoben wird, können Zahlungs- und Auszahlungsfunktionen beeinträchtigt werden.",
+      "requirements": {
+        "associatedPerson": "Informationen zum gesetzlichen Vertreter des Unternehmens",
+        "bankAccountOwnershipDocument": "Dokument zur Bestätigung des Auszahlungskontos",
+        "beneficialOwnershipDocument": "Dokument zur Bestätigung der wirtschaftlich Berechtigten",
+        "businessProfile": "Unternehmensprofil, zum Beispiel Tätigkeit, Website oder Support-Kontakt",
+        "businessType": "Unternehmenstyp",
+        "companyAddress": "Unternehmensadresse",
+        "companyDetails": "Rechtliche Unternehmensangaben",
+        "companyDirectorshipDeclaration": "Bestätigung der Unternehmensleitung",
+        "companyDocuments": "Registrierungs- oder Lizenzdokumente des Unternehmens",
+        "companyOwnershipDeclaration": "Bestätigung der Eigentumsverhältnisse des Unternehmens",
+        "companyTaxId": "Steuernummer des Unternehmens",
+        "companyVerificationDocument": "Verifizierungsdokument des Unternehmens",
+        "externalAccount": "Angaben zum Auszahlungskonto (IBAN)",
+        "individualDetails": "Identitätsdaten einer Person",
+        "other": "Zusätzliche Compliance-Informationen",
+        "statementDescriptor": "Zahlungsbeschreibung auf dem Kontoauszug",
+        "stripeSupportReview": "Zusätzliche Informationen, die vom Stripe-Support angefordert wurden",
+        "title": "Zu aktualisierende Informationen"
+      },
       "restricted": {
         "description": "Stripe hat dein Konto eingeschränkt. Bitte aktualisiere die erforderlichen Informationen, um die Zahlungsfunktionen vollständig wiederherzustellen.",
         "title": "Stripe-Konto eingeschränkt"

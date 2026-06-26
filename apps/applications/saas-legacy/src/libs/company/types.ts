@@ -84,6 +84,7 @@ export type StripeAccountStatus = {
 export type StripeCompanyComplianceStatusValue =
   | 'unknown'
   | 'not_configured'
+  | 'not_applicable'
   | 'enabled'
   | 'restricted_soon'
   | 'restricted'
@@ -103,6 +104,22 @@ export type StripeCompanyComplianceRequirementCategory =
   | 'company_address'
   | 'other';
 
+export type KnownStripeCompanyComplianceRequirementField =
+  | 'external_account'
+  | 'business_type'
+  | `business_profile.${string}`
+  | `company.${string}`
+  | `documents.${string}`
+  | `individual.${string}`
+  | `person_${string}`
+  | `relationship.${string}`
+  | `settings.${string}`
+  | `interv_${string}`;
+
+export type StripeCompanyComplianceRequirementField =
+  | KnownStripeCompanyComplianceRequirementField
+  | (string & {});
+
 export type StripeCompanyComplianceCta = {
   kind: 'none' | 'company_settings' | 'stripe_onboarding';
   path: string | null;
@@ -117,7 +134,7 @@ export type StripeCompanyComplianceStatus = {
   due_date: string | null;
   restricted_on: string | null;
   requirement_scope: StripeCompanyComplianceRequirementScope | null;
-  requirement_fields: string[];
+  requirement_fields: StripeCompanyComplianceRequirementField[];
   requirement_categories: StripeCompanyComplianceRequirementCategory[];
   cta: StripeCompanyComplianceCta;
   raw: {

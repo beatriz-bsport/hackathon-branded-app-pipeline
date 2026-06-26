@@ -187,7 +187,28 @@
       "stripe_onboarding": "Aggiorna le mie informazioni su Stripe"
     },
     "modal": {
+      "faqLink": "Hai bisogno di aiuto?",
       "genericImpact": "Se il problema non viene risolto, le funzionalità di pagamento e trasferimento potrebbero essere interessate.",
+      "requirements": {
+        "associatedPerson": "Informazioni sul rappresentante legale dell'azienda",
+        "bankAccountOwnershipDocument": "Documento che conferma la titolarità del conto bancario per i trasferimenti",
+        "beneficialOwnershipDocument": "Documento che conferma la titolarità effettiva",
+        "businessProfile": "Profilo aziendale, come attività, sito web o contatto di assistenza",
+        "businessType": "Tipo di azienda",
+        "companyAddress": "Indirizzo dell'azienda",
+        "companyDetails": "Dati legali dell'azienda",
+        "companyDirectorshipDeclaration": "Conferma degli amministratori dell'azienda",
+        "companyDocuments": "Documenti di registrazione o licenza dell'azienda",
+        "companyOwnershipDeclaration": "Conferma della proprietà dell'azienda",
+        "companyTaxId": "Numero di identificazione fiscale dell'azienda",
+        "companyVerificationDocument": "Documento di verifica dell'azienda",
+        "externalAccount": "Dati del conto bancario per i trasferimenti (IBAN)",
+        "individualDetails": "Informazioni di identità individuale",
+        "other": "Informazioni di conformità aggiuntive",
+        "statementDescriptor": "Descrizione del pagamento sull'estratto conto",
+        "stripeSupportReview": "Informazioni aggiuntive richieste dal supporto Stripe",
+        "title": "Informazioni da aggiornare"
+      },
       "restricted": {
         "description": "Stripe ha limitato il tuo account. Aggiorna le informazioni richieste per ripristinare tutte le funzionalità di pagamento.",
         "title": "Account Stripe limitato"

@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "Nog geen cadeaubonnen",
-      "subtitle": "Maak cadeaubonnen die leden kunnen delen met vrienden en familie"
+      "subtitle": "Maak Cadeaubon die Klanten kunnen delen met vrienden en familie"
     },
     "archiveModal": {
       "title": "Cadeaubon archiveren?",
       "description": {
-        "lineOne": "'{{ name }}' is niet meer zichtbaar voor leden maar huidige of eerdere aankopen worden niet beïnvloed.",
+        "lineOne": "'{{ name }}' is niet meer zichtbaar voor klanten, maar huidige of eerdere aankopen worden niet beïnvloed.",
         "lineTwo": "Je kunt deze Cadeaubon op elk moment uit je archief herstellen."
       },
       "buttons": {
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Afbeeldingenbibliotheek",
     "uploadButton": "Afbeelding uploaden",
-    "description": "Voeg aangepaste afbeeldingen toe aan je bibliotheek zodat je leden hun cadeaubonnen kunnen personaliseren",
+    "description": "Voeg eigen afbeeldingen toe aan je bibliotheek zodat je Klanten hun Cadeaubonnen kunnen personaliseren",
     "selectImage": "Kies een afbeelding om deze in het cadeaubonontwerp te bekijken",
     "emptyList": "Nog geen eigen afbeeldingen"
   }

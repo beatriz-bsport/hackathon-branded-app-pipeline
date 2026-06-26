@@ -50,7 +50,7 @@
         "effect": "Du kannst dieses Profil jederzeit aus deinem Archiv wiederherstellen."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Bevor du dieses Profil archivierst, empfehlen wir, zuerst das Kontoguthaben des Profils auszugleichen. Dies liegt an einem der folgenden Gründe: ",
+        "adviseRegularization": "Bevor du dieses Profil archivierst, empfehlen wir dir, zuerst den Kontostand der Kund:innen auszugleichen. Dies liegt an einem der folgenden Gründe: ",
         "items": {
           "negativeBalance": "Negativer Kontostand",
           "unpaidInvoices": "Eine oder mehrere unbezahlte Rechnungen",

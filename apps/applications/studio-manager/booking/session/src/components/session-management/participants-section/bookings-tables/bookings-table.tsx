@@ -15,7 +15,6 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
-import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label.js";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
@@ -36,6 +35,7 @@ import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
+import { formatBookingSpotLabel } from "./booking-spot-label";
 import { ChipsCell } from "./chips-cell";
 
 enum BookingColumns {
@@ -68,17 +68,9 @@ export const BookingsTable: FC<{
     booking: Pick<RefinedBooking, "spot_information" | "passData">,
   ) => {
     const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? joinClean(
-          [
-            booking.spot_information?.name,
-            composeLabel(
-              booking.spot_information?.prefix,
-              booking.spot_information?.indexType,
-              null, // index is not used in this context
-              booking.spot_information?.suffix,
-            ),
-          ],
-          " ",
+      ? formatBookingSpotLabel(
+          booking.spot_information,
+          t("participantDetails.spot"),
         )
       : "";
 

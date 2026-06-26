@@ -6,6 +6,7 @@ import {
   Body,
   Card,
   Checkbox,
+  Divider,
   List,
   type ListItemProps,
   Loader,
@@ -324,6 +325,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
       </div>
       {!!similarSessions?.length && !isConvertBookingOption && (
         <>
+          <Divider orientation="horizontal" weight="extra-thin" />
           <Body size="lg">
             {t("bookingFlow.passSelection.moreBookingOptions")}
           </Body>

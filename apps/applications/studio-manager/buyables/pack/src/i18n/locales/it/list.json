@@ -7,7 +7,7 @@
     "loading": "Caricamento pacchetti...",
     "emptyList": {
       "title": "Nessun pacchetto combinato ancora aggiunto",
-      "subtitle": "Aggiungi un Pacchetto per combinare i tuoi prodotti e Pass con un'unica offerta. "
+      "subtitle": "Aggiungi un pacchetto per unire i tuoi prodotti del negozio e i pass in un'unica offerta"
     },
     "headers": {
       "name": "Nome",
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Eliminare questo pacchetto combinato?",
     "description": {
-      "effect": "Una volta che elimini {{ name }}, non sarà più visibile ai membri. ",
-      "canNotBeUndone": "Tutti i membri che hanno acquistato questo pacchetto combinato non subiscono alcuna conseguenza. "
+      "effect": "Una volta eliminato {{ name }}, non sarà più visibile ai clienti. ",
+      "canNotBeUndone": "Tutti i clienti che hanno acquistato questo pacchetto non saranno interessati. "
     },
     "actions": {
       "cancel": "Mantieni",

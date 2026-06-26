@@ -32,6 +32,7 @@ import { SeriesAddModal } from "#src/components/series-add/series-add-modal";
 import { useSeriesFilterConfig } from "#src/components/series-list/filters/use-series-filter-config";
 import { SeriesListDisplaySettings } from "#src/components/series-list/series-list-display-settings";
 import { SeriesListTable } from "#src/components/series-list/series-list-table";
+import { DateNavigationHeader } from "#src/components/shared/date-navigation/date-navigation-header";
 import { SearchClearSource } from "#src/events/constants";
 import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
@@ -54,7 +55,6 @@ import {
 } from "#src/utils/permission";
 
 import { useAppointmentFilterConfig } from "../components/AppointmentList/Filters/use-appointment-filter-config";
-import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
 import { DisplaySettings } from "../components/shared/DisplaySettings";

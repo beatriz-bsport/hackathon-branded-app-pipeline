@@ -1,5 +1,3 @@
-import React from "react";
-
 import { isSameDay } from "@bsport/datetime-manipulation";
 import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
@@ -16,21 +14,36 @@ import { isInRange } from "#src/utils/dates";
 import { useTranslation } from "#src/utils/i18n";
 import { scrollToDate } from "#src/utils/scroll";
 
+export type TodayButtonBehavior = "scroll-when-visible" | "select-day";
+
 type TodayButtonProps = {
+  behavior?: TodayButtonBehavior;
+  onDateSelectionChange?: () => void;
   onScrollToNow?: () => void;
 };
 
-export const TodayButton: React.FC<TodayButtonProps> = ({ onScrollToNow }) => {
+export const TodayButton = ({
+  behavior = "scroll-when-visible",
+  onDateSelectionChange,
+  onScrollToNow,
+}: TodayButtonProps) => {
   const { t } = useTranslation("sessionList");
   const today = useToday();
   const calendarView = useCalendarStore(selectCalendarView);
   const selectedDate = useCalendarStore(selectSelectedDate);
 
   const handleTodayClick = () => {
+    if (behavior === "select-day") {
+      setUniqueDate(today);
+      onDateSelectionChange?.();
+      return;
+    }
+
     if (calendarView === CalendarView.DAILY && selectedDate.type === "single") {
       const selectedDateTime = selectedDate.date;
       if (!isSameDay(selectedDateTime, today)) {
         setSelectedDate(today);
+        onDateSelectionChange?.();
       } else {
         onScrollToNow?.();
       }
@@ -45,8 +58,9 @@ export const TodayButton: React.FC<TodayButtonProps> = ({ onScrollToNow }) => {
         }
         return;
       }
-      // Switch to daily view with today selected
+
       setUniqueDate(today);
+      onDateSelectionChange?.();
     }
   };
 

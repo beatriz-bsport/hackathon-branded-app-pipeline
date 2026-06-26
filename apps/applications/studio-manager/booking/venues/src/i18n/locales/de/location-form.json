@@ -1,0 +1,53 @@
+{
+  "description": "Ein Standort fasst Veranstaltungsorte zusammen, um gemeinsames Marketing, Vertrieb und Reporting zu betreiben",
+  "create": {
+    "title": "Standort anlegen",
+    "submit": "Anlegen"
+  },
+  "edit": {
+    "title": "Standort bearbeiten",
+    "submit": "Standort bearbeiten"
+  },
+  "fields": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Standortnamen hinzufügen "
+    },
+    "venues": {
+      "label": "Zugewiesene Standorte",
+      "placeholder": "Standorte suchen..."
+    }
+  },
+  "errors": {
+    "required": "Bitte fülle dieses Feld aus",
+    "venuesRequired": "Wähle mindestens einen Standort aus"
+  },
+  "cancel": "Schließen",
+  "delete": "Standort löschen",
+  "deleteModal": {
+    "title": "Standort löschen?",
+    "confirm": "Löschen",
+    "cancel": "Behalten",
+    "alert": {
+      "blocking": "Dieser Standort kann aus folgenden Gründen nicht gelöscht werden:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Dieser Standort wird in einigen Website-Widgets verwendet. Bitte aktualisiere diese Widgets, bevor du den Standort archivierst.",
+      "exclusiveCoaches": "Diese Trainer sind nur diesem Standort zugeordnet: {{names}}. Aktualisiere ihre Einstellungen, bevor du sie löschst."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Einige Mitarbeiter:innen haben Einstellungen, die mit diesem Standort verknüpft sind.",
+      "hasRelatedMarketplaceConfigs": "Einige Website-Widgets sind mit diesem Standort verknüpft.",
+      "hasRelatedMarketingNotifications": "Einige Auto-Messages sind auf diesen Standort ausgerichtet.",
+      "relatedCoaches": "Einige Lehrkräfte sind diesem Standort zugeordnet."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Standort erstellt",
+    "createError": "Standort konnte nicht erstellt werden. Versuch es noch einmal. ",
+    "updateSuccess": "Standort aktualisiert",
+    "updateError": "Standort konnte nicht aktualisiert werden. Versuche es noch einmal. ",
+    "deleteSuccess": "Standort gelöscht",
+    "deleteError": "Standort konnte nicht gelöscht werden. Versuche es erneut. "
+  }
+}

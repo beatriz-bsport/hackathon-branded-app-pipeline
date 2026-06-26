@@ -2,7 +2,8 @@
   "common": {
     "back": "Atrás",
     "new": "Nuevo",
-    "search": "Buscar contactos"
+    "beta": "beta",
+    "search": "Buscar clientes"
   },
   "menus": {
     "popover": {
@@ -12,26 +13,27 @@
       "tutorials": "Tutoriales",
       "help": "Centro de ayuda",
       "feedback": "Tablero de comentarios",
-      "centralAccount": "Cuenta central",
+      "centralAccount": "Central Account",
       "logout": "Cerrar sesión"
     },
     "inbox": "Inbox",
     "notifications": "Notificaciones",
-    "sellProducts": "Sell products",
+    "sellProducts": "Venta rápida",
     "home": "Inicio",
     "calendar": "Calendario",
     "schedule": "Horario",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Clases",
-      "activities": "Clases grupales",
-      "workshops": "Talleres",
-      "appointments": "Citas"
+    "services": {
+      "title": "Services",
+      "activities": "Actividades",
+      "appointments": "Citas previas",
+      "classes": "Clases",
+      "workshops": "Talleres"
     },
     "memberships": {
       "title": "Pases y Suscripciones",
       "passes": "Pases",
-      "appointmentPasses": "Pases de cita",
+      "appointmentPasses": "Bonos de citas",
       "subscriptions": "Suscripciones"
     },
     "products": {
@@ -39,15 +41,17 @@
       "webshop": "Productos",
       "packs": "Packs",
       "giftcards": "Tarjetas de regalo",
-      "videosAndEbooks": "Oferta Digital",
+      "videosAndEbooks": "On-Demand",
       "playlists": "Colecciones",
+      "onDemand": "On-Demand",
       "orders": "Pedidos"
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Notificaciones",
+      "marketingNotifications": "Mensajes automáticos",
       "emailTemplates": "Plantillas",
-      "smartlists": "Smartlists",
+      "smartlists": "Segmentos",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promociones",
       "customForms": "Formularios personalizados"
@@ -62,13 +66,13 @@
     "finance": {
       "title": "Finanzas",
       "invoices": "Facturas",
-      "payouts": "Pagos",
+      "payouts": "Transferencias",
       "directDebits": "Cuotas",
       "expenses": "Gastos",
       "payroll": "Nóminas"
     },
     "membersHub": {
-      "title": "Contactos",
+      "title": "Clientes",
       "members": "Perfiles",
       "forms": "Formularios",
       "tags": "Etiquetas",
@@ -78,6 +82,7 @@
       "title": "Estudio",
       "teachers": "Profesores",
       "establishments": "Establecimientos",
+      "venues": "Establecimientos",
       "substitutions": "Sustituciones"
     },
     "settings": {
@@ -88,8 +93,8 @@
       "permissions": "Permisos",
       "personalization": "Personalización",
       "brandedApp": "Personalización de la app",
-      "teacherView": "Vista del profesor",
-      "memberForms": "Formularios de miembros",
+      "teacherView": "Vista profesor",
+      "memberForms": "Client forms",
       "livestreaming": "Transmisión en vivo",
       "transactionalNotifications": "Notificaciones transaccionales",
       "payroll": "Nóminas",
@@ -100,12 +105,14 @@
       "waitlist": "Lista de espera",
       "webhook": "Webhook",
       "partnership": "Colaboración",
+      "aggregators": "Aggregators",
       "activeCampaign": "ActiveCampaign",
-      "referral": "Recomendación",
+      "referral": "Referidos",
       "quicksale": "PDV",
-      "oldWebshop": "Ajustes de la tienda en línea",
+      "oldWebshop": "Retail settings",
       "quickbooks": "Quickbooks",
       "bsportSubscription": "suscripción bsport",
+      "staff": "Personal",
       "temporaryPassword": "Contraseña temporal",
       "changeLanguage": "Cambiar idioma"
     }
@@ -210,7 +217,7 @@
       },
       "payout": {
         "title": "Datos bancarios incompletos",
-        "content": "Los pagos no se pueden procesar debido a que la verificación de la cuenta no se ha completado o se ha realizado incorrectamente."
+        "content": "Las transferencias no se pueden procesar debido a que la verificación de la cuenta no se ha completado o se ha realizado incorrectamente."
       },
       "verification": {
         "title": "Gestión empresarial",
@@ -235,7 +242,7 @@
         "title": "No hay citas por completar",
         "description": "Todas tus citas tienen profesores asignados"
       },
-      "member": "Miembros: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Fecha: {{date}}"
     }
   }

@@ -191,6 +191,23 @@
       "closeButton": "Close",
       "confirmation": "Client removed from waitlist",
       "error": "Couldn't remove client from waitlist"
+    },
+    "bookingGate": {
+      "overbook": {
+        "title": "Overbook this class?",
+        "body": "All spots are filled for this class. Are you sure you want to add more bookings?"
+      },
+      "started": {
+        "title": "Class has already started",
+        "body": "This class started {{timeAgo}}. You can still add this client, but they will join mid-session."
+      },
+      "ended": {
+        "title": "Class has already ended",
+        "body": "This session ended on {{endDate}}. You can still add this client for record-keeping."
+      },
+      "creditsWarning": "Credits will be deducted from the client's pass and they will be marked as present.",
+      "confirmButton": "Book anyway",
+      "closeButton": "Close"
     }
   },
   "bookingAttendanceFilter": {

@@ -30,7 +30,7 @@
         "cancel": "Mantener"
       },
       "title": "¿Archivar formulario?",
-      "description": "Miembros ya no verán <b>{{ name }}</b>, pero puedes acceder a él desde tu archivo."
+      "description": "Una vez que archives <b>{{ name }}</b>, ya no será visible para los clientes.  \n\nPuedes restaurar este Formulario en cualquier momento desde tu archivo. "
     },
     "duplicateModal": {
       "actions": {
@@ -82,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "No hay formularios para mostrar aún",
-        "subtitle": "Crea tu primer formulario para obtener comentarios de tus Miembros."
+        "subtitle": "Crea tu primer formulario para obtener comentarios de tus clientes"
       },
       "archivedList": {
         "title": "Aún no hay formularios archivados",

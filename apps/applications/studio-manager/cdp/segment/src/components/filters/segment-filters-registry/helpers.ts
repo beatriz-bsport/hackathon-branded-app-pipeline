@@ -61,7 +61,7 @@ export const buildSavedFilters = (
       key: `${entry.savedKeyPrefix}-${apiFilter.id}`,
       filterType: entry.filterType,
       value: entry.mapToFormValue(apiFilter),
-    }));
+    })) as SavedFilter[];
   });
 
 /**
@@ -70,8 +70,10 @@ export const buildSavedFilters = (
 export const createDraftFilter = (
   entry: SegmentFilterRegistryEntry,
   smartlistId: number,
-): DraftFilter => ({
-  clientId: createDraftClientId(entry.filterType),
-  filterType: entry.filterType,
-  value: entry.createDefault(smartlistId),
-});
+): DraftFilter => {
+  return {
+    clientId: createDraftClientId(entry.filterType),
+    filterType: entry.filterType,
+    value: entry.createDefault(smartlistId),
+  } as DraftFilter;
+};

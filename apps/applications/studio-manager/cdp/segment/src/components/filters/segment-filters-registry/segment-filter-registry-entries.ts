@@ -5,6 +5,7 @@ import { basketAbandonmentFilterRegistryEntry } from "../basket-abandonment-filt
 import { bookingMilestoneFilterRegistryEntry } from "../booking-milestone/registry-entry";
 import { creditAccountFilterRegistryEntry } from "../credit-account/registry-entry";
 import { firstPurchaseFilterRegistryEntry } from "../first-purchase-filter/registry-entry";
+import { formCompletionFilterRegistryEntry } from "../form-completion-filter/registry-entry";
 import { genderFilterRegistryEntry } from "../gender-filter/registry-entry";
 import { hasPasswordFilterRegistryEntry } from "../has-password-filter/registry-entry";
 import { hasPhoneFilterRegistryEntry } from "../has-phone-filter/registry-entry";
@@ -47,6 +48,7 @@ export const SEGMENT_FILTER_REGISTRY_ENTRIES: SegmentFilterRegistryEntry[] = [
   relationshipsFilterRegistryEntry,
   referredMembersFilterRegistryEntry,
   ageFilterRegistryEntry,
+  formCompletionFilterRegistryEntry,
   marketingNotificationFilterRegistryEntry,
   internalNotesFilterRegistryEntry,
   hasPhoneFilterRegistryEntry,

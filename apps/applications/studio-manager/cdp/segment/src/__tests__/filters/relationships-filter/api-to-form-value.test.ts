@@ -69,7 +69,7 @@ describe("mapRelationshipsFilterToFormValue", () => {
     );
     expect(form.value_number_relations).toBe(3);
     expect(form.value_number_relations_second).toBe(99);
-    expect(form.hadDeprecatedSubFiltersAtHydration).toBe(false);
+    expect(form.hadDeprecatedSubFiltersAtFetch).toBe(false);
   });
 
   it("maps BETWEEN and keeps second bound", () => {
@@ -95,7 +95,7 @@ describe("mapRelationshipsFilterToFormValue", () => {
 
     const form = mapRelationshipsFilterToFormValue(filter);
 
-    expect(form.hadDeprecatedSubFiltersAtHydration).toBe(true);
+    expect(form.hadDeprecatedSubFiltersAtFetch).toBe(true);
   });
 
   it("preserves smartlist and id", () => {

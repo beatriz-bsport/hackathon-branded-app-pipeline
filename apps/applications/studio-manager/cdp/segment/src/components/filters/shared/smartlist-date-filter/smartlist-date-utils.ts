@@ -166,7 +166,7 @@ export const toApiDateSection = (
 };
 
 /**
- * Hydrates a `DateFilterValue` from persisted API fields.
+ * Maps a `DateFilterValue` from fetched API fields.
  */
 export const toFormDateSection = (
   dateFilterType: SmartlistDateFilterType,

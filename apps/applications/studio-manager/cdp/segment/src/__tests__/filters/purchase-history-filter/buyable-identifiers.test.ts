@@ -3,13 +3,13 @@ import { describe, expect, it } from "vitest";
 import {
   ALL_EXPENSES_COMPLETE_BUYABLE_IDS,
   EXPENSES_COMPLETE_BUYABLE,
-  buyableIdsFromHydration,
+  buyableIdsFromFetch,
   buyableIdsToApi,
 } from "@bsport/api-cdp/smartlist";
 
 describe("expenses complete buyable identifiers", () => {
   it("maps empty API array to all product types in display order", () => {
-    expect(buyableIdsFromHydration([])).toEqual([1, 9, 2, 10, 50]);
+    expect(buyableIdsFromFetch([])).toEqual([1, 9, 2, 10, 50]);
   });
 
   it("maps all selected UI ids to the full API identifier set", () => {

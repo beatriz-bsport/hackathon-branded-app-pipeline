@@ -17,7 +17,10 @@ import { useCreateSeriesMutation } from "#src/hooks/series/use-create-series-mut
 import { useRecurrenceConfig } from "#src/hooks/useRecurrenceConfig";
 import type { SeriesClassDraft, SeriesClassDraftFormData } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
-import { getSeriesClassDraftsOccurrencesCount } from "#src/utils/series-class-draft";
+import {
+  buildIndividualSeriesClassDrafts,
+  getSeriesClassDraftsCount,
+} from "#src/utils/series-class-draft";
 import {
   DEFAULT_SERIES_DETAILS_FORM_VALUES,
   buildSeriesDetailsFormSchema,
@@ -73,8 +76,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
   });
 
   const { getRecurrenceConfig } = useRecurrenceConfig();
-  const classDraftOccurrencesCount =
-    getSeriesClassDraftsOccurrencesCount(classDrafts);
+  const classDraftCount = getSeriesClassDraftsCount(classDrafts);
   const { isPending: isCreatingSeries, mutate: createSeries } =
     useCreateSeriesMutation();
 
@@ -88,7 +90,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
   }, []);
 
   // Decides which start dates this local draft represents.
-  const getClassDraftOccurrenceStartDateTimes = useCallback(
+  const getClassDraftStartDateTimes = useCallback(
     (formData: SeriesClassDraftFormData) => {
       // Reuse the calendar Add class recurrence stack so both flows expand dates
       // the same way.
@@ -108,18 +110,6 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
       return [formData.startDateTime];
     },
     [getRecurrenceConfig],
-  );
-
-  // Turns those dates into occurrence objects used by the preview list.
-  const buildClassDraftOccurrences = useCallback(
-    (draftId: string, formData: SeriesClassDraftFormData) =>
-      getClassDraftOccurrenceStartDateTimes(formData).map(
-        (startDateTime, occurrenceIndex) => ({
-          id: `${draftId}-occurrence-${occurrenceIndex + 1}`,
-          startDateTime,
-        }),
-      ),
-    [getClassDraftOccurrenceStartDateTimes],
   );
 
   const resetClassDraftForm = useCallback(() => {
@@ -144,29 +134,25 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
 
   const handleSaveClassDraft = useCallback(
     (formData: SeriesClassDraftFormData) => {
-      if (editingClassDraftId) {
-        const occurrences = buildClassDraftOccurrences(
-          editingClassDraftId,
-          formData,
-        );
+      // Recurrence input is flattened into individual class drafts so each
+      // preview class can be edited or deleted independently.
+      const savedClassDrafts = buildIndividualSeriesClassDrafts({
+        createClassDraftId,
+        existingClassDraftId: editingClassDraftId ?? undefined,
+        classStartDateTimes: getClassDraftStartDateTimes(formData),
+        formData,
+      });
 
+      if (editingClassDraftId) {
         setClassDrafts((currentDrafts) =>
-          currentDrafts.map((draft) =>
-            draft.id === editingClassDraftId
-              ? { ...draft, data: { ...formData }, occurrences }
-              : draft,
+          currentDrafts.flatMap((draft) =>
+            draft.id === editingClassDraftId ? savedClassDrafts : [draft],
           ),
         );
       } else {
-        const draftId = createClassDraftId();
-
         setClassDrafts((currentDrafts) => [
           ...currentDrafts,
-          {
-            id: draftId,
-            data: { ...formData },
-            occurrences: buildClassDraftOccurrences(draftId, formData),
-          },
+          ...savedClassDrafts,
         ]);
       }
 
@@ -175,9 +161,9 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
       setIsClassDraftFormOpen(false);
     },
     [
-      buildClassDraftOccurrences,
       createClassDraftId,
       editingClassDraftId,
+      getClassDraftStartDateTimes,
       resetClassDraftForm,
     ],
   );
@@ -267,7 +253,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
     if (
       isCreatingSeries ||
       !selectedService ||
-      classDraftOccurrencesCount === 0 ||
+      classDraftCount === 0 ||
       isClassDraftFormOpen
     ) {
       return;
@@ -296,7 +282,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
       console.error("Error building series payload:", error);
     }
   }, [
-    classDraftOccurrencesCount,
+    classDraftCount,
     classDrafts,
     createSeries,
     handleClose,
@@ -346,8 +332,7 @@ export const SeriesAddModal = ({ onClose }: SeriesAddModalProps) => {
               seriesDetailsMethods={seriesDetailsMethods}
             />
           ),
-          validate: () =>
-            classDraftOccurrencesCount > 0 && !isClassDraftFormOpen,
+          validate: () => classDraftCount > 0 && !isClassDraftFormOpen,
         },
       ]}
       confirmButton={{

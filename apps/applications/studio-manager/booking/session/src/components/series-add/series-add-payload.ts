@@ -4,7 +4,7 @@ import type {
   PrepareGroupSessionsCreationPayload,
 } from "@bsport/api-book";
 
-import type { SeriesClassDraft, SeriesClassDraftOccurrence } from "#src/types";
+import type { SeriesClassDraft } from "#src/types";
 import {
   type SeriesDetailsFormData,
   getSeriesBookingRulePayloadFields,
@@ -16,11 +16,6 @@ type BuildPrepareAddGroupSessionsCreationPayloadParams = {
   seriesDetails: SeriesDetailsFormData;
 };
 
-type SeriesClassDraftOccurrenceWithDraft = {
-  draft: SeriesClassDraft;
-  occurrence: SeriesClassDraftOccurrence;
-};
-
 const getRequiredNumber = (value: number | null, fieldName: string) => {
   if (value === null) {
     throw new Error(`Cannot create a series class without ${fieldName}.`);
@@ -29,34 +24,25 @@ const getRequiredNumber = (value: number | null, fieldName: string) => {
   return value;
 };
 
-const getSortedClassDraftOccurrences = (
-  classDrafts: SeriesClassDraft[],
-): SeriesClassDraftOccurrenceWithDraft[] =>
-  classDrafts
-    .flatMap((draft) =>
-      draft.occurrences.map((occurrence) => ({
-        draft,
-        occurrence,
-      })),
-    )
-    .sort(
-      (firstDraftOccurrence, secondDraftOccurrence) =>
-        firstDraftOccurrence.occurrence.startDateTime.toMillis() -
-        secondDraftOccurrence.occurrence.startDateTime.toMillis(),
-    );
+const getSortedClassDrafts = (classDrafts: SeriesClassDraft[]) =>
+  [...classDrafts].sort(
+    (firstClassDraft, secondClassDraft) =>
+      firstClassDraft.data.startDateTime.toMillis() -
+      secondClassDraft.data.startDateTime.toMillis(),
+  );
 
-// Maps one saved class occurrence to the offer shape expected by
+// Maps one saved class draft to the offer shape expected by
 // generate_preview before final group creation.
 const buildAddSeriesOfferPreviewPayload = ({
   draft,
-  occurrence,
   selectedService,
   seriesDetails,
-}: SeriesClassDraftOccurrenceWithDraft &
-  Pick<
-    BuildPrepareAddGroupSessionsCreationPayloadParams,
-    "selectedService" | "seriesDetails"
-  >): GroupSessionOfferPayload => ({
+}: {
+  draft: SeriesClassDraft;
+} & Pick<
+  BuildPrepareAddGroupSessionsCreationPayloadParams,
+  "selectedService" | "seriesDetails"
+>): GroupSessionOfferPayload => ({
   allow_guest_offer: false,
   available: true,
   available_on_partnership: false,
@@ -65,7 +51,7 @@ const buildAddSeriesOfferPreviewPayload = ({
   coach: getRequiredNumber(draft.data.coach, "teacher"),
   coach_payment_rule: draft.data.coach_payment_rule,
   credits: draft.data.credits,
-  date_start: Math.floor(occurrence.startDateTime.toSeconds()),
+  date_start: Math.floor(draft.data.startDateTime.toSeconds()),
   duration_minute: draft.data.duration_minute,
   effectif: draft.data.effectif,
   establishment: getRequiredNumber(draft.data.establishment, "establishment"),
@@ -79,16 +65,15 @@ const buildAddSeriesOfferPreviewPayload = ({
 });
 
 // Builds the full generate_preview payload from the selected service, series
-// details, and all saved local class occurrences.
+// details, and all saved local class drafts.
 export const buildPrepareAddGroupSessionsCreationPayload = ({
   classDrafts,
   selectedService,
   seriesDetails,
 }: BuildPrepareAddGroupSessionsCreationPayloadParams): PrepareGroupSessionsCreationPayload => {
-  const sortedClassDraftOccurrences =
-    getSortedClassDraftOccurrences(classDrafts);
+  const sortedClassDrafts = getSortedClassDrafts(classDrafts);
 
-  if (sortedClassDraftOccurrences.length === 0) {
+  if (sortedClassDrafts.length === 0) {
     throw new Error("Cannot create a series without classes.");
   }
 
@@ -104,9 +89,9 @@ export const buildPrepareAddGroupSessionsCreationPayload = ({
     // Class recurrence is expanded locally into individual offers. Keeping this
     // null prevents backend creation of repeated series groups.
     recurrence_rule: null,
-    offers_data: sortedClassDraftOccurrences.map((draftOccurrence) =>
+    offers_data: sortedClassDrafts.map((classDraft) =>
       buildAddSeriesOfferPreviewPayload({
-        ...draftOccurrence,
+        draft: classDraft,
         selectedService,
         seriesDetails,
       }),

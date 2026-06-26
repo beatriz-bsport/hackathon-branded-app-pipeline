@@ -184,19 +184,7 @@
           },
           "actions": {
             "edit": "Edit class",
-            "delete": "Delete class",
-            "editRecurrence": "Edit recurrence",
-            "deleteRecurrence": "Delete recurrence"
-          },
-          "recurrence": {
-            "label": "Recurring",
-            "weekly": "Weekly",
-            "customDays": "Every {{count}} day",
-            "customDays_other": "Every {{count}} days",
-            "customWeeks": "Every {{count}} week",
-            "customWeeks_other": "Every {{count}} weeks",
-            "customMonths": "Every {{count}} month",
-            "customMonths_other": "Every {{count}} months"
+            "delete": "Delete class"
           },
           "notSet": "Not set"
         },

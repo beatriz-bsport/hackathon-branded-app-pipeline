@@ -171,9 +171,9 @@
       "activationCodeLink": "The invitation email has been sent and can no longer be edited. If the correct recipient didn't receive the message, you can send this link: "
     },
     "activation": {
-      "alreadyActivated": "This gift card has already been used.",
+      "alreadyActivated": "This gift card has already been activated.",
       "activate": "Activate my gift card",
-      "content3": "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you. Please reconnect with the correct account.",
+      "content3": "If you've logged in with a different account, please don't activate this gift card if it isn't intended for you. ",
       "content2": "The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.",
       "content1": "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
       "subtitle": "Looks like someone wanted to surprise you.",

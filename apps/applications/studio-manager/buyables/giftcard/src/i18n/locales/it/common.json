@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "Nessun buono regalo ancora",
-      "subtitle": "Crea buoni regalo per il membro da condividere con amici e familiari"
+      "subtitle": "Crea Buoni regalo per i Clienti da condividere con amici e familiari"
     },
     "archiveModal": {
       "title": "Archivia il buono regalo?",
       "description": {
-        "lineOne": "'{{ name }}' non sarà più visibile ai Membri, ma gli acquisti attuali o precedenti non saranno influenzati.",
+        "lineOne": "'{{ name }}' non sarà più visibile ai clienti, ma gli acquisti attuali o precedenti non saranno influenzati.",
         "lineTwo": "Puoi ripristinare questo buono regalo in qualsiasi momento dal tuo archivio."
       },
       "buttons": {
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Libreria di immagini",
     "uploadButton": "Carica immagine",
-    "description": "Aggiungi immagini personalizzate alla tua libreria in modo che i tuoi clienti possano personalizzare i loro Bbuoni regalo.",
+    "description": "Aggiungi immagini personalizzate alla tua libreria in modo che i tuoi Clienti possano personalizzare i loro Buoni regalo",
     "selectImage": "Seleziona un'immagine per visualizzarla in anteprima nel design del buono regalo",
     "emptyList": "Nessuna immagine personalizzata ancora"
   }

@@ -2,6 +2,7 @@
   "common": {
     "back": "Indietro",
     "new": "Nuovo",
+    "beta": "Beta",
     "search": "Cerca clienti"
   },
   "menus": {
@@ -12,21 +13,22 @@
       "tutorials": "Tutorial",
       "help": "Centro assistenza",
       "feedback": "Bacheca dei feedback",
-      "centralAccount": "Account centrale",
+      "centralAccount": "Central Account",
       "logout": "Esci"
     },
     "inbox": "Posta in arrivo",
     "notifications": "Notifiche",
-    "sellProducts": "Sell products",
+    "sellProducts": "Vendita rapida",
     "home": "Home",
     "calendar": "Calendario",
     "schedule": "Programma",
     "accessControl": "Controllo degli Accessi",
-    "classes": {
-      "title": "Classi",
-      "activities": "Attività",
-      "workshops": "Workshop",
-      "appointments": "Appuntamenti"
+    "services": {
+      "title": "Services",
+      "activities": "attività",
+      "appointments": "Appuntamenti",
+      "classes": "Classi",
+      "workshops": "Elenco dei workshop"
     },
     "memberships": {
       "title": "Pass e Abbonamenti",
@@ -41,13 +43,15 @@
       "giftcards": "Buoni Regalo",
       "videosAndEbooks": "On-Demand",
       "playlists": "Collezioni",
+      "onDemand": "On-Demand",
       "orders": "Ordini"
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Notifiche",
+      "marketingNotifications": "Messaggi automatici",
       "emailTemplates": "Modello email",
-      "smartlists": "Smartlist",
+      "smartlists": "Smartlists",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promozioni",
       "customForms": "Moduli personalizzati"
@@ -78,6 +82,7 @@
       "title": "Studio",
       "teachers": "Insegnanti",
       "establishments": "Stabilimenti",
+      "venues": "Stabilimenti",
       "substitutions": "Sostituzioni"
     },
     "settings": {
@@ -89,7 +94,7 @@
       "personalization": "Personalizzazione",
       "brandedApp": "App brandizzata",
       "teacherView": "Vista insegnante",
-      "memberForms": "Moduli per i membri",
+      "memberForms": "Client forms",
       "livestreaming": "Lezione in diretta",
       "transactionalNotifications": "Notifiche transazionali",
       "payroll": "Buste paga",
@@ -100,12 +105,14 @@
       "waitlist": "Lista d’attesa",
       "webhook": "Webhook",
       "partnership": "Collaborazione",
+      "aggregators": "Aggregators",
       "activeCampaign": "ActiveCampaign",
       "referral": "Referenza",
       "quicksale": "PDV",
-      "oldWebshop": "Impostazioni del webshop",
+      "oldWebshop": "Retail settings",
       "quickbooks": "QuickBooks",
       "bsportSubscription": "abbonamento bsport",
+      "staff": "Staff",
       "temporaryPassword": "Password temporanea",
       "changeLanguage": "Cambia lingua"
     }
@@ -235,7 +242,7 @@
         "title": "Nessun appuntamento da completare",
         "description": "Tutti i tuoi appuntamenti hanno insegnanti assegnati"
       },
-      "member": "Membri: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Data: {{date}}"
     }
   }

@@ -1,0 +1,169 @@
+{
+  "table": {
+    "headers": {
+      "createMedia": "On-Demand-Inhalt erstellen",
+      "name": "Name",
+      "category": "Kategorie",
+      "format": "Format",
+      "availability": "Verfügbarkeit",
+      "actions": "Optionen"
+    },
+    "actions": {
+      "moreActions": "Weitere Optionen",
+      "duplicate": "Duplizieren",
+      "delete": "Löschen",
+      "edit": "Bearbeiten",
+      "upload": "Inhalt hinzufügen"
+    },
+    "values": {
+      "noCategory": "Keine Kategorie",
+      "noFile": "Keine Medien"
+    },
+    "loading": "On-Demand-Inhalt wird geladen ...",
+    "emptyList": {
+      "title": "Kein On-Demand-Inhalt verfügbar",
+      "subtitle": "On-Demand-Medien erscheinen hier, sobald sie erstellt wurden"
+    },
+    "tooltips": {
+      "format": {
+        "videoUploaded": "Videolink hinzugefügt",
+        "ebookUploaded": "eBook hochgeladen",
+        "noFileUploaded": "Keine Mediendatei hinzugefügt"
+      },
+      "availability": {
+        "availableToMembers": "Für Kund:innen in der App und auf der Website verfügbar",
+        "unavailableToMembers": "Nicht für Kund:innen in der App oder auf der Website verfügbar",
+        "limitedTimeOnly": "Nur für kurze Zeit verfügbar",
+        "unlimitedAccess": "Uneingeschränkter Zugriff auf diesen Inhalt"
+      }
+    }
+  },
+  "duplicateResponse": {
+    "success": "Medium wurde dupliziert",
+    "error": "Inhalt wurde nicht dupliziert. Bitte versuche es nochmal. "
+  },
+  "deleteModal": {
+    "title": "Medien löschen?",
+    "description": "Sobald du \"{{mediaName}}\" löschst, ist es für deine Kund:innen nicht mehr sichtbar.",
+    "descriptionWarning": "Diese Änderung ist dauerhaft.",
+    "buttons": {
+      "cancel": "Behalten",
+      "delete": "Löschen"
+    },
+    "submitResponse": {
+      "success": "On-demand Medien gelöscht",
+      "error": "Medien konnten nicht gelöscht werden. Versuche es noch einmal. "
+    },
+    "undoAction": {
+      "label": "Änderung verwerfen"
+    },
+    "undoResponse": {
+      "success": "Änderung verworfen"
+    }
+  },
+  "uploadModal": {
+    "title": "Neue Medien hinzufügen",
+    "ebookTitle": "E-Book hochladen",
+    "buttons": {
+      "cancel": "Schließen",
+      "addMedia": "Hinzufügen",
+      "add": "Inhalt hinzufügen",
+      "upload": "Hochladen"
+    },
+    "source": {
+      "options": {
+        "youtube": {
+          "label": "Video (YouTube)",
+          "helperText": "Füge einen Link zu einem YouTube-Video hinzu"
+        },
+        "vimeo": {
+          "label": "Video (Vimeo)",
+          "helperText": "Füge einen Link zu einem Vimeo-Video hinzu"
+        },
+        "ebook": {
+          "label": "E-Book",
+          "helperText": "Lade ein E-Book als PDF, JPG oder PNG hoch"
+        }
+      }
+    },
+    "details": {
+      "youtube": {
+        "placeholder": "YouTube-Link einfügen"
+      },
+      "vimeo": {
+        "placeholder": "Vimeo-Link einfügen"
+      }
+    },
+    "fields": {
+      "url": {
+        "youtube": "YouTube-Link",
+        "vimeo": "Vimeo-Link"
+      },
+      "duration": "Dauer",
+      "hours": {
+        "placeholder": "Stunden"
+      },
+      "minutes": {
+        "placeholder": "Minuten"
+      },
+      "file": {
+        "uploadCta": "Datei auswählen",
+        "dragAndDropCta": "Ziehe eine Datei hierher",
+        "extensions": "JPG, PNG, PDF"
+      }
+    },
+    "validation": {
+      "sourceRequired": "Wähle eine Quelle aus, um fortzufahren",
+      "urlRequired": "Video-URL eingeben",
+      "youtubeUrlInvalid": "Gib eine gültige YouTube-URL ein",
+      "vimeoUrlInvalid": "Gib eine gültige Vimeo-URL ein",
+      "durationRequired": "Gib eine Dauer größer als null ein.",
+      "fileRequired": "Wähle eine Datei zum Hochladen aus",
+      "fileTypeInvalid": "Nur PDF-, JPG-, JPEG- und PNG-Dateien sind kompatibel"
+    },
+    "submitResponse": {
+      "success": "Medien erfolgreich hochgeladen",
+      "error": "Inhalt wurde nicht hochgeladen. Bitte versuche es nochmal. "
+    }
+  },
+  "error": {
+    "title": "Inhalt nicht hochgeladen",
+    "description": "Bitte versuche es nochmal. Falls das Problem weiterhin besteht, lade die Seite neu.",
+    "retry": "Nochmal versuchen"
+  },
+  "search": {
+    "tooltip": "Inhalte suchen"
+  },
+  "filters": {
+    "label": "Filter",
+    "is": "ist",
+    "category": {
+      "label": "Kategorie",
+      "searchPlaceholder": "Kategorien suchen"
+    },
+    "level": {
+      "label": "Level"
+    },
+    "teacher": {
+      "label": "Lehrkraft",
+      "searchPlaceholder": "Lehrkräfte suchen"
+    },
+    "format": {
+      "label": "Format",
+      "video": "Video",
+      "ebook": "E-Book"
+    },
+    "duration": {
+      "label": "Dauer",
+      "lt15": "Unter 15 Min.",
+      "15to30": "15 bis 30 Min.",
+      "30to60": "30 bis 60 Min.",
+      "gt60": "Über 60 Min."
+    },
+    "emptySearch": {
+      "title": "Keine Ergebnisse gefunden",
+      "subtitle": "Versuche, deine Suche oder Filter anzupassen",
+      "cta": "Filter zurücksetzen"
+    }
+  }
+}

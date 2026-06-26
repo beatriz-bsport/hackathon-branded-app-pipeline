@@ -10,6 +10,7 @@ import { Body, Title } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { EnrichedSession } from "../../types";
+import { computeDayOccupancyRate } from "./compute-day-occupancy-rate";
 
 export type SessionDayTitleProps = {
   date: DateTime;
@@ -23,18 +24,7 @@ const SessionDayTitle: React.FC<SessionDayTitleProps> = ({
   const { t } = useTranslation("sessionList");
   const todayTitle = formatDateTimeFromDate(date, DATETIME_FORMATS.HUGE_DATE);
 
-  const totalEffectif = sessions.reduce(
-    (acc, session) => acc + session.effectif,
-    0,
-  );
-  const totalOccupancy = sessions.reduce(
-    (acc, session) => acc + session.nb_bookings,
-    0,
-  );
-
-  const occupancyRate = totalEffectif
-    ? Math.round((totalOccupancy / totalEffectif) * 100)
-    : 0;
+  const occupancyRate = computeDayOccupancyRate(sessions);
 
   return (
     <div className="mb-sm flex items-center gap-xs px-md">

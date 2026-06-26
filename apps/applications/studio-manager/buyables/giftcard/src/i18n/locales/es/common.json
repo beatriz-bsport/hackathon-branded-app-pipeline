@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "Aún no hay tarjetas de regalo",
-      "subtitle": "Crear tarjetas de regalo para que los miembros las compartan con amigos y familiares"
+      "subtitle": "Crea tarjetas de regalo para que los clientes las compartan con amigos y familiares"
     },
     "archiveModal": {
       "title": "¿Archivar tarjeta de regalo?",
       "description": {
-        "lineOne": "'{{ name }}' ya no será visible para miembros, pero las compras actuales o anteriores no se verán afectadas.",
+        "lineOne": "'{{ name }}' ya no será visible para los clientes, pero las compras actuales o anteriores no se verán afectadas.",
         "lineTwo": "Puedes restaurar esta tarjeta de regalo en cualquier momento desde tu archivo."
       },
       "buttons": {
@@ -78,8 +78,8 @@
       "archive": "Archivar tarjeta de regalo",
       "duplicate": "Duplicar tarjeta de regalo",
       "restore": "Desarchivar tarjeta de regalo",
-      "shared": "Tarjeta De Regalo creada desde la Cuenta Principal",
-      "unlisted": "Las Tarjetas De Regalo no están listadas en el Área De Miembros"
+      "shared": "Tarjeta de regalo creada desde la cuenta principal",
+      "unlisted": "Las tarjetas de regalo no están listadas en el Área De Miembros"
     },
     "loading": "Cargando tarjetas de regalo"
   },
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Biblioteca de imágenes",
     "uploadButton": "Subir imagen",
-    "description": "Añade imágenes personalizadas a tu biblioteca para que tus miembros puedan personalizar sus tarjetas de regalo.",
+    "description": "Añade imágenes personalizadas a tu biblioteca para que tus clientes puedan personalizar sus Tarjetas de regalo",
     "selectImage": "Selecciona una imagen para previsualizarla en el diseño de la tarjeta de regalo",
     "emptyList": "Aún no hay imágenes personalizadas"
   }

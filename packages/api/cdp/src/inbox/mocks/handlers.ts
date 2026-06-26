@@ -35,17 +35,29 @@ const buildPage = (
     cursor,
     direction,
     limit,
+    unread,
+    escalated,
   }: {
     cursor?: string;
     direction?: "older" | "newer";
     limit: number;
+    unread?: boolean;
+    escalated?: boolean;
   },
 ): RawStudioManagerConversationsResponse => {
   let pool = dataset;
+  // Apply the filter params before the cursor slice so pagination walks the
+  // filtered set (mirrors the backend, which filters then paginates).
+  if (unread) {
+    pool = pool.filter((c) => c.studio_unread_count > 0);
+  }
+  if (escalated) {
+    pool = pool.filter((c) => c.has_unresolved_escalation);
+  }
   if (cursor !== undefined && direction === "older") {
-    pool = dataset.filter((c) => c.last_inbox_activity_at < cursor);
+    pool = pool.filter((c) => c.last_inbox_activity_at < cursor);
   } else if (cursor !== undefined && direction === "newer") {
-    pool = dataset.filter((c) => c.last_inbox_activity_at > cursor);
+    pool = pool.filter((c) => c.last_inbox_activity_at > cursor);
   }
 
   const results = pool.slice(0, limit);
@@ -93,6 +105,8 @@ export const makeInboxHandlers = ({
     const limit =
       Number(url.searchParams.get("limit") ?? "") ||
       INBOX_CONVERSATIONS_DEFAULT_LIMIT;
+    const unread = url.searchParams.get("unread") === "true";
+    const escalated = url.searchParams.get("escalated") === "true";
 
     await delay(delayMs);
 
@@ -106,7 +120,9 @@ export const makeInboxHandlers = ({
       );
     }
 
-    return HttpResponse.json(buildPage(dataset, { cursor, direction, limit }));
+    return HttpResponse.json(
+      buildPage(dataset, { cursor, direction, limit, unread, escalated }),
+    );
   }),
 ];
 

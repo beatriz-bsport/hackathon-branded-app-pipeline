@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
 import {
   type FetchInboxConversationsParams,
@@ -45,6 +45,9 @@ export const useInboxConversations = (
     getNextPageParam,
     select: selectInboxConversations,
     staleTime: INBOX_CONVERSATIONS_STALE_TIME,
+    // Keep the current list on screen while switching filters so toggling the
+    // funnel swaps the rows in place instead of flashing the full-pane loader.
+    placeholderData: keepPreviousData,
   });
 
   return {

@@ -1,6 +1,7 @@
 import { cx } from "@bsport/kaizen-primitive-core";
 
 import { ThreadListHeader } from "#src/features/thread-list/header/thread-list-header";
+import { useThreadFilter } from "#src/features/thread-list/header/use-thread-filter";
 
 import { ThreadListContent } from "./thread-list-content";
 import { useInboxConversations } from "./use-inbox-conversations";
@@ -15,6 +16,8 @@ export type ThreadListProps = {
  * the subcomponent that fits the current state (status message vs. the list).
  */
 export function ThreadList({ className }: ThreadListProps) {
+  const { filter, setFilter, conversationParams } = useThreadFilter();
+
   const {
     conversations,
     isLoading,
@@ -24,7 +27,7 @@ export function ThreadList({ className }: ThreadListProps) {
     isFetchingNextPage,
     fetchNextPage,
     refetch,
-  } = useInboxConversations();
+  } = useInboxConversations(conversationParams);
 
   return (
     <div
@@ -33,7 +36,7 @@ export function ThreadList({ className }: ThreadListProps) {
         className,
       )}
     >
-      <ThreadListHeader />
+      <ThreadListHeader filter={filter} onFilterChange={setFilter} />
 
       <div className="flex-1 overflow-hidden">
         <ThreadListContent

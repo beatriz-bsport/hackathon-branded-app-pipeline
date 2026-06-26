@@ -1,10 +1,28 @@
 import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import { userEvent, within } from "storybook/test";
 
-import { makeInboxHandlers } from "@bsport/api-cdp/inbox/mocks";
+import {
+  makeInboxHandlers,
+  mockInboxConversations,
+} from "@bsport/api-cdp/inbox/mocks";
 
 import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 import { ThreadList } from "./thread-list";
+
+/**
+ * Opens the funnel menu and selects the "Unread" option. The menu renders in a
+ * portal (outside `canvasElement`), so options are queried from the document body.
+ */
+const selectUnreadFilter = async (canvasElement: HTMLElement) => {
+  const canvas = within(canvasElement);
+  const body = within(canvasElement.ownerDocument.body);
+
+  await userEvent.click(
+    await canvas.findByRole("button", { name: "Filter conversations" }),
+  );
+  await userEvent.click(await body.findByText("Unread"));
+};
 
 /** Constrains the panel to a realistic inbox-column size so scroll has bounds. */
 const withPanelFrame: Decorator = (Story) => (
@@ -67,6 +85,42 @@ export const Error: Story = {
         story: "The initial page request fails — nothing could be loaded.",
       },
     },
+  },
+};
+
+export const FilteredUnread: Story = {
+  play: async ({ canvasElement }) => {
+    await selectUnreadFilter(canvasElement);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Opens the funnel menu and selects **Unread**. The mock honors `unread=true`, so only conversations with unread messages remain in the feed.",
+      },
+    },
+  },
+};
+
+export const UnreadEmpty: Story = {
+  parameters: {
+    msw: {
+      handlers: makeInboxHandlers({
+        dataset: mockInboxConversations.map((conversation) => ({
+          ...conversation,
+          studio_unread_count: 0,
+        })),
+      }),
+    },
+    docs: {
+      description: {
+        story:
+          "Conversations exist but all are read. Selecting **Unread** filters them all out, falling back to the generic 'No conversations' empty state.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await selectUnreadFilter(canvasElement);
   },
 };
 

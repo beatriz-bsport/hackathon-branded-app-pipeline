@@ -1,15 +1,15 @@
 {
   "breadcrumbLabel": "Sammlungen",
   "deleteActionLabel": "Löschen",
-  "loading": "Sammlung wird geladen",
+  "loading": "Sammlung wird geladen ...",
   "loadError": {
     "title": "Sammlung konnte nicht geladen werden",
     "description": "Versuch es noch einmal. Wenn das Problem weiterhin besteht, aktualisiere die Seite oder gehe zurück zur Sammlungsseite. ",
-    "retry": "Noch ein Mal versuchen"
+    "retry": "Nochmal versuchen"
   },
   "notFound": {
     "title": "Sammlung nicht gefunden",
-    "description": "Medien konnten nicht gefunden werden. Sie wurden möglicherweise gelöscht oder du hast keinen Zugriff darauf. ",
+    "description": "Inhalt wurde nicht gefunden. Vielleicht wurde er gelöscht oder du hast keinen Zugriff darauf. ",
     "backToCollections": "Zurück zu allen Sammlungen"
   },
   "emptyMedia": {
@@ -32,16 +32,16 @@
   },
   "videoList": {
     "addMedia": "Medien hinzufügen",
-    "ebook": "Ebook",
-    "managerOnly": "Ausgeblendet",
+    "ebook": "E-Book",
+    "managerOnly": "Unveröffentlicht",
     "rentalDays": "",
-    "rentalDays_one": "{{count}} Miettag",
-    "rentalDays_other": "{{count}} Miettage",
+    "rentalDays_one": "{{count}} Tag leihbar",
+    "rentalDays_other": "{{count}} Tage leihbar",
     "levels": {
-      "1": "Alle Ebenen",
-      "2": "Einsteiger",
+      "1": "Alle Levels",
+      "2": "Anfänger",
       "3": "Mittelstufe",
-      "4": "Erweiterte Optionen",
+      "4": "Fortgeschritten",
       "5": "Kein Level"
     }
   },
@@ -53,17 +53,17 @@
     "add": "Hinzufügen",
     "submitResponse": {
       "success": "Medien zur Sammlung hinzugefügt",
-      "error": "Medien konnten den Sammlungen nicht hinzugefügt werden. Versuch es noch einmal. "
+      "error": "Inhalt wurde der Sammlung nicht hinzugefügt. Bitte versuche es nochmal."
     }
   },
   "removeMediaModal": {
     "title": "Medium aus der Sammlung entfernen?",
     "description": "Deine Kund:innen können \"{{videoName}}\" nicht mehr in deiner Sammlung sehen, aber du kannst weiterhin über On-Demand darauf zugreifen.",
     "undoAction": {
-      "label": "Änderung rückgängig machen"
+      "label": "Änderung verwerfen"
     },
     "undoResponse": {
-      "success": "Änderung rückgängig gemacht"
+      "success": "Änderung verworfen"
     },
     "buttons": {
       "cancel": "Behalten",
@@ -72,7 +72,7 @@
     },
     "submitResponse": {
       "success": "Medien aus der Sammlung entfernt",
-      "error": "Du konntest die Medien nicht aus den Sammlungen entfernen. Versuche es noch einmal. "
+      "error": "Inhalt wurde nicht aus der Sammlung entfernt. Bitte versuche es nochmal. "
     }
   }
 }

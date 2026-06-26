@@ -11,19 +11,15 @@ import {
   Button,
   Card,
   Divider,
-  Icon,
   Title,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { TeacherCell } from "#src/components/common/teacher-cell";
-import {
-  CustomRecurrenceUnit,
-  RecurrenceType,
-} from "#src/helpers/recurrence/types";
 import { useFetchAllEstablishments } from "#src/hooks/use-fetch-establishments";
 import { useFetchTeachers } from "#src/hooks/use-fetch-teachers";
-import type { SeriesClassDraft, SeriesClassDraftOccurrence } from "#src/types";
+import type { SeriesClassDraft } from "#src/types";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -47,40 +43,12 @@ const getEstablishmentsById = (establishments: Establishment[] | undefined) => {
   return establishmentsById;
 };
 
-const getSortedOccurrences = (draft: SeriesClassDraft) =>
-  [...draft.occurrences].sort(
-    (firstOccurrence, secondOccurrence) =>
-      firstOccurrence.startDateTime.toMillis() -
-      secondOccurrence.startDateTime.toMillis(),
-  );
-
-const getEarliestOccurrenceStartTime = (
-  occurrences: SeriesClassDraftOccurrence[],
-) =>
-  occurrences.reduce<DateTime | null>(
-    (earliestStartTime, occurrence) =>
-      earliestStartTime === null ||
-      occurrence.startDateTime.toMillis() < earliestStartTime.toMillis()
-        ? occurrence.startDateTime
-        : earliestStartTime,
-    null,
-  );
-
-const getFirstOccurrenceStartTime = (draft: SeriesClassDraft) =>
-  getEarliestOccurrenceStartTime(draft.occurrences) ?? draft.data.startDateTime;
-
 const getSortedDrafts = (drafts: SeriesClassDraft[]) =>
-  drafts
-    .map((draft) => ({
-      draft,
-      firstOccurrenceStartTime: getFirstOccurrenceStartTime(draft),
-    }))
-    .sort(
-      (firstDraft, secondDraft) =>
-        firstDraft.firstOccurrenceStartTime.toMillis() -
-        secondDraft.firstOccurrenceStartTime.toMillis(),
-    )
-    .map(({ draft }) => draft);
+  [...drafts].sort(
+    (firstDraft, secondDraft) =>
+      firstDraft.data.startDateTime.toMillis() -
+      secondDraft.data.startDateTime.toMillis(),
+  );
 
 const formatDraftTimeRange = ({
   durationMinute,
@@ -101,41 +69,13 @@ const formatDraftTimeRange = ({
   )} - ${formatDateTimeFromDate(endDateTime, DATETIME_FORMATS.TIME_SIMPLE)}`;
 };
 
-const formatOccurrenceDateRange = (
-  occurrences: SeriesClassDraftOccurrence[],
-) => {
-  const sortedOccurrences = [...occurrences].sort(
-    (firstOccurrence, secondOccurrence) =>
-      firstOccurrence.startDateTime.toMillis() -
-      secondOccurrence.startDateTime.toMillis(),
-  );
-  const firstOccurrence = sortedOccurrences[0];
-  const lastOccurrence = sortedOccurrences[sortedOccurrences.length - 1];
-
-  // Saved drafts should always have at least one occurrence, but keep this
-  // formatter as a defensive guard (empty strings will anyway be discarded by Filter(boolean))
-  if (!firstOccurrence || !lastOccurrence) {
-    return "";
-  }
-
-  const firstDate = formatDateTimeFromDate(
-    firstOccurrence.startDateTime,
-    DATETIME_FORMATS.MEDIUM_DATE,
-  );
-  const lastDate = formatDateTimeFromDate(
-    lastOccurrence.startDateTime,
-    DATETIME_FORMATS.MEDIUM_DATE,
-  );
-
-  return firstDate === lastDate ? firstDate : `${firstDate} - ${lastDate}`;
-};
-
 export const SeriesClassDraftList: FC<SeriesClassDraftListProps> = ({
   drafts,
   onDeleteDraft,
   onEditDraft,
 }) => {
   const { t } = useTranslation("series");
+  const isMobile = !useMatchMedia("md");
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
   const { data: teachers } = useFetchTeachers({
@@ -155,46 +95,14 @@ export const SeriesClassDraftList: FC<SeriesClassDraftListProps> = ({
   );
   const sortedDrafts = useMemo(() => getSortedDrafts(drafts), [drafts]);
 
-  const getRecurrenceFrequencyLabel = (draft: SeriesClassDraft) => {
-    if (draft.data.recurrenceType === RecurrenceType.WEEKLY) {
-      return t("seriesAddModal.steps.addClasses.list.recurrence.weekly");
-    }
-
-    if (draft.data.recurrenceUnit === CustomRecurrenceUnit.DAYS) {
-      return t("seriesAddModal.steps.addClasses.list.recurrence.customDays", {
-        count: draft.data.recurrenceInterval,
-      });
-    }
-
-    if (draft.data.recurrenceUnit === CustomRecurrenceUnit.WEEKS) {
-      return t("seriesAddModal.steps.addClasses.list.recurrence.customWeeks", {
-        count: draft.data.recurrenceInterval,
-      });
-    }
-
-    return t("seriesAddModal.steps.addClasses.list.recurrence.customMonths", {
-      count: draft.data.recurrenceInterval,
-    });
-  };
-
-  const renderDraftActions = ({
-    draft,
-    isRecurrence,
-  }: {
-    draft: SeriesClassDraft;
-    isRecurrence: boolean;
-  }) => (
-    <div className="flex gap-xs">
+  const renderDraftActions = (draft: SeriesClassDraft) => (
+    <div className="flex shrink-0 gap-xs">
       <Button
         color="main"
         icon="pencil-02"
         intent="default"
         kind="icon-button"
-        label={t(
-          isRecurrence
-            ? "seriesAddModal.steps.addClasses.list.actions.editRecurrence"
-            : "seriesAddModal.steps.addClasses.list.actions.edit",
-        )}
+        label={t("seriesAddModal.steps.addClasses.list.actions.edit")}
         onClick={() => onEditDraft(draft.id)}
         size="md"
         type="button"
@@ -204,11 +112,7 @@ export const SeriesClassDraftList: FC<SeriesClassDraftListProps> = ({
         icon="trash-01"
         intent="default"
         kind="icon-button"
-        label={t(
-          isRecurrence
-            ? "seriesAddModal.steps.addClasses.list.actions.deleteRecurrence"
-            : "seriesAddModal.steps.addClasses.list.actions.delete",
-        )}
+        label={t("seriesAddModal.steps.addClasses.list.actions.delete")}
         onClick={() => onDeleteDraft(draft.id)}
         size="md"
         type="button"
@@ -216,62 +120,126 @@ export const SeriesClassDraftList: FC<SeriesClassDraftListProps> = ({
     </div>
   );
 
-  const renderDraftOccurrenceRow = ({
-    draft,
-    occurrence,
-    showActions,
-  }: {
-    draft: SeriesClassDraft;
-    occurrence: SeriesClassDraftOccurrence;
-    showActions: boolean;
-  }) => {
+  const getDraftDisplayData = (draft: SeriesClassDraft) => {
     const teacher =
       draft.data.coach !== null ? teachersById.get(draft.data.coach) : null;
     const establishment =
       draft.data.establishment !== null
         ? establishmentsById.get(draft.data.establishment)
         : null;
+    const classDate = formatDateTimeFromDate(
+      draft.data.startDateTime,
+      DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY,
+    );
+    const classTimeRange = formatDraftTimeRange({
+      durationMinute: draft.data.duration_minute,
+      startDateTime: draft.data.startDateTime,
+    });
+    const missingValue = t("seriesAddModal.steps.addClasses.list.notSet");
+
+    return {
+      classDate,
+      classTimeRange,
+      establishmentName: establishment?.title ?? missingValue,
+      teacherAvatar: teacher?.photo ?? undefined,
+      teacherInitials: getTeacherInitials({
+        teacher,
+        teacherOverride: null,
+      }),
+      teacherName: teacher?.name ?? missingValue,
+    };
+  };
+
+  const renderDraftRow = (draft: SeriesClassDraft) => {
+    const {
+      classDate,
+      classTimeRange,
+      establishmentName,
+      teacherAvatar,
+      teacherInitials,
+      teacherName,
+    } = getDraftDisplayData(draft);
 
     return (
       <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-md px-lg py-md">
         <div className="min-w-0">
           <Body size="md" weight="strong" className="truncate">
-            {formatDateTimeFromDate(
-              occurrence.startDateTime,
-              DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY,
-            )}
+            {classDate}
           </Body>
           <Body size="md" color="weak" className="truncate">
-            {formatDraftTimeRange({
-              durationMinute: draft.data.duration_minute,
-              startDateTime: occurrence.startDateTime,
-            })}
+            {classTimeRange}
           </Body>
         </div>
         <TeacherCell
-          teacherName={
-            teacher?.name ?? t("seriesAddModal.steps.addClasses.list.notSet")
-          }
-          teacherAvatar={teacher?.photo ?? undefined}
-          teacherInitials={getTeacherInitials({
-            teacher,
-            teacherOverride: null,
-          })}
+          teacherName={teacherName}
+          teacherAvatar={teacherAvatar}
+          teacherInitials={teacherInitials}
         />
         <Body size="md" className="truncate">
-          {establishment?.title ??
-            t("seriesAddModal.steps.addClasses.list.notSet")}
+          {establishmentName}
         </Body>
-        {showActions ? (
-          renderDraftActions({ draft, isRecurrence: false })
-        ) : (
-          <div />
-        )}
+        {renderDraftActions(draft)}
       </div>
     );
   };
 
+  const renderDraftMobileCard = (draft: SeriesClassDraft) => {
+    const {
+      classDate,
+      classTimeRange,
+      establishmentName,
+      teacherAvatar,
+      teacherInitials,
+      teacherName,
+    } = getDraftDisplayData(draft);
+
+    return (
+      <Card key={draft.id} actionable={false} className="flex flex-col gap-md">
+        <div className="flex items-start justify-between gap-md">
+          <div className="min-w-0">
+            <Body size="md" weight="strong" className="truncate">
+              {classDate}
+            </Body>
+            <Body size="md" color="weak" className="truncate">
+              {classTimeRange}
+            </Body>
+          </div>
+          {renderDraftActions(draft)}
+        </div>
+        <Divider orientation="horizontal" weight="thin" />
+        <div className="flex flex-col gap-sm">
+          <div className="flex min-w-0 flex-col gap-2xs">
+            <Body size="sm" color="weak">
+              {t("seriesAddModal.steps.addClasses.list.headers.teacher")}
+            </Body>
+            <TeacherCell
+              teacherName={teacherName}
+              teacherAvatar={teacherAvatar}
+              teacherInitials={teacherInitials}
+            />
+          </div>
+          <div className="flex min-w-0 flex-col gap-2xs">
+            <Body size="sm" color="weak">
+              {t("seriesAddModal.steps.addClasses.list.headers.establishment")}
+            </Body>
+            <Body size="md" className="break-words">
+              {establishmentName}
+            </Body>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
   if (drafts.length === 0) return null;
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col gap-sm">
+        {sortedDrafts.map((draft) => renderDraftMobileCard(draft))}
+      </div>
+    );
+  }
 
   return (
     <Card actionable={false} padding="none" className="flex flex-col">
@@ -288,66 +256,14 @@ export const SeriesClassDraftList: FC<SeriesClassDraftListProps> = ({
         <div />
       </div>
       <Divider orientation="horizontal" weight="thin" />
-      {sortedDrafts.map((draft, draftIndex) => {
-        const sortedOccurrences = getSortedOccurrences(draft);
-        const firstOccurrence = sortedOccurrences[0] ?? {
-          id: `${draft.id}-fallback-occurrence`,
-          startDateTime: draft.data.startDateTime,
-        };
-        const isRecurringDraft = draft.data.isRecurring;
-
-        return (
-          <div key={draft.id}>
-            {draftIndex > 0 ? (
-              <Divider orientation="horizontal" weight="thin" />
-            ) : null}
-            {isRecurringDraft ? (
-              <div className="border-l-stroke-thin border-stroke-main">
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-md bg-surface-default-weaker px-lg py-md">
-                  <div className="flex min-w-0 items-center gap-sm">
-                    <Icon
-                      icon="refresh-ccw-02"
-                      size="md"
-                      className="shrink-0 text-onsurface-main-strong"
-                    />
-                    <Body size="md" weight="strong" className="truncate">
-                      {[
-                        t(
-                          "seriesAddModal.steps.addClasses.list.recurrence.label",
-                        ),
-                        getRecurrenceFrequencyLabel(draft),
-                        formatOccurrenceDateRange(sortedOccurrences),
-                        t("seriesAddModal.steps.addClasses.classCount", {
-                          count: sortedOccurrences.length,
-                        }),
-                      ]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </Body>
-                  </div>
-                  {renderDraftActions({ draft, isRecurrence: true })}
-                </div>
-                {sortedOccurrences.map((occurrence) => (
-                  <div key={occurrence.id}>
-                    <Divider orientation="horizontal" weight="thin" />
-                    {renderDraftOccurrenceRow({
-                      draft,
-                      occurrence,
-                      showActions: false,
-                    })}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              renderDraftOccurrenceRow({
-                draft,
-                occurrence: firstOccurrence,
-                showActions: true,
-              })
-            )}
-          </div>
-        );
-      })}
+      {sortedDrafts.map((draft, draftIndex) => (
+        <div key={draft.id}>
+          {draftIndex > 0 ? (
+            <Divider orientation="horizontal" weight="thin" />
+          ) : null}
+          {renderDraftRow(draft)}
+        </div>
+      ))}
     </Card>
   );
 };

@@ -34,6 +34,7 @@ export interface DropdownMenuManagedProps {
   multiSelect?: boolean;
   searchConfig?: DropdownMenuSearchConfig;
   maxHeightPx?: number;
+  minWidthPx?: number;
   fullWidth?: boolean;
   defaultOpened?: boolean;
   children?: undefined;
@@ -167,6 +168,7 @@ const isComposableProps = (
  *   - If `onChange` is omitted, the search is internal (uncontrolled). The component will filter items based on the search query.
  * @param props.defaultOpened - (Managed API) Optional value to decide if the popover is opened by default
  * @param props.maxHeightPx - (Managed API) Optional max height for the popover content
+ * @param props.minWidthPx - (Managed API) Optional min width for the popover content
  * @param props.fullWidth - (Managed API) Optional popover anchor taking full width of parent
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-dropdownmenu--docs
  **/

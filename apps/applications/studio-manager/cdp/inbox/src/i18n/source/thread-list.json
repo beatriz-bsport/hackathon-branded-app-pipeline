@@ -1,7 +1,15 @@
 {
   "title": "Inbox",
   "threadListHeader": {
-    "settingsLabel": "Inbox settings"
+    "settingsLabel": "Inbox settings",
+    "composeLabel": "New conversation",
+    "filterLabel": "Filter conversations",
+    "filterTitle": "Filter for:",
+    "filter": {
+      "all": "All messages",
+      "unread": "Unread"
+    },
+    "searchPlaceholder": "Search"
   },
   "threadListItem": {
     "markAsRead": "Mark as read",

@@ -16,7 +16,7 @@
     "loading": "Pacchetto in caricamento",
     "canNotFindPack": "Pacchetto non trovato",
     "buttons": {
-      "renamePack": "Rename pack",
+      "renamePack": "Rinomina pacchetto",
       "deletePack": "Elimina pacchetto combinato"
     },
     "updatePack": {
@@ -32,7 +32,7 @@
     "loading": "Caricamento pacchetti venduti",
     "emptyList": {
       "title": "Nessun pacchetto venduto ancora",
-      "subtitle": "Una volta che un membro acquista un pacchetto, verrà mostrato qui."
+      "subtitle": "Una volta che un Cliente acquista un pacchetto, lo vedrai qui."
     },
     "table": {
       "columns": {
@@ -46,7 +46,7 @@
         "memberProfile": "Apri il profilo cliente"
       },
       "errors": {
-        "failToGetInvoice": "Couldn't access related invoice. Please try again. "
+        "failToGetInvoice": "Impossibile accedere alla ricevuta correlata. Riprova. "
       }
     }
   },
@@ -57,8 +57,8 @@
       "save": "Salva"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Categorie di pass per appuntamenti",
-      "passCategories": "Categorie di pass",
+      "appointmentPassCategories": "Pass Per Appuntamenti",
+      "passCategories": "Pass lezioni",
       "webshopItemCategories": "Categorie di prodotto"
     },
     "categories": {
@@ -101,13 +101,13 @@
         "placeholder": "Aggiungi almeno un elemento al tuo pacchetto"
       },
       "itemVariants": {
-        "passes": "Pass",
+        "passes": "Pass lezione",
         "appointmentPasses": "Pass Per Appuntamenti",
         "webshopItems": "Prodotti"
       },
       "buttons": {
         "addItem": "Aggiungi elemento",
-        "addPass": "Aggiungi pass",
+        "addPass": "Aggiungi Pass lezione",
         "addAppointmentPass": "Aggiungi un pass per appuntamenti",
         "addWebshopItem": "Aggiungi un prodotto",
         "removeItem": "Rimuovi elemento"
@@ -146,25 +146,7 @@
         "toggleLabel": "Data limite per l'acquisto",
         "fieldLabel": "Disponibile fino al",
         "errorMissingDate": "Aggiungi una data o disattiva questa opzione per continuare",
-        "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Regole aggiuntive",
-        "helperText": "Seleziona tutte le opzioni applicabili",
-        "checkboxes": {
-          "recommended": {
-            "label": "Indica come consigliato",
-            "helperText": "Evidenzia il tuo pacchetto ai clienti segnalandolo come consigliato."
-          },
-          "newMembersOnly": {
-            "label": "Solo per i nuovi Membri",
-            "helperText": "I membri sono 'nuovi' finché non hanno acquistato un articolo con un valore superiore a {{ minimalCurrency }}. Anche se un membro acquista un articolo con uno sconto del 100 %, questo conta comunque come un acquisto."
-          },
-          "hideFromStaff": {
-            "label": "Non visibile allo staff",
-            "helperText": "Il personale non potrà visualizzare o acquistare questo pacchetto."
-          }
-        }
+        "errorPastDate": "La data di scadenza deve essere oggi o successiva"
       }
     },
     "requiredField": "Questo campo è obbligatorio."

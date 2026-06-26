@@ -168,12 +168,7 @@ export function ThreadListItem({
             {timestamp}
           </Body>
           {isUnread && unreadCount ? (
-            <Indicator
-              value={unreadCount}
-              color="main"
-              size="sm"
-              position="top"
-            />
+            <Indicator color="main" size="sm" position="top" />
           ) : null}
         </div>
 

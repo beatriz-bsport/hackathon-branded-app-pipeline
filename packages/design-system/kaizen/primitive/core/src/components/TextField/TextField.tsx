@@ -216,6 +216,7 @@ const TextField: React.FC<TextFieldProps> = ({
     const inputElement = document.getElementById(id);
     if (inputElement) {
       inputElement.focus();
+      inputElement.click();
     }
   };
 

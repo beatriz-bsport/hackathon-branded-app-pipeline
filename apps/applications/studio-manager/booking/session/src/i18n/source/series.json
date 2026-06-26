@@ -314,6 +314,13 @@
     "editor": "Editor",
     "classes": "Classes ({{count}})"
   },
+  "seriesClassesTable": {
+    "emptySearchState": {
+      "title": "No classes found",
+      "subtitle": "No classes match your criteria. Try clearing the filters and try again.",
+      "action": "Clear filters"
+    }
+  },
   "header": {
     "breadcrumbs": "Series",
     "dateRange": "{{firstDate}} - {{lastDate}}",
@@ -349,11 +356,16 @@
           "singleClass": "Each class is booked independently. No commitment to the full series."
         }
       },
-      "guestBookingUnavailable": "Booking for a guest feature is currently not available for series."
+      "guestBookingUnavailable": "Booking for a guest is currently not available for Series."
+    },
+    "visibility": {
+      "title": "Visibility",
+      "label": "Select visibility"
     },
     "details": {
       "title": "Details",
-      "service": "Service"
+      "service": "Service",
+      "serviceDisabled": "Can't be changed after the series is created."
     }
   },
   "toasts": {

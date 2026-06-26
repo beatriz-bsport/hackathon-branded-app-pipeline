@@ -18,8 +18,6 @@ type SeriesClassStatusInput = Pick<
   "available" | "date_start" | "duration_minute" | "timezone_name"
 >;
 
-type SeriesClassNavigationInput = Pick<Session, "available" | "id">;
-
 export type SeriesClassDateBounds = {
   firstClassDate: string | null;
   firstClassTimeZone?: string;
@@ -95,20 +93,4 @@ export const isSeriesCancelled = ({
     classes.length > 0 &&
     classes.every((sessionClass) => !sessionClass.available)
   );
-};
-
-// Returns a representative class id from the group when a class-scoped link is
-// needed.
-export const getSeriesMoreDetailsSessionId = ({
-  classes,
-  offerIds,
-}: {
-  classes: SeriesClassNavigationInput[];
-  offerIds: number[];
-}): number | null => {
-  const firstAvailableClass = classes.find(
-    (sessionClass) => sessionClass.available,
-  );
-
-  return firstAvailableClass?.id ?? classes[0]?.id ?? offerIds[0] ?? null;
 };

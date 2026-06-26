@@ -69,7 +69,7 @@ export const useSeriesFilterConfig = ({
             label: t("seriesTable.bookingRules.singleClass"),
           },
         ],
-        multiSelect: false,
+        multiSelect: true,
       },
       [SeriesFilterField.STATUS]: {
         id: SeriesFilterField.STATUS,

@@ -50,20 +50,44 @@ const getStatusParamsFromFilter = (
 const getBookingRuleParamsFromFilter = (
   filter: FilterElementState,
 ): SeriesFilterParams | null => {
-  const bookingRule = filter.valueIds[0];
+  const bookingRules = filter.valueIds.filter(isSeriesBookingRule);
+  const hasFullSeries = bookingRules.includes("fullSeries");
+  const hasOpenSeries = bookingRules.includes("openSeries");
+  const hasSingleClass = bookingRules.includes("singleClass");
 
-  if (!bookingRule || !isSeriesBookingRule(bookingRule)) {
+  if (bookingRules.length === 0) {
     return null;
   }
 
-  if (bookingRule === "fullSeries") {
+  if (hasFullSeries && hasOpenSeries && hasSingleClass) {
+    return null;
+  }
+
+  if (hasFullSeries && hasOpenSeries) {
+    return {
+      full_booking_only: true,
+    };
+  }
+
+  if (hasOpenSeries && hasSingleClass) {
+    return {
+      allow_booking_after_start: true,
+    };
+  }
+
+  if (hasFullSeries && hasSingleClass) {
+    // Current backend params cannot express this OR without also including open series.
+    return null;
+  }
+
+  if (hasFullSeries) {
     return {
       allow_booking_after_start: false,
       full_booking_only: true,
     };
   }
 
-  if (bookingRule === "openSeries") {
+  if (hasOpenSeries) {
     return {
       allow_booking_after_start: true,
       full_booking_only: true,

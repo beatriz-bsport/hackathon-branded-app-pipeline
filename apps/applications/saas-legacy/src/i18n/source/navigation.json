@@ -190,7 +190,28 @@
       "stripe_onboarding": "Update my information on Stripe"
     },
     "modal": {
+      "faqLink": "Need help?",
       "genericImpact": "If this is not resolved, payment and payout functionality may be impacted.",
+      "requirements": {
+        "associatedPerson": "Information about the company legal representative",
+        "bankAccountOwnershipDocument": "A document confirming ownership of the payout bank account",
+        "beneficialOwnershipDocument": "A document confirming beneficial ownership",
+        "businessProfile": "Business profile information, such as activity, website, or support contact",
+        "businessType": "Business type",
+        "companyAddress": "Company address",
+        "companyDetails": "Company legal details",
+        "companyDirectorshipDeclaration": "Confirmation of company directors",
+        "companyDocuments": "Company registration or license documents",
+        "companyOwnershipDeclaration": "Confirmation of company ownership",
+        "companyTaxId": "Company tax identification number",
+        "companyVerificationDocument": "Company verification document",
+        "externalAccount": "Payout bank account details (IBAN)",
+        "individualDetails": "Individual identity information",
+        "other": "Additional compliance information",
+        "statementDescriptor": "Payment statement descriptor",
+        "stripeSupportReview": "Additional information requested by Stripe Support",
+        "title": "Information to update"
+      },
       "restricted": {
         "description": "Stripe has restricted your account. Please update the required information to restore full payment functionality.",
         "title": "Stripe account restricted"

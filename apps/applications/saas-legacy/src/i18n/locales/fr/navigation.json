@@ -16,7 +16,28 @@
       "stripe_onboarding": "Mettre à jour mes informations sur Stripe"
     },
     "modal": {
+      "faqLink": "Besoin d'aide ?",
       "genericImpact": "Si la situation n'est pas résolue, les paiements et les virements peuvent être impactés.",
+      "requirements": {
+        "associatedPerson": "Informations sur le représentant légal de l'entreprise",
+        "bankAccountOwnershipDocument": "Document confirmant la propriété du compte bancaire de versement",
+        "beneficialOwnershipDocument": "Document confirmant les bénéficiaires effectifs",
+        "businessProfile": "Profil de l'entreprise, comme l'activité, le site web ou le contact support",
+        "businessType": "Type d'entreprise",
+        "companyAddress": "Adresse de l'entreprise",
+        "companyDetails": "Informations légales de l'entreprise",
+        "companyDirectorshipDeclaration": "Confirmation des dirigeants de l'entreprise",
+        "companyDocuments": "Documents d'immatriculation ou de licence de l'entreprise",
+        "companyOwnershipDeclaration": "Confirmation de l'actionnariat de l'entreprise",
+        "companyTaxId": "Numéro d'identification fiscale de l'entreprise",
+        "companyVerificationDocument": "Document de vérification de l'entreprise",
+        "externalAccount": "Coordonnées bancaires de versement (IBAN)",
+        "individualDetails": "Informations d'identité individuelle",
+        "other": "Informations de conformité supplémentaires",
+        "statementDescriptor": "Libellé de paiement sur relevé bancaire",
+        "stripeSupportReview": "Informations supplémentaires demandées par le support Stripe",
+        "title": "Informations à mettre à jour"
+      },
       "restricted": {
         "description": "Stripe a restreint votre compte. Veuillez mettre à jour les informations requises pour restaurer toutes les fonctionnalités de paiement.",
         "title": "Compte Stripe restreint"

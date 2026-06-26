@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { captureMessage } from '@sentry/react';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -7,8 +8,88 @@ import WarningIcon from '@material-ui/icons/Warning';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 import TimeoutButton from '#src/components/button/TimeoutButton.component';
-import type { StripeCompanyComplianceStatus } from '#src/libs/company/types';
+import type {
+  StripeCompanyComplianceRequirementField,
+  StripeCompanyComplianceStatus,
+} from '#src/libs/company/types';
 import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+
+const BSPORT_STRIPE_COMPLIANCE_FAQ_URL =
+  'https://intercom.help/bsport-helpcenter/articles/15654292-stripe-verification-required-what-to-do-before-july-16';
+
+type StripeComplianceRequirementGroupKey =
+  | 'associatedPerson'
+  | 'bankAccountOwnershipDocument'
+  | 'beneficialOwnershipDocument'
+  | 'businessProfile'
+  | 'businessType'
+  | 'companyAddress'
+  | 'companyDetails'
+  | 'companyDirectorshipDeclaration'
+  | 'companyDocuments'
+  | 'companyOwnershipDeclaration'
+  | 'companyTaxId'
+  | 'companyVerificationDocument'
+  | 'externalAccount'
+  | 'individualDetails'
+  | 'other'
+  | 'statementDescriptor'
+  | 'stripeSupportReview';
+
+const getRequirementGroupKey = (
+  requirement: StripeCompanyComplianceRequirementField,
+): StripeComplianceRequirementGroupKey => {
+  if (requirement === 'external_account') return 'externalAccount';
+  if (requirement === 'business_type') return 'businessType';
+  if (requirement === 'settings.payments.statement_descriptor') {
+    return 'statementDescriptor';
+  }
+  if (requirement.startsWith('business_profile.')) return 'businessProfile';
+  if (requirement.startsWith('company.address.')) return 'companyAddress';
+  if (requirement === 'company.verification.document') {
+    return 'companyVerificationDocument';
+  }
+  if (requirement === 'company.tax_id') return 'companyTaxId';
+  if (
+    ['company.name', 'company.phone', 'company.structure'].includes(requirement)
+  ) {
+    return 'companyDetails';
+  }
+  if (requirement.startsWith('company.directorship_declaration.')) {
+    return 'companyDirectorshipDeclaration';
+  }
+  if (requirement.startsWith('company.ownership_declaration.')) {
+    return 'companyOwnershipDeclaration';
+  }
+  if (requirement === 'documents.bank_account_ownership_verification.files') {
+    return 'bankAccountOwnershipDocument';
+  }
+  if (
+    requirement === 'documents.proof_of_ultimate_beneficial_ownership.files'
+  ) {
+    return 'beneficialOwnershipDocument';
+  }
+  if (requirement.startsWith('documents.')) return 'companyDocuments';
+  if (requirement.startsWith('individual.')) return 'individualDetails';
+  if (requirement.startsWith('person_') || requirement === 'person_*') {
+    return 'associatedPerson';
+  }
+  if (requirement.startsWith('relationship.')) return 'associatedPerson';
+  if (requirement.startsWith('interv_')) return 'stripeSupportReview';
+
+  return 'other';
+};
+
+const getRequirementGroupKeys = (
+  requirements: StripeCompanyComplianceRequirementField[],
+) => Array.from(new Set(requirements.map(getRequirementGroupKey)));
+
+const getUnhandledRequirementFields = (
+  requirements: StripeCompanyComplianceRequirementField[],
+) =>
+  requirements.filter(
+    (requirement) => getRequirementGroupKey(requirement) === 'other',
+  );
 
 type StripeComplianceStatusModalProps = {
   complianceStatus: StripeCompanyComplianceStatus;
@@ -29,6 +110,33 @@ export const StripeComplianceStatusModal: React.FC<
     translationStatus === 'restrictedSoon' && !formattedDate
       ? 'stripeCompliance.modal.restrictedSoon.descriptionWithoutDate'
       : `stripeCompliance.modal.${translationStatus}.description`;
+  const requirementGroupKeys = React.useMemo(
+    () => getRequirementGroupKeys(complianceStatus.requirement_fields),
+    [complianceStatus.requirement_fields],
+  );
+  const unhandledRequirementFields = React.useMemo(
+    () => getUnhandledRequirementFields(complianceStatus.requirement_fields),
+    [complianceStatus.requirement_fields],
+  );
+
+  React.useEffect(() => {
+    if (unhandledRequirementFields.length === 0) return;
+
+    captureMessage('Unhandled Stripe compliance requirement fields', {
+      extra: {
+        requirement_fields: unhandledRequirementFields,
+        snapshot_id: complianceStatus.snapshot_id,
+        status: complianceStatus.status,
+        requirement_scope: complianceStatus.requirement_scope,
+      },
+      level: 'warning',
+    });
+  }, [
+    complianceStatus.requirement_scope,
+    complianceStatus.snapshot_id,
+    complianceStatus.status,
+    unhandledRequirementFields,
+  ]);
 
   return (
     <>
@@ -41,6 +149,42 @@ export const StripeComplianceStatusModal: React.FC<
       <Typography className={classes.content}>
         {t('stripeCompliance.modal.genericImpact')}
       </Typography>
+      {requirementGroupKeys.length > 0 && (
+        <>
+          <Typography className={classes.requirementTitle}>
+            {t('stripeCompliance.modal.requirements.title')}
+          </Typography>
+          <ul className={classes.requirementList}>
+            {requirementGroupKeys.map((requirementGroupKey) => (
+              <Typography
+                key={requirementGroupKey}
+                className={classes.requirementItem}
+                component="li"
+              >
+                {t(
+                  `stripeCompliance.modal.requirements.${requirementGroupKey}`,
+                )}
+                {requirementGroupKey === 'other' &&
+                  unhandledRequirementFields.length > 0 && (
+                    <span className={classes.rawRequirementFields}>
+                      {unhandledRequirementFields.join(', ')}
+                    </span>
+                  )}
+              </Typography>
+            ))}
+          </ul>
+          <Typography className={classes.faqLinkContainer}>
+            <a
+              className={classes.faqLink}
+              href={BSPORT_STRIPE_COMPLIANCE_FAQ_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {t('stripeCompliance.modal.faqLink')}
+            </a>
+          </Typography>
+        </>
+      )}
 
       <div className={classes.actions}>
         {cancel && (
@@ -95,6 +239,43 @@ const useStyles = makeStyles<Theme>((theme) => ({
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingBottom: theme.spacing(2),
+  },
+  requirementTitle: {
+    fontWeight: 600,
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  requirementList: {
+    listStylePosition: 'outside',
+    listStyleType: 'disc',
+    marginTop: 0,
+    marginBottom: 0,
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(4),
+  },
+  requirementItem: {
+    display: 'list-item',
+    lineHeight: 1.4,
+    paddingBottom: theme.spacing(0.75),
+    paddingLeft: theme.spacing(0.5),
+  },
+  rawRequirementFields: {
+    display: 'block',
+    fontFamily: 'monospace',
+    fontSize: 12,
+    marginTop: theme.spacing(0.5),
+    wordBreak: 'break-word',
+  },
+  faqLinkContainer: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(1),
+  },
+  faqLink: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
   },
   actions: {
     padding: theme.spacing(4),

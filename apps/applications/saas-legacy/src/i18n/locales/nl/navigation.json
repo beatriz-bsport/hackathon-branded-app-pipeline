@@ -187,7 +187,28 @@
       "stripe_onboarding": "Mijn informatie in Stripe bijwerken"
     },
     "modal": {
+      "faqLink": "Hulp nodig?",
       "genericImpact": "Als dit niet wordt opgelost, kunnen betaal- en uitbetalingsfuncties worden beïnvloed.",
+      "requirements": {
+        "associatedPerson": "Informatie over de wettelijke vertegenwoordiger van het bedrijf",
+        "bankAccountOwnershipDocument": "Document dat het eigendom van de uitbetalingsrekening bevestigt",
+        "beneficialOwnershipDocument": "Document dat de uiteindelijke belanghebbenden bevestigt",
+        "businessProfile": "Bedrijfsprofiel, zoals activiteit, website of supportcontact",
+        "businessType": "Bedrijfstype",
+        "companyAddress": "Bedrijfsadres",
+        "companyDetails": "Juridische bedrijfsgegevens",
+        "companyDirectorshipDeclaration": "Bevestiging van de bestuurders van het bedrijf",
+        "companyDocuments": "Registratie- of vergunningsdocumenten van het bedrijf",
+        "companyOwnershipDeclaration": "Bevestiging van het eigendom van het bedrijf",
+        "companyTaxId": "Fiscaal identificatienummer van het bedrijf",
+        "companyVerificationDocument": "Verificatiedocument van het bedrijf",
+        "externalAccount": "Gegevens van de uitbetalingsrekening (IBAN)",
+        "individualDetails": "Individuele identiteitsgegevens",
+        "other": "Aanvullende compliance-informatie",
+        "statementDescriptor": "Betaalomschrijving op het bankafschrift",
+        "stripeSupportReview": "Aanvullende informatie gevraagd door Stripe Support",
+        "title": "Informatie om bij te werken"
+      },
       "restricted": {
         "description": "Stripe heeft je account beperkt. Werk de vereiste informatie bij om alle betaalfuncties te herstellen.",
         "title": "Stripe-account beperkt"

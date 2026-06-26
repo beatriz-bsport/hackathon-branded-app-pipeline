@@ -187,7 +187,28 @@
       "stripe_onboarding": "Actualizar mi información en Stripe"
     },
     "modal": {
+      "faqLink": "¿Necesitas ayuda?",
       "genericImpact": "Si no se resuelve, la funcionalidad de pagos y transferencias puede verse afectada.",
+      "requirements": {
+        "associatedPerson": "Información sobre el representante legal de la empresa",
+        "bankAccountOwnershipDocument": "Documento que confirma la titularidad de la cuenta bancaria de transferencias",
+        "beneficialOwnershipDocument": "Documento que confirma la titularidad real",
+        "businessProfile": "Perfil de la empresa, como actividad, sitio web o contacto de soporte",
+        "businessType": "Tipo de empresa",
+        "companyAddress": "Dirección de la empresa",
+        "companyDetails": "Datos legales de la empresa",
+        "companyDirectorshipDeclaration": "Confirmación de los directores de la empresa",
+        "companyDocuments": "Documentos de registro o licencia de la empresa",
+        "companyOwnershipDeclaration": "Confirmación de la titularidad de la empresa",
+        "companyTaxId": "Número de identificación fiscal de la empresa",
+        "companyVerificationDocument": "Documento de verificación de la empresa",
+        "externalAccount": "Datos de la cuenta bancaria de transferencias (IBAN)",
+        "individualDetails": "Información de identidad individual",
+        "other": "Información de cumplimiento adicional",
+        "statementDescriptor": "Descriptor de pagos en el extracto bancario",
+        "stripeSupportReview": "Información adicional solicitada por el soporte de Stripe",
+        "title": "Información que actualizar"
+      },
       "restricted": {
         "description": "Stripe ha restringido tu cuenta. Actualiza la información requerida para restaurar toda la funcionalidad de pagos.",
         "title": "Cuenta de Stripe restringida"

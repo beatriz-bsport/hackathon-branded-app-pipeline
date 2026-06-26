@@ -15,6 +15,7 @@ type SmartlistMembersTableProps = {
   paginationProps: PaginationProps;
   emptyStateProps: UseEmptyStateProps;
   isLoading?: boolean;
+  hideHeader?: boolean;
 };
 
 /**
@@ -26,6 +27,7 @@ export const SmartlistMembersTable = ({
   paginationProps,
   emptyStateProps,
   isLoading = false,
+  hideHeader = false,
 }: SmartlistMembersTableProps) => {
   const { t } = useTranslation("details");
 
@@ -34,6 +36,7 @@ export const SmartlistMembersTable = ({
       columns={columns}
       rows={rows}
       rowHeight="lg"
+      hideHeader={hideHeader}
       loadingProps={{
         isLoading,
         message: t("membersTable.loading"),

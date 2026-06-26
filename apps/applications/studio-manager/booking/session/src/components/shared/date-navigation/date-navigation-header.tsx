@@ -1,5 +1,3 @@
-import React from "react";
-
 import { modifyTime } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 
@@ -12,16 +10,20 @@ import {
 import { CalendarView } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
-import { SessionDatePicker } from "./SessionDatePicker";
-import { TodayButton } from "./TodayButton";
+import { CalendarDatePicker } from "./calendar-date-picker";
+import { TodayButton, type TodayButtonBehavior } from "./today-button";
 
 type DateNavigationHeaderProps = {
+  onDateSelectionChange?: () => void;
   onScrollToNow?: () => void;
+  todayBehavior?: TodayButtonBehavior;
 };
 
-export const DateNavigationHeader: React.FC<DateNavigationHeaderProps> = ({
+export const DateNavigationHeader = ({
+  onDateSelectionChange,
   onScrollToNow,
-}) => {
+  todayBehavior,
+}: DateNavigationHeaderProps) => {
   const { t } = useTranslation("sessionList");
   const calendarView = useCalendarStore(selectCalendarView);
   const selectedDate = useCalendarStore(selectSelectedDate);
@@ -38,6 +40,7 @@ export const DateNavigationHeader: React.FC<DateNavigationHeaderProps> = ({
       operator: "minus",
     });
     setUniqueDate(previousDate);
+    onDateSelectionChange?.();
   };
 
   const handleNextClick = () => {
@@ -50,24 +53,20 @@ export const DateNavigationHeader: React.FC<DateNavigationHeaderProps> = ({
       operator: "plus",
     });
     setUniqueDate(nextDate);
+    onDateSelectionChange?.();
   };
 
   return (
     <div
       data-id="date-nav-header"
-      className={[
-        // Layout
-        "flex justify-center",
-        // Spacing
-        "p-sm",
-        // Border
-        "border border-stroke-weak border-b-solid border-b-stroke-thin",
-        // Sticky positioning
-        "w-full sticky top-0 z-10 bg-surface-page",
-      ].join(" ")}
+      className="flex justify-center p-sm border border-stroke-weak border-b-solid border-b-stroke-thin w-full sticky top-0 z-10 bg-surface-page"
     >
       <div className="absolute left-sm top-1/2 -translate-y-1/2">
-        <TodayButton onScrollToNow={onScrollToNow} />
+        <TodayButton
+          behavior={todayBehavior}
+          onDateSelectionChange={onDateSelectionChange}
+          onScrollToNow={onScrollToNow}
+        />
       </div>
       <div className="flex justify-center gap-xs">
         {shouldDisplayNavigationButtons && (
@@ -81,7 +80,7 @@ export const DateNavigationHeader: React.FC<DateNavigationHeaderProps> = ({
             color="main"
           />
         )}
-        <SessionDatePicker />
+        <CalendarDatePicker onDateSelectionChange={onDateSelectionChange} />
         {shouldDisplayNavigationButtons && (
           <Button
             icon="chevron-right"

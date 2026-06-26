@@ -14,8 +14,12 @@ import {
   setSelectedDate,
   useCalendarStore,
 } from "#src/stores/calendar";
-import { CalendarView, DateSelection } from "#src/types";
+import { CalendarView, type DateSelection } from "#src/types";
 import { isInRange } from "#src/utils/dates";
+
+type CalendarDatePickerProps = {
+  onDateSelectionChange?: () => void;
+};
 
 const isSingleDate = (date: DatePickerSelectedDate): date is DateTime =>
   !!(date && !Array.isArray(date));
@@ -45,7 +49,9 @@ const getInitialDatePickerValue = (
   return [today.startOf("week"), today.endOf("week")];
 };
 
-export const SessionDatePicker: React.FC = () => {
+export const CalendarDatePicker = ({
+  onDateSelectionChange,
+}: CalendarDatePickerProps) => {
   const today = useToday();
 
   const calendarView = useCalendarStore(selectCalendarView);
@@ -64,6 +70,7 @@ export const SessionDatePicker: React.FC = () => {
 
     if (isSingleDate(date) || isRangeFullySet(date)) {
       setSelectedDate(date);
+      onDateSelectionChange?.();
     }
   };
 
@@ -73,7 +80,6 @@ export const SessionDatePicker: React.FC = () => {
   ) => {
     const [start, end] = Array.isArray(selectedDate) ? selectedDate : [];
 
-    // Do not disable if the user is starting a new range selection
     if (!start || !!end) return false;
 
     const maxDate = modifyTime({

@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import type { DateTime } from "@bsport/datetime-manipulation";
 import {
   Table,
   useLoadingState,
@@ -22,11 +21,15 @@ import {
   type SeriesListRow,
   buildSeriesListColumns,
 } from "#src/components/series-list/series-list-columns";
-import { SeriesListDateSummary } from "#src/components/series-list/series-list-date-summary";
+import {
+  type SeriesListDateRange,
+  getSeriesListDateRange,
+} from "#src/components/series-list/series-list-date-range";
 import {
   getSeriesBookingRule,
   getSeriesDateBounds,
 } from "#src/components/series-list/series-list-helpers";
+import { DateNavigationHeader } from "#src/components/shared/date-navigation/date-navigation-header";
 import { useSeriesListQuery } from "#src/hooks/series/use-series-list-query";
 import { useFetchActivitiesByIds } from "#src/hooks/use-fetch-activities-by-ids";
 import { useModal } from "#src/hooks/use-modal";
@@ -37,17 +40,11 @@ import {
   selectSeriesFilters,
   selectSeriesOrdering,
   selectSeriesShowCancelled,
-  setCalendarView,
-  setSelectedDate,
-  setUniqueDate,
   useCalendarStore,
 } from "#src/stores/calendar";
-import { CalendarView } from "#src/types";
 import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
-
-type SeriesListDateRange = [DateTime, DateTime | null];
 
 type SeriesDetailDrawerSelectionSeries = {
   id: number;
@@ -129,7 +126,6 @@ export const SeriesListTable = ({
   searchQuery,
 }: SeriesListTableProps) => {
   const { t, i18n } = useTranslation("series");
-  const { t: tSessionList } = useTranslation("sessionList");
   const isMobile = !useMatchMedia("lg");
   const locale = i18n.language;
   const today = useToday();
@@ -141,15 +137,10 @@ export const SeriesListTable = ({
   const hasShowCancelledSeriesPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );
-  const selectedDateRange = useMemo<SeriesListDateRange>(() => {
-    if (selectedDate.type === "single") {
-      return [selectedDate.date, null];
-    }
-
-    const fromDate = selectedDate.minDate ?? today;
-
-    return [fromDate, selectedDate.maxDate ?? null];
-  }, [selectedDate, today]);
+  const selectedDateRange = useMemo<SeriesListDateRange>(
+    () => getSeriesListDateRange({ selectedDate, today }),
+    [selectedDate, today],
+  );
 
   const companyTimeZone =
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? getCompanyTimezone();
@@ -194,20 +185,6 @@ export const SeriesListTable = ({
     searchQuery.trim().length > 0 ||
     hasActiveSeriesFilters(seriesFilters) ||
     (hasShowCancelledSeriesPermission && !seriesShowCancelled);
-
-  const handleDateRangeChange = useCallback(
-    (dateRange: SeriesListDateRange) => {
-      setCalendarView(CalendarView.RANGE);
-      setSelectedDate(dateRange);
-      resetPage();
-    },
-    [resetPage],
-  );
-
-  const handleTodayClick = useCallback(() => {
-    setUniqueDate(today);
-    resetPage();
-  }, [resetPage, today]);
 
   const activityIds = useMemo(() => getUniqueActivityIds(series), [series]);
   const { data: activitiesById = {}, isLoading: isLoadingActivities } =
@@ -420,12 +397,9 @@ export const SeriesListTable = ({
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-surface-default">
-      <SeriesListDateSummary
-        fromDate={selectedDateRange[0]}
-        onDateRangeChange={handleDateRangeChange}
-        onTodayClick={handleTodayClick}
-        todayLabel={tSessionList("dateNavigation.todayButton")}
-        toDate={selectedDateRange[1]}
+      <DateNavigationHeader
+        onDateSelectionChange={resetPage}
+        todayBehavior="select-day"
       />
       {query.isError ? (
         <SectionErrorFallback onRetry={() => void query.refetch()} />

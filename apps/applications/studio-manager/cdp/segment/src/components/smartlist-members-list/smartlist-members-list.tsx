@@ -2,6 +2,7 @@ import { useEffect, useEffectEvent, useRef } from "react";
 import { useOutletContext } from "react-router";
 
 import { SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE } from "@bsport/api-cdp/smartlist";
+import { useMatchMedia } from "@bsport/kaizen-primitive-core";
 import {
   DEFAULT_PAGE,
   usePaginationQueryParams,
@@ -27,6 +28,7 @@ export const SmartlistMembersList = ({
   smartlistId,
 }: SmartlistMembersListProps) => {
   const { t } = useTranslation("details");
+  const isMobile = !useMatchMedia("md");
   const { openParameterDrawer } = useOutletContext<DetailsPageOutletContext>();
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({
@@ -55,7 +57,7 @@ export const SmartlistMembersList = ({
     ? Math.min(currentPage, totalPages)
     : currentPage;
   const tableRows = formatSmartlistMembersTableRows(membersPage?.results ?? []);
-  const tableColumns = useSmartlistMembersTableColumns();
+  const tableColumns = useSmartlistMembersTableColumns(isMobile);
 
   const resetPageOnSmartlistChange = useEffectEvent(() => {
     if (currentPage !== DEFAULT_PAGE) {
@@ -91,29 +93,32 @@ export const SmartlistMembersList = ({
   }
 
   return (
-    <SmartlistMembersTable
-      columns={tableColumns}
-      rows={tableRows}
-      isLoading={isPending}
-      paginationProps={{
-        currentPage: safeCurrentPage,
-        rowsPerPage: currentPageSize,
-        totalItems: membersPage?.count ?? 0,
-        onPageSettingsChange: setPageSettings,
-        disabled: isPending,
-      }}
-      emptyStateProps={{
-        isEmpty: !isPending && (membersPage?.count ?? 0) === 0,
-        emptyConfig: {
-          title: t("membersTable.emptyState.title"),
-          subtitle: t("membersTable.emptyState.subtitle"),
-          secondaryButtonConfig: {
-            label: t("membersTable.emptyState.updateFilters"),
-            iconLeft: "filter-lines",
-            onClick: openParameterDrawer,
+    <div className="flex h-full w-full flex-col">
+      <SmartlistMembersTable
+        columns={tableColumns}
+        rows={tableRows}
+        isLoading={isPending}
+        hideHeader={isMobile}
+        paginationProps={{
+          currentPage: safeCurrentPage,
+          rowsPerPage: currentPageSize,
+          totalItems: membersPage?.count ?? 0,
+          onPageSettingsChange: setPageSettings,
+          disabled: isPending,
+        }}
+        emptyStateProps={{
+          isEmpty: !isPending && (membersPage?.count ?? 0) === 0,
+          emptyConfig: {
+            title: t("membersTable.emptyState.title"),
+            subtitle: t("membersTable.emptyState.subtitle"),
+            secondaryButtonConfig: {
+              label: t("membersTable.emptyState.updateFilters"),
+              iconLeft: "filter-lines",
+              onClick: openParameterDrawer,
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 };

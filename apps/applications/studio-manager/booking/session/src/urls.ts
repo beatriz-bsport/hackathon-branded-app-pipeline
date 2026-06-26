@@ -57,6 +57,11 @@ export const resolveBookingsManagementRevampPath = (sessionId: number) =>
     sessionId: String(sessionId),
   });
 
+export const resolveSeriesClassesPath = (seriesId: number) =>
+  generatePath(ABSOLUTE_ROUTES.SERIES_CLASSES, {
+    seriesId: String(seriesId),
+  });
+
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
@@ -113,11 +118,6 @@ export const useUrls = () => {
 
   const resolveSeriesEditPath = (seriesId: number) =>
     generatePath(ABSOLUTE_ROUTES.SERIES_EDIT, {
-      seriesId: String(seriesId),
-    });
-
-  const resolveSeriesClassesPath = (seriesId: number) =>
-    generatePath(ABSOLUTE_ROUTES.SERIES_CLASSES, {
       seriesId: String(seriesId),
     });
 

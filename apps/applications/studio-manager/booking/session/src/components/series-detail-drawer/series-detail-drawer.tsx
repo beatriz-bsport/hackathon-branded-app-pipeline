@@ -1,5 +1,4 @@
 import { type FC, useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 
 import {
   DetailDrawer,
@@ -14,7 +13,6 @@ import { SeriesDetailDrawerHeader } from "#src/components/series-detail-drawer/s
 import { SeriesDetailMetadata } from "#src/components/series-detail-drawer/series-detail-metadata";
 import { useSeriesDetailDrawerData } from "#src/hooks/series/use-series-detail-drawer-data";
 import { useSeriesDetailDrawerViewModel } from "#src/hooks/series/use-series-detail-drawer-view-model";
-import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type SeriesDetailDrawerProps = {
@@ -39,8 +37,6 @@ export const SeriesDetailDrawer: FC<SeriesDetailDrawerProps> = ({
   selectedSeriesId,
 }) => {
   const { t } = useTranslation("series");
-  const navigate = useNavigate();
-  const { resolveSeriesClassesPath } = useUrls();
   const [classesPreviewPage, setClassesPreviewPage] = useState(1);
 
   // Reset the classes preview to the first page when the selected series changes.
@@ -123,7 +119,6 @@ export const SeriesDetailDrawer: FC<SeriesDetailDrawerProps> = ({
     bookingRule,
     isCancelled,
     metadataRows,
-    moreDetailsSessionId,
     statusSummaryParts,
     totalClasses,
   } = useSeriesDetailDrawerViewModel({
@@ -133,12 +128,6 @@ export const SeriesDetailDrawer: FC<SeriesDetailDrawerProps> = ({
     previewClassesCount: previewClassesQuery.data?.count,
     series,
   });
-
-  const handleMoreDetailsClick = useCallback(() => {
-    if (selectedSeriesId !== null) {
-      navigate(resolveSeriesClassesPath(selectedSeriesId));
-    }
-  }, [navigate, resolveSeriesClassesPath, selectedSeriesId]);
 
   return (
     <>
@@ -207,11 +196,10 @@ export const SeriesDetailDrawer: FC<SeriesDetailDrawerProps> = ({
               classesPreviewPage={classesPreviewPage}
               hasError={hasClassPreviewError}
               isRefreshing={isClassPreviewRefreshing}
-              moreDetailsSessionId={moreDetailsSessionId}
-              onMoreDetailsClick={handleMoreDetailsClick}
               onPageChange={handleClassesPreviewPageChange}
               onRetry={handleClassPreviewRetry}
               previewClasses={previewClasses}
+              seriesId={series.id}
               statusSummaryParts={statusSummaryParts}
               teachersById={teachersById}
               totalClasses={totalClasses}

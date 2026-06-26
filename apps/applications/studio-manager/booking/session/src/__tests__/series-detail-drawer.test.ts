@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import {
   getSeriesClassStatusCounts,
-  getSeriesMoreDetailsSessionId,
   getSeriesNonCancelledClassBounds,
   isSeriesCancelled,
 } from "#src/utils/series-detail-drawer";
@@ -159,47 +158,6 @@ describe("series-detail-drawer helpers", () => {
           series: { available: true },
         }),
       ).toBe(false);
-    });
-  });
-
-  describe("getSeriesMoreDetailsSessionId", () => {
-    it("uses the first non-cancelled fetched class", () => {
-      expect(
-        getSeriesMoreDetailsSessionId({
-          classes: [
-            { available: false, id: 12 },
-            { available: true, id: 13 },
-          ],
-          offerIds: [10, 11],
-        }),
-      ).toBe(13);
-    });
-
-    it("falls back to the first fetched class", () => {
-      expect(
-        getSeriesMoreDetailsSessionId({
-          classes: [{ available: false, id: 12 }],
-          offerIds: [10, 11],
-        }),
-      ).toBe(12);
-    });
-
-    it("falls back to the first group offer id", () => {
-      expect(
-        getSeriesMoreDetailsSessionId({
-          classes: [],
-          offerIds: [10, 11],
-        }),
-      ).toBe(10);
-    });
-
-    it("returns null when no target is available", () => {
-      expect(
-        getSeriesMoreDetailsSessionId({
-          classes: [],
-          offerIds: [],
-        }),
-      ).toBeNull();
     });
   });
 });

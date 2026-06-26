@@ -323,7 +323,7 @@ export const SeriesDetailsBookingRuleField: FC<SeriesDetailsBaseProps> = ({
           )}
         </Popover.Content>
       </Popover>
-      <Alert status="info" type="weak">
+      <Alert status="info" type="weak" layout="inline" className="max-w-full">
         <Body size="md" color="info">
           {bookingRuleHints[bookingRule]}
         </Body>
@@ -345,10 +345,12 @@ export const SeriesDetailsGuestBookingUnavailableInfo: FC = () => {
   );
 };
 
-export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
-  disabled,
-  fieldIdPrefix,
-}) => {
+export const SeriesDetailsVisibilitySection: FC<
+  SeriesDetailsBaseProps & {
+    label?: string;
+    required?: boolean;
+  }
+> = ({ disabled, fieldIdPrefix, label, required = false }) => {
   const { t } = useTranslation("series");
   const visibleLabel = t(
     "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.options.visible.label",
@@ -362,9 +364,12 @@ export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
       <VisibilitySelector
         fieldIdPrefix={fieldIdPrefix}
         fieldName="manager_only"
-        title={t(
-          "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.label",
-        )}
+        title={
+          label ??
+          t(
+            "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.label",
+          )
+        }
         labels={{
           visible: {
             label: visibleLabel,
@@ -383,6 +388,7 @@ export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
         }}
         buttonClassName="w-full max-w-component-select"
         disabled={disabled}
+        required={required}
       />
     </section>
   );
@@ -407,15 +413,23 @@ export const SeriesDetailsServiceSection: FC<{
         iconName="target-04"
         className="cursor-default"
       />
-      <TextField
-        id={`${fieldIdPrefix}-activity`}
-        label={t("form.details.service")}
-        value={activity?.name ?? ""}
-        disabled
-        required
-        fullWidth
-        className="max-w-component-select"
-      />
+      <div className="flex flex-col gap-xs">
+        <TextField
+          id={`${fieldIdPrefix}-activity`}
+          label={t("form.details.service")}
+          value={activity?.name ?? ""}
+          disabled
+          required
+          fullWidth
+          className="max-w-component-select"
+        />
+        <div className="flex items-start gap-xs max-w-component-select text-onsurface-weak">
+          <Icon icon="info-circle" size="sm" className="shrink-0 mt-2xs" />
+          <Body size="sm" color="weak">
+            {t("form.details.serviceDisabled")}
+          </Body>
+        </div>
+      </div>
     </section>
   );
 };

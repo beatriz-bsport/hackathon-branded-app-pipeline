@@ -10,7 +10,8 @@ import { useStatusFilterConfig } from "./use-status-filter-config";
 
 /**
  * Owns the status-filter state for an occurrence table (Series / All occurrences)
- * and returns the `status` plus the Kaizen `filterConfig` to feed the header.
+ * and returns the `status` plus the Kaizen `filterConfig`/`filterRef` to feed
+ * the header.
  *
  * Why the `statusRef`: when Kaizen's `Filter` calls our `onFilterChange`, the
  * `status` visible to the handler's closure is observably stale — it stays at
@@ -30,6 +31,7 @@ export const useOccurrenceStatusFilter = (paginationNamespace: string) => {
 
   const [status, setStatus] = useState<StatusFilter | null>(null);
   const statusRef = useRef<StatusFilter | null>(null);
+  const filterRef = useRef<{ resetFilters: () => void } | null>(null);
 
   const handleStatusChange = useCallback(
     (next: StatusFilter | null) => {
@@ -46,5 +48,10 @@ export const useOccurrenceStatusFilter = (paginationNamespace: string) => {
 
   const filterConfig = useStatusFilterConfig(status, handleStatusChange);
 
-  return { status, filterConfig };
+  const clearStatusFilter = useCallback(() => {
+    filterRef.current?.resetFilters();
+    handleStatusChange(null);
+  }, [handleStatusChange]);
+
+  return { status, filterConfig, filterRef, clearStatusFilter };
 };

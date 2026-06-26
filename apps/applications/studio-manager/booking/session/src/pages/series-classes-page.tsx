@@ -20,7 +20,7 @@ const SeriesClassesView: FC<SeriesDetailsRouteData> = ({ classes, series }) => {
   const navigate = useNavigate();
   const paginationNamespace = `series-classes-${series.id}`;
 
-  const { status, filterConfig } =
+  const { clearStatusFilter, filterRef, status, filterConfig } =
     useOccurrenceStatusFilter(paginationNamespace);
 
   const {
@@ -50,11 +50,16 @@ const SeriesClassesView: FC<SeriesDetailsRouteData> = ({ classes, series }) => {
   return (
     <>
       <ListLayout>
-        <ListLayout.Header {...headerConfig} filterConfig={filterConfig} />
+        <ListLayout.Header
+          {...headerConfig}
+          filterConfig={filterConfig}
+          filterRef={filterRef}
+        />
         <ListLayout.Content>
           <SeriesClassesTable
             companyId={series.company}
             status={status}
+            onClearStatusFilter={clearStatusFilter}
             paginationNamespace={paginationNamespace}
             getQueryOptions={(params) =>
               sessionsInGroupQueryOptions(

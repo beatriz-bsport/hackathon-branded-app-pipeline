@@ -29,11 +29,12 @@ export const useCancelBooking = () => {
 
   return useMutation<Booking, Error, CancelBookingVariables>({
     mutationFn: ({ bookingId, params }) => cancelBooking(bookingId, params),
-    onSuccess: ({ offer: sessionId }) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
-      queryClient.invalidateQueries({
-        queryKey: sessionKeys.detail(sessionId),
-      });
+      // Invalidate all session queries, not just the session detail, so the
+      // calendar session list (keyed under sessionKeys.managerList) refreshes
+      // its enrolled count. Mirrors useRegisterBooking. See BOO-2949.
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
       queryClient.invalidateQueries({
         queryKey: waitingListKeys.all,
       });

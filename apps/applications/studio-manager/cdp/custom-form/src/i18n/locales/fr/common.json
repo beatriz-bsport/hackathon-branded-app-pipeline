@@ -30,7 +30,7 @@
         "cancel": "Garder"
       },
       "title": "Archiver le formulaire ?",
-      "description": "Les Membres ne verront plus <b>{{ name }}</b>, mais vous pouvez y accéder depuis votre archive."
+      "description": "Une fois que vous aurez archivé <b>{{ name }}</b>, il ne sera plus visible pour les clients. \n\nVous pourrez restaurer ce formulaire à tout moment depuis vos archives. "
     },
     "duplicateModal": {
       "actions": {
@@ -82,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "Aucun formulaire à afficher pour le moment",
-        "subtitle": "Créez votre premier formulaire pour obtenir des retours de vos membres."
+        "subtitle": "Créez votre premier formulaire pour obtenir les retours de vos clients"
       },
       "archivedList": {
         "title": "Aucun formulaire archivé pour le moment",

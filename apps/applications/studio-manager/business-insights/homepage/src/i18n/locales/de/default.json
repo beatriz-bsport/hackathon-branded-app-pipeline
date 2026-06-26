@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} Platz noch frei",
         "hasEmptySpots_other": "{{ count }} Plätze noch frei",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} Mitglieder auf der Warteliste",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Kund:innen auf der Warteliste",
         "hasEmptySpotsForWaitlist_other": "{{ count }} Plätze auf der Warteliste ausstehend"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Kennzahlen",
-    "unavailable": "Metriken sind derzeit nicht verfügbar"
+    "unavailable": "Metriken sind derzeit nicht verfügbar",
+    "loading": "Daten werden geladen",
+    "dataUnavailable": "Daten nicht verfügbar",
+    "metrics": {
+      "totalRevenue": "Gesamteinnahmen",
+      "totalBooking": "Gesamte Buchungen",
+      "totalAttendance": "Gesamtanzahl der Anwesenheiten",
+      "totalOccupancy": "Gesamtauslastung"
+    }
   },
   "insightsPanel": {
     "title": "Erkenntnisse im Überblick",
-    "unavailable": "Erkenntnisse sind derzeit nicht verfügbar"
+    "unavailable": "Erkenntnisse sind derzeit nicht verfügbar",
+    "loading": "Erkenntnisse-Daten werden geladen...",
+    "temporarilyUnavailable": "Erkenntnisse sind vorübergehend nicht verfügbar",
+    "errorHelp": "Wir arbeiten daran, dies zu beheben. In der Zwischenzeit kannst du deine Daten in den Berichten überprüfen.",
+    "goToReports": "Gehe zu Berichte"
   }
 }

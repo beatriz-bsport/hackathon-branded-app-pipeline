@@ -23,7 +23,7 @@ describe("mapTermsAndConditionsFilterToFormValue", () => {
     });
   });
 
-  it("preserves not accepted when hydrated from the API", () => {
+  it("preserves not accepted when fetched from the API", () => {
     const formValue = mapTermsAndConditionsFilterToFormValue({
       ...baseApiFilter,
       value: false,

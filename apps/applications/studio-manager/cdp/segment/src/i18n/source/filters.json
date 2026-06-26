@@ -106,6 +106,9 @@
       "age": {
         "description": "Filter by age."
       },
+      "formCompletion": {
+        "description": "Filter by custom form completion."
+      },
       "creditAccount": {
         "description": "Filter by account balance amount."
       },
@@ -698,6 +701,36 @@
         "saveError": "Couldn't save client age filter. Try again. ",
         "saveSuccess": "Filter applied.",
         "deleteError": "Couldn't delete client age filter. Try again. ",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "102": {
+      "title": "Form completion",
+      "actions": {
+        "deleteFilter": "Delete form completion filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "completionCondition": {
+          "label": "Completion rule",
+          "atLeastOne": "Has completed at least one of",
+          "allForms": "Has completed all of",
+          "noForm": "Has completed none of"
+        },
+        "customForms": "Custom forms",
+        "customFormsSearchPlaceholder": "Search forms",
+        "customFormsEmptySelection": "No forms selected"
+      },
+      "alerts": {
+        "legacyConfigurationNormalized": "Some settings on this filter are no longer supported. Unsupported sub-filters were turned off and unmappable legacy completion rules were adjusted. Review the options below and save to apply."
+      },
+      "validation": {
+        "customFormsRequired": "Select at least one custom form."
+      },
+      "toasts": {
+        "saveError": "Couldn't save form completion filter. Try again.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete form completion filter. Try again.",
         "invalidFilter": "Invalid filter."
       }
     },

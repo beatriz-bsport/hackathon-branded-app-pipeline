@@ -10,7 +10,9 @@ import {
   type BasketAbandonmentFilter,
   type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  CUSTOM_FORM_FILTER_IDENTIFIER,
   type CreditAccountFilter,
+  type CustomFormFilter,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
@@ -61,6 +63,7 @@ import {
   isBasketAbandonmentFilter,
   isBookingMilestoneFilter,
   isCreditAccountFilter,
+  isCustomFormFilter,
   isExpensesCompleteFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
@@ -110,6 +113,7 @@ export type SmartlistFilterCollections = {
   paymentMethodFilters: PaymentMethodFilter[];
   referrerFilters: ReferrerFilter[];
   relationsFilters: RelationsFilter[];
+  customFormFilters: CustomFormFilter[];
 };
 
 export type SmartlistFiltersQueryData = SmartlistFilterCollections & {
@@ -155,6 +159,7 @@ const mapSmartlistFilterCollections = (
   paymentMethodFilters: mapPaymentMethodFilters(payload),
   referrerFilters: mapReferrerFilters(payload),
   relationsFilters: mapRelationsFilters(payload),
+  customFormFilters: mapCustomFormFilters(payload),
 });
 
 /**
@@ -498,6 +503,19 @@ const mapRelationsFilters = (
 
   return Object.values(relationsFiltersMap)
     .filter(isRelationsFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapCustomFormFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): CustomFormFilter[] => {
+  const customFormFiltersMap = payload?.[CUSTOM_FORM_FILTER_IDENTIFIER];
+  if (!customFormFiltersMap) {
+    return [];
+  }
+
+  return Object.values(customFormFiltersMap)
+    .filter(isCustomFormFilter)
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 

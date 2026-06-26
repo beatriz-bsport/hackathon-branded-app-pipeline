@@ -54,7 +54,7 @@ export const RelationshipsFilterCard = ({
   const { errors, dirtyFields, isDirty } = methods.formState;
   const isSavedFilter = Boolean(watchedFilterValue.id);
   const showDeprecatedSubFiltersAlert = Boolean(
-    watchedFilterValue.hadDeprecatedSubFiltersAtHydration,
+    watchedFilterValue.hadDeprecatedSubFiltersAtFetch,
   );
 
   const { upsertRelationshipsFilterMutate, isLoading: isSaving } =
@@ -95,7 +95,7 @@ export const RelationshipsFilterCard = ({
   useEffect(() => {
     if (
       !watchedFilterValue.id ||
-      !watchedFilterValue.hadDeprecatedSubFiltersAtHydration ||
+      !watchedFilterValue.hadDeprecatedSubFiltersAtFetch ||
       hasTriggeredDeprecatedSubFiltersDeactivation.current
     ) {
       return;
@@ -108,7 +108,7 @@ export const RelationshipsFilterCard = ({
     });
   }, [
     upsertRelationshipsFilterMutate,
-    watchedFilterValue.hadDeprecatedSubFiltersAtHydration,
+    watchedFilterValue.hadDeprecatedSubFiltersAtFetch,
     watchedFilterValue.id,
   ]);
 

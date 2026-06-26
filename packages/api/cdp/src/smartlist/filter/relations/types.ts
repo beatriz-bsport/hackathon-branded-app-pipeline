@@ -4,7 +4,7 @@ import type { SmartlistRelationsComparator } from "./constants";
 export type { SmartlistRelationsComparator } from "./constants";
 
 /**
- * Deprecated sub-filter fields returned by hydration.
+ * Deprecated sub-filter fields returned by fetch.
  * Not exposed in studio UI; may be patched to deactivate legacy configuration.
  *
  * @deprecated Backend-only legacy fields — not editable in studio UI.

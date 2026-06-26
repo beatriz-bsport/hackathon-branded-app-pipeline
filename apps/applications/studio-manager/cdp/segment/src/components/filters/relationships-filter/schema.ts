@@ -21,7 +21,7 @@ export const relationshipsFilterSchema = z
     comparator_number_relations: relationshipsComparatorSchema,
     value_number_relations: z.number().int().min(0),
     value_number_relations_second: z.number().int().min(0),
-    hadDeprecatedSubFiltersAtHydration: z.boolean().optional(),
+    hadDeprecatedSubFiltersAtFetch: z.boolean().optional(),
   })
   .superRefine((data, context) => {
     if (

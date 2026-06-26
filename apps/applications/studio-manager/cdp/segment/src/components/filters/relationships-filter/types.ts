@@ -13,7 +13,7 @@ export type RelationshipsFilterFormValue = {
   comparator_number_relations: SmartlistRelationsComparator;
   value_number_relations: number;
   value_number_relations_second: number;
-  hadDeprecatedSubFiltersAtHydration?: boolean;
+  hadDeprecatedSubFiltersAtFetch?: boolean;
 };
 
 export type RelationshipsFilterDirtyPatchPayload = UpdateRelationsFilterPayload;

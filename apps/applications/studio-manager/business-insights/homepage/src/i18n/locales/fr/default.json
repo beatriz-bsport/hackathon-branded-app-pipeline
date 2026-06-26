@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} place restante dans le cours",
         "hasEmptySpots_other": "{{ count }} places restantes dans le cours",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} Membres sur liste d’attente",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} adhérents sur liste d’attente",
         "hasEmptySpotsForWaitlist_other": "{{ count }} places en attente sur la liste d'attente"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Indicateurs principaux ",
-    "unavailable": "Les indicateurs sont actuellement indisponibles"
+    "unavailable": "Les indicateurs sont actuellement indisponibles",
+    "loading": "Chargement des données",
+    "dataUnavailable": "Données non disponibles",
+    "metrics": {
+      "totalRevenue": "Revenu total",
+      "totalBooking": "Total réservations",
+      "totalAttendance": "Total des présences",
+      "totalOccupancy": "Taux de remplissage total"
+    }
   },
   "insightsPanel": {
     "title": "Aperçus",
-    "unavailable": "Les insights sont actuellement indisponibles"
+    "unavailable": "Les insights sont actuellement indisponibles",
+    "loading": "Chargement des données Insights...",
+    "temporarilyUnavailable": "Les Insights sont temporairement indisponibles.",
+    "errorHelp": "Nous travaillons à résoudre ce problème. En attendant, utilisez les Rapports pour vérifier vos données.",
+    "goToReports": "Accéder aux rapports"
   }
 }

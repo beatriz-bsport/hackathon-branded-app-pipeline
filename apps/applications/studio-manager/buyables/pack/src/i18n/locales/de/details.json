@@ -16,7 +16,7 @@
     "loading": "Paket wird geladen ...",
     "canNotFindPack": "Paket nicht gefunden",
     "buttons": {
-      "renamePack": "Rename pack",
+      "renamePack": "Pakete umbenennen",
       "deletePack": "Paket löschen"
     },
     "updatePack": {
@@ -32,7 +32,7 @@
     "loading": "Verkaufte Pakete werden geladen ...",
     "emptyList": {
       "title": "Noch keine Pakete verkauft",
-      "subtitle": "Sobald ein Mitglied ein Paket kauft, wird es hier angezeigt."
+      "subtitle": "Sobald ein:e Kund:in ein Paket kauft, wird es hier angezeigt."
     },
     "table": {
       "columns": {
@@ -46,7 +46,7 @@
         "memberProfile": "Kundenprofil öffnen"
       },
       "errors": {
-        "failToGetInvoice": "Couldn't access related invoice. Please try again. "
+        "failToGetInvoice": "Auf die zugehörige Rechnung konnte nicht zugegriffen werden. Bitte versuch es noch einmal. "
       }
     }
   },
@@ -57,8 +57,8 @@
       "save": "Speichern"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Terminpässe-Kategorien",
-      "passCategories": "Kurspass-Kategorien",
+      "appointmentPassCategories": "Terminpässe",
+      "passCategories": "Kurspässe",
       "webshopItemCategories": "Produktkategorien"
     },
     "categories": {
@@ -107,7 +107,7 @@
       },
       "buttons": {
         "addItem": "Artikel hinzufügen",
-        "addPass": "Pass hinzufügen",
+        "addPass": "Kurspass hinzufügen",
         "addAppointmentPass": "Terminpass hinzufügen",
         "addWebshopItem": "Produkt hinzufügen",
         "removeItem": "Artikel entfernen"
@@ -146,25 +146,7 @@
         "toggleLabel": "Kaufdatum begrenzen",
         "fieldLabel": "Verfügbar bis",
         "errorMissingDate": "Füge ein Datum hinzu oder deaktiviere diese Option, um fortzufahren",
-        "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Zusätzliche Regeln",
-        "helperText": "Wähle alle gewünschten Optionen aus",
-        "checkboxes": {
-          "recommended": {
-            "label": "Als Empfehlung markieren",
-            "helperText": "Hebe dein Paket für Kunden hervor, indem du es als empfohlen markierst."
-          },
-          "newMembersOnly": {
-            "label": "Nur für neue Mitglieder verfügbar",
-            "helperText": "Mitglieder gelten als \"neu\", solange sie keinen Artikel gekauft haben, der mehr als {{ minimalCurrency }} kostet. Selbst wenn ein Mitglied einen Artikel mit 100 % Rabatt kauft, zählt das als Kauf."
-          },
-          "hideFromStaff": {
-            "label": "Für Mitarbeitende ausgeblendet",
-            "helperText": "Mitarbeitende können dieses Paket nicht ansehen oder kaufen."
-          }
-        }
+        "errorPastDate": "Das Ablaufdatum muss heute oder in der Zukunft liegen"
       }
     },
     "requiredField": "Pflichtfeld"

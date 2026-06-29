@@ -1,14 +1,27 @@
-import type { InboxMessageChannelCode } from "@bsport/api-cdp/inbox";
+import type {
+  InboxChannel,
+  InboxMessageChannelCode,
+} from "@bsport/api-cdp/inbox";
 import { type IconName } from "@bsport/kaizen-primitive-core";
 
 /**
- * The channels a message can be sent through — single source of truth. Ordered
- * to match the backend communication-kind codes (0=email, 1=sms, 2=push,
- * 3=in_app→chat) so a code can be decoded with {@link channelFromCode}.
+ * The UI channel union — owned by the api package's {@link InboxChannel}, the
+ * single source of truth shared with the conversation list and the message
+ * contract. Re-exported here so app code keeps importing `ChannelType` locally.
  */
-export const CHANNEL_TYPES = ["email", "sms", "push", "chat"] as const;
+export type ChannelType = InboxChannel;
 
-export type ChannelType = (typeof CHANNEL_TYPES)[number];
+/**
+ * Runtime, code-ordered companion to {@link ChannelType} (0=email, 1=sms,
+ * 2=push, 3=in_app) so a backend communication-kind code can be decoded with
+ * {@link channelFromCode}. `satisfies` keeps it in lock-step with the union.
+ */
+export const CHANNEL_TYPES = [
+  "email",
+  "sms",
+  "push",
+  "in_app",
+] as const satisfies readonly ChannelType[];
 
 /**
  * Decode a backend communication-kind code into a UI channel. Total over
@@ -23,5 +36,5 @@ export const CHANNEL_ICON: Record<ChannelType, IconName> = {
   email: "mail-01",
   sms: "message-dots-circle",
   push: "notification-message",
-  chat: "message-square-02",
+  in_app: "message-square-02",
 };

@@ -39,7 +39,7 @@ export type MessageComposerProps = {
  *   <MessageComposerMessageField channel="sms" value={…} onChange={…} />
  *   <MessageComposerTitleField channel="push" value={…} onChange={…} />
  *   <MessageComposerMessageField channel="push" value={…} onChange={…} />
- *   <MessageComposerMessageField channel="chat" value={…} onChange={…} />
+ *   <MessageComposerMessageField channel="in_app" value={…} onChange={…} />
  *   <MessageComposerFooter notice={…}>
  *     <MessageComposerSendButton onClick={…} />
  *   </MessageComposerFooter>

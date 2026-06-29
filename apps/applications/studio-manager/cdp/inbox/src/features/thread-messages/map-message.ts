@@ -49,9 +49,9 @@ export const mapMessage = (message: InboxMessage): MappedMessage => {
     };
   }
 
-  // Automated messages never use the live `chat` channel; guard defensively.
+  // Automated messages never use the live `in_app` channel; guard defensively.
   const channel: AutomatedMessageChannel =
-    message.channel === "chat" ? "email" : message.channel;
+    message.channel === "in_app" ? "email" : message.channel;
 
   return {
     id: message.id,

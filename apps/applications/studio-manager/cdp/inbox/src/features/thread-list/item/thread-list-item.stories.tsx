@@ -72,7 +72,7 @@ export const InColumn: Story = {
       <ThreadListItem
         {...args}
         contactName="Chloe Davis"
-        channel="chat"
+        channel="in_app"
         isSelected
       />
     </div>

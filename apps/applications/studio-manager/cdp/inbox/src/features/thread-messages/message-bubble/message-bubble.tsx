@@ -28,7 +28,7 @@ export type MessageBubbleProps = {
   sender: MessageSender;
   /** Channel the message came through (drives the header/footer marker). */
   channel: ChannelType;
-  /** Subject line; omitted for title-less channels (sms/chat). */
+  /** Subject line; omitted for title-less channels (sms/in_app). */
   title?: string;
   /** Message content. HTML for email, plain text otherwise — sanitized on render. */
   body: string;
@@ -42,7 +42,7 @@ export type MessageBubbleProps = {
 /**
  * A single message in a conversation thread, rendered as a chat bubble. The
  * `sender` chooses the colour variant; `channel` drives the header/footer marker.
- * `chat` messages have no channel header (and therefore no divider).
+ * `in_app` messages have no channel header (and therefore no divider).
  *
  * Block-level: it grows to fill its container's width — the sender avatar and
  * left/right placement are handled by the parent layout, not by this component.
@@ -60,7 +60,7 @@ export function MessageBubble({
 }: MessageBubbleProps) {
   const { t } = useTranslation("thread-messages");
 
-  const showHeader = channel !== "chat";
+  const showHeader = channel !== "in_app";
   const showStatus = sender === "studio" && status != null;
   const isFailed = showStatus && status === "failed";
 

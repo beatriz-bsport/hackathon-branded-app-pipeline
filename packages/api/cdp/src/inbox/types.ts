@@ -1,8 +1,9 @@
 /**
- * Channel the latest message in a conversation came through. Mirrors the
- * `ChannelType` used by the inbox app's `Channel` component.
+ * Channel a message / conversation came through. Single source of truth for the
+ * channel union — the inbox app's `Channel` component re-exports this as its
+ * `ChannelType`.
  */
-export type InboxChannel = "email" | "sms" | "push" | "chat";
+export type InboxChannel = "email" | "sms" | "push" | "in_app";
 
 /**
  * Quick filters shown above the B2B inbox list (favorites, muted, needs human,
@@ -151,7 +152,7 @@ export type InboxMessage = {
    * campaign"). `null` for `manual` messages, which have no source.
    */
   sourceName: string | null;
-  /** Subject line. Present for `email`/`push`; `null` for `sms`/`chat`. */
+  /** Subject line. Present for `email`/`push`; `null` for `sms`/`in_app`. */
   title: string | null;
   /** Message content. HTML for `email`, plain text for the other channels. */
   body: string;

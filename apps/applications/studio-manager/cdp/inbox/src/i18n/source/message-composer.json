@@ -19,7 +19,7 @@
       "messageLabel": "Push notification body",
       "messagePlaceholder": "Message"
     },
-    "chat": {
+    "in_app": {
       "messagePlaceholder": "Message"
     }
   },

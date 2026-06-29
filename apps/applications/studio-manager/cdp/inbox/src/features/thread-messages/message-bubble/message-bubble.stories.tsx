@@ -24,7 +24,7 @@ const meta: Meta<typeof MessageBubble> = {
     docs: {
       description: {
         component:
-          "A single message in a conversation thread, rendered as a chat bubble. `sender` picks the green (studio/outbound) vs grey (member/inbound) variant; `channel` drives the header/footer marker. SMS and chat are title-less, and chat has no channel header. The body is rendered as sanitized rich text (HTML for email).",
+          "A single message in a conversation thread, rendered as a chat bubble. `sender` picks the green (studio/outbound) vs grey (member/inbound) variant; `channel` drives the header/footer marker. SMS and in_app are title-less, and in_app has no channel header. The body is rendered as sanitized rich text (HTML for email).",
       },
     },
   },
@@ -72,7 +72,7 @@ export const Push: Story = {
 
 export const Chat: Story = {
   args: {
-    channel: "chat",
+    channel: "in_app",
     title: undefined,
     body: "I am helping you here!",
   },
@@ -143,7 +143,7 @@ export const SenderChannelGrid: Story = {
         title: "Class starting soon",
         body: "Your spin class starts in 30 minutes.",
       },
-      chat: { title: undefined, body: "I am helping you here!" },
+      in_app: { title: undefined, body: "I am helping you here!" },
     };
 
     return (

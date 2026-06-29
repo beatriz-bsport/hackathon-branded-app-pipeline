@@ -16,7 +16,7 @@ export const messageComposerSchema = z.discriminatedUnion("channel", [
     pushBody: z.string(),
   }),
   z.object({
-    channel: z.literal("chat"),
+    channel: z.literal("in_app"),
     chatBody: z.string(),
   }),
 ]);

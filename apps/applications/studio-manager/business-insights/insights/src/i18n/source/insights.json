@@ -85,7 +85,7 @@
     "no": "No",
     "detailedDocumentation": "Detailed Documentation",
     "feedbackThanks": "Thanks for your feedback!",
-    "feedbackError": "Failed to submit feedback, please try again.",
+    "feedbackError": "Couldn't send feedback. Try again.",
     "whatWentWrong": "What went wrong?",
     "rationalePlaceholder": "Help us improve",
     "send": "Send"

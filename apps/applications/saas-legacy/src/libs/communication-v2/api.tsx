@@ -22,6 +22,7 @@ import type {
   ConversationCreationInput,
   ConversationCreationOutput,
   ConversationListResponse,
+  ConversationUnreadCountResponse,
   FetchCommunicationParams,
   FetchFirstReachedRecipientsParams,
   InboxThreadListParams,
@@ -294,6 +295,16 @@ export const fetchConversations = (companyId: number) => {
     `${API_V1_URI}/communication/chat/member/conversation/${buildUrlParams({
       company_id: companyId,
     })}`,
+  );
+};
+
+export const fetchConversationUnreadCount = (companyId: number) => {
+  return getAuth<ConversationUnreadCountResponse>(
+    `${API_V1_URI}/communication/chat/member/conversation/unread_count/${buildUrlParams(
+      {
+        company_id: companyId,
+      },
+    )}`,
   );
 };
 

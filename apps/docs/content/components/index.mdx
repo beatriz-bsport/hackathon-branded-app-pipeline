@@ -4,31 +4,472 @@ description: The Kaizen component catalogue.
 category: components
 ---
 
-Pick a component from the sidebar — each page is organized into Overview,
-Guidelines, Reference, Accessibility, and Resources sections, with live
-editable Storybook embeds where available.
+The Kaizen component catalogue documents every primitive in the design system.
+Each page follows the same structure — **Overview**, **Guidelines**, **Reference**,
+**Accessibility**, and **Resources** — with live Storybook embeds where available.
+
+<Callout type="warning" title="Accessibility and WCAG">
+
+**Accessibility** sections and **WCAG** criteria on component pages describe target guidelines and expected behavior — not a guarantee that the implementation already meets them. Treat them as design and engineering intent; verify in Storybook and product before assuming compliance.
+
+</Callout>
+
+Browse by category below or use the sidebar. [Shared form guidelines](/components/shared-form-guidelines)
+apply across all form controls.
+
+## Actions
+
+Interactive controls that trigger operations, copy values, or switch between related modes.
 
 <CardGrid columns={2}>
   <Card
     href="/components/button"
     title="Button"
+    description="Buttons trigger actions or events when activated"
     badge="stable"
-    description="Triggers actions or events when activated."
   />
+  <Card
+    href="/components/copy-to-clipboard"
+    title="Copy to clipboard"
+    description="A button that copies a value and confirms with toast feedback"
+    badge="stable"
+  />
+  <Card
+    href="/components/toggle-button"
+    title="Toggle button"
+    description="Dense horizontal buttons for high-frequency on/off or single-select choices outside classic forms"
+    badge="stable"
+  />
+</CardGrid>
+
+## Composition
+
+Components that combine and structure other primitives — metric tiles, chip collections, and menus.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/analytic-card"
+    title="Analytic card"
+    description="KPI tile with metric, trend, and optional info popover for campaign analytics"
+    badge="stable"
+  />
+  <Card
+    href="/components/chip-list"
+    title="Chip list"
+    description="Inline chips with overflow popover when tags exceed visible limit"
+    badge="stable"
+  />
+  <Card
+    href="/components/menu"
+    title="Menu"
+    description="Structured list of actions and choices with sections, icons, and selection items"
+    badge="stable"
+  />
+</CardGrid>
+
+## Feedback and status
+
+Status signals, progress, and messages that communicate system state, outcomes, and attention-worthy events.
+
+<CardGrid columns={2}>
   <Card
     href="/components/alert"
     title="Alert"
+    description="A persistent inline banner for important messages that need attention while the user stays on the page"
     badge="stable"
-    description="Inline banner for page-level feedback that needs attention."
+  />
+  <Card
+    href="/components/badge"
+    title="Badge"
+    description="A compact label for supplementary metadata beside content"
+    badge="stable"
+  />
+  <Card
+    href="/components/chip"
+    title="Chip"
+    description="A standalone pill for semantic tokens such as tags, categories, statuses, or removable selections"
+    badge="stable"
+  />
+  <Card
+    href="/components/indicator"
+    title="Indicator"
+    description="A small visual signal for counts or presence, anchored to a host or placed inline beside content"
+    badge="stable"
+  />
+  <Card
+    href="/components/progress-bar"
+    title="Progress bar"
+    description="Determinate 0–100 completion bar — primarily consumed by FileUpload, rarely imported directly"
+    badge="stable"
   />
   <Card
     href="/components/toast"
     title="Toast"
+    description="Short, non-blocking viewport messages that confirm actions or surface errors while the user keeps working"
     badge="stable"
-    description="Surfaces short, non-blocking messages about an action's result."
   />
 </CardGrid>
 
-The sidebar lists documented Kaizen primitives. Button, Alert, and Toast are
-canonical references for page structure; more component pages will be added as
-content is written.
+## Form controls
+
+Inputs, pickers, and shared validation patterns for collecting and editing data in forms.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/shared-form-guidelines"
+    title="Shared form guidelines"
+    description="Shared label, helper, error, and required patterns across Kaizen form controls"
+  />
+  <Card
+    href="/components/autocomplete"
+    title="Autocomplete"
+    description="A searchable field that suggests matching items as the user types"
+    badge="stable"
+  />
+  <Card
+    href="/components/checkbox"
+    title="Checkbox"
+    description="A binary or tri-state control for multi-select and deferred form choices"
+    badge="stable"
+  />
+  <Card
+    href="/components/checkbox-group"
+    title="Checkbox group"
+    description="A set of related checkboxes with shared layout and selection semantics"
+    badge="stable"
+  />
+  <Card
+    href="/components/date-picker"
+    title="Date picker"
+    description="Calendar input for single dates or ranges in modal and popover layouts"
+    badge="stable"
+  />
+  <Card
+    href="/components/file-upload"
+    title="File upload"
+    description="Drag-and-drop and browse control for images and documents with upload state"
+    badge="stable"
+  />
+  <Card
+    href="/components/radio"
+    title="Radio"
+    description="Mutually exclusive options for single-choice fields — RadioGroup and FormRadioGroup"
+    badge="stable"
+  />
+  <Card
+    href="/components/select"
+    title="Select"
+    description="A custom dropdown for choosing one value from a predefined list"
+    badge="stable"
+  />
+  <Card
+    href="/components/text-area"
+    title="Text area"
+    description="Multi-line text input for descriptions, notes, and long-form content"
+    badge="stable"
+  />
+  <Card
+    href="/components/text-field"
+    title="Text field"
+    description="A single-line input for text, numbers, dates, and other typed values in forms"
+    badge="stable"
+  />
+  <Card
+    href="/components/time-picker"
+    title="Time picker"
+    description="Input for choosing a time of day with token-aligned styling"
+    badge="stable"
+  />
+  <Card
+    href="/components/toggle"
+    title="Toggle"
+    description="An immediate on/off control for binary settings that apply without a separate save action"
+    badge="stable"
+  />
+</CardGrid>
+
+## Images and icons
+
+Visual identity, media frames, color swatches, and the Kaizen icon and illustration sets.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/avatar"
+    title="Avatar"
+    description="A compact visual identity for people, members, or accounts — image, initials, or icon"
+    badge="stable"
+  />
+  <Card
+    href="/components/avatar-group"
+    title="Avatar group"
+    description="Overlapping avatars with overflow count and popover for additional members"
+    badge="stable"
+  />
+  <Card
+    href="/components/color-indicator"
+    title="Color indicator"
+    description="A small color swatch for categories, tags, or calendar color coding"
+    badge="stable"
+  />
+  <Card
+    href="/components/icon"
+    title="Icon"
+    description="The canonical SVG icon set for actions, status, and wayfinding across Kaizen"
+    badge="stable"
+  />
+  <Card
+    href="/components/illustration"
+    title="Illustration"
+    description="Branded spot artwork for empty states, onboarding, and error pages"
+    badge="stable"
+  />
+  <Card
+    href="/components/media"
+    title="Media"
+    description="A responsive image frame with aspect ratio and fade-in on load"
+    badge="stable"
+  />
+</CardGrid>
+
+## Page composition
+
+Page-level shells and navigation patterns — app chrome, page headers, object detail, and list views.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/app-navigation"
+    title="App navigation"
+    description="How the Studio Manager shell divides global sidebar wayfinding from feature-internal header navigation, and the Kaizen primitives that compose each layer."
+    badge="stable"
+  />
+  <Card
+    href="/components/header-layout"
+    title="Header layout"
+    description="A composable page header for breadcrumbs, title, tabs, actions, and data controls."
+  />
+  <Card
+    href="/components/details-layout"
+    title="Details layout"
+    description="Documentation pending."
+  />
+  <Card
+    href="/components/list-layout"
+    title="List layout"
+    description="Documentation pending."
+  />
+</CardGrid>
+
+## Layout and structure
+
+Building blocks for dividing space, progressive disclosure, and side panels within a page.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/accordion"
+    title="Accordion"
+    description="Stacked expandable sections with one or more panels open at a time"
+    badge="stable"
+  />
+  <Card
+    href="/components/card"
+    title="Card"
+    description="A bounded surface for grouping one concept — static border or actionable backdrop with interaction states"
+    badge="stable"
+  />
+  <Card
+    href="/components/divider"
+    title="Divider"
+    description="A neutral line that separates sections or groups without adding semantic meaning"
+    badge="stable"
+  />
+  <Card
+    href="/components/panel"
+    title="Panel"
+    description="A collapsible side surface for metadata and contextual controls on detail pages."
+  />
+</CardGrid>
+
+## Navigation
+
+Wayfinding across pages and hierarchies — breadcrumbs, tabs, and inline links.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/breadcrumbs"
+    title="Breadcrumbs"
+    description="Displays a navigation trail showing the user's current location within a hierarchy."
+  />
+  <Card
+    href="/components/link"
+    title="Link"
+    description="An inline hyperlink for navigating within or outside the current context."
+  />
+  <Card
+    href="/components/tabs"
+    title="Tabs"
+    description="Route-level navigation that groups related pages under a single header."
+  />
+</CardGrid>
+
+## Overlays
+
+Layered surfaces — modals, drawers, popovers, and tooltips — that sit above the main content.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/detail-drawer"
+    title="Detail drawer"
+    description="A non-modal slide-in surface that reveals object detail without navigating away."
+  />
+  <Card
+    href="/components/dropdown-menu"
+    title="Dropdown menu"
+    description="Anchored menu triggered by a button with search, icons, and placement options"
+    badge="stable"
+  />
+  <Card
+    href="/components/modal"
+    title="Modal"
+    description="A blocking dialog that requires interaction before returning to the main flow."
+  />
+  <Card
+    href="/components/popover"
+    title="Popover"
+    description="A floating overlay for contextual information or lightweight actions."
+  />
+  <Card
+    href="/components/stepper"
+    title="Stepper"
+    description="Multi-step modal flow with validation across sequential steps"
+    badge="stable"
+  />
+  <Card
+    href="/components/tooltip"
+    title="Tooltip"
+    description="A compact overlay that surfaces a hint or short description on hover or focus."
+  />
+</CardGrid>
+
+## Views and filtering
+
+Controls that refine or switch what data is shown on a page — filter bars and in-page view switchers.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/filter"
+    title="Filter"
+    description="Chip-based filter bar with categories, values, and reset for list views"
+    badge="stable"
+  />
+  <Card
+    href="/components/segmented-control"
+    title="Segmented control"
+    description="A compact single-select switcher for mutually exclusive views or filters within the same screen"
+    badge="stable"
+  />
+</CardGrid>
+
+## Tables and lists
+
+Scannable collections, row layouts, pagination, and drag-reorder for dense Back Office data.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/list"
+    title="List"
+    description="Left-right row layout for scannable Back Office collections"
+    badge="stable"
+  />
+  <Card
+    href="/components/list-item"
+    title="List item"
+    description="Single row inside List"
+    badge="stable"
+  />
+  <Card
+    href="/components/nested-sortable-list"
+    title="Nested sortable list"
+    description="Hierarchical drag reorder across grouped lists"
+    badge="stable"
+  />
+  <Card
+    href="/components/pagination"
+    title="Pagination"
+    description="Internal page bar for List and Table — rows-per-page, range summary, and page controls"
+    badge="stable"
+  />
+  <Card
+    href="/components/sortable-list"
+    title="Sortable list"
+    description="Drag-reorderable variant of List"
+    badge="stable"
+  />
+  <Card
+    href="/components/table"
+    title="Table"
+    description="Flexible data table for multi-column datasets with selection, pagination, and typed columns"
+    badge="stable"
+  />
+</CardGrid>
+
+## Typography
+
+Semantic heading and body text components backed by the Kaizen type scale.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/body"
+    title="Body"
+    description="Semantic body text for readable copy, labels, and inline content across dense Back Office surfaces"
+    badge="stable"
+  />
+  <Card
+    href="/components/title"
+    title="Title"
+    description="Semantic headings that structure pages, sections, and containers with token-backed size and weight"
+    badge="stable"
+  />
+</CardGrid>
+
+## Utilities
+
+Cross-cutting helpers for overlay scrims, progressive disclosure, loading states, errors, labels, and drag-and-drop affordances.
+
+<CardGrid columns={2}>
+  <Card
+    href="/components/blanket"
+    title="Blanket"
+    description="The dimmed overlay scrim behind modals and blocking overlays"
+    badge="stable"
+  />
+  <Card
+    href="/components/collapse"
+    title="Collapse"
+    description="A composable show-hide container with animated expand and collapse"
+    badge="stable"
+  />
+  <Card
+    href="/components/drag-and-drop"
+    title="Drag and drop"
+    description="Kanban-style boards for dragging items between columns or categories"
+    badge="stable"
+  />
+  <Card
+    href="/components/error-fallback"
+    title="Error fallback"
+    description="A centered error state with illustration, copy, and optional recovery action"
+    badge="stable"
+  />
+  <Card
+    href="/components/label"
+    title="Label"
+    description="Accessible field label text paired with form controls"
+    badge="stable"
+  />
+  <Card
+    href="/components/loader"
+    title="Loader"
+    description="An animated three-dot indicator for in-progress operations"
+    badge="stable"
+  />
+</CardGrid>

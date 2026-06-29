@@ -100,6 +100,53 @@ function extractJsDocPropDescriptions(source) {
   return descriptions;
 }
 
+function extractTypeBody(source, typeName) {
+  const startRe = new RegExp(`export\\s+type\\s+${typeName}\\s*=\\s*`);
+  const startMatch = startRe.exec(source);
+  if (!startMatch) return null;
+
+  const start = startMatch.index + startMatch[0].length;
+  let depth = 0;
+
+  for (let index = start; index < source.length; index += 1) {
+    const char = source[index];
+    if (char === "<") depth += 1;
+    else if (char === ">" && depth > 0 && source[index - 1] !== "=") depth -= 1;
+    else if (char === "{") depth += 1;
+    else if (char === "}" && depth > 0) depth -= 1;
+    else if (char === ";" && depth === 0) {
+      return source.slice(start, index);
+    }
+  }
+
+  return null;
+}
+
+function parseObjectTypeFields(blockBody, fields) {
+  const fieldRe = /^ {2}(\w+)(\?)?:\s*([^;,\n]+)/gm;
+  let fieldMatch;
+  while ((fieldMatch = fieldRe.exec(blockBody)) !== null) {
+    fields.set(fieldMatch[1], {
+      type: fieldMatch[3].trim(),
+      required: fieldMatch[2] !== "?",
+    });
+  }
+}
+
+function extractPickFields(body, fields) {
+  const pickRe = /Pick<[^,]+,\s*((?:\s*"[^"]+"\s*\|\s*)*"[^"]+"\s*)>/g;
+  let pickMatch;
+  while ((pickMatch = pickRe.exec(body)) !== null) {
+    const names = pickMatch[1].match(/"([^"]+)"/g) ?? [];
+    for (const quoted of names) {
+      const name = quoted.slice(1, -1);
+      if (!fields.has(name)) {
+        fields.set(name, { type: "unknown", required: false });
+      }
+    }
+  }
+}
+
 function extractTypeFields(source, componentName) {
   const typeNames = [
     "Props",
@@ -109,24 +156,20 @@ function extractTypeFields(source, componentName) {
   const fields = new Map();
 
   for (const typeName of typeNames) {
-    const typeRe = new RegExp(
-      `export\\s+type\\s+${typeName}\\s*=\\s*([\\s\\S]*?);`,
-    );
-    const match = typeRe.exec(source);
-    if (!match) continue;
+    const body = extractTypeBody(source, typeName);
+    if (!body) continue;
 
-    const body = match[1];
-    const objectBlocks = body.matchAll(/\{([\s\S]*?)\}/g);
-    for (const block of objectBlocks) {
-      const fieldRe = /^\s*(\w+)(\?)?:\s*([^;,\n]+)/gm;
-      let fieldMatch;
-      while ((fieldMatch = fieldRe.exec(block[1])) !== null) {
-        fields.set(fieldMatch[1], {
-          type: fieldMatch[3].trim(),
-          required: fieldMatch[2] !== "?",
-        });
+    const mainBlock = body.match(/>\s*&\s*\{([\s\S]*?)\}\s*(?:&\s*Pick|$)/);
+    if (mainBlock) {
+      parseObjectTypeFields(mainBlock[1], fields);
+    } else {
+      const objectBlocks = body.matchAll(/\{([\s\S]*?)\}/g);
+      for (const block of objectBlocks) {
+        parseObjectTypeFields(block[1], fields);
       }
     }
+
+    extractPickFields(body, fields);
   }
 
   return fields;
@@ -161,6 +204,33 @@ function extractPropsFallback(source, componentName) {
   const props = [];
 
   for (const [name, field] of fields) {
+    if (name === "className" && !descriptions.has(name)) continue;
+    props.push({
+      name,
+      type: field.type,
+      required: field.required && !defaults.has(name),
+      defaultValue: defaults.get(name),
+      description: descriptions.get(name),
+    });
+  }
+
+  const existing = new Set(props.map((prop) => prop.name));
+
+  for (const [name, description] of descriptions) {
+    if (existing.has(name)) continue;
+    const field = fields.get(name);
+    props.push({
+      name,
+      type: field?.type ?? "unknown",
+      required: field ? field.required && !defaults.has(name) : false,
+      defaultValue: defaults.get(name),
+      description,
+    });
+    existing.add(name);
+  }
+
+  for (const [name, field] of fields) {
+    if (existing.has(name)) continue;
     if (name === "className" && !descriptions.has(name)) continue;
     props.push({
       name,
@@ -251,17 +321,32 @@ async function main() {
     }
 
     const doc = docs[0];
-    const props = Object.entries(doc.props ?? {})
-      .map(([name, prop]) => normaliseProp(name, prop))
-      .sort((a, b) => {
-        if (a.required !== b.required) return a.required ? -1 : 1;
-        return a.name.localeCompare(b.name);
-      });
+    let props = Object.entries(doc.props ?? {}).map(([name, prop]) =>
+      normaliseProp(name, prop),
+    );
+
+    if (props.length === 0) {
+      const source = await readFile(target.file, "utf-8");
+      props = extractPropsFallback(source, target.name);
+    }
+
+    props.sort((a, b) => {
+      if (a.required !== b.required) return a.required ? -1 : 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    if (props.length === 0) {
+      console.warn(
+        `[extract-props] No props extracted for ${target.name}; skipping.`,
+      );
+      skipped += 1;
+      continue;
+    }
 
     output[target.name] = props;
     extracted += 1;
     console.log(
-      `[extract-props] ${target.name.padEnd(24)} ${props.length} prop${props.length === 1 ? "" : "s"}`,
+      `[extract-props] ${target.name.padEnd(24)} ${props.length} prop${props.length === 1 ? "" : "s"}${Object.keys(doc.props ?? {}).length === 0 ? " (fallback)" : ""}`,
     );
   }
 

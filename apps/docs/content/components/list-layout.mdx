@@ -1,7 +1,9 @@
 ---
 title: List layout
-description: Documentation pending.
+description: A compound page shell for collection views with header, data controls, and scrollable content
+status: stable
 category: components
+tags: [layout, structure]
 source: "packages/design-system/kaizen/primitive/core/src/components/ListLayout"
 sections:
   - "Overview"
@@ -10,3 +12,201 @@ sections:
   - "Accessibility"
   - "Resources"
 ---
+
+## Overview
+
+ListLayout is the standard page shell for browsing collections on Back Office — members, bookings, passes, email templates, or any index where the primary task is finding and opening records.
+
+It composes a sticky [Header layout](/components/header-layout) at the top with data controls (filter, search, display options) and a scrollable content region below. Place a [List](/components/list), [Table](/components/table), or empty state inside `ListLayout.Content`. Row clicks typically navigate to a [Details layout](/components/details-layout) route or open a [Detail drawer](/components/detail-drawer).
+
+<StorybookEmbed
+  id="primitive-components-listlayout--primary"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-listlayout--primary",
+      label: "List layout",
+    },
+    {
+      id: "primitive-components-listlayout--with-layout-button",
+      label: "With layout button",
+    },
+  ]}
+/>
+
+### Use cases
+
+- **Index table page** — filterable member or booking list with a Create CTA in the header.
+- **Scannable list** — [List](/components/list) of rows with left-right layout inside the content area.
+- **Import or bulk workflows** — header actions for Create, Import, or Export above the data set.
+- **Tabbed collections** — combine with [Tabs](/components/tabs) in the header when one module splits into sub-views (e.g. Active / Archived).
+- **Drawer triage** — keep ListLayout as the host and open [Detail drawer](/components/detail-drawer) from row actions without leaving the list.
+
+For editing a single record, use [Details layout](/components/details-layout) instead.
+
+## Guidelines
+
+- **Title the collection** — page titles name the set you are browsing ("Members", "Passes"), not one item in it.
+- **Put filters in the header** — search, filter, and display options belong in `ListLayout.Header`, not in the scrollable body.
+- **Content owns the data view** — tables, lists, pagination, and empty states render inside `ListLayout.Content`.
+- **One shell per route** — mount ListLayout at the route root; do not nest layout shells.
+- **Actions follow hierarchy** — primary Create or Import CTA in the header; see [Header actions](/patterns/header-actions) for overflow rules.
+
+### Best practices
+
+<DoDont>
+  <Do caption="Use ListLayout when the primary task is browsing, filtering, or bulk-selecting a collection." />
+  <Do caption="Populate filterConfig, searchConfig, and onDisplayPopover in ListLayout.Header when the page is data-heavy." />
+  <Do caption="Use callToActionButton for the primary create or import action (e.g. Invite member, New pass)." />
+  <Dont caption="Record detail pages belong in DetailsLayout, not ListLayout." />
+  <Dont caption="onEditTitleClick on list pages — collection titles are not editable resources." />
+  <Dont caption="Nested layout shells on the same route — one ListLayout per list page." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+ListLayout has no side panel slot. Metadata about a selected row belongs in a [Detail drawer](/components/detail-drawer) or on a full detail route — not in a persistent column beside the list.
+
+</Callout>
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Header",
+      description:
+        "Sticky top region via ListLayout.Header — breadcrumbs, title, optional tabs, filter, search, display options, and actions.",
+    },
+    {
+      label: "Content",
+      description:
+        "Scrollable main area for List, Table, pagination, loaders, and empty states.",
+    },
+  ]}
+/>
+
+### Props
+
+#### ListLayout (root)
+
+| Prop        | Type        | Default | Description                               |
+| ----------- | ----------- | ------- | ----------------------------------------- |
+| `children`  | `ReactNode` | —       | Subcomponents: Header and Content.        |
+| `className` | `string`    | —       | Extra classes on the root `main` element. |
+
+#### ListLayout.Header
+
+Reuses [Header layout](/components/header-layout) props. On list pages, populate `pageTitle`, optional `breadcrumbsItems`, `filterConfig`, `searchConfig`, `onDisplayPopover`, and `callToActionButton`. Follow the list variant guidance in [Header layout](/components/header-layout#variants) and [Header actions](/patterns/header-actions).
+
+Use `ListLayout.useAdaptiveActions` to collapse overflow header actions into a mobile dropdown.
+
+#### ListLayout.Content
+
+| Prop            | Type        | Default | Description                                           |
+| --------------- | ----------- | ------- | ----------------------------------------------------- |
+| `children`      | `ReactNode` | —       | Page body — List, Table, empty state, etc.            |
+| `className`     | `string`    | —       | Extra classes on the scroll container.                |
+| `showScrollbar` | `boolean`   | `true`  | When false, hides the scrollbar via `hide-scrollbar`. |
+
+#### ListLayout.Button
+
+Responsive action button — full label on desktop (≥640px), icon-only on mobile. Same API as `LayoutButton`. Use for primary CTAs that must stay compact on narrow viewports.
+
+### Behaviors
+
+#### Scrolling
+
+The header stays fixed at the top. Content scrolls independently when the collection exceeds the viewport height.
+
+#### Table alignment
+
+ListLayout applies a descendant selector so the first cell in each table row aligns with header padding (`[&_.table-row>.table-cell:first-child]:pl-md`). Place [Table](/components/table) directly in content without extra left padding hacks.
+
+#### Header data controls
+
+`searchConfig` expands full-width when it is the only control in the data row; when filter or display controls sit beside it, search collapses to an icon until expanded. See [Header layout](/components/header-layout#behavior) for the full rules.
+
+When `pageTabs` is present, custom actions move from the title row into the tab row (tabs left, actions right).
+
+#### Responsiveness
+
+Below the `sm` breakpoint (640px), `ListLayout.Button` and header actions collapse to icons. Use `ListLayout.useAdaptiveActions` for overflow actions in a mobile menu.
+
+### Edge cases
+
+- **Empty collection** — render an empty state inside content; the header and filters remain visible so users can adjust criteria.
+- **Loading** — show a single [Loader](/components/loader) in the content area, not per row.
+- **No primary CTA** — omit `callToActionButton` when the page is read-only or actions live elsewhere; the action row collapses cleanly.
+- **Long filter state** — filters persist in URL or app state; ListLayout does not manage filter memory itself.
+
+## Accessibility
+
+### ARIA roles and attributes
+
+- Root renders `<main>` — one per list page.
+- Header landmarks and tab semantics come from [Header layout](/components/header-layout) subcomponents.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Moves through header filters, search, tabs, actions, and into the scrollable content region.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description:
+        "Activates header buttons, filter controls, and row links inside content.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Page title is exposed via the header's `<title>` element and visible heading. Filter and search controls inherit labels from [Filter](/components/filter) and [Header layout](/components/header-layout) configuration.
+
+### Focus management
+
+No focus trap — content remains reachable while header controls are used. Route transitions should move focus to the page title or main heading. Opening a [Detail drawer](/components/detail-drawer) from a row is handled by the drawer component.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — header actions and filter controls meet contrast requirements.
+- **2.1.1 Keyboard** — header data controls and content rows are keyboard operable.
+- **2.4.1 Bypass Blocks** — provided by the app shell skip link, not ListLayout itself.
+- **2.4.6 Headings and Labels** — single clear page title via Header.
+- **4.1.2 Name, Role, Value** — filter and search expose accessible names from their config.
+
+## Resources
+
+### Storybook
+
+[Open List layout in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-listlayout--primary)
+
+### Related components
+
+- **[Header layout](/components/header-layout)** — composable header used by `ListLayout.Header`.
+- **[List](/components/list)** — scannable row stack for simple collections.
+- **[Table](/components/table)** — columnar index when rows carry several attributes.
+- **[Filter](/components/filter)** — multi-criteria filtering in the header data row.
+- **[Details layout](/components/details-layout)** — detail route after navigating from a list row.
+- **[Detail drawer](/components/detail-drawer)** — inspect a record from the list without a full navigation.
+- **[Header actions](/patterns/header-actions)** — CTA hierarchy and overflow on list pages.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-224](https://linear.app/bsport/issue/KAI-224/listlayout-search-with-stale-data) — search input can show stale text when cleared programmatically (Scoping).
+- [KAI-579](https://linear.app/bsport/issue/KAI-579/allow-panel-opening-in-list-layout) — side panel support on list pages (Scoping).
+
+#### Implementation gaps
+
+- **No panel slot** — ListLayout is header + content only; side metadata requires Detail drawer or a detail route until KAI-579 ships.
+- **Search state** — clearing search via controlled `inputValue` without using the clear control can leave the UI out of sync ([KAI-224](https://linear.app/bsport/issue/KAI-224/listlayout-search-with-stale-data)).

@@ -1,6 +1,6 @@
 ---
-title: Progress bar [LLM]
-description: A determinate bar for known completion percentage with optional label and message
+title: Progress bar
+description: Determinate 0–100 completion bar — primarily consumed by FileUpload, rarely imported directly
 status: stable
 category: components
 tags: [feedback, status]
@@ -16,9 +16,12 @@ sections:
 ## Overview
 
 Progress bar visualizes completion from 0 to 100 when you know how far an operation
-has advanced — imports, uploads, campaign sends, or onboarding checklists. Pair
-`label` and `message` for context; use [Loader](/components/loader) when duration
-is unknown.
+has advanced. In Kaizen it is exported as a primitive, but **product code does not
+import it directly today** — it is rendered internally by [File upload](/components/file-upload)
+during `autoUpload` flows (`LoaderProgressBar`).
+
+Use [Loader](/components/loader) when duration is unknown. Reach for Progress bar
+only when you need a standalone determinate indicator outside File upload.
 
 <StorybookEmbed
   id="primitive-components-progressbar--progress-bar-transition"
@@ -42,35 +45,36 @@ is unknown.
 
 ### Use cases
 
-- **CSV import** — rows processed count during member import.
-- **File upload** — byte progress in [File upload](/components/file-upload) handoff views.
-- **Email campaign** — delivery progress in marketing analytics.
-- **Setup wizard** — checklist completion on studio onboarding.
-- **Quota usage** — subscription limit consumption with `status="critical"` near cap.
+- **File upload** — byte progress, success, and error states inside [File upload](/components/file-upload) (the only current Studio Manager usage).
+- **Custom long-running jobs** — rare standalone use when a parent owns polling and can supply a 0–100 `value` (no product examples in Studio Manager yet).
+
+<Callout type="warning" title="Prefer File upload">
+
+For file transfers, use [File upload](/components/file-upload) with `autoUpload` —
+it wires Progress bar, abort/retry actions, and i18n status copy for you.
+
+</Callout>
 
 ## Guidelines
 
+- **Prefer File upload** — do not duplicate upload progress UI; the primitive is already composed there.
+- **Clamp values** — component clamps to 0–100; pass accurate percentages from the job or request.
+- **Status matches outcome** — `main` while in progress, `positive` on success, `critical` on failure.
+- **Size** — File upload uses `sm`; use `md` or `lg` only when the bar is a focal element.
+- **Label and message** — file name as `label`, status line as `message` (see File upload pattern).
+
+### Best practices
+
+#### General
+
 <DoDont>
-  <Do caption="Update value from real job progress, not fake timers." />
-  <Do caption="Switch to success state or navigate away when value reaches 100." />
-  <Do caption="Use critical status when the user must act before hitting a hard limit." />
+  <Do caption="Drive value from real job or upload progress, not fake timers." />
+  <Do caption="Switch to positive or critical status when the job finishes." />
+  <Do caption="Use File upload for file transfers instead of wiring Progress bar yourself." />
   <Dont caption="Indeterminate waits belong in Loader, not a stuck 0% bar." />
-  <Dont caption="Progress bars that run backward without explanation." />
+  <Dont caption="Importing Progress bar when File upload already covers the flow." />
   <Dont caption="Multiple bars for the same job in header and body." />
-  <Do caption="Clamp values — component clamps to 0–100; pass accurate percentages from backend." />
-  <Do caption="Status matches tone — `main` default, `positive` success path, `critical` risk or failure." />
-  <Do caption="Size by prominence — `sm` inline, `md` in cards, `lg` for hero progress moments." />
-  <Do caption="Label when space allows — percent or step name helps scanning." />
-  <Do caption="Transition smoothly — abrupt jumps unsettle users on fast polling — debounce updates." />
 </DoDont>
-
-### Content rules
-
-Labels are short; messages add detail:
-
-> 48%
-
-> Importing members — 240 of 500 rows
 
 ## Reference
 
@@ -78,11 +82,22 @@ Labels are short; messages add detail:
 
 <Anatomy
   parts={[
-    { name: "Track", description: "Weak status-colored background rail." },
-    { name: "Fill", description: "Width set by value percentage." },
     {
-      name: "Label and message",
-      description: "Optional Body text above or beside the bar.",
+      name: "Label",
+      description: "Optional row with file icon and short title above the bar.",
+    },
+    {
+      name: "Track",
+      description:
+        'Weak status-colored background rail (`role="progressbar"`).',
+    },
+    {
+      name: "Fill",
+      description: "Strong status-colored width set by `value` percentage.",
+    },
+    {
+      name: "Message",
+      description: "Optional Body text below the bar for status detail.",
     },
   ]}
 />
@@ -95,20 +110,24 @@ Labels are short; messages add detail:
 
 #### Responsiveness
 
-Bar is full width of container; height from size token.
+Bar is full width of container; height from `size` token (`sm`, `md`, `lg`).
+
+#### Animation
+
+Fill width transitions with `duration-extra-long` when `value` updates.
 
 ### Edge cases
 
-- **value 0** — empty fill; show message explaining work not started.
+- **value 0** — empty fill; pair with a message when work has not started.
 - **value over 100** — clamped to 100.
-- **Missing label** — bar alone is acceptable when adjacent copy explains context.
+- **Missing label** — acceptable when adjacent copy explains context.
 
 ## Accessibility
 
 ### ARIA roles & attributes
 
-Consider `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`
-on the container — verify implementation in source when auditing.
+The track element exposes `role="progressbar"` with `aria-valuenow`, `aria-valuemin={0}`,
+`aria-valuemax={100}`, `aria-valuetext`, and `aria-label` derived from the current value.
 
 ### Keyboard navigation
 
@@ -124,7 +143,8 @@ on the container — verify implementation in source when auditing.
 
 ### Screen reader behavior
 
-Announce percentage changes via `aria-live="polite"` on the region when value updates frequently.
+Value is exposed on the track element. For fast polling, consider wrapping the region
+in `aria-live="polite"` at the parent level — File upload handles this in its loading row.
 
 ### Focus management
 
@@ -132,8 +152,8 @@ Not applicable for static display.
 
 ### WCAG criteria
 
-- **1.4.3 Contrast (Minimum)** — fill vs track uses status weak surfaces.
-- **4.1.2 Name, Role, Value** — expose value programmatically when progress is essential.
+- **1.4.3 Contrast (Minimum)** — fill vs track uses status weak/strong surface pairs.
+- **4.1.2 Name, Role, Value** — value exposed via progressbar semantics on the track.
 
 ## Resources
 
@@ -143,10 +163,14 @@ Not applicable for static display.
 
 ### Related components
 
+- **[File upload](/components/file-upload)** — primary consumer; renders Progress bar during upload.
 - **[Loader](/components/loader)** — indeterminate wait.
-- **[Analytic card](/components/analytic-card)** — KPI display without continuous progress.
-- **[Toast](/components/toast)** — completion notice after bar reaches 100%.
+- **[Toast](/components/toast)** — completion notice after a job finishes.
 
-## TO CLARIFY
+### Known usage
 
-- Confirm whether Kaizen should add native `role="progressbar"` attributes on the root element.
+| Area               | How Progress bar appears                                                             |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| Kaizen File upload | Internal `LoaderProgressBar` — `size="sm"`, file name label, status-driven `message` |
+| Studio Manager     | Via File upload only (gift card image, member lead import, popup image, VOD ebook)   |
+| saas-legacy        | Separate legacy `ProgressBar` components — not the Kaizen primitive                  |

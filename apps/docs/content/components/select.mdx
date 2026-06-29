@@ -9,7 +9,6 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
@@ -33,30 +32,14 @@ multi-select lists, use [Autocomplete](/components/autocomplete).
   ]}
 />
 
-### Use cases
-
-- **Form enums** — sport type, country, VAT rate on studio settings.
-- **Settings panels** — language, timezone, or template pickers in configuration
-  sections with a small fixed set of options.
-- **Linked fields** — picking a category filters a dependent field on the same
-  page.
-- **Compact toolbars** — `size=\"sm\"` variant in filter rows.
-- **Grouped options** — section titles and dividers between related items.
-- **Loading lists** — `loadingProps` while options fetch from the API.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="Use helperText when the selection affects something non-obvious — 'Controls which invoice template members receive'." />
   <Do caption="Group related items with title rows so staff can scan the popover." />
   <Do caption="Use controlled mode (`value` + `onChange`) when the selection drives other fields." />
+  <Do caption="Pair `status='critical'` with actionable `errorText` after interaction or submit." />
   <Dont caption="Yes/no choices read more clearly on Toggle or Radio than Select." />
-  <Dont caption="Critical status should appear after the user opens the field or submits, not before." />
-  <Dont caption="An empty items list opens a popover with no choices — populate items or disable the field." />
-  <Do caption="Label every field — pass `label` so trigger and popover have context." />
-  <Do caption="Group long lists — use title and divider items past ~20 options." />
-  <Do caption='Validate late — `status="critical"` and `errorText` after interaction or submit.' />
-  <Do caption="Width — `fullWidth` in form columns; natural width in toolbars." />
+  <Dont caption="Empty `items` opens a popover with no choices — populate items or disable the field." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -66,37 +49,6 @@ Autocomplete when staff need search.
 
 </Callout>
 
-### status critical
-
-<DoDont>
-  <Do caption="Pair critical status with actionable errorText — 'Select a sport type'." />
-  <Dont caption="Critical styling should clear once the user fixes the value." />
-</DoDont>
-
-### status positive
-
-<DoDont>
-  <Do caption="Use positive status in multi-step flows to confirm a valid pick." />
-  <Dont caption="Positive on every selection stops reading as confirmation." />
-</DoDont>
-
-### Content rules
-
-Trigger shows the selected option label or placeholder. Keep option labels short
-and parallel in grammar.
-
-**Label**
-
-> Default language
-
-**Helper**
-
-> Used for member-facing emails.
-
-**Error**
-
-> Select a language.
-
 ## Reference
 
 ### Anatomy
@@ -104,19 +56,9 @@ and parallel in grammar.
 <Anatomy
   parts={[
     {
-      label: "Label",
-      description:
-        "Field label above the trigger; shows required asterisk when `required`.",
-    },
-    {
       label: "Trigger button",
       description:
-        "Shows selected option label or placeholder when empty; optional `iconLeft`, chevron, loading state.",
-    },
-    {
-      label: "Prefix / suffix (planned)",
-      description:
-        "Short static text inside the trigger beside the value (e.g. currency symbol, unit). Not in code yet — use `iconLeft` or option label copy today.",
+        "Shows selected option label or placeholder; optional `iconLeft`, chevron, loading state.",
     },
     {
       label: "Hidden input",
@@ -124,15 +66,8 @@ and parallel in grammar.
     },
     {
       label: "Popover",
-      description: "Menu panel with selectable rows.",
-    },
-    {
-      label: "Menu items",
-      description: "Options, title headers, and dividers (`items` array).",
-    },
-    {
-      label: "Helper / error text",
-      description: "`helperText` or `errorText` below the trigger.",
+      description:
+        "Menu panel with selectable rows, title headers, and dividers.",
     },
   ]}
 />
@@ -141,108 +76,17 @@ and parallel in grammar.
 
 <PropsTable component="Select" />
 
-### Behaviors
-
-#### Opening and closing
-
-Opens on trigger click or `Enter` / `Space` when focused. Closes on selection,
-`Escape`, or focus leaving the component.
-
-#### Selection
-
-Controlled: parent owns `value` and updates on `onChange(id)`. Uncontrolled:
-`defaultValue` seeds internal state.
-
-#### Responsiveness
-
-`fullWidth` expands the trigger to the container width and sizes the popover to
-match the trigger. `popoverPlacement` repositions near viewport edges.
-
-### Edge cases
-
-#### No items
-
-Popover opens empty — always supply at least one selectable option.
-
-#### All items disabled
-
-Popover opens but nothing is selectable; explain via `helperText`.
-
-#### Loading
-
-`loadingProps.isLoading` shows a loader in the popover; keep the trigger enabled
-only if retry is possible.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-- Trigger is a `<button type=\"button\">` — does not submit parent forms.
-- Associate the trigger with `label` via visible label text (ensure `id` on
-  trigger for `htmlFor` when using Label patterns).
-- `errorText` with `status=\"critical\"` should be exposed to assistive tech as
-  descriptive text below the trigger.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    { keys: ["Tab"], description: "Focus the trigger button." },
-    { keys: ["Enter", "Space"], description: "Open the popover." },
-    {
-      keys: ["Escape"],
-      description: "Close the popover without changing value.",
-    },
-    {
-      keys: ["Arrow keys"],
-      description: "Navigate items inside the open menu.",
-    },
-  ]}
-/>
-
-### Screen reader behavior
-
-Announces label, trigger value, and expanded/collapsed state via button semantics.
-Menu items follow Menu component announcements.
-
-### Focus management
-
-Focus returns to the trigger when the popover closes after selection. Escape
-closes without moving selection.
-
-### WCAG criteria
-
-- **1.4.3 Contrast (Minimum)** — trigger and critical border tokens.
-- **2.1.1 Keyboard** — open, navigate, and select without pointer.
-- **4.1.2 Name, Role, Value** — name from label; value from trigger text.
+Opens on trigger click or `Enter` / `Space`; closes on selection, `Escape`, or
+focus leaving. `fullWidth` expands trigger and popover to container width.
 
 ## Resources
 
-### Storybook
-
-[Open Select in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-select--primary)
-
-Source: `packages/design-system/kaizen/primitive/core/src/components/Select`
-
-### Related components
-
-- [Autocomplete](/components/autocomplete) — searchable and multi-select lists.
-- [Radio](/components/radio) — few mutually exclusive visible options.
-- [Menu](/components/popover) — lower-level popover list primitive.
-- [Shared form guidelines](/components/shared-form-guidelines) — validation
-  timing and labels.
+- [Storybook — Select](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-select--primary)
+- [Autocomplete](/components/autocomplete) — searchable and multi-select lists
+- [Radio](/components/radio) — few mutually exclusive visible options
+- [Shared form guidelines](/components/shared-form-guidelines)
 
 ### Known issues
 
-#### Tracked in Linear
-
-- [KAI-843](https://linear.app/bsport/issue/KAI-843/select-show-the-right-slot-on-the-collapsed-trigger) — Show the right slot on the collapsed trigger (QA/ Dev review).
-
-#### Design or API debt
-
-- **Trigger prefix / suffix** — Supernova specifies inline prefix/suffix on the
-  collapsed trigger (e.g. `€` before amount, `kg` after). Not implemented; use
-  `iconLeft` or weave units into option labels until the API ships.
-- **`controlledLabel` pattern** — long option labels vs short trigger labels
-  discussed in [KAI-194](https://linear.app/bsport/issue/KAI-194); not yet a
-  public prop.
+- Trigger prefix/suffix not implemented — use `iconLeft` or weave units into option labels
+- [KAI-843](https://linear.app/bsport/issue/KAI-843) — right slot on collapsed trigger

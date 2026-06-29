@@ -1,6 +1,6 @@
 ---
-title: List [LLM]
-description: Paginated collection with headers, selection, empty states, and rich rows
+title: List
+description: Left-right row layout for scannable Back Office collections
 status: stable
 category: components
 tags: [data, layout]
@@ -15,10 +15,13 @@ sections:
 
 ## Overview
 
-List is the standard Studio Manager collection pattern — header with title and
-actions, scrollable rows built from [List item](/components/list-item), pagination,
-loading and empty states. Use it for members, templates, buyables, and any
-non-tabular collection where row layout beats [Table](/components/table).
+Standard Back Office pattern for scannable collections. On list pages, wrap the
+page in [List layout](/components/list-layout) and render a `List` of
+[List item](/components/list-item) rows inside `ListLayout.Content`. Each row
+aligns primary content on the left and secondary metadata or actions on the
+right. Use an index [Table](/components/table) when records carry enough extra
+information to show across columns — see
+[Use of tables and lists](/patterns/tables-and-lists).
 
 <StorybookEmbed
   id="primitive-components-list--list"
@@ -36,35 +39,30 @@ non-tabular collection where row layout beats [Table](/components/table).
 
 ### Use cases
 
-- **Member directory** — avatar, name, chips, row actions.
-- **Email templates** — title, description, overflow menu per row.
-- **Buyable picker** — price and chips in checkout modals.
-- **Bulk operations** — checkbox selection with header select-all.
-- **Empty and search** — dedicated empty states for zero data vs zero results.
+- **Scannable stack** — one primary identifier per row; users read down the list.
+- **Left-right rows** — title and media on the left; status, chips, or actions on the right.
+- **Row navigation** — rows link to a detail view, drawer, or modal.
+- **Bulk selection** — checkbox selection with optional header select-all.
 
 ## Guidelines
 
+### Page composition
+
+- **`ListLayout.Header`** — page title, breadcrumbs, and primary actions (create, export).
+- **`ListLayout.Content`** — scrollable area; place `List` here.
+- **`List` `header` prop** — optional section label within the list (group title, select-all when bulk-selecting).
+
 <DoDont>
-  <Do caption="Use empty search state copy that suggests clearing filters." />
-  <Do caption="Keep row titles scannable — one primary line, optional description." />
-  <Do caption="Align checkbox selection with bulk action bar above the list." />
-  <Dont caption="Tables disguised as lists when sortable columns are needed — use Table." />
-  <Dont caption="Five icon buttons per row — consolidate into overflow menu." />
-  <Dont caption="Infinite scroll without position recovery on back navigation." />
-  <Do caption="Header actions right — primary create/export in list header, not per row only." />
+  <Dont caption="Index table disguised as a list — use Table when rows need several attributes in columns." />
+  <Dont caption="More than three inline row actions — push extras to overflow menu; one on mobile." />
+  <Dont caption="Infinite scroll on long lists — users lose their place when they open a row and go back; use pagination instead." />
   <Do caption="Pagination — use built-in pagination or `Pagination` for long sets." />
-  <Do caption="Row actions — limit to one primary + overflow menu for the rest." />
+  <Do caption="Row actions — up to three inline; one on mobile; overflow menu for the rest." />
   <Do caption="Loading — show `Loader` in content area, not per row." />
   <Do caption="Link rows — `link` prop for navigable rows; buttons for in-row actions." />
+  <Do caption="Use empty search state copy that suggests clearing filters." />
+
 </DoDont>
-
-### Content rules
-
-Empty states lead with outcome:
-
-> No email templates yet
-
-> Create a template to contact members faster.
 
 ## Reference
 
@@ -72,8 +70,12 @@ Empty states lead with outcome:
 
 <Anatomy
   parts={[
-    { name: "Header", description: "Title, optional buttons, filter slot." },
-    { name: "Content", description: "ul of List.Item rows." },
+    {
+      name: "Header (optional)",
+      description:
+        "Section title, optional description, buttons, or select-all checkbox.",
+    },
+    { name: "Content", description: "Stack of list item rows." },
     { name: "Pagination", description: "Optional footer page control." },
     { name: "Empty / loading", description: "Substates when no rows." },
   ]}
@@ -95,7 +97,7 @@ Rows stack content; compact mode reduces avatar and description density.
 
 ### Edge cases
 
-- **Long descriptions** — wrap or truncate with tooltip on second line.
+- **Long descriptions** — truncate with tooltip on second line.
 - **Controlled checkboxes** — parent must sync select-all indeterminate state.
 
 ## Accessibility
@@ -137,6 +139,6 @@ Opening row link navigates; modal actions return focus per dialog pattern.
 
 ### Related components
 
-- **[List item](/components/list-item)** — row building block.
+- **[List item](/components/list-item)** — row props reference.
 - **[List layout](/components/list-layout)** — page shell around lists.
 - **[Sortable list](/components/sortable-list)** — reorderable variant.

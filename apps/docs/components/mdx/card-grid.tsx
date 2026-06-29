@@ -49,7 +49,7 @@ export type CardProps = {
 export function Card({ href, title, description, badge }: CardProps) {
   const isInternal = href.startsWith("/");
   const className = cx(
-    "group flex flex-col gap-1 rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg)] p-4 transition-colors",
+    "flex flex-col gap-1 rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg)] p-4 transition-colors",
     "hover:border-[color:var(--color-accent)]/60 hover:bg-[color:var(--color-bg-subtle)]",
   );
 
@@ -70,9 +70,6 @@ export function Card({ href, title, description, badge }: CardProps) {
           {description}
         </span>
       ) : null}
-      <span className="mt-2 text-xs text-[color:var(--color-fg-muted)] group-hover:text-[color:var(--color-accent)]">
-        Read more →
-      </span>
     </>
   );
 

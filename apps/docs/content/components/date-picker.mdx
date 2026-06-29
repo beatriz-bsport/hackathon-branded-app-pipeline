@@ -1,5 +1,5 @@
 ---
-title: Date picker [LLM]
+title: Date picker
 description: Calendar input for single dates or ranges in modal and popover layouts
 status: stable
 category: components
@@ -9,15 +9,14 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
 Date picker lets users choose one date or a range with calendar UI, shortcuts, and
-disabled-date rules. It supports modal dialogs for mobile-like flows and popover
-anchoring for dense filter bars in Studio Manager.
+disabled-date rules. Modal layout suits primary form fields; popover anchors to
+dense filter bars.
 
 <StorybookEmbed
   id="primitive-components-datepicker--date-picker-modal"
@@ -39,37 +38,17 @@ anchoring for dense filter bars in Studio Manager.
   ]}
 />
 
-### Use cases
-
-- **Report date range** — finance exports for last 30 days or custom interval.
-- **Class schedule** — pick session date on booking forms.
-- **Member birth date** — single date with past-only constraint.
-- **Campaign send window** — range with shortcuts (This week, Next month).
-- **Filter toolbar** — popover variant on list pages.
-
 ## Guidelines
 
 <DoDont>
   <Do caption="Show the selected value in the trigger even when the calendar is closed." />
   <Do caption="Use range mode when both start and end matter for reports." />
   <Do caption="Disable dates the backend will reject before submit." />
+  <Do caption="Offer shortcuts for common reporting windows." />
   <Dont caption="Free-text date parsing without picker — error-prone across locales." />
   <Dont caption="Range pickers for a single moment in time — use single mode." />
   <Dont caption="Opening modal pickers inside modals without focus trap review." />
-  <Do caption="Modal vs popover — modal for primary form fields; popover for inline filters." />
-  <Do caption="Disable invalid dates — block past dates for bookings or future-only promos." />
-  <Do caption="Shortcuts reduce taps — offer presets for common reporting windows." />
-  <Do caption="Locale and timezone — display dates in studio locale; store ISO in API layer." />
-  <Do caption="Label the field — always pair with visible label showing selected value." />
 </DoDont>
-
-### Content rules
-
-Shortcut labels are familiar periods:
-
-> Last 7 days
-
-> This month
 
 ## Reference
 
@@ -78,81 +57,137 @@ Shortcut labels are familiar periods:
 <Anatomy
   parts={[
     {
-      name: "Trigger",
+      label: "Trigger",
       description: "Input or button showing current selection.",
     },
-    { name: "Calendar", description: "Month grid with navigation." },
-    { name: "Shortcuts", description: "Optional preset chips for ranges." },
-    { name: "Footer actions", description: "Apply/clear in modal layouts." },
+    { label: "Calendar", description: "Month grid with navigation." },
+    { label: "Shortcuts", description: "Optional preset chips for ranges." },
+    { label: "Footer actions", description: "Apply/clear in modal layouts." },
   ]}
 />
 
 ### Props
 
-<PropsTable component="DatePicker" />
-
-### Behaviors
-
-#### Dismissal
-
-Popover closes on outside click or selection depending on configuration; modal uses explicit apply.
-
-#### Responsiveness
-
-Modal layout suits narrow viewports; popover anchors to trigger width.
-
-### Edge cases
-
-- **Partial range** — guide users to complete end date before apply.
-- **Year bounds** — customize min/max year for birth dates vs reporting.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-Calendar grid should expose day buttons with `aria-selected` and navigable month controls.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    {
-      keys: ["Tab"],
-      description: "Moves through trigger, calendar controls, and days.",
+<PropsTable
+  component="DatePicker"
+  overrides={{
+    id: {
+      type: "string",
+      description:
+        "Unique ID for the date picker element. Wire [Label](/components/label) `htmlFor` to this value.",
     },
-    {
-      keys: ["Arrow keys"],
-      description: "Navigate days within the grid where implemented.",
+    mode: {
+      type: '"single" | "range"',
+      description:
+        "Single date or range selection. Range mode uses a tuple `[start, end]`.",
     },
-    {
-      keys: ["Escape"],
-      description: "Closes popover or modal without applying.",
+    displayAs: {
+      type: '"popover" | "modal" | "content"',
+      description:
+        "`popover` anchors a dropdown trigger; `modal` opens a dialog; `content` renders calendar/shortcuts only for custom shells.",
     },
-  ]}
+    className: {
+      type: "string",
+      description: "Additional CSS classes on the root wrapper.",
+    },
+    isInputField: {
+      type: "boolean",
+      defaultValue: "false",
+      description:
+        'Render a TextField-style trigger. Only when `displayAs="popover"` and `mode="single"`.',
+    },
+    open: {
+      type: "boolean",
+      defaultValue: "false",
+      description: 'Controlled open state when `displayAs="modal"`.',
+    },
+    dateFormat: {
+      type: '"short" | "medium"',
+      defaultValue: "short",
+      description: "Display format for the trigger label in popover mode.",
+    },
+    defaultValue: {
+      type: "SelectedDate",
+      defaultValue: "null",
+      description:
+        "Initial value in uncontrolled mode. `DateTime`, `[start, end]`, or `null`.",
+    },
+    dateValue: {
+      type: "SelectedDate",
+      description:
+        "Current value in controlled mode. Pair with `onSelect` to update parent state.",
+    },
+    onSelect: {
+      type: "(date: SelectedDate) => void",
+      description:
+        "Fires when the selection changes. Use in controlled mode with `dateValue`.",
+    },
+    onConfirm: {
+      type: "(selectedDate: SelectedDate) => void",
+      description: "Fires when the user confirms in modal mode.",
+    },
+    onClose: {
+      type: "() => void",
+      description: "Fires when the modal closes without confirming.",
+    },
+    calendarYears: {
+      type: "number[]",
+      description:
+        "Years shown in the calendar header dropdown. Defaults to a 10-year window.",
+    },
+    disableDate: {
+      type: "(date: DateTime, selectedDate: SelectedDate) => boolean",
+      description:
+        "Return `true` to disable a day. Receives the candidate date and the current selection.",
+    },
+    shortcuts: {
+      type: "ShortcutItem[]",
+      description:
+        "Preset range chips. Each item: `{ id, label, getDate: () => SelectedDate }`.",
+    },
+    popoverClassNames: {
+      type: "{ container?: string; content?: string }",
+      defaultValue: "{}",
+      description: "Optional class names for the popover shell and panel.",
+    },
+    popoverPlacement: {
+      type: '"top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | "left" | "right"',
+      description: 'Popover anchor placement when `displayAs="popover"`.',
+    },
+    label: {
+      type: "string",
+      description: "Field label above the trigger (TextField layout).",
+    },
+    required: {
+      type: "boolean",
+      description: "Marks the field as required in TextField layout.",
+    },
+    status: {
+      type: '"default" | "positive" | "error"',
+      description: "Validation status styling on the TextField trigger.",
+    },
+    statusText: {
+      type: "string",
+      description: "Helper or error copy below the TextField trigger.",
+    },
+    fullWidth: {
+      type: "boolean",
+      description: "Stretch the trigger to the container width.",
+    },
+    disabled: {
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables the trigger and calendar interactions.",
+    },
+  }}
 />
 
-### Screen reader behavior
-
-Announce selected dates on apply; live region optional for range completion.
-
-### Focus management
-
-Return focus to trigger on popover close; trap focus in modal variant.
-
-### WCAG criteria
-
-- **2.1.1 Keyboard** — date selection without pointer-only interaction.
-- **3.3.2 Labels or Instructions** — label shows format expectations.
-- **4.1.2 Name, Role, Value** — selected date in accessible name.
+`SelectedDate` is `DateTime | [DateTime | null, DateTime | null] | null`. Export
+`getSanitizedDate(mode, value)` from Kaizen to normalize values before submit.
 
 ## Resources
 
-### Storybook
-
-[Open Date picker in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-datepicker--date-picker-modal)
-
-### Related components
-
-- **[Time picker](/components/time-picker)** — time-of-day companion.
-- **[Filter](/components/filter)** — may embed date facets.
-- **[Text field](/components/text-field)** — manual entry fallback when required.
+- [Storybook — Date picker](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-datepicker--date-picker-modal)
+- [Time picker](/components/time-picker)
+- [Filter](/components/filter)
+- [Label](/components/label) — wire `htmlFor` to the trigger `id`

@@ -820,6 +820,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             onSubmit={this.updateOffer}
             processing={this.props.offerProcessing}
             roomBlueprints={this.props.roomBlueprints}
+            showPartnership={this.props.theme.has_partnership}
             similarOffers={this.props.similarOffers}
             tagList={this.props.allTagsWithTagGroup}
             updateLevel={this.props.updateLevel}

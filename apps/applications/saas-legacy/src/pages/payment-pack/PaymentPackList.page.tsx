@@ -37,6 +37,7 @@ import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.
 import { fetchResolvedGenericTags } from '#src/libs/notification-rule/actions';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
+  duplicatePaymentPack as duplicatePaymentPackAction,
   patch as patchPaymentPack,
   fetchAllPaymentPackCategory,
   upsertPaymenPackCategory,
@@ -508,7 +509,11 @@ export class PaymentPackList extends React.Component<Props, State> {
   };
 
   paymentPackOptionsFormatter =
-    (hasDeletePermission: boolean, hasEditPermission: boolean) =>
+    (
+      hasDeletePermission: boolean,
+      hasEditPermission: boolean,
+      hasCreatePermission: boolean,
+    ) =>
     (paymentPacks: PaymentPack[]): PaymentPackOption[] =>
       paymentPacks.map((paymentPack) => {
         return {
@@ -526,6 +531,9 @@ export class PaymentPackList extends React.Component<Props, State> {
                 );
                 this.requestEdit(paymentPackWithCategories);
               }
+            : null,
+          onDuplicate: hasCreatePermission
+            ? () => this.props.onDuplicatePaymentPack(paymentPack.id)
             : null,
           pack: paymentPack,
           value: paymentPack.id,
@@ -756,6 +764,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                       optionsFormatter={this.paymentPackOptionsFormatter(
                         hasDeletePermission,
                         hasEditPermission,
+                        hasCreatePermission,
                       )}
                       placeholder={this.props.t('search')}
                       searchedObjectType="payment_pack"
@@ -810,6 +819,9 @@ export class PaymentPackList extends React.Component<Props, State> {
                 itemsDraggable={hasEditPermission}
                 onClick={this.props.goToPack}
                 onDelete={hasDeletePermission && this.requestDelete}
+                onDuplicate={
+                  hasCreatePermission && this.props.onDuplicatePaymentPack
+                }
                 onEdit={hasEditPermission && this.requestEdit}
                 onRestore={hasEditPermission && this.restorePaymentPack}
                 // @ts-expect-error
@@ -1104,6 +1116,8 @@ const mapDispatchToProps = {
   fetchResolvedGenericTags,
   fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
   updateMarketingNotification,
+
+  duplicatePaymentPack: duplicatePaymentPackAction,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -1168,6 +1182,21 @@ const mapWithHandlers = {
           props.fetchAllPaymentPackCategory();
 
           trackFormSuccess(category?.id);
+        },
+      });
+    },
+  onDuplicatePaymentPack:
+    (props: OwnAndConnectedProps) => (paymentPackId: number) => {
+      props.duplicatePaymentPack(paymentPackId, {
+        onSuccess: () => {
+          props.fetchPaymentPackList({
+            count_consumer_payment_packs: true,
+            disabled: false,
+            page_size: 70000,
+            ...(!!props?.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          });
         },
       });
     },

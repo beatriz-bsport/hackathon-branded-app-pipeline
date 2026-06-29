@@ -22,6 +22,7 @@ import {
   isPaymentPackUsedInCombo as isPaymentPackUsedInComboAPI,
   fetchPaymentPackCompatibleList as fetchPaymentPackCompatibleListAPI,
   deletePaymentPackCategory as deletePaymentPackCategoryAPI,
+  duplicatePaymentPack as duplicatePaymentPackAPI,
   editOrder,
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAPI,
   fetchPaymentPackTemplateListPaginated as fetchPaymentPackTemplateListPaginatedAPI,
@@ -1771,6 +1772,26 @@ export function deletePaymentPackMassExtension(
       options?.onError?.();
     } finally {
       dispatch(deletePaymentPackMassExtensionActions.isLoading(false));
+    }
+  };
+}
+
+export function duplicatePaymentPack(
+  id: number,
+  options?: OptionCallback<PaymentPack>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await duplicatePaymentPackAPI(id);
+
+      if (options && options.onSuccess) {
+        dispatch(snackbarSuccess('paymentPack.duplicate.success'));
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(snackbarError('paymentPack.duplicate.error'));
+      console.error(err);
+      if (options && options.onError) options.onError(err);
     }
   };
 }

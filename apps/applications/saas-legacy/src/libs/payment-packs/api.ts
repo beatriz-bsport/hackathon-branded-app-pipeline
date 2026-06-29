@@ -311,6 +311,12 @@ export const deletePaymentPackMassExtension = (id: number) => {
   return deleteAuth(`${API_V1_URI}/payment-pack/mass-extension/${id}`);
 };
 
+export const duplicatePaymentPack = (id: number) => {
+  return postAuth<PaymentPack>(
+    `${API_V1_URI}/payment-pack/payment-pack/${id}/duplicate/`,
+  );
+};
+
 export default {
   fetchAll: fetchAllPaymentPacks,
   create,

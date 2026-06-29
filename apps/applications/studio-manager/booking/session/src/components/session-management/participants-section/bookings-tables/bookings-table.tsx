@@ -65,7 +65,10 @@ export const BookingsTable: FC<{
   ) => parts.map(clean).filter(Boolean).join(separator);
 
   const getSecondaryText = (
-    booking: Pick<RefinedBooking, "spot_information" | "passData">,
+    booking: Pick<
+      RefinedBooking,
+      "spot_information" | "passData" | "credit_consumed"
+    >,
   ) => {
     const spotName = listedInformation.includes(BookingListedInformation.SPOT)
       ? formatBookingSpotLabel(
@@ -78,7 +81,12 @@ export const BookingsTable: FC<{
       ? clean(booking.passData?.name)
       : "";
 
-    return joinClean([spotName, passName], " • ");
+    const noCreditsUsed =
+      booking.credit_consumed === 0 && session.credit_price_override !== 0
+        ? t("participantDetails.noCreditsUsed")
+        : "";
+
+    return joinClean([spotName, passName, noCreditsUsed], " • ");
   };
 
   const { currentPage, currentPageSize, setPageSettings } =

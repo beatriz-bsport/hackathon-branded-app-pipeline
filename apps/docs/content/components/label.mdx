@@ -9,15 +9,18 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Label associates visible text with a form control via `htmlFor`. It is the primary
-way to name inputs in Studio Manager forms — use it on every field unless the
-control is a standalone button with its own text.
+Label associates visible text with a form control via `htmlFor`. Use it on every
+field unless the control is a standalone button with its own text. Most Kaizen
+inputs embed a label — standalone `Label` is for custom layouts (for example
+[Date picker](/components/date-picker) trigger wiring).
+
+Cross-field label conventions live in
+[Shared form guidelines](/components/shared-form-guidelines).
 
 <StorybookEmbed
   id="primitive-components-label--default"
@@ -26,82 +29,30 @@ control is a standalone button with its own text.
   stories={[{ id: "primitive-components-label--default", label: "Label" }]}
 />
 
-### Use cases
-
-- **Text fields** — name the input above [Text field](/components/text-field).
-- **Checkbox and radio rows** — inline label beside the control.
-- **Required fields** — pair with required indicator in form patterns.
-- **Group legends** — section titles above [Checkbox group](/components/checkbox-group).
-- **Disabled fields** — label remains visible when input is disabled.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="Place the label immediately above or beside its control in reading order." />
+  <Do caption="`htmlFor` matches input `id` — one label per control id." />
   <Do caption="Use the same wording in validation errors as in the label." />
-  <Do caption="Mark required fields consistently across the form system." />
-  <Dont caption="Placeholder text replacing labels — placeholders are not labels." />
-  <Dont caption="All-caps labels in dense forms — harder to read and scan." />
-  <Dont caption="One label spanning multiple unrelated inputs." />
-  <Do caption="htmlFor matches input id — one label per control id." />
-  <Do caption="Sentence case — short noun phrases, no trailing colon unless locale requires." />
-  <Dont caption="Do not embed help — long hints belong in helper text below the field." />
   <Do caption="Clickable — label click focuses the associated control." />
-  <Do caption="Not a heading — use `Title` for page sections, Label for fields." />
+  <Dont caption="One label spanning multiple unrelated inputs." />
+  <Dont caption="Use Label as static copy above buttons or chip rows — use Body instead." />
+  <Dont caption="Use Label for page sections — use Title for sections, Label for fields." />
 </DoDont>
 
 ## Reference
 
-### Behaviors
-
-Clicking label focuses the associated control when `htmlFor` is set correctly.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-Native `<label>` — no extra role needed when `htmlFor` matches control `id`.
-
-### WCAG criteria
-
-- **1.3.1 Info and Relationships** — programmatic label association.
-- **3.3.2 Labels or Instructions** — visible labels for inputs.
-- **4.1.2 Name, Role, Value** — name via label.
+Native `<label>` — clicking focuses the associated control when `htmlFor` is set.
 
 ## Resources
 
-### Storybook
-
-[Open Label in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-label--default)
-
-### Related components
-
-- **[Text field](/components/text-field)** — primary labeled input.
-- **[Checkbox](/components/checkbox)** — inline label pattern.
-- **[Form](/components/form)** — wiring labels through form field wrappers.
+- [Storybook — Label](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-label--default)
+- [Text field](/components/text-field)
+- [Shared form guidelines](/components/shared-form-guidelines)
 
 ### Known issues
 
-#### Implementation gaps
-
-- **Session form local label** — `booking/session` uses a custom `SessionForm/label` built on
-  `Body` inside a `div` (`text` / `isRequired` props). It is not a native `<label>`, has no
-  `htmlFor`, and does not focus the control on click.
-- **Missing `htmlFor` in product** — some standalone Kaizen `Label` usages (for example above
-  [Date picker](/components/date-picker)) omit `htmlFor` and a matching control `id`, so the
-  label is visual only.
-- **Duplicate label wiring** — [Radio group](/components/radio-group) and
-  [Checkbox group](/components/checkbox-group) already accept a `label` prop; some screens
-  render a separate `Label` above the group instead.
-
-#### Design or API debt
-
-- **Prefer composite `label` props** — Studio Manager mostly labels fields through
-  [Text field](/components/text-field), [Select](/components/select), and similar primitives.
-  Standalone `Label` is for controls that do not embed one (custom layouts, DatePicker wiring).
-- **Required indicator** — Kaizen uses a CSS `::after` asterisk on the label element; the
-  session form local label uses a separate `*` span instead.
-- **Decorative misuse** — `Label` is sometimes used as static copy above buttons or chip rows
-  where no single focusable control exists; use [Body](/components/body) instead.
-- **Parent tracking** — see [KAI-538](https://linear.app/bsport/issue/KAI-538/kz-component-label)
-  for the component; session-form migration and DatePicker label wiring are not yet tracked.
+- Session form local label is not a native `<label>` — no `htmlFor`, no focus on click
+- Some Date picker usages omit `htmlFor` and matching control `id`
+- Radio and Checkbox group already accept `label` — avoid duplicate Label above the group
+- [KAI-538](https://linear.app/bsport/issue/KAI-538/kz-component-label)

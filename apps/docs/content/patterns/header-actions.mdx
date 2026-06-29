@@ -10,7 +10,7 @@ sections:
 
 ## Overview
 
-Page headers follow a three-tier action hierarchy: primary CTA, secondary icon buttons, destructive actions last.
+Page headers follow a three-tier action hierarchy: primary CTA, secondary icon buttons, destructive actions last. Implement via [Header layout](/components/header-layout) on list and settings pages, or `DetailsLayout.Header` on [Details layout](/components/details-layout) detail routes.
 
 ### Core Principles
 
@@ -84,3 +84,9 @@ Visible header space is limited, especially on detail pages with long titles.
   1. Most frequent non-primary action (usually Edit or Duplicate).
   2. Contextual share action (Copy link).
   3. Everything else into the menu.
+
+## Related
+
+- **[Header layout](/components/header-layout)** — composable header API (`callToActionButton`, `endGroupActions`, tabs, filters).
+- **[Details layout](/components/details-layout)** — detail page shell with sticky header and `DetailsLayout.useAdaptiveActions` for mobile overflow.
+- **[List layout](/components/list-layout)** — collection pages that typically expose a Create or Import primary CTA.

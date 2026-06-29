@@ -2,17 +2,85 @@
   "index",
   {
     "group": "Actions",
-    "items": ["button", "toggle-button", "copy-to-clipboard"]
+    "items": ["button", "copy-to-clipboard", "toggle-button"]
+  },
+  {
+    "group": "Composition",
+    "items": ["analytic-card", "chip-list", "menu"]
+  },
+  {
+    "group": "Feedback and status",
+    "items": ["alert", "badge", "chip", "indicator", "progress-bar", "toast"]
+  },
+  {
+    "group": "Form controls",
+    "items": [
+      "shared-form-guidelines",
+      "autocomplete",
+      "checkbox",
+      "checkbox-group",
+      "date-picker",
+      "file-upload",
+      "radio",
+      "select",
+      "text-area",
+      "text-field",
+      "time-picker",
+      "toggle"
+    ]
   },
   {
     "group": "Images and icons",
     "items": [
-      "icon",
-      "illustration",
       "avatar",
       "avatar-group",
-      "media",
-      "color-indicator"
+      "color-indicator",
+      "icon",
+      "illustration",
+      "media"
+    ]
+  },
+  {
+    "group": "Page composition",
+    "items": [
+      "app-navigation",
+      "details-layout",
+      "header-layout",
+      "list-layout"
+    ]
+  },
+  {
+    "group": "Layout and structure",
+    "items": ["accordion", "card", "divider", "panel"]
+  },
+  {
+    "group": "Navigation",
+    "items": ["breadcrumbs", "link", "tabs"]
+  },
+  {
+    "group": "Overlays",
+    "items": [
+      "detail-drawer",
+      "dropdown-menu",
+      "modal",
+      "popover",
+      "stepper",
+      "tooltip"
+    ]
+  },
+  {
+    "group": "Views and filtering",
+    "items": ["filter", "segmented-control"]
+  },
+  {
+    "group": "Tables and lists",
+    "items": [
+      "list",
+      "list-item",
+      "nested-sortable-list",
+      "pagination",
+      "sortable-list",
+      "table"
     ]
   },
   {
@@ -20,94 +88,14 @@
     "items": ["body", "title"]
   },
   {
-    "group": "Data display",
-    "items": ["badge", "chip", "indicator", "card", "progress-bar"]
-  },
-  {
-    "group": "Tables and lists",
-    "items": [
-      "table",
-      "list",
-      "list-item",
-      "sortable-list",
-      "nested-sortable-list",
-      "pagination"
-    ]
-  },
-  {
-    "group": "Feedback and status",
-    "items": ["alert", "toast"]
-  },
-  {
-    "group": "Form controls",
-    "items": [
-      "shared-form-guidelines",
-      "checkbox",
-      "checkbox-group",
-      "radio",
-      "toggle",
-      "text-field",
-      "text-area",
-      "select",
-      "autocomplete",
-      "date-picker",
-      "time-picker",
-      "tag-input",
-      "form",
-      "file-upload",
-      "filter"
-    ]
-  },
-  {
-    "group": "Layout",
-    "items": ["list-layout", "details-layout"]
-  },
-  {
-    "group": "Layout and structure",
-    "items": [
-      "header-layout",
-      "panel",
-      "divider",
-      "collapse",
-      "expandable-content",
-      "layout"
-    ]
-  },
-  {
-    "group": "Navigation",
-    "items": [
-      "app-navigation",
-      "breadcrumbs",
-      "link",
-      "tabs",
-      "segmented-control"
-    ]
-  },
-  {
-    "group": "Overlays",
-    "items": [
-      "detail-drawer",
-      "modal",
-      "tooltip",
-      "popover",
-      "blanket",
-      "dropdown-menu",
-      "stepper"
-    ]
-  },
-  {
-    "group": "Composition",
-    "items": [
-      "chip-list",
-      "dropdown-multi-select",
-      "analytic-card",
-      "form-radio-group",
-      "accordion",
-      "menu"
-    ]
-  },
-  {
     "group": "Utilities",
-    "items": ["label", "loader", "error-fallback", "drag-and-drop"]
+    "items": [
+      "blanket",
+      "collapse",
+      "drag-and-drop",
+      "error-fallback",
+      "label",
+      "loader"
+    ]
   }
 ]

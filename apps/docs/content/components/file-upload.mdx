@@ -1,5 +1,5 @@
 ---
-title: File upload [LLM]
+title: File upload
 description: Drag-and-drop and browse control for images and documents with upload state
 status: stable
 category: components
@@ -9,7 +9,6 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
@@ -39,34 +38,14 @@ templates — wire to your API layer for `autoUpload` or fully controlled flows.
   ]}
 />
 
-### Use cases
-
-- **Pass cover image** — single image with size/type validation.
-- **Member document** — PDF upload in CDP compliance flows.
-- **CSV import** — file pick before mapping step in import wizard.
-- **Venue gallery** — multiple images with replace/remove.
-- **Brand assets** — logo upload in studio settings.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="List accepted formats and max size before users browse." />
-  <Do caption="Show upload progress or success when autoUpload is enabled." />
-  <Do caption="Allow removing a file before form submit." />
+  <Do caption="List accepted formats and max size in helper text before users browse." />
+  <Do caption="Show upload progress or success when `autoUpload` is enabled." />
   <Dont caption="Silent failure when file exceeds limit — always message." />
   <Dont caption="Drag-only upload without a visible browse button." />
-  <Dont caption="Uploading sensitive files without encryption context in copy." />
-  <Do caption="State file constraints — max size and MIME types in helper text." />
-  <Do caption="Preview images — show `Media` thumbnail after select." />
-  <Do caption="Error on reject — explain why a file failed validation." />
-  <Do caption="Controlled for wizards — parent owns File object until submit." />
 </DoDont>
-
-### Content rules
-
-> Drop an image here or browse
-
-> PNG or JPG, max 5 MB
 
 ## Reference
 
@@ -74,9 +53,12 @@ templates — wire to your API layer for `autoUpload` or fully controlled flows.
 
 <Anatomy
   parts={[
-    { name: "Drop zone", description: "Drag target and browse trigger." },
-    { name: "Preview", description: "Thumbnail or file name when selected." },
-    { name: "Progress", description: "Optional upload progress indicator." },
+    { label: "Drop zone", description: "Drag target and browse trigger." },
+    { label: "Preview", description: "Thumbnail or file name when selected." },
+    {
+      label: "Progress",
+      description: "Upload progress via internal Progress bar.",
+    },
   ]}
 />
 
@@ -84,61 +66,12 @@ templates — wire to your API layer for `autoUpload` or fully controlled flows.
 
 <PropsTable component="FileUpload" />
 
-### Behaviors
-
-#### Persistence
-
-Controlled mode keeps File in parent state until cleared or uploaded.
-
-#### Responsiveness
-
-Drop zone stacks in narrow columns; maintain minimum touch height.
-
-### Edge cases
-
-- **Replace file** — clear previous selection when new file chosen.
-- **Failed upload** — retain file for retry with error message.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-Browse uses native file input (often visually hidden) with associated label.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    { keys: ["Tab"], description: "Focuses browse button or file input." },
-    {
-      keys: ["Enter", "Space"],
-      description: "Opens file dialog on focused control.",
-    },
-  ]}
-/>
-
-### Screen reader behavior
-
-Announce file name after selection; progress updates via live region when uploading.
-
-### Focus management
-
-Focus returns to remove/retry actions after upload completes.
-
-### WCAG criteria
-
-- **2.1.1 Keyboard** — browse path without drag-only.
-- **3.3.2 Labels or Instructions** — constraints stated upfront.
-- **4.1.3 Status Messages** — upload result announced.
+Controlled mode keeps `File` in parent state until cleared or uploaded. Clear
+previous selection when a new file is chosen.
 
 ## Resources
 
-### Storybook
-
-[Open File upload in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-fileupload--file-upload-story)
-
-### Related components
-
-- **[Media](/components/media)** — display uploaded images.
-- **[Progress bar](/components/progress-bar)** — byte progress for large files.
-- **[Form](/components/form)** — FormMediaField business wrapper.
+- [Storybook — File upload](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-fileupload--file-upload-story)
+- [Media](/components/media)
+- [Progress bar](/components/progress-bar)
+- [Shared form guidelines](/components/shared-form-guidelines) — FormMediaField business wrapper

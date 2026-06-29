@@ -1,6 +1,6 @@
 ---
-title: Nested sortable list [LLM]
-description: Multi-level drag reorder for grouped or hierarchical items
+title: Nested sortable list
+description: Hierarchical drag reorder across grouped lists
 status: stable
 category: components
 tags: [data, interaction]
@@ -9,129 +9,32 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Nested sortable list supports reordering items across multiple grouped lists —
-categories with children, nested playlists, or multi-column boards. Built for
-admin configuration where hierarchy depth is shallow (typically one nest level).
-
-<StorybookEmbed
-  id="primitive-components-nestedsortablelist--primary"
-  mode="playground"
-  height={700}
-  stories={[
-    {
-      id: "primitive-components-nestedsortablelist--primary",
-      label: "Base",
-    },
-    {
-      id: "primitive-components-nestedsortablelist--extended-list",
-      label: "Extended",
-    },
-  ]}
-/>
-
-### Use cases
-
-- **Activity groups** — reorder groups and activities inside booking setup.
-- **Nested FAQs** — sections with ordered questions (prefer [Accordion](/components/accordion) for read-only).
-- **Multi-list admin** — move items between columns in configuration tools.
-- **Pack bundles** — ordered sub-items inside a product group.
-- **Template blocks** — grouped content blocks with inner order.
+Extends [Sortable list](/components/sortable-list) for grouped lists — reorder
+within a group or drag items between groups. Built for shallow admin configuration
+(one nest level), not member-facing navigation.
 
 ## Guidelines
 
 <DoDont>
-  <Do caption="Explain in copy that dragging across groups changes category membership." />
-  <Do caption="Collapse groups sparingly — hiding drag targets frustrates admins." />
-  <Do caption="Validate order server-side and surface errors without silent revert." />
-  <Dont caption="Nested sortable for member-facing navigation — too fragile." />
-  <Dont caption="Identical group titles — users cannot predict drop targets." />
-  <Dont caption="Mobile-first flows relying on precision drag between columns." />
-  <Do caption="Shallow nesting — avoid deep trees; flatten IA when depth exceeds two levels." />
-  <Do caption="Distinct group labels — each sub-list needs a visible heading." />
-  <Do caption="Cross-list moves — confirm API supports parent change, not just index." />
-  <Do caption="Performance — extended stories show many lists; gate feature for large datasets." />
-  <Do caption="Undo — destructive reorder deserves toast with undo when feasible." />
+  <Do caption="Label each group clearly — users need predictable drop targets." />
+  <Do caption="Confirm the API supports parent change, not just index within a group." />
+  <Dont caption="Deep trees — keep nesting shallow; flatten IA beyond two levels." />
+  <Dont caption="Member-facing flows that rely on precision drag between columns." />
+  <Do caption="Explain in copy when dragging across groups changes category membership." />
 </DoDont>
 
-### Content rules
-
-> Drag activities between groups to reorganize your schedule catalog.
-
 ## Reference
-
-### Anatomy
-
-<Anatomy
-  parts={[
-    { name: "Parent list", description: "Top-level sortable container." },
-    { name: "Nested lists", description: "Child sortable regions per group." },
-    {
-      name: "Drag overlay",
-      description: "Visual feedback during cross-list drag.",
-    },
-  ]}
-/>
 
 ### Props
 
 <PropsTable component="NestedSortableList" />
 
-### Behaviors
-
-#### Persistence
-
-Multi-list state updates on drag end; parent coordinates ids across groups.
-
-### Edge cases
-
-- **Extended mode** — many parallel lists; test scroll and hit targets.
-- **Empty child list** — still provide valid drop zone.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-Each list region needs accessible name; drag handles labeled per item.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    { keys: ["Tab"], description: "Reach handles and group headings." },
-  ]}
-/>
-
-### Screen reader behavior
-
-Cross-list moves should announce new group and index when keyboard alternatives exist.
-
-### Focus management
-
-Complex drag — document keyboard gaps in product QA.
-
-### WCAG criteria
-
-- **2.1.1 Keyboard** — known gap for pure drag; track improvement backlog.
-- **4.1.2 Name, Role, Value** — group labels required.
-
 ## Resources
 
-### Storybook
-
-[Open Nested sortable list in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-nestedsortablelist--primary)
-
-### Related components
-
-- **[Sortable list](/components/sortable-list)** — flat reorder.
-- **[Drag and drop](/components/drag-and-drop)** — primitive board layout.
-- **[Collapse](/components/collapse)** — collapse group sections read-only.
-
-## TO CLARIFY
-
-- Maximum supported nesting depth and recommended IA limits for Studio Manager admins.
+- **[Sortable list](/components/sortable-list)** — flat reorder
+- **[Drag and drop](/components/drag-and-drop)** — lower-level drag primitives

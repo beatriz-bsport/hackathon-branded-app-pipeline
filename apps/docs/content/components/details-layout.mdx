@@ -1,7 +1,9 @@
 ---
 title: Details layout
-description: Documentation pending.
+description: A compound page shell for record detail views with header, scrollable content, and unsaved-changes confirmation
+status: stable
 category: components
+tags: [layout, structure]
 source: "packages/design-system/kaizen/primitive/core/src/components/DetailsLayout"
 sections:
   - "Overview"
@@ -10,3 +12,214 @@ sections:
   - "Accessibility"
   - "Resources"
 ---
+
+## Overview
+
+DetailsLayout is the standard page shell for working on a single record in Studio Manager — member profile, pass configuration, booking detail, or any view where the user commits to one object at a time.
+
+It composes a sticky [Header layout](/components/header-layout) at the top, a scrollable main content region, and a confirmation bar that appears when the page has unsaved changes. Subcomponents can be placed in any order; grid areas position them consistently. Control confirmation visibility through the `useDetailsLayout` hook from any descendant.
+
+For optional side metadata, compose with [Panel](/components/panel).
+
+<StorybookEmbed
+  id="primitive-components-detailslayout--details-without-panel"
+  mode="playground"
+  height={700}
+  stories={[
+    {
+      id: "primitive-components-detailslayout--details-without-panel",
+      label: "Details layout",
+    },
+  ]}
+/>
+
+For browsing collections, use [List layout](/components/list-layout). For peeking at a record without leaving a list, use [Detail drawer](/components/detail-drawer) instead.
+
+## Guidelines
+
+- **One record, one shell** — mount DetailsLayout at the route root for a detail page; do not nest it inside another layout shell.
+- **Confirmation is explicit** — toggle unsaved state from child components; the bar does not detect dirty forms on its own.
+- **Header follows detail conventions** — breadcrumbs, title, CTA, and end actions yes; follow [Header actions](/patterns/header-actions) for hierarchy and overflow. Filter and search rows belong on list pages.
+- **Side metadata is separate** — when you need a collapsible properties column, follow [Panel](/components/panel); do not fold panel guidance into this page.
+
+### Best practices
+
+<DoDont>
+  <Do caption="Use DetailsLayout when the user navigates from a list to work on one record." />
+  <Do caption="Call toggleHasUnsavedChanges(true) from form state so the confirmation bar appears before navigation away." />
+  <Do caption="Keep primary forms and editing in DetailsLayout.Content." />
+  <Dont caption="List collection pages belong in ListLayout, not DetailsLayout." />
+  <Dont caption="Nested layout shells on the same route — one DetailsLayout per detail page." />
+  <Dont caption="Document or implement side-panel behavior here — use the Panel page instead." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+The confirmation bar handles in-page save and discard. It does not block browser back, route changes, or tab closes. A shared navigation guard for leaving with unsaved changes is tracked separately — wire your own guard until that ships.
+
+</Callout>
+
+## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Header",
+      description:
+        "Sticky top region via DetailsLayout.Header — breadcrumbs, title, tabs, and actions.",
+    },
+    {
+      label: "Confirmation",
+      description:
+        "Warning bar between header and content when hasUnsavedChanges is true. Save and Discard actions with loading states.",
+    },
+    {
+      label: "Content",
+      description:
+        "Scrollable main work area with centered max width and page padding. Primary forms and record body live here.",
+    },
+  ]}
+/>
+
+### Props
+
+#### DetailsLayout (root)
+
+| Prop            | Type                        | Default | Description                                                               |
+| --------------- | --------------------------- | ------- | ------------------------------------------------------------------------- |
+| `children`      | `ReactNode`                 | —       | Subcomponents: Header, Confirmation, Content (any order).                 |
+| `withPanel`     | `boolean`                   | `false` | Enables panel integration when composing with [Panel](/components/panel). |
+| `onPanelToggle` | `(isOpen: boolean) => void` | —       | Fires when panel open state changes — see Panel for behavior.             |
+| `className`     | `string`                    | —       | Extra classes on the root `main` element.                                 |
+| `ref`           | `LayoutProviderRef`         | —       | Imperative API: `toggleHasUnsavedChanges`, `toggleIsPanelOpened`.         |
+
+#### DetailsLayout.Header
+
+Reuses [Header layout](/components/header-layout) props. On detail pages, populate breadcrumbs, `pageTitle`, optional `pageSubtitle`, `callToActionButton`, and `endGroupActions` — see [Header actions](/patterns/header-actions) for primary, secondary, and destructive placement. Omit `filterConfig`, `searchConfig`, and `onDisplayPopover`.
+
+#### DetailsLayout.Content
+
+| Prop        | Type        | Description                            |
+| ----------- | ----------- | -------------------------------------- |
+| `children`  | `ReactNode` | Page body.                             |
+| `className` | `string`    | Extra classes on the scroll container. |
+
+#### DetailsLayout.Confirmation
+
+| Prop         | Type                                        | Description                                                                        |
+| ------------ | ------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `onDiscard`  | `() => void \| Promise<void>`               | Required. Resets dirty state after discard succeeds.                               |
+| `onSave`     | `() => void \| Promise<void>`               | Save handler when not using form submit.                                           |
+| `formSubmit` | `{ formId: string; isSubmitting: boolean }` | Alternative to `onSave` — wires Save as `type="submit"` for a FormController form. |
+| `className`  | `string`                                    | Extra classes on the confirmation container.                                       |
+
+Provide either `onSave` or `formSubmit`, not both.
+
+#### DetailsLayout.Button
+
+Responsive action button — full label on desktop (≥640px), icon-only on mobile. Same API as `LayoutButton`.
+
+#### useDetailsLayout hook
+
+Use in the page component that wraps DetailsLayout:
+
+```tsx
+const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
+
+return (
+  <DetailsLayout {...detailsLayoutProps}>
+    {/* subcomponents */}
+  </DetailsLayout>
+);
+```
+
+Pass `detailsLayoutProps.ref` so descendants can call the toggle helpers. `DetailsLayout.useAdaptiveActions` collapses header actions into a mobile menu — same overflow rules as [Header actions](/patterns/header-actions).
+
+### Behaviors
+
+#### Scrolling
+
+The header stays fixed at the top. Content scrolls independently when it exceeds the viewport.
+
+#### Confirmation bar
+
+Hidden when `hasUnsavedChanges` is false — the grid row collapses to zero height. When visible, it sticks below the header with warning surface styling. Save and Discard show loading states and disable each other while either action runs.
+
+#### Responsiveness
+
+Below the `sm` breakpoint (640px), the shell uses `dvh` height and `DetailsLayout.Button` actions collapse to icons. Use `DetailsLayout.useAdaptiveActions` to move overflow header actions into a mobile dropdown.
+
+### Edge cases
+
+- **Save while already submitting** — both confirmation buttons disable until the in-flight action completes.
+- **Long content in confirmation row** — actions wrap on narrow widths; keep copy to the built-in title only.
+
+## Accessibility
+
+### ARIA roles and attributes
+
+- Root renders `<main>` — one per detail page.
+- Confirmation container sets `aria-hidden={!hasUnsavedChanges}` when the bar is collapsed.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Moves through header actions, confirmation buttons (when visible), and content.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Activates Save, Discard, and header buttons.",
+    },
+  ]}
+/>
+
+### Screen reader behavior
+
+Page title is exposed via the header's `<title>` element and visible heading. The confirmation region is hidden from the accessibility tree when collapsed. Confirmation title and button labels come from i18n — ensure Kaizen i18n is mounted.
+
+### Focus management
+
+No focus trap — content remains reachable while the confirmation bar is open. Route transitions should move focus to the page title or main heading.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — confirmation warning surface and button labels meet contrast requirements.
+- **2.1.1 Keyboard** — all header and confirmation actions are keyboard operable.
+- **2.4.1 Bypass Blocks** — provided by the app shell skip link, not DetailsLayout itself.
+- **2.4.6 Headings and Labels** — single clear page title via Header.
+- **4.1.2 Name, Role, Value** — confirmation actions expose accessible names.
+
+## Resources
+
+### Storybook
+
+[Open Details layout in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-detailslayout--details-without-panel)
+
+### Related components
+
+- **[Header layout](/components/header-layout)** — title, breadcrumbs, tabs, and actions used by `DetailsLayout.Header`.
+- **[Panel](/components/panel)** — optional side column for metadata on detail pages.
+- **[List layout](/components/list-layout)** — collection pages that link into detail routes.
+- **[Detail drawer](/components/detail-drawer)** — inspect a record from a list without a full page navigation.
+- **[Tabs](/components/tabs)** — tabbed sections scoped to the current record in the header.
+- **[Breadcrumbs](/components/breadcrumbs)** — wayfinding trail rendered in the header.
+- **[Header actions](/patterns/header-actions)** — action hierarchy, CTA placement, and overflow on detail pages.
+
+### Known issues
+
+#### Tracked in Linear
+
+- [KAI-840](https://linear.app/bsport/issue/KAI-840/detaillayout-add-detailslayoutcontent-variantflush-for-full-width) — add `DetailsLayout.Content` `variant=flush` for full-width tables (QA / Dev review).
+- [KAI-289](https://linear.app/bsport/issue/KAI-289/detailslayout-listen-to-breakpoint-to-change-content-aligment) — responsive content centering breakpoint (Scoping).
+
+#### Implementation gaps
+
+- **Props extraction** — auto-generated prop tables merge root and Confirmation props; the Reference tables above document the compound API manually until extraction supports subcomponents.
+- **Route-leave guard** — confirmation bar covers in-page save/discard only; browser navigation away with unsaved changes is not blocked yet ([KAI-269](https://linear.app/bsport/issue/KAI-269/implement-shared-navigation-guard-modal-for-unsaved-changes) in progress).
+- **Content padding** — content applies centered max-width and `p-md` padding; full-bleed tables require custom class overrides until `variant=flush` ships.

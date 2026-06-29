@@ -1,7 +1,9 @@
 ---
 title: Table
-description: A flexible, accessible data table that displays structured information in rows and columns.
+description: Flexible data table for multi-column datasets with selection, pagination, and typed columns
+status: stable
 category: components
+tags: [data, layout]
 source: "packages/design-system/kaizen/primitive/core/src/components/Table"
 sections:
   - "Overview"
@@ -13,31 +15,16 @@ sections:
 
 ## Overview
 
-Tables present, compare, and act on multi-column datasets with loading, empty, and paginated states.
+Flexible data table for presenting, comparing, and acting on multi-column records in Studio Manager
 
-The Table component is a flexible, accessible data table that displays structured information in rows and columns. It is used whenever a product surface needs to present, compare, or act on multi-column datasets — from member lists and financial records to activity logs. The component communicates data hierarchy, supports bulk selection, and adapts its display through loading, empty, and paginated states.
-
-### Use cases
-
-- _Data listing:_ Display a list of entities (members, bookings, transactions) with multiple attributes per row in a scannable, columnar layout.
-- _Bulk operations _(_future_)_:_ Enable row-level checkboxes so users can select multiple items and apply a batch action (delete, export, assign).
-- _Navigable records:_ Wrap each row in a link so users can click anywhere on the row to drill into a detail view without an explicit action button.
-- _Financial reporting:_ Use `price` and `number` column types to render currency-formatted values with locale awareness, including negative amounts.
-- _Status-based categorization:_ Apply row-level color indicators and status badge columns to help users quickly scan and classify items by state.
-
-## Guidelines
-
-### Examples
+Table displays structured data in rows and columns. It supports typed column rendering (dates, prices, avatars, custom cells), optional row selection, pagination, loading and empty states, and row-level navigation. Use it when users need to scan or compare several attributes per record — anywhere column alignment beats a [List](/components/list) layout.
 
 <StorybookEmbed
   id="primitive-components-table--primary"
   mode="playground"
-  height={700}
+  height={1200}
   stories={[
-    {
-      id: "primitive-components-table--primary",
-      label: "Primary",
-    },
+    { id: "primitive-components-table--primary", label: "Primary" },
     {
       id: "primitive-components-table--with-pagination",
       label: "With pagination",
@@ -46,117 +33,293 @@ The Table component is a flexible, accessible data table that displays structure
       id: "primitive-components-table--with-row-link",
       label: "With row link",
     },
+    {
+      id: "primitive-components-table--column-types",
+      label: "Column types",
+    },
+    {
+      id: "primitive-components-table--read-only-table",
+      label: "Read only",
+    },
   ]}
 />
 
-<DoDont>
-  <Do
-    caption={
-      "Match the column type to the data format. Use `price` for monetary values, `date` / `dateTime` / `time` for temporal data, and `number` for numeric quantities. This guarantees locale-aware formatting and consistent typography across all instances."
-    }
-  />
-  <Do
-    caption={
-      "Always provide `emptyStateProps` and `loadingProps` configs. Users should never see a blank white space; give them a meaningful illustration and message for both the loading and empty states."
-    }
-  />
-  <Do
-    caption={
-      "Provide `paginationProps` whenever the dataset exceeds a single screenful, using a default page size of 10 to keep initial render fast."
-    }
-  />
-  <Dont
-    caption={
-      "Nest interactive elements inside a row that already has a row link. When the entire `<tr>` is wrapped in an ``<a>``, nested buttons and links create invalid HTML and confuse keyboard/screen reader users. Use click handlers only on the action column, ensuring proper event propagation is handled."
-    }
-  />
-  <Dont
-    caption={
-      "Avoid the `lg` row height in dense data grids with many rows. Large row heights reduce the number of visible records and force excessive scrolling; reserve `lg` for content-rich rows where breathing room is genuinely needed."
-    }
-  />
-</DoDont>
+### Use cases
+
+- **Entity directory** — multiple attributes per row; optional row link to a detail view.
+- **In-place comparison** — dense multi-column data where the table is the destination.
+- **Bulk actions** — checkbox selection with header select-all for batch operations.
+- **Activity history** — paginated read-only log with datetime columns.
+- **Formatted values** — locale-aware dates, numbers, prices, and optional sign coloring.
+
+For narrow containers or single-column scanning, prefer [List](/components/list). See [Use of tables and lists](/patterns/tables-and-lists) for index table vs data table intent.
+
+## Guidelines
+
+<Callout type="warning" title="Caution">
+
+Table does not collapse columns on narrow viewports. Wide tables scroll horizontally; on mobile, reduce column count or switch to [List](/components/list).
+
+</Callout>
 
 <DoDont>
-  <Do caption="Use color indicators (`rowColor`) sparingly and consistently. Reserve them for meaningful categorical distinctions, not decoration. Overuse reduces their communicative value." />
-  <Do caption="Keep column headers short. Long labels wrap awkwardly inside compact (`sm`) row heights and degrade scannability. Prefer concise labels; use a tooltip or subtitle for extra context if needed." />
+  <Do caption="Match each column's type to its data format so dates, prices, and numbers render with consistent locale formatting." />
+  <Do caption="Provide loadingProps and emptyStateProps — users should see a Loader or EmptyState, not a blank area." />
+  <Do caption="Add paginationProps when the dataset exceeds one screenful, with a default page size of 10." />
+  <Dont caption="Interactive controls inside a row that already has a row link create nested focus targets — stop propagation on in-row buttons and links." />
+  <Dont caption="Large row height in dense grids with many rows forces excessive scrolling — reserve lg for content-rich rows." />
+  <Dont caption="A redundant View action button alongside a row link — the row itself already navigates." />
 </DoDont>
 
-### Links
+### Selection
 
 <DoDont>
-  <Do
-    caption={
-      "Use row links for navigation-primary tables (e.g., member list → member detail) to maximize the clickable target area."
-    }
-  />
-  <Do
-    caption={
-      "Use buttons for links to related objects (e.g., member list → related pass)."
-    }
-  />
-  <Dont
-    caption={
-      'Add redundant "View" action buttons alongside a row link — the row itself already serves that role.'
-    }
-  />
+  <Do caption="Pair selectable tables with a bulk action bar driven by checkedIds." />
+  <Dont caption="Row checkboxes without a visible bulk action — selection state feels orphaned." />
 </DoDont>
 
-### Content
+<Callout type="warning" title="Caution">
 
-### `Common uses`
+Kaizen does not ship a bulk action bar yet. When using `selectable`, build the bar in product code and wire it to `checkedIds`.
 
-##### `1. [Pattern name — e.g. Informational, no action]`
+</Callout>
 
-`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+### Row navigation
 
-> `Example: "Placeholder"`
+<DoDont>
+  <Do caption="Use row.link for index tables where clicking a row opens a detail view — member list to member profile." />
+  <Dont caption="Row links on data tables where users analyze values in place — the table is the destination, not a launcher." />
+</DoDont>
 
-##### `2. [Pattern name — e.g. Informational, no action]`
+### Row height
 
-`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+<DoDont>
+  <Do caption="Keep sm as the default for dense operational tables — bookings, transactions, logs." />
+  <Dont caption="lg in tables with dozens of rows — it reduces visible records without improving scannability." />
+</DoDont>
 
-> `Example: "Placeholder"`
+### Content rules
+
+Keep column headers short and scannable. Put explanatory detail in tooltips, page copy, or cell content — not in header labels that wrap inside compact rows.
+
+Write empty and search-empty copy in second person, present tense, with a clear next step.
+
+**Empty dataset**
+
+> No email templates yet. Create one to start contacting your members.
+
+**Empty search**
+
+> No results found. Clear filters to see more members.
+
+**Loading**
+
+> Loading members…
 
 ## Reference
+
+### Anatomy
+
+<Anatomy
+  parts={[
+    {
+      label: "Table container",
+      description:
+        'Root `role="table"` wrapper with horizontal scroll when content overflows.',
+    },
+    {
+      label: "Header row",
+      description:
+        "Column labels and optional select-all checkbox. Omitted when hideHeader is true.",
+    },
+    {
+      label: "Selection column",
+      description:
+        "Checkbox column prepended when selectable is true — header select-all plus per-row checkboxes.",
+    },
+    {
+      label: "Data cells",
+      description:
+        "Typed or custom content per column configuration — string, price, avatar, copy, custom render, etc.",
+    },
+    {
+      label: "Row color indicator",
+      description:
+        "Optional ColorIndicator line on the leading edge when row.color is set.",
+    },
+    {
+      label: "Pagination bar",
+      description: "Rendered below the table when paginationProps is provided.",
+    },
+    {
+      label: "Loading / empty state",
+      description:
+        "Replaces the entire table when loadingProps.isLoading or emptyStateProps flags are active.",
+    },
+  ]}
+/>
 
 ### Props
 
 <PropsTable component="Table" />
 
-### Behavior
+<Callout type="info">
 
-#### Selection
+Table props are not yet in the generated props pipeline. Key props from source:
 
-When `selectable=\{true\}`, a checkbox column is prepended to the header and each data row. Clicking a row checkbox toggles that row's selection state. The header "select all" checkbox selects or deselects all visible rows. In the controlled pattern, the parent receives selection callbacks and manages state externally.
+- **`columns`** (`Column<RowType>[]`, required) — column definitions.
+- **`rows`** (`RowType[]`, required) — row data; each row needs a unique `id`.
+- **`rowHeight`** (`sm` \| `lg`, default `sm`) — compact or comfortable row height.
+- **`selectable`** (`boolean`, default `false`) — prepends checkbox column with select-all.
+- **`withHorizontalDivider`** (`boolean`, default `true`) — row dividers between data rows.
+- **`withVerticalBorders`** (`boolean`, default `false`) — vertical borders between columns.
+- **`hideHeader`** (`boolean`, default `false`) — hides the header row.
+- **`paginationProps`** (`PaginationProps`) — pagination config; bar renders below the table.
+- **`emptyStateProps`** (`UseEmptyStateProps`) — empty and empty-search states.
+- **`loadingProps`** (`UseLoadingStateProps`) — full-table loading state.
+- **`initialCheckedIds`** (`string[]`) — uncontrolled selection initial values.
+- **`checkedIds` / `setCheckedIds`** — controlled selection pattern.
 
-#### Row links
+</Callout>
 
-When a row-level link is provided, the entire `<tr>` is wrapped in an `<a>` tag, making the full row clickable for navigation. Action buttons within the row must stop event propagation to avoid unintended navigation when clicked.
+### Column configuration
+
+Each column in `columns` requires `id`, `header`, and `type`. Supported types:
+
+- **string** — plain text from `keyPath`.
+- **number** — locale-formatted number from `keyPath`.
+- **price** — currency via `getCurrencyDisplayWithPrice`; optional `priceColoring` for positive/negative values.
+- **date** / **datetime** / **time** — locale-formatted temporal values from `keyPath`.
+- **avatar** — Avatar from `keyPath` (string URL or `{ src, alt }`); optional `size`.
+- **copy** — CopyToClipboard button for `keyPath` value.
+- **custom** — `render(row)` for arbitrary React content.
+- **link** — declared in types but not rendered by the component today (use `custom` or row-level `link` instead).
+
+Shared column options: `align` (`start` \| `center` \| `end`), `cellsClassName`, `colClassName` (column width).
+
+Row-level fields on `BaseRow`: `id` (required), `link`, `color`, `className`, `onRowClick`, `isActive`.
+
+### Behaviors
+
+#### Row links and clicks
+
+When `row.link` is set, the row is wrapped in a native `<a>` — the full row is clickable for navigation. When only `onRowClick` is set, the row uses a click handler on a `div` without link semantics. In-row buttons must call `stopPropagation()` (and `preventDefault()` on links) to avoid triggering row navigation.
 
 #### Loading state
 
-When `loadingProps.isLoading` is `true`, the table body is replaced by a loading indicator and an optional message. The header remains visible to preserve layout stability during data refresh.
+When `loadingProps.isLoading` is true, the entire Table (header and rows) is replaced by a centered Loader and optional message.
 
 #### Empty state
 
-When `emptyStateProps.isEmpty` is `true`, the table body is replaced by an empty-state illustration and configurable copy. When `emptyStateProps.isEmptySearch` is `true`, a search-specific empty state is shown (e.g., "No results found — clear filters").
+When `emptyStateProps.isEmptySearch` is true (with `emptySearchConfig`), a no-results EmptyState renders instead of the table. When `isEmpty` is true (with `emptyConfig`), a classic empty state renders. Empty search takes precedence over empty.
 
 #### Pagination
 
-When `paginationProps` is provided, a pagination bar is rendered below the table body. It includes a rows-per-page selector, first/previous/page-number/next/last controls, and a record count label. The consuming component is responsible for fetching and passing the correct page slice to `rows`.
+When `paginationProps` is provided, a [Pagination](/components/pagination) bar renders below the table. The parent fetches and passes the correct page slice in `rows`; Table does not paginate internally.
 
 #### Responsiveness
 
-The table does not collapse columns on narrow viewports automatically. For very wide tables on mobile, horizontal scrolling is applied to the container. Consider reducing the column count and using a list layout on smaller breakpoints.
+Table does not auto-collapse columns. Long cell content can push columns off-screen — constrain width with `colClassName` or `cellsClassName` (e.g. `truncate max-w-[…]`). The container allows horizontal scroll.
 
 ### Edge cases
 
-#### Negative numeric/price values
+- **Empty columns / rows with empty state off** — renders an empty table shell with header only.
+- **Very long text** — cells use `whitespace-nowrap` by default; add `cellsClassName` truncation or max-width on string/custom columns.
+- **Negative price/number values** — `price` shows minus sign; apply `priceColoring` when sign should carry semantic color.
+- **Multiple selection state** — one CheckboxProvider per Table instance; selection applies to currently rendered rows only (current page when paginated).
+- **hideHeader** — header row omitted; selection column still renders when selectable is true.
 
-The `number` and `price` column types render negative values with a minus sign and, for `price`, apply optional color coding. Verify that negative amounts display clearly at both `sm` and `lg` heights.
+## Accessibility
+
+### ARIA roles & attributes
+
+The root container is a `<div>` with `role="table"` and `aria-labelledby="table"`. The body uses `role="rowgroup"`. Rows and cells use CSS `display: table-*` on `<div>` elements rather than native `<table>` markup.
+
+Kaizen sets `role="table"` and `aria-labelledby="table"` on the root. Provide a visible page or section heading with `id="table"` so the accessible name resolves — typically the view title above the table.
+
+Checkboxes use the [Checkbox](/components/checkbox) component with per-row `id` values. The select-all checkbox uses `id="select-all"`.
+
+### Keyboard navigation
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Move focus through checkboxes, copy buttons, in-row buttons, and row links in document order.",
+    },
+    {
+      keys: ["Shift", "Tab"],
+      description: "Move focus to the previous focusable control.",
+    },
+    {
+      keys: ["Space"],
+      description: "Toggle a focused checkbox (row or select-all).",
+    },
+    {
+      keys: ["Enter"],
+      description:
+        "Activate a focused link or button — including row-wrapping anchor when row.link is set.",
+    },
+  ]}
+/>
+
+Rows with only `onRowClick` (no `link`) are not keyboard-operable — prefer `row.link` for navigable rows.
+
+### Screen reader behavior
+
+Header cell text is announced when navigating by row/cell in supporting browsers. Checkbox state (checked, unchecked, indeterminate on select-all) follows Checkbox semantics. Locale-formatted dates, numbers, and prices are read as visible text.
+
+Row color indicators are visual only — do not rely on color alone; pair with text or chips in a status column.
+
+### Focus management
+
+Table does not trap focus. When a row link navigates away, focus moves per browser default. After bulk actions, return focus to a logical control (e.g. the bulk action bar) in product code.
+
+### WCAG criteria
+
+- **1.4.3 Contrast (Minimum)** — text and borders use design-system surface and stroke tokens.
+- **1.4.1 Use of Color** — pair `row.color` and `priceColoring` with explicit labels or status text.
+- **2.1.1 Keyboard** — checkboxes, links, and in-row buttons are operable; `onRowClick`-only rows are a gap.
+- **4.1.2 Name, Role, Value** — table role is set; pair with a heading `id="table"` for the accessible name.
+- **4.1.3 Status Messages** — loading and empty states use separate components; table data updates are not live-region announced by default.
 
 ## Resources
 
-- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Table`
-- **Storybook:** Browse the live examples under Guidelines.
+### Storybook
+
+[Open Table in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-table--primary)
+
+### Related components
+
+- **[List](/components/list)** — single-column collection pattern for narrow containers or simpler row layouts.
+- **[Pagination](/components/pagination)** — page controls rendered below the table via `paginationProps`.
+- **[Checkbox](/components/checkbox)** — powers row and select-all selection when `selectable` is true.
+- **[Copy to clipboard](/components/copy-to-clipboard)** — used by `copy` column type for one-click copy actions.
+- **[Chip](/components/chip)** — common in `custom` columns for status badges.
+- **[Use of tables and lists](/patterns/tables-and-lists)** — when to choose index table vs data table vs list.
+
+### Known issues
+
+#### Tracked in Linear
+
+Open items under [KAI-122 Table](https://linear.app/bsport/issue/KAI-122/kz-component-table) on the [Kaizen component board](https://linear.app/bsport/project/kaizen-component-board-e9084e83ba8c/view/backlog-2e1fdd31dafd):
+
+- [KAI-550](https://linear.app/bsport/issue/KAI-550/table-sticky-column) — Table - Sticky column (Scoping)
+- [KAI-410](https://linear.app/bsport/issue/KAI-410/table-improve-column-width-management) — [Table] - Improve column width management (Scoping)
+- [KAI-411](https://linear.app/bsport/issue/KAI-411/table-injected-link-component-with-native-a-fallback-in-table) — [Table] - Injected Link Component with Native `<a>` Fallback (Scoping)
+- [KAI-183](https://linear.app/bsport/issue/KAI-183/scope-out-ability-to-copy-content-into-the-table-component) — Scope out ability to copy content into the table component (Scoping)
+- [KAI-597](https://linear.app/bsport/issue/KAI-597/collapsable-row) — Collapsable row (Backlog)
+- [KAI-580](https://linear.app/bsport/issue/KAI-580/allow-content-on-top-of-tables-alerts-etc) — Allow content on top of tables (alerts etc) (Scoping)
+
+#### Implementation gaps
+
+- **Loading replaces entire table** — when `loadingProps.isLoading` is true, header and rows are unmounted; only the Loader shows. Docs previously implied the header stayed visible.
+- **`link` column type not rendered** — `ColumnType` includes `link`, but `TableRow` has no handler; use `custom` or `row.link`.
+- **`onRowClick` without `link`** — mouse-only; no keyboard activation or button role.
+- **`copy` column ignores `tooltip` / `toastMessage`** — column config accepts these props but `TableRow` does not pass them to CopyToClipboard.
+- **`disabledIds` not forwarded** — `CheckboxProviderProps` includes `disabledIds`, but Table does not pass it to CheckboxProvider.
+
+#### Design or API debt
+
+- **Div-based table layout** — CSS table display on divs instead of semantic `<table>` markup; audit when hardening accessibility.

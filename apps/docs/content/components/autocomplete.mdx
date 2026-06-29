@@ -9,7 +9,6 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
@@ -22,7 +21,7 @@ multi-select, local filtering, debounced remote search, and chip display for
 multiple values.
 
 Prefer `AutocompleteControlled` for new code — standard `value` / `onChange`
-on selected ids. The legacy `Autocomplete` wrapper remains for existing flows.
+on selected ids.
 
 <StorybookEmbed
   id="primitive-components-autocomplete--primary"
@@ -44,69 +43,21 @@ on selected ids. The legacy `Autocomplete` wrapper remains for existing flows.
   ]}
 />
 
-### Use cases
-
-- **Member lookup** — search by name or email when adding someone to a class.
-- **Tag assignment** — multi-select with chips for segment or member tags.
-- **Activity picker** — remote `searchMode=\"remote\"` against a large catalogue.
-- **Quick-add lists** — `clearOnSelect` to pick several instructors without
-  keeping each name in the input.
-- **Pre-filled selections** — `defaultSelectedIds` or controlled value on edit
-  screens.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="Pass label, placeholder, and helper through textfieldProps — 'Search by name or email'." />
-  <Do caption="Use description on items for secondary context — email under member name." />
-  <Do caption="Set debounceValue on remote search to limit API calls while typing." />
-  <Dont caption="Two fixed options are simpler with Radio or Select than Autocomplete." />
-  <Dont caption="Clearing the input does not reset selected ids — handle onClear or controlled state explicitly." />
-  <Dont caption="Long item labels truncate at popover width — put secondary detail in description." />
-  <Do caption="Search when lists are long — switch from Select past roughly twenty options or when labels are not memorised." />
-  <Do caption='Remote vs local — `searchMode="local"` filters static `items`; remote loads via `onValueChange` + `loadingProps`.' />
-  <Do caption="Multi-select chips — keep `hideChips={false}` so selections stay visible; dismiss chips to remove items." />
-  <Do caption="Single select closes — popover dismisses after one pick; multi-select stays open for consecutive choices." />
-  <Do caption="Controlled API — use `AutocompleteControlled` so parent state owns selected ids." />
+  <Do caption="Use `description` on items for secondary context — email under member name." />
+  <Dont caption="Two fixed options are simpler with Radio or Select." />
+  <Dont caption="Hiding chips without another summary leaves users without a record of selections." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
 
 Clearing the text field in single-select mode does not always deselect the
-value in the menu — handle `onClear` explicitly or use controlled state until
+value — handle `onClear` explicitly until
 [KAI-588](https://linear.app/bsport/issue/KAI-588) lands.
 
 </Callout>
-
-### multiSelect
-
-<DoDont>
-  <Do caption="Show chips below the input so selected members or tags remain visible while searching." />
-  <Dont caption="Hiding chips without another summary leaves users without a record of their selections." />
-</DoDont>
-
-### clearOnSelect
-
-<DoDont>
-  <Do caption="Enable when each pick adds to a list — instructors on a session — and the field should ready for the next search." />
-  <Dont caption="Single-select identity fields should keep the chosen label visible — skip clearOnSelect." />
-</DoDont>
-
-### Content rules
-
-Placeholder invites a query; label names the entity being picked.
-
-**Label**
-
-> Member
-
-**Placeholder**
-
-> Search by name or email
-
-**Empty state** (via menu messaging)
-
-> No members match your search.
 
 ## Reference
 
@@ -115,21 +66,12 @@ Placeholder invites a query; label names the entity being picked.
 <Anatomy
   parts={[
     {
-      label: "TextField",
-      description:
-        "Underlying input from `textfieldProps` — label, validation, icons.",
-    },
-    {
       label: "Popover",
       description: "Menu panel anchored below the input.",
     },
     {
       label: "Item row",
       description: "Label, optional description, checkbox in multi-select.",
-    },
-    {
-      label: "Group header",
-      description: "Non-selectable section title for grouped items.",
     },
     {
       label: "Selected section",
@@ -140,10 +82,6 @@ Placeholder invites a query; label names the entity being picked.
       label: "Chips",
       description: "Dismissible pills per selection in multi-select mode.",
     },
-    {
-      label: "Loading / empty",
-      description: "Loader or empty state inside the popover.",
-    },
   ]}
 />
 
@@ -151,169 +89,27 @@ Placeholder invites a query; label names the entity being picked.
 
 <PropsTable component="Autocomplete" />
 
-### Configuration
+Key configuration:
 
-Key props that define Autocomplete behaviour — map these when porting Supernova
-specs or designing a new picker.
+- **`multiSelect`** — `false` closes on pick; `true` keeps popover open and shows chips
+- **`searchMode`** — `local` filters `items`; `remote` refreshes via `onValueChange`
+- **`clearOnSelect`** — empties input after each pick for quick-add lists
+- **`debounceValue`** — throttles remote `onValueChange`
+- Validation flows through `textfieldProps` (`status`, `statusText`, `helperText`)
 
-- **Selection mode** — `multiSelect`: `false` (single, default) keeps one value
-  and closes the popover on pick; `true` keeps the popover open and shows chips.
-- **Search mode** — `searchMode`: `local` (default) filters `items` in the
-  client; `remote` expects the parent to refresh `items` via `onValueChange`.
-- **Popover placement** — `popoverPlacement`: `bottom-left` (default),
-  `bottom-right`, `top-left`, `top-right`, `bottom`, or `top`.
-- **Popover width** — matches input width by default; `fullWidth={true}` stretches
-  input and popover to the container.
-- **Field state** — `disabled` disables input and popover; validation and helper
-  text flow through `textfieldProps` (`status`, `statusText`, `helperText`).
-- **Item layout** — each item has `label`; add `description` for secondary context
-  (e.g. email under name).
-- **Item grouping** — flat `items` or grouped sections with headers in the menu
-  data shape.
-- **Post-select input** — default keeps the query or selected label in the input;
-  `clearOnSelect={true}` empties the field after each pick (quick-add lists).
-- **Chips (multi-select)** — shown below the input by default; `hideChips={true}`
-  removes them when another summary is provided.
-- **Debounce** — `debounceValue` (ms) throttles `onValueChange` for remote search.
-- **Selected in list** — `showSelectedItemsInBase` merges picks into the main list
-  instead of only the "Selected" section.
-
-### Behaviors
-
-#### Dismissal
-
-Popover closes on: single-select pick, `Escape`, click outside, or blur to a
-non-popover target. Multi-select stays open after each pick.
-
-#### Selection
-
-Click or `Enter` on a highlighted row toggles selection. Multi-select adds
-chips; deselect via chip dismiss or clicking a checked row again.
-
-#### Persistence
-
-Selected ids are cached so the "Selected" group shows picks even when the query
-filters them out. Clearing the input does not clear selection — only chip
-dismiss, item toggle, or parent state reset does.
-
-#### Responsiveness
-
-Popover matches input width; `fullWidth` stretches both. `popoverPlacement`
-adjusts near viewport edges.
-
-### Edge cases
-
-#### No results
-
-Keep the popover open with an empty state so the user can refine the query.
-
-#### Long labels
-
-Truncate with ellipsis; put email or id in `description`.
-
-#### Disabled mid-interaction
-
-Popover closes; selection is preserved.
-
-#### Remote lag
-
-Show `loadingProps` with optional message; avoid closing the popover while
-loading.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-- Inherits TextField label association from `textfieldProps`.
-- Menu rows use Menu component semantics (keyboard highlight, item roles).
-- Multi-select checkboxes mirror selection visually — ensure `textfieldProps.label`
-  describes the field, not individual chips.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    { keys: ["Tab"], description: "Focus the text input." },
-    {
-      keys: ["Arrow down", "Arrow up"],
-      description: "Highlight items in the open popover (when implemented).",
-    },
-    { keys: ["Enter"], description: "Select or toggle the highlighted item." },
-    {
-      keys: ["Escape"],
-      description:
-        "Close the popover; may clear input on second press (planned).",
-    },
-  ]}
-/>
-
-<Callout type="info">
-
-Arrow-key navigation through results is tracked in
-[KAI-620](https://linear.app/bsport/issue/KAI-620). Until shipped, verify
-keyboard flows in Storybook for your mode (single vs multi).
-
-</Callout>
-
-### Screen reader behavior
-
-Input label and value are announced on focus. Selected chips appear as static
-content below the field. Loading state should use `loadingProps.message` for
-context.
-
-### Focus management
-
-Focus stays in the input while the popover is open. Closing returns focus to
-the input unless the user tabs away.
-
-### WCAG criteria
-
-- **1.4.3 Contrast (Minimum)** — input, chips, and menu rows on default surfaces.
-- **2.1.1 Keyboard** — input operable; list navigation improving (KAI-620).
-- **4.1.2 Name, Role, Value** — field name from TextField label; selected values
-  visible in chips or input text.
+Popover closes on single-select pick, `Escape`, or click outside. Multi-select
+stays open after each pick. Clearing the input does not clear selection.
 
 ## Resources
 
-### Storybook
-
-[Open Autocomplete in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-autocomplete--primary)
-
-Controlled stories: `primitive-components-autocomplete--controlled-single` and
-`--controlled-multi`.
-
-Source: `packages/design-system/kaizen/primitive/core/src/components/Autocomplete`
-
-### Related components
-
-- [Text field](/components/text-field) — building block for the input surface.
-- [Select](/components/select) — fixed lists without search.
-- [Chip](/components/chip) — chip styling for multi-select tokens.
-- [Menu](/components/popover) — popover list primitive.
-- [Shared form guidelines](/components/shared-form-guidelines) — labels and
-  errors via `textfieldProps`.
+- [Storybook — Autocomplete](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-autocomplete--primary)
+- [Text field](/components/text-field) — input surface
+- [Select](/components/select) — fixed lists without search
+- [Chip](/components/chip) — multi-select chip styling
+- [Shared form guidelines](/components/shared-form-guidelines)
 
 ### Known issues
 
-#### Tracked in Linear
-
-- [KAI-588](https://linear.app/bsport/issue/KAI-588/autocomplete-fix-issues) — Clear vs selected state desync on single select (Backlog).
-- [KAI-618](https://linear.app/bsport/issue/KAI-618/fix-uncheck-by-clicking-on-the-whole-buttton-instead-of-just-checkbox) — Uncheck by clicking whole row instead of checkbox only (Scoping).
-- [KAI-619](https://linear.app/bsport/issue/KAI-619/clear-input-field-after-pressing-esc-2nd-time) — Clear input after second Escape (Scoping).
-- [KAI-620](https://linear.app/bsport/issue/KAI-620/arrow-navigation) — Arrow navigation in results (Scoping).
-
-#### Implementation gaps
-
-- **Legacy vs controlled APIs** — docs recommend `AutocompleteControlled`; legacy
-  `defaultSelectedIds` / `onSelect` still in codebase.
-- **Clear does not clear selection** — documented behaviour; fix planned under
-  KAI-588 (`shouldUnselectOnClear`).
-
-#### Design or API debt
-
-<Callout type="info">
-
-`AutocompleteControlled` is the supported integration path for new Studio Manager
-features. Migrate legacy usages when touching those screens.
-
-</Callout>
+- [KAI-588](https://linear.app/bsport/issue/KAI-588) — clear vs selected state desync
+- [KAI-620](https://linear.app/bsport/issue/KAI-620) — arrow navigation in results
+- Legacy `Autocomplete` wrapper remains; migrate to `AutocompleteControlled`

@@ -1,6 +1,6 @@
 ---
-title: Divider [LLM]
-description: A neutral line that separates sections or groups without adding semantic meaning
+title: Divider
+description: A neutral horizontal or vertical rule between sections — decorative only
 status: stable
 category: components
 tags: [layout, structure]
@@ -9,16 +9,17 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Divider is a purely visual separator — a horizontal or vertical rule between
-blocks of content. It carries no semantics, actions, or labels. Use it when
-whitespace alone does not make the boundary clear enough, such as between form
-sections, sidebar groups, or toolbar clusters.
+Divider is a decorative line between blocks of content. It carries no semantics,
+labels, or interaction. It most often separates form sections,
+panel blocks, or filter groups — not individual table rows or menu items.
+
+Reach for spacing tokens first. Add a divider when the boundary still feels
+unclear after gap utilities.
 
 <StorybookEmbed
   id="primitive-components-divider--primary"
@@ -27,104 +28,32 @@ sections, sidebar groups, or toolbar clusters.
   stories={[{ id: "primitive-components-divider--primary", label: "Divider" }]}
 />
 
-### Use cases
-
-- **Form sections** — separate billing from contact fields on a settings page.
-- **Sidebar groups** — mark the boundary before system links at the bottom.
-- **Toolbar clusters** — vertical divider between filter chips and primary actions.
-- **Card footers** — horizontal rule above secondary actions in a dense card.
-- **Menu groups** — pair with [Menu](/components/menu) item dividers for visual rhythm.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="Place a horizontal divider between logically distinct form sections after a spacing gap." />
-  <Do caption="Use vertical dividers only when items sit on one row with equal visual weight." />
-  <Do caption="Match weight to context — extra-thin inside cards, thin between page sections." />
-  <Dont caption="Dividers between every list row belong in table styling, not repeated Divider instances." />
-  <Dont caption="A divider without a section title above it often signals missing structure — add a heading." />
-  <Dont caption="Critical warnings separated only by a line need an Alert, not a Divider." />
-  <Do caption="Whitespace first — reach for spacing tokens before adding a line; dividers add visual noise when overused." />
-  <Do caption="Orientation matches layout — `horizontal` for stacked sections; `vertical` in toolbars and inline clusters." />
-  <Do caption="Not a heading — dividers do not replace titles; always label sections with `Title` or `Body`." />
-  <Do caption="One role per line — do not stack multiple dividers with only a few pixels between them." />
+  <Do caption="Separate logically distinct form or panel sections — session settings, filter cards, drawer blocks." />
+  <Do caption="Tune spacing with className — my-xl between form steps, my-0 inside tight lists." />
+  <Dont caption="Table row lines — use Table withHorizontalDivider instead." />
+  <Dont caption="Menu or sidebar groups — use Menu divider items or NavigationMenu.Divider." />
+  <Dont caption="Stack multiple dividers with only a few pixels between them — one rule plus spacing is enough." />
 </DoDont>
 
-### Content rules
-
-Divider has no text. Section titles and descriptions live in sibling components.
-
 ## Reference
-
-### Anatomy
-
-<Anatomy
-  parts={[
-    {
-      name: "Rule",
-      description: "A span element styled with border stroke tokens.",
-    },
-  ]}
-/>
 
 ### Props
 
 <PropsTable component="Divider" />
 
-### Behaviors
+Horizontal dividers span the container width. Vertical dividers need a parent
+with defined height — rare in Studio Manager product code; Kaizen uses them in
+header action clusters and pagination.
 
-#### Responsiveness
-
-Horizontal dividers span the full width of their container. Vertical dividers
-need a parent with defined height — `min-h-full` stretches within flex rows.
-
-### Edge cases
-
-- **Vertical divider in auto-height parent** — may collapse to zero height; set
-  parent `align-stretch` or explicit min-height.
-- **Multiple adjacent dividers** — redundant; consolidate into one rule with
-  larger spacing.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-Divider renders as a `span` with `data-component="Kaizen-Divider"`. It is
-decorative — no role, label, or live region.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    {
-      keys: ["Tab"],
-      description: "Divider is not focusable and is skipped in tab order.",
-    },
-  ]}
-/>
-
-### Screen reader behavior
-
-Screen readers ignore decorative dividers. Section structure must come from
-headings (`h1`–`h6`) or `aria-labelledby` on landmarks.
-
-### Focus management
-
-Not applicable — non-interactive.
-
-### WCAG criteria
-
-- **1.4.3 Contrast (Minimum)** — stroke uses `stroke-divider` token against surfaces.
-- **4.1.2 Name, Role, Value** — not applicable for decorative separators.
+The component renders a decorative `span` with no ARIA role. Section structure
+must come from headings or landmarks — not from the divider itself.
 
 ## Resources
 
-### Storybook
-
-[Open Divider in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-divider--primary)
-
-### Related components
-
-- **[Collapse](/components/collapse)** — hides content instead of only marking a boundary.
-- **[Card](/components/card)** — often provides built-in section spacing without extra rules.
-- **[Menu](/components/menu)** — includes divider items for grouped actions.
+- [Storybook — Divider](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-divider--primary)
+- [Table](/components/table) — built-in row dividers
+- [Menu](/components/menu) — grouped actions with divider items
+- [Collapse](/components/collapse) — hide content instead of only marking a boundary

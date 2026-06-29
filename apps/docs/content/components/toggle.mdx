@@ -9,13 +9,12 @@ sections:
   - "Overview"
   - "Guidelines"
   - "Reference"
-  - "Accessibility"
   - "Resources"
 ---
 
 ## Overview
 
-Toggle switches a boolean setting the moment the user flips it — the parent
+Toggle switches a boolean setting as soon as the user changes it — the parent
 handles `onToggleChange` and typically persists or applies the new state right
 away. Use it for live preferences (notifications, feature flags on a detail
 page). Use [Checkbox](/components/checkbox) when the user must confirm with
@@ -28,32 +27,13 @@ Save or Submit.
   stories={[{ id: "primitive-components-toggle--primary", label: "Toggle" }]}
 />
 
-### Use cases
-
-- **Feature enablement** — turn Wellpass or a partnership aggregator on for a
-  session; saves on toggle via API.
-- **Notification preferences** — email vs SMS channel switches on staff settings.
-- **Visibility gates** — show optional sub-fields when "Custom schedule" is on.
-- **Access control** — enable door access for a member pass without a modal
-  confirm step.
-- **Inline list filters** — quick active/inactive filters where the list updates
-  immediately.
-
 ## Guidelines
 
 <DoDont>
-  <Do caption="Label what is on when checked — 'Auto-renew membership' — and persist in onToggleChange." />
-  <Do caption="Disable the toggle when the user lacks permission, with helper text explaining why." />
   <Do caption="Show dependent fields only when checked, indented under the toggle row." />
-  <Dont caption="Modals that still need Save work better with Checkbox — Toggle implies immediate persistence." />
-  <Dont caption="Many toggles without section headings blur related settings — group them with headings or spacing." />
-  <Dont caption="When the API fails, revert checked and surface errorText or a toast so the flip does not feel successful." />
-  <Do caption="Immediate effect — wire `onToggleChange` to persist or update UI state; do not wait for a form footer." />
-  <Do caption="Sensible default — set `checked` to the state users expect in production so most sessions need zero toggles." />
-  <Do caption='Positive labels — describe what is on when checked: "Online booking enabled", not "Disable online booking".' />
-  <Do caption="Nested fields — indent related inputs below an enabled toggle; align spacing with surrounding form sections until a shared indent token ships." />
-  <Dont caption="Not for submit forms — legal consent and invoice options that need Confirm belong on Checkbox." />
-  <Do caption="Error sparingly — toggles rarely fail validation; use `errorText` only when the server rejects the last toggle attempt." />
+  <Do caption="Revert `checked` and surface `errorText` or a toast when the API fails." />
+  <Dont caption="Settings the user confirms with Save or Submit belong on Checkbox, not Toggle." />
+  <Dont caption="Terms, consent, and checkout opt-ins belong on Checkbox, not Toggle." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -62,22 +42,6 @@ Avoid vague labels like "Enable" without naming the setting — pair the verb wi
 the feature: "Online booking", "SMS reminders".
 
 </Callout>
-
-### Content rules
-
-Labels are short, active phrases in sentence case.
-
-> Send booking reminders
-
-> Allow waitlist signups
-
-Helper when the effect is non-obvious:
-
-> Members can join when the class is full.
-
-Error when save fails:
-
-> Could not update this setting. Try again.
 
 ## Reference
 
@@ -94,15 +58,6 @@ Error when save fails:
       label: "Label",
       description: "Required `label` linked via `htmlFor` / `id`.",
     },
-    {
-      label: "Helper text",
-      description: "Optional `helperText` below the label row.",
-    },
-    {
-      label: "Error text",
-      description:
-        "Optional `errorText`; critical track styling and `aria-invalid`.",
-    },
   ]}
 />
 
@@ -112,101 +67,18 @@ Error when save fails:
 
 ### Behaviors
 
-#### Toggle action
-
-`onToggleChange(boolean)` fires on each flip. Parent owns `checked` and updates
-it after a successful save (or optimistically with rollback on failure).
-
-#### Persistence
-
-Controlled component — no internal checked state beyond the native input mirror.
-
-#### Responsiveness
-
-`direction=\"end\"` places the track on the right for dense settings rows.
-
-### Edge cases
-
-#### Failed save
-
-If the API errors, set `checked` back to the prior value and surface
-`errorText` or a [Toast](/components/toast).
-
-#### Disabled mid-request
-
-Disable while a save is in flight to prevent double toggles.
-
-#### Missing label
-
-`label` is required in the type definition — always provide one for a11y.
-
-## Accessibility
-
-### ARIA roles & attributes
-
-- **Implementation note** — uses `type=\"checkbox\"` and `role=\"checkbox\"`, not
-  `role=\"switch\"`. Screen readers announce it as a checkbox.
-- **`aria-checked`** — mirrors `checked`.
-- **`aria-invalid`** — set when `errorText` is present.
-- **`aria-required`** — mirrors `required`.
-
-### Keyboard navigation
-
-<Accessibility
-  keyboard={[
-    { keys: ["Tab"], description: "Focus the toggle input." },
-    {
-      keys: ["Space"],
-      description: "Flip checked state and fire onToggleChange.",
-    },
-  ]}
-/>
-
-### Screen reader behavior
-
-Announces label and checked state as a checkbox. Consider helper text content
-in the label area for critical context.
-
-### Focus management
-
-Focus remains on the input after toggle. Dependent fields below receive focus
-only when the user tabs forward.
-
-### WCAG criteria
-
-- **1.4.3 Contrast (Minimum)** — track on/off and error states use action tokens.
-- **2.1.1 Keyboard** — operable with Space and Tab.
-- **4.1.2 Name, Role, Value** — name from label; state from `aria-checked`.
+`onToggleChange(boolean)` fires on each change. Parent owns `checked`.
+`direction="end"` places the track on the right for dense settings rows.
 
 ## Resources
 
-### Storybook
-
-[Open Toggle in Storybook](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-toggle--primary)
-
-Source: `packages/design-system/kaizen/primitive/core/src/components/Toggle`
-
-### Related components
-
-- [Checkbox](/components/checkbox) — deferred binary choice on form submit.
-- [Radio](/components/radio) — pick one of several visible options.
-- [Shared form guidelines](/components/shared-form-guidelines) — label and
-  helper conventions.
+- [Storybook — Toggle](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-toggle--primary)
+- [Checkbox](/components/checkbox) — deferred binary choice on form submit
+- [Radio](/components/radio) — pick one of several visible options
+- [Shared form guidelines](/components/shared-form-guidelines)
 
 ### Known issues
 
-#### Tracked in Linear
-
-- [KAI-583](https://linear.app/bsport/issue/KAI-583/improve-toggle-and-radio-with-custom-children) — Improve toggle and radio with custom children (Backlog).
-- [KAI-589](https://linear.app/bsport/issue/KAI-589/create-a-new-token-for-toggle-related-fields-indentation) — Create a new token for Toggle related fields indentation (Scoping).
-
-#### Implementation gaps
-
-- **`role=\"switch\"` not used** — component renders as checkbox semantics; docs
-  describe a toggle pattern but AT announces "checkbox".
-- **No built-in nested field slot** — unlike RadioGroup `children`, dependent
-  fields are composed manually in product code.
-
-#### Design or API debt
-
-- **Readonly** — not available yet ([KAI-453](https://linear.app/bsport/issue/KAI-453)).
+- Uses `role="checkbox"`, not `role="switch"` — screen readers announce "checkbox".
+- No built-in nested field slot — compose dependent fields manually.
+- [KAI-583](https://linear.app/bsport/issue/KAI-583), [KAI-589](https://linear.app/bsport/issue/KAI-589)

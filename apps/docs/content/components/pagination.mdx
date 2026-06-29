@@ -1,6 +1,6 @@
 ---
-title: Pagination [LLM]
-description: Page controls for long collections with page size and total count
+title: Pagination
+description: Internal page bar for List and Table — rows-per-page, range summary, and page controls
 status: stable
 category: components
 tags: [data, navigation]
@@ -15,9 +15,14 @@ sections:
 
 ## Overview
 
-Pagination navigates paged data sets — members, transactions, templates. It shows
-current page, next/previous controls, and handles large totals (including 1000+ items).
-Embed at the bottom of [List](/components/list) or [Table](/components/table) views.
+Pagination is a **private primitive**. Product code wires it through
+[paginationProps on List](/components/list) or
+[paginationProps on Table](/components/table) — do not import it directly.
+
+The bar shows an optional rows-per-page selector, a range summary, and page
+navigation (first, previous, numbered pages with ellipsis, next, last). The
+parent owns fetching: pass the current page slice in rows and keep
+`totalItems` in sync with the backend.
 
 <StorybookEmbed
   id="primitive-components-private-pagination--pagination"
@@ -30,44 +35,38 @@ Embed at the bottom of [List](/components/list) or [Table](/components/table) vi
     },
     {
       id: "primitive-components-private-pagination--more-than-a-thousand-items",
-      label: "Large totals",
+      label: "Page numbers above 999",
     },
   ]}
 />
 
-### Use cases
+<Callout type="warning" title="Prefer List or Table">
 
-- **Member list footer** — page through thousands of profiles.
-- **Invoice history** — finance table pagination with stable sort.
-- **Audit logs** — sequential pages of immutable events.
-- **Search results** — sync page index with URL query param.
-- **Modal pickers** — compact pagination in selector dialogs.
+Pass `paginationProps` on [List](/components/list) or [Table](/components/table).
+The parent fetches each page and passes the slice in `rows`; Pagination only
+renders controls.
+
+</Callout>
 
 ## Guidelines
 
+- **Parent owns data** — changing page or rows per page triggers a new fetch; Pagination does not slice rows.
+- **Hide on single page** — page controls render only when `totalPages > 1`.
+- **Match backend totals** — `totalItems` must reflect the server count, not the current slice length.
+- **Reset on filter change** — jump to page 1 when filters or search change materially.
+
+### Best practices
+
+#### General
+
 <DoDont>
-  <Do caption="Reset to page 1 when filters change materially." />
-  <Do caption="Scroll list header into view after page change on long pages." />
-  <Do caption="Disable prev/next at boundaries instead of hiding controls." />
-  <Dont caption="Infinite scroll plus pagination on the same list." />
-  <Dont caption="Page numbers that do not match backend total count." />
-  <Dont caption="Pagination on sets smaller than one page — hide control." />
-  <Do caption="Sync with data fetch — changing page triggers new query with offset/limit." />
-  <Do caption="Show total when helpful — users gauge result set size." />
-  <Do caption="Disable during load — prevent double page jumps while fetching." />
-  <Do caption="Preserve sort and filters — page changes must not reset facet state." />
-  <Do caption="Default page size — match API default; offer size change only if product supports it." />
+  <Do caption="Wire pagination through List or Table paginationProps." />
+  <Do caption="Reset to page 1 when filters or search change materially." />
+  <Do caption="Disable controls while the next page is loading." />
+  <Dont caption="Importing Pagination directly in product views." />
+  <Dont caption="Infinite scroll and pagination on the same collection." />
+  <Dont caption="totalItems that does not match the backend result count." />
 </DoDont>
-
-### Content rules
-
-Controls use familiar labels:
-
-> Previous
-
-> Next
-
-> Page 3 of 12
 
 ## Reference
 
@@ -76,11 +75,27 @@ Controls use familiar labels:
 <Anatomy
   parts={[
     {
-      name: "Previous control",
-      description: "Goes to prior page when available.",
+      name: "Rows selector (optional)",
+      description:
+        "Select for rows per page when showRowsPerPageSelector is true. Hidden on small breakpoints.",
     },
-    { name: "Page indicator", description: "Current page and total pages." },
-    { name: "Next control", description: "Advances when more data exists." },
+    {
+      name: "Range summary",
+      description: "Showing current slice count of totalItems.",
+    },
+    {
+      name: "First and previous",
+      description: "Icon buttons; disabled on page 1.",
+    },
+    {
+      name: "Page numbers",
+      description:
+        "Numbered buttons with ellipsis when pages exceed maxVisiblePages.",
+    },
+    {
+      name: "Next and last",
+      description: "Icon buttons; disabled on the final page.",
+    },
   ]}
 />
 
@@ -90,20 +105,37 @@ Controls use familiar labels:
 
 ### Behaviors
 
+#### Data flow
+
+List and Table render Pagination when `paginationProps` is set. Callbacks
+(`onPageChange`, `onRowsPerPageChange`, or combined `onPageSettingsChange`) notify
+the parent to fetch and pass updated rows.
+
 #### Persistence
 
-Page index should live in URL or store for back-navigation recovery.
+Page index and rows-per-page preference are consumer concerns — URL query params
+or store state for back-navigation recovery.
+
+#### Responsiveness
+
+Below the `sm` breakpoint, `maxVisiblePages` defaults to 6 and the rows selector
+is hidden. Pass `maxVisiblePages` to override on any breakpoint.
 
 ### Edge cases
 
-- **More than 1000 items** — formatting and abbreviated totals per story behavior.
-- **Empty page after delete** — jump to last valid page when current becomes empty.
+- **Page numbers above 999** — button labels shorten to `..XX`; tooltip shows the full page number.
+- **Current page out of range** — component clamps to the nearest valid page via callback.
+- **Empty page after delete** — parent should move to the last valid page; clamping handles stale indices.
+- **Invalid totals** — returns null when `totalItems <= 0` or `rowsPerPage <= 0`.
 
 ## Accessibility
 
 ### ARIA roles & attributes
 
-Nav region with `aria-label` "Pagination"; current page indicated programmatically.
+First, previous, next, and last controls are icon buttons with visible labels passed
+as `aria-label` (e.g. "Previous page"). Each page number button sets
+`aria-label="Page N"`. The active page is styled visually; there is no
+`aria-current="page"` attribute today.
 
 ### Keyboard navigation
 
@@ -111,24 +143,27 @@ Nav region with `aria-label` "Pagination"; current page indicated programmatical
   keyboard={[
     {
       keys: ["Tab"],
-      description: "Focuses previous, page info, and next controls.",
+      description:
+        "Moves through rows selector, page buttons, and navigation icons.",
     },
-    { keys: ["Enter", "Space"], description: "Activates page change buttons." },
+    { keys: ["Enter", "Space"], description: "Activates the focused control." },
   ]}
 />
 
 ### Screen reader behavior
 
-Announce new page content when list region updates (polite live region optional).
+Icon navigation buttons announce their label on focus. Abbreviated page labels
+(above 999) still expose the full page number in `aria-label`.
 
 ### Focus management
 
-Optional: move focus to list heading after page change.
+Focus stays on the control that triggered the page change. Optionally move focus
+to the list or table heading after a page change on long views.
 
 ### WCAG criteria
 
-- **2.1.1 Keyboard** — change pages without pointer.
-- **4.1.2 Name, Role, Value** — buttons name destination (Next page).
+- **2.1.1 Keyboard** — all controls reachable and activatable without a pointer.
+- **4.1.2 Name, Role, Value** — every control has an accessible name.
 
 ## Resources
 
@@ -138,6 +173,6 @@ Optional: move focus to list heading after page change.
 
 ### Related components
 
-- **[List](/components/list)** — common parent with built-in pagination slot.
-- **[Table](/components/table)** — tabular paging.
-- **[Filter](/components/filter)** — changing filters resets page index.
+- **[List](/components/list)** — renders Pagination via `paginationProps`.
+- **[Table](/components/table)** — renders Pagination below the table via `paginationProps`.
+- **[Filter](/components/filter)** — filter changes should reset page index to 1.

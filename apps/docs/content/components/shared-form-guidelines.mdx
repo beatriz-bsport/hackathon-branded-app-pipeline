@@ -1,6 +1,6 @@
 ---
 title: Shared form guidelines
-description: Shared label, helper, error, and required patterns across Kaizen form controls
+description: Field anatomy, form integration with @bsport/form, validation, and Kaizen Form* wrappers
 category: components
 sections:
   - "Overview"
@@ -17,23 +17,32 @@ helper text, and validation feedback. Use these conventions so Studio Manager
 forms read consistently and behave predictably for keyboard and screen reader
 users.
 
+Studio Manager wires **@bsport/form** (and related schemas) to Kaizen inputs —
+[Text field](/components/text-field), [Select](/components/select), business
+`Form*` fields, and submit/error handling. There is no single `Form` primitive;
+composition happens in app and business component layers.
+
 See the individual component pages for control-specific behaviour:
 [Checkbox](/components/checkbox), [Radio](/components/radio),
 [Toggle](/components/toggle), [Text field](/components/text-field),
 [Select](/components/select), and [Autocomplete](/components/autocomplete).
 
-### Use cases
-
-- **Modal and drawer forms** — stack labelled fields with helper text for
-  one-off tasks such as creating a tag or editing staff details.
-- **Detail page sections** — group related fields under section headings while
-  keeping per-field labels visible.
-- **Validation feedback** — pair `errorText` or `statusText` with the matching
-  `status` / `errorText` prop after submit or blur.
-- **Required fields** — mark mandatory inputs with `required` so the asterisk
-  renders consistently via the shared `Label` component.
-- **Progressive disclosure** — nest conditional fields below a
-  [Toggle](/components/toggle) or selected [Radio](/components/radio) option.
+<StorybookEmbed
+  id="business-form-formtoggle--default"
+  mode="playground"
+  height={500}
+  stories={[
+    { id: "business-form-formtoggle--default", label: "Form toggle field" },
+    {
+      id: "business-form-formnumberfield--default",
+      label: "Form number field",
+    },
+    {
+      id: "business-form-formmediafield--default",
+      label: "Form media field",
+    },
+  ]}
+/>
 
 ## Guidelines
 
@@ -46,7 +55,6 @@ See the individual component pages for control-specific behaviour:
   <Dont caption="Error styling before first interaction misleads users — wait until submit unless the form was already submitted." />
   <Do caption="Label every control — every interactive field needs a visible label linked with `htmlFor` / `id`; placeholders are hints, not labels." />
   <Do caption="One error per field — surface a single actionable message below the control; avoid stacking helper and error text that repeat the same idea." />
-  <Do caption="Pick the right control — binary immediate settings use `Toggle`; deferred multi-select uses `Checkbox`; single choice from a short list uses `Radio` or `Select`." />
 </DoDont>
 
 <Callout type="warning" title="Caution">
@@ -62,22 +70,24 @@ label.
 Write labels in sentence case without a trailing colon. Helper and error text
 use present tense, plain language, and say what to do next.
 
-**Label**
+**Label** — Member email
 
-> Member email
+**Helper** — We send booking confirmations to this address.
 
-**Helper text**
+**Error** — Enter a valid email address.
 
-> We send booking confirmations to this address.
+**Required** — pass `required={true}`; the label shows an asterisk via `Label`.
 
-**Error text**
+### Form integration
 
-> Enter a valid email address.
-
-**Required field** — pass `required={true}`; the label shows an asterisk via
-`Label`.
-
-> Sport type \*
+<DoDont>
+  <Do caption="Reuse business Form* components before wiring primitives manually." />
+  <Do caption="Schema is source of truth — zod (or equivalent) drives validation messages." />
+  <Do caption="Errors at field — form-level summary only for non-field errors." />
+  <Do caption="Reset dirty state after successful save and show Toast confirmation." />
+  <Dont caption="Browser alert() for validation — use inline field errors." />
+  <Dont caption="Mixing uncontrolled and controlled fields in one form without documentation." />
+</DoDont>
 
 ## Reference
 
@@ -142,6 +152,16 @@ a greyscale recolour.
 
 Checkbox, Toggle, and each Radio option support `direction=\"start\"` (control
 left) or `\"end\"` (control right). Default is `start`.
+
+### Form integration
+
+Business form fields live under
+`packages/design-system/kaizen/business/src/components/form/`. Field-level props
+are documented on each input component — for example
+[File upload](/components/file-upload) for `FormMediaField`.
+
+Map API field errors onto form fields on server validation failure. Split
+schemas per step in [Stepper](/components/stepper) flows.
 
 ## Accessibility
 
@@ -208,7 +228,16 @@ it in the tab order immediately after the controlling field.
 Shared patterns are demonstrated on each primitive story — start with
 [Text field](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/primitive-components-textfield--text-field-basic).
 
+Business `Form*` wrappers:
+
+- [Form toggle field](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/business-form-formtoggle--default)
+- [Form number field](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/business-form-formnumberfield--default)
+- [Form media field](https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/story/business-form-formmediafield--default)
+
 ### Related components
+
+- [Label](/components/label) — shared label primitive for field anatomy.
+- [Stepper](/components/stepper) — multi-step flows; split schemas per step.
 
 - [Checkbox](/components/checkbox) — multi-select and deferred binary choices
   submitted with a form action.

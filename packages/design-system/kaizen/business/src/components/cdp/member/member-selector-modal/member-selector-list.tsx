@@ -5,15 +5,21 @@ import { List } from "@bsport/kaizen-primitive-core";
 import type { Fetch } from "@bsport/store-base";
 
 import { useSearchMembers } from "#src/components/cdp/member/hooks/use-search-members";
-import { i18nInstance, useTranslation } from "#src/i18n";
 
 import { getMemberListItems } from "./member-list-items";
+
+type MemberSelectorListTexts = {
+  emptyState: string;
+  emptySearch: string;
+  loading: string;
+};
 
 type MemberSelectorListProps = {
   fetch: Fetch<Member[]>;
   searchInput: string;
   onSelect: (member: Member) => void;
   onOpenProfile: (memberId: number) => void;
+  texts: MemberSelectorListTexts;
   selectedMemberId?: number;
 };
 
@@ -22,10 +28,9 @@ export const MemberSelectorList: React.FC<MemberSelectorListProps> = ({
   searchInput,
   onSelect,
   onOpenProfile,
+  texts,
   selectedMemberId,
 }) => {
-  const { t } = useTranslation("cdp", { i18n: i18nInstance });
-
   const listId = useId();
 
   const { isLoading, hasSearchResultEmpty, hasSearchResult, members } =
@@ -53,17 +58,17 @@ export const MemberSelectorList: React.FC<MemberSelectorListProps> = ({
           isEmpty: isEmpty,
           emptyConfig: {
             title: "",
-            subtitle: t("memberSelectorModal.emptyState"),
+            subtitle: texts.emptyState,
           },
           isEmptySearch: hasSearchResultEmpty,
           emptySearchConfig: {
             title: "",
-            subtitle: t("memberSelectorModal.emptySearch"),
+            subtitle: texts.emptySearch,
           },
         }}
         loadingProps={{
           isLoading: isLoading,
-          message: t("memberSelectorModal.loading"),
+          message: texts.loading,
         }}
         className="h-full"
       />

@@ -5,15 +5,25 @@ import { Modal, TextField } from "@bsport/kaizen-primitive-core";
 import type { Fetch } from "@bsport/store-base";
 
 import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
-import { i18nInstance, useTranslation } from "#src/i18n";
 
 import { MemberSelectorList } from "./member-selector-list";
+
+type MemberSelectorModalTexts = {
+  title: string;
+  cancel: string;
+  selectMember: string;
+  searchPlaceholder: string;
+  emptyState: string;
+  emptySearch: string;
+  loading: string;
+};
 
 export type MemberSelectorModalProps = {
   fetch: Fetch<Member[]>;
   isOpen: boolean;
   onClose: () => void;
   onSelect: (member: Member) => void;
+  texts: MemberSelectorModalTexts;
   onOpenProfile?: (memberId: number) => void;
 };
 
@@ -23,8 +33,8 @@ export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
   onClose,
   onSelect,
   onOpenProfile,
+  texts,
 }) => {
-  const { t } = useTranslation("cdp", { i18n: i18nInstance });
   const track = useCheckoutFlowTrack();
 
   const [searchInput, setSearchInput] = useState("");
@@ -119,19 +129,19 @@ export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
     <Modal
       size="lg"
       open={isOpen}
-      title={t("memberSelectorModal.title")}
+      title={texts.title}
       onClose={handleEscapeClose}
       onCloseButtonClick={handleCloseCross}
       onClickOutside={handleClickOutsideClose}
       confirmButton={{
         color: "main",
-        label: t("memberSelectorModal.selectMember"),
+        label: texts.selectMember,
         type: "button",
         onClick: handleConfirm,
         disabled: !selectedMember,
       }}
       cancelButton={{
-        label: t("memberSelectorModal.cancel"),
+        label: texts.cancel,
         onClick: handleCloseCancel,
       }}
     >
@@ -147,7 +157,7 @@ export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
             setSearchInput(e.target.value.trim());
           }}
           onClear={() => setSearchInput("")}
-          placeholder={t("memberSelectorModal.searchPlaceholder")}
+          placeholder={texts.searchPlaceholder}
         />
         <MemberSelectorList
           fetch={fetch}
@@ -155,6 +165,7 @@ export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
           onSelect={handleSelect}
           onOpenProfile={handleOpenProfile}
           selectedMemberId={selectedMember?.id}
+          texts={texts}
         />
       </div>
     </Modal>

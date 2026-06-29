@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Member } from "@bsport/api-cdp/member";
 import { Button } from "@bsport/kaizen-primitive-core";
 
+import { i18nInstance, useTranslation } from "#src/i18n";
 import { fetch } from "#src/utils/fetch";
 
 import { MemberSelectorModal } from "./member-selector-modal";
@@ -29,16 +30,31 @@ import { MemberSelectorModal } from "@bsport/kaizen-business-components/cdp/memb
 
 const metaSourceCode = `
 import { MemberSelectorModal } from "@bsport/kaizen-business-components/cdp/member/member-selector-modal";
-
+import { i18nInstance, useTranslation } from "#src/i18n";
 import { fetch } from "#src/utils/fetch";
 
-<MemberSelectorModal
-  fetch={fetch}
-  isOpen={isOpen}
-  onClose={() => setIsOpen(false)}
-  onSelect={(member) => { /* handle selection */ }}
-  onOpenProfile={(memberId) => window.open(\`/member/\${memberId}/info\`, "_blank")}
-/>
+const MyComponent = () => {
+  const { t } = useTranslation("cdp", { i18n: i18nInstance });
+
+  return (
+    <MemberSelectorModal
+      fetch={fetch}
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      onSelect={(member) => { /* handle selection */ }}
+      onOpenProfile={(memberId) => window.open(\`/member/\${memberId}/info\`, "_blank")}
+      texts={{
+        title: t("memberSelectorModal.title"),
+        cancel: t("memberSelectorModal.cancel"),
+        selectMember: t("memberSelectorModal.selectMember"),
+        searchPlaceholder: t("memberSelectorModal.searchPlaceholder"),
+        emptyState: t("memberSelectorModal.emptyState"),
+        emptySearch: t("memberSelectorModal.emptySearch"),
+        loading: t("memberSelectorModal.loading"),
+      }}
+    />
+  );
+};
 `;
 
 const meta: Meta<MemberSelectorModalComponent> = {
@@ -59,6 +75,7 @@ const meta: Meta<MemberSelectorModalComponent> = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+    const { t } = useTranslation("cdp", { i18n: i18nInstance });
 
     return (
       <>
@@ -95,6 +112,15 @@ const meta: Meta<MemberSelectorModalComponent> = {
               console.log(`Would open /member/${memberId}/info in a new tab`);
             }
           }}
+          texts={{
+            title: t("memberSelectorModal.title"),
+            cancel: t("memberSelectorModal.cancel"),
+            selectMember: t("memberSelectorModal.selectMember"),
+            searchPlaceholder: t("memberSelectorModal.searchPlaceholder"),
+            emptyState: t("memberSelectorModal.emptyState"),
+            emptySearch: t("memberSelectorModal.emptySearch"),
+            loading: t("memberSelectorModal.loading"),
+          }}
         />
       </>
     );
@@ -129,6 +155,43 @@ Provide the fetch instance from your app (e.g. from src/utils/fetch).
 | \`isOpen\` | Controls modal visibility |
 | \`onClose\` | Called when the modal is closed (cancel, outside click, or after select) |
 | \`onSelect\` | Called with the selected \`Member\` when the user confirms |
+| \`texts\` | Object containing all translatable strings for the modal |
+
+---
+
+### Texts prop structure
+
+The \`texts\` prop is an object containing all user-facing strings:
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| \`title\` | Modal title | "Select a client" |
+| \`cancel\` | Cancel button label | "Close" |
+| \`selectMember\` | Confirm button label | "Select client" |
+| \`searchPlaceholder\` | Search input placeholder | "Search clients..." |
+| \`emptyState\` | Empty state message (no search) | "Choose a client to create an invoice" |
+| \`emptySearch\` | Empty search results message | "No clients found" |
+| \`loading\` | Loading message | "Loading clients..." |
+
+Example usage:
+\`\`\`tsx
+const { t } = useTranslation("cdp", { i18n: i18nInstance });
+
+<MemberSelectorModal
+  texts={{
+    title: t("memberSelectorModal.title"),
+    cancel: t("memberSelectorModal.cancel"),
+    selectMember: t("memberSelectorModal.selectMember"),
+    searchPlaceholder: t("memberSelectorModal.searchPlaceholder"),
+    emptyState: t("memberSelectorModal.emptyState"),
+    emptySearch: t("memberSelectorModal.emptySearch"),
+    loading: t("memberSelectorModal.loading"),
+  }}
+  // ... other props
+/>
+\`\`\`
+
+---
 
 ### Optional props
 

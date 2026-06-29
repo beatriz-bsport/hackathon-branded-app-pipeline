@@ -21,6 +21,8 @@ import {
   SessionColumns,
 } from "#src/types";
 
+import { migrateLegacyRangeView } from "./selection";
+
 export interface SessionTabState {
   showCancelled: boolean;
   filters: FilterElementState[];
@@ -79,7 +81,7 @@ export const getInitialState = (): CalendarState => {
 // Custom storage that handles DateTime serialization
 const customStorage = createJSONStorage(() => localStorage, {
   reviver: (key: string, value: unknown) => {
-    if (value && ["date", "minDate", "maxDate"].includes(key)) {
+    if (value && ["date", "minDate", "maxDate", "anchor"].includes(key)) {
       return fromIsoString(value as string);
     }
     return value;
@@ -93,6 +95,9 @@ export const calendarStore = createStore<CalendarState>()(
     persist(getInitialState, {
       name: "calendar-storage",
       storage: customStorage,
+      version: 1,
+      migrate: (persistedState) =>
+        migrateLegacyRangeView(persistedState as CalendarState),
     }),
   ),
 );

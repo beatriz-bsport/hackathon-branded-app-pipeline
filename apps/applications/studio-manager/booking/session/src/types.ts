@@ -101,12 +101,20 @@ export enum SeriesColumn {
 
 export enum CalendarView {
   DAILY = "daily",
-  RANGE = "range",
+  WEEKLY = "weekly",
+  MONTHLY = "monthly",
 }
 
 export type DateSelection =
   | { type: "single"; date: DateTime }
-  | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
+  | {
+      type: "range";
+      minDate: DateTime | null;
+      maxDate: DateTime | null;
+      // The day the user actually chose, preserved across view switches so a
+      // day -> week -> month -> day round-trip returns to it (not the range start).
+      anchor?: DateTime;
+    };
 
 export type SessionDateTimeFormValues = {
   duration_minute: number;

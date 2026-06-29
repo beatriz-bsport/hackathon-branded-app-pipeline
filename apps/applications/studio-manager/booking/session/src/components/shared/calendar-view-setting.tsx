@@ -15,7 +15,9 @@ type CalendarViewSettingProps = {
 };
 
 const isCalendarView = (value: string): value is CalendarView =>
-  value === CalendarView.DAILY || value === CalendarView.RANGE;
+  value === CalendarView.DAILY ||
+  value === CalendarView.WEEKLY ||
+  value === CalendarView.MONTHLY;
 
 export const CalendarViewSetting = ({
   onCalendarViewChange,
@@ -42,14 +44,19 @@ export const CalendarViewSetting = ({
       </Body>
       <SegmentedControl
         id="calendar-view"
+        fullWidth
         options={[
           {
             label: t("displaySettings.calendarView.options.daily"),
             value: CalendarView.DAILY,
           },
           {
-            label: t("displaySettings.calendarView.options.range"),
-            value: CalendarView.RANGE,
+            label: t("displaySettings.calendarView.options.weekly"),
+            value: CalendarView.WEEKLY,
+          },
+          {
+            label: t("displaySettings.calendarView.options.monthly"),
+            value: CalendarView.MONTHLY,
           },
         ]}
         onChangeValue={handleCalendarViewChange}

@@ -162,6 +162,20 @@ export const getWeekBounds = (
 };
 
 /**
+ * Gets the start and end of the month for a given date.
+ * Month bounds are not locale-dependent, so no locale param (unlike getWeekBounds).
+ *
+ * @param date - A DateTime representing any day in the month.
+ * @returns An object with start and end DateTime objects representing the month boundaries.
+ */
+export const getMonthBounds = (
+  date: DateTime,
+): { start: DateTime; end: DateTime } => ({
+  start: date.startOf("month"),
+  end: date.endOf("month"),
+});
+
+/**
  * Retrieves an array of localized month names.
  *
  * @param format - The format of the month name, either "long" or "short". Default is "long".

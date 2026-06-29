@@ -12,8 +12,8 @@
   "addSeries": "Add series",
   "dateNavigation": {
     "todayButton": "Today",
-    "previousButton": "Previous day",
-    "nextButton": "Next day"
+    "previousButton": "Previous",
+    "nextButton": "Next"
   },
   "moreActions": {
     "label": "More actions",
@@ -96,13 +96,14 @@
   },
   "displaySettings": {
     "displayedColumns": {
-      "label": "Show or hide columns"
+      "label": "Visible columns"
     },
     "calendarView": {
-      "label": "View",
+      "label": "Calendar view",
       "options": {
-        "daily": "By day",
-        "range": "Range"
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
       }
     },
     "showCancelledSessions": {

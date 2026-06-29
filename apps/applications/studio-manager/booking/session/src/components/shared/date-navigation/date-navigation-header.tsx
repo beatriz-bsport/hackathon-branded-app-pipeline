@@ -1,13 +1,12 @@
-import { modifyTime } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 
 import {
   selectCalendarView,
   selectSelectedDate,
-  setUniqueDate,
+  setAnchorDate,
   useCalendarStore,
 } from "#src/stores/calendar";
-import { CalendarView } from "#src/types";
+import { getSteppedAnchor } from "#src/stores/calendar/selection";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CalendarDatePicker } from "./calendar-date-picker";
@@ -27,32 +26,14 @@ export const DateNavigationHeader = ({
   const { t } = useTranslation("sessionList");
   const calendarView = useCalendarStore(selectCalendarView);
   const selectedDate = useCalendarStore(selectSelectedDate);
-  const shouldDisplayNavigationButtons =
-    calendarView === CalendarView.DAILY && selectedDate.type === "single";
 
   const handlePreviousClick = () => {
-    if (!shouldDisplayNavigationButtons) {
-      return;
-    }
-    const previousDate = modifyTime({
-      datetime: selectedDate.date,
-      duration: { day: 1 },
-      operator: "minus",
-    });
-    setUniqueDate(previousDate);
+    setAnchorDate(getSteppedAnchor(calendarView, selectedDate, "minus"));
     onDateSelectionChange?.();
   };
 
   const handleNextClick = () => {
-    if (!shouldDisplayNavigationButtons) {
-      return;
-    }
-    const nextDate = modifyTime({
-      datetime: selectedDate.date,
-      duration: { day: 1 },
-      operator: "plus",
-    });
-    setUniqueDate(nextDate);
+    setAnchorDate(getSteppedAnchor(calendarView, selectedDate, "plus"));
     onDateSelectionChange?.();
   };
 
@@ -69,29 +50,25 @@ export const DateNavigationHeader = ({
         />
       </div>
       <div className="flex justify-center gap-xs">
-        {shouldDisplayNavigationButtons && (
-          <Button
-            icon="chevron-left"
-            onClick={handlePreviousClick}
-            label={t("dateNavigation.previousButton")}
-            kind="icon-button"
-            size="md"
-            intent="default"
-            color="main"
-          />
-        )}
+        <Button
+          icon="chevron-left"
+          onClick={handlePreviousClick}
+          label={t("dateNavigation.previousButton")}
+          kind="icon-button"
+          size="md"
+          intent="default"
+          color="main"
+        />
         <CalendarDatePicker onDateSelectionChange={onDateSelectionChange} />
-        {shouldDisplayNavigationButtons && (
-          <Button
-            icon="chevron-right"
-            onClick={handleNextClick}
-            label={t("dateNavigation.nextButton")}
-            kind="icon-button"
-            size="md"
-            intent="default"
-            color="main"
-          />
-        )}
+        <Button
+          icon="chevron-right"
+          onClick={handleNextClick}
+          label={t("dateNavigation.nextButton")}
+          kind="icon-button"
+          size="md"
+          intent="default"
+          color="main"
+        />
       </div>
     </div>
   );

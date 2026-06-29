@@ -9,7 +9,7 @@ export const sessionListViewedEventSchema = z
   .object({
     eventType: z.string().default("session_list_viewed"),
     calendar_view: z
-      .enum([CalendarView.DAILY, CalendarView.RANGE])
+      .enum([CalendarView.DAILY, CalendarView.WEEKLY, CalendarView.MONTHLY])
       .describe("The time interval for which sessions are displayed"),
     cancelled_sessions_displayed: z
       .boolean()
@@ -53,7 +53,7 @@ export const sessionListCalendarViewChangedEventSchema = z
   .object({
     eventType: z.string().default("session_list_calendar_view_changed"),
     calendar_view: z
-      .enum([CalendarView.DAILY, CalendarView.RANGE])
+      .enum([CalendarView.DAILY, CalendarView.WEEKLY, CalendarView.MONTHLY])
       .describe("The time interval for which sessions are displayed"),
   })
   .describe(

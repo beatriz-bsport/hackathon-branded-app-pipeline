@@ -1,4 +1,4 @@
-import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
+import { type DateTime } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
 import { DEFAULT_SERIES_COLUMNS } from "#src/constants";
@@ -16,74 +16,45 @@ import {
   SessionColumns,
 } from "#src/types";
 
+import {
+  deriveSelection,
+  getAnchorDate,
+  reSnapSelectionToLocale,
+} from "./selection";
 import { calendarStore } from "./store";
 
 // Shared actions (affect both tabs)
 
 export const setCalendarView = (calendarView: CalendarView) => {
-  calendarStore.setState((state) => {
-    const currentSelectedDate = state.selectedDate;
-    if (
-      calendarView === CalendarView.DAILY &&
-      currentSelectedDate.type === "range" &&
-      currentSelectedDate.minDate
-    ) {
-      return {
-        ...state,
-        calendarView,
-        selectedDate: {
-          type: "single",
-          date: currentSelectedDate.minDate,
-        },
-      };
-    }
-
-    if (
-      calendarView === CalendarView.RANGE &&
-      currentSelectedDate.type === "single"
-    ) {
-      const weekBounds = getWeekBounds(currentSelectedDate.date, state.locale);
-      return {
-        ...state,
-        calendarView,
-        selectedDate: {
-          type: "range",
-          minDate: weekBounds.start,
-          maxDate: weekBounds.end,
-        },
-      };
-    }
-
-    return {
-      ...state,
+  calendarStore.setState((state) => ({
+    calendarView,
+    selectedDate: deriveSelection(
       calendarView,
-    };
-  });
+      getAnchorDate(state.selectedDate),
+      state.locale,
+    ),
+  }));
 };
 
-export const setSelectedDate = (
-  date: DateTime | [DateTime | null, DateTime | null],
-) => {
-  if (Array.isArray(date)) {
-    calendarStore.setState({
-      selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },
-    });
-  } else {
-    calendarStore.setState({
-      selectedDate: { type: "single", date },
-    });
-  }
-};
-
-export const setUniqueDate = (date: DateTime) => {
-  calendarStore.setState({
-    calendarView: CalendarView.DAILY,
-    selectedDate: { type: "single", date },
-  });
+export const setAnchorDate = (date: DateTime) => {
+  calendarStore.setState((state) => ({
+    selectedDate: deriveSelection(state.calendarView, date, state.locale),
+  }));
 };
 
 export const setLocale = (locale: string) => {
-  calendarStore.setState({ locale });
+  calendarStore.setState((state) =>
+    state.locale === locale
+      ? { locale }
+      : {
+          locale,
+          selectedDate: reSnapSelectionToLocale(
+            state.calendarView,
+            state.selectedDate,
+            locale,
+          ),
+        },
+  );
 };
 
 // Tab-aware actions

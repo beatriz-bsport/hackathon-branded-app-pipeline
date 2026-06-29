@@ -1,16 +1,12 @@
-import { isSameDay } from "@bsport/datetime-manipulation";
 import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { useToday } from "#src/hooks/use-today";
 import {
-  selectCalendarView,
   selectSelectedDate,
-  setSelectedDate,
-  setUniqueDate,
+  setAnchorDate,
   useCalendarStore,
 } from "#src/stores/calendar";
-import { CalendarView } from "#src/types";
-import { isInRange } from "#src/utils/dates";
+import { isTodayInSelection } from "#src/stores/calendar/selection";
 import { useTranslation } from "#src/utils/i18n";
 import { scrollToDate } from "#src/utils/scroll";
 
@@ -29,39 +25,27 @@ export const TodayButton = ({
 }: TodayButtonProps) => {
   const { t } = useTranslation("sessionList");
   const today = useToday();
-  const calendarView = useCalendarStore(selectCalendarView);
   const selectedDate = useCalendarStore(selectSelectedDate);
 
   const handleTodayClick = () => {
     if (behavior === "select-day") {
-      setUniqueDate(today);
+      setAnchorDate(today);
       onDateSelectionChange?.();
       return;
     }
 
-    if (calendarView === CalendarView.DAILY && selectedDate.type === "single") {
-      const selectedDateTime = selectedDate.date;
-      if (!isSameDay(selectedDateTime, today)) {
-        setSelectedDate(today);
-        onDateSelectionChange?.();
+    if (isTodayInSelection(selectedDate, today)) {
+      if (onScrollToNow) {
+        onScrollToNow();
       } else {
-        onScrollToNow?.();
+        scrollToDate(today);
       }
       return;
     }
-    if (calendarView === CalendarView.RANGE && selectedDate.type === "range") {
-      if (isInRange(today, selectedDate.minDate, selectedDate.maxDate)) {
-        if (onScrollToNow) {
-          onScrollToNow();
-        } else {
-          scrollToDate(today);
-        }
-        return;
-      }
 
-      setUniqueDate(today);
-      onDateSelectionChange?.();
-    }
+    // Jump to the unit containing today in the active view (view unchanged).
+    setAnchorDate(today);
+    onDateSelectionChange?.();
   };
 
   const isMobile = !useMatchMedia("sm");

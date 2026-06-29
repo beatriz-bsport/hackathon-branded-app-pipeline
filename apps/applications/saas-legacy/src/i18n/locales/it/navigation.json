@@ -179,8 +179,8 @@
     "banner": "Se non hai completato l'impostazione della contabilizzazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
   },
   "stripeCompliance": {
-    "banner": "Stripe richiede informazioni aggiornate entro il {{ date }}. Fai clic qui per verificarle.",
-    "bannerWithoutDate": "Stripe richiede informazioni aggiornate. Fai clic qui per verificarle.",
+    "banner": "Verifica Stripe richiesta entro il {{ date }}.",
+    "bannerWithoutDate": "Stripe richiede informazioni aggiornate.",
     "cta": {
       "company_settings": "Aggiorna le impostazioni della mia azienda",
       "none": "Verifica",
@@ -190,33 +190,34 @@
       "faqLink": "Hai bisogno di aiuto?",
       "genericImpact": "Se il problema non viene risolto, le funzionalità di pagamento e trasferimento potrebbero essere interessate.",
       "requirements": {
-        "associatedPerson": "Informazioni sul rappresentante legale dell'azienda",
-        "bankAccountOwnershipDocument": "Documento che conferma la titolarità del conto bancario per i trasferimenti",
-        "beneficialOwnershipDocument": "Documento che conferma la titolarità effettiva",
-        "businessProfile": "Profilo aziendale, come attività, sito web o contatto di assistenza",
+        "associatedPerson": "Rappresentante legale",
+        "bankAccountOwnershipDocument": "Documento del conto bancario",
+        "beneficialOwnershipDocument": "Documento dei titolari effettivi",
+        "businessProfile": "Profilo aziendale",
         "businessType": "Tipo di azienda",
         "companyAddress": "Indirizzo dell'azienda",
         "companyDetails": "Dati legali dell'azienda",
-        "companyDirectorshipDeclaration": "Conferma degli amministratori dell'azienda",
-        "companyDocuments": "Documenti di registrazione o licenza dell'azienda",
-        "companyOwnershipDeclaration": "Conferma della proprietà dell'azienda",
-        "companyTaxId": "Numero di identificazione fiscale dell'azienda",
+        "companyDirectorshipDeclaration": "Amministratori dell'azienda",
+        "companyDocuments": "Documenti aziendali",
+        "companyOwnershipDeclaration": "Proprietà dell'azienda",
+        "companyTaxId": "Codice fiscale aziendale",
         "companyVerificationDocument": "Documento di verifica dell'azienda",
         "externalAccount": "Dati del conto bancario per i trasferimenti (IBAN)",
         "individualDetails": "Informazioni di identità individuale",
         "other": "Informazioni di conformità aggiuntive",
         "statementDescriptor": "Descrizione del pagamento sull'estratto conto",
         "stripeSupportReview": "Informazioni aggiuntive richieste dal supporto Stripe",
-        "title": "Informazioni da aggiornare"
+        "title": "Da aggiornare:"
       },
       "restricted": {
         "description": "Stripe ha limitato il tuo account. Aggiorna le informazioni richieste per ripristinare tutte le funzionalità di pagamento.",
         "title": "Account Stripe limitato"
       },
       "restrictedSoon": {
-        "description": "Stripe richiede informazioni aggiornate entro il {{ date }} per mantenere il tuo account conforme.",
-        "descriptionWithoutDate": "Stripe richiede informazioni aggiornate per mantenere il tuo account conforme.",
-        "title": "Aggiornamento Stripe richiesto"
+        "description": "Stripe ha bisogno che tu aggiorni alcune informazioni entro il {{ date }} per mantenere attivi pagamenti e trasferimenti.",
+        "descriptionWithoutDate": "Stripe ha bisogno che tu aggiorni alcune informazioni per mantenere attivi pagamenti e trasferimenti.",
+        "title": "Verifica Stripe richiesta entro il {{ date }}",
+        "titleWithoutDate": "Verifica Stripe richiesta"
       }
     }
   },

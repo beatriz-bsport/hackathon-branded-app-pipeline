@@ -182,8 +182,8 @@
     "banner": "Click here to complete your billing set up and to activate online payments."
   },
   "stripeCompliance": {
-    "banner": "Stripe needs updated information before {{ date }}. Click here to review it.",
-    "bannerWithoutDate": "Stripe needs updated information. Click here to review it.",
+    "banner": "Stripe verification required before {{ date }}.",
+    "bannerWithoutDate": "Stripe needs updated information.",
     "cta": {
       "company_settings": "Update my company settings",
       "none": "Review",
@@ -193,33 +193,34 @@
       "faqLink": "Need help?",
       "genericImpact": "If this is not resolved, payment and payout functionality may be impacted.",
       "requirements": {
-        "associatedPerson": "Information about the company legal representative",
-        "bankAccountOwnershipDocument": "A document confirming ownership of the payout bank account",
-        "beneficialOwnershipDocument": "A document confirming beneficial ownership",
-        "businessProfile": "Business profile information, such as activity, website, or support contact",
+        "associatedPerson": "Legal representative details",
+        "bankAccountOwnershipDocument": "Bank account ownership document",
+        "beneficialOwnershipDocument": "Beneficial ownership document",
+        "businessProfile": "Business profile",
         "businessType": "Business type",
         "companyAddress": "Company address",
         "companyDetails": "Company legal details",
-        "companyDirectorshipDeclaration": "Confirmation of company directors",
-        "companyDocuments": "Company registration or license documents",
-        "companyOwnershipDeclaration": "Confirmation of company ownership",
-        "companyTaxId": "Company tax identification number",
+        "companyDirectorshipDeclaration": "Company directors",
+        "companyDocuments": "Company documents",
+        "companyOwnershipDeclaration": "Company ownership",
+        "companyTaxId": "Company tax ID",
         "companyVerificationDocument": "Company verification document",
         "externalAccount": "Payout bank account details (IBAN)",
         "individualDetails": "Individual identity information",
         "other": "Additional compliance information",
         "statementDescriptor": "Payment statement descriptor",
         "stripeSupportReview": "Additional information requested by Stripe Support",
-        "title": "Information to update"
+        "title": "What to update:"
       },
       "restricted": {
         "description": "Stripe has restricted your account. Please update the required information to restore full payment functionality.",
         "title": "Stripe account restricted"
       },
       "restrictedSoon": {
-        "description": "Stripe needs updated information before {{ date }} to keep your account compliant.",
-        "descriptionWithoutDate": "Stripe needs updated information to keep your account compliant.",
-        "title": "Stripe account update required"
+        "description": "Stripe needs you to update some information before {{ date }} to keep payments and payouts running.",
+        "descriptionWithoutDate": "Stripe needs you to update some information to keep payments and payouts running.",
+        "title": "Stripe verification required before {{ date }}",
+        "titleWithoutDate": "Stripe verification required"
       }
     }
   },

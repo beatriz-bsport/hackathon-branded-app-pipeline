@@ -1,0 +1,53 @@
+{
+  "description": "Een locatie groepeert vestigingen voor gedeelde marketing, verkoop en rapportage",
+  "create": {
+    "title": "Locatie aanmaken",
+    "submit": "Maken"
+  },
+  "edit": {
+    "title": "Locatie bewerken",
+    "submit": "Locatie bewerken"
+  },
+  "fields": {
+    "name": {
+      "label": "Naam",
+      "placeholder": "Voeg een locatienaam toe "
+    },
+    "venues": {
+      "label": "Toegewezen vestigingen",
+      "placeholder": "Zoek vestigingen..."
+    }
+  },
+  "errors": {
+    "required": "Dit veld kan niet leeg zijn",
+    "venuesRequired": "Selecteer minimaal één vestiging"
+  },
+  "cancel": "Sluiten",
+  "delete": "Locatie verwijderen",
+  "deleteModal": {
+    "title": "Locatie verwijderen?",
+    "confirm": "Verwijderen",
+    "cancel": "Behouden",
+    "alert": {
+      "blocking": "Deze locatie kan niet worden verwijderd om de volgende redenen:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Deze locatie wordt gebruikt in sommige website-widgets. Werk deze bij voordat je archiveert.",
+      "exclusiveCoaches": "Deze docenten zijn alleen gekoppeld aan deze locatie: {{names}}. Werk hun instellingen bij voordat je ze verwijdert."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Sommige medewerkers hebben instellingen die aan deze locatie zijn gekoppeld.",
+      "hasRelatedMarketplaceConfigs": "Sommige websitewidgets zijn gekoppeld aan deze locatie.",
+      "hasRelatedMarketingNotifications": "Sommige automatische berichten zijn gericht op deze locatie.",
+      "relatedCoaches": "Sommige docenten zijn gekoppeld aan deze locatie."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Locatie aangemaakt",
+    "createError": "Locatie kon niet worden aangemaakt. Probeer het opnieuw. ",
+    "updateSuccess": "Locatie bijgewerkt",
+    "updateError": "Locatie kon niet worden bijgewerkt. Probeer het opnieuw. ",
+    "deleteSuccess": "Locatie verwijderd",
+    "deleteError": "Locatie kon niet worden verwijderd. Probeer het opnieuw. "
+  }
+}

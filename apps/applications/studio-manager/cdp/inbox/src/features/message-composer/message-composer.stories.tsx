@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { type ChannelType } from "#src/components/channel/constants";
+import {
+  CHANNEL_TYPES,
+  type ChannelType,
+} from "#src/components/channel/constants";
 import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 import { MessageComposerChannelBar } from "./channel-bar/message-composer-channel-bar";
@@ -108,7 +111,7 @@ function ComposerPlayground({
           onChange={setPushBody}
         />
         <MessageComposerMessageField
-          channel="chat"
+          channel="in_app"
           value={chat}
           onChange={setChat}
         />
@@ -131,14 +134,14 @@ const meta: Meta<typeof ConnectedComposerPlayground> = {
     docs: {
       description: {
         component:
-          "Form-connected V1 message composer. Email uses plain subject/body fields; SMS and chat use body fields; push uses title/body. Send is a real form submit, with API behavior intentionally unimplemented for now.",
+          "Form-connected V1 message composer. Email uses plain subject/body fields; SMS and in_app use body fields; push uses title/body. Send is a real form submit, with API behavior intentionally unimplemented for now.",
       },
     },
   },
   argTypes: {
     defaultChannel: {
       control: "inline-radio",
-      options: ["email", "sms", "push", "chat"],
+      options: [...CHANNEL_TYPES],
     },
   },
   decorators: storybookDecorator,
@@ -164,7 +167,7 @@ export const Push: Story = {
 };
 
 export const Chat: Story = {
-  args: { defaultChannel: "chat" },
+  args: { defaultChannel: "in_app" },
 };
 
 export const WithNotice: Story = {

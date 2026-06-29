@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
+import { CHANNEL_TYPES } from "#src/components/channel/constants";
 import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 import { MessageComposer } from "../message-composer";
@@ -46,7 +47,7 @@ const meta: Meta<typeof MessageComposerMessageField> = {
   argTypes: {
     channel: {
       control: "inline-radio",
-      options: ["email", "sms", "push", "chat"],
+      options: [...CHANNEL_TYPES],
     },
   },
   decorators: storybookDecorator,
@@ -88,7 +89,7 @@ export const PushExpanded: Story = {
 };
 
 export const Chat: Story = {
-  args: { channel: "chat" },
+  args: { channel: "in_app" },
   render: (args) => <StatefulField {...args} />,
 };
 

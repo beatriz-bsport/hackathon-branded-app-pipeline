@@ -62,7 +62,7 @@ const PREVIEWS = [
 
 // Communication-kind codes mirroring bsport-django (0=email, 1=sms, 2=push,
 // 3=in_app). The list cycles through them to exercise every channel icon.
-const CHANNEL_CODES: InboxMessageChannelCode[] = [3, 0, 1, 2]; // chat(in_app), email, sms, push
+const CHANNEL_CODES: InboxMessageChannelCode[] = [3, 0, 1, 2]; // in_app, email, sms, push
 
 const pick = <T>(arr: T[], index: number): T => arr[index % arr.length];
 
@@ -150,7 +150,7 @@ const AUTOMATED_SOURCES: { source: InboxMessageSource; name: string }[] = [
   { source: "franchise-campaign", name: "Franchise newsletter" },
 ];
 
-const MESSAGE_CHANNELS: InboxChannel[] = ["chat", "email", "sms", "push"];
+const MESSAGE_CHANNELS: InboxChannel[] = ["in_app", "email", "sms", "push"];
 
 const titleForChannel = (
   channel: InboxChannel,
@@ -158,7 +158,7 @@ const titleForChannel = (
 ): string | null => {
   if (channel === "email") return pick(EMAIL_TITLES, index);
   if (channel === "push") return pick(PUSH_TITLES, index);
-  return null; // sms / chat are title-less
+  return null; // sms / in_app are title-less
 };
 
 const bodyForChannel = (channel: InboxChannel, index: number): string =>
@@ -186,18 +186,18 @@ export const makeInboxMessages = (count: number): InboxMessage[] => {
 
     return {
       id,
-      // Automated messages never go through the live `chat` channel.
-      channel: isAutomated && channel === "chat" ? "email" : channel,
+      // Automated messages never go through the live `in_app` channel.
+      channel: isAutomated && channel === "in_app" ? "email" : channel,
       // Automated messages are always outbound; manual ones alternate.
       sender: isAutomated ? "studio" : index % 2 === 0 ? "member" : "studio",
       source: isAutomated ? automated.source : "manual",
       sourceName: isAutomated ? automated.name : null,
       title: titleForChannel(
-        isAutomated && channel === "chat" ? "email" : channel,
+        isAutomated && channel === "in_app" ? "email" : channel,
         index,
       ),
       body: bodyForChannel(
-        isAutomated && channel === "chat" ? "email" : channel,
+        isAutomated && channel === "in_app" ? "email" : channel,
         index,
       ),
       // Each message is 6 minutes newer than the previous one.

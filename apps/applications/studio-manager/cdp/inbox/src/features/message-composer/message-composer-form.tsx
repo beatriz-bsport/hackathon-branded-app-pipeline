@@ -79,7 +79,7 @@ export function MessageComposerForm({
           <MessageComposerMessageField channel="push" />
         </FormField>
         <FormField<MessageComposerFormData, "chatBody"> name="chatBody">
-          <MessageComposerMessageField channel="chat" />
+          <MessageComposerMessageField channel="in_app" />
         </FormField>
         <MessageComposerFooter notice={notice}>
           <MessageComposerSendButton

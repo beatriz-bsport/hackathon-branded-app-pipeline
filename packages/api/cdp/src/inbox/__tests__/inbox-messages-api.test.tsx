@@ -123,7 +123,7 @@ describe("inboxMessagesInfiniteQueryOptions", () => {
   });
 
   it("ignores the seam when a channel filter is active", async () => {
-    const { result } = renderInboxMessagesQuery({ channel: "chat" });
+    const { result } = renderInboxMessagesQuery({ channel: "in_app" });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -132,7 +132,7 @@ describe("inboxMessagesInfiniteQueryOptions", () => {
     expect(firstPage?.firstUnreadId).toBeNull();
     expect(firstPage?.hasMoreAfter).toBe(false);
     expect(
-      firstPage?.messages.every((message) => message.channel === "chat"),
+      firstPage?.messages.every((message) => message.channel === "in_app"),
     ).toBe(true);
   });
 

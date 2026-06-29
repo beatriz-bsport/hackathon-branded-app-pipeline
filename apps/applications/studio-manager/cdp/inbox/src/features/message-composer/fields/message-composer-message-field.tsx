@@ -18,7 +18,7 @@ export type MessageComposerMessageFieldProps =
 
 /**
  * Multiline message input for any channel, picked by `channel`. Renders only
- * while its channel is active. Expanded shows the field label (chat has none).
+ * while its channel is active. Expanded shows the field label (in_app has none).
  * Channels with a character cap show a counter.
  */
 export function MessageComposerMessageField({
@@ -43,7 +43,7 @@ export function MessageComposerMessageField({
 
   const config = MESSAGE_FIELD_CONFIG[channel];
   const label =
-    expanded && channel !== "chat"
+    expanded && channel !== "in_app"
       ? t(`fields.${channel}.messageLabel`)
       : undefined;
   const showPlaceholder = !expanded || config.placeholderWhenExpanded;

@@ -7,8 +7,8 @@ import { BULLET } from "#src/features/thread-messages/constants";
 import { MessageBody } from "#src/features/thread-messages/message-body";
 import { useTranslation } from "#src/utils/i18n";
 
-/** Automated messages go out via email/sms/push — never the live `chat` channel. */
-export type AutomatedMessageChannel = Exclude<ChannelType, "chat">;
+/** Automated messages go out via email/sms/push — never the live `in_app` channel. */
+export type AutomatedMessageChannel = Exclude<ChannelType, "in_app">;
 
 /** Delivery status — mirrors `MessageBubble` for consistency across the feature. */
 export type MessageStatus = "sent" | "failed";

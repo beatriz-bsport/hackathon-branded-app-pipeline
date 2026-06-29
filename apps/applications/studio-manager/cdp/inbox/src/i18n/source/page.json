@@ -5,7 +5,7 @@
       "email": "Email",
       "sms": "SMS",
       "push": "Push",
-      "chat": "Chat"
+      "in_app": "Chat"
     }
   }
 }

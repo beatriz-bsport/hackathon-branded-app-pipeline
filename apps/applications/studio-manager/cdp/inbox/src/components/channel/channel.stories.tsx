@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { storybookDecorator } from "#src/utils/storybook-decorator";
 
-import { Channel, type ChannelType } from "./channel";
+import { Channel } from "./channel";
+import { CHANNEL_TYPES } from "./constants";
 
-const CHANNELS: ChannelType[] = ["email", "sms", "push", "chat"];
+const CHANNELS = [...CHANNEL_TYPES];
 
 const meta: Meta<typeof Channel> = {
   title: "Inbox/Channel",

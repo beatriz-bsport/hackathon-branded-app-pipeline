@@ -223,7 +223,6 @@
     "unlimited": "Unlimited",
     "credits": "{{creditsLeft}} / {{totalCredits}} credit remaining",
     "credits_other": "{{creditsLeft}} / {{totalCredits}} credits remaining",
-    "creditsUsed_zero": "",
     "creditsUsed": "{{creditsUsed}} credit used · ",
     "creditsUsed_other": "{{creditsUsed}} credits used · ",
     "clientDetails": "Details",
@@ -237,7 +236,8 @@
     "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}",
     "positionInWaitlist": "Position in waitlist",
     "noShowAlert": "<strong>No-show:</strong> marked absent after the class.",
-    "penaltyAlert": "Unlimited pass penalty applied."
+    "penaltyAlert": "Unlimited pass penalty applied.",
+    "noCreditsUsed": "No credits deducted"
   },
   "bookingOrdering": {
     "label": "Sort by",

@@ -179,8 +179,8 @@
     "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
   },
   "stripeCompliance": {
-    "banner": "Stripe heeft voor {{ date }} bijgewerkte informatie nodig. Klik hier om dit te controleren.",
-    "bannerWithoutDate": "Stripe heeft bijgewerkte informatie nodig. Klik hier om dit te controleren.",
+    "banner": "Stripe-verificatie vereist voor {{ date }}.",
+    "bannerWithoutDate": "Stripe heeft bijgewerkte informatie nodig.",
     "cta": {
       "company_settings": "Mijn bedrijfsinstellingen bijwerken",
       "none": "Controleren",
@@ -190,33 +190,34 @@
       "faqLink": "Hulp nodig?",
       "genericImpact": "Als dit niet wordt opgelost, kunnen betaal- en uitbetalingsfuncties worden beïnvloed.",
       "requirements": {
-        "associatedPerson": "Informatie over de wettelijke vertegenwoordiger van het bedrijf",
-        "bankAccountOwnershipDocument": "Document dat het eigendom van de uitbetalingsrekening bevestigt",
-        "beneficialOwnershipDocument": "Document dat de uiteindelijke belanghebbenden bevestigt",
-        "businessProfile": "Bedrijfsprofiel, zoals activiteit, website of supportcontact",
+        "associatedPerson": "Wettelijke vertegenwoordiger",
+        "bankAccountOwnershipDocument": "Bankrekeningbewijs",
+        "beneficialOwnershipDocument": "Document uiteindelijke belanghebbenden",
+        "businessProfile": "Bedrijfsprofiel",
         "businessType": "Bedrijfstype",
         "companyAddress": "Bedrijfsadres",
         "companyDetails": "Juridische bedrijfsgegevens",
-        "companyDirectorshipDeclaration": "Bevestiging van de bestuurders van het bedrijf",
-        "companyDocuments": "Registratie- of vergunningsdocumenten van het bedrijf",
-        "companyOwnershipDeclaration": "Bevestiging van het eigendom van het bedrijf",
-        "companyTaxId": "Fiscaal identificatienummer van het bedrijf",
+        "companyDirectorshipDeclaration": "Bestuurders van het bedrijf",
+        "companyDocuments": "Bedrijfsdocumenten",
+        "companyOwnershipDeclaration": "Eigendom van het bedrijf",
+        "companyTaxId": "Fiscaal nummer",
         "companyVerificationDocument": "Verificatiedocument van het bedrijf",
         "externalAccount": "Gegevens van de uitbetalingsrekening (IBAN)",
         "individualDetails": "Individuele identiteitsgegevens",
         "other": "Aanvullende compliance-informatie",
         "statementDescriptor": "Betaalomschrijving op het bankafschrift",
         "stripeSupportReview": "Aanvullende informatie gevraagd door Stripe Support",
-        "title": "Informatie om bij te werken"
+        "title": "Bij te werken:"
       },
       "restricted": {
         "description": "Stripe heeft je account beperkt. Werk de vereiste informatie bij om alle betaalfuncties te herstellen.",
         "title": "Stripe-account beperkt"
       },
       "restrictedSoon": {
-        "description": "Stripe heeft voor {{ date }} bijgewerkte informatie nodig om je account compliant te houden.",
-        "descriptionWithoutDate": "Stripe heeft bijgewerkte informatie nodig om je account compliant te houden.",
-        "title": "Stripe-update vereist"
+        "description": "Stripe heeft voor {{ date }} enkele bijgewerkte gegevens nodig om betalingen en uitbetalingen actief te houden.",
+        "descriptionWithoutDate": "Stripe heeft enkele bijgewerkte gegevens nodig om betalingen en uitbetalingen actief te houden.",
+        "title": "Stripe-verificatie vereist voor {{ date }}",
+        "titleWithoutDate": "Stripe-verificatie vereist"
       }
     }
   },

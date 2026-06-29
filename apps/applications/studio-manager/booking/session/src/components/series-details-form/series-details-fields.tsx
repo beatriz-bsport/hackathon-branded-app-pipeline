@@ -1,9 +1,10 @@
 import { type FC, useMemo } from "react";
 
 import { FormField, useFormContext, useWatch } from "@bsport/form";
-import { TagSelector } from "@bsport/kaizen-business-components/cdp/tag-selector";
 import {
   Alert,
+  AutocompleteControlled,
+  type AutocompleteControlledProps,
   Avatar,
   Body,
   Button,
@@ -25,7 +26,7 @@ import { VisibilitySelector } from "#src/components/SessionForm/Details/Visibili
 import { Label } from "#src/components/SessionForm/label";
 import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
 import { useLevelName } from "#src/hooks/level/useLevelName";
-import { fetch } from "#src/utils/fetch";
+import { useGroupedTags } from "#src/hooks/tags/use-grouped-tags";
 import { useTranslation } from "#src/utils/i18n";
 import {
   SERIES_DETAILS_BOOKING_RULES,
@@ -44,10 +45,97 @@ type SeriesDetailsService = {
   name?: string;
 };
 
+type SeriesDetailsTagFieldName = "whitelist_tags" | "blacklist_tags";
+
 const isSeriesDetailsBookingRule = (
   value: string,
 ): value is SeriesDetailsBookingRule =>
   SERIES_DETAILS_BOOKING_RULES.some((rule) => rule === value);
+
+const SeriesDetailsTagSelector: FC<{
+  disabled: boolean;
+  fieldName: SeriesDetailsTagFieldName;
+  id: string;
+  placeholder: string;
+}> = ({ disabled, fieldName, id, placeholder }) => {
+  const groupedTags = useGroupedTags();
+  const { control } = useFormContext<SeriesDetailsFormData>();
+  const oppositeFieldName =
+    fieldName === "whitelist_tags" ? "blacklist_tags" : "whitelist_tags";
+  const excludedTagIds = useWatch({
+    control,
+    name: oppositeFieldName,
+  });
+
+  const tagItems = useMemo<AutocompleteControlledProps["items"]>(() => {
+    const excludedTagIdsSet = new Set(excludedTagIds ?? []);
+
+    return groupedTags
+      .map((group) => ({
+        title: group.name,
+        options: group.tags
+          .filter((tag) => !excludedTagIdsSet.has(tag.id))
+          .map((tag) => ({
+            id: String(tag.id),
+            label: tag.name,
+            rightSlot: (
+              <ColorIndicator color={tag.color} size="sm" type="block" />
+            ),
+            customColor: tag.color,
+          })),
+      }))
+      .filter((group) => group.options.length > 0);
+  }, [excludedTagIds, groupedTags]);
+
+  return (
+    <FormField<
+      SeriesDetailsFormData,
+      SeriesDetailsTagFieldName,
+      AutocompleteControlledProps
+    >
+      name={fieldName}
+      mapProps={({ defaultProps, form }) => {
+        const { statusText, status, value, ...otherProps } = defaultProps;
+
+        return {
+          ...otherProps,
+          value: value.map((tagId: number) => String(tagId)),
+          onChange: (selection) => {
+            form.setValue(
+              fieldName,
+              selection.map((tagId) =>
+                Number(tagId),
+              ) as SeriesDetailsFormData[SeriesDetailsTagFieldName],
+              { shouldDirty: true, shouldValidate: true },
+            );
+          },
+          multiSelect: true,
+          textfieldProps: {
+            id: `${id}-textfield`,
+            placeholder,
+            iconRight: "chevron-down" as const,
+            status,
+            statusText,
+          },
+        };
+      }}
+    >
+      {/** @ts-expect-error Props are provided by the wrapper */}
+      <AutocompleteControlled
+        key={id}
+        items={tagItems}
+        debounceValue={10}
+        popoverPlacement="bottom-right"
+        withSelectedInBase
+        className="max-w-component-select"
+        searchMode="local"
+        withChips
+        fullWidth
+        disabled={disabled}
+      />
+    </FormField>
+  );
+};
 
 export const SeriesDetailsNameField: FC<SeriesDetailsBaseProps> = ({
   disabled,
@@ -235,7 +323,7 @@ export const SeriesDetailsBookingRuleField: FC<SeriesDetailsBaseProps> = ({
           )}
         </Popover.Content>
       </Popover>
-      <Alert status="info" type="weak">
+      <Alert status="info" type="weak" layout="inline" className="max-w-full">
         <Body size="md" color="info">
           {bookingRuleHints[bookingRule]}
         </Body>
@@ -257,10 +345,12 @@ export const SeriesDetailsGuestBookingUnavailableInfo: FC = () => {
   );
 };
 
-export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
-  disabled,
-  fieldIdPrefix,
-}) => {
+export const SeriesDetailsVisibilitySection: FC<
+  SeriesDetailsBaseProps & {
+    label?: string;
+    required?: boolean;
+  }
+> = ({ disabled, fieldIdPrefix, label, required = false }) => {
   const { t } = useTranslation("series");
   const visibleLabel = t(
     "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.options.visible.label",
@@ -274,9 +364,12 @@ export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
       <VisibilitySelector
         fieldIdPrefix={fieldIdPrefix}
         fieldName="manager_only"
-        title={t(
-          "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.label",
-        )}
+        title={
+          label ??
+          t(
+            "seriesAddModal.steps.seriesDetails.bookingVisibility.visibility.label",
+          )
+        }
         labels={{
           visible: {
             label: visibleLabel,
@@ -295,6 +388,7 @@ export const SeriesDetailsVisibilitySection: FC<SeriesDetailsBaseProps> = ({
         }}
         buttonClassName="w-full max-w-component-select"
         disabled={disabled}
+        required={required}
       />
     </section>
   );
@@ -319,15 +413,23 @@ export const SeriesDetailsServiceSection: FC<{
         iconName="target-04"
         className="cursor-default"
       />
-      <TextField
-        id={`${fieldIdPrefix}-activity`}
-        label={t("form.details.service")}
-        value={activity?.name ?? ""}
-        disabled
-        required
-        fullWidth
-        className="max-w-component-select"
-      />
+      <div className="flex flex-col gap-xs">
+        <TextField
+          id={`${fieldIdPrefix}-activity`}
+          label={t("form.details.service")}
+          value={activity?.name ?? ""}
+          disabled
+          required
+          fullWidth
+          className="max-w-component-select"
+        />
+        <div className="flex items-start gap-xs max-w-component-select text-onsurface-weak">
+          <Icon icon="info-circle" size="sm" className="shrink-0 mt-2xs" />
+          <Body size="sm" color="weak">
+            {t("form.details.serviceDisabled")}
+          </Body>
+        </div>
+      </div>
     </section>
   );
 };
@@ -356,12 +458,10 @@ export const SeriesDetailsTagsSection: FC<
         <Body size="md">
           {t("seriesAddModal.steps.seriesDetails.tags.allowed.label")}
         </Body>
-        <TagSelector<SeriesDetailsFormData, "whitelist_tags">
+        <SeriesDetailsTagSelector
           id={`${fieldIdPrefix}-whitelist-tags`}
           fieldName="whitelist_tags"
-          fetch={fetch}
           placeholder={placeholder}
-          multiSelect
           disabled={disabled}
         />
         <Body size="sm" color="weak">
@@ -372,12 +472,10 @@ export const SeriesDetailsTagsSection: FC<
         <Body size="md">
           {t("seriesAddModal.steps.seriesDetails.tags.notAllowed.label")}
         </Body>
-        <TagSelector<SeriesDetailsFormData, "blacklist_tags">
+        <SeriesDetailsTagSelector
           id={`${fieldIdPrefix}-blacklist-tags`}
           fieldName="blacklist_tags"
-          fetch={fetch}
           placeholder={placeholder}
-          multiSelect
           disabled={disabled}
         />
         <Body size="sm" color="weak">

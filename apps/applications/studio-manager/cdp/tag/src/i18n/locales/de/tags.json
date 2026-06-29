@@ -136,7 +136,7 @@
     "description": "Wenn du diese Kategorie löschst, werden alle damit verbundenen Tags von {{ number }} Kontakten dauerhaft entfernt.",
     "alerts": {
       "tagInUse": {
-        "description": "Hinweis: Wenn du diese Kategorie löschst, werden außerdem die zugehörigen Tag-Regeln entfernt, die noch in bedingten Workflows aktiv sind, wie z.B. Audience oder Smartlists.",
+        "description": "Das Löschen dieser Kategorie entfernt auch zugehörige Tag-Regeln, die noch in bedingten Workflows, wie Journeys oder Smartlists, aktiv sind.",
         "confirmCheckbox": {
           "label": "Bitte bestätigen:",
           "description": "Ich verstehe, dass die Tags, die mit dieser Kategorie verbunden sind, dauerhaft gelöscht werden. Ferner verstehe ich, dass dies zu Problemen mit anderen Workflows führen kann, sofern die Tags dort verwendet werden.",
@@ -162,7 +162,7 @@
     "description": "Wenn du dieses Tag löschst, wird es dauerhaft von {{number}} Kontakten, denen es zugewiesen ist, entfernt.",
     "alerts": {
       "tagInUse": {
-        "description": "Achtung: Das Löschen dieses Tags wirkt sich auch auf alle bedingten Workflows aus, in denen es verwendet wird (wie z. B. Smartlists oder Audience).",
+        "description": "Das Löschen dieses Tags wirkt sich auch auf alle bedingten Workflows aus, in denen es verwendet wird (z. B. Smartlists oder Journeys).",
         "confirmCheckbox": {
           "label": "Bitte bestätigen:",
           "description": "Ich verstehe, dass dieses Tag dauerhaft gelöscht wird und eine Auswirkung auf alle zugehörigen Workflows haben kann.",

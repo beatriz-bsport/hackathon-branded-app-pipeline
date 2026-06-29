@@ -3,7 +3,7 @@ import {
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
 
-import { getDefaultApiDate } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 
 import { mapNoteTypeToApi } from "../constants";
 import { REGISTERED_INTERNAL_NOTES_SUB_FILTERS } from "../sub-filters/registry";

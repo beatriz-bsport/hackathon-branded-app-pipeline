@@ -179,23 +179,45 @@
     "banner": "Klicken Sie hier, um Ihre Rechnungsstellung abzuschließen und Online-Zahlungen zu aktivieren."
   },
   "stripeCompliance": {
-    "banner": "Stripe benötigt vor dem {{ date }} aktualisierte Informationen. Klicke hier, um sie zu prüfen.",
-    "bannerWithoutDate": "Stripe benötigt aktualisierte Informationen. Klicke hier, um sie zu prüfen.",
+    "banner": "Stripe-Verifizierung vor dem {{ date }} erforderlich.",
+    "bannerWithoutDate": "Stripe benötigt aktualisierte Informationen.",
     "cta": {
       "company_settings": "Meine Unternehmenseinstellungen aktualisieren",
       "none": "Prüfen",
       "stripe_onboarding": "Meine Informationen in Stripe aktualisieren"
     },
     "modal": {
+      "faqLink": "Brauchst du Hilfe?",
       "genericImpact": "Wenn dies nicht behoben wird, können Zahlungs- und Auszahlungsfunktionen beeinträchtigt werden.",
+      "requirements": {
+        "associatedPerson": "Gesetzlicher Vertreter",
+        "bankAccountOwnershipDocument": "Nachweis zum Bankkonto",
+        "beneficialOwnershipDocument": "Nachweis der wirtschaftlich Berechtigten",
+        "businessProfile": "Unternehmensprofil",
+        "businessType": "Unternehmenstyp",
+        "companyAddress": "Unternehmensadresse",
+        "companyDetails": "Rechtliche Unternehmensangaben",
+        "companyDirectorshipDeclaration": "Unternehmensleitung",
+        "companyDocuments": "Unternehmensdokumente",
+        "companyOwnershipDeclaration": "Eigentumsverhältnisse des Unternehmens",
+        "companyTaxId": "Steuernummer",
+        "companyVerificationDocument": "Verifizierungsdokument des Unternehmens",
+        "externalAccount": "Angaben zum Auszahlungskonto (IBAN)",
+        "individualDetails": "Identitätsdaten einer Person",
+        "other": "Zusätzliche Compliance-Informationen",
+        "statementDescriptor": "Zahlungsbeschreibung auf dem Kontoauszug",
+        "stripeSupportReview": "Zusätzliche Informationen, die vom Stripe-Support angefordert wurden",
+        "title": "Zu aktualisieren:"
+      },
       "restricted": {
         "description": "Stripe hat dein Konto eingeschränkt. Bitte aktualisiere die erforderlichen Informationen, um die Zahlungsfunktionen vollständig wiederherzustellen.",
         "title": "Stripe-Konto eingeschränkt"
       },
       "restrictedSoon": {
-        "description": "Stripe benötigt vor dem {{ date }} aktualisierte Informationen, damit dein Konto konform bleibt.",
-        "descriptionWithoutDate": "Stripe benötigt aktualisierte Informationen, damit dein Konto konform bleibt.",
-        "title": "Stripe-Aktualisierung erforderlich"
+        "description": "Stripe benötigt vor dem {{ date }} einige aktualisierte Informationen, damit Zahlungen und Auszahlungen weiterlaufen.",
+        "descriptionWithoutDate": "Stripe benötigt einige aktualisierte Informationen, damit Zahlungen und Auszahlungen weiterlaufen.",
+        "title": "Stripe-Verifizierung vor dem {{ date }} erforderlich",
+        "titleWithoutDate": "Stripe-Verifizierung erforderlich"
       }
     }
   },

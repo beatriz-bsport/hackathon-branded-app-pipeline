@@ -13,7 +13,7 @@ import type {
   SeriesClassDraftFormSchema,
 } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
-import { getSeriesClassDraftsOccurrencesCount } from "#src/utils/series-class-draft";
+import { getSeriesClassDraftsCount } from "#src/utils/series-class-draft";
 import type { SeriesDetailsFormSchema } from "#src/utils/series-details-form";
 
 type AddClassesStepProps = {
@@ -57,14 +57,28 @@ export const AddClassesStep: FC<AddClassesStepProps> = ({
     control: seriesDetailsMethods.control,
     name: "manager_only",
   });
-  const classDraftOccurrencesCount =
-    getSeriesClassDraftsOccurrencesCount(classDrafts);
+  const levelId = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "level",
+  });
+  const allowedTagIds = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "whitelist_tags",
+  });
+  const notAllowedTagIds = useWatch({
+    control: seriesDetailsMethods.control,
+    name: "blacklist_tags",
+  });
+  const classDraftOccurrencesCount = getSeriesClassDraftsCount(classDrafts);
 
   return (
     <div className="flex w-full flex-col gap-xl">
       <SeriesAddSummaryCard
         bookingRule={bookingRule}
         managerOnly={managerOnly}
+        levelId={levelId}
+        allowedTagIds={allowedTagIds}
+        notAllowedTagIds={notAllowedTagIds}
         seriesName={seriesName}
         serviceName={selectedService?.name}
       />
@@ -79,6 +93,7 @@ export const AddClassesStep: FC<AddClassesStepProps> = ({
               label={t("seriesAddModal.steps.addClasses.classCount", {
                 count: classDraftOccurrencesCount,
               })}
+              className="shrink-0"
               size="lg"
               type="weak"
             />

@@ -2,6 +2,7 @@ import {
   createStyles,
   withStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import { fetchConversationUnreadCount as fetchConversationUnreadCountAction } from '@bsport/saas-legacy/src/libs/communication-v2/actions';
 import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '@bsport/saas-legacy/src/libs/membership/actions';
 import {
   Badge,
@@ -32,6 +33,7 @@ import { CheckoutItem } from '@bsport/saas-legacy/src/libs/checkout/types';
 import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
 import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
 import { getAllBookingAndPrivateBookingCount } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getConversationUnreadCount } from '@bsport/saas-legacy/src/libs/communication-v2/selectors';
 import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors';
 import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -84,9 +86,11 @@ const FabWidget = (props: Props) => {
     fabShowSubscription,
     fetchCurrentBasket,
     fetchBookingsAndPrivateBookings,
+    fetchConversationUnreadCount,
     fetchMembershipByCompany,
     currentBookingsCount,
     currentBasket,
+    agentChatUnreadCount,
     membership,
   } = props;
 
@@ -131,6 +135,17 @@ const FabWidget = (props: Props) => {
       fetchBookingsCount();
     }
   }, [authenticated, membership?.id, fetchBookingsCount]);
+
+  useEffect(() => {
+    if (authenticated && isAgentChatEnabled) {
+      fetchConversationUnreadCount(companyId);
+    }
+  }, [
+    authenticated,
+    companyId,
+    fetchConversationUnreadCount,
+    isAgentChatEnabled,
+  ]);
 
   const onClick = () => {
     if (authenticated) {
@@ -247,9 +262,11 @@ const FabWidget = (props: Props) => {
                 classes={{ root: classes.radius50 }}
                 onClick={onClickAgentChat}
               >
-                <div className={classes.actionButton}>
-                  <ChatIcon color="inherit" fontSize="small" />
-                </div>
+                <Badge badgeContent={agentChatUnreadCount} color="secondary">
+                  <div className={classes.actionButton}>
+                    <ChatIcon color="inherit" fontSize="small" />
+                  </div>
+                </Badge>
               </ButtonBase>
             </Tooltip>
           </Grow>
@@ -419,6 +436,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   membership: getMembership(state, ownProps.companyId),
   currentBookingsCount: getAllBookingAndPrivateBookingCount(state),
   currentBasket: getCurrentBasket(state),
+  agentChatUnreadCount: getConversationUnreadCount(state),
 });
 
 const mapDispatchToProps = {
@@ -432,6 +450,7 @@ const mapDispatchToProps = {
   bridgeRequestLogout: bridgeRequestLogoutAction,
   fetchCurrentBasket: fetchCurrentBasketAction,
   fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
+  fetchConversationUnreadCount: fetchConversationUnreadCountAction,
   fetchMembershipByCompany: fetchMembershipByCompanyAction,
 };
 

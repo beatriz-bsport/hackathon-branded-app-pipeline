@@ -1,13 +1,10 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import {
-  ABSOLUTE_DATE_OPERATORS,
-  DATE_FILTER_TYPES,
-  RELATIVE_DATE_OPERATORS,
-} from "#src/components/primitive-filters/date-filter/constants";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
+import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
 import {
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
   APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -37,19 +34,8 @@ type SubFilterFormValueMap = {
 };
 
 const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
-  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate]: {
-    dateType: DATE_FILTER_TYPES.absolute,
-    absolute: {
-      operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
-      fromDate: null,
-      toDate: null,
-    },
-    relative: {
-      operator: RELATIVE_DATE_OPERATORS.pastMoreThan,
-      firstDays: null,
-      secondDays: null,
-    },
-  },
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate]:
+    createDefaultDateFilterValue(),
   [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange]: {
     hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
     hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -116,7 +102,6 @@ export const TotalAppointmentsSubFiltersArea = ({
     const fieldToSet = totalAppointmentsSubFilterFieldMap[subFilterId];
     setValue(fieldToSet, SUB_FILTER_VALUE_MAP[subFilterId], {
       shouldDirty: true,
-      shouldValidate: true,
     });
   };
 
@@ -124,7 +109,7 @@ export const TotalAppointmentsSubFiltersArea = ({
     setValue(
       "subFilters",
       watchedFilterValue.subFilters.filter((item) => item !== subFilterId),
-      { shouldDirty: true, shouldValidate: true },
+      { shouldDirty: true },
     );
     const fieldToReset = totalAppointmentsSubFilterFieldMap[subFilterId];
     setValue(fieldToReset, SUB_FILTER_VALUE_MAP[subFilterId], {
@@ -132,35 +117,43 @@ export const TotalAppointmentsSubFiltersArea = ({
     });
   };
 
+  const subFilterSections = watchedFilterValue.subFilters.flatMap(
+    (subFilterId) => {
+      const subFilterModule =
+        REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS_BY_ID[subFilterId];
+      if (!subFilterModule) {
+        return [];
+      }
+      const Section = subFilterModule.Section;
+      const sectionId =
+        fieldIds[totalAppointmentsSubFilterFieldMap[subFilterId]] ??
+        `${subFilterId}-section`;
+
+      return [
+        {
+          key: sectionId,
+          content: (
+            <Section
+              id={sectionId}
+              companyId={companyId}
+              value={watchedFilterValue}
+              errors={errors}
+              setValue={setValue}
+              onRemove={() => removeSubFilter(subFilterId)}
+            />
+          ),
+        },
+      ];
+    },
+  );
+
   return (
     <>
       <Body size="md" color="weak" weight="strong">
         {t("filters.26.fields.filterSpecifications")}
       </Body>
 
-      {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule =
-          REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS_BY_ID[subFilterId];
-        if (!subFilterModule) {
-          return null;
-        }
-        const Section = subFilterModule.Section;
-        const sectionId =
-          fieldIds[totalAppointmentsSubFilterFieldMap[subFilterId]] ??
-          `${subFilterId}-section`;
-
-        return (
-          <Section
-            key={subFilterId}
-            id={sectionId}
-            companyId={companyId}
-            value={watchedFilterValue}
-            errors={errors}
-            setValue={setValue}
-            onRemove={() => removeSubFilter(subFilterId)}
-          />
-        );
-      })}
+      <SubFiltersCardSections sections={subFilterSections} />
 
       {availableSubFilters.length > 0 ? (
         <Popover>

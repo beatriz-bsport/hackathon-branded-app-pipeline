@@ -36,7 +36,7 @@ export type OccurrenceRow = {
   establishmentName?: string;
   /** React Router destination used when rows should stay in the same window. */
   detailPath?: string;
-  /** Absolute URL to the session's management page; opened on row click. */
+  /** Browser href to the session's management page (trailing link column). */
   detailUrl?: string;
   isCurrentSession?: boolean;
 };

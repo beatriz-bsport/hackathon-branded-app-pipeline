@@ -2,101 +2,100 @@
   "addEditForm": {
     "modal": {
       "title": "Create a class",
-      "description": "You're creating a class. Once saved, you'll be able to schedule it on your calendar.",
-      "confirm": "Create class",
-      "cancel": "Cancel",
+      "confirm": "Create",
+      "cancel": "Close",
       "steps": {
-        "classSetup": "Class setup",
-        "bookingRules": "Booking rules"
+        "classSetup": "Set up your class",
+        "bookingRules": "Add booking rules"
       },
       "errors": {
-        "requiredField": "This field is required."
+        "requiredField": "This field can't be empty"
       }
     },
     "basicInfo": {
-      "typeQuestion": "What type of class do you want to create?",
+      "typeQuestion": "Type",
       "groupActivity": {
         "label": "Group class",
-        "helper": "A class with multiple participants"
+        "helper": "Classes with multiple participants that display in the weekly schedule on your website or app"
       },
       "workshop": {
         "label": "Workshop",
-        "helper": "A specialized class that happens in specific period of time"
+        "helper": "Events highlighted separately which can be one-off, recurring, or part of a series"
       },
       "name": {
         "label": "Name",
-        "placeholder": "Give your class a name e.g. Vinyasa Yoga",
-        "error": "Enter a name."
+        "placeholder": "This name will display to clients e.g. Vinyasa Yoga",
+        "error": "Enter a name for this class"
       },
       "category": {
         "label": "Category",
         "placeholder": "Select a category",
-        "helper": "These categories will display on your branded website and app for the different types of classes",
-        "error": "Select a category."
+        "helper": "Selected category will display on your website and app",
+        "error": "Select a category for this class"
       },
       "descriptionField": {
         "label": "Description",
         "placeholder": "Add a description of the class for your clients",
-        "helper": "Default description for all classes. Can be overridden per class.",
-        "error": "Enter a description."
+        "helper": "Description applies to all classes by default. Update for individual classes when scheduling.",
+        "error": "Enter a description for this class"
       },
       "image": {
         "label": "Cover image",
-        "description": "This image will be shown to clients on your website and app when browsing classes.",
-        "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)"
+        "description": "This image will be shown to clients on your website and app for this class",
+        "recommendation": "Recommended: 1920 x 1080. Format: JPG (Full HD)"
       },
       "altText": {
         "label": "Image alt text",
-        "placeholder": "E.g. a close-up of a person meditating",
-        "helper": "Help visually impaired understand the cover image. Won't be shown visually."
+        "placeholder": "E.g. a close-up of a person doing yoga",
+        "helper": "Helps visually impaired clients understand the cover image. Not shown on screen."
       },
       "color": {
         "label": "Color",
         "placeholder": "No color",
-        "description": "A color makes this class easier to spot across your calendar and schedule"
+        "description": "Make this class stand out in your schedule"
       }
     },
     "bookingWindow": {
       "opening": {
-        "title": "Opening of booking window",
-        "description": "Future classes can be booked if they start in less than"
+        "title": "Booking window opens",
+        "description": "How far in advance can clients book this class"
       },
       "closing": {
         "title": "Closing of booking window",
-        "description": "Set how far in advance clients can book this class"
+        "description": "How close to the start time clients can still book"
       },
       "cancellation": {
         "title": "Cancellation policy",
         "description": "Set the cut-off for free cancellations before this class starts"
       },
       "warnings": {
-        "nullFirstBookingUntil": "The opening of the booking window is set to 0. Clients won't be able to book this class.",
-        "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class starts. Clients may not have enough time to book.",
-        "highLastBooking": "The booking window closes more than 2 hours before the class starts. Clients will need to book well in advance."
+        "nullFirstBookingUntil": "If the booking window opens 0 days before the class, clients won't be able to book.",
+        "lowFirstBookingUntil": "The booking window opens less than 24 hours before the class. Clients may not have enough time to book.",
+        "highLastBooking": "The booking window closes more than 2 hours before the class. Clients will need to book well in advance."
       }
     },
     "customRestrictions": {
-      "title": "Booking rules by segment",
-      "toggleLabel": "Apply different booking and cancellation rules to specific client segments.",
-      "ruleTitle": "Custom restriction {{index}}",
+      "title": "Customize booking rules per segment",
+      "toggleLabel": "Apply different booking and cancellation rules to specific client segments",
+      "ruleTitle": "Custom booking rule {{index}}",
       "remove": "Remove",
-      "applyTo": "Apply restrictions to:",
+      "applyTo": "Apply rules to:",
       "tagsPlaceholder": "Add tags",
       "addRule": "Add a rule",
-      "maxHint": "You can add up to {{max}} custom rules.",
-      "maxReached": "You already have added {{max}} custom rules.",
+      "maxHint": "You can add up to {{max}} custom rules",
+      "maxReached": "You've already added {{max}} custom rules",
       "errors": {
         "tagsRequired": "Add at least 1 tag"
       }
     },
     "automaticCancellation": {
-      "title": "Automatic Cancellation",
+      "title": "Automatic cancellation",
       "toggleLabel": "Automatically cancel underbooked classes",
       "minBookingsLabel": "Minimum capacity",
       "hoursBeforeStartLabel": "Time before the class starts",
-      "minBookingsSuffix": "people",
+      "minBookingsSuffix": "spots",
       "hoursBeforeStartSuffix": "hours",
-      "alert": "Owners, admins, teachers, and booked clients are notified automatically."
+      "alert": "Owners, admins, teachers, and clients who booked will be notified automatically"
     },
     "timeInput": {
       "days": "d",

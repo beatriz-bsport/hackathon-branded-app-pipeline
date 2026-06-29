@@ -7,7 +7,7 @@
     "loading": "Lade Pakete...",
     "emptyList": {
       "title": "Derzeit keine Pakete",
-      "subtitle": "Füge ein Paket hinzu, um deine Produkte und Pässe zu einem einzigen Angebot zu kombinieren. "
+      "subtitle": "Füge ein Paket hinzu, um deine Shop-Produkte und Pässe zu einem einzigen Angebot zu kombinieren"
     },
     "headers": {
       "name": "Name",
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Paket löschen?",
     "description": {
-      "effect": "Sobald du {{ name }} löschst, wird es für Mitglieder nicht mehr sichtbar sein. ",
-      "canNotBeUndone": "Diese Änderung gilt nicht für Mitglieder, die dieses Paket bereits gekauft haben."
+      "effect": "Sobald du {{ name }} löschst, wird es für Kund:innen nicht mehr sichtbar sein. ",
+      "canNotBeUndone": "Alle Kund:innen, die dieses Paket gekauft haben, sind davon nicht betroffen. "
     },
     "actions": {
       "cancel": "Behalten",

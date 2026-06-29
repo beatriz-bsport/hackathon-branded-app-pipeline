@@ -7,11 +7,15 @@ import {
 import { firstPurchaseStatusToApi } from "#src/components/filters/first-purchase-filter/constants";
 import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import {
-  getDefaultApiDate,
   mapDateFilterType,
   toApiDateSection,
   toFormDateSection,
 } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import {
+  DEFAULT_ABSOLUTE_START_DATE,
+  DEFAULT_RELATIVE_SECOND_DAYS,
+  DEFAULT_RELATIVE_START_DAYS,
+} from "#src/components/primitive-filters/date-filter/utils";
 
 import type { FirstPurchaseFilterFormValue } from "../../types";
 import { FIRST_PURCHASE_SUB_FILTER_IDS } from "../first-purchase-sub-filter-id";
@@ -23,10 +27,10 @@ const PURCHASE_DATE_INACTIVE_API_SLICE: Partial<CreateFirstPurchaseFilterPayload
   {
     date_filter_active: false,
     date_filter_type: SmartlistDateFilterType.DATE_EXACT,
-    date: getDefaultApiDate(),
-    date_second: getDefaultApiDate(),
-    duration: 0,
-    duration_second: 0,
+    date: DEFAULT_ABSOLUTE_START_DATE,
+    date_second: DEFAULT_ABSOLUTE_START_DATE,
+    duration: DEFAULT_RELATIVE_START_DAYS,
+    duration_second: DEFAULT_RELATIVE_SECOND_DAYS,
   };
 
 const toPurchaseDateApiSlice = (

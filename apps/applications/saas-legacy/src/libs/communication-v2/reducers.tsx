@@ -30,6 +30,8 @@ import {
   retrieveCommunicationSMSProviderVerificationActions,
   firstReachedRecipientsAction,
   fetchConversationsActions,
+  fetchConversationUnreadCountActions,
+  resetConversationUnreadCount,
   createConversationActions,
   createMessageActions,
   fetchMessagesActions,
@@ -51,6 +53,7 @@ import type {
   CommunicationScheduled,
   MemberListDataByCommunicationKind,
   ConversationListResponse,
+  ConversationUnreadCountResponse,
   Conversation,
   ConversationCreationOutput,
   ConversationMessage,
@@ -192,6 +195,7 @@ const initialState: Immutable.Immutable<CommunicationState> =
       next: null,
       next_page: null,
       previous: null,
+      unreadCount: 0,
       loading: false,
       error: null,
     },
@@ -946,6 +950,18 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
         .setIn(['conversations', 'next'], payload.next)
         .setIn(['conversations', 'next_page'], payload.next_page)
         .setIn(['conversations', 'previous'], payload.previous);
+    },
+    [fetchConversationUnreadCountActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConversationUnreadCountResponse },
+    ) => {
+      return state.setIn(
+        ['conversations', 'unreadCount'],
+        payload.unread_count,
+      );
+    },
+    [resetConversationUnreadCount.toString()]: (state) => {
+      return state.setIn(['conversations', 'unreadCount'], 0);
     },
     [createConversationActions.loading.toString()]: (
       state,

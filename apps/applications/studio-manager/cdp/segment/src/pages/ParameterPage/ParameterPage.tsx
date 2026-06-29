@@ -43,7 +43,7 @@ export const ParameterPage = () => {
             <Button
               color="main"
               intent="call-to-action"
-              label={t("actions.refreshMembers")}
+              label={t("actions.showResults")}
               iconLeft="refresh-cw-01"
               size="md"
               className="w-full"

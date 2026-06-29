@@ -3,29 +3,29 @@
   "pageTabs": {
     "overview": "Overview",
     "editor": "Editor",
-    "occurrences": "All occurrences",
+    "occurrences": "All classes",
     "statusFilter": {
       "label": "Status",
       "is": "is",
       "upcoming": "Upcoming",
       "ongoing": "Ongoing",
       "past": "Past",
-      "cancelled": "Cancelled"
+      "cancelled": "Canceled"
     },
     "allOccurrencesTable": {
       "date": "Date",
       "time": "Time",
-      "participants": "Participants",
+      "participants": "Roster",
       "teacher": "Teacher",
       "establishment": "Venue",
       "status": "Status",
-      "empty": "No occurrences to show"
+      "empty": "No classes to display"
     }
   },
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
-  "refresh": "Refresh lists",
-  "refreshSuccess": "Lists refreshed",
+  "refresh": "Refresh",
+  "refreshSuccess": "List refreshed",
   "bookButton": "Book client",
   "classIsFull": "This class is full",
   "bookAndOverride": "Book & override capacity",
@@ -42,12 +42,12 @@
     },
     "emptyState": {
       "title": "No clients in this class yet",
-      "emptySearch": "We couldn't find any clients matching your search.",
+      "emptySearch": "No clients to display. Clear search and try again. ",
       "clearSearch": "Clear search",
       "emptyCancelledTitle": "No cancellations",
-      "emptyCancelledSubtitle": "Clients who cancelled their booking will appear here.",
+      "emptyCancelledSubtitle": "Clients who canceled will appear here",
       "emptyNoShowTitle": "No no-shows",
-      "emptyNoShowSubtitle": "Clients marked as no-show after attendance is confirmed will appear here."
+      "emptyNoShowSubtitle": "Clients marked as no-shows after attendance is taken will appear here"
     },
     "loadingMessage": "Loading class roster...",
     "chips": {
@@ -63,27 +63,28 @@
     },
     "refundedPass": "Refunded: {{passName}}",
     "cancellationReason": {
-      "consumer": "Cancelled by the consumer",
-      "manager": "Cancelled by {{managerName}}",
-      "studio": "Cancelled by the studio"
+      "consumer": "Canceled by the client",
+      "manager": "Canceled by {{managerName}}",
+      "managerFallback": "Canceled by a manager",
+      "studio": "Canceled by the studio"
     },
     "cancellationDate": "On {{cancellationDate}}"
   },
   "waitList": {
     "emptyState": {
-      "title": "There are no clients on Waitlist",
-      "pending": "There are no clients pending from the Waitlist.",
-      "removed": "No clients were removed from the Waitlist"
+      "title": "No clients on waitlist",
+      "pending": "No clients pending from the waitlist",
+      "removed": "No clients removed from the waitlist"
     },
     "loadingMessage": "Loading waitlist..."
   },
   "bookingStatusFilter": {
     "booked": "Booked",
-    "cancelled": "Cancelled",
+    "cancelled": "Canceled",
     "noShow": "No-show"
   },
   "bookingOptionStatusFilter": {
-    "onWaitlist": "On Waitlist",
+    "onWaitlist": "On waitlist",
     "pending": "Pending",
     "removed": "Removed"
   },
@@ -112,18 +113,18 @@
   "livestream": {
     "title": "Livestream",
     "connect": "Connect",
-    "notReadyYet": "You'll be able to access the livestream 15 min before the class starts.",
+    "notReadyYet": "The livestream will start 15 minutes before the class begins",
     "fallbackText": "If you are not automatically redirected, please use this link:",
     "start": "Start the online class.",
     "missingLink": {
-      "title": "No livestream link configured",
-      "description": "Please edit the class to provide a link to the livestream.",
+      "title": "No livestream link setup",
+      "description": "Edit the class to provide a link to the livestream",
       "editClass": "Edit class"
     }
   },
   "floorPlan": {
     "header": "Spot selection",
-    "loadError": "We couldn't load the floor plan."
+    "loadError": "Couldn't load the spot layout. Try again. "
   },
   "spotSelector": {
     "title": "Choose your spot",
@@ -139,7 +140,7 @@
       "selected": "Selected",
       "current": "Current spot"
     },
-    "loadError": "We couldn't load the floor plan.",
+    "loadError": "Couldn't load the spot layout. Try again. ",
     "noBlueprint": "No spot layout set up for this class.",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
@@ -159,28 +160,28 @@
       "title": "Cancel booking?",
       "confirmButton": "Cancel",
       "closeButton": "Keep",
-      "body": "This client will be removed from the class. Choose what happens next.",
+      "body": "This client will be removed from the class. Choose what happens next:",
       "refundCredits": "Refund credits",
       "sendNotification": "Notify the client ",
-      "confirmation": "Booking cancelled"
+      "confirmation": "Booking canceled"
     },
     "pauseWaitlist": {
       "title": "Pause waitlist?",
-      "body": "While paused, clients won’t be able to reserve a spot. When you reactivate it, the waitlist order will remain unchanged.",
+      "body": "While paused, clients won’t be able to reserve a spot in the class. Once you unpause it, the waitlist order will stay the same.",
       "confirmButton": "Pause waitlist",
       "closeButton": "Close",
       "confirmation": "Waitlist was paused"
     },
     "reactivateWaitlist": {
-      "title": "Reactivate waitlist?",
-      "body": "Clients already on the waitlist stay in the same order, and newly added clients will join at the bottom of the list",
-      "confirmButton": "Reactivate waitlist",
+      "title": "Unpause waitlist?",
+      "body": "Clients already on the waitlist will stay in the same order. New clients will be added to the bottom of the list. ",
+      "confirmButton": "Unpause waitlist",
       "closeButton": "Close",
-      "confirmation": "Waitlist was reactivated"
+      "confirmation": "Waitlist was unpaused"
     },
     "viewWaitlistMembers": {
       "title": "On waitlist",
-      "subtitle": "The waitlist is paused for this class, but clients are still in the queue. Reactivate it any time and their place will be saved."
+      "subtitle": "The waitlist is paused for this class, but clients are still in the queue. Unpause it any time and their place will be saved."
     },
     "removeFromWaitlist": {
       "title": "Remove from waitlist?",
@@ -190,6 +191,23 @@
       "closeButton": "Close",
       "confirmation": "Client removed from waitlist",
       "error": "Couldn't remove client from waitlist"
+    },
+    "bookingGate": {
+      "overbook": {
+        "title": "Overbook this class?",
+        "body": "All spots are filled for this class. Are you sure you want to add more bookings?"
+      },
+      "started": {
+        "title": "Class has already started",
+        "body": "This class started {{timeAgo}}. You can still add this client, but they will join mid-session."
+      },
+      "ended": {
+        "title": "Class has already ended",
+        "body": "This session ended on {{endDate}}. You can still add this client for record-keeping."
+      },
+      "creditsWarning": "Credits will be deducted from the client's pass and they will be marked as present.",
+      "confirmButton": "Book anyway",
+      "closeButton": "Close"
     }
   },
   "bookingAttendanceFilter": {
@@ -208,7 +226,7 @@
     "creditsUsed_zero": "",
     "creditsUsed": "{{creditsUsed}} credit used · ",
     "creditsUsed_other": "{{creditsUsed}} credits used · ",
-    "clientDetails": "Client details",
+    "clientDetails": "Details",
     "memberSince": "Client since {{memberSince}}",
     "contactInfo": "Contact information",
     "notes": "Notes",
@@ -222,14 +240,14 @@
     "penaltyAlert": "Unlimited pass penalty applied."
   },
   "bookingOrdering": {
-    "label": "Ordering",
+    "label": "Sort by",
     "mostRecent": "Most recent",
     "firstName": "First name",
     "lastName": "Last name",
-    "switchOrder": "Switch order"
+    "switchOrder": "Switch sorting by ascending/descending"
   },
   "listedInformation": {
-    "label": "Listed information",
+    "label": "Show or hide",
     "spot": "Spot",
     "pass": "Pass",
     "newMember": "New client",
@@ -238,15 +256,15 @@
     "unpaidInvoices": "Unpaid invoices"
   },
   "waitlistSettings": {
-    "title": "Waitlist settings",
+    "title": "Waitlist",
     "general": "General",
     "priorityManagement": "Priority management",
     "isOptionBlocking": {
-      "title": "Save openings for waitlist only",
+      "title": "Save spots for waitlist only",
       "description": "A spot will be reserved for clients on the waitlist until they book"
     },
     "checkCredit": {
-      "title": "Requires a valid pass with sufficient credit",
+      "title": "Requires a valid pass with sufficient credits",
       "description": "Clients can only join the waitlist for this class if they have a compatible pass with enough credits."
     },
     "oneByOne": {
@@ -415,7 +433,8 @@
       "bookFutureDates": "Book future dates",
       "bookFutureDatesDescription": "Choose specific dates from this recurring class in the next step",
       "incompatible": "Incompatible",
-      "billNewPlaceholder": "Coming soon"
+      "billNewPlaceholder": "Coming soon",
+      "current": "Current pass"
     },
     "incompatibilities": {
       "2008": "The pass was not configured to cover this type of class",
@@ -479,6 +498,7 @@
       "description": "Which other classes would you like to add?",
       "seriesDescription": "Select the classes to book",
       "upcomingClasses": "Upcoming classes ({{count}})",
+      "pastClasses": "Past classes ({{count}})",
       "classesInSeries": "Classes ({{count}})",
       "selected": "{{count}} class",
       "selected_other": "{{count}} classes",

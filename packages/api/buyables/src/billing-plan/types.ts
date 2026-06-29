@@ -92,4 +92,11 @@ export type FetchPaginatedMembershipPlansParams = {
   page_size?: number;
 } & FetchBillingPlansParams;
 
+export type SetBillingPlanPaymentMethodParams = {
+  id: number;
+  payment_method_identifier?: number;
+  payment_method_id: string;
+  source?: string;
+};
+
 // #endregion

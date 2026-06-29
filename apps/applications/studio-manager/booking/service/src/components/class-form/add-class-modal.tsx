@@ -96,7 +96,6 @@ export const AddClassModal: FC<AddClassModalProps> = ({ open, onClose }) => {
         open={open}
         size="lg"
         title={t("addEditForm.modal.title")}
-        description={t("addEditForm.modal.description")}
         steps={[
           {
             label: t("addEditForm.modal.steps.classSetup"),

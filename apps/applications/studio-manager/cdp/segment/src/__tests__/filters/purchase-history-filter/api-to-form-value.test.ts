@@ -31,7 +31,7 @@ const baseApiFilter: ExpensesCompleteFilter = {
 };
 
 describe("mapPurchaseHistoryFilterToFormValue", () => {
-  it("hydrates empty buyable_identifiers as all product types", () => {
+  it("maps empty buyable_identifiers from fetch as all product types", () => {
     const formValue = mapPurchaseHistoryFilterToFormValue(baseApiFilter);
 
     expect(formValue.spentOn).toEqual([
@@ -39,7 +39,7 @@ describe("mapPurchaseHistoryFilterToFormValue", () => {
     ]);
   });
 
-  it("hydrates subset buyable_identifiers", () => {
+  it("maps subset buyable_identifiers from fetch", () => {
     const formValue = mapPurchaseHistoryFilterToFormValue({
       ...baseApiFilter,
       buyable_identifiers: [
@@ -51,7 +51,7 @@ describe("mapPurchaseHistoryFilterToFormValue", () => {
     expect(formValue.spentOn).toEqual([9, 50]);
   });
 
-  it("hydrates total spent comparator and value", () => {
+  it("maps total spent comparator and value from fetch", () => {
     const formValue = mapPurchaseHistoryFilterToFormValue({
       ...baseApiFilter,
       comparator: SmartlistCreditComparator.BETWEEN,

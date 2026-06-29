@@ -27,6 +27,10 @@
       "cancel": "Cancel"
     },
     "detailsButton": "Details",
+    "mobile": {
+      "classCount": "{{count}} class",
+      "classCount_other": "{{count}} classes"
+    },
     "isLoading": "Loading series...",
     "fallbacks": {
       "missingDate": "Not set"
@@ -89,6 +93,7 @@
     },
     "errors": {
       "nameRequired": "Enter a series name.",
+      "tagsMutuallyExclusive": "A tag cannot be both allowed and not allowed.",
       "create": "An error occurred while adding the series. Please try again later."
     },
     "toasts": {
@@ -179,19 +184,7 @@
           },
           "actions": {
             "edit": "Edit class",
-            "delete": "Delete class",
-            "editRecurrence": "Edit recurrence",
-            "deleteRecurrence": "Delete recurrence"
-          },
-          "recurrence": {
-            "label": "Recurring",
-            "weekly": "Weekly",
-            "customDays": "Every {{count}} day",
-            "customDays_other": "Every {{count}} days",
-            "customWeeks": "Every {{count}} week",
-            "customWeeks_other": "Every {{count}} weeks",
-            "customMonths": "Every {{count}} month",
-            "customMonths_other": "Every {{count}} months"
+            "delete": "Delete class"
           },
           "notSet": "Not set"
         },
@@ -206,7 +199,8 @@
           "service": "Service",
           "seriesType": "Series Type",
           "visibility": "Visibility",
-          "notSet": "Not set"
+          "allowedTags": "Allowed tags",
+          "notAllowedTags": "Not allowed tags"
         }
       }
     }
@@ -320,6 +314,13 @@
     "editor": "Editor",
     "classes": "Classes ({{count}})"
   },
+  "seriesClassesTable": {
+    "emptySearchState": {
+      "title": "No classes found",
+      "subtitle": "No classes match your criteria. Try clearing the filters and try again.",
+      "action": "Clear filters"
+    }
+  },
   "header": {
     "breadcrumbs": "Series",
     "dateRange": "{{firstDate}} - {{lastDate}}",
@@ -355,11 +356,16 @@
           "singleClass": "Each class is booked independently. No commitment to the full series."
         }
       },
-      "guestBookingUnavailable": "Booking for a guest feature is currently not available for series."
+      "guestBookingUnavailable": "Booking for a guest is currently not available for Series."
+    },
+    "visibility": {
+      "title": "Visibility",
+      "label": "Select visibility"
     },
     "details": {
       "title": "Details",
-      "service": "Service"
+      "service": "Service",
+      "serviceDisabled": "Can't be changed after the series is created."
     }
   },
   "toasts": {
@@ -367,6 +373,7 @@
   },
   "errors": {
     "nameRequired": "Enter a series name.",
+    "tagsMutuallyExclusive": "A tag cannot be both allowed and not allowed.",
     "update": "Couldn't update series. Please try again."
   }
 }

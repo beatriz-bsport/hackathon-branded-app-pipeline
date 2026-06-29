@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} posto disponibile in classe",
         "hasEmptySpots_other": "{{ count }} posti rimasti in classe",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} membri in Lista d’attesa",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} clienti in Lista d’attesa",
         "hasEmptySpotsForWaitlist_other": "{{ count }} posti in attesa nella lista d'attesa"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Metriche chiave",
-    "unavailable": "Le metriche non sono attualmente disponibili"
+    "unavailable": "Le metriche non sono attualmente disponibili",
+    "loading": "Caricamento dati",
+    "dataUnavailable": "Dati non disponibili",
+    "metrics": {
+      "totalRevenue": "Ricavo totale",
+      "totalBooking": "Totale prenotazioni",
+      "totalAttendance": "Presenza totale",
+      "totalOccupancy": "Tasso di riempimento totale"
+    }
   },
   "insightsPanel": {
     "title": "Panoramica degli approfondimenti",
-    "unavailable": "Gli approfondimenti non sono attualmente disponibili"
+    "unavailable": "Gli approfondimenti non sono attualmente disponibili",
+    "loading": "Caricamento dati Approfondimenti...",
+    "temporarilyUnavailable": "Gli Approfondimenti non sono temporaneamente disponibili",
+    "errorHelp": "Stiamo lavorando per risolvere il problema. Nel frattempo, usa i Report per controllare i tuoi dati.",
+    "goToReports": "Vai ai report"
   }
 }

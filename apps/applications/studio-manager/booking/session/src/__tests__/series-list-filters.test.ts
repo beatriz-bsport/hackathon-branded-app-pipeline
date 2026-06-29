@@ -75,6 +75,55 @@ describe("series-list-filters", () => {
     });
   });
 
+  it("maps full and open series booking rules to full booking only", () => {
+    expect(
+      getSeriesParamsFromFilters([
+        createFilter(SeriesFilterField.BOOKING_RULE, [
+          "openSeries",
+          "fullSeries",
+        ]),
+      ]),
+    ).toEqual({
+      full_booking_only: true,
+    });
+  });
+
+  it("maps open series and single class booking rules to booking after start", () => {
+    expect(
+      getSeriesParamsFromFilters([
+        createFilter(SeriesFilterField.BOOKING_RULE, [
+          "openSeries",
+          "singleClass",
+        ]),
+      ]),
+    ).toEqual({
+      allow_booking_after_start: true,
+    });
+  });
+
+  it("omits booking rule params when every booking rule is selected", () => {
+    expect(
+      getSeriesParamsFromFilters([
+        createFilter(SeriesFilterField.BOOKING_RULE, [
+          "openSeries",
+          "fullSeries",
+          "singleClass",
+        ]),
+      ]),
+    ).toEqual({});
+  });
+
+  it("omits booking rule params when selected booking rules cannot be expressed by backend booleans", () => {
+    expect(
+      getSeriesParamsFromFilters([
+        createFilter(SeriesFilterField.BOOKING_RULE, [
+          "fullSeries",
+          "singleClass",
+        ]),
+      ]),
+    ).toEqual({});
+  });
+
   it("keeps active-only availability unless cancelled status is selected", () => {
     expect(
       getSeriesAvailableParamFromFilters(

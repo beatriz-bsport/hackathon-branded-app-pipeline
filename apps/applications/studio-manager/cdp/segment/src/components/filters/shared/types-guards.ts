@@ -8,7 +8,9 @@ import {
   type BasketAbandonmentFilter,
   type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  CUSTOM_FORM_FILTER_IDENTIFIER,
   type CreditAccountFilter,
+  type CustomFormFilter,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   type ExpensesCompleteFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
@@ -39,8 +41,10 @@ import {
   type PrivatePassFilter,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
   REFERRER_FILTER_IDENTIFIER,
+  RELATIONS_FILTER_IDENTIFIER,
   type ReferredMemberFilter,
   type ReferrerFilter,
+  type RelationsFilter,
   TAG_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
@@ -77,6 +81,8 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   internalNotes: "internalNotes",
   paymentMethod: "paymentMethod",
   referrer: "referrer",
+  relationships: "relationships",
+  formCompletion: "formCompletion",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -111,7 +117,9 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.internalNotes ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPassword ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.paymentMethod ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.referrer;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.referrer ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.relationships ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.formCompletion;
 
 export const isBasketAbandonmentFilter = (
   value: unknown,
@@ -402,3 +410,32 @@ export const isReferrerFilter = (value: unknown): value is ReferrerFilter =>
   hasNumber(value, "value_obtained_money") &&
   hasNumber(value, "value_second_obtained_money") &&
   hasNumber(value, "comparator_obtained_money");
+
+export const isRelationsFilter = (value: unknown): value is RelationsFilter =>
+  hasFilterIdentifier(value, RELATIONS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasNumber(value, "comparator_number_relations") &&
+  hasNumber(value, "value_number_relations") &&
+  hasNumber(value, "value_number_relations_second") &&
+  hasBoolean(value, "date_filter_active") &&
+  hasBoolean(value, "number_relations_consumer_payment_packs_filter_active") &&
+  hasBoolean(value, "number_relations_consumer_private_passes_filter_active") &&
+  hasBoolean(value, "number_relations_bookings_filter_active") &&
+  hasBoolean(value, "relation_receive_copy_of_email_filter_active") &&
+  hasBoolean(value, "relation_accept_sms_filter_active") &&
+  hasBoolean(value, "relation_accept_email_filter_active");
+
+export const isCustomFormFilter = (value: unknown): value is CustomFormFilter =>
+  hasFilterIdentifier(value, CUSTOM_FORM_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "is_v2") &&
+  hasNumber(value, "all_selected_must_fulfill_condition_v2") &&
+  hasNumberArray(value, "custom_forms") &&
+  hasBoolean(value, "has_filled") &&
+  hasBoolean(value, "all_selected_must_fulfill_condition") &&
+  hasBoolean(value, "date_filter_active") &&
+  hasBoolean(value, "completion_percentage_filter_active");

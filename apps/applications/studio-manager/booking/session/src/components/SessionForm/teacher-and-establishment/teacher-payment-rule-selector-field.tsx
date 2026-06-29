@@ -84,6 +84,7 @@ export const TeacherPaymentRuleSelectorField: FC<{
     >
       <Autocomplete
         items={paymentRuleItems}
+        fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-payment-rule-selector`,
           label: t(
@@ -94,6 +95,10 @@ export const TeacherPaymentRuleSelectorField: FC<{
             t(
               "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.placeholder",
             ),
+          className: "max-w-component-select",
+        }}
+        menuProps={{
+          className: "max-h-component-select overflow-y-auto",
         }}
         loadingProps={{ isLoading }}
         disabled={!isCoachSelected}

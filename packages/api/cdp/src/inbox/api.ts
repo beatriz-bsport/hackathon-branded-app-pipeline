@@ -1,3 +1,5 @@
+import { mutationOptions } from "@tanstack/react-query";
+
 import { type Fetch, buildUrlParams } from "@bsport/store-base";
 
 import { QUERY_KEY_MAIN } from "#src/constants";
@@ -50,6 +52,43 @@ export const inboxConversationsInfiniteQueryOptions = (
         : {}),
     }),
 });
+
+export const markConversationAsReadAPI = async (
+  fetch: Fetch<void>,
+  conversationId: string,
+): Promise<void> => {
+  await fetch(`${INBOX_CONVERSATION_API_URL}/${conversationId}/mark_as_read/`, {
+    method: "POST",
+  });
+};
+
+export const markConversationAsReadMutationOptions = (
+  fetch: Fetch<void>,
+  conversationId: string,
+) =>
+  mutationOptions({
+    mutationFn: () => markConversationAsReadAPI(fetch, conversationId),
+  });
+
+export const markConversationAsUnreadAPI = async (
+  fetch: Fetch<void>,
+  conversationId: string,
+): Promise<void> => {
+  await fetch(
+    `${INBOX_CONVERSATION_API_URL}/${conversationId}/mark_as_unread/`,
+    {
+      method: "POST",
+    },
+  );
+};
+
+export const markConversationAsUnreadMutationOptions = (
+  fetch: Fetch<void>,
+  conversationId: string,
+) =>
+  mutationOptions({
+    mutationFn: () => markConversationAsUnreadAPI(fetch, conversationId),
+  });
 
 export const inboxMessageKeys = {
   all: [QUERY_KEY_MAIN, "inbox-message"] as const,

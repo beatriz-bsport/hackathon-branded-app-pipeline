@@ -57,6 +57,11 @@ export const resolveBookingsManagementRevampPath = (sessionId: number) =>
     sessionId: String(sessionId),
   });
 
+export const resolveSeriesClassesPath = (seriesId: number) =>
+  generatePath(ABSOLUTE_ROUTES.SERIES_CLASSES, {
+    seriesId: String(seriesId),
+  });
+
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
@@ -116,11 +121,6 @@ export const useUrls = () => {
       seriesId: String(seriesId),
     });
 
-  const resolveSeriesClassesPath = (seriesId: number) =>
-    generatePath(ABSOLUTE_ROUTES.SERIES_CLASSES, {
-      seriesId: String(seriesId),
-    });
-
   const navigateToSeriesDetails = (seriesId: number) => {
     const path = resolveSeriesEditPath(seriesId);
     navigate(path);
@@ -128,6 +128,8 @@ export const useUrls = () => {
 
   const resolveAllOccurrencesPath = (id: number) =>
     generatePath(URLS.ALL_OCCURRENCES_PATH, { sessionId: String(id) });
+
+  const resolveServicesPath = () => `${appBasePath}${EXTERNAL_ROUTES.SERVICES}`;
 
   const getIndexUrl = () => URLS.INDEX;
 
@@ -159,6 +161,7 @@ export const useUrls = () => {
     resolveSeriesEditPath,
     resolveSeriesClassesPath,
     resolveAllOccurrencesPath,
+    resolveServicesPath,
     navigateToIndex,
     navigateToEdit,
     navigateToSeriesDetails,

@@ -179,23 +179,45 @@
     "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
   },
   "stripeCompliance": {
-    "banner": "Stripe necesita información actualizada antes del {{ date }}. Haz clic aquí para revisarla.",
-    "bannerWithoutDate": "Stripe necesita información actualizada. Haz clic aquí para revisarla.",
+    "banner": "Verificación de Stripe requerida antes del {{ date }}.",
+    "bannerWithoutDate": "Stripe necesita información actualizada.",
     "cta": {
       "company_settings": "Actualizar la configuración de mi empresa",
       "none": "Revisar",
       "stripe_onboarding": "Actualizar mi información en Stripe"
     },
     "modal": {
+      "faqLink": "¿Necesitas ayuda?",
       "genericImpact": "Si no se resuelve, la funcionalidad de pagos y transferencias puede verse afectada.",
+      "requirements": {
+        "associatedPerson": "Representante legal",
+        "bankAccountOwnershipDocument": "Documento de titularidad bancaria",
+        "beneficialOwnershipDocument": "Documento de beneficiarios reales",
+        "businessProfile": "Perfil de la empresa",
+        "businessType": "Tipo de empresa",
+        "companyAddress": "Dirección de la empresa",
+        "companyDetails": "Datos legales de la empresa",
+        "companyDirectorshipDeclaration": "Directores de la empresa",
+        "companyDocuments": "Documentos de la empresa",
+        "companyOwnershipDeclaration": "Titularidad de la empresa",
+        "companyTaxId": "Identificación fiscal de la empresa",
+        "companyVerificationDocument": "Documento de verificación de la empresa",
+        "externalAccount": "Datos de la cuenta bancaria de transferencias (IBAN)",
+        "individualDetails": "Información de identidad individual",
+        "other": "Información de cumplimiento adicional",
+        "statementDescriptor": "Descriptor de pagos en el extracto bancario",
+        "stripeSupportReview": "Información adicional solicitada por el soporte de Stripe",
+        "title": "Qué actualizar:"
+      },
       "restricted": {
         "description": "Stripe ha restringido tu cuenta. Actualiza la información requerida para restaurar toda la funcionalidad de pagos.",
         "title": "Cuenta de Stripe restringida"
       },
       "restrictedSoon": {
-        "description": "Stripe necesita información actualizada antes del {{ date }} para mantener tu cuenta conforme.",
-        "descriptionWithoutDate": "Stripe necesita información actualizada para mantener tu cuenta conforme.",
-        "title": "Actualización de Stripe requerida"
+        "description": "Stripe necesita que actualices cierta información antes del {{ date }} para mantener pagos y transferencias activos.",
+        "descriptionWithoutDate": "Stripe necesita que actualices cierta información para mantener pagos y transferencias activos.",
+        "title": "Verificación de Stripe requerida antes del {{ date }}",
+        "titleWithoutDate": "Verificación de Stripe requerida"
       }
     }
   },

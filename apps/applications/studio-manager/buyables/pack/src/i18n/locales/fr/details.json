@@ -16,7 +16,7 @@
     "loading": "Chargement de pack",
     "canNotFindPack": "Pack introuvable",
     "buttons": {
-      "renamePack": "Rename pack",
+      "renamePack": "Renommer le pack",
       "deletePack": "Supprimer le Pack"
     },
     "updatePack": {
@@ -32,7 +32,7 @@
     "loading": "Chargement des packs vendus...",
     "emptyList": {
       "title": "Aucun Pack vendu pour le moment",
-      "subtitle": "Lorsqu'un membre achète un pack, ils seront affichés ici."
+      "subtitle": "Une fois qu'un client achète un pack, il s'affichera ici."
     },
     "table": {
       "columns": {
@@ -57,8 +57,8 @@
       "save": "Sauvegarder"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Catégories de cartes de RDV",
-      "passCategories": "Catégories de cartes de cours",
+      "appointmentPassCategories": "Cartes de RDV",
+      "passCategories": "Cartes de cours",
       "webshopItemCategories": "Catégories de Produits"
     },
     "categories": {
@@ -130,7 +130,7 @@
       },
       "maxPurchaseToggle": {
         "label": "Maximum par client",
-        "description": "Définir une limite maximale de dépenses par contact",
+        "description": "Définir une limite maximale de dépenses par client",
         "errorMissingNumber": "Ajoutez un montant maximum ou désélectionnez cette option pour continuer"
       },
       "paymentMethod": {
@@ -146,25 +146,7 @@
         "toggleLabel": "Date limite d'achat",
         "fieldLabel": "Disponible jusqu’au",
         "errorMissingDate": "Ajouter une date ou désactivez cette option pour continuer",
-        "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Règles supplémentaires",
-        "helperText": "Cochez tout ce qui s'applique",
-        "checkboxes": {
-          "recommended": {
-            "label": "Marquer comme recommandé",
-            "helperText": "Mettez en avant votre pack auprès des clients en le marquant comme recommandé."
-          },
-          "newMembersOnly": {
-            "label": "Uniquement disponible pour les nouveaux membres",
-            "helperText": "Les membres sont « nouveaux » tant qu'ils n'ont pas acheté un article d'une valeur supérieure à {{ minimalCurrency }}. Même si un membre achète un article avec une remise de 100 %, cela compte toujours comme un achat."
-          },
-          "hideFromStaff": {
-            "label": "Invisible pour le personnel",
-            "helperText": "Le personnel ne pourra pas voir ou acheter ce pack."
-          }
-        }
+        "errorPastDate": "La date d'expiration doit être aujourd'hui ou ultérieure"
       }
     },
     "requiredField": "Ce champ est obligatoire"

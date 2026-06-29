@@ -1,5 +1,7 @@
 import React from "react";
 
+import { RecurringIconChip } from "#src/components/common/RecurringIconChip";
+
 import type { EnrichedSession } from "../../types";
 import { GroupedIconChip } from "../common/GroupedIconChip";
 import { HybridChip } from "../common/HybridChip";
@@ -18,6 +20,7 @@ export const SessionTypeChips: React.FC<SessionTypeChipsProps> = ({
       <div className="flex gap-2xs items-center">
         {session.group && <GroupedIconChip />}
         {session.is_broadcast && <OnlineIconChip />}
+        {session.is_recurring && <RecurringIconChip />}
       </div>
     </div>
   );

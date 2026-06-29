@@ -3,6 +3,9 @@ import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/
 
 import type { BasketAbandonmentFilterFormValue } from "./types";
 
+const DEFAULT_BASKET_VALUE_FIRST_VALUE = 0;
+const DEFAULT_BASKET_VALUE_SECOND_VALUE = DEFAULT_BASKET_VALUE_FIRST_VALUE + 1;
+
 /**
  * Returns the default UI state for a brand-new abandoned basket filter card.
  *
@@ -17,8 +20,8 @@ export const createDefaultBasketAbandonmentFilter = (
   subFilters: [],
   basketValue: {
     operator: NUMERIC_COMPARATOR_OPERATORS.lowerOrEqual,
-    firstValue: 0,
-    secondValue: null,
+    firstValue: DEFAULT_BASKET_VALUE_FIRST_VALUE,
+    secondValue: DEFAULT_BASKET_VALUE_SECOND_VALUE,
   },
   abandonmentDate: createDefaultDateFilterValue(),
 });

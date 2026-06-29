@@ -124,10 +124,18 @@
       "remainingUntil": "Until {{date}}"
     },
     "paymentMethod": {
-      "current": "Payment method",
+      "cancel": "Cancel",
+      "edit": "Edit",
       "emptyTitle": "No payment method added yet",
       "error": "Could not load payment methods.",
-      "loading": "Loading payment methods..."
+      "loading": "Loading payment methods...",
+      "save": "Save",
+      "selectPaymentMethod": "Select payment method",
+      "title": "Payment method",
+      "toasts": {
+        "success": "Payment method updated",
+        "error": "Could not update the payment method."
+      }
     }
   },
   "pauseModal": {

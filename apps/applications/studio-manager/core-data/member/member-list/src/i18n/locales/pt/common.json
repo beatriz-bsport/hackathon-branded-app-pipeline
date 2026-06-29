@@ -50,7 +50,7 @@
         "effect": "Você pode restaurar este perfil a qualquer momento do seu arquivo."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Antes de arquivar este perfil, recomendamos que você quite o saldo da conta do perfil primeiro. Isso se deve a um dos seguintes motivos: ",
+        "adviseRegularization": "Antes de arquivares este perfil, recomendamos que saldes primeiro o saldo da conta do cliente. Isto deve-se a um dos seguintes motivos: ",
         "items": {
           "negativeBalance": "Saldo negativo na conta",
           "unpaidInvoices": "Uma ou mais faturas não pagas",

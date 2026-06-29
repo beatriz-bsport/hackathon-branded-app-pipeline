@@ -56,7 +56,7 @@ describe("mapFirstPurchaseFilterToFormValue", () => {
     expect(formValue.firstPurchaseStatus).toBe(FIRST_PURCHASE_STATUS.notDone);
   });
 
-  it("hydrates active purchase date sub-filter from API", () => {
+  it("maps active purchase date sub-filter from fetched API", () => {
     const formValue = mapFirstPurchaseFilterToFormValue({
       ...baseApiFilter,
       first_payment_is_done: true,
@@ -77,7 +77,7 @@ describe("mapFirstPurchaseFilterToFormValue", () => {
     expect(formValue.purchaseDate.absolute.toDate).toBe("2024-06-30");
   });
 
-  it("hydrates active purchase amount sub-filter from API", () => {
+  it("maps active purchase amount sub-filter from fetched API", () => {
     const formValue = mapFirstPurchaseFilterToFormValue({
       ...baseApiFilter,
       first_payment_is_done: true,

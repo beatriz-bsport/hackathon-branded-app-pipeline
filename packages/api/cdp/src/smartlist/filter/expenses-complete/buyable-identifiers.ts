@@ -19,7 +19,7 @@ const toValidatedBuyableIds = (
  * Maps API `buyable_identifiers` to UI selection (`[]` means all types selected).
  * Preserves {@link EXPENSES_COMPLETE_BUYABLE_DISPLAY_ORDER} for stable picker ordering.
  */
-export const buyableIdsFromHydration = (
+export const buyableIdsFromFetch = (
   apiBuyableIdentifiers: number[],
 ): ExpensesCompleteBuyableId[] => {
   if (!apiBuyableIdentifiers.length) {

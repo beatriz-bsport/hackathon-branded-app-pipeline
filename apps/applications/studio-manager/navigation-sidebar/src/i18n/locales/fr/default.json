@@ -2,7 +2,8 @@
   "common": {
     "back": "Retour",
     "new": "Nouveau",
-    "search": "Rechercher des contacts"
+    "beta": "beta",
+    "search": "Rechercher des clients"
   },
   "menus": {
     "popover": {
@@ -12,21 +13,22 @@
       "tutorials": "Tutoriel",
       "help": "Centre d'aide",
       "feedback": "Tableau de retours",
-      "centralAccount": "Compte central",
+      "centralAccount": "Central Account",
       "logout": "Déconnexion"
     },
     "inbox": "Inbox",
     "notifications": "Notifications",
-    "sellProducts": "Sell products",
+    "sellProducts": "Vente rapide",
     "home": "Accueil",
     "calendar": "Calendrier",
     "schedule": "Emploi du temps",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Cours",
-      "activities": "Cours collectifs",
-      "workshops": "Ateliers",
-      "appointments": "Rendez-vous"
+    "services": {
+      "title": "Services",
+      "activities": "Activités",
+      "appointments": "Les Rendez-vous",
+      "classes": "Cours",
+      "workshops": "Ateliers"
     },
     "memberships": {
       "title": "Cartes de cours & Adhésions",
@@ -41,13 +43,15 @@
       "giftcards": "Cartes cadeaux",
       "videosAndEbooks": "Offre Digital",
       "playlists": "Collections",
+      "onDemand": "Offre Digital",
       "orders": "Commandes"
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Notifications",
+      "marketingNotifications": "Messages automatiques",
       "emailTemplates": "Modèles",
-      "smartlists": "Smartlists",
+      "smartlists": "Segments",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promotions",
       "customForms": "Formulaires personnalisés"
@@ -68,7 +72,7 @@
       "payroll": "Rémunération"
     },
     "membersHub": {
-      "title": "Contacts",
+      "title": "Clients",
       "members": "Profils",
       "forms": "Formulaires",
       "tags": "Tags",
@@ -78,6 +82,7 @@
       "title": "Studio",
       "teachers": "Professeurs",
       "establishments": "Etablissements",
+      "venues": "Etablissements",
       "substitutions": "Remplacements"
     },
     "settings": {
@@ -89,7 +94,7 @@
       "personalization": "Personnalisation",
       "brandedApp": "Application personnalisée",
       "teacherView": "Vue professeurs",
-      "memberForms": "Formulaires de membre",
+      "memberForms": "Client forms",
       "livestreaming": "Visioconférence",
       "transactionalNotifications": "Notifications transactionnelles",
       "payroll": "Rémunération",
@@ -100,12 +105,14 @@
       "waitlist": "Liste d’attente",
       "webhook": "Webhook",
       "partnership": "Partenariat",
+      "aggregators": "Agrégateurs",
       "activeCampaign": "ActiveCampaign",
       "referral": "Parrainages",
       "quicksale": "PDV",
-      "oldWebshop": "Paramètres du magasin",
+      "oldWebshop": "Retail settings",
       "quickbooks": "QuickBooks",
       "bsportSubscription": "Abonnement bsport",
+      "staff": "Staff",
       "temporaryPassword": "Mot de passe temporaire",
       "changeLanguage": "Changer de langue"
     }
@@ -235,7 +242,7 @@
         "title": "Aucun rendez-vous à compléter",
         "description": "Tous vos rendez-vous ont des professeurs assignés"
       },
-      "member": "Membre : {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Date : {{date}}"
     }
   }

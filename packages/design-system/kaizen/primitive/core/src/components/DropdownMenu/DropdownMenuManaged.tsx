@@ -21,6 +21,7 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
     searchConfig,
     items,
     maxHeightPx,
+    minWidthPx,
     fullWidth,
     defaultOpened: opened,
   } = props;
@@ -75,7 +76,11 @@ export function DropdownMenuManaged(props: DropdownMenuManagedProps) {
   return (
     <Popover className={className} opened={opened} fullWidth={fullWidth}>
       <Popover.Anchor>{target}</Popover.Anchor>
-      <Popover.Content placement={placement} maxHeightPx={maxHeightPx}>
+      <Popover.Content
+        placement={placement}
+        maxHeightPx={maxHeightPx}
+        minWidthPx={minWidthPx}
+      >
         {({ setIsPopoverOpened }) => (
           <div>
             {searchConfig && (

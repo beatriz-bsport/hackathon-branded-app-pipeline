@@ -1,15 +1,17 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 import {
   checkCanArchiveGroupActivity,
   groupActivityKeys,
 } from "@bsport/api-book";
-import { Loader, Modal } from "@bsport/kaizen-primitive-core";
+import { Alert, Body, Loader, Modal } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useArchiveClass } from "#src/hooks/use-archive-class";
+import { CALENDAR_URL } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
-import { Trans, getFixedNamespace, useTranslation } from "#src/utils/i18n";
+import { useTranslation } from "#src/utils/i18n";
 
 type Props = {
   open: boolean;
@@ -30,6 +32,7 @@ const ArchiveCheckContent = ({
   onSuccess,
 }: ContentProps) => {
   const { t } = useTranslation("class-actions");
+  const navigate = useNavigate();
   const { mutate: archiveClass } = useArchiveClass({
     onSuccess: () => {
       onClose();
@@ -37,7 +40,7 @@ const ArchiveCheckContent = ({
     },
   });
 
-  const { data: canDestroy } = useSuspenseQuery({
+  const { data: canArchive } = useSuspenseQuery({
     queryKey: [...groupActivityKeys.detail(classToArchive.id), "can-archive"],
     queryFn: () =>
       checkCanArchiveGroupActivity(fetch, classToArchive.id.toString()).then(
@@ -45,37 +48,59 @@ const ArchiveCheckContent = ({
       ),
   });
 
+  const handleViewUpcomingClassesClick = () => {
+    onClose();
+    navigate(CALENDAR_URL);
+  };
+
   return (
     <Modal
       open
       size="md"
-      title={t("classActions.archiveModal.title", {
-        className: classToArchive.name,
-      })}
+      title={t(
+        canArchive
+          ? "classActions.archiveModal.title"
+          : "classActions.archiveModal.cantArchiveTitle",
+        {
+          className: classToArchive.name,
+        },
+      )}
       onClose={onClose}
       confirmButton={
-        canDestroy
+        canArchive
           ? {
               label: t("classActions.archiveModal.confirm"),
               color: "critical",
               onClick: () => archiveClass(classToArchive.id),
             }
-          : undefined
+          : {
+              label: t("classActions.archiveModal.viewUpcomingClasses"),
+              iconRight: "link-external-02",
+              onClick: handleViewUpcomingClassesClick,
+            }
       }
       cancelButton={{
-        label: t("classActions.archiveModal.cancel"),
+        label: t(
+          canArchive
+            ? "classActions.archiveModal.keep"
+            : "classActions.archiveModal.cancel",
+        ),
         onClick: onClose,
       }}
     >
-      <Trans
-        i18nKey={
-          canDestroy
-            ? "classActions.archiveModal.modalContent"
-            : "classActions.archiveModal.cantArchive"
-        }
-        ns={getFixedNamespace("class-actions")}
-        values={{ className: classToArchive.name }}
-      />
+      {canArchive ? (
+        <Body htmlVariant="p" size="md" weight="weak">
+          {t("classActions.archiveModal.modalContent", {
+            className: classToArchive.name,
+          })}
+        </Body>
+      ) : (
+        <Alert status="warning" type="weak">
+          {t("classActions.archiveModal.cantArchive", {
+            className: classToArchive.name,
+          })}
+        </Alert>
+      )}
     </Modal>
   );
 };
@@ -127,10 +152,7 @@ export const ArchiveClassModal = ({
             onClick: onClose,
           }}
         >
-          <Trans
-            i18nKey="classActions.archiveModal.checkError"
-            ns={getFixedNamespace("class-actions")}
-          />
+          {t("classActions.archiveModal.checkError")}
         </Modal>
       )}
     >

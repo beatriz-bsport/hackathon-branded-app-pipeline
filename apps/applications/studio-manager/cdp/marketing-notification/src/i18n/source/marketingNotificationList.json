@@ -2,7 +2,7 @@
   "searching": "Searching...",
   "loading": "Loading notifications ...",
   "page": {
-    "title": "Marketing notifications",
+    "title": "Auto-messages",
     "filters": {
       "label": "Notification type",
       "notificationTypeLabel": {

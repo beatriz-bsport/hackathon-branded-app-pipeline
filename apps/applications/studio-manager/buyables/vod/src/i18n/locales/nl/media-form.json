@@ -2,17 +2,17 @@
   "formFields": {
     "name": {
       "label": "Titel",
-      "placeholder": "Mediatitel toevoegen",
+      "placeholder": "Voeg een titel toe voor dit on-demand aanbod",
       "errorMaxLength": "Titel mag maximaal {{maxLength}} tekens bevatten"
     },
     "description": {
       "label": "Beschrijving",
-      "placeholder": "Beschrijf je media",
+      "placeholder": "Beschrijf dit aanbod aan je klanten",
       "errorMaxLength": "Beschrijving mag maximaal {{maxLength}} tekens bevatten"
     },
     "credit_price": {
-      "errorInvalid": "Prijs moet een geldig niet-negatief getal zijn",
-      "equivalentCredits": "Deze pas bevat {{ creditsDisplay }}"
+      "errorInvalid": "Prijs moet een geldig positief getal zijn",
+      "equivalentCredits": "Dit aanbod kost het equivalent van {{ creditsDisplay }} bij jouw studio"
     },
     "manager_only": {
       "label": "Niet vermeld",
@@ -70,7 +70,7 @@
     }
   },
   "createModal": {
-    "title": "Maak media",
+    "title": "On-demand aanbod maken",
     "buttons": {
       "create": "Maken",
       "cancel": "Sluiten"

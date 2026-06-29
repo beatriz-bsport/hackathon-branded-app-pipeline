@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import type { SmartlistFiltersQueryData } from "#src/api/use-smartlist-filters-query";
+import type { SmartlistFilterCollections } from "#src/api/use-smartlist-filters-query";
 
 import type { FilterSelectorCategory } from "../filter-selector.constants";
 import type { SmartlistFiltersManagerFilterType } from "../shared/types-guards";
@@ -42,8 +42,8 @@ export type SegmentFilterSelectorConfig = {
 /**
  * The API filter shape stored under a given key of the smartlist filters query data.
  */
-type ApiFilterFor<TQueryKey extends keyof SmartlistFiltersQueryData> =
-  SmartlistFiltersQueryData[TQueryKey][number];
+type ApiFilterFor<TQueryKey extends keyof SmartlistFilterCollections> =
+  SmartlistFilterCollections[TQueryKey][number];
 
 /**
  * Strongly-typed configuration for a single smartlist filter.
@@ -52,7 +52,7 @@ type ApiFilterFor<TQueryKey extends keyof SmartlistFiltersQueryData> =
  * collection it is read from.
  */
 export type SegmentFilterRegistryEntryConfig<
-  TQueryKey extends keyof SmartlistFiltersQueryData,
+  TQueryKey extends keyof SmartlistFilterCollections,
   TFormValue,
 > = {
   filterType: SmartlistFiltersManagerFilterType;
@@ -72,7 +72,7 @@ export type SegmentFilterRegistryEntryConfig<
  */
 export type SegmentFilterRegistryEntry = {
   filterType: SmartlistFiltersManagerFilterType;
-  queryDataKey: keyof SmartlistFiltersQueryData;
+  queryDataKey: keyof SmartlistFilterCollections;
   savedKeyPrefix: string;
   selector: SegmentFilterSelectorConfig;
   createDefault: (smartlistId: number) => unknown;
@@ -90,7 +90,7 @@ export type SegmentFilterRegistryEntry = {
  * is type-erased so all filters can be collected into a single registry array.
  */
 export const defineSegmentFilterEntry = <
-  TQueryKey extends keyof SmartlistFiltersQueryData,
+  TQueryKey extends keyof SmartlistFilterCollections,
   TFormValue,
 >(
   entry: SegmentFilterRegistryEntryConfig<TQueryKey, TFormValue>,

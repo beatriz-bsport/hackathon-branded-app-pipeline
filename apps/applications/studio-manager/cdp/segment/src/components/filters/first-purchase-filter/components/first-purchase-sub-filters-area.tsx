@@ -5,6 +5,7 @@ import { createDefaultDateFilterValue } from "#src/components/primitive-filters/
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
+import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
 import {
   type FirstPurchaseSubFilterField,
   type FirstPurchaseSubFilterId,
@@ -64,34 +65,42 @@ export const FirstPurchaseSubFiltersArea = ({
     });
   };
 
+  const subFilterSections = watchedFilterValue.subFilters.flatMap(
+    (subFilterId) => {
+      const subFilterModule =
+        REGISTERED_FIRST_PURCHASE_SUB_FILTERS_BY_ID[subFilterId];
+      if (!subFilterModule) {
+        return [];
+      }
+      const Section = subFilterModule.Section;
+      const sectionId =
+        fieldIds[firstPurchaseSubFilterFieldMap[subFilterId]] ??
+        `${subFilterId}-section`;
+
+      return [
+        {
+          key: sectionId,
+          content: (
+            <Section
+              id={sectionId}
+              value={watchedFilterValue}
+              errors={errors}
+              setValue={setValue}
+              onRemove={() => removeSubFilter(subFilterId)}
+            />
+          ),
+        },
+      ];
+    },
+  );
+
   return (
     <>
       <Body size="md" color="weak" weight="strong">
         {t("filters.28.fields.filterSpecifications")}
       </Body>
 
-      {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule =
-          REGISTERED_FIRST_PURCHASE_SUB_FILTERS_BY_ID[subFilterId];
-        if (!subFilterModule) {
-          return null;
-        }
-        const Section = subFilterModule.Section;
-        const sectionId =
-          fieldIds[firstPurchaseSubFilterFieldMap[subFilterId]] ??
-          `${subFilterId}-section`;
-
-        return (
-          <Section
-            key={sectionId}
-            id={sectionId}
-            value={watchedFilterValue}
-            errors={errors}
-            setValue={setValue}
-            onRemove={() => removeSubFilter(subFilterId)}
-          />
-        );
-      })}
+      <SubFiltersCardSections sections={subFilterSections} />
 
       {availableSubFilters.length > 0 ? (
         <Popover>

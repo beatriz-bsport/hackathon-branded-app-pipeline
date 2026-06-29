@@ -136,7 +136,7 @@
     "description": "Eliminando questa categoria, verranno rimossi in modo permanente tutti i tag associati da {{ number }} clienti",
     "alerts": {
       "tagInUse": {
-        "description": "Attenzione: eliminerai questa categorie verranno rimosse anche le regole dei tag correlate che sono ancora attive nei flussi di lavoro condizionali, come Audience o Smartlist.",
+        "description": "Eliminando questa categoria verranno rimosse anche le regole dei tag correlate che sono ancora attive nei flussi di lavoro condizionali, come Journeys o Smartlists",
         "confirmCheckbox": {
           "label": "Spunta per confermare: ",
           "description": "Capisco che eliminare questa categoria rimuoverà permanentemente i tag associati e che ciò potrebbe influire su eventuali flussi di lavoro condizionali in cui sono utilizzati.",
@@ -162,7 +162,7 @@
     "description": "Eliminando questo tag lo rimuoverai permanentemente da {{ number }} clienti a cui è assegnato.",
     "alerts": {
       "tagInUse": {
-        "description": "Attenzione: eliminare questo tag influenzerà anche qualsiasi flusso di lavoro condizionale in cui è utilizzato (come Smartlist o Audience)",
+        "description": "L'eliminazione di questo tag influenzerà anche tutti i flussi di lavoro condizionali in cui è utilizzato (come Smartlists o Journeys)",
         "confirmCheckbox": {
           "label": "Spunta per confermare:",
           "description": "Capisco che eliminare questo tag è un cambiamento permanente che potrebbe influenzare qualsiasi flusso di lavoro associato.",

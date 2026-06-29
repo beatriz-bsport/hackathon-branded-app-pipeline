@@ -1,5 +1,4 @@
 import { SmartlistDateFilterType } from "@bsport/api-cdp/smartlist";
-import { getLocalNow } from "@bsport/datetime-manipulation";
 
 import {
   ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
@@ -16,7 +15,10 @@ import type {
   DateFilterValue,
   RelativeDateOperator,
 } from "#src/components/primitive-filters/date-filter/types";
-import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import {
+  createDefaultDateFilterValue,
+  getDefaultApiDate,
+} from "#src/components/primitive-filters/date-filter/utils";
 
 const toIsoDate = (value: string | null) => value ?? "";
 
@@ -28,13 +30,6 @@ const toAbsoluteNumericValue = (value: number | null) => {
   }
 
   return Math.abs(value);
-};
-
-/**
- * Returns today's date in ISO `yyyy-MM-dd` form for API fallbacks.
- */
-export const getDefaultApiDate = (): string => {
-  return getLocalNow({}).toISODate() ?? "";
 };
 
 const getRequiredAbsoluteSecondDate = ({

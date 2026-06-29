@@ -9,11 +9,11 @@ import { NOTE_TYPE_OPTIONS } from "#src/components/filters/internal-notes-filter
 import { createDefaultInternalNotesFilter } from "#src/components/filters/internal-notes-filter/default-value";
 import { createInternalNotesFilterPayload } from "#src/components/filters/internal-notes-filter/mappers/form-value-to-create-payload";
 import { INTERNAL_NOTES_SUB_FILTER_IDS } from "#src/components/filters/internal-notes-filter/sub-filters/internal-notes-sub-filter-id";
-import { getDefaultApiDate } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
 import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 
 describe("createInternalNotesFilterPayload", () => {
   it("creates a minimal both-notes payload by default", () => {

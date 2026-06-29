@@ -3,6 +3,9 @@ import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/
 
 import type { PurchaseHistoryFilterFormValue } from "./types";
 
+const DEFAULT_TOTAL_SPENT_FIRST_VALUE = 1;
+const DEFAULT_TOTAL_SPENT_SECOND_VALUE = DEFAULT_TOTAL_SPENT_FIRST_VALUE + 1;
+
 /**
  * Default UI state for a new purchase history filter card.
  * Matches backend defaults: GTE, value 1, all product types selected.
@@ -13,8 +16,8 @@ export const createDefaultPurchaseHistoryFilter = (
   smartlist: smartlistId,
   totalSpent: {
     operator: NUMERIC_COMPARATOR_OPERATORS.greaterOrEqual,
-    firstValue: 1,
-    secondValue: null,
+    firstValue: DEFAULT_TOTAL_SPENT_FIRST_VALUE,
+    secondValue: DEFAULT_TOTAL_SPENT_SECOND_VALUE,
   },
   spentOn: [],
   subFilters: [],

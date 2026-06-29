@@ -6,7 +6,7 @@ import { Body, Button, Card, toast } from "@bsport/kaizen-primitive-core";
 import { useDeleteTotalBookingFilterMutation } from "#src/api/use-delete-total-booking-filter-mutation";
 import { useUpsertTotalBookingFilterMutation } from "#src/api/use-upsert-total-booking-filter-mutation";
 import { FilterCardSaveButton } from "#src/components/filters/shared/filter-card-save-button";
-import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
+import { DEFAULT_BOOKING_NUMBER_FIRST_VALUE } from "#src/components/filters/total-booking/default-value";
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
@@ -170,20 +170,18 @@ export const TotalBookingNumberFilterCard = ({
             methods.setValue("type", nextValue.operator, {
               shouldDirty: true,
             });
-            methods.setValue("value", nextValue.firstValue ?? 0, {
-              shouldDirty: true,
-              shouldValidate: true,
-            });
             methods.setValue(
-              "secondValue",
-              nextValue.operator === NUMERIC_COMPARATOR_OPERATORS.between
-                ? nextValue.secondValue
-                : null,
+              "value",
+              nextValue.firstValue ?? DEFAULT_BOOKING_NUMBER_FIRST_VALUE,
               {
                 shouldDirty: true,
                 shouldValidate: true,
               },
             );
+            methods.setValue("secondValue", nextValue.secondValue, {
+              shouldDirty: true,
+              shouldValidate: true,
+            });
           }}
         />
 

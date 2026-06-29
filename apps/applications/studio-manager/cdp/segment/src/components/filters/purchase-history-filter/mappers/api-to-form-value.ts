@@ -1,6 +1,6 @@
 import {
   type ExpensesCompleteFilter,
-  buyableIdsFromHydration,
+  buyableIdsFromFetch,
 } from "@bsport/api-cdp/smartlist";
 
 import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
@@ -30,7 +30,7 @@ export const mapPurchaseHistoryFilterToFormValue = (
     id: filter.id,
     smartlist: filter.smartlist,
     totalSpent: toFormTotalSpentSection(filter),
-    spentOn: buyableIdsFromHydration(filter.buyable_identifiers),
+    spentOn: buyableIdsFromFetch(filter.buyable_identifiers),
     subFilters,
     purchaseDate: partialForm.purchaseDate ?? createDefaultDateFilterValue(),
   };

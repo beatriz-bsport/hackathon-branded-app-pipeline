@@ -2,20 +2,20 @@
   "formFields": {
     "name": {
       "label": "Título",
-      "placeholder": "Añade un título al contenido multimedia",
+      "placeholder": "Añade un título para esta oferta on-demand",
       "errorMaxLength": "El título debe tener un máximo de {{maxLength}} caracteres"
     },
     "description": {
       "label": "Description",
-      "placeholder": "Describe tu contenido multimedia",
+      "placeholder": "Describe esta oferta a tus clientes",
       "errorMaxLength": "La descripción debe tener un máximo de {{maxLength}} caracteres"
     },
     "credit_price": {
-      "errorInvalid": "El precio debe ser un número válido no negativo",
-      "equivalentCredits": "Este pase contendrá {{ creditsDisplay }}"
+      "errorInvalid": "El precio debe ser un número positivo válido",
+      "equivalentCredits": "Esta oferta costará el equivalente a {{ creditsDisplay }} en tu estudio"
     },
     "manager_only": {
-      "label": "No listado",
+      "label": "No publicado",
       "helperText": "Este contenido multimedia no estará disponible para comprar en tu sitio web o app "
     },
     "rental": {
@@ -58,7 +58,7 @@
         "2": "Principiante",
         "3": "Intermedio",
         "4": "Avanzado",
-        "5": "No se muestra el nivel"
+        "5": "Sin nivel"
       }
     },
     "teachers": {
@@ -70,7 +70,7 @@
     }
   },
   "createModal": {
-    "title": "Crear contenido multimedia",
+    "title": "Crear oferta on-demand",
     "buttons": {
       "create": "Crear",
       "cancel": "Cerrar"
@@ -88,7 +88,7 @@
       "cancel": "Cerrar"
     },
     "submitResponse": {
-      "success": "Créditos actualizados",
+      "success": "Cambios guardados",
       "error": "No se pudo actualizar el contenido multimedia. Inténtalo de nuevo. "
     }
   }

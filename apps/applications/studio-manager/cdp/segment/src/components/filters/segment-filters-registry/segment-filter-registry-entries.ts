@@ -5,6 +5,7 @@ import { basketAbandonmentFilterRegistryEntry } from "../basket-abandonment-filt
 import { bookingMilestoneFilterRegistryEntry } from "../booking-milestone/registry-entry";
 import { creditAccountFilterRegistryEntry } from "../credit-account/registry-entry";
 import { firstPurchaseFilterRegistryEntry } from "../first-purchase-filter/registry-entry";
+import { formCompletionFilterRegistryEntry } from "../form-completion-filter/registry-entry";
 import { genderFilterRegistryEntry } from "../gender-filter/registry-entry";
 import { hasPasswordFilterRegistryEntry } from "../has-password-filter/registry-entry";
 import { hasPhoneFilterRegistryEntry } from "../has-phone-filter/registry-entry";
@@ -18,6 +19,7 @@ import { paymentMethodFilterRegistryEntry } from "../payment-method-filter/regis
 import { purchaseHistoryFilterRegistryEntry } from "../purchase-history-filter/registry-entry";
 import { referredMembersFilterRegistryEntry } from "../referred-members-filter/registry-entry";
 import { referrerFilterRegistryEntry } from "../referrer-filter/registry-entry";
+import { relationshipsFilterRegistryEntry } from "../relationships-filter/registry-entry";
 import { tagFilterRegistryEntry } from "../tag-filter/registry-entry";
 import { termsAndConditionsFilterRegistryEntry } from "../terms-and-conditions-filter/registry-entry";
 import { totalAppointmentsNumberFilterRegistryEntry } from "../total-appointments/registry-entry";
@@ -43,8 +45,10 @@ export const SEGMENT_FILTER_REGISTRY_ENTRIES: SegmentFilterRegistryEntry[] = [
   activePassesFilterRegistryEntry,
   firstPurchaseFilterRegistryEntry,
   referrerFilterRegistryEntry,
+  relationshipsFilterRegistryEntry,
   referredMembersFilterRegistryEntry,
   ageFilterRegistryEntry,
+  formCompletionFilterRegistryEntry,
   marketingNotificationFilterRegistryEntry,
   internalNotesFilterRegistryEntry,
   hasPhoneFilterRegistryEntry,

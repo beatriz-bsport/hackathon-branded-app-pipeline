@@ -6,11 +6,14 @@ import {
   Body,
   Card,
   Checkbox,
+  Divider,
   List,
   type ListItemProps,
   Loader,
   SegmentedControl,
+  Select,
   Toggle,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -54,6 +57,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
 }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
+  const isMobile = !useMatchMedia("lg");
 
   const listId = useId();
 
@@ -216,36 +220,59 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
             }}
           />
         </Body>
-        <SegmentedControl
-          fullWidth
-          id="pass-selection-tabs"
-          options={[
-            {
-              label: t("bookingFlow.passSelection.tabs.compatible"),
-              badge: {
-                color: "default",
-                size: "sm",
-                text: String(compatiblePasses.count),
+        {isMobile ? (
+          <Select
+            name="pass-selection-tabs"
+            value={activeTab}
+            items={[
+              {
+                id: PassTab.COMPATIBLE,
+                label: t("bookingFlow.passSelection.tabs.compatible"),
               },
-              value: PassTab.COMPATIBLE,
-            },
-            {
-              label: t("bookingFlow.passSelection.tabs.incompatible"),
-              badge: {
-                color: "default",
-                size: "sm",
-                text: String(incompatiblePasses.count),
+              {
+                id: PassTab.INCOMPATIBLE,
+                label: t("bookingFlow.passSelection.tabs.incompatible"),
               },
-              value: PassTab.INCOMPATIBLE,
-            },
-            {
-              label: t("bookingFlow.passSelection.tabs.billNew"),
-              value: PassTab.BILL_NEW,
-            },
-          ]}
-          value={activeTab}
-          onChangeValue={setActiveTab}
-        />
+              {
+                id: PassTab.BILL_NEW,
+                label: t("bookingFlow.passSelection.tabs.billNew"),
+              },
+            ]}
+            onChange={setActiveTab}
+            fullWidth
+          />
+        ) : (
+          <SegmentedControl
+            fullWidth
+            id="pass-selection-tabs"
+            options={[
+              {
+                label: t("bookingFlow.passSelection.tabs.compatible"),
+                badge: {
+                  color: "default",
+                  size: "sm",
+                  text: String(compatiblePasses.count),
+                },
+                value: PassTab.COMPATIBLE,
+              },
+              {
+                label: t("bookingFlow.passSelection.tabs.incompatible"),
+                badge: {
+                  color: "default",
+                  size: "sm",
+                  text: String(incompatiblePasses.count),
+                },
+                value: PassTab.INCOMPATIBLE,
+              },
+              {
+                label: t("bookingFlow.passSelection.tabs.billNew"),
+                value: PassTab.BILL_NEW,
+              },
+            ]}
+            value={activeTab}
+            onChangeValue={setActiveTab}
+          />
+        )}
 
         {activeTab === PassTab.COMPATIBLE && (
           <>
@@ -298,6 +325,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
       </div>
       {!!similarSessions?.length && !isConvertBookingOption && (
         <>
+          <Divider orientation="horizontal" weight="extra-thin" />
           <Body size="lg">
             {t("bookingFlow.passSelection.moreBookingOptions")}
           </Body>

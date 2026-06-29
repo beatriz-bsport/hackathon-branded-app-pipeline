@@ -3,14 +3,14 @@
   "ebook": {
     "download": "Descargar"
   },
-  "managerOnly": "No listado",
+  "managerOnly": "No publicado",
   "rentalDays": "",
   "rentalDays_one": "{{count}} día de alquiler",
   "rentalDays_other": "{{count}} días de alquiler",
   "panel": {
     "viewingTitle": "Actividad",
     "uploadedAt": "Contenido multimedia subido el {{date}}",
-    "totalViews": "Suma",
+    "totalViews": "Total",
     "viewsLastWeek": "Los últimos 7 días",
     "distinctViewers": "Vistas únicas",
     "viewersTitle": "Vistas",

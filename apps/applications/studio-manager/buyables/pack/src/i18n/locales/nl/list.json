@@ -7,7 +7,7 @@
     "loading": "Laden van pakketten...",
     "emptyList": {
       "title": "Nog geen Pakketten toegevoegd",
-      "subtitle": "Voeg een pakket toe om je producten en passen te combineren in één aanbieding. "
+      "subtitle": "Voeg een pakket toe om je Winkelproducten en passen te combineren in één aanbieding"
     },
     "headers": {
       "name": "Naam",
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Verwijder pakket?",
     "description": {
-      "effect": "Zodra jij {{ name }} verwijdert, is het niet langer zichtbaar voor leden. ",
-      "canNotBeUndone": "Alle leden die dit pakket hebben gekocht, blijven onaangetast. "
+      "effect": "Zodra je {{ name }} verwijdert, is het niet langer zichtbaar voor klanten. ",
+      "canNotBeUndone": "Alle klanten die deze pakketten hebben gekocht, blijven onaangetast. "
     },
     "actions": {
       "cancel": "Behouden",

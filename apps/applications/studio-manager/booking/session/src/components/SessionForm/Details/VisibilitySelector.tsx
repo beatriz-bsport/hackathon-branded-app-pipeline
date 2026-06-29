@@ -9,10 +9,10 @@ import {
   useFormContext,
 } from "@bsport/form";
 import {
-  Body,
   Button,
   Icon,
   type IconProps,
+  Label,
   Popover,
   RadioGroup,
   type RadioGroupProps,
@@ -60,6 +60,10 @@ export type VisibilitySelectorProps<
    * Title displayed above the selector button
    */
   title?: string;
+  /**
+   * Whether the selector is required. Displays an asterisk next to the title.
+   */
+  required?: boolean;
   /**
    * Additional CSS classes for the button
    */
@@ -121,6 +125,7 @@ export const VisibilitySelector = <
 >({
   fieldIdPrefix,
   title,
+  required = false,
   buttonClassName,
   disabled = false,
   radioGroupProps,
@@ -193,6 +198,7 @@ export const VisibilitySelector = <
 
   const dropdownButtonLabel =
     selectedOption?.buttonLabel ?? visibilityOptions.visible.buttonLabel;
+  const visibilityDropdownId = `${fieldIdPrefix}-visibility-dropdown`;
 
   const radioOptions = [
     {
@@ -212,11 +218,13 @@ export const VisibilitySelector = <
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <div className="flex flex-col gap-xs">
-            {title && (
-              <Body size="md" htmlVariant="p">
-                {title}
-              </Body>
-            )}
+            {title ? (
+              <Label
+                htmlFor={visibilityDropdownId}
+                label={title}
+                required={required}
+              />
+            ) : null}
             <div className="relative">
               {selectedOption?.icon && (
                 <Icon
@@ -229,7 +237,7 @@ export const VisibilitySelector = <
                 />
               )}
               <Button
-                id={`${fieldIdPrefix}-visibility-dropdown`}
+                id={visibilityDropdownId}
                 label={dropdownButtonLabel}
                 intent="default"
                 color="main"

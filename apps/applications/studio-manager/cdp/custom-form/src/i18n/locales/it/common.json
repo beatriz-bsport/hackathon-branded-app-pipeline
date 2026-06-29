@@ -30,7 +30,7 @@
         "cancel": "Mantieni"
       },
       "title": "Archiviare il Modulo?",
-      "description": "I Membri non vedranno più <b>{{ name }}</b>, ma puoi accedervi dal tuo archivio."
+      "description": "Una volta archiviato, <b>{{ name }}</b> non sarà più visibile ai clienti. \n\nPuoi ripristinare questo modulo in qualsiasi momento dal tuo archivio. "
     },
     "duplicateModal": {
       "actions": {
@@ -82,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "Ancora nessun modulo da visualizzare",
-        "subtitle": "Crea il tuo primo modulo per ottenere feedback dai tuoi Membri."
+        "subtitle": "Crea il tuo primo modulo per ottenere feedback dai tuoi clienti"
       },
       "archivedList": {
         "title": "Nessun modulo archiviato ancora",

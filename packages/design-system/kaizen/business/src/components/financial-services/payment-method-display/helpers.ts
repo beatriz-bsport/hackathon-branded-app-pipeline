@@ -8,8 +8,9 @@ import type {
 } from "./types";
 
 /**
- * Returns the canonical `****XXXX` mask for a saved payment method identifier.
- * Strips all non-digit characters first, then masks the last 4 digits.
+ * Returns the canonical masked identifier for a saved payment method.
+ * Strips all non-digit characters first, then masks with the last 4 digits.
+ * Cards use the full PAN mask `**** **** **** XXXX`; other methods use `****XXXX`.
  * Falls back to the raw `readable_identifier` when no digits are present.
  */
 export const getMaskedPaymentMethodIdentifier = (
@@ -18,7 +19,13 @@ export const getMaskedPaymentMethodIdentifier = (
   const identifier = paymentMethod.readable_identifier.trim();
   const identifierDigits = identifier.replace(/[^0-9]/g, "");
 
-  return identifierDigits ? `****${identifierDigits.slice(-4)}` : identifier;
+  if (!identifierDigits) return identifier;
+
+  const lastFour = identifierDigits.slice(-4);
+
+  return paymentMethod.type === "card"
+    ? `**** **** **** ${lastFour}`
+    : `****${lastFour}`;
 };
 
 /**
@@ -73,7 +80,9 @@ export const getSavedPaymentMethodDisplay = (
   return {
     logoType: getSavedPaymentMethodLogoType(paymentMethod),
     maskedIdentifier,
-    hasMaskedDigits: /^\*{4}\d{4}$/.test(maskedIdentifier),
+    hasMaskedDigits:
+      /^\*{4}\d{4}$/.test(maskedIdentifier) ||
+      /^(\*{4} ){3}\d{4}$/.test(maskedIdentifier),
     expiry: getPaymentMethodExpiry(paymentMethod),
     typeLabelKey: getSavedPaymentMethodTypeLabelKey(paymentMethod),
   };

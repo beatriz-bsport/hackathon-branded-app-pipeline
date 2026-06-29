@@ -4,7 +4,7 @@ import {
   buyableIdsToApi,
 } from "@bsport/api-cdp/smartlist";
 
-import { getDefaultApiDate } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 
 import {
   mapPurchaseHistoryComparatorToApi,

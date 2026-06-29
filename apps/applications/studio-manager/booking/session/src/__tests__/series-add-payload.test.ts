@@ -31,11 +31,11 @@ const createSeriesDetails = (
 const createClassDraft = ({
   dataOverrides = {},
   draftId = "draft-1",
-  occurrenceIsoDates = ["2026-06-18T08:00:00+02:00"],
+  startIsoDate = "2026-06-18T08:00:00+02:00",
 }: {
   dataOverrides?: Partial<SeriesClassDraftFormData>;
   draftId?: string;
-  occurrenceIsoDates?: string[];
+  startIsoDate?: string;
 } = {}): SeriesClassDraft => {
   const data: SeriesClassDraftFormData = {
     coach: 21,
@@ -61,26 +61,19 @@ const createClassDraft = ({
     },
     room_blueprint: 4,
     roomBlueprintCapacity: null,
-    startDateTime: createDateTime("2026-06-18T08:00:00+02:00"),
+    startDateTime: createDateTime(startIsoDate),
     ...dataOverrides,
   };
 
   return {
     id: draftId,
     data,
-    occurrences: occurrenceIsoDates.map(
-      (occurrenceIsoDate, occurrenceIndex) => ({
-        id: `${draftId}-occurrence-${occurrenceIndex + 1}`,
-        startDateTime: createDateTime(occurrenceIsoDate),
-      }),
-    ),
   };
 };
 
 describe("series-add-payload", () => {
   it("builds the prepare payload from the series details and class draft", () => {
     const classDraft = createClassDraft();
-    const occurrenceStartDateTime = classDraft.occurrences[0].startDateTime;
 
     const payload = buildPrepareAddGroupSessionsCreationPayload({
       classDrafts: [classDraft],
@@ -120,23 +113,24 @@ describe("series-add-payload", () => {
       whitelist_tags: [7],
     });
     expect(payload.offers_data[0].date_start).toBe(
-      Math.floor(occurrenceStartDateTime.toSeconds()),
+      Math.floor(classDraft.data.startDateTime.toSeconds()),
     );
   });
 
-  it("expands draft occurrences and sorts every generated class chronologically", () => {
+  it("sorts every generated class chronologically", () => {
     const payload = buildPrepareAddGroupSessionsCreationPayload({
       classDrafts: [
         createClassDraft({
           draftId: "draft-1",
-          occurrenceIsoDates: [
-            "2026-06-25T08:00:00+02:00",
-            "2026-06-18T08:00:00+02:00",
-          ],
+          startIsoDate: "2026-06-25T08:00:00+02:00",
         }),
         createClassDraft({
           draftId: "draft-2",
-          occurrenceIsoDates: ["2026-06-20T10:00:00+02:00"],
+          startIsoDate: "2026-06-18T08:00:00+02:00",
+        }),
+        createClassDraft({
+          draftId: "draft-3",
+          startIsoDate: "2026-06-20T10:00:00+02:00",
         }),
       ],
       selectedService: { id: 12 },
@@ -185,7 +179,7 @@ describe("series-add-payload", () => {
     });
   });
 
-  it("rejects a series without saved class occurrences", () => {
+  it("rejects a series without saved classes", () => {
     expect(() =>
       buildPrepareAddGroupSessionsCreationPayload({
         classDrafts: [],

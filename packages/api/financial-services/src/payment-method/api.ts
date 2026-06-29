@@ -5,6 +5,7 @@ import { type ApiConfig, type Fetch } from "@bsport/store-base";
 import { API_URL_PAYMENT, QUERY_KEY_MAIN } from "../constants";
 import type {
   FetchSavedPaymentMethodsRequest,
+  RequestMemberSetupIntentRequest,
   SavedPaymentMethod,
   SetupIntentResponse,
 } from "./types";
@@ -92,6 +93,38 @@ export const requestSetupIntentMutationOptions = (
 ) =>
   mutationOptions({
     mutationFn: () => requestSetupIntentAPI(fetch),
+  });
+
+const requestMemberSetupIntentAPIConfig = (
+  payload: RequestMemberSetupIntentRequest,
+): ApiConfig => {
+  return [
+    `${API_URL_PAYMENT}/payment_method/register_setup_intent/`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ member: payload.member }),
+    },
+  ];
+};
+
+const requestMemberSetupIntentAPI = async (
+  fetch: Fetch<SetupIntentResponse>,
+  payload: RequestMemberSetupIntentRequest,
+): Promise<SetupIntentResponse> => {
+  const [uri, init] = requestMemberSetupIntentAPIConfig(payload);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const requestMemberSetupIntentMutationOptions = (
+  fetch: Fetch<SetupIntentResponse>,
+) =>
+  mutationOptions({
+    mutationFn: (payload: RequestMemberSetupIntentRequest) =>
+      requestMemberSetupIntentAPI(fetch, payload),
   });
 
 export const setCompanyPaymentMethodAsDefaultAPI = async (

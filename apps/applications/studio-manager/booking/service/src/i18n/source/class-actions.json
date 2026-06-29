@@ -1,27 +1,30 @@
 {
   "classActions": {
     "archiveModal": {
-      "title": "Archive class template?",
+      "title": "Archive class?",
+      "cantArchiveTitle": "This class has upcoming bookings",
       "confirm": "Archive",
-      "cancel": "Cancel",
+      "cancel": "Close",
+      "keep": "Keep",
+      "viewUpcomingClasses": "Go to Calendar",
       "retry": "Retry",
-      "modalContent": "It will no longer be active but can be restored any time from your archive. Bookings already made will not be affected.",
-      "cantArchive": "{{className}} can't be archived right now. Cancel all upcoming classes and bookings first.",
-      "checkError": "Something went wrong while checking if this class can be archived."
+      "modalContent": "{{className}} can be restored any time from your archive. Bookings for this class won't be affected.",
+      "cantArchive": "{{className}} can't be archived as there are one or more upcoming bookings. To archive this class, go to the Calendar page and cancel all bookings for this class.",
+      "checkError": "Something went wrong. Try again or refresh the page."
     },
     "duplicateModal": {
-      "title": "Duplicate class template?",
+      "title": "Duplicate class?",
       "confirm": "Duplicate",
-      "cancel": "Cancel",
-      "modalContent": "You can edit the class afterwards."
+      "cancel": "Close",
+      "modalContent": "A copy of this class will be created. You can edit it before scheduling."
     },
     "toasts": {
       "archive": "Class archived",
-      "archiveError": "Failed to archive class. Please try again.",
-      "unarchive": "Class unarchived",
-      "unarchiveError": "Failed to unarchive class. Please try again.",
+      "archiveError": "Couldn't archive class. Try again.",
+      "unarchive": "Class restored",
+      "unarchiveError": "Couldn't restore class. Try again.",
       "duplication": "Class duplicated",
-      "duplicationError": "Failed to duplicate class. Please try again.",
+      "duplicationError": "Couldn't duplicate class. Try again.",
       "undo": "Undo"
     }
   }

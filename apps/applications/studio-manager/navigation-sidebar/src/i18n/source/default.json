@@ -48,7 +48,7 @@
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Notifications",
+      "marketingNotifications": "Auto-messages",
       "emailTemplates": "Templates",
       "smartlists": "Segments",
       "smartfill": "Smartfill",
@@ -67,7 +67,6 @@
       "title": "Finance",
       "invoices": "Invoices",
       "payouts": "Payouts",
-      "subscription": "Subscription",
       "directDebits": "Direct debits",
       "expenses": "Expenses",
       "payroll": "Payroll"

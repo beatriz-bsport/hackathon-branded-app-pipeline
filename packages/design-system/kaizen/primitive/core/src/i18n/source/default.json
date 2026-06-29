@@ -103,7 +103,7 @@
   },
   "copyToClipboard": {
     "copied": "Copied to clipboard",
-    "failed": "Couldn't copy to clipboard. Please try again. ",
+    "failed": "Couldn't copy to clipboard. Try again. ",
     "tooltip": "Click to copy"
   },
   "detailDrawer": {
@@ -154,7 +154,7 @@
   },
   "actions": {
     "more": "More actions",
-    "selectAll": "Select All",
-    "selectNone": "Select None"
+    "selectAll": "Select all",
+    "selectNone": "Select none"
   }
 }

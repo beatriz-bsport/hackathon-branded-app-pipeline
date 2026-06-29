@@ -202,6 +202,9 @@ export const getCommunicationSMSProviderVerificationState = (
 export const getConversationIds = (state: RootState) =>
   state.communicationV2.conversations.allIds;
 
+export const getConversationUnreadCount = (state: RootState) =>
+  state.communicationV2.conversations.unreadCount;
+
 export const getConversationById = (state: RootState, id: string) =>
   state.communicationV2.conversations.byId[id] ?? null;
 

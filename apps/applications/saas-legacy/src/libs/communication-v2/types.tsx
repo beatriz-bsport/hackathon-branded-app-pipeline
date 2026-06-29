@@ -88,6 +88,7 @@ export type CommunicationState = {
     next: string | null;
     next_page: number | null;
     previous: string | null;
+    unreadCount: number;
   } & ErrorAndLoading;
   messages: {
     allMessageIdsByConversationId: { [conversationId: string]: number[] };
@@ -438,6 +439,10 @@ export type AuhtorizedFiltersList = {
 // ---------FRONTDESK AGENT CHAT---------
 
 export type ConversationListResponse = DefaultPagination<Conversation>;
+
+export type ConversationUnreadCountResponse = {
+  unread_count: number;
+};
 
 export type Conversation = {
   uuid: string;

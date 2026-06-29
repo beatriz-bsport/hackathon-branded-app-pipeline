@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FlagProvider, useUnleashClient } from '@unleash/proxy-client-react';
 import type { RootState } from '#src/reducers';
-import { getFranchiseId } from '#src/libs/franchise/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
 import Config from '#src/config';
 import { captureException as sentryCaptureException } from '@sentry/react';
@@ -25,10 +24,12 @@ function buildUnleashConfig() {
 // Component to update context when companyId becomes available
 const ContextUpdater: React.FC = () => {
   const client = useUnleashClient();
-  const companyId = useSelector(
-    (s: RootState) => themeSelectors.getTheme(s)?.company,
+  const companyTheme = useSelector((s: RootState) =>
+    themeSelectors.getTheme(s),
   );
-  const franchiseId = useSelector((s: RootState) => getFranchiseId(s));
+  // Extract both companyId and franchisorId from the companyTheme just fetched
+  const companyId = companyTheme?.company;
+  const franchiseId = companyTheme?.franchisor;
   const userId = useSelector((s: RootState) => s.auth?.id);
 
   useEffect(() => {

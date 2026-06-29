@@ -13,6 +13,7 @@ type UseSearchableFilterFieldConfig = {
   searchPlaceholder: string;
   multiSelect: boolean;
   persistedItems: FilterValue[] | undefined;
+  pinnedItems?: FilterValue[];
   useSearch: (searchQuery: string) => { data: FilterValue[] | undefined };
 };
 
@@ -26,6 +27,7 @@ export const useSearchableFilterField = (
     searchPlaceholder,
     multiSelect,
     persistedItems,
+    pinnedItems,
     useSearch,
   } = config;
 
@@ -36,10 +38,11 @@ export const useSearchableFilterField = (
   const { data: searchedItems } = useSearch(debouncedSearch);
 
   const allItems = useMemo(() => {
+    const pinned = pinnedItems || [];
     const searched = searchedItems || [];
     const persisted = persistedItems || [];
-    return uniqBy([...searched, ...persisted], (val) => val.id);
-  }, [searchedItems, persistedItems]);
+    return uniqBy([...pinned, ...searched, ...persisted], (val) => val.id);
+  }, [pinnedItems, searchedItems, persistedItems]);
 
   return {
     id: filterType,

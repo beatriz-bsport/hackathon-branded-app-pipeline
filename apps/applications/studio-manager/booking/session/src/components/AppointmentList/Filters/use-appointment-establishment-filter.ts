@@ -12,7 +12,12 @@ import {
 import { extractPersistedFilterIds } from "#src/utils/extract-persisted-filter-ids";
 import { useTranslation } from "#src/utils/i18n";
 
-import { AppointmentFilterTypes, AppointmentFilters } from "./types";
+import {
+  AT_HOME_FILTER_ID,
+  AppointmentFilterTypes,
+  AppointmentFilters,
+  NO_VALUE_FILTER_ID,
+} from "./types";
 
 export const useAppointmentEstablishmentFilter = (): FilterField => {
   const { t } = useTranslation("sessionList");
@@ -40,6 +45,10 @@ export const useAppointmentEstablishmentFilter = (): FilterField => {
     label: t("appointmentTable.filters.establishment.label"),
     searchPlaceholder: t("appointmentTable.filters.searchPlaceholder"),
     multiSelect: true,
+    pinnedItems: [
+      { id: NO_VALUE_FILTER_ID, label: t("appointmentTable.noVenue") },
+      { id: AT_HOME_FILTER_ID, label: t("appointmentTable.atHome") },
+    ],
     persistedItems: persistedEstablishments,
     useSearch: (query) => useSearchEstablishments(query),
   });

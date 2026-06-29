@@ -9,3 +9,6 @@ export enum AppointmentFilterTypes {
 export enum AppointmentFilters {
   FILTER_IS = "is",
 }
+
+export const NO_VALUE_FILTER_ID = "__none__";
+export const AT_HOME_FILTER_ID = "__at_home__";

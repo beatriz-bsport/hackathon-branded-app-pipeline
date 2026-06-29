@@ -127,6 +127,8 @@
     "unpaidTooltip": "Appointment is unpaid",
     "recurringTooltip": "Appointment is recurring",
     "noTeacher": "No teacher",
+    "atHome": "At home",
+    "noVenue": "No venue",
     "filters": {
       "label": "Filters",
       "is": "is",

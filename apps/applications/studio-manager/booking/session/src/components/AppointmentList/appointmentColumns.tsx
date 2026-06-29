@@ -4,6 +4,7 @@ import { Avatar, Body, Icon } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AppointmentShortcutActionsButton } from "#src/components/AppointmentList/AppointmentShortcutActionsButton";
+import { getEstablishmentCellVariant } from "#src/components/AppointmentList/get-establishment-cell-variant";
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
 import { RecurringIconChip } from "#src/components/common/RecurringIconChip";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
@@ -138,10 +139,35 @@ const getColumns = (
     id: AppointmentColumn.ESTABLISHMENT,
     header: t("appointmentTable.headers.establishment"),
     label: t("appointmentTable.headers.establishment"),
-    type: "string",
+    type: "custom",
     align: "start",
-    keyPath: "establishmentName",
-    cellsClassName: "truncate max-w-[128px]",
+    render: (row: EnrichedAppointment) => {
+      const variant = getEstablishmentCellVariant(row);
+      if (variant.kind === "name") {
+        return (
+          <Body htmlVariant="p" size="md" className="truncate max-w-[128px]">
+            {variant.name}
+          </Body>
+        );
+      }
+      if (variant.kind === "atHome") {
+        return (
+          <Body htmlVariant="p" size="md" className="truncate max-w-[128px]">
+            {t("appointmentTable.atHome")}
+          </Body>
+        );
+      }
+      return (
+        <Body
+          htmlVariant="p"
+          size="md"
+          color="weak"
+          className="truncate max-w-[128px]"
+        >
+          {t("appointmentTable.noVenue")}
+        </Body>
+      );
+    },
   };
 
   const typeColumn: AppointmentTableColumn = {

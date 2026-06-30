@@ -2,12 +2,12 @@ import React from "react";
 
 import { AggregatedAlertsDrawer } from "#src/components/financial-services/global-alert/aggregated-alerts-drawer";
 import { BlockingModal } from "#src/components/financial-services/global-alert/blocking-modal";
+import { globalAlertKinds } from "#src/components/financial-services/global-alert/constants";
 import { SingleAlertBanner } from "#src/components/financial-services/global-alert/single-alert-banner";
 import {
   type GlobalAlertEntry,
   type GlobalAlertKind,
   type NonBlockingGlobalAlertSeverity,
-  globalAlertKinds,
 } from "#src/components/financial-services/global-alert/types";
 
 export type GlobalAlertProps = {
@@ -24,6 +24,8 @@ export type GlobalAlertProps = {
   onNavigate: (url: string) => void;
   /** Called when the user clicks the CTA for `"apple-developer-program-enrollment"` alerts — opens the Intercom chat. */
   openIntercom?: () => void;
+  /** Called when the user clicks the CTA for `"apple-developer-pending-agreements"` alerts — opens the Apple Developer agreement page. */
+  openAppleAgreements?: () => void;
 };
 
 /**
@@ -43,6 +45,7 @@ export const GlobalAlert: React.FC<GlobalAlertProps> = ({
   onDismiss,
   onNavigate,
   openIntercom,
+  openAppleAgreements,
 }) => {
   if (!open) return null;
 
@@ -59,6 +62,7 @@ export const GlobalAlert: React.FC<GlobalAlertProps> = ({
         dueDate={alerts[blockingKind]?.dueDate}
         onNavigate={onNavigate}
         openIntercom={openIntercom}
+        openAppleAgreements={openAppleAgreements}
       />
     );
   }
@@ -75,6 +79,7 @@ export const GlobalAlert: React.FC<GlobalAlertProps> = ({
         onDismiss={onDismiss}
         onNavigate={onNavigate}
         openIntercom={openIntercom}
+        openAppleAgreements={openAppleAgreements}
       />
     );
   }
@@ -94,6 +99,7 @@ export const GlobalAlert: React.FC<GlobalAlertProps> = ({
       onDismiss={onDismiss}
       onNavigate={onNavigate}
       openIntercom={openIntercom}
+      openAppleAgreements={openAppleAgreements}
     />
   );
 };

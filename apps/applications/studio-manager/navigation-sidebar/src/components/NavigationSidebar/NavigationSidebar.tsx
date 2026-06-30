@@ -34,6 +34,7 @@ import {
   TemporaryPasswordDialog,
   useTemporaryPasswordDialog,
 } from "#src/components/TemporaryPasswordDialog";
+import { GlobalAlert } from "#src/components/global-alert";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { HELP_CENTER, LEGACY_URLS, SETTINGS_URL, STUDIO_URL } from "#src/urls";
@@ -104,6 +105,7 @@ const NavigationSidebarContent = ({
     company: companyId,
     company_name: companyName,
     cover: companyLogo,
+    franchisor: franchiseId,
   } = companyTheme ?? {};
   const { openCheckoutModalFromNav, checkoutPaymentFlowModalElement } =
     useCheckoutPaymentFlowModalContainer({
@@ -349,6 +351,14 @@ const NavigationSidebarContent = ({
       ? createPortal(checkoutPaymentFlowModalElement, document.body)
       : null;
 
+  const globalAlert = (
+    <GlobalAlert
+      onNavigate={navigateInContext}
+      companyId={companyId}
+      franchiseId={franchiseId}
+    />
+  );
+
   // Use responsive Sidebar for Studio Manager apps (isBridged = false)
   // Use simple NavigationSidebarContainer for saas-legacy (isBridged = true)
   if (isBridged) {
@@ -358,6 +368,7 @@ const NavigationSidebarContent = ({
           {sidebarContent}
         </NavigationSidebarContainer>
         {checkoutPaymentFlowModalPortal}
+        {globalAlert}
       </>
     );
   }
@@ -376,6 +387,7 @@ const NavigationSidebarContent = ({
         </Sidebar>
       </SidebarProvider>
       {checkoutPaymentFlowModalPortal}
+      {globalAlert}
     </>
   );
 };

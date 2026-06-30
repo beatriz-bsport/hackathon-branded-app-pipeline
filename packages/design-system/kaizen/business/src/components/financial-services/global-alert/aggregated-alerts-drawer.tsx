@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import type { DateTime } from "@bsport/datetime-manipulation";
 import {
   Alert,
   Body,
@@ -10,13 +9,15 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { redirectUrls } from "#src/components/financial-services/global-alert/constants";
+import {
+  globalAlertKinds,
+  redirectUrls,
+} from "#src/components/financial-services/global-alert/constants";
 import { DueDateChip } from "#src/components/financial-services/global-alert/due-date-chip";
 import {
   type GlobalAlertEntry,
   type GlobalAlertKind,
   type NonBlockingGlobalAlertSeverity,
-  globalAlertKinds,
 } from "#src/components/financial-services/global-alert/types";
 import { useAlertContent } from "#src/components/financial-services/global-alert/use-alert-content";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -28,9 +29,10 @@ type NonBlockingEntry = GlobalAlertEntry & {
 type AlertDrawerItemProps = {
   kind: GlobalAlertKind;
   severity: NonBlockingGlobalAlertSeverity;
-  dueDate?: DateTime;
+  dueDate?: string;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
+  openAppleAgreements?: () => void;
 };
 
 /**
@@ -43,15 +45,18 @@ const AlertDrawerItem: React.FC<AlertDrawerItemProps> = ({
   dueDate,
   onNavigate,
   openIntercom,
+  openAppleAgreements,
 }) => {
   const { title, description, ctaLabel } = useAlertContent(kind);
   const handleCta =
     kind === "apple-developer-program-enrollment" && openIntercom
       ? openIntercom
-      : () => onNavigate(redirectUrls[kind]);
+      : kind === "apple-developer-pending-agreements" && openAppleAgreements
+        ? openAppleAgreements
+        : () => onNavigate(redirectUrls[kind]);
 
   return (
-    <div className="space-y-m">
+    <div className="flex flex-col gap-xs">
       <div className="flex items-center gap-xs">
         <Title htmlVariant="h4" weight="strong">
           {title}
@@ -79,6 +84,7 @@ type AggregatedAlertsDrawerProps = {
   onDismiss?: () => void;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
+  openAppleAgreements?: () => void;
 };
 
 /**
@@ -92,6 +98,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
   onDismiss,
   onNavigate,
   openIntercom,
+  openAppleAgreements,
 }) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -109,7 +116,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50">
+      <div className="fixed top-0 left-0 right-0 z-50 m-sm">
         <Alert
           status={bannerStatus}
           type="strong"
@@ -128,7 +135,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
         isOpen={isDrawerOpen}
         onClose={handleDrawerClose}
       >
-        <div className="space-y-m">
+        <div className="flex flex-col gap-xs">
           <Title htmlVariant="h3" weight="strong">
             {t("globalAlertModal.aggregate.drawerTitle")}
           </Title>
@@ -151,6 +158,7 @@ export const AggregatedAlertsDrawer: React.FC<AggregatedAlertsDrawerProps> = ({
                 dueDate={entry.dueDate}
                 onNavigate={onNavigate}
                 openIntercom={openIntercom}
+                openAppleAgreements={openAppleAgreements}
               />
             </React.Fragment>
           );

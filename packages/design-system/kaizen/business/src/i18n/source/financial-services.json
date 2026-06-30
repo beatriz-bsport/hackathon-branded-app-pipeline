@@ -74,6 +74,11 @@
       "description": "Your studio app is currently registered under bsport's Apple account. Create your own Apple Developer account to take ownership of it.",
       "ctaLabel": "Get started"
     },
+    "apple-developer-pending-agreements": {
+      "title": "Apple Agreement Update",
+      "description": "There is an updated Developer Program License Agreement on your Apple Developer account that must be accepted before your iOS app can be updated.",
+      "ctaLabel": "Go to Apple Developer account"
+    },
     "unpaid-invoice": {
       "title": "You have an unpaid invoice",
       "description": " Pay your outstanding invoice or your account will be restricted.",

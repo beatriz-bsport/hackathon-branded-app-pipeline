@@ -38,6 +38,14 @@ export const inboxChannelFromWireName = (
   wire !== null ? (WIRE_NAME_TO_INBOX_CHANNEL[wire] ?? null) : null;
 
 /**
+ * Member search over the studio-manager conversation set
+ * (`…/conversation/search/?q=`). A dedicated viewset action with fuzzy trigram
+ * matching over member name, email, and phone. Distinct from the list endpoint:
+ * it uses DRF page-number pagination, not the list's activity cursor.
+ */
+export const INBOX_CONVERSATION_SEARCH_API_URL = `${INBOX_CONVERSATION_API_URL}/search`;
+
+/**
  * Messages of a single conversation, served as the backend `timeline` envelope:
  * `communicate/v1/communication/studio_manager/conversation/<id>/timeline`.
  */

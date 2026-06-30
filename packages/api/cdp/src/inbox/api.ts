@@ -7,13 +7,16 @@ import { QUERY_KEY_MAIN } from "#src/constants";
 import {
   INBOX_CHANNEL_TO_WIRE_NAME,
   INBOX_CONVERSATION_API_URL,
+  INBOX_CONVERSATION_SEARCH_API_URL,
   inboxMessagesApiUrl,
 } from "./constants";
 import type {
   FetchInboxConversationsParams,
+  FetchInboxConversationsSearchParams,
   FetchInboxMessagesParams,
   InboxMessagesCursor,
   RawStudioManagerConversationsResponse,
+  RawStudioManagerConversationsSearchResponse,
   RawStudioManagerTimelineResponse,
 } from "./types";
 
@@ -23,6 +26,14 @@ export const inboxKeys = {
   infiniteLists: () => [...inboxKeys.lists(), "infinite"] as const,
   infinite: (params: FetchInboxConversationsParams) =>
     [...inboxKeys.infiniteLists(), params] as const,
+  // Search is a separate endpoint with an incompatible (page-number)
+  // pagination contract, so it gets its own key sub-tree under `all` rather
+  // than reusing `lists()`. This guarantees the cursor list and the search
+  // results never collide in the query cache.
+  searchLists: () => [...inboxKeys.all, "search", "list"] as const,
+  searchInfiniteLists: () => [...inboxKeys.searchLists(), "infinite"] as const,
+  searchInfinite: (params: FetchInboxConversationsSearchParams) =>
+    [...inboxKeys.searchInfiniteLists(), params] as const,
 } as const;
 
 /**
@@ -94,6 +105,40 @@ export const markConversationAsUnreadMutationOptions = (
   mutationOptions({
     mutationFn: () => markConversationAsUnreadAPI(fetch, conversationId),
   });
+
+/** Fetches a raw page of search matches — no transformation (normalize app-side). */
+export const fetchInboxConversationsSearchAPI = async (
+  fetch: Fetch<RawStudioManagerConversationsSearchResponse>,
+  params: FetchInboxConversationsSearchParams,
+): Promise<RawStudioManagerConversationsSearchResponse> => {
+  const { data } = await fetch(
+    `${INBOX_CONVERSATION_SEARCH_API_URL}/${buildUrlParams(params)}`,
+  );
+  return data;
+};
+
+/** The 1-based page number passed as the search infinite-query `pageParam`. */
+export type InboxConversationsSearchPageParam = number;
+
+/**
+ * Params accepted by the infinite builder: the full search params minus `page`,
+ * which the infinite query owns through `pageParam`. Excluding it keeps the
+ * query key stable — a caller-supplied `page` would otherwise fragment the same
+ * search across multiple cache entries for no behavioral difference.
+ */
+export type InboxConversationsSearchInfiniteParams = Omit<
+  FetchInboxConversationsSearchParams,
+  "page"
+>;
+
+export const inboxConversationsSearchInfiniteQueryOptions = (
+  fetch: Fetch<RawStudioManagerConversationsSearchResponse>,
+  params: InboxConversationsSearchInfiniteParams,
+) => ({
+  queryKey: inboxKeys.searchInfinite(params),
+  queryFn: ({ pageParam }: { pageParam: InboxConversationsSearchPageParam }) =>
+    fetchInboxConversationsSearchAPI(fetch, { ...params, page: pageParam }),
+});
 
 export const inboxMessageKeys = {
   all: [QUERY_KEY_MAIN, "inbox-message"] as const,

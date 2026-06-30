@@ -4,6 +4,7 @@ import type {
   InboxConversationListItem,
   RawInboxConversation,
   RawStudioManagerConversationsResponse,
+  RawStudioManagerConversationsSearchResponse,
 } from "@bsport/api-cdp/inbox";
 
 import { channelFromCode } from "#src/components/channel/constants";
@@ -51,6 +52,28 @@ export const selectInboxConversations = (
 ): InfiniteData<{
   results: InboxConversationListItem[];
   more_conversations: boolean;
+}> => ({
+  ...data,
+  pages: data.pages.map((page) => ({
+    ...page,
+    results: page.results.map(normalizeInboxConversation),
+  })),
+});
+
+/**
+ * Stable `select` for the search infinite query. Same job as
+ * {@link selectInboxConversations} — normalize each raw page's results — but
+ * over the DRF page envelope (`count`/`next`/`previous`). Search reuses the
+ * list serializer, so the same {@link normalizeInboxConversation} applies.
+ * Module-scoped so its reference is stable across renders.
+ */
+export const selectInboxConversationsSearch = (
+  data: InfiniteData<RawStudioManagerConversationsSearchResponse>,
+): InfiniteData<{
+  results: InboxConversationListItem[];
+  count: number;
+  next: string | null;
+  previous: string | null;
 }> => ({
   ...data,
   pages: data.pages.map((page) => ({

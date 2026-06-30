@@ -218,6 +218,7 @@
   "participantDetails": {
     "bookedOn": "Booked on {{bookingDate}}",
     "spot": "Spot",
+    "noSpotAssigned": "No spot assigned",
     "pass": "Pass",
     "passValidity": "{{startDate}} → {{endDate}}",
     "unlimited": "Unlimited",

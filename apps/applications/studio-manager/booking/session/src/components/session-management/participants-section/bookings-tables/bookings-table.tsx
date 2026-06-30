@@ -67,12 +67,15 @@ export const BookingsTable: FC<{
   const getSecondaryText = (
     booking: Pick<RefinedBooking, "spot_information" | "passData">,
   ) => {
-    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? formatBookingSpotLabel(
-          booking.spot_information,
-          t("participantDetails.spot"),
-        )
-      : "";
+    const spotName =
+      listedInformation.includes(BookingListedInformation.SPOT) &&
+      session.room_blueprint != null
+        ? formatBookingSpotLabel(
+            booking.spot_information,
+            t("participantDetails.spot"),
+            t("participantDetails.noSpotAssigned"),
+          )
+        : "";
 
     const passName = listedInformation.includes(BookingListedInformation.PASS)
       ? clean(booking.passData?.name)

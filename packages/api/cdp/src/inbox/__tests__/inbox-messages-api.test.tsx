@@ -41,14 +41,23 @@ const useInboxMessagesQuery = (params: FetchInboxMessagesParams = {}) =>
       params,
     ),
     initialPageParam: {} as InboxMessagesPageParam,
-    getNextPageParam: (lastPage): InboxMessagesPageParam | undefined =>
-      lastPage.hasMoreAfter
-        ? { after: lastPage.messages.at(-1)?.id }
-        : undefined,
-    getPreviousPageParam: (firstPage): InboxMessagesPageParam | undefined =>
-      firstPage.hasMoreBefore
-        ? { before: firstPage.messages[0]?.id }
-        : undefined,
+    getNextPageParam: (lastPage): InboxMessagesPageParam | undefined => {
+      if (!lastPage.communication_sent_window.has_more_after) return undefined;
+      const communication_sent_id =
+        lastPage.items.at(-1)?.data.communication_sent_id;
+      return communication_sent_id === undefined
+        ? undefined
+        : { communication_sent_id, direction: "newer" };
+    },
+    getPreviousPageParam: (firstPage): InboxMessagesPageParam | undefined => {
+      if (!firstPage.communication_sent_window.has_more_before)
+        return undefined;
+      const communication_sent_id =
+        firstPage.items[0]?.data.communication_sent_id;
+      return communication_sent_id === undefined
+        ? undefined
+        : { communication_sent_id, direction: "older" };
+    },
   });
 
 const renderInboxMessagesQuery = (params: FetchInboxMessagesParams = {}) => {
@@ -69,36 +78,48 @@ describe("inboxMessagesInfiniteQueryOptions", () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     const firstPage = result.current.data?.pages[0];
+    const window = firstPage?.communication_sent_window;
 
-    expect(firstPage?.firstUnreadId).toBe(MOCK_INBOX_FIRST_UNREAD_ID);
+    expect(window?.first_unread_communication_sent_id).toBe(
+      MOCK_INBOX_FIRST_UNREAD_ID,
+    );
     // 20 read-context messages before the seam + the 11 from the seam (50..60).
-    expect(firstPage?.messages).toHaveLength(31);
-    expect(firstPage?.messages[0]?.id).toBe(MOCK_INBOX_FIRST_UNREAD_ID - 20);
-    expect(firstPage?.messages.at(-1)?.id).toBe(mockInboxMessages.length);
-    expect(firstPage?.hasMoreBefore).toBe(true);
-    expect(firstPage?.hasMoreAfter).toBe(false);
+    expect(firstPage?.items).toHaveLength(31);
+    expect(firstPage?.items[0]?.data.communication_sent_id).toBe(
+      MOCK_INBOX_FIRST_UNREAD_ID - 20,
+    );
+    expect(firstPage?.items.at(-1)?.data.communication_sent_id).toBe(
+      mockInboxMessages.length,
+    );
+    expect(window?.has_more_before).toBe(true);
+    expect(window?.has_more_after).toBe(false);
     // Seam present → there are newer messages below, but all are in this window.
     expect(result.current.hasPreviousPage).toBe(true);
     expect(result.current.hasNextPage).toBe(false);
   });
 
-  it("pages into older history via the `before` cursor", async () => {
+  it("pages into older history via the `older` cursor", async () => {
     const { result } = renderInboxMessagesQuery();
 
     await waitFor(() => expect(result.current.hasPreviousPage).toBe(true));
 
-    const oldestBefore = result.current.data?.pages[0]?.messages[0]?.id;
+    const oldestBefore =
+      result.current.data?.pages[0]?.items[0]?.data.communication_sent_id;
     const previous = await act(() => result.current.fetchPreviousPage());
 
     // TanStack prepends previous pages to the front of the list.
     const olderPage = previous.data?.pages[0];
 
-    expect(olderPage?.firstUnreadId).toBeNull();
-    expect(olderPage?.messages.at(-1)?.id).toBe((oldestBefore ?? 0) - 1);
-    expect(olderPage?.hasMoreBefore).toBe(true);
+    expect(
+      olderPage?.communication_sent_window.first_unread_communication_sent_id,
+    ).toBeNull();
+    expect(olderPage?.items.at(-1)?.data.communication_sent_id).toBe(
+      (oldestBefore ?? 0) - 1,
+    );
+    expect(olderPage?.communication_sent_window.has_more_before).toBe(true);
   });
 
-  it("pages into newer messages via the `after` cursor", async () => {
+  it("pages into newer messages via the `newer` cursor", async () => {
     // Seam near the start so the initial window leaves newer messages below.
     server.use(
       ...makeInboxMessagesHandlers({
@@ -112,27 +133,34 @@ describe("inboxMessagesInfiniteQueryOptions", () => {
 
     await waitFor(() => expect(result.current.hasNextPage).toBe(true));
 
-    const newestAfter = result.current.data?.pages.at(-1)?.messages.at(-1)?.id;
+    const newestAfter = result.current.data?.pages.at(-1)?.items.at(-1)
+      ?.data.communication_sent_id;
     const next = await act(() => result.current.fetchNextPage());
 
     const newerPage = next.data?.pages.at(-1);
 
-    expect(newerPage?.firstUnreadId).toBeNull();
-    expect(newerPage?.messages[0]?.id).toBe((newestAfter ?? 0) + 1);
-    expect(newerPage?.hasMoreAfter).toBe(true);
+    expect(
+      newerPage?.communication_sent_window.first_unread_communication_sent_id,
+    ).toBeNull();
+    expect(newerPage?.items[0]?.data.communication_sent_id).toBe(
+      (newestAfter ?? 0) + 1,
+    );
+    expect(newerPage?.communication_sent_window.has_more_after).toBe(true);
   });
 
   it("ignores the seam when a channel filter is active", async () => {
-    const { result } = renderInboxMessagesQuery({ channel: "in_app" });
+    const { result } = renderInboxMessagesQuery({ channels: ["in_app"] });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     const firstPage = result.current.data?.pages[0];
 
-    expect(firstPage?.firstUnreadId).toBeNull();
-    expect(firstPage?.hasMoreAfter).toBe(false);
     expect(
-      firstPage?.messages.every((message) => message.channel === "in_app"),
+      firstPage?.communication_sent_window.first_unread_communication_sent_id,
+    ).toBeNull();
+    expect(firstPage?.communication_sent_window.has_more_after).toBe(false);
+    expect(
+      firstPage?.items.every((item) => item.data.channel === "in_app"),
     ).toBe(true);
   });
 
@@ -147,9 +175,13 @@ describe("inboxMessagesInfiniteQueryOptions", () => {
 
     const firstPage = result.current.data?.pages[0];
 
-    expect(firstPage?.firstUnreadId).toBeNull();
-    expect(firstPage?.hasMoreAfter).toBe(false);
-    expect(firstPage?.messages.at(-1)?.id).toBe(mockInboxMessages.length);
+    expect(
+      firstPage?.communication_sent_window.first_unread_communication_sent_id,
+    ).toBeNull();
+    expect(firstPage?.communication_sent_window.has_more_after).toBe(false);
+    expect(firstPage?.items.at(-1)?.data.communication_sent_id).toBe(
+      mockInboxMessages.length,
+    );
   });
 
   it("enters an error state when the messages endpoint fails", async () => {

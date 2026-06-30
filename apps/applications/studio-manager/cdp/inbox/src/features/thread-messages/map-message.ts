@@ -8,9 +8,10 @@ import type {
 import type { MessageBubbleProps } from "#src/features/thread-messages/message-bubble/message-bubble";
 
 /**
- * A presentational view of a message: either a chat bubble (manual messages) or
- * a collapsed automated-message card (campaigns, workflows, …). The `kind`
- * discriminator tells the renderer which component to mount.
+ * A presentational view of a message: either a chat bubble (manual outbound,
+ * member replies, untyped) or a collapsed automated-message card (campaigns,
+ * workflows, …). The `kind` discriminator tells the renderer which component to
+ * mount.
  */
 export type MappedMessage =
   | { id: number; kind: "bubble"; props: MessageBubbleProps }
@@ -28,43 +29,56 @@ const formatTimestamp = (isoDate: string): string =>
 
 /**
  * Adapts an {@link InboxMessage} from the API into props for the matching
- * presentational component. `manual` messages render as `MessageBubble`;
- * everything else renders as `AutomatedMessage`.
+ * presentational component. Manual outbound messages, member replies and
+ * untyped messages render as a `MessageBubble`; the automated message types
+ * render as an `AutomatedMessage` card.
  */
 export const mapMessage = (message: InboxMessage): MappedMessage => {
   const timestamp = formatTimestamp(message.dateCreated);
 
-  if (message.source === "manual") {
+  if (
+    message.messageType === "manually_sent" ||
+    message.messageType === "member_reply" ||
+    message.messageType === null
+  ) {
     return {
       id: message.id,
       kind: "bubble",
       props: {
-        sender: message.sender,
+        // `member` is the only inbound author; `studio`/`agent` are outbound.
+        sender: message.authorType === "member" ? "member" : "studio",
         channel: message.channel,
-        title: message.title ?? undefined,
-        body: message.body,
+        title: message.title || undefined,
+        content: message.content,
         timestamp,
-        status: message.status,
+        // null status (outside success/failed/processing) → no affordance.
+        status: message.status ?? undefined,
       },
     };
   }
 
-  // Automated messages never use the live `in_app` channel; guard defensively.
+  // Automated messages never use the live `in_app` channel (and the backend may
+  // send no channel); guard defensively to the card's supported channels.
   const channel: AutomatedMessageChannel =
-    message.channel === "in_app" ? "email" : message.channel;
+    message.channel === null || message.channel === "in_app"
+      ? "email"
+      : message.channel;
 
   return {
     id: message.id,
     kind: "automated",
     props: {
       channel,
-      // Source values other than "manual" are exactly `AutomatedMessageType`.
-      messageType: message.source satisfies AutomatedMessageType,
-      title: message.sourceName ?? "",
+      // After the bubble guard above, the remaining types are exactly the six
+      // `AutomatedMessageType` card values.
+      messageType: message.messageType satisfies AutomatedMessageType,
+      // Header name: email/push carry a `title`, sms falls back to `content`.
+      title: message.title || message.content,
       timestamp,
-      status: message.status,
-      subject: message.title ?? undefined,
-      body: message.body,
+      // null status (outside success/failed/processing) → no affordance.
+      status: message.status ?? undefined,
+      subject: message.title || undefined,
+      content: message.content,
     },
   };
 };

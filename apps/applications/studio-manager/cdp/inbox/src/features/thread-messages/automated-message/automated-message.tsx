@@ -1,5 +1,6 @@
 import { useId } from "react";
 
+import type { AutomatedMessageType } from "@bsport/api-cdp/inbox";
 import { Body, Card, Collapse, Icon, cx } from "@bsport/kaizen-primitive-core";
 
 import { Channel, type ChannelType } from "#src/components/channel/channel";
@@ -11,46 +12,38 @@ import { useTranslation } from "#src/utils/i18n";
 export type AutomatedMessageChannel = Exclude<ChannelType, "in_app">;
 
 /** Delivery status — mirrors `MessageBubble` for consistency across the feature. */
-export type MessageStatus = "sent" | "failed";
+export type MessageStatus = "success" | "failed" | "processing";
 
-/**
- * Presentational classification of an automated message. There is no single
- * backend enum for this — each value is derived (by the future row adapter,
- * out of scope here) from which id is populated in `CommunicationSent.metadata`
- * (bsport-django `apps/communicate/communication/types.py`):
- *
- * - `campaign`                   → `automated_campaign_id` (SmartListAutomatedCampaign)
- * - `transactional-notification` → `notification_rule` / `notification_event` (NotificationRule)
- * - `auto-message`               → `marketing_notification_id` (MarketingNotification, "Marketing Notifications" in legacy)
- * - `automation`                 → `cadence_id` (Cadence / workflow)
- * - `audience-message`           → `smartlist_id` (SmartList, ExecutionContext.AUDIENCE)
- * - `franchise-campaign`         → `communication_sent_group_config_id` (ExecutionContext.COMMUNICATION_FROM_FRANCHISE)
- */
-export type AutomatedMessageType =
-  | "campaign"
-  | "transactional-notification"
-  | "auto-message"
-  | "automation"
-  | "audience-message"
-  | "franchise-campaign";
+// The automated (card) message types — defined once in the api package and
+// re-exported here so consumers (e.g. `mapMessage`, stories) keep their import
+// path.
+export type { AutomatedMessageType };
 
 export type AutomatedMessageProps = {
   /** Channel the automated message was sent through (drives the header icon). */
   channel: AutomatedMessageChannel;
   /** Origin/type of the automated message; shown as the meta label. */
   messageType: AutomatedMessageType;
-  /** Campaign/notification name shown in the header. */
+  /** Campaign/notification name shown in the header (email/push subject, else content). */
   title: string;
   /** Pre-formatted timestamp; this component does no date formatting. */
   timestamp: string;
-  /** Delivery status; `"failed"` shows a red "Failed" label in place of the timestamp. */
+  /**
+   * Delivery status; `"failed"` shows a red "Failed" label and `"processing"` a
+   * "Sending…" label in place of the timestamp.
+   */
   status?: MessageStatus;
   /** Whether the preview is expanded on mount. Self-managed afterwards. */
   defaultExpanded?: boolean;
-  /** Expanded preview heading — the email subject or the push notification title. */
+  /**
+   * Expanded preview heading — the email subject or the push notification title.
+   * Only rendered when it differs from {@link title} (the collapsed header label),
+   * so an automated message whose header already shows the subject doesn't repeat
+   * it inside the expanded panel.
+   */
   subject?: string;
   /** Expanded preview content. HTML for email (sanitized), plain text for sms/push. */
-  body: string;
+  content: string;
   className?: string;
 };
 
@@ -71,12 +64,18 @@ export function AutomatedMessage({
   status,
   defaultExpanded = false,
   subject,
-  body,
+  content,
   className,
 }: AutomatedMessageProps) {
   const { t } = useTranslation("thread-messages");
   const collapseId = useId();
   const isFailed = status === "failed";
+  const isProcessing = status === "processing";
+  // The collapsed header already shows `title`; only repeat it as the expanded
+  // heading when the subject is genuinely distinct (e.g. a future campaign name
+  // in the header). With the current contract the two are the same string, so
+  // this dedupes them.
+  const showSubject = subject !== undefined && subject !== title;
 
   return (
     <Card padding="sm" className={cx("w-full", className)}>
@@ -120,7 +119,7 @@ export function AutomatedMessage({
                         color="weak"
                         className="text-body-xs"
                       >
-                        {timestamp}
+                        {isProcessing ? t("status.sending") : timestamp}
                       </Body>
                     )}
                     <Body
@@ -164,17 +163,19 @@ export function AutomatedMessage({
           <div className="flex flex-col gap-xs p-2xs">
             {channel === "email" ? (
               <>
-                {subject && (
-                  <Body weight="strong" color="weak" className="text-body-sm">
-                    {subject}
-                  </Body>
+                {showSubject && (
+                  <>
+                    <Body weight="strong" color="weak" className="text-body-sm">
+                      {subject}
+                    </Body>
+                    <hr className="border-0 border-t-stroke-thin border-t-stroke-weak" />
+                  </>
                 )}
-                <hr className="border-0 border-t-stroke-thin border-t-stroke-weak" />
-                <MessageBody html={body} />
+                <MessageBody html={content} />
               </>
             ) : (
               <>
-                {channel === "push" && subject && (
+                {channel === "push" && showSubject && (
                   <Body weight="strong" color="weak" className="text-body-sm">
                     {subject}
                   </Body>
@@ -183,7 +184,7 @@ export function AutomatedMessage({
                   color="weak"
                   className="whitespace-pre-line break-words text-body-sm"
                 >
-                  {body}
+                  {content}
                 </Body>
               </>
             )}
@@ -194,13 +195,12 @@ export function AutomatedMessage({
   );
 }
 
-/** Maps the kebab-case message type to its (camelCase) i18n translation key. */
+/** Maps the (snake_case) message type to its i18n translation key. */
 const MESSAGE_TYPE_I18N_KEY = {
   campaign: "automatedMessage.type.campaign",
-  "transactional-notification":
-    "automatedMessage.type.transactionalNotification",
-  "auto-message": "automatedMessage.type.autoMessage",
+  transactional_notification: "automatedMessage.type.transactionalNotification",
+  auto_message: "automatedMessage.type.autoMessage",
   automation: "automatedMessage.type.automation",
-  "audience-message": "automatedMessage.type.audienceMessage",
-  "franchise-campaign": "automatedMessage.type.franchiseCampaign",
+  audience: "automatedMessage.type.audience",
+  franchise: "automatedMessage.type.franchise",
 } as const satisfies Record<AutomatedMessageType, string>;

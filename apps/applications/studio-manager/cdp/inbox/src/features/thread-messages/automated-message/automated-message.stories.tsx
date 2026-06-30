@@ -13,11 +13,11 @@ const EMAIL_BODY =
 
 const MESSAGE_TYPES: AutomatedMessageType[] = [
   "campaign",
-  "transactional-notification",
-  "auto-message",
+  "transactional_notification",
+  "auto_message",
   "automation",
-  "audience-message",
-  "franchise-campaign",
+  "audience",
+  "franchise",
 ];
 
 const baseArgs: AutomatedMessageProps = {
@@ -26,7 +26,7 @@ const baseArgs: AutomatedMessageProps = {
   title: "Summer Special Campaign",
   timestamp: "10:00",
   subject: "Coolest Campaign",
-  body: EMAIL_BODY,
+  content: EMAIL_BODY,
 };
 
 const meta: Meta<typeof AutomatedMessage> = {
@@ -45,7 +45,10 @@ const meta: Meta<typeof AutomatedMessage> = {
   argTypes: {
     channel: { control: "inline-radio", options: ["email", "sms", "push"] },
     messageType: { control: "inline-radio", options: MESSAGE_TYPES },
-    status: { control: "inline-radio", options: [undefined, "sent", "failed"] },
+    status: {
+      control: "inline-radio",
+      options: [undefined, "success", "failed", "processing"],
+    },
     defaultExpanded: { control: "boolean" },
   },
   decorators: storybookDecorator,
@@ -69,7 +72,7 @@ export const EmailExpanded: Story = {
   },
   args: {
     defaultExpanded: true,
-    body:
+    content:
       EMAIL_BODY +
       '<script>alert("xss")</script><img src="x" onerror="alert(1)" />',
   },
@@ -79,7 +82,8 @@ export const Sms: Story = {
   args: {
     channel: "sms",
     subject: undefined,
-    body: "Reminder: your spin class is at 6pm today. Reply STOP to opt out.",
+    content:
+      "Reminder: your spin class is at 6pm today. Reply STOP to opt out.",
     defaultExpanded: true,
   },
 };
@@ -88,7 +92,7 @@ export const Push: Story = {
   args: {
     channel: "push",
     subject: "Class starting soon",
-    body: "Your spin class starts in 30 minutes.",
+    content: "Your spin class starts in 30 minutes.",
     defaultExpanded: true,
   },
 };
@@ -104,6 +108,21 @@ export const Failed: Story = {
   },
   args: {
     status: "failed",
+    defaultExpanded: true,
+  },
+};
+
+export const Processing: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'An in-flight automated send — the timestamp is replaced by a "Sending…" label until the send resolves.',
+      },
+    },
+  },
+  args: {
+    status: "processing",
     defaultExpanded: true,
   },
 };

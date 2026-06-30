@@ -1,12 +1,11 @@
 import { Body, cva, cx } from "@bsport/kaizen-primitive-core";
 
 import { Channel, type ChannelType } from "#src/components/channel/channel";
-import { BULLET } from "#src/features/thread-messages/constants";
 import { MessageBody } from "#src/features/thread-messages/message-body";
 import { useTranslation } from "#src/utils/i18n";
 
 export type MessageSender = "studio" | "member";
-export type MessageStatus = "sent" | "failed";
+export type MessageStatus = "success" | "failed" | "processing";
 
 const bubbleStyles = cva(
   "flex w-full flex-col gap-xs border border-stroke-thin border-stroke-weak p-sm",
@@ -26,12 +25,15 @@ const bubbleStyles = cva(
 export type MessageBubbleProps = {
   /** Who sent the message — drives the green (studio) vs grey (member) variant. */
   sender: MessageSender;
-  /** Channel the message came through (drives the header/footer marker). */
-  channel: ChannelType;
+  /**
+   * Channel the message came through (drives the header/footer marker). `null`
+   * when the backend sends no channel (e.g. agent messages) — no marker shown.
+   */
+  channel: ChannelType | null;
   /** Subject line; omitted for title-less channels (sms/in_app). */
   title?: string;
   /** Message content. HTML for email, plain text otherwise — sanitized on render. */
-  body: string;
+  content: string;
   /** Pre-formatted timestamp; this component does no date formatting. */
   timestamp: string;
   /** Delivery status, shown in the footer for studio (outbound) messages only. */
@@ -53,16 +55,17 @@ export function MessageBubble({
   sender,
   channel,
   title,
-  body,
+  content,
   timestamp,
   status,
   className,
 }: MessageBubbleProps) {
   const { t } = useTranslation("thread-messages");
 
-  const showHeader = channel !== "in_app";
+  const showHeader = channel !== null && channel !== "in_app";
   const showStatus = sender === "studio" && status != null;
   const isFailed = showStatus && status === "failed";
+  const isProcessing = showStatus && status === "processing";
 
   return (
     <div className={cx(bubbleStyles({ sender }), className)}>
@@ -84,7 +87,7 @@ export function MessageBubble({
         </>
       )}
 
-      <MessageBody html={body} />
+      <MessageBody html={content} />
 
       <div
         className={cx(
@@ -93,20 +96,16 @@ export function MessageBubble({
           isFailed && "text-onsurface-status-critical-strong",
         )}
       >
-        <Channel channel={channel} kind="icon-only" className="shrink-0" />
-        {!isFailed && (
-          <Body htmlVariant="span" color="inherit" className="text-body-xs">
-            {timestamp}
-          </Body>
+        {channel && (
+          <Channel channel={channel} kind="icon-only" className="shrink-0" />
         )}
-        {showStatus && (
-          <>
-            {!isFailed && <span aria-hidden>{BULLET}</span>}
-            <Body htmlVariant="span" color="inherit" className="text-body-xs">
-              {t(`status.${status}`)}
-            </Body>
-          </>
-        )}
+        <Body htmlVariant="span" color="inherit" className="text-body-xs">
+          {isFailed
+            ? t("status.failed")
+            : isProcessing
+              ? t("status.sending")
+              : timestamp}
+        </Body>
       </div>
     </div>
   );

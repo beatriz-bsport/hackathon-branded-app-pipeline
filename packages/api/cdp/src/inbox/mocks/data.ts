@@ -1,9 +1,11 @@
-import type {
-  InboxChannel,
-  InboxMessage,
-  InboxMessageChannelCode,
-  InboxMessageSource,
-  RawInboxConversation,
+import { INBOX_CHANNEL_TO_WIRE_NAME } from "../constants";
+import {
+  AUTOMATED_MESSAGE_TYPES,
+  type InboxChannel,
+  type InboxMessageChannelCode,
+  type RawInboxConversation,
+  type RawTimelineItem,
+  type StudioManagerMessageType,
 } from "../types";
 
 // Deterministic fixture data — no randomness so stories/tests are stable.
@@ -64,7 +66,8 @@ const PREVIEWS = [
 // 3=in_app). The list cycles through them to exercise every channel icon.
 const CHANNEL_CODES: InboxMessageChannelCode[] = [3, 0, 1, 2]; // in_app, email, sms, push
 
-const pick = <T>(arr: T[], index: number): T => arr[index % arr.length];
+const pick = <T>(arr: readonly T[], index: number): T =>
+  arr[index % arr.length];
 
 /**
  * Builds a deterministic list of raw (backend-shaped) inbox conversations,
@@ -140,71 +143,76 @@ const PUSH_TITLES = [
   "New classes available",
 ];
 
-// Automated sources sprinkled into the feed, with a display name each.
-const AUTOMATED_SOURCES: { source: InboxMessageSource; name: string }[] = [
-  { source: "campaign", name: "Summer campaign" },
-  { source: "automation", name: "Lead nurturing workflow" },
-  { source: "transactional-notification", name: "Booking confirmation" },
-  { source: "auto-message", name: "Welcome message" },
-  { source: "audience-message", name: "Active members audience" },
-  { source: "franchise-campaign", name: "Franchise newsletter" },
-];
-
 const MESSAGE_CHANNELS: InboxChannel[] = ["in_app", "email", "sms", "push"];
 
-const titleForChannel = (
-  channel: InboxChannel,
-  index: number,
-): string | null => {
+// Backend `title` is a plain string ("" when the channel carries no subject).
+const titleForChannel = (channel: InboxChannel, index: number): string => {
   if (channel === "email") return pick(EMAIL_TITLES, index);
   if (channel === "push") return pick(PUSH_TITLES, index);
-  return null; // sms / in_app are title-less
+  return ""; // sms / in_app are title-less
 };
 
-const bodyForChannel = (channel: InboxChannel, index: number): string =>
+const contentForChannel = (channel: InboxChannel, index: number): string =>
   channel === "email" ? EMAIL_BODY_HTML : pick(MESSAGE_BODIES, index);
 
 /**
- * Builds a deterministic list of conversation messages ordered oldest → newest
- * (ascending `id`, starting at 1). Mixes inbound/outbound manual messages with
- * automated ones across all four channels. Deterministic (fixed timestamps, no
- * randomness) so stories/tests are stable.
+ * Builds a deterministic list of raw timeline message items ordered oldest →
+ * newest (ascending `communication_sent_id`, starting at 1), using backend
+ * `timeline` vocabulary. Mixes inbound/outbound manual messages with automated
+ * ones across all four channels. Deterministic (fixed timestamps, no randomness)
+ * so stories/tests are stable.
  *
- * Roughly every fourth message is automated; manual messages alternate between
- * `member` (inbound) and `studio` (outbound). A couple of outbound messages are
- * marked `failed` to exercise the failure UI.
+ * Roughly every fourth message is automated (one of the six card types); manual
+ * messages alternate between `member` (inbound, `member_reply` / `null`) and
+ * `studio` (outbound, `manually_sent`). A few outbound messages are marked
+ * `failed` / `processing` to exercise those states.
  */
-export const makeInboxMessages = (count: number): InboxMessage[] => {
+export const makeInboxMessages = (count: number): RawTimelineItem[] => {
   // Fixed anchor (not `Date.now()`) to keep fixtures deterministic.
   const anchor = Date.UTC(2026, 4, 1, 8, 0, 0); // 2026-05-01T08:00:00Z
 
   return Array.from({ length: count }, (_, index) => {
-    const id = index + 1;
-    const channel = pick(MESSAGE_CHANNELS, index);
+    const communicationSentId = index + 1;
+    const rawChannel = pick(MESSAGE_CHANNELS, index);
     const isAutomated = index % 4 === 3;
-    const automated = pick(AUTOMATED_SOURCES, index);
+    const isMember = !isAutomated && index % 2 === 0;
+    // Automated messages never go through the live `in_app` channel.
+    const channel =
+      isAutomated && rawChannel === "in_app" ? "email" : rawChannel;
+
+    const messageType: StudioManagerMessageType | null = isAutomated
+      ? pick(AUTOMATED_MESSAGE_TYPES, index)
+      : isMember
+        ? // Inbound member messages: mostly `member_reply`, a few untyped.
+          index % 8 === 4
+          ? null
+          : "member_reply"
+        : "manually_sent";
+
+    const status =
+      index % 13 === 7
+        ? ("failed" as const)
+        : index % 17 === 5
+          ? ("processing" as const)
+          : ("success" as const);
 
     return {
-      id,
-      // Automated messages never go through the live `in_app` channel.
-      channel: isAutomated && channel === "in_app" ? "email" : channel,
-      // Automated messages are always outbound; manual ones alternate.
-      sender: isAutomated ? "studio" : index % 2 === 0 ? "member" : "studio",
-      source: isAutomated ? automated.source : "manual",
-      sourceName: isAutomated ? automated.name : null,
-      title: titleForChannel(
-        isAutomated && channel === "in_app" ? "email" : channel,
-        index,
-      ),
-      body: bodyForChannel(
-        isAutomated && channel === "in_app" ? "email" : channel,
-        index,
-      ),
+      item_type: "message",
       // Each message is 6 minutes newer than the previous one.
-      dateCreated: new Date(anchor + index * 6 * 60 * 1000).toISOString(),
-      // Fail a couple of outbound messages to exercise the failed state.
-      status: index % 13 === 7 ? "failed" : "sent",
-    } satisfies InboxMessage;
+      date_created: new Date(anchor + index * 6 * 60 * 1000).toISOString(),
+      data: {
+        communication_sent_id: communicationSentId,
+        // Emit the backend communication-kind wire name (`push` →
+        // `push_notification`) so the mock faithfully mirrors the contract.
+        channel: INBOX_CHANNEL_TO_WIRE_NAME[channel],
+        status,
+        message_type: messageType,
+        title: titleForChannel(channel, index),
+        content: contentForChannel(channel, index),
+        // Automated messages are always outbound; manual ones alternate.
+        author_type: isAutomated ? "studio" : isMember ? "member" : "studio",
+      },
+    } satisfies RawTimelineItem;
   });
 };
 

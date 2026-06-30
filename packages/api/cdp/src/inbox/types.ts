@@ -111,60 +111,157 @@ export type FetchInboxConversationsParams = {
 };
 
 /**
- * Who sent a message. `member` is an inbound message (the backend's `is_answer`
- * on `CommunicationSent`); `studio` is an outbound message from the business.
+ * Who authored a message, from the backend `timeline` contract. `member` is an
+ * inbound message; `studio` is an outbound message from the business; `agent` is
+ * an AI agent reply (typed for completeness — not yet mocked, folds to an
+ * outbound bubble in the UI).
  */
-export type InboxMessageSender = "studio" | "member";
+export type InboxMessageAuthorType = "member" | "agent" | "studio";
 
 /**
- * Origin of a message. `"manual"` is a one-off message a studio manager typed —
- * it renders as a chat bubble. Every other value is an automated/campaign
- * message that renders as a collapsed card. The automated values mirror the
- * inbox app's `AutomatedMessageType`, each derived from which id is populated in
- * `CommunicationSent.metadata` (see bsport-django `apps/communicate`).
+ * The non-automated `message_type` values that render as chat bubbles (alongside
+ * `null`): an outbound message the studio typed by hand (`manually_sent`) and an
+ * inbound member reply (`member_reply`). See the inbox app's `mapMessage`.
  */
-export type InboxMessageSource =
-  | "manual"
-  | "campaign"
-  | "transactional-notification"
-  | "auto-message"
-  | "automation"
-  | "audience-message"
-  | "franchise-campaign";
-
-/** Delivery status of a message. Mirrors the inbox UI's `MessageStatus`. */
-export type InboxMessageStatus = "sent" | "failed";
+export const BUBBLE_MESSAGE_TYPES = ["manually_sent", "member_reply"] as const;
 
 /**
- * A single message in a conversation. Denormalized from `CommunicationSent` for
- * the B2B inbox thread view. The `id` is a sequential integer that doubles as
- * the pagination cursor (see `FetchInboxMessagesParams`).
+ * The automated `message_type` values that render as collapsed cards. Each value
+ * reflects which id is populated in `CommunicationSent.metadata` (see bsport-django
+ * `apps/communicate/communication/types.py`):
+ *
+ * - `campaign`                   → `automated_campaign_id` (SmartListAutomatedCampaign)
+ * - `transactional_notification` → `notification_rule` / `notification_event` (NotificationRule)
+ * - `auto_message`               → `marketing_notification_id` (MarketingNotification)
+ * - `automation`                 → `cadence_id` (Cadence / workflow)
+ * - `audience`                   → `smartlist_id` (SmartList, ExecutionContext.AUDIENCE)
+ * - `franchise`                  → `communication_sent_group_config_id` (ExecutionContext.COMMUNICATION_FROM_FRANCHISE)
+ */
+export const AUTOMATED_MESSAGE_TYPES = [
+  "campaign",
+  "transactional_notification",
+  "auto_message",
+  "automation",
+  "audience",
+  "franchise",
+] as const;
+
+/**
+ * Every backend `message_type` value — the bubble types plus the automated (card)
+ * types. The single runtime source of truth: {@link StudioManagerMessageType} is
+ * derived from it, and the app-side normalize allowlist reuses it.
+ */
+export const STUDIO_MANAGER_MESSAGE_TYPES = [
+  ...BUBBLE_MESSAGE_TYPES,
+  ...AUTOMATED_MESSAGE_TYPES,
+] as const;
+
+/**
+ * Presentational classification of an automated message — the automated subset
+ * of {@link StudioManagerMessageType} that renders as a collapsed card. Derived
+ * from {@link AUTOMATED_MESSAGE_TYPES} so the list stays a single source of truth.
+ */
+export type AutomatedMessageType = (typeof AUTOMATED_MESSAGE_TYPES)[number];
+
+/**
+ * Type of a message, mirroring the backend `message_type`. The bubble-vs-card
+ * discriminator (see the inbox app's `mapMessage`): the {@link BUBBLE_MESSAGE_TYPES}
+ * (and `null`) render as chat bubbles; the {@link AUTOMATED_MESSAGE_TYPES} render
+ * as collapsed cards. Derived from {@link STUDIO_MANAGER_MESSAGE_TYPES}.
+ */
+export type StudioManagerMessageType =
+  (typeof STUDIO_MANAGER_MESSAGE_TYPES)[number];
+
+/**
+ * Delivery statuses the UI renders. `processing` is an in-flight send (shown as a
+ * "Sending…" affordance); `success` shows the timestamp; `failed` shows the red
+ * "Failed" label. The single runtime source of truth for {@link InboxMessageStatus};
+ * the app-side normalize folds any other backend status (the wire field is an open
+ * `string`) to `null`.
+ */
+export const INBOX_MESSAGE_STATUSES = [
+  "success",
+  "failed",
+  "processing",
+] as const;
+
+export type InboxMessageStatus = (typeof INBOX_MESSAGE_STATUSES)[number];
+
+/**
+ * The `data` payload of a timeline message item, exactly as the backend returns
+ * it (snake_case). Mapped onto the domain {@link InboxMessage} by the app-side
+ * `normalizeInboxMessage`.
+ */
+export type RawTimelineMessageData = {
+  /** `CommunicationSent.id` — sequential integer; the pagination cursor. */
+  communication_sent_id: number;
+  channel: string | null;
+  /** Open wire string (backend `str | None`); normalized to {@link InboxMessageStatus} | null. */
+  status: string | null;
+  message_type: string | null;
+  title: string;
+  content: string;
+  author_type: InboxMessageAuthorType;
+};
+
+/**
+ * One item in the conversation timeline. Today the only `item_type` is
+ * `"message"`; the union is left open so future item kinds (e.g. system events)
+ * can be filtered out app-side.
+ */
+export type RawTimelineItem = {
+  item_type: "message";
+  date_created: string;
+  data: RawTimelineMessageData;
+};
+
+/**
+ * Raw response of the studio-manager conversation `timeline` endpoint. The
+ * server returns a pre-split window around the seam (the boundary between read
+ * and unread) plus the windowing flags. Mapped onto {@link InboxMessagesResponse}
+ * by the app-side `selectInboxMessages`.
+ */
+export type RawStudioManagerTimelineResponse = {
+  items: RawTimelineItem[];
+  communication_sent_window: {
+    /**
+     * Id of the first unread message — the seam the client scrolls to on open.
+     * `null` when the conversation is fully read, and always `null` when a
+     * filter is active (the seam is then ignored).
+     */
+    first_unread_communication_sent_id: number | null;
+    has_more_before: boolean;
+    has_more_after: boolean;
+  };
+};
+
+/**
+ * A single message in a conversation — the backend-faithful camelCase domain
+ * shape, produced from a {@link RawTimelineItem} by `normalizeInboxMessage`. The
+ * `id` is a sequential integer that doubles as the pagination cursor.
  */
 export type InboxMessage = {
   /** `CommunicationSent.id` — sequential integer; the pagination cursor. */
   id: number;
-  channel: InboxChannel;
-  sender: InboxMessageSender;
-  /** Origin of the message; drives chat-bubble vs automated-card rendering. */
-  source: InboxMessageSource;
-  /**
-   * Human-readable name of the source (campaign/workflow name, e.g. "Summer
-   * campaign"). `null` for `manual` messages, which have no source.
-   */
-  sourceName: string | null;
-  /** Subject line. Present for `email`/`push`; `null` for `sms`/`in_app`. */
-  title: string | null;
+  /** `null` when the backend sends no channel (e.g. agent messages). */
+  channel: InboxChannel | null;
+  authorType: InboxMessageAuthorType;
+  /** `null` for plain member/manual messages with no message type. */
+  messageType: StudioManagerMessageType | null;
+  /** Subject line. Empty string when the channel carries no title (sms/in_app). */
+  title: string;
   /** Message content. HTML for `email`, plain text for the other channels. */
-  body: string;
+  content: string;
   /** ISO timestamp of when the message was created. */
   dateCreated: string;
-  status: InboxMessageStatus;
+  /** `null` when the backend status is outside success/failed/processing. */
+  status: InboxMessageStatus | null;
 };
 
 /**
- * Response for the "list conversation messages" endpoint. The server returns a
- * pre-split window around the seam (the boundary between read and unread). See
- * the Notion "List messages" UX spec.
+ * App-facing normalized response for the conversation `timeline` endpoint. The
+ * flat shape the thread view consumes, produced from
+ * {@link RawStudioManagerTimelineResponse} by the app-side `selectInboxMessages`.
  */
 export type InboxMessagesResponse = {
   /** Messages ordered oldest → newest (ascending `id`). */
@@ -181,15 +278,22 @@ export type InboxMessagesResponse = {
   hasMoreAfter: boolean;
 };
 
-export type FetchInboxMessagesParams = {
-  /** Load messages strictly older than this id (`id` < `before`). */
-  before?: number;
-  /** Load messages strictly newer than this id (`id` > `after`). */
-  after?: number;
+/**
+ * Cursor for the conversation `timeline` feed: page relative to a
+ * `CommunicationSent.id` in a direction. The two fields travel together — a
+ * caller passes both or neither (the initial seam load passes neither),
+ * mirroring the backend contract that rejects a cursor without a direction.
+ */
+export type InboxMessagesCursor =
+  | { communication_sent_id: number; direction: "older" | "newer" }
+  | { communication_sent_id?: never; direction?: never };
+
+/** Cursor (both-or-neither) plus the optional page filters for a timeline request. */
+export type FetchInboxMessagesParams = InboxMessagesCursor & {
   /** Max messages per direction. Defaults to the backend/mock page size. */
   limit?: number;
-  /** Channel filter. When set, the seam is ignored. */
-  channel?: InboxChannel;
-  /** Source/message-type filter. When set, the seam is ignored. */
-  message_type?: InboxMessageSource;
+  /** Channel filter (CSV on the wire). When set, the seam is ignored. */
+  channels?: InboxChannel[];
+  /** Message-type filter (CSV on the wire). When set, the seam is ignored. */
+  message_types?: StudioManagerMessageType[];
 };

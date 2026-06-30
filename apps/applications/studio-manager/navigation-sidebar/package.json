@@ -30,6 +30,7 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/permissions": "workspace:*",

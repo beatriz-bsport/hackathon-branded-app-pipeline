@@ -1097,7 +1097,10 @@ export class Backoffice extends Component<Props, State> {
         {this.props.platformSubscriptionPaymentStatus && (
           <div>
             <GenericResponsiveDialog
-              open={!!this.state.need_regularizing_failed_invoice_modal}
+              open={
+                !!this.state.need_regularizing_failed_invoice_modal &&
+                !this.props.hasEnabledRevampedBO
+              }
             >
               <RegularizingInvoiceInformation
                 cancel={this.closePaymentWarningDialog(FAILED_PAYMENT)}
@@ -1107,7 +1110,10 @@ export class Backoffice extends Component<Props, State> {
               />
             </GenericResponsiveDialog>
             <GenericResponsiveDialog
-              open={!!this.state.need_regularizing_disputed_invoice_modal}
+              open={
+                !!this.state.need_regularizing_disputed_invoice_modal &&
+                !this.props.hasEnabledRevampedBO
+              }
             >
               <RegularizingInvoiceInformation
                 cancel={this.closePaymentWarningDialog(DISPUTED_PAYMENT)}
@@ -1119,7 +1125,10 @@ export class Backoffice extends Component<Props, State> {
           </div>
         )}
         <GenericResponsiveDialog
-          open={this.state.need_regularizing_vat_information_modal}
+          open={
+            this.state.need_regularizing_vat_information_modal &&
+            !this.props.hasEnabledRevampedBO
+          }
         >
           <RegularizingVatInformationDialog
             cancel={() => {
@@ -1130,7 +1139,9 @@ export class Backoffice extends Component<Props, State> {
             goNext={this.redirectToCompanySettings}
           />
         </GenericResponsiveDialog>
-        <GenericResponsiveDialog open={this.props.isAdpModalOpen}>
+        <GenericResponsiveDialog
+          open={this.props.isAdpModalOpen && !this.props.hasEnabledRevampedBO}
+        >
           <AppleDeveloperProgramDialog
             cancel={
               this.props.isAdpModalBlocking
@@ -1142,7 +1153,10 @@ export class Backoffice extends Component<Props, State> {
         </GenericResponsiveDialog>
         {stripeComplianceStatus && (
           <GenericResponsiveDialog
-            open={!!this.state.need_stripe_compliance_status_dialog}
+            open={
+              !!this.state.need_stripe_compliance_status_dialog &&
+              !this.props.hasEnabledRevampedBO
+            }
           >
             <StripeComplianceStatusModal
               cancel={
@@ -1284,8 +1298,11 @@ export default compose(
       stripeComplianceStatus: state.company.stripeComplianceStatus.data,
       establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
       hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
-      isAdpModalOpen: getIsAdpModalOpen(state),
-      isAdpModalBlocking: getIsAdpModalBlocking(state),
+      isAdpModalOpen:
+        getIsAdpModalOpen(state) && !state.auth.has_enabled_revamped_backoffice,
+      isAdpModalBlocking:
+        getIsAdpModalBlocking(state) &&
+        !state.auth.has_enabled_revamped_backoffice,
       adpModalKind: getAdpModalKind(state),
     }),
     {

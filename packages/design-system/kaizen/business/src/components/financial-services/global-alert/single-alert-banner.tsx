@@ -1,6 +1,5 @@
 import React from "react";
 
-import type { DateTime } from "@bsport/datetime-manipulation";
 import { Alert } from "@bsport/kaizen-primitive-core";
 
 import { redirectUrls } from "#src/components/financial-services/global-alert/constants";
@@ -14,10 +13,11 @@ import { useAlertContent } from "#src/components/financial-services/global-alert
 type SingleAlertBannerProps = {
   kind: GlobalAlertKind;
   severity: NonBlockingGlobalAlertSeverity;
-  dueDate?: DateTime;
+  dueDate?: string;
   onDismiss?: () => void;
   onNavigate: (url: string) => void;
   openIntercom?: () => void;
+  openAppleAgreements?: () => void;
 };
 
 /**
@@ -31,15 +31,18 @@ export const SingleAlertBanner: React.FC<SingleAlertBannerProps> = ({
   onDismiss,
   onNavigate,
   openIntercom,
+  openAppleAgreements,
 }) => {
   const { title, description, ctaLabel } = useAlertContent(kind);
   const handleCta =
     kind === "apple-developer-program-enrollment" && openIntercom
       ? openIntercom
-      : () => onNavigate(redirectUrls[kind]);
+      : kind === "apple-developer-pending-agreements" && openAppleAgreements
+        ? openAppleAgreements
+        : () => onNavigate(redirectUrls[kind]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
+    <div className="fixed top-0 left-0 right-0 z-50 m-sm">
       <Alert
         status={severity}
         type="strong"

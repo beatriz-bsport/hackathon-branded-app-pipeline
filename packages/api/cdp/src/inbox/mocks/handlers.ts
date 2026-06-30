@@ -1,10 +1,10 @@
 import { HttpResponse, delay, http } from "msw";
 
 import type {
-  InboxMessage,
-  InboxMessagesResponse,
   RawInboxConversation,
   RawStudioManagerConversationsResponse,
+  RawStudioManagerTimelineResponse,
+  RawTimelineItem,
 } from "../types";
 import {
   MOCK_INBOX_FIRST_UNREAD_ID,
@@ -130,69 +130,82 @@ export const makeInboxHandlers = ({
 
 const INBOX_MESSAGES_DEFAULT_LIMIT = 20;
 
-// Matches the per-conversation messages endpoint regardless of API base URL.
-// The `*` before `communication_sent` covers the conversation id segment; the
-// trailing `*` covers the query string appended by `buildUrlParams`.
+// Matches the per-conversation timeline endpoint regardless of API base URL.
+// The `*` before `timeline` covers the conversation id segment; the trailing
+// `*` covers the query string appended by `buildUrlParams`.
 export const INBOX_MESSAGES_URL_PATTERN =
-  "*/communicate/v1/communication/studio_manager/conversation/*/communication_sent*";
+  "*/communicate/v1/communication/studio_manager/conversation/*/timeline*";
+
+const idOf = (item: RawTimelineItem): number => item.data.communication_sent_id;
 
 /**
- * Builds the windowed `InboxMessagesResponse` for a request. The dataset must be
- * ordered oldest → newest (ascending `id`).
+ * Builds the windowed `RawStudioManagerTimelineResponse` for a request. The
+ * dataset must be ordered oldest → newest (ascending `communication_sent_id`).
  *
- * - filtered (channel/message_type set) → most recent `limit` matches, seam ignored
- * - `before=<id>` → up to `limit` messages older than `before`
- * - `after=<id>`  → up to `limit` messages newer than `after`
+ * - filtered (channels/message_types set) → most recent `limit` matches, seam ignored
+ * - cursor + `direction: "older"` → up to `limit` messages older than the cursor
+ * - cursor + `direction: "newer"` → up to `limit` messages newer than the cursor
  * - initial (no cursor) → up to `limit` before the seam + up to `limit` from the seam on
  */
 const buildMessagesWindow = (
-  dataset: InboxMessage[],
+  dataset: RawTimelineItem[],
   firstUnreadId: number | null,
   params: {
-    before?: number;
-    after?: number;
+    communicationSentId?: number;
+    direction?: "older" | "newer";
     limit: number;
-    channel?: string | null;
-    messageType?: string | null;
+    channels: string[];
+    messageTypes: string[];
   },
-): InboxMessagesResponse => {
-  const { before, after, limit, channel, messageType } = params;
-  const isFiltered = Boolean(channel) || Boolean(messageType);
+): RawStudioManagerTimelineResponse => {
+  const { communicationSentId, direction, limit, channels, messageTypes } =
+    params;
+  const isFiltered = channels.length > 0 || messageTypes.length > 0;
 
   if (isFiltered) {
     const filtered = dataset.filter(
-      (message) =>
-        (!channel || message.channel === channel) &&
-        (!messageType || message.source === messageType),
+      (item) =>
+        (channels.length === 0 ||
+          (item.data.channel !== null &&
+            channels.includes(item.data.channel))) &&
+        (messageTypes.length === 0 ||
+          (item.data.message_type !== null &&
+            messageTypes.includes(item.data.message_type))),
     );
-    const messages = filtered.slice(-limit);
+    const items = filtered.slice(-limit);
     return {
-      messages,
-      firstUnreadId: null,
-      hasMoreBefore: filtered.length > messages.length,
-      hasMoreAfter: false,
+      items,
+      communication_sent_window: {
+        first_unread_communication_sent_id: null,
+        has_more_before: filtered.length > items.length,
+        has_more_after: false,
+      },
     };
   }
 
-  if (before !== undefined) {
-    const older = dataset.filter((message) => message.id < before);
-    const messages = older.slice(-limit);
+  if (communicationSentId !== undefined && direction === "older") {
+    const older = dataset.filter((item) => idOf(item) < communicationSentId);
+    const items = older.slice(-limit);
     return {
-      messages,
-      firstUnreadId: null,
-      hasMoreBefore: older.length > messages.length,
-      hasMoreAfter: false,
+      items,
+      communication_sent_window: {
+        first_unread_communication_sent_id: null,
+        has_more_before: older.length > items.length,
+        has_more_after: false,
+      },
     };
   }
 
-  if (after !== undefined) {
-    const newer = dataset.filter((message) => message.id > after);
-    const messages = newer.slice(0, limit);
+  if (communicationSentId !== undefined && direction === "newer") {
+    const newer = dataset.filter((item) => idOf(item) > communicationSentId);
+    const items = newer.slice(0, limit);
     return {
-      messages,
-      firstUnreadId: null,
-      hasMoreBefore: false,
-      hasMoreAfter: newer.length > messages.length,
+      items,
+      communication_sent_window: {
+        first_unread_communication_sent_id: null,
+        has_more_before: false,
+        has_more_after: newer.length > items.length,
+      },
     };
   }
 
@@ -200,7 +213,7 @@ const buildMessagesWindow = (
   const seamIndex =
     firstUnreadId === null
       ? dataset.length
-      : dataset.findIndex((message) => message.id === firstUnreadId);
+      : dataset.findIndex((item) => idOf(item) === firstUnreadId);
   // A seam id that isn't in the dataset is treated as "fully read".
   const splitAt = seamIndex === -1 ? dataset.length : seamIndex;
 
@@ -211,16 +224,18 @@ const buildMessagesWindow = (
   const isFullyRead = splitAt >= dataset.length;
 
   return {
-    messages: [...beforeWindow, ...afterWindow],
-    firstUnreadId: isFullyRead ? null : firstUnreadId,
-    hasMoreBefore: beforeSeam.length > beforeWindow.length,
-    hasMoreAfter: fromSeam.length > afterWindow.length,
+    items: [...beforeWindow, ...afterWindow],
+    communication_sent_window: {
+      first_unread_communication_sent_id: isFullyRead ? null : firstUnreadId,
+      has_more_before: beforeSeam.length > beforeWindow.length,
+      has_more_after: fromSeam.length > afterWindow.length,
+    },
   };
 };
 
 type MakeInboxMessagesHandlersOptions = {
   /** Dataset to window over (oldest → newest). Defaults to the full mock dataset. */
-  dataset?: InboxMessage[];
+  dataset?: RawTimelineItem[];
   /** Id of the first unread message (the seam). `null` = fully read. */
   firstUnreadId?: number | null;
   /** Artificial latency per request. See {@link MakeInboxHandlersOptions.delayMs}. */
@@ -231,10 +246,16 @@ type MakeInboxMessagesHandlersOptions = {
   errorOnLoad?: boolean;
 };
 
+// Parses a CSV query param (`?channels=email,sms`) into a string[]; `null` and
+// the empty string both yield `[]` (no filter).
+const parseCsvParam = (value: string | null): string[] =>
+  value ? value.split(",").filter(Boolean) : [];
+
 /**
- * Builds the MSW handler(s) for the conversation messages endpoint. Serves a
- * seam-anchored window on the initial load and bidirectional `before`/`after`
- * cursor pages thereafter, matching the Notion "List messages" contract.
+ * Builds the MSW handler(s) for the conversation timeline endpoint. Serves a
+ * seam-anchored window on the initial load and bidirectional
+ * `communication_sent_id` + `direction` cursor pages thereafter, matching the
+ * backend `timeline` contract.
  */
 export const makeInboxMessagesHandlers = ({
   dataset = mockInboxMessages,
@@ -245,8 +266,10 @@ export const makeInboxMessagesHandlers = ({
 }: MakeInboxMessagesHandlersOptions = {}) => [
   http.get(INBOX_MESSAGES_URL_PATTERN, async ({ request }) => {
     const url = new URL(request.url);
-    const beforeParam = url.searchParams.get("before");
-    const afterParam = url.searchParams.get("after");
+    const cursorParam = url.searchParams.get("communication_sent_id");
+    const direction =
+      (url.searchParams.get("direction") as "older" | "newer" | null) ??
+      undefined;
     const limit = Number(url.searchParams.get("limit") ?? "") || defaultLimit;
 
     await delay(delayMs);
@@ -260,11 +283,12 @@ export const makeInboxMessagesHandlers = ({
 
     return HttpResponse.json(
       buildMessagesWindow(dataset, firstUnreadId, {
-        before: beforeParam !== null ? Number(beforeParam) : undefined,
-        after: afterParam !== null ? Number(afterParam) : undefined,
+        communicationSentId:
+          cursorParam !== null ? Number(cursorParam) : undefined,
+        direction,
         limit,
-        channel: url.searchParams.get("channel"),
-        messageType: url.searchParams.get("message_type"),
+        channels: parseCsvParam(url.searchParams.get("channels")),
+        messageTypes: parseCsvParam(url.searchParams.get("message_types")),
       }),
     );
   }),

@@ -21,13 +21,13 @@ const PARTICIPANT: InboxParticipantSummary = {
  * renders multiple date separators. Ids stay ascending so the windowed mock
  * pagination still works.
  */
-const multiDayMessages = makeInboxMessages(48).map((message, index) => {
+const multiDayMessages = makeInboxMessages(48).map((item, index) => {
   const anchor = Date.UTC(2026, 3, 20, 9, 0, 0); // 2026-04-20T09:00:00Z
   const day = Math.floor(index / 6);
   const minute = (index % 6) * 30;
   return {
-    ...message,
-    dateCreated: new Date(
+    ...item,
+    date_created: new Date(
       anchor + day * 24 * 60 * 60 * 1000 + minute * 60 * 1000,
     ).toISOString(),
   };
@@ -93,7 +93,8 @@ export const MultiDay: Story = {
     msw: {
       handlers: makeInboxMessagesHandlers({
         dataset: multiDayMessages,
-        firstUnreadId: multiDayMessages.at(-12)?.id ?? null,
+        firstUnreadId:
+          multiDayMessages.at(-12)?.data.communication_sent_id ?? null,
       }),
     },
     docs: {

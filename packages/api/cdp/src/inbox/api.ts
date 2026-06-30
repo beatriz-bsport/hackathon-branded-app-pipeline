@@ -1,15 +1,20 @@
 import { mutationOptions } from "@tanstack/react-query";
 
-import { type Fetch, buildUrlParams } from "@bsport/store-base";
+import { type Fetch, type URLParams, buildUrlParams } from "@bsport/store-base";
 
 import { QUERY_KEY_MAIN } from "#src/constants";
 
-import { INBOX_CONVERSATION_API_URL, inboxMessagesApiUrl } from "./constants";
+import {
+  INBOX_CHANNEL_TO_WIRE_NAME,
+  INBOX_CONVERSATION_API_URL,
+  inboxMessagesApiUrl,
+} from "./constants";
 import type {
   FetchInboxConversationsParams,
   FetchInboxMessagesParams,
-  InboxMessagesResponse,
+  InboxMessagesCursor,
   RawStudioManagerConversationsResponse,
+  RawStudioManagerTimelineResponse,
 } from "./types";
 
 export const inboxKeys = {
@@ -98,28 +103,54 @@ export const inboxMessageKeys = {
     [...inboxMessageKeys.infiniteLists(), conversationId, params] as const,
 } as const;
 
+/** Fetches a raw page of the timeline — no transformation (normalize app-side). */
 export const fetchInboxMessagesAPI = async (
-  fetch: Fetch<InboxMessagesResponse>,
+  fetch: Fetch<RawStudioManagerTimelineResponse>,
   conversationId: string,
   params: FetchInboxMessagesParams,
-): Promise<InboxMessagesResponse> => {
+): Promise<RawStudioManagerTimelineResponse> => {
+  const { channels, communication_sent_id, direction, limit, message_types } =
+    params;
+
+  const limitParam: URLParams = limit !== undefined ? { limit } : {};
+
+  const messageTypesParam: URLParams =
+    message_types !== undefined ? { message_types } : {};
+
+  const channelsParam: URLParams = channels?.length
+    ? {
+        channels: channels.map(
+          (channel) => INBOX_CHANNEL_TO_WIRE_NAME[channel],
+        ),
+      }
+    : {};
+
+  const cursorParam: URLParams =
+    communication_sent_id !== undefined && direction !== undefined
+      ? { communication_sent_id, direction }
+      : {};
+
+  const query: URLParams = {
+    ...limitParam,
+    ...messageTypesParam,
+    ...channelsParam,
+    ...cursorParam,
+  };
   const { data } = await fetch(
-    `${inboxMessagesApiUrl(conversationId)}/${buildUrlParams(params)}`,
+    `${inboxMessagesApiUrl(conversationId)}/${buildUrlParams(query)}`,
   );
   return data;
 };
 
 /**
- * Cursor for the bidirectional message feed. `before`/`after` are
- * `CommunicationSent.id`s; an empty object is the initial (seam) load.
+ * Cursor for the bidirectional message feed — the same both-or-neither
+ * {@link InboxMessagesCursor}. `communication_sent_id` + `direction` page
+ * relative to a message; an empty object is the initial (seam) load.
  */
-export type InboxMessagesPageParam = {
-  before?: number;
-  after?: number;
-};
+export type InboxMessagesPageParam = InboxMessagesCursor;
 
 export const inboxMessagesInfiniteQueryOptions = (
-  fetch: Fetch<InboxMessagesResponse>,
+  fetch: Fetch<RawStudioManagerTimelineResponse>,
   conversationId: string,
   params: FetchInboxMessagesParams = {},
 ) => ({

@@ -12,7 +12,7 @@ const baseArgs: MessageBubbleProps = {
   sender: "member",
   channel: "email",
   title: "Re: Refund request",
-  body: EMAIL_BODY,
+  content: EMAIL_BODY,
   timestamp: "12:00",
 };
 
@@ -35,7 +35,10 @@ const meta: Meta<typeof MessageBubble> = {
       control: "inline-radio",
       options: [...CHANNEL_TYPES],
     },
-    status: { control: "inline-radio", options: [undefined, "sent", "failed"] },
+    status: {
+      control: "inline-radio",
+      options: [undefined, "success", "failed", "processing"],
+    },
   },
   decorators: storybookDecorator,
   tags: ["autodocs"],
@@ -50,7 +53,7 @@ export const MemberEmail: Story = {};
 export const StudioEmail: Story = {
   args: {
     sender: "studio",
-    status: "sent",
+    status: "success",
   },
 };
 
@@ -58,7 +61,7 @@ export const SmsNoTitle: Story = {
   args: {
     channel: "sms",
     title: undefined,
-    body: "Thanks for the reminder",
+    content: "Thanks for the reminder",
   },
 };
 
@@ -66,7 +69,7 @@ export const Push: Story = {
   args: {
     channel: "push",
     title: "Class starting soon",
-    body: "Your spin class starts in 30 minutes.",
+    content: "Your spin class starts in 30 minutes.",
   },
 };
 
@@ -74,7 +77,7 @@ export const Chat: Story = {
   args: {
     channel: "in_app",
     title: undefined,
-    body: "I am helping you here!",
+    content: "I am helping you here!",
   },
 };
 
@@ -83,8 +86,44 @@ export const StudioFailed: Story = {
     sender: "studio",
     channel: "sms",
     title: undefined,
-    body: "Reminder: your spin class is at 6pm today.",
+    content: "Reminder: your spin class is at 6pm today.",
     status: "failed",
+  },
+};
+
+export const StudioProcessing: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'An in-flight outbound message — the footer shows a "Sending…" affordance in place of the timestamp until the send resolves.',
+      },
+    },
+  },
+  args: {
+    sender: "studio",
+    channel: "sms",
+    title: undefined,
+    content: "On my way, see you in 5!",
+    status: "processing",
+  },
+};
+
+export const AgentNoChannel: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "An agent reply carries no channel, so it folds to an outbound bubble with no channel header or footer marker — just the timestamp.",
+      },
+    },
+  },
+  args: {
+    sender: "studio",
+    channel: null,
+    title: undefined,
+    content: "Happy to help — I've found three morning slots for you.",
+    status: "success",
   },
 };
 
@@ -119,7 +158,8 @@ export const RichHtmlBody: Story = {
     },
   },
   args: {
-    body: '<p>Great news! We added a <strong>new Zumba class</strong> with Ricardo on Tuesdays at 6 PM.</p><ul><li>Sign up now</li><li>Bring a friend</li></ul><script>alert("xss")</script><img src="x" onerror="alert(1)" />',
+    content:
+      '<p>Great news! We added a <strong>new Zumba class</strong> with Ricardo on Tuesdays at 6 PM.</p><ul><li>Sign up now</li><li>Bring a friend</li></ul><script>alert("xss")</script><img src="x" onerror="alert(1)" />',
   },
 };
 
@@ -134,16 +174,16 @@ export const SenderChannelGrid: Story = {
   },
   render: (args) => {
     const samples: Record<
-      MessageBubbleProps["channel"],
+      (typeof CHANNEL_TYPES)[number],
       Partial<MessageBubbleProps>
     > = {
-      email: { title: "Re: Refund request", body: EMAIL_BODY },
-      sms: { title: undefined, body: "Thanks for the reminder" },
+      email: { title: "Re: Refund request", content: EMAIL_BODY },
+      sms: { title: undefined, content: "Thanks for the reminder" },
       push: {
         title: "Class starting soon",
-        body: "Your spin class starts in 30 minutes.",
+        content: "Your spin class starts in 30 minutes.",
       },
-      in_app: { title: undefined, body: "I am helping you here!" },
+      in_app: { title: undefined, content: "I am helping you here!" },
     };
 
     return (
@@ -156,7 +196,7 @@ export const SenderChannelGrid: Story = {
                 {...args}
                 sender={sender}
                 channel={channel}
-                status={sender === "studio" ? "sent" : undefined}
+                status={sender === "studio" ? "success" : undefined}
                 {...samples[channel]}
               />
             ))}

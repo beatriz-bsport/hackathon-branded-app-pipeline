@@ -1,7 +1,7 @@
 {
   "status": {
-    "sent": "Sent",
-    "failed": "Failed"
+    "failed": "Failed",
+    "sending": "Sending…"
   },
   "automatedMessage": {
     "showMore": "Show more",
@@ -11,8 +11,8 @@
       "transactionalNotification": "Transactional Notification",
       "autoMessage": "Auto-Message",
       "automation": "Automation",
-      "audienceMessage": "Audience Message",
-      "franchiseCampaign": "Franchise Campaign"
+      "audience": "Audience Message",
+      "franchise": "Franchise Campaign"
     }
   },
   "threadMessagesHeader": {

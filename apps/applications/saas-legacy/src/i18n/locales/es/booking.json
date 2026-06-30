@@ -522,6 +522,10 @@
         "title": "Lista de espera completa",
         "message": "Esta sesión y la lista de espera están completas.\nVuelva a intentarlo más tarde."
       },
+      "waitingListDisabled": {
+        "title": "Sesión completa",
+        "message": "Esta sesión está completa. No hay lista de espera disponible. Por favor, inténtelo de nuevo más tarde."
+      },
       "isAlreadyOnWaitingList": {
         "title": "Ya está en lista de espera",
         "message": "Si está en lista de espera, le informaremos por correo electrónico en cuanto haya una plaza disponible."

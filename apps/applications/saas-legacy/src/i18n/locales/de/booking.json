@@ -506,6 +506,10 @@
         "title": "Warteliste voll",
         "message": "Dieser Kurs und die Warteliste sind voll. \nBitte versuche es zu einem späteren Zeitpunkt erneut."
       },
+      "waitingListDisabled": {
+        "title": "Kurs voll",
+        "message": "Dieser Kurs ist voll. Es gibt keine Warteliste. Bitte versuche es zu einem späteren Zeitpunkt erneut."
+      },
       "isAlreadyOnWaitingList": {
         "title": "Bereits auf der Warteliste",
         "message": "Wenn du auf der Warteliste stehst, wirst du per E-Mail benachrichtigt, sobald ein Platz frei wird."

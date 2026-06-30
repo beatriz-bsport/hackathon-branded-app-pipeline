@@ -508,6 +508,10 @@
         "title": "Liste d'attente pleine",
         "message": "Cette séance et la liste d'attente sont complètes.\nVeuillez réessayer ultérieurement."
       },
+      "waitingListDisabled": {
+        "title": "Séance complète",
+        "message": "Cette séance est complète. Aucune liste d'attente n'est disponible. Veuillez réessayer ultérieurement."
+      },
       "isAlreadyOnWaitingList": {
         "title": "Déjà sur liste d'attente",
         "message": "Si vous êtes sur la liste d'attente, nous vous informerons par e-mail dès qu'une place se libère."

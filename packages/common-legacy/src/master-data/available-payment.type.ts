@@ -177,7 +177,7 @@ export type Offer<C = number, E = number, M = number, A = number> = {
   price: number;
   price_coach: number;
   credit_price: number;
-  is_full: boolean;
+  full: boolean;
   establishment_override?: E;
   establishment: E;
   meta_activity: M;
@@ -186,6 +186,7 @@ export type Offer<C = number, E = number, M = number, A = number> = {
   booking_window_status?: 'not_yet_open' | 'open' | 'closed';
   booking_window_start_datetime?: string;
   booking_window_end_datetime?: string;
+  waiting_list_disabled?: boolean;
 };
 
 export type OfferStatus = {

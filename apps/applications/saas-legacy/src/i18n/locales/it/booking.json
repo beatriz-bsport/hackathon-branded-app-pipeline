@@ -504,6 +504,10 @@
         "message": "Questa sessione e la lista d'attesa relativa sono al completo.\nSi prega di riprovare più tardi.",
         "title": "Lista d'attesa piena"
       },
+      "waitingListDisabled": {
+        "title": "Sessione al completo",
+        "message": "Questa sessione è al completo. Nessuna lista d'attesa è disponibile. Si prega di riprovare più tardi."
+      },
       "waitingListLockedByPendingBookings": {
         "message": "Altre persone stanno prenotando, la lista d'attesa non è al momento disponibile. Si prega di riprovare tra qualche minuto per vedere se si è liberato un posto.",
         "title": "Altre prenotazioni in corso"

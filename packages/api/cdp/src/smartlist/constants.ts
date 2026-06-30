@@ -9,8 +9,8 @@ export const MEMBER_BASE = {
 
 export type MemberBaseValue = (typeof MEMBER_BASE)[keyof typeof MEMBER_BASE];
 
-/** Default page size for smartlist member lists in Studio Manager. */
-export const SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE = 25;
+/** Fallback page size when `page_size` is omitted from smartlist members API params. */
+export const SMARTLIST_MEMBERS_DEFAULT_PAGE_SIZE = 10;
 export const CDP_API_V0 = "customer-data-platform/v0";
 
 export const TagRuleKind = {

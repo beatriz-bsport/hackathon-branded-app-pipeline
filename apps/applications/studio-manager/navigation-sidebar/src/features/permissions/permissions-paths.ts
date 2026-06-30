@@ -40,7 +40,7 @@ export const PERMISSIONS_PATHS: Record<
   onDemand: ["navigationMenu.digitalOffer.playlists"],
   pack: ["navigationMenu.products.packs"],
   pass: ["navigationMenu.products.paymentPack"],
-  payout: ["navigationMenu.settings.subscription"],
+  payout: ["navigationMenu.payments.payouts"],
   subscriptionFinance: ["navigationMenu.payments.billings"],
   payroll: ["navigationMenu.payments.teachers"],
   performanceTracking: ["navigationMenu.myClub.programs"],

@@ -321,7 +321,7 @@ export function fetchAdpModalVisibility(
       const apiVisibility = response.data.adp_modal_visibility;
       let visibility = apiVisibility;
 
-      if (apiVisibility !== 'hide') {
+      if (apiVisibility === 'show-recommend') {
         if (wasAdpModalShownRecently(companyId)) {
           visibility = 'hide';
         } else {

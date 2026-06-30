@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { SegmentedControl } from "@bsport/kaizen-primitive-core";
+import { SegmentedControl, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { setBookingStatusFilter } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
@@ -9,6 +9,9 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const BookingStatusSegmentedControl: FC = () => {
   const { t } = useTranslation("sessionManagement");
+
+  const isMobile = !useMatchMedia("lg");
+
   const bookingStatus = useSessionManagementStore(
     (state) => state.bookingFilters.status,
   );
@@ -26,7 +29,7 @@ export const BookingStatusSegmentedControl: FC = () => {
   return (
     <SegmentedControl
       id="booking-status-filter"
-      fullWidth
+      fullWidth={isMobile}
       options={[
         {
           label: t("bookingStatusFilter.booked"),

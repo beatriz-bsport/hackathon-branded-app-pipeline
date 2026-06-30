@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { SegmentedControl } from "@bsport/kaizen-primitive-core";
+import { SegmentedControl, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { setWaitlistFilter } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
@@ -9,6 +9,8 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const BookingOptionStatusSegmentedControl: FC = () => {
   const { t } = useTranslation("sessionManagement");
+  const isMobile = !useMatchMedia("lg");
+
   const bookingOptionStatus = useSessionManagementStore(
     (state) => state.waitlistFilters,
   );
@@ -26,7 +28,7 @@ export const BookingOptionStatusSegmentedControl: FC = () => {
   return (
     <SegmentedControl
       id="booking-status-filter"
-      fullWidth
+      fullWidth={isMobile}
       options={[
         {
           label: t("bookingOptionStatusFilter.onWaitlist"),

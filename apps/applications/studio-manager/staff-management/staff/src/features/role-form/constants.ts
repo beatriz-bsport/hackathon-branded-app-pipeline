@@ -137,6 +137,7 @@ export const DEFAULT_PERMISSIONS: CompanyRolePermissions = {
       orders: true,
       expenses: true,
       installments: true,
+      payouts: false,
       clockIn: {
         selfClockIn: true,
         clockInForOther: false,

@@ -75,6 +75,7 @@ interface Payments {
   teachers: boolean;
   directDebits: boolean;
   installments: boolean;
+  payouts: boolean;
 }
 
 interface ProductsClass {

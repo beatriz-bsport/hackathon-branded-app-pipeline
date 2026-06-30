@@ -149,6 +149,9 @@
         "installments": {
           "label": "Instalments"
         },
+        "payouts": {
+          "label": "Payouts"
+        },
         "clockIn": {
           "label": "Attendance",
           "selfClockIn": {

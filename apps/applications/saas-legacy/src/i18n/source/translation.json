@@ -91,7 +91,8 @@
         "notBookableYet": "The session is not yet open for booking.",
         "isPast": "Bookings are now closed",
         "bookOption": "The session is full, but a waiting list is available.",
-        "alreadyRegistered": "You have already booked this session."
+        "alreadyRegistered": "You have already booked this session.",
+        "full": "The session is full and no waiting list is available."
       }
     },
     "passListTitle": "Passes",

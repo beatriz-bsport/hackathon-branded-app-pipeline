@@ -985,11 +985,12 @@
       "alreadyRegistered": "Réservée",
       "full": "Complet",
       "popOverTitle": {
-        "bookOption": "La séance est complète, une liste d’attente est disponible.",
+        "bookOption": "La séance est complète, une liste d'attente est disponible.",
         "notAvailable": "La séance a été annulée",
-        "notBookableYet": "La séance n’est pas encore ouverte aux réservations.",
+        "notBookableYet": "La séance n'est pas encore ouverte aux réservations.",
         "alreadyRegistered": "Vous avez déjà réservé cette séance.",
-        "isPast": "Les réservations sont closes"
+        "isPast": "Les réservations sont closes",
+        "full": "La séance est complète et ne dispose pas de liste d'attente."
       }
     },
     "sessionThisDay": "Séance ce jour :",

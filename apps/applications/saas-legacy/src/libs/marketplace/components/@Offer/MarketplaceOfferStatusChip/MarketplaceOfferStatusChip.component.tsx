@@ -6,6 +6,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import UpdateIcon from '@material-ui/icons/Update';
+import BlockIcon from '@material-ui/icons/Block';
 
 import { getOfferStatus } from '#src/libs/marketplace/utils';
 import PopOver from '#src/components/Popover';
@@ -104,6 +105,19 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
             }}
             icon={<HourglassFullIcon fontSize="small" />}
             label={showLabel && t('marketplace.bookButton.bookOption')}
+          />
+        </PopOver>
+      );
+    case MarketplaceOfferStatus.FULL:
+      return (
+        <PopOver title={t('marketplace.bookButton.popOverTitle.full')}>
+          <Chip
+            classes={{
+              'bs-offer-status-chip': 'bs-offer-status-chip',
+              '--completed': '--completed',
+            }}
+            icon={<BlockIcon fontSize="small" />}
+            label={showLabel && t('marketplace.bookButton.full')}
           />
         </PopOver>
       );

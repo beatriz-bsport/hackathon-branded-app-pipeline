@@ -23,6 +23,7 @@ import {
   getOfferStatus,
   getGroupOfferSetAsFullBookingOnlyStatus,
   shouldApplyEllipsis,
+  isWaitlistAvailable,
 } from './offer';
 
 import {
@@ -54,4 +55,5 @@ export {
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
   shouldApplyEllipsis,
+  isWaitlistAvailable,
 };

@@ -112,7 +112,8 @@
         "notBookableYet": "De sessie kan nog niet worden geboekt.",
         "alreadyRegistered": "Je hebt deze sessie al geboekt.",
         "bookOption": "De sessie is vol en er is een wachtlijst.",
-        "isPast": "Reserveringen zijn gesloten"
+        "isPast": "Reserveringen zijn gesloten",
+        "full": "De sessie is vol en er is geen wachtlijst."
       }
     },
     "passListTitle": "Leskaarten",

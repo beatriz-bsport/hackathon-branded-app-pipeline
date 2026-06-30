@@ -63,6 +63,7 @@ export function ThreadList({ className }: ThreadListProps) {
           isFetchingNextPage={active.isFetchingNextPage}
           fetchNextPage={active.fetchNextPage}
           refetch={active.refetch}
+          isSearching={isSearching}
         />
       </div>
     </div>

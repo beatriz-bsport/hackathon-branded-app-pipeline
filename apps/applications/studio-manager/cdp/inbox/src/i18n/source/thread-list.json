@@ -20,6 +20,7 @@
   },
   "threadList": {
     "empty": "No conversations",
+    "emptySearch": "No conversations match your search",
     "loadingError": "Couldn't load conversations",
     "retry": "Try again"
   }

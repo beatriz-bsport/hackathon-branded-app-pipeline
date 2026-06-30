@@ -82,7 +82,8 @@
         "notAvailable": "Dieser Kurs wurde storniert",
         "notBookableYet": "Dieser Kurs kann noch nicht gebucht werden.",
         "alreadyRegistered": "Sie haben diesen Kurs bereits gebucht.",
-        "isPast": "Die Buchungen sind geschlossen"
+        "isPast": "Die Buchungen sind geschlossen",
+        "full": "Dieser Kurs ist ausgebucht und es gibt keine Warteliste."
       }
     },
     "passListTitle": "Kurspässe",

@@ -16,6 +16,15 @@ import {
   OFFER_NAME_MAX_LENGTH,
 } from '#src/libs/marketplace/constants';
 
+/**
+ * Returns true when the offer has an active waiting list.
+ * A waiting list is unavailable when `waiting_list_disabled` is true
+ * OR when `waiting_list_max_size` is 0.
+ */
+export const isWaitlistAvailable = (
+  offer: Pick<Offer, 'waiting_list_disabled' | 'waiting_list_max_size'>,
+) => !offer.waiting_list_disabled && offer.waiting_list_max_size > 0;
+
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   if (!offer) return false;
@@ -122,7 +131,9 @@ export const getOfferStatus = (
     return MarketplaceOfferStatus.COMPLETED;
   }
   if (offer.full) {
-    return MarketplaceOfferStatus.WAITING_LIST;
+    return isWaitlistAvailable(offer)
+      ? MarketplaceOfferStatus.WAITING_LIST
+      : MarketplaceOfferStatus.FULL;
   }
   // @ts-expect-error
   if (isTooSoonToBookOffer(offer, metaActivity)) {
@@ -148,7 +159,9 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
     return MarketplaceOfferStatus.CANCELLED;
   }
   if (offer.full) {
-    return MarketplaceOfferStatus.WAITING_LIST;
+    return isWaitlistAvailable(offer)
+      ? MarketplaceOfferStatus.WAITING_LIST
+      : MarketplaceOfferStatus.FULL;
   }
   if (!allow_booking_after_start) {
     if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {

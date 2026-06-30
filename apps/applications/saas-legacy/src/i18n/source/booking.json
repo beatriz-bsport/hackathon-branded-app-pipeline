@@ -523,6 +523,10 @@
         "title": "Full Waitlist",
         "message": "This session and the waiting list are full.\nPlease try again later."
       },
+      "waitingListDisabled": {
+        "title": "Session full",
+        "message": "This session is full. No waiting list is available. Please try again later."
+      },
       "isAlreadyOnWaitingList": {
         "title": "Already on the waiting list",
         "message": "If you're on the waiting list, we'll let you know by email when a place becomes available."

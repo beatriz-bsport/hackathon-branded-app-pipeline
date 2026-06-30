@@ -399,12 +399,18 @@ export const getMainOfferNotBookableReasonWithTitle = (
     } else if (
       offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
     ) {
-      title = t(
-        'booking:newBookingModule.blockedReasons.isWaitingListFull.title',
-      );
-      message = t(
-        'booking:newBookingModule.blockedReasons.isWaitingListFull.message',
-      );
+      const isWaitlistAvailable =
+        offer?.waiting_list_max_size > 0 && !offer?.waiting_list_disabled;
+      title = isWaitlistAvailable
+        ? t('booking:newBookingModule.blockedReasons.isWaitingListFull.title')
+        : t(
+            'booking:newBookingModule.blockedReasons.waitingListDisabled.title',
+          );
+      message = isWaitlistAvailable
+        ? t('booking:newBookingModule.blockedReasons.isWaitingListFull.message')
+        : t(
+            'booking:newBookingModule.blockedReasons.waitingListDisabled.message',
+          );
       icon = 'block';
       color = 'error';
     } else if (isRegisteredWaitingList) {

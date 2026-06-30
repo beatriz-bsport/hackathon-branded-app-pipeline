@@ -47,6 +47,7 @@ import {
   buildBuyableItemCategories,
   getBookingBlockedReasonIcon,
   getBookingDisplayPrice,
+  isWaitlistAvailable,
   urlToMarketplace,
   urlToMarketplaceTab,
 } from '#src/libs/marketplace/utils';
@@ -1662,7 +1663,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       offerStatus?.waiting_list_status ===
       OFFER_WAITING_LIST_STATUS_CONVERTIBLE;
 
-    const isWaitingList = this.props.offer?.full && !isWaitlistConvertible;
+    const isWaitingList =
+      this.props.offer?.full &&
+      !isWaitlistConvertible &&
+      isWaitlistAvailable(this.props.offer);
 
     const isOfferNotBookableAndNotWaitlistOpen =
       offerStatus && !isOfferStatusBookable && !isWaitlistOpen;

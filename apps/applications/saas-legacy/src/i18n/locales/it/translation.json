@@ -987,7 +987,8 @@
         "notAvailable": "La sessione è stata annullata",
         "alreadyRegistered": "Hai già prenotato questa sessione.",
         "isPast": "Le prenotazioni sono chiuse",
-        "notBookableYet": "La sessione non è ancora aperta per le prenotazioni."
+        "notBookableYet": "La sessione non è ancora aperta per le prenotazioni.",
+        "full": "La sessione è al completo e non c'è lista d'attesa."
       }
     },
     "sessionThisDay": "Sessioni oggi:",

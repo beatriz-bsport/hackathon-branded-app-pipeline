@@ -176,6 +176,7 @@ export type Offer<
   timezone_name: string;
   title: string;
   validated_booking_count: number;
+  waiting_list_disabled: boolean;
   waiting_list_max_size: number;
   whitelist_tags: Tag[];
 };
@@ -577,6 +578,8 @@ export enum MarketplaceOfferStatus {
   WAITING_LIST = 3,
   CANCELLED = 4,
   COMPLETED = 5,
+  /** Session is full and the waiting list is disabled or has no capacity. */
+  FULL = 6,
 }
 
 export type UserRegistrationParams = {

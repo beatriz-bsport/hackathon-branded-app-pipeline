@@ -504,6 +504,10 @@
         "message": "Deze sessie en de wachtlijst zijn vol. \nProbeer het later nog eens.",
         "title": "Volledige wachtlijst"
       },
+      "waitingListDisabled": {
+        "title": "Sessie vol",
+        "message": "Deze sessie is vol. Er is geen wachtlijst beschikbaar. Probeer het later nog eens."
+      },
       "waitingListLockedByPendingBookings": {
         "message": "Andere mensen zijn op dit moment aan het boeken, de wachtlijst is op dit moment niet beschikbaar. Probeer het over een paar minuten nog eens om te zien of er een plaats beschikbaar is.",
         "title": "Bestaande reserveringen zijn in behandeling"

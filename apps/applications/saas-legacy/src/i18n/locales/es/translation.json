@@ -1030,7 +1030,8 @@
         "notBookableYet": "La sesión aún no está abierta a reservas.",
         "alreadyRegistered": "Ya ha reservado esta sesión.",
         "isPast": "Las reservas ya están cerradas",
-        "bookOption": "La sesión está completa, pero hay lista de espera."
+        "bookOption": "La sesión está completa, pero hay lista de espera.",
+        "full": "La sesión está completa y no hay lista de espera."
       }
     },
     "sessionThisDay": "Clases de este día :",

@@ -1,6 +1,5 @@
 import type { FC } from "react";
 
-import { formatPriceWithCurrency } from "@bsport/currency";
 import { Body, Button, Card, Icon, Title } from "@bsport/kaizen-primitive-core";
 
 import type { Pack } from "#src/types/pack";
@@ -13,10 +12,6 @@ interface SubscribedAddonCardProps {
 
 const SubscribedAddonCard: FC<SubscribedAddonCardProps> = ({ pack }) => {
   const { t } = useTranslation("subscription");
-
-  const priceSuffix = pack.perLocation
-    ? t("addons.per-month-per-location")
-    : t("addons.per-month");
 
   return (
     <Card elevated selected actionable padding="default">
@@ -36,15 +31,7 @@ const SubscribedAddonCard: FC<SubscribedAddonCardProps> = ({ pack }) => {
             </Body>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-md sm:justify-end">
-          <div className="flex flex-col gap-2xs sm:items-end">
-            <Title htmlVariant="h4">
-              {formatPriceWithCurrency(pack.price, pack.currency)}
-            </Title>
-            <Body size="sm" color="weak">
-              {priceSuffix}
-            </Body>
-          </div>
+        <div className="flex items-center justify-end">
           <Button
             color="critical"
             label={t("addons.request-removal")}

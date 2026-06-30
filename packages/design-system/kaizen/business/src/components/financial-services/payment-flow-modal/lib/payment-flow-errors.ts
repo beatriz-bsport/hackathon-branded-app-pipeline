@@ -33,6 +33,7 @@ export const PAYMENT_FLOW_ERROR_KEYS = {
   stripeNotConfigured: "paymentFlowModal.errors.stripeNotConfigured",
   paymentConfirmationFailed:
     "paymentFlowModal.errors.paymentConfirmationFailed",
+  missingGiftCard: "paymentFlowModal.giftCards.selectionWarning",
 } as const;
 
 export type PaymentFlowErrorKey =

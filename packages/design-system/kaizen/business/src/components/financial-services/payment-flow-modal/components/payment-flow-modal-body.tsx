@@ -36,6 +36,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
     amountToPay,
     isInvoiceAlreadyPaid,
     shouldShowMemberBalanceWarning,
+    shouldShowGiftCardInsufficientAlert,
     submitError,
     hasPositiveAccountBalance,
     isAccountBalanceEnough,
@@ -146,6 +147,12 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
           !isInvoiceAlreadyPaid && renderSelectedPaymentMethod()
         }
       />
+
+      {shouldShowGiftCardInsufficientAlert && (
+        <Alert status="warning" type="weak" layout="banner">
+          {t("paymentFlowModal.giftCards.insufficientAlert")}
+        </Alert>
+      )}
 
       <div className="flex items-start gap-xs flex-wrap">
         <Button

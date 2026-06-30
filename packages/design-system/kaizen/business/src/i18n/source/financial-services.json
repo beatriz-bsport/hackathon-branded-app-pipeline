@@ -281,6 +281,8 @@
       "addGiftCard": "Add gift card",
       "giftCardCodePlaceholder": "Gift card code",
       "applyGiftCardCode": "Apply gift card code",
+      "selectionWarning": "Select a gift card to proceed with payment.",
+      "insufficientAlert": "The selected gift card doesn't cover the full amount. Charge the remaining balance separately.",
       "errors": {
         "emptyCode": "Enter a gift card code",
         "invalidCode": "Enter a valid gift card code",

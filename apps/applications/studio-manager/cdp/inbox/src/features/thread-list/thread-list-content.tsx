@@ -14,6 +14,8 @@ export type ThreadListContentProps = {
   isFetchingNextPage: boolean;
   fetchNextPage: () => unknown;
   refetch: () => unknown;
+  /** Whether an active search produced the current (possibly empty) results. */
+  isSearching?: boolean;
 };
 
 export function ThreadListContent({
@@ -25,6 +27,7 @@ export function ThreadListContent({
   isFetchingNextPage,
   fetchNextPage,
   refetch,
+  isSearching = false,
 }: ThreadListContentProps) {
   const hasConversations = conversations.length > 0;
 
@@ -41,7 +44,7 @@ export function ThreadListContent({
   }
 
   if (!hasConversations) {
-    return <ThreadListEmpty />;
+    return <ThreadListEmpty isSearching={isSearching} />;
   }
 
   return (

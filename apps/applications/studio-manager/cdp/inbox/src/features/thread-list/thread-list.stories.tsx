@@ -271,3 +271,32 @@ export const SearchLoadMore: Story = {
     expect(lastMatch).toBeInTheDocument();
   },
 };
+
+export const SearchNoResults: Story = {
+  parameters: {
+    // Default list dataset + default search dataset; the query below matches no
+    // participant name, so the search endpoint returns zero results.
+    msw: {
+      handlers: [...makeInboxHandlers(), ...makeInboxSearchHandlers()],
+    },
+    docs: {
+      description: {
+        story:
+          "A search that matches nothing shows the search-specific empty state (\"No conversations match your search\") — distinct from the generic 'No conversations' placeholder shown when the studio has no conversations and no active search.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await typeSearch(canvasElement, "Zzzzznomatch");
+
+    expect(
+      await canvas.findByText(
+        "No conversations match your search",
+        {},
+        { timeout: FIND_TIMEOUT },
+      ),
+    ).toBeInTheDocument();
+  },
+};

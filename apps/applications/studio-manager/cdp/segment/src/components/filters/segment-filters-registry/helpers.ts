@@ -1,3 +1,4 @@
+import type { SmartlistFilterCollections } from "#src/api/use-smartlist-filters-query";
 import { I18N_SEGMENT_NAMESPACES } from "#src/i18n";
 import { i18nInstance } from "#src/utils/i18n";
 
@@ -41,8 +42,8 @@ export const buildAddableFilterOptions = (
 /**
  * Maps API filter collections into saved filter cards.
  */
-export const buildSavedFilters = <TData extends Record<string, unknown[]>>(
-  filtersData: TData,
+export const buildSavedFilters = (
+  filtersData: SmartlistFilterCollections,
   registryEntries: SegmentFilterRegistryEntry[],
 ): SavedFilter[] =>
   registryEntries.flatMap((entry) => {
@@ -60,7 +61,7 @@ export const buildSavedFilters = <TData extends Record<string, unknown[]>>(
       key: `${entry.savedKeyPrefix}-${apiFilter.id}`,
       filterType: entry.filterType,
       value: entry.mapToFormValue(apiFilter),
-    }));
+    })) as SavedFilter[];
   });
 
 /**
@@ -69,8 +70,10 @@ export const buildSavedFilters = <TData extends Record<string, unknown[]>>(
 export const createDraftFilter = (
   entry: SegmentFilterRegistryEntry,
   smartlistId: number,
-): DraftFilter => ({
-  clientId: createDraftClientId(entry.filterType),
-  filterType: entry.filterType,
-  value: entry.createDefault(smartlistId),
-});
+): DraftFilter => {
+  return {
+    clientId: createDraftClientId(entry.filterType),
+    filterType: entry.filterType,
+    value: entry.createDefault(smartlistId),
+  } as DraftFilter;
+};

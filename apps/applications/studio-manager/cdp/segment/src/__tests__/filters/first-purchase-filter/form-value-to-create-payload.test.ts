@@ -9,11 +9,11 @@ import { FIRST_PURCHASE_STATUS } from "#src/components/filters/first-purchase-fi
 import { createDefaultFirstPurchaseFilter } from "#src/components/filters/first-purchase-filter/default-value";
 import { createFirstPurchaseFilterPayload } from "#src/components/filters/first-purchase-filter/mappers/form-value-to-create-payload";
 import { FIRST_PURCHASE_SUB_FILTER_IDS } from "#src/components/filters/first-purchase-filter/sub-filters/first-purchase-sub-filter-id";
-import { getDefaultApiDate } from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
 import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { getDefaultApiDate } from "#src/components/primitive-filters/date-filter/utils";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 describe("createFirstPurchaseFilterPayload", () => {

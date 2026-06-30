@@ -3,7 +3,7 @@
     "title": "Add class",
     "steps": {
       "chooseActivity": {
-        "label": "Choose template",
+        "label": "Choose class",
         "description": "Search all classes, or select a group class or a workshop",
         "loadingActivities": "Loading classes...",
         "search": {
@@ -21,7 +21,7 @@
           },
           "emptyState": {
             "title": "No group classes yet",
-            "body": "Choose a class template to add it to the calendar"
+            "body": "Choose a class to add it to the calendar"
           },
           "features": {
             "livestream": {
@@ -34,27 +34,27 @@
         }
       },
       "configureSession": {
-        "label": "Set up class",
+        "label": "Setup",
         "nameAndDescription": "Details",
-        "nameAndDescriptionHelperText": "Title and description is taken from the template",
+        "nameAndDescriptionHelperText": "Title and description is taken from the class",
         "details": {
           "title": "Details",
           "sessionName": "Title",
           "description": "Description",
           "overrideToggle": {
             "label": "Customize the name and description for this class",
-            "helperText": "By default, the class uses the title and description of the template"
+            "helperText": "By default, the class uses the title and description of the selected class"
           },
           "visibilitySelector": {
-            "title": "Choose if this class will be listed on your branded website",
+            "title": "Make this class available to clients on your website or app",
             "options": {
               "visible": {
                 "label": "Listed",
-                "description": "This class will be listed on your branded website"
+                "description": "This class will be available to buy on your website or app"
               },
               "hidden": {
                 "label": "Unlisted",
-                "description": "This class won't be listed on your branded website but can be shared directly via a link"
+                "description": "This class available to buy on your website or app but can be shared via a link"
               }
             }
           }
@@ -62,18 +62,18 @@
         "settings": {
           "title": "Booking",
           "effectif": "Total spots in class",
-          "exceedsRoomCapacity": "The number of spots exceeds the room capacity",
-          "differsFromRoomCapacity": "The number of spots differs from the room capacity ({{capacity}} spots)",
+          "exceedsRoomCapacity": "The number of spots exceeds the venue capacity",
+          "differsFromRoomCapacity": "The number of spots is different from the venue capacity ({{capacity}} spots)",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",
             "helperText": "Number of credits required to book",
-            "decimalHelperText": "This class will cost {{credits}} credits",
-            "warning": "Heads up: this is the amount of credits, not the price"
+            "decimalHelperText": "This class will cost clients the equivalent of {{credits}} credits ",
+            "warning": "Heads up: this is the price in credits, not the monetary value"
           },
           "partnership": {
-            "toggle": "Available to book for clients from aggregators (ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs).",
-            "noEstablishment": "Select a venue first to customize aggregator availability",
+            "toggle": "Available to book for clients from ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs",
+            "noEstablishment": "Choose a venue first to customize availability to aggregators",
             "cappingStrategy": {
               "label": "Spot capping",
               "UNLIMITED": {
@@ -85,7 +85,7 @@
                 "label": "Limited spots (combined)",
                 "helperText": "Set a maximum number of spots for all aggregators combined",
                 "singleAggregatorLabel": "Limited spots",
-                "singleAggregatorHelperText": "Set a maximum number of spots for the enabled aggregator"
+                "singleAggregatorHelperText": "Set a maximum number of spots for the connected aggregator"
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",
@@ -94,14 +94,14 @@
             },
             "capacity": {
               "label": "Spots available for aggregators",
-              "error": "Number of allocated spots for aggregators can't exceed the total available spots in the class",
+              "error": "The number of allocated spots for aggregators must not be more than the total available in the class",
               "classpassInfo": "ClassPass has its own separate limit that's not included in this cap"
             },
             "wellhub": {
               "label": "Your available products on Wellhub",
               "placeholder": "Select a Wellhub product...",
               "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
-              "error": "Wellhub products are required"
+              "error": "Add Wellhub products"
             },
             "perPartner": {
               "table": {
@@ -112,32 +112,32 @@
               }
             },
             "enabledAggregators": {
-              "label": "Enabled aggregators",
+              "label": "Connected aggregators",
               "error": "Select at least one aggregator"
             }
           },
           "level": {
             "label": "Level",
-            "byDefault": "By default",
+            "byDefault": "Presets",
             "custom": "Custom",
             "create": "Create a new level",
             "add": "Add level",
             "nameLabel": "Name",
-            "colorLabel": "Colour",
+            "colorLabel": "Color",
             "confirmCreate": "Create",
-            "cancel": "Cancel",
+            "cancel": "Close",
             "edit": "Edit level",
             "save": "Save",
             "deleteTitle": "Delete level?",
-            "deleteMessage": "Classes which have this level applied will stay the same, but future classes won't be able to use it.",
+            "deleteMessage": "Existing classes will keep this level, but it won't be available for new classes.",
             "delete": "Delete"
           },
           "hybrid": {
             "label": "Class is hybrid (both in-person and online)",
-            "info": "Choosing this option will create an online class with a limit of 100 participants. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+            "info": "This will create an online class with a limit of 100 participants. Once it's created, you'll be able to edit the Broadcast link, membership, and price. "
           },
           "teacherAndEstablishment": {
-            "title": "Teacher and venue",
+            "title": "Teacher & venue",
             "teacher": {
               "label": "Teacher",
               "placeholder": "Add a teacher..."
@@ -146,7 +146,7 @@
               "label": "Payroll rule",
               "placeholder": "Choose a rule...",
               "overrideLabel": "Override payroll rule",
-              "overrideDescription": "If disabled, the teacher profile's default rule applies. For substitutions, this payroll rule applies to the substitute teacher"
+              "overrideDescription": "When enabled, this rule overrides the teacher's default payroll rule. For substitutions, it applies to the substitute teacher instead."
             },
             "establishment": {
               "label": "Venue",
@@ -156,14 +156,14 @@
               "label": "Spot selection",
               "placeholder": "Choose an option...",
               "helper": "Allow clients to book a spot in the room in advance",
-              "error": "A room plan must be selected for classes synchronized with Spivi"
+              "error": "A spot layout must be selected for classes synchronized with Spivi"
             },
             "syncOnSpivi": "Automatically send the class details to Spivi"
           },
           "broadcast": {
             "label": "Link to the livestream",
-            "helperText": "The link will be generated automatically for Zoom by bsport",
-            "error": "The link is invalid. It should start with http:// or https:// and not contain any whitespace."
+            "helperText": "The link will be generated automatically for Zoom",
+            "error": "Link must start with http:// or https:// and not contain any whitespace"
           }
         },
         "timeAndDate": {
@@ -213,26 +213,26 @@
           },
           "errors": {
             "invalidDate": "Enter a valid date in the format DD/MM/YYYY",
-            "dateTooFar": "You can’t create classes scheduled more than 3 years in the future",
-            "durationNull": "Duration must be greater than 0 minutes.",
+            "dateTooFar": "Classes can't be scheduled more than 3 years in advance",
+            "durationNull": "Duration must be longer than 0 minutes",
             "recurrenceType": "Select a type of recurring class",
             "recurrenceEndDate": "Select an end date",
             "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
             "recurrenceWeekdays": "Select at least one day of the week",
-            "recurrenceUnit": "Select an interval unit (days, weeks, or months)",
+            "recurrenceUnit": "Select an interval (days, weeks, or months)",
             "recurrenceInterval": "Choose how often to repeat the class",
             "recurrencePattern": "Select a monthly interval"
           },
           "pastSessionWarning": "The selected date and time are in the past. This class will be created with a start date that has already passed.",
           "wellhubWarning": "Classes shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club is active, any class spanning 2 days or more will not appear there."
+          "uscWarning": "Your integration with the Urban Sports Club is connected. Any class spanning 2 days or more will not appear there."
         }
       },
       "advancedOptions": {
         "label": "Advanced options",
         "bookForAGuest": {
           "title": "Guest booking",
-          "fieldLabel": "Enable clients to use their credits to add guests to their bookings "
+          "fieldLabel": "Allow clients to use their credits to add guests to their bookings "
         },
         "tags": {
           "title": "Tags",
@@ -254,10 +254,10 @@
       "sessionCreated_other": "Classes added"
     },
     "errors": {
-      "requiredField": "This field is required",
-      "levelNameTooLong": "Level name cannot exceed 50 characters",
-      "generic": "An error occurred. Please try again.",
-      "create": "An error occurred while adding the class. Please try again later."
+      "requiredField": "This field can't be empty",
+      "levelNameTooLong": "Level name must be max. 50 characters",
+      "generic": "Something went wrong. Try again or refresh the page.",
+      "create": "Couldn't add class. Try again later. "
     }
   }
 }

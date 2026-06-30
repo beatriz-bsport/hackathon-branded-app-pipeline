@@ -1,0 +1,11 @@
+{
+  "memberSelectorModal": {
+    "title": "Sélectionner un adhérent",
+    "cancel": "Fermer",
+    "selectMember": "Sélectionner un adhérent",
+    "searchPlaceholder": "Rechercher des adhérents...",
+    "emptyState": "Choisissez un adhérent pour créer une facture",
+    "emptySearch": "Aucun adhérent trouvé",
+    "loading": "Chargement des adhérents..."
+  }
+}

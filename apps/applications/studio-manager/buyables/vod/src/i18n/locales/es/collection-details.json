@@ -33,7 +33,7 @@
   "videoList": {
     "addMedia": "Añadir contenido multimedia",
     "ebook": "Libro electrónico",
-    "managerOnly": "No listado",
+    "managerOnly": "No publicado",
     "rentalDays": "",
     "rentalDays_one": "{{count}} día de alquiler",
     "rentalDays_other": "{{count}} días de alquiler",
@@ -42,7 +42,7 @@
       "2": "Principiante",
       "3": "Intermedio",
       "4": "Avanzado",
-      "5": "No se muestra el nivel"
+      "5": "Sin nivel"
     }
   },
   "addMediaModal": {

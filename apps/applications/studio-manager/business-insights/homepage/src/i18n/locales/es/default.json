@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} sitio disponible en la clase",
         "hasEmptySpots_other": "{{ count }} sitios disponibles en la clase",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} Miembros en lista de espera",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} clientes en Lista de espera",
         "hasEmptySpotsForWaitlist_other": "{{ count }} sitios pendientes en la lista de espera"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Métricas Clave",
-    "unavailable": "Las métricas no están disponibles actualmente"
+    "unavailable": "Las métricas no están disponibles actualmente",
+    "loading": "Cargando datos",
+    "dataUnavailable": "Datos no disponibles",
+    "metrics": {
+      "totalRevenue": "Ingresos totales",
+      "totalBooking": "Total reservas",
+      "totalAttendance": "Asistencia total",
+      "totalOccupancy": "Ocupación total"
+    }
   },
   "insightsPanel": {
     "title": "Vista Rápida",
-    "unavailable": "Visión empresarial no está disponible actualmente"
+    "unavailable": "Visión empresarial no está disponible actualmente",
+    "loading": "Cargando datos de Visión empresarial...",
+    "temporarilyUnavailable": "La Visión empresarial no está disponible temporalmente",
+    "errorHelp": "Estamos trabajando para solucionarlo. Mientras tanto, usa Informes para consultar tus datos.",
+    "goToReports": "Ir a informes"
   }
 }

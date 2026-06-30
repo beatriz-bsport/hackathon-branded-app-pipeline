@@ -12,7 +12,6 @@ import { useTranslation } from "#src/utils/i18n";
 import { getSeriesBookingRule } from "#src/utils/series-booking-rule";
 import {
   getSeriesClassStatusCounts,
-  getSeriesMoreDetailsSessionId,
   getSeriesNonCancelledClassBounds,
   isSeriesCancelled,
 } from "#src/utils/series-detail-drawer";
@@ -89,13 +88,6 @@ export const useSeriesDetailDrawerViewModel = ({
 
   const bookingRule = series ? getSeriesBookingRule(series) : "fullSeries";
 
-  const moreDetailsSessionId = series
-    ? getSeriesMoreDetailsSessionId({
-        classes: allClasses,
-        offerIds: series.offers,
-      })
-    : null;
-
   const displayedLevelName = getLevelName({
     levelId: series?.level,
     levelName,
@@ -157,7 +149,6 @@ export const useSeriesDetailDrawerViewModel = ({
     bookingRule,
     isCancelled,
     metadataRows,
-    moreDetailsSessionId,
     statusSummaryParts,
     totalClasses,
   };

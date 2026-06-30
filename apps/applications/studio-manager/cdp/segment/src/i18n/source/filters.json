@@ -7,6 +7,9 @@
     "actions": {
       "apply": "Apply",
       "applied": "Applied"
+    },
+    "operators": {
+      "and": "AND"
     }
   },
   "profileStatus": {
@@ -31,12 +34,12 @@
     "topFiltersLabel": "Or start filtering with top filters:",
     "shortcuts": {
       "passes": {
-        "title": "Class passes",
+        "title": "Passes",
         "description": "Filter by pass ownership, credits, or expiration"
       },
       "tags": {
         "title": "Tags",
-        "description": "Filter by client tags"
+        "description": "Filter by tags member do or don't have"
       },
       "totalBookingNumber": {
         "title": "Total Bookings",
@@ -55,111 +58,108 @@
       "noResults": "No results found"
     },
     "categories": {
-      "PROFILES": "PROFILES",
-      "PASSES": "Class passes",
+      "PASSES": "PASSES",
       "BOOKINGS": "BOOKINGS",
-      "MEMBER_INFORMATIONS": "Client information",
-      "PAYMENTS": "PAYMENTS"
+      "MEMBER_INFORMATIONS": "MEMBER INFORMATIONS",
+      "PAYMENTS": "PURCHASE HISTORY"
     },
     "options": {
       "gender": {
-        "description": "Filter by client gender"
+        "description": "Filter by gender."
       },
       "memberSignUpDate": {
-        "description": "Filter clients by when they signed up"
+        "description": "Filter by when they joined."
       },
       "passes": {
-        "description": "Filter by ownership of a selected pass."
+        "description": "Filter by whether the client has a selected session pass."
       },
       "appointmentPass": {
-        "description": "Filter by ownership of selected passes, with optional purchase, expiration, and credits sub-filters."
+        "description": "Filter by whether the client has a selected appointment pass."
       },
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
       },
       "totalAppointmentsNumber": {
-        "description": "Filter by total number of private appointments."
+        "description": "Filter by total number of appointment bookings."
       },
       "bookingMilestone": {
-        "description": "Filter by a client's booking number (1st, 2nd, 3rd…)"
+        "description": "Filter by booking milestone (e.g. 1st, 5th, 10th session)."
       },
       "lastBooking": {
-        "description": "Filter by days since a client's last booking"
+        "description": "Filter by last booking date."
       },
       "tags": {
-        "description": "Filter by client tags"
+        "description": "Include or exclude clients based on tags."
       },
       "activePasses": {
-        "description": "Filter by the number of active passes a client currently holds."
+        "description": "Filter by number of valid passes a client has."
       },
       "firstPurchase": {
-        "description": "Filter by completed first purchases"
+        "description": "Filter by whether the first purchase is completed."
       },
       "basketAbandonment": {
-        "description": "Filter clients by abandoned cart total, with an optional date range."
+        "description": "Filter by value of abandoned baskets."
       },
       "purchaseHistory": {
-        "description": "Filter clients by total spend on selected product types."
+        "description": "Filter by total purchase value."
       },
       "age": {
-        "description": "Filter clients by age in whole years, based on their profile birthday"
+        "description": "Filter by age."
+      },
+      "formCompletion": {
+        "description": "Filter by custom form completion."
       },
       "creditAccount": {
-        "description": "Filter clients by account balance"
+        "description": "Filter by account balance amount."
       },
       "marketingNotification": {
-        "description": "Filter clients by SMS and email marketing consent."
+        "description": "Filter by email or SMS consent."
       },
       "hasPhone": {
-        "description": "Filter clients by whether they have a phone number on file"
+        "description": "Filter by whether a phone number is provided."
       },
       "referrer": {
-        "description": "Filter clients by number of referrals made, with optional filters for rewards earned and referral revenue"
+        "description": "Filter by number of referrals made."
+      },
+      "relationships": {
+        "description": "Filter by number of relationships."
       },
       "referredMembers": {
-        "description": "Filter clients by whether they were referred by another client, with an optional filter for their referral discount"
+        "description": "Filter by whether the client was referred."
       },
       "termsAndConditions": {
-        "description": "Filter clients by whether they've accepted the terms and conditions"
+        "description": "Filter by whether terms and conditions are accepted."
       },
       "liabilityWaiver": {
-        "description": "Filter clients by whether they've accepted the liability waiver"
+        "description": "Filter by whether the liability waiver is accepted."
       },
       "internalNotes": {
-        "description": "Filter clients by whether they have internal notes, with optional filters for note type and date"
+        "description": "Filter by whether the client has internal notes."
       },
       "paymentMethod": {
-        "description": "Filter clients by whether they have a saved payment method, with an optional filter for expiration date."
+        "description": "Filter by whether a payment method is saved."
       },
       "hasPassword": {
-        "description": "Filter clients by whether they have a password set on their account."
+        "description": "Filter by whether a password is set."
       }
     }
   },
   "filters": {
-    "21": {
-      "title": "Booking milestone",
+    "1": {
+      "title": "Account balance",
       "actions": {
-        "deleteFilter": "Delete booking milestone filter",
-        "save": "Apply filter",
-        "addFilter": "Add booking milestone filter"
-      },
-      "fields": {
-        "filterSpecifications": "FILTER SPECIFICATIONS",
-        "milestoneLabel": "Clients that booked",
-        "milestoneSuffix": "",
-        "milestoneSuffix_one": "booking",
-        "milestoneSuffix_other": "bookings"
-      },
-      "toasts": {
-        "saveError": "Unable to save booking milestone filter.",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Unable to delete booking milestone filter.",
-        "invalidFilter": "Invalid filter."
+        "deleteFilter": "Delete account balance filter",
+        "save": "Apply filter"
       },
       "validation": {
-        "valueRequired": "Milestone must be at least 1.",
-        "valueMustBeInteger": "Milestone must be a whole number."
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first."
+      },
+      "toasts": {
+        "saveError": "Unable to save account balance filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete account balance filter.",
+        "invalidFilter": "Invalid filter."
       }
     },
     "5": {
@@ -201,78 +201,38 @@
         "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
-    "101": {
-      "title": "Client age",
+    "11": {
+      "title": "Tags",
+      "loading": "Loading tag filter...",
+      "loadTagCatalogError": "Unable to load tags. Please try again.",
+      "include": {
+        "title": "Include tags",
+        "description": "Clients with any of these tags"
+      },
+      "exclude": {
+        "title": "Exclude tags",
+        "description": "Clients without any of these tags"
+      },
       "actions": {
-        "deleteFilter": "Delete client age filter",
+        "deleteFilter": "Delete tag filter",
         "save": "Apply filter"
       },
       "fields": {
-        "yearSuffix_one": "year",
-        "yearSuffix_other": "years"
-      },
-      "help": {
-        "infoLabel": "About client age filter",
-        "content": "Age is calculated in whole years from the client's profile birthday. Clients without a birthday on file are excluded."
+        "searchPlaceholder": "Search for a tag",
+        "emptySelection": "Add a tag to start filtering"
       },
       "validation": {
-        "secondValueRequired": "Enter a maximum age for the range.",
-        "secondValueGreaterThanFirst": "The maximum age must be greater than or equal to the minimum age."
+        "atLeastOneTagRequired": "Select at least one tag to include or exclude."
       },
       "toasts": {
-        "saveError": "Couldn't save client age filter. Try again. ",
+        "saveError": "Unable to save tag filter.",
         "saveSuccess": "Filter applied.",
-        "deleteError": "Couldn't delete client age filter. Try again. ",
+        "deleteError": "Unable to delete tag filter.",
         "invalidFilter": "Invalid filter."
-      }
-    },
-    "1": {
-      "title": "Account balance",
-      "actions": {
-        "deleteFilter": "Delete account balance filter",
-        "save": "Apply filter"
-      },
-      "validation": {
-        "secondValueRequired": "Enter an upper bound for the range.",
-        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first."
-      },
-      "toasts": {
-        "saveError": "Unable to save account balance filter.",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Unable to delete account balance filter.",
-        "invalidFilter": "Invalid filter."
-      }
-    },
-    "25": {
-      "title": "Appointment pass",
-      "ownership": {
-        "label": "Filter for profiles that:",
-        "own": "Own",
-        "doesNotOwn": "Doesn't own"
-      },
-      "actions": {
-        "deleteFilter": "Delete appointment pass filter",
-        "save": "Save filter",
-        "addFilter": "Add appointment pass filter"
-      },
-      "fields": {
-        "searchPlaceholder": "Search for an appointment pass",
-        "emptySelection": "Select appointment passes to start filtering",
-        "unlimitedCredits": "Unlimited credits",
-        "creditsSuffix": "Credits"
-      },
-      "toasts": {
-        "saveError": "Unable to save appointment pass filter.",
-        "saveSuccess": "Appointment pass filter saved.",
-        "deleteError": "Unable to delete appointment pass filter.",
-        "invalidFilter": "Invalid filter."
-      },
-      "validation": {
-        "selectedPassesRequired": "Select at least one appointment pass or use all"
       }
     },
     "19": {
-      "title": "Pass ownership",
+      "title": "Session pass",
       "ownership": {
         "label": "Filter for profiles that:",
         "own": "Own",
@@ -325,8 +285,63 @@
         "creditSecondValueRequired": "Second credit value is required for range comparator."
       }
     },
+    "20": {
+      "title": "Abandoned cart value",
+      "actions": {
+        "deleteFilter": "Delete abandoned basket filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilters": "Add sub-filters",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS"
+      },
+      "subFilters": {
+        "abandonmentDate": "Date range of basket abandonment"
+      },
+      "toasts": {
+        "saveError": "Unable to save abandoned basket filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete abandoned basket filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "basketValueRequired": "Enter a cart amount.",
+        "basketValueSecondRequired": "Enter both amounts for the between range.",
+        "basketValueSecondGreaterThanFirst": "The upper amount must be greater than or equal to the lower amount.",
+        "abandonmentDateRequired": "Select an abandonment date.",
+        "abandonmentDateBetweenRequired": "Select both dates for the between range.",
+        "abandonmentDateDurationRequired": "Enter a number of days.",
+        "abandonmentDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "21": {
+      "title": "Booking milestone",
+      "actions": {
+        "deleteFilter": "Delete booking milestone filter",
+        "save": "Apply filter",
+        "addFilter": "Add booking milestone filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "milestoneLabel": "Clients that booked",
+        "milestoneSuffix": "",
+        "milestoneSuffix_one": "booking",
+        "milestoneSuffix_other": "bookings"
+      },
+      "toasts": {
+        "saveError": "Unable to save booking milestone filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete booking milestone filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Milestone must be at least 1.",
+        "valueMustBeInteger": "Milestone must be a whole number."
+      }
+    },
     "22": {
-      "title": "Total Bookings",
+      "title": "Total class bookings ",
       "types": {
         "lowerOrEqual": "Less than or equal to",
         "greaterOrEqual": "Greater than or equal to",
@@ -371,10 +386,10 @@
         }
       },
       "subFilters": {
-        "activity": "Service",
-        "establishment": "Venue",
+        "activity": "Activity",
+        "establishment": "Establishment",
         "coach": "Teacher",
-        "passes": "Class passes",
+        "passes": "Passes",
         "level": "Level",
         "bookingDate": "Class date",
         "bookingHourRange": "Class time",
@@ -402,168 +417,6 @@
         "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
         "bookingHourRangeRequired": "Select both start and end times.",
         "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
-      }
-    },
-    "26": {
-      "title": "Total Appointments",
-      "actions": {
-        "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
-        "deleteFilter": "Delete appointments filter",
-        "save": "Apply filter",
-        "addFilter": "Add appointments filter",
-        "addSubFilter": "Add sub-filter"
-      },
-      "fields": {
-        "coach": {
-          "searchPlaceholder": "Search for a Teacher",
-          "emptySelection": "Select Teachers to start filtering"
-        },
-        "establishment": {
-          "searchPlaceholder": "Search for a venue",
-          "emptySelection": "Select venues to start filtering",
-          "atHomePrefix": "or",
-          "atHomeLabel": "Include online appointments (at home)"
-        },
-        "appointment": {
-          "searchPlaceholder": "Search for an Appointment",
-          "emptySelection": "Select Appointments to start filtering"
-        },
-        "totalAppointmentSuffix": "appointments",
-        "filterSpecifications": "FILTER SPECIFICATIONS",
-        "appointmentHourRangeStartingBetween": "Starting between ",
-        "appointmentHourRangeAnd": " and "
-      },
-      "subFilters": {
-        "coach": "Teacher",
-        "establishment": "Venue",
-        "appointmentPass": "Appointment pass",
-        "appointment": "Appointment",
-        "appointmentDate": "Appointment date",
-        "appointmentHourRange": "Appointment time"
-      },
-      "toasts": {
-        "saveError": "Unable to save appointments filter.",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Unable to delete appointments filter.",
-        "invalidFilter": "Invalid filter."
-      },
-      "validation": {
-        "valueRequired": "Appointment count must be 0 or higher.",
-        "secondValueRequired": "Second appointment count is required for range comparator.",
-        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
-        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
-        "selectedEstablishmentsRequired": "Select at least one venue, or include online appointments.",
-        "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
-        "selectedAppointmentsRequired": "Select at least one appointment, or remove this sub-filter.",
-        "appointmentDateRequired": "Select an appointment date.",
-        "appointmentDateBetweenRequired": "Select both dates for the between range.",
-        "appointmentDateDurationRequired": "Enter a number of days.",
-        "appointmentDateDurationBetweenRequired": "Enter both day values for the between range.",
-        "appointmentHourRangeRequired": "Select both start and end times.",
-        "appointmentHourRangeOrderInvalid": "End time must be the same as or after the start time."
-      }
-    },
-    "27": {
-      "title": "Number of Valid Passes",
-      "skeleton": {
-        "ariaLabel": "Loading active passes filter"
-      },
-      "info": {
-        "countExplanation": "Blocked class passes and appointment passes are included in the count"
-      },
-      "actions": {
-        "deleteFilter": "Delete active passes filter",
-        "save": "Apply filter"
-      },
-      "fields": {
-        "countSuffix": "Valid passes",
-        "sessionsSuffix": "classes",
-        "filterSpecifications": "FILTER SPECIFICATIONS"
-      },
-      "paymentPacks": {
-        "title": "Specify passes",
-        "description": "Clients with any of these class passes",
-        "searchPlaceholder": "Search class passes...",
-        "emptySelection": "Search to select class passes"
-      },
-      "appointmentPasses": {
-        "title": "Select appointment passes",
-        "description": "Clients with any of these appointment passes",
-        "searchPlaceholder": "Search appointment passes...",
-        "emptySelection": "Search to select appointment passes"
-      },
-      "toasts": {
-        "saveError": "Couldn't save active passes filter. Try again. ",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Couldn't delete active passes filter. Try again. ",
-        "invalidFilter": "Invalid filter."
-      },
-      "validation": {
-        "atLeastOneSectionRequired": "Enable at least one pass type (class passes or appointment passes).",
-        "secondValueRequired": "Enter an upper bound for the range.",
-        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first.",
-        "atLeastOnePassSelectedRequired": "Select at least one pass to include or exclude.",
-        "atLeastOneAppointmentPassSelectedRequired": "Select at least one appointment pass to include or exclude."
-      }
-    },
-    "11": {
-      "title": "Tags",
-      "loading": "Loading tag filter...",
-      "loadTagCatalogError": "Unable to load tags. Please try again.",
-      "include": {
-        "title": "Include tags",
-        "description": "Clients with any of these tags"
-      },
-      "exclude": {
-        "title": "Exclude tags",
-        "description": "Clients without any of these tags"
-      },
-      "actions": {
-        "deleteFilter": "Delete tag filter",
-        "save": "Apply filter"
-      },
-      "fields": {
-        "searchPlaceholder": "Search for a tag",
-        "emptySelection": "Add a tag to start filtering"
-      },
-      "validation": {
-        "atLeastOneTagRequired": "Select at least one tag to include or exclude."
-      },
-      "toasts": {
-        "saveError": "Unable to save tag filter.",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Unable to delete tag filter.",
-        "invalidFilter": "Invalid filter."
-      }
-    },
-    "20": {
-      "title": "Abandoned Basket",
-      "actions": {
-        "deleteFilter": "Delete abandoned basket filter",
-        "removeSubFilter": "Remove {{subFilterLabel}}",
-        "addSubFilters": "Add sub-filters",
-        "save": "Apply filter"
-      },
-      "fields": {
-        "filterSpecifications": "FILTER SPECIFICATIONS"
-      },
-      "subFilters": {
-        "abandonmentDate": "Date range of basket abandonment"
-      },
-      "toasts": {
-        "saveError": "Unable to save abandoned basket filter.",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Unable to delete abandoned basket filter.",
-        "invalidFilter": "Invalid filter."
-      },
-      "validation": {
-        "basketValueRequired": "Enter a cart amount.",
-        "basketValueSecondRequired": "Enter both amounts for the between range.",
-        "basketValueSecondGreaterThanFirst": "The upper amount must be greater than or equal to the lower amount.",
-        "abandonmentDateRequired": "Select an abandonment date.",
-        "abandonmentDateBetweenRequired": "Select both dates for the between range.",
-        "abandonmentDateDurationRequired": "Enter a number of days.",
-        "abandonmentDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
     "24": {
@@ -607,39 +460,139 @@
         "purchaseDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
-    "30": {
-      "title": "Referred by client",
-      "fields": {
-        "filterSpecifications": "FILTER SPECIFICATIONS",
-        "isReferredMember": "Is a referred client",
-        "isNotReferredMember": "Is not a referred client"
+    "25": {
+      "title": "Appointment pass",
+      "ownership": {
+        "label": "Filter for profiles that:",
+        "own": "Own",
+        "doesNotOwn": "Doesn't own"
       },
       "actions": {
-        "deleteFilter": "Delete referred client filter",
-        "removeSubFilter": "Remove {{subFilterLabel}}",
-        "addSubFilter": "Add sub-filter",
-        "save": "Apply filter"
+        "deleteFilter": "Delete appointment pass filter",
+        "save": "Save filter",
+        "addFilter": "Add appointment pass filter"
       },
-
-      "subFilters": {
-        "moneyObtained": "Earnings as referred client",
-        "moneyObtainedInfoLabel": "Earnings as referred client information",
-        "moneyObtainedHelp": "Total referral discount applied to the client's first completed purchase. Clients who were referred but never made a purchase are excluded."
+      "fields": {
+        "searchPlaceholder": "Search for an appointment pass",
+        "emptySelection": "Select appointment passes to start filtering",
+        "unlimitedCredits": "Unlimited credits",
+        "creditsSuffix": "Credits"
       },
       "toasts": {
-        "saveError": "Couldn't save referred client filter. Try again. ",
-        "saveSuccess": "Filter applied.",
-        "deleteError": "Couldn't delete referred client filter. Try again. ",
+        "saveError": "Unable to save appointment pass filter.",
+        "saveSuccess": "Appointment pass filter saved.",
+        "deleteError": "Unable to delete appointment pass filter.",
         "invalidFilter": "Invalid filter."
       },
       "validation": {
-        "moneyObtainedValueRequired": "Enter an earnings amount.",
-        "moneyObtainedSecondValueRequired": "Enter both amounts for the between range.",
-        "moneyObtainedBetweenRangeInvalid": "The upper amount must be greater than or equal to the lower amount."
+        "selectedPassesRequired": "Select at least one appointment pass or use all"
+      }
+    },
+    "26": {
+      "title": "Total appointments bookings",
+      "actions": {
+        "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
+        "deleteFilter": "Delete appointments filter",
+        "save": "Apply filter",
+        "addFilter": "Add appointments filter",
+        "addSubFilter": "Add sub-filter"
+      },
+      "fields": {
+        "coach": {
+          "searchPlaceholder": "Search for a Teacher",
+          "emptySelection": "Select Teachers to start filtering"
+        },
+        "establishment": {
+          "searchPlaceholder": "Search for a venue",
+          "emptySelection": "Select venues to start filtering",
+          "atHomePrefix": "or",
+          "atHomeLabel": "Include online appointments (at home)"
+        },
+        "appointment": {
+          "searchPlaceholder": "Search for an Appointment",
+          "emptySelection": "Select Appointments to start filtering"
+        },
+        "totalAppointmentSuffix": "appointments",
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "appointmentHourRangeStartingBetween": "Starting between ",
+        "appointmentHourRangeAnd": " and "
+      },
+      "subFilters": {
+        "coach": "Teacher",
+        "establishment": "Establishment",
+        "appointmentPass": "Appointment pass",
+        "appointment": "Appointment",
+        "appointmentDate": "Appointment date",
+        "appointmentHourRange": "Appointment time"
+      },
+      "toasts": {
+        "saveError": "Unable to save appointments filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete appointments filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Appointment count must be 0 or higher.",
+        "secondValueRequired": "Second appointment count is required for range comparator.",
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
+        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
+        "selectedEstablishmentsRequired": "Select at least one venue, or include online appointments.",
+        "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
+        "selectedAppointmentsRequired": "Select at least one appointment, or remove this sub-filter.",
+        "appointmentDateRequired": "Select an appointment date.",
+        "appointmentDateBetweenRequired": "Select both dates for the between range.",
+        "appointmentDateDurationRequired": "Enter a number of days.",
+        "appointmentDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "appointmentHourRangeRequired": "Select both start and end times.",
+        "appointmentHourRangeOrderInvalid": "End time must be the same as or after the start time."
+      }
+    },
+    "27": {
+      "title": "Valid Passes",
+      "skeleton": {
+        "ariaLabel": "Loading active passes filter"
+      },
+      "info": {
+        "countExplanation": "Blocked class passes and appointment passes are included in the count"
+      },
+      "actions": {
+        "deleteFilter": "Delete active passes filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "countSuffix": "Valid passes",
+        "sessionsSuffix": "classes",
+        "filterSpecifications": "FILTER SPECIFICATIONS"
+      },
+      "paymentPacks": {
+        "title": "Specify passes",
+        "description": "Clients with any of these class passes",
+        "searchPlaceholder": "Search class passes...",
+        "emptySelection": "Search to select class passes"
+      },
+      "appointmentPasses": {
+        "title": "Select appointment passes",
+        "description": "Clients with any of these appointment passes",
+        "searchPlaceholder": "Search appointment passes...",
+        "emptySelection": "Search to select appointment passes"
+      },
+      "toasts": {
+        "saveError": "Couldn't save active passes filter. Try again. ",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete active passes filter. Try again. ",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "atLeastOneSectionRequired": "Enable at least one pass type (class passes or appointment passes).",
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first.",
+        "minCountValue": "Enter at least 1 valid pass.",
+        "atLeastOnePassSelectedRequired": "Select at least one pass to include or exclude.",
+        "atLeastOneAppointmentPassSelectedRequired": "Select at least one appointment pass to include or exclude."
       }
     },
     "28": {
-      "title": "First purchase made",
+      "title": "First purchase completed",
       "status": {
         "done": "First purchase done",
         "notDone": "First purchase not done"
@@ -674,9 +627,9 @@
       }
     },
     "29": {
-      "title": "Amount of referred clients",
+      "title": "Referrals made",
       "actions": {
-        "deleteFilter": "Delete amount of referred clients filter",
+        "deleteFilter": "Delete referrals made filter",
         "save": "Apply filter"
       },
       "fields": {
@@ -695,8 +648,94 @@
         "valueSecondReferredGreaterThanFirst": "The upper value must be greater than or equal to the lower value."
       }
     },
+    "30": {
+      "title": "Referred by",
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "isReferredMember": "Is a referred client",
+        "isNotReferredMember": "Is not a referred client"
+      },
+      "actions": {
+        "deleteFilter": "Delete referred client filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+
+      "subFilters": {
+        "moneyObtained": "Earnings as referred client",
+        "moneyObtainedInfoLabel": "Earnings as referred client information",
+        "moneyObtainedHelp": "Total referral discount applied to the client's first completed purchase. Clients who were referred but never made a purchase are excluded."
+      },
+      "toasts": {
+        "saveError": "Couldn't save referred client filter. Try again. ",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete referred client filter. Try again. ",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "moneyObtainedValueRequired": "Enter an earnings amount.",
+        "moneyObtainedSecondValueRequired": "Enter both amounts for the between range.",
+        "moneyObtainedBetweenRangeInvalid": "The upper amount must be greater than or equal to the lower amount."
+      }
+    },
+    "101": {
+      "title": "Age",
+      "actions": {
+        "deleteFilter": "Delete age filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "yearSuffix_one": "year",
+        "yearSuffix_other": "years"
+      },
+      "help": {
+        "infoLabel": "About client age filter",
+        "content": "Age is calculated in whole years from the client's profile birthday. Clients without a birthday on file are excluded."
+      },
+      "validation": {
+        "secondValueRequired": "Enter a maximum age for the range.",
+        "secondValueGreaterThanFirst": "The maximum age must be greater than or equal to the minimum age."
+      },
+      "toasts": {
+        "saveError": "Couldn't save client age filter. Try again. ",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete client age filter. Try again. ",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "102": {
+      "title": "Form completion",
+      "actions": {
+        "deleteFilter": "Delete form completion filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "completionCondition": {
+          "label": "Completion rule",
+          "atLeastOne": "Has completed at least one of",
+          "allForms": "Has completed all of",
+          "noForm": "Has completed none of"
+        },
+        "customForms": "Custom forms",
+        "customFormsSearchPlaceholder": "Search forms",
+        "customFormsEmptySelection": "No forms selected"
+      },
+      "alerts": {
+        "legacyConfigurationNormalized": "Some settings on this filter are no longer supported. Unsupported sub-filters were turned off and unmappable legacy completion rules were adjusted. Review the options below and save to apply."
+      },
+      "validation": {
+        "customFormsRequired": "Select at least one custom form."
+      },
+      "toasts": {
+        "saveError": "Couldn't save form completion filter. Try again.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete form completion filter. Try again.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
     "103": {
-      "title": "Marketing notification consent",
+      "title": "Marketing consent given",
       "actions": {
         "deleteFilter": "Delete marketing notification filter",
         "save": "Add filter",
@@ -704,11 +743,11 @@
       },
       "fields": {
         "sms": {
-          "toggle": "SMS marketing notifications",
+          "toggle": "SMS auto-messages",
           "description": "Filter by SMS marketing opt-in status."
         },
         "email": {
-          "toggle": "Email marketing notifications",
+          "toggle": "Email auto-messages",
           "description": "Filter by email marketing opt-in status."
         },
         "consent": {
@@ -732,27 +771,8 @@
         "atLeastOneChannelRequired": "Enable at least SMS or Email."
       }
     },
-    "410": {
-      "title": "Liability waiver",
-      "actions": {
-        "deleteFilter": "Delete liability waiver filter",
-        "save": "Add filter",
-        "update": "Save filter"
-      },
-      "fields": {
-        "radioLabel": "Filter for Profiles that:",
-        "accepted": "Accepted",
-        "notAccepted": "Not accepted"
-      },
-      "toasts": {
-        "saveError": "Unable to save liability waiver filter.",
-        "saveSuccess": "Liability waiver filter saved.",
-        "deleteError": "Unable to delete liability waiver filter.",
-        "invalidFilter": "Invalid filter."
-      }
-    },
     "104": {
-      "title": "Has internal notes",
+      "title": "Internal notes",
       "actions": {
         "deleteFilter": "Delete internal notes filter",
         "removeSubFilter": "Remove {{subFilterLabel}}",
@@ -781,6 +801,130 @@
         "noteCreationDateBetweenRequired": "Select both dates for the between range.",
         "noteCreationDateDurationRequired": "Enter a number of days.",
         "noteCreationDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "105": {
+      "title": "Relationships",
+      "actions": {
+        "deleteFilter": "Delete relationships filter",
+        "save": "Apply filter"
+      },
+      "alerts": {
+        "deprecatedSubFiltersDeactivated": "Advanced sub-filters that were configured for this filter are no longer supported. We turned them off for you; only the relationship count filter below is applied."
+      },
+      "fields": {
+        "relationshipsSuffix": "",
+        "relationshipsSuffix_one": "Relationship",
+        "relationshipsSuffix_other": "Relationships"
+      },
+      "toasts": {
+        "saveError": "Couldn't save relationships filter. Try again.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Couldn't delete relationships filter. Try again.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueSecondGreaterThanFirst": "The upper value must be greater than or equal to the lower value."
+      }
+    },
+    "106": {
+      "title": "Phone number provided",
+      "actions": {
+        "deleteFilter": "Delete phone number provided filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "hasPhone": "Has phone",
+        "doesNotHavePhone": "Does not have phone"
+      },
+      "toasts": {
+        "saveError": "Unable to save has phone filter.",
+        "saveSuccess": "Has phone filter saved.",
+        "deleteError": "Unable to delete has phone filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "107": {
+      "title": "Terms and conditions accepted",
+      "actions": {
+        "deleteFilter": "Delete terms and conditions accepted filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "toasts": {
+        "saveError": "Couldn't save password filter. Try again. ",
+        "saveSuccess": "Password filter saved.",
+        "deleteError": "Couldn't delete password filter. Try again. ",
+        "invalidFilter": "Invalid filter."
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "accepted": "Accepted",
+        "notAccepted": "Not accepted"
+      }
+    },
+    "400": {
+      "title": "Password set",
+      "actions": {
+        "deleteFilter": "Delete password filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "hasPassword": "Has password",
+        "doesNotHavePassword": "Does not have password"
+      },
+      "toasts": {
+        "saveError": "Unable to save terms and conditions filter.",
+        "saveSuccess": "Terms and conditions filter saved.",
+        "deleteError": "Unable to delete terms and conditions filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "410": {
+      "title": "Waiver accepted",
+      "actions": {
+        "deleteFilter": "Delete waiver accepted filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "accepted": "Accepted",
+        "notAccepted": "Not accepted"
+      },
+      "toasts": {
+        "saveError": "Unable to save liability waiver filter.",
+        "saveSuccess": "Liability waiver filter saved.",
+        "deleteError": "Unable to delete liability waiver filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "501": {
+      "title": "Last booking date",
+      "actions": {
+        "deleteFilter": "Delete last booking date filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "daysLabel": "No bookings in the last",
+        "daysSuffix": "",
+        "daysSuffix_one": "day",
+        "daysSuffix_other": "days"
+      },
+      "toasts": {
+        "saveError": "Unable to save last booking filter.",
+        "saveSuccess": "Last booking filter saved.",
+        "deleteError": "Unable to delete last booking filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Enter the number of days.",
+        "valueMin": "Days must be at least 1."
       }
     },
     "600": {
@@ -813,87 +957,6 @@
         "expirationDateBetweenRequired": "Select both dates for the between range.",
         "expirationDateDurationRequired": "Enter a number of days.",
         "expirationDateDurationBetweenRequired": "Enter both day values for the between range."
-      }
-    },
-    "106": {
-      "title": "Has phone",
-      "actions": {
-        "deleteFilter": "Delete has phone filter",
-        "save": "Add filter",
-        "update": "Save filter"
-      },
-      "fields": {
-        "radioLabel": "Filter for Profiles that:",
-        "hasPhone": "Has phone",
-        "doesNotHavePhone": "Does not have phone"
-      },
-      "toasts": {
-        "saveError": "Unable to save has phone filter.",
-        "saveSuccess": "Has phone filter saved.",
-        "deleteError": "Unable to delete has phone filter.",
-        "invalidFilter": "Invalid filter."
-      }
-    },
-    "107": {
-      "title": "Terms and conditions",
-      "actions": {
-        "deleteFilter": "Delete terms and conditions filter",
-        "save": "Add filter",
-        "update": "Save filter"
-      },
-      "toasts": {
-        "saveError": "Couldn't save password filter. Try again. ",
-        "saveSuccess": "Password filter saved.",
-        "deleteError": "Couldn't delete password filter. Try again. ",
-        "invalidFilter": "Invalid filter."
-      },
-      "fields": {
-        "radioLabel": "Filter for Profiles that:",
-        "accepted": "Accepted",
-        "notAccepted": "Not accepted"
-      }
-    },
-    "400": {
-      "title": "Password",
-      "actions": {
-        "deleteFilter": "Delete password filter",
-        "save": "Add filter",
-        "update": "Save filter"
-      },
-      "fields": {
-        "radioLabel": "Filter for Profiles that:",
-        "hasPassword": "Has password",
-        "doesNotHavePassword": "Does not have password"
-      },
-      "toasts": {
-        "saveError": "Unable to save terms and conditions filter.",
-        "saveSuccess": "Terms and conditions filter saved.",
-        "deleteError": "Unable to delete terms and conditions filter.",
-        "invalidFilter": "Invalid filter."
-      }
-    },
-    "501": {
-      "title": "Last booking",
-      "actions": {
-        "deleteFilter": "Delete last booking filter",
-        "save": "Add filter",
-        "update": "Save filter"
-      },
-      "fields": {
-        "daysLabel": "No bookings in the last",
-        "daysSuffix": "",
-        "daysSuffix_one": "day",
-        "daysSuffix_other": "days"
-      },
-      "toasts": {
-        "saveError": "Unable to save last booking filter.",
-        "saveSuccess": "Last booking filter saved.",
-        "deleteError": "Unable to delete last booking filter.",
-        "invalidFilter": "Invalid filter."
-      },
-      "validation": {
-        "valueRequired": "Enter the number of days.",
-        "valueMin": "Days must be at least 1."
       }
     }
   },

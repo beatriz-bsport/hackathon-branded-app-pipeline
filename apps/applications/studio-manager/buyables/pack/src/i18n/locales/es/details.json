@@ -16,7 +16,7 @@
     "loading": "Cargando pack",
     "canNotFindPack": "Pack no encontrado",
     "buttons": {
-      "renamePack": "Rename pack",
+      "renamePack": "Renombrar pack",
       "deletePack": "Eliminar pack"
     },
     "updatePack": {
@@ -32,7 +32,7 @@
     "loading": "Cargando packs vendidos",
     "emptyList": {
       "title": "Aún no se han vendido packs",
-      "subtitle": "Una vez que un miembro compre un pack, se mostrarán aquí."
+      "subtitle": "Una vez que un cliente compre un pack, se mostrarán aquí."
     },
     "table": {
       "columns": {
@@ -57,8 +57,8 @@
       "save": "Guardar"
     },
     "breadcrumbs": {
-      "appointmentPassCategories": "Categorías de Pase de cita",
-      "passCategories": "Categorías de pases",
+      "appointmentPassCategories": "Bonos de citas",
+      "passCategories": "Bonos de clases",
       "webshopItemCategories": "Categoría de productos"
     },
     "categories": {
@@ -101,14 +101,14 @@
         "placeholder": "Añadir al menos un artículo a tu pack"
       },
       "itemVariants": {
-        "passes": "Pases",
-        "appointmentPasses": "Pases de cita",
+        "passes": "Bonos de clases",
+        "appointmentPasses": "Bonos de citas",
         "webshopItems": "Productos"
       },
       "buttons": {
         "addItem": "Añadir artículo",
-        "addPass": "Añadir pase",
-        "addAppointmentPass": "Crear un pase de citas",
+        "addPass": "Añadir Bono de clase",
+        "addAppointmentPass": "Crear un bono de cita",
         "addWebshopItem": "Añadir producto",
         "removeItem": "Eliminar artículo"
       }
@@ -146,25 +146,7 @@
         "toggleLabel": "Fecha límite para la compra",
         "fieldLabel": "Disponible hasta el",
         "errorMissingDate": "Añade una fecha o desactiva esta opción para continuar",
-        "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Reglas adicionales",
-        "helperText": "Marca todo lo que corresponda",
-        "checkboxes": {
-          "recommended": {
-            "label": "Marcar como recomendado",
-            "helperText": "Destaca tu pack a los clientes marcándolo como recomendado."
-          },
-          "newMembersOnly": {
-            "label": "Sólo disponible para miembros nuevos",
-            "helperText": "Los miembros son 'nuevos' siempre que no hayan comprado un artículo con un valor superior a {{ minimalCurrency }}. Incluso si un miembro compra un artículo con un descuento del 100%, esto aún cuenta como una compra."
-          },
-          "hideFromStaff": {
-            "label": "Ocultar al personal",
-            "helperText": "El personal no podrá ver ni comprar este pack."
-          }
-        }
+        "errorPastDate": "La fecha de caducidad debe ser hoy o en el futuro."
       }
     },
     "requiredField": "Este campo es obligatorio."

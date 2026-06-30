@@ -201,8 +201,15 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
                 </Body>
               ) : undefined,
           })),
-          { type: "title", label: t("paymentMethod.selector.allMethodsLabel") },
-          ...allItems,
+          ...(allItems.length > 0
+            ? [
+                {
+                  type: "title" as const,
+                  label: t("paymentMethod.selector.allMethodsLabel"),
+                },
+                ...allItems,
+              ]
+            : []),
         ];
 
   const selectItems: Item[] = currentSelection

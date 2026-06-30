@@ -21,7 +21,7 @@ export const fetchSearchSmartlistsAPI = (params: {
   search: string;
 }): ApiConfig => {
   return [
-    `${CDP_API_URL}/group/search${buildUrlParams({
+    `${CDP_API_URL}/group/search/${buildUrlParams({
       q: params.search,
     })}`,
   ];

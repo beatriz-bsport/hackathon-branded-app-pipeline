@@ -194,7 +194,7 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
         </p>
       )}
       {selectedChips.length > 0 && (
-        <div className="flex gap-md">
+        <div className="flex flex-wrap gap-sm lg:flex-nowrap lg:gap-md">
           {selectedChips.map((chip) => (
             <Chip
               key={chip.id}

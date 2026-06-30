@@ -2,13 +2,18 @@
   "paymentMethods": {
     "stripeDomains": {
       "title": "Domains hinzufügen, um Apple Pay und Google Pay zu aktivieren",
-      "subtitle": "Füge bis zu 10 URLs hinzu, auf denen du Wallet-Zahlungen aktivieren möchtest — entweder Hauptdomains (example.com) oder Subdomains (studio.example.com).",
+      "subtitle": "Add up to 10 URLs to enable wallet payments on these domains. Write the domain address exactly how it appears in your browser, either: www.example.com, example.com or studio.example.com.",
       "infoMessage": "Sobald du die Domain hinzufügst, kannst du sie nicht mehr bearbeiten.",
       "errorLoading": "Fehler beim Laden der Domains: {{message}}",
       "placeholder": "domain.de",
       "saveTooltip": "Kleiner Tipp: Einmal hinzugefügt, können Domains nicht bearbeitet werden.",
       "addButton": "Füge eine weitere Domain hinzu",
-      "validationError": "Die Domain-URL muss in einem gültigen Format vorliegen, z. B. domain.com"
+      "validationError": "Die Domain-URL muss in einem gültigen Format vorliegen, z. B. domain.com",
+      "errors": {
+        "4005": "Die maximale Anzahl an Zahlungsmethoden-Domains muss 15 oder weniger betragen. Bitte entferne eine Domain, bevor du eine neue hinzufügst.",
+        "4007": "Diese Domain ist bereits registriert. Domains können nur einmal über alle Studios hinweg registriert werden. Wenn Domains innerhalb einer Franchise geteilt werden, werden Zahlungen trotzdem auf dieser Seite abgewickelt.",
+        "default": "Beim Registrieren der Domain ist ein Fehler aufgetreten. Bitte versuche es erneut. "
+      }
     }
   }
 }

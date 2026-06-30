@@ -39,7 +39,7 @@ export const usePlanData = (): UsePlanDataResult => {
       data: {
         plans,
         features,
-        marketId: "FR",
+        marketId: "DE",
       },
       isLoading: false,
       isError: false,

@@ -136,7 +136,7 @@
     "description": "La suppression de cette catégorie supprimera définitivement tous les tags associés de {{ number }} clients",
     "alerts": {
       "tagInUse": {
-        "description": "Attention : la suppression de cette catégorie supprimera également les règles de balise associées qui sont toujours actives dans les flux de travail conditionnels, tels que Audience ou Smartlists.",
+        "description": "La suppression de cette catégorie entraînera également la suppression des règles de tag associées qui sont toujours actives dans les flux de travail conditionnels, tels que les Journeys ou les Segments",
         "confirmCheckbox": {
           "label": "Cochez pour confirmer : ",
           "description": "Je comprends que la suppression de cette catégorie supprimera définitivement les balises associées et que cela peut affecter les flux de travail conditionnels dans lesquels elles sont utilisées.",
@@ -162,7 +162,7 @@
     "description": "Supprimez ce tag pour le retirer définitivement des {{number}} clients auxquels il est attribué.",
     "alerts": {
       "tagInUse": {
-        "description": "Attention : la suppression de ce tag affectera également tous les flux de travail conditionnels dans lesquels il est utilisé (tels que les Smartlists ou Audience)",
+        "description": "La suppression de ce tag affectera également tous les flux de travail conditionnels dans lesquels il est utilisé (tels que les Segments ou les Journeys)",
         "confirmCheckbox": {
           "label": "Cochez pour confirmer :",
           "description": "Je comprends que la suppression de cette balise est un changement permanent qui peut affecter tous les workflows associés.",
@@ -192,8 +192,8 @@
     },
     "tooltip": {
       "close": "Fermer",
-      "tagMember": "Taguer un contact",
-      "untagMember": "Détaguer un contact",
+      "tagMember": "Taguer un client",
+      "untagMember": "Détaguer un client",
       "editTag": "Modifier le nom ou la couleur",
       "previousSubTag": "Voir le tag précédent",
       "nextSubTag": "Afficher le tag suivant"
@@ -206,7 +206,7 @@
       "actions": {
         "tag": {
           "success": {
-            "title": "Contact tagué"
+            "title": "Client tagué"
           },
           "failure": {
             "title": "Impossible d'identifier le client. Veuillez réessayer. "
@@ -214,7 +214,7 @@
         },
         "untag": {
           "success": {
-            "title": "Contact détagué"
+            "title": "Client détagué"
           },
           "failure": {
             "title": "Impossible d'identifier le client. Veuillez réessayer."
@@ -227,12 +227,12 @@
       },
       "emptyState": {
         "title": {
-          "tagged": "Aucun contact n'a encore été tagué",
+          "tagged": "Aucun client n'a encore été tagué",
           "untagged": "Aucun client non tagué pour le moment"
         },
         "description": {
-          "untagged": "Taguer des contacts en cliquant sur l'icône '+' à côté de leur nom dans la liste des non-tagués",
-          "tagged": "Détaguer des contacts en cliquant sur l'icône '-' à côté de leur nom dans la liste des tagués"
+          "untagged": "Taguer des clients en cliquant sur l'icône '+' à côté de leur nom dans la liste des non-tagués",
+          "tagged": "Détaguer des clients en cliquant sur l'icône '-' à côté de leur nom dans la liste des tagués"
         }
       }
     }
@@ -243,7 +243,7 @@
       "untag": "Tous détaguer ?"
     },
     "description": {
-      "tag": "Ajouter le tag {{tagName}} à {{number}} contacts ?",
+      "tag": "Ajouter le tag {{tagName}} à {{number}} clients ?",
       "untag": "Supprimer le tag {{tagName}} de {{number}} clients ?"
     },
     "actions": {
@@ -253,8 +253,8 @@
       "undo": "Annuler"
     },
     "loading": {
-      "tag": "En cours de taguer {{number}} contacts ...",
-      "untag": "En cours de détaguer {{number}} contacts ..."
+      "tag": "En cours de taguer {{number}} clients ...",
+      "untag": "En cours de détaguer {{number}} clients ..."
     },
     "results": {
       "tag": {
@@ -270,7 +270,7 @@
           "title": "Tous les clients non étiquetés"
         },
         "failure": {
-          "title": "Impossible de détaguer les contacts. Veuillez réessayer. "
+          "title": "Impossible de détaguer les clients. Veuillez réessayer. "
         }
       }
     }

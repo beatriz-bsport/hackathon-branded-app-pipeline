@@ -5,6 +5,7 @@ import { createDefaultDateFilterValue } from "#src/components/primitive-filters/
 import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
+import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
 import {
   type PassSubFilterField,
   type PassSubFilterId,
@@ -25,8 +26,8 @@ type PassesFilterSubFiltersAreaProps = {
 };
 
 /**
- * Renders the "filter specifications" region: active sub-filter cards, add
- * control, and wiring to reset slots when a sub-filter is removed.
+ * Renders the "filter specifications" region: active sub-filter sections inside
+ * a single card, add control, and wiring to reset slots when a sub-filter is removed.
  */
 export const PassesFilterSubFiltersArea = ({
   fieldIds,
@@ -67,34 +68,41 @@ export const PassesFilterSubFiltersArea = ({
     });
   };
 
+  const subFilterSections = watchedFilterValue.subFilters.flatMap(
+    (subFilterId) => {
+      const passSubFilterModule =
+        REGISTERED_PASS_SUB_FILTERS_BY_ID[subFilterId];
+      if (!passSubFilterModule) {
+        return [];
+      }
+      const Section = passSubFilterModule.Section;
+      const sectionId =
+        fieldIds[passSubFilterFielMap[subFilterId]] ?? `${subFilterId}-section`;
+
+      return [
+        {
+          key: sectionId,
+          content: (
+            <Section
+              id={sectionId}
+              value={watchedFilterValue}
+              errors={errors}
+              setValue={setValue}
+              onRemove={() => removeSubFilter(subFilterId)}
+            />
+          ),
+        },
+      ];
+    },
+  );
+
   return (
     <>
       <Body size="md" color="weak" weight="strong">
         {t("filters.19.fields.filterSpecifications")}
       </Body>
 
-      {watchedFilterValue.subFilters.map((subFilterId) => {
-        const passSubFilterModule =
-          REGISTERED_PASS_SUB_FILTERS_BY_ID[subFilterId];
-        if (!passSubFilterModule) {
-          return null;
-        }
-        const Section = passSubFilterModule.Section;
-        const sectionId =
-          fieldIds[passSubFilterFielMap[subFilterId]] ??
-          `${subFilterId}-section`;
-
-        return (
-          <Section
-            key={sectionId}
-            id={sectionId}
-            value={watchedFilterValue}
-            errors={errors}
-            setValue={setValue}
-            onRemove={() => removeSubFilter(subFilterId)}
-          />
-        );
-      })}
+      <SubFiltersCardSections sections={subFilterSections} />
 
       {availableSubFilters.length > 0 ? (
         <Popover>

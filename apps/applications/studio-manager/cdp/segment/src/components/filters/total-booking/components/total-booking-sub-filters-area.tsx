@@ -1,13 +1,10 @@
 import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import {
-  ABSOLUTE_DATE_OPERATORS,
-  DATE_FILTER_TYPES,
-  RELATIVE_DATE_OPERATORS,
-} from "#src/components/primitive-filters/date-filter/constants";
+import { createDefaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
+import { SubFiltersCardSections } from "../../shared/sub-filters-card-sections";
 import {
   BOOKING_HOUR_RANGE_DEFAULT_HOUR,
   BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -56,19 +53,7 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
-  [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: {
-    dateType: DATE_FILTER_TYPES.absolute,
-    absolute: {
-      operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
-      fromDate: null,
-      toDate: null,
-    },
-    relative: {
-      operator: RELATIVE_DATE_OPERATORS.pastMoreThan,
-      firstDays: null,
-      secondDays: null,
-    },
-  },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: createDefaultDateFilterValue(),
   [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange]: {
     hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
     hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
@@ -125,7 +110,6 @@ export const TotalBookingSubFiltersArea = ({
     const fieldToSet = totalBookingSubFilterFieldMap[subFilterId];
     setValue(fieldToSet, SUB_FILTER_VALUE_MAP[subFilterId], {
       shouldDirty: true,
-      shouldValidate: true,
     });
   };
 
@@ -133,7 +117,7 @@ export const TotalBookingSubFiltersArea = ({
     setValue(
       "subFilters",
       watchedFilterValue.subFilters.filter((item) => item !== subFilterId),
-      { shouldDirty: true, shouldValidate: true },
+      { shouldDirty: true },
     );
     const fieldToReset = totalBookingSubFilterFieldMap[subFilterId];
     setValue(fieldToReset, SUB_FILTER_VALUE_MAP[subFilterId], {
@@ -141,35 +125,43 @@ export const TotalBookingSubFiltersArea = ({
     });
   };
 
+  const subFilterSections = watchedFilterValue.subFilters.flatMap(
+    (subFilterId) => {
+      const subFilterModule =
+        REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID[subFilterId];
+      if (!subFilterModule) {
+        return [];
+      }
+      const Section = subFilterModule.Section;
+      const sectionId =
+        fieldIds[totalBookingSubFilterFieldMap[subFilterId]] ??
+        `${subFilterId}-section`;
+
+      return [
+        {
+          key: sectionId,
+          content: (
+            <Section
+              id={sectionId}
+              companyId={companyId}
+              value={watchedFilterValue}
+              errors={errors}
+              setValue={setValue}
+              onRemove={() => removeSubFilter(subFilterId)}
+            />
+          ),
+        },
+      ];
+    },
+  );
+
   return (
     <>
       <Body size="md" color="weak" weight="strong">
         {t("filters.22.fields.filterSpecifications")}
       </Body>
 
-      {watchedFilterValue.subFilters.map((subFilterId) => {
-        const subFilterModule =
-          REGISTERED_TOTAL_BOOKING_SUB_FILTERS_BY_ID[subFilterId];
-        if (!subFilterModule) {
-          return null;
-        }
-        const Section = subFilterModule.Section;
-        const sectionId =
-          fieldIds[totalBookingSubFilterFieldMap[subFilterId]] ??
-          `${subFilterId}-section`;
-
-        return (
-          <Section
-            key={subFilterId}
-            id={sectionId}
-            companyId={companyId}
-            value={watchedFilterValue}
-            errors={errors}
-            setValue={setValue}
-            onRemove={() => removeSubFilter(subFilterId)}
-          />
-        );
-      })}
+      <SubFiltersCardSections sections={subFilterSections} />
 
       {availableSubFilters.length > 0 ? (
         <Popover>

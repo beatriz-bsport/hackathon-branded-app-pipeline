@@ -3,6 +3,8 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import { ThreadListItem } from "./thread-list-item";
 import type { ThreadListItemProps } from "./thread-list-item";
+import { useMarkConversationAsReadMutation } from "./use-mark-conversation-as-read-mutation";
+import { useMarkConversationAsUnreadMutation } from "./use-mark-conversation-as-unread-mutation";
 
 export type ThreadListRowProps = {
   conversation: InboxConversationListItem;
@@ -22,11 +24,15 @@ export function ThreadListRow({
   isSelected,
   onSelect,
 }: ThreadListRowProps) {
+  const onMarkRead = useMarkConversationAsReadMutation(conversation.id);
+  const onMarkUnread = useMarkConversationAsUnreadMutation(conversation.id);
   return (
     <ThreadListItem
       {...getThreadListItemProps(conversation)}
       isSelected={isSelected}
       onClick={() => onSelect(conversation.id)}
+      onMarkRead={() => onMarkRead.mutate()}
+      onMarkUnread={() => onMarkUnread.mutate()}
     />
   );
 }

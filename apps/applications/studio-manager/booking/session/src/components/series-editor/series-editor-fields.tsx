@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-import { Divider } from "@bsport/kaizen-primitive-core";
+import { Divider, Title } from "@bsport/kaizen-primitive-core";
 
 import {
   SeriesDetailsBookingRuleField,
@@ -11,6 +11,7 @@ import {
   SeriesDetailsTagsSection,
   SeriesDetailsVisibilitySection,
 } from "#src/components/series-details-form/series-details-fields";
+import { useTranslation } from "#src/utils/i18n";
 
 type SeriesEditorBaseProps = {
   canEdit: boolean;
@@ -46,12 +47,26 @@ export const SeriesEditorBasicsSection: FC<SeriesEditorBaseProps> = ({
 export const SeriesEditorVisibilitySection: FC<SeriesEditorBaseProps> = ({
   canEdit,
   fieldIdPrefix,
-}) => (
-  <SeriesDetailsVisibilitySection
-    disabled={!canEdit}
-    fieldIdPrefix={fieldIdPrefix}
-  />
-);
+}) => {
+  const { t } = useTranslation("series");
+
+  return (
+    <section className="flex flex-col gap-lg">
+      <Title htmlVariant="h5" weight="stronger">
+        {t("form.visibility.title")}
+      </Title>
+      <div className="flex flex-col gap-xs">
+        <SeriesDetailsVisibilitySection
+          disabled={!canEdit}
+          fieldIdPrefix={fieldIdPrefix}
+          label={t("form.visibility.label")}
+          required
+        />
+        <SeriesDetailsGuestBookingUnavailableInfo />
+      </div>
+    </section>
+  );
+};
 
 export const SeriesEditorDetailsSection: FC<
   Pick<SeriesEditorPanelContentProps, "activity" | "fieldIdPrefix">

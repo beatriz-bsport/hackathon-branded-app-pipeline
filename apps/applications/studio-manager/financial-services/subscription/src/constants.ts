@@ -239,7 +239,6 @@ export const RAW_FEATURES = [
 type RawPack = Omit<Pack, "name" | "description" | "features"> & {
   nameKey: Parameters<TFunction>[0];
   descriptionKey: Parameters<TFunction>[0];
-  featureKeys: Parameters<TFunction>[0][];
 };
 
 export const RAW_PACKS = [
@@ -252,11 +251,6 @@ export const RAW_PACKS = [
     perLocation: true,
     category: "growth",
     icon: "bar-chart-10",
-    featureKeys: [
-      "addons.packs.bi-connect.features.0",
-      "addons.packs.bi-connect.features.1",
-      "addons.packs.bi-connect.features.2",
-    ],
   },
   {
     id: "data-as-a-service",
@@ -267,25 +261,16 @@ export const RAW_PACKS = [
     perLocation: true,
     category: "growth",
     icon: "bar-line-chart",
-    featureKeys: [
-      "addons.packs.data-as-a-service.features.0",
-      "addons.packs.data-as-a-service.features.1",
-    ],
   },
   {
     id: "access-control",
     nameKey: "addons.packs.access-control.name",
     descriptionKey: "addons.packs.access-control.description",
-    price: 0,
+    price: 40,
     perLocation: false,
     currency: "€",
     category: "growth",
     icon: "lock-01",
-    featureKeys: [
-      "addons.packs.access-control.features.0",
-      "addons.packs.access-control.features.1",
-      "addons.packs.access-control.features.2",
-    ],
   },
   {
     id: "fiskaly-twint",
@@ -296,25 +281,16 @@ export const RAW_PACKS = [
     currency: "€",
     category: "compliance",
     icon: "lock-04",
-    featureKeys: [
-      "addons.packs.fiskaly-twint.features.0",
-      "addons.packs.fiskaly-twint.features.1",
-    ],
   },
   {
     id: "branded-app",
     nameKey: "addons.packs.branded-app.name",
     descriptionKey: "addons.packs.branded-app.description",
     price: 100,
-    perLocation: false,
+    perLocation: true,
     currency: "€",
     category: "growth",
     icon: "phone-02",
-    featureKeys: [
-      "addons.packs.branded-app.features.0",
-      "addons.packs.branded-app.features.1",
-      "addons.packs.branded-app.features.2",
-    ],
     learnMoreUrl: "https://app.arcade.software/share/TNfI5od7YFq1JX7PoSm5",
   },
 ] as const satisfies RawPack[];

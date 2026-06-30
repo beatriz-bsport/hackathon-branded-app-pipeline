@@ -1,5 +1,6 @@
 import { Body, Button, Select, Toggle } from "@bsport/kaizen-primitive-core";
 
+import { CalendarViewSetting } from "#src/components/shared/calendar-view-setting";
 import {
   selectSeriesDisplayedColumns,
   selectSeriesOrdering,
@@ -48,6 +49,7 @@ export const SeriesListDisplaySettings = () => {
 
   return (
     <div className="flex flex-col gap-lg max-w-[260px] p-xs">
+      <CalendarViewSetting />
       <Select
         id="series-ordering"
         label={t("seriesDisplaySettings.ordering.label")}

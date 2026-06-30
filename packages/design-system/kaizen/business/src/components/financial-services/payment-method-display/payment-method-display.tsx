@@ -1,55 +1,35 @@
-import type { FC } from "react";
+import { type FC } from "react";
 
 import type { SavedPaymentMethod } from "@bsport/api-financial-services/payment-method";
-import { Body, Card } from "@bsport/kaizen-primitive-core";
+import { Body } from "@bsport/kaizen-primitive-core";
 
-import PaymentMethodChip from "#src/components/financial-services/payment-method-chip";
-import PaymentMethodLogo from "#src/components/financial-services/payment-method-logo";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import { getSavedPaymentMethodDisplay } from "./helpers";
+import { PaymentMethodCard } from "./payment-method-card";
 
 type Props = {
-  paymentMethod: SavedPaymentMethod;
+  /** Current saved payment method to display, if any. */
+  paymentMethod?: SavedPaymentMethod;
 };
 
 /**
  * Summary card for a saved payment method.
  *
- * Renders a Card with the method's logo, masked identifier, type chip, and
- * expiry date (for card methods). Derives all display values from
- * `getSavedPaymentMethodDisplay` so consumers pass only the raw API object.
+ * Renders the current saved method as a summary card, or an empty state when
+ * none is set. Editing is owned by consuming applications.
  */
 export const PaymentMethodDisplay: FC<Props> = ({ paymentMethod }) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
-  const display = getSavedPaymentMethodDisplay(paymentMethod);
-  const maskedIdentifier =
-    display.maskedIdentifier || t("paymentMethod.display.unknownIdentifier");
 
-  return (
-    <Card>
-      <div className="flex items-center gap-xs">
-        {display.logoType && (
-          <PaymentMethodLogo size="md" type={display.logoType} />
-        )}
+  if (!paymentMethod) {
+    return (
+      <Body size="md" color="weak">
+        {t("paymentMethod.display.emptyTitle")}
+      </Body>
+    );
+  }
 
-        <div className="flex min-w-0 flex-col gap-2xs">
-          <div className="flex flex-wrap items-center gap-2xs">
-            <Body size="lg" weight="strong">
-              {maskedIdentifier}
-            </Body>
-            <PaymentMethodChip type={paymentMethod.type} />
-          </div>
-
-          {display.expiry && (
-            <Body color="weak" size="sm">
-              {t("paymentMethod.display.expires", { date: display.expiry })}
-            </Body>
-          )}
-        </div>
-      </div>
-    </Card>
-  );
+  return <PaymentMethodCard paymentMethod={paymentMethod} />;
 };
 
 PaymentMethodDisplay.displayName = "KaizenPaymentMethodDisplay";

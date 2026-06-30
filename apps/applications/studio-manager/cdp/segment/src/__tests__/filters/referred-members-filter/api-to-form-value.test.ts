@@ -41,7 +41,7 @@ describe("mapReferredMemberFilterToFormValue", () => {
     expect(formValue.referredStatus).toBe(REFERRED_MEMBER_STATUS.notReferred);
   });
 
-  it("hydrates active money obtained sub-filter from API", () => {
+  it("maps active money obtained sub-filter from fetched API", () => {
     const formValue = mapReferredMemberFilterToFormValue({
       ...baseApiFilter,
       money_obtained_active: true,
@@ -59,7 +59,7 @@ describe("mapReferredMemberFilterToFormValue", () => {
     expect(formValue.moneyObtained.firstValue).toBe(30);
   });
 
-  it("hydrates between money comparator with second value", () => {
+  it("maps between money comparator with second value from fetched API", () => {
     const formValue = mapReferredMemberFilterToFormValue({
       ...baseApiFilter,
       money_obtained_active: true,

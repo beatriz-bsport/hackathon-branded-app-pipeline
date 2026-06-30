@@ -45,6 +45,7 @@ import {
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
   fetchConversations as fetchConversationsAPI,
+  fetchConversationUnreadCount as fetchConversationUnreadCountAPI,
   createConversation as createConversationAPI,
   fetchConversationLastActivity as fetchConversationLastActivityAPI,
   createMessage as createMessageAPI,
@@ -70,6 +71,7 @@ import type {
   FetchFirstReachedRecipientsParams,
   MemberListDataByCommunicationKind,
   ConversationListResponse,
+  ConversationUnreadCountResponse,
   ConversationCreationInput,
   ConversationCreationOutput,
   MessageCreationOutput,
@@ -1016,6 +1018,22 @@ export const fetchConversationsActions = {
   ),
 };
 
+export const fetchConversationUnreadCountActions = {
+  error: createAction<Error | null>(
+    'COMMUNICATION/CONVERSATION/UNREAD_COUNT/ERROR',
+  ),
+  loading: createAction<boolean>(
+    'COMMUNICATION/CONVERSATION/UNREAD_COUNT/LOADING',
+  ),
+  success: createAction<ConversationUnreadCountResponse>(
+    'COMMUNICATION/CONVERSATION/UNREAD_COUNT/SUCCESS',
+  ),
+};
+
+export const resetConversationUnreadCount = createAction(
+  'COMMUNICATION/CONVERSATION/UNREAD_COUNT/RESET',
+);
+
 export function fetchConversations(
   companyId: number,
   options?: OptionCallback<ConversationListResponse>,
@@ -1033,6 +1051,27 @@ export function fetchConversations(
       options?.onError?.(error);
     } finally {
       dispatch(fetchConversationsActions.loading(false));
+    }
+  };
+}
+
+export function fetchConversationUnreadCount(
+  companyId: number,
+  options?: OptionCallback<ConversationUnreadCountResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConversationUnreadCountActions.loading(true));
+      dispatch(fetchConversationUnreadCountActions.error(null));
+
+      const response = await fetchConversationUnreadCountAPI(companyId);
+      dispatch(fetchConversationUnreadCountActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchConversationUnreadCountActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(fetchConversationUnreadCountActions.loading(false));
     }
   };
 }

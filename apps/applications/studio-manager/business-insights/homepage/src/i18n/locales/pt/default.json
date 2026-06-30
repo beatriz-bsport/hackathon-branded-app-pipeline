@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} vaga restante na aula",
         "hasEmptySpots_other": "{{ count }} vagas restantes na aula",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} Membros na Lista de Espera",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} clientes em lista de espera",
         "hasEmptySpotsForWaitlist_other": "{{ count }} vagas pendentes na lista de espera"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Métricas Principais",
-    "unavailable": "As métricas estão atualmente indisponíveis"
+    "unavailable": "As métricas estão atualmente indisponíveis",
+    "loading": "A carregar dados",
+    "dataUnavailable": "Dados indisponíveis",
+    "metrics": {
+      "totalRevenue": "Receita Total",
+      "totalBooking": "Total de reservas",
+      "totalAttendance": "Total de Presença",
+      "totalOccupancy": "Taxa de Ocupação Total"
+    }
   },
   "insightsPanel": {
     "title": "Perspetivas Rápidas",
-    "unavailable": "Perspetivas estão atualmente indisponíveis"
+    "unavailable": "Perspetivas estão atualmente indisponíveis",
+    "loading": "A carregar dados de Insights...",
+    "temporarilyUnavailable": "Insights estão temporariamente indisponíveis",
+    "errorHelp": "Estamos a trabalhar para resolver isto. Entretanto, usa os Relatórios para verificar os teus dados.",
+    "goToReports": "Ir para relatórios"
   }
 }

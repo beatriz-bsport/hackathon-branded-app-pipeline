@@ -817,7 +817,7 @@
           "titleCreation": "Mise en pause",
           "titleUpdate": "Modifier la mise en pause",
           "information1": "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera décalée de {{count}} jour, de même pour toutes les facturations futures.",
-          "information1_plural": "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera sera décalée de {{count}} jours, de même pour toutes les facturations futures.",
+          "information1_plural": "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera décalée de {{count}} jours, de même pour toutes les facturations futures.",
           "information2": "La date d'expiration de la carte sera repoussée du nombre de jours de la pause et la carte restera valide pendant celle-ci."
         },
         "successStep": {

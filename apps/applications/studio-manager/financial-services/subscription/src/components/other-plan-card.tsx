@@ -54,7 +54,7 @@ const OtherPlanCard: FC<OtherPlanCardProps> = ({
       <div className="mt-auto flex gap-xs pt-sm">
         <Button
           color="main"
-          label={t("plan.select-plan")}
+          label={t("plan.contact-us")}
           size="md"
           intent="call-to-action"
           onClick={openIntercomConversation}

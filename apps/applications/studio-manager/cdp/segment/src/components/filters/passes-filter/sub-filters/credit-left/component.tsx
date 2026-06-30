@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";
@@ -52,7 +52,7 @@ export const CreditLeftSubFilterSection = ({
   }
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="flex flex-col gap-xs">
       <div className="flex flex-col gap-xs">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-xxs">
@@ -102,6 +102,6 @@ export const CreditLeftSubFilterSection = ({
           {creditsSummaryTranslation}
         </Body>
       ) : null}
-    </Card>
+    </div>
   );
 };

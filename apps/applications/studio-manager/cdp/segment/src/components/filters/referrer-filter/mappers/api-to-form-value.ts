@@ -3,7 +3,7 @@ import type { ReferrerFilter } from "@bsport/api-cdp/smartlist";
 import type { ReferrerFilterFormValue } from "../types";
 
 /**
- * Maps a hydrated referrer filter DTO into form state.
+ * Maps a fetched referrer filter DTO into form state.
  * Preserves sub-filter fields even though only the primary section is rendered.
  */
 export const mapReferrerFilterToFormValue = (

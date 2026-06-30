@@ -238,11 +238,13 @@ export const useNavigationElements = ({
             {
               id: "activities",
               label: t("menus.services.activities"),
+              hidden: isClassesMergedViewEnabled,
               ...navigationUrls.activity,
             },
             {
               id: "workshops",
               label: t("menus.services.workshops"),
+              hidden: isClassesMergedViewEnabled,
               ...navigationUrls.workshop,
             },
             {
@@ -430,12 +432,6 @@ export const useNavigationElements = ({
                 enabled: isPayoutsEnabled,
                 navigationItem: navigationUrls.payout,
               }),
-            },
-            {
-              id: "subscription-finance",
-              label: t("menus.finance.subscription"),
-              hidden: !isSubscriptionPageEnabled,
-              ...navigationUrls.subscriptionFinance,
             },
             {
               id: "direct-debits",
@@ -645,7 +641,9 @@ export const useNavigationElements = ({
         {
           id: "bsportSubscription",
           label: t("menus.settings.bsportSubscription"),
-          ...navigationUrls.settings_bsportSubscription,
+          ...(isSubscriptionPageEnabled
+            ? navigationUrls.subscriptionFinance
+            : navigationUrls.settings_bsportSubscription),
         },
         {
           id: "quicksale",

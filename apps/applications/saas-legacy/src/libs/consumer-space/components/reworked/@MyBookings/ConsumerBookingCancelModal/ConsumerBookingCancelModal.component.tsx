@@ -140,9 +140,10 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
     return t(
       'consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded',
       {
-        count: booking?.credit_consumed
-          ? getCreditsDividedValue(booking?.credit_consumed)
-          : getCreditsDividedValue(privateBooking?.private_slot?.credit),
+        count:
+          booking?.credit_consumed != null
+            ? getCreditsDividedValue(booking?.credit_consumed)
+            : getCreditsDividedValue(privateBooking?.private_slot?.credit),
       },
     );
   })();

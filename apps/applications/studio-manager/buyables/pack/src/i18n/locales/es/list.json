@@ -7,7 +7,7 @@
     "loading": "Cargando packs...",
     "emptyList": {
       "title": "Aún no has añadido ningún pack",
-      "subtitle": "Añade un pack para combinar tus productos y pases en una sola oferta. "
+      "subtitle": "Añade un Pack para combinar tus Productos de la tienda y pases en una única oferta"
     },
     "headers": {
       "name": "Nombre",
@@ -16,22 +16,22 @@
       "price": "Precio"
     },
     "values": {
-      "unlisted": "No listado",
+      "unlisted": "No publicado",
       "hiddenToStaff": "Oculto",
       "limitedTime": "Limitado"
     },
     "tooltips": {
-      "unlisted": "No está listado en el Área de Miembros",
+      "unlisted": "No está publicado en el Área de Miembros",
       "hiddenToStaff": "Escondido para el personal",
-      "limitedTime": "Solo listado por tiempo limitado",
+      "limitedTime": "Solo publicado por tiempo limitado",
       "archive": "Eliminar pack"
     }
   },
   "deleteModal": {
     "title": "¿Eliminar pack?",
     "description": {
-      "effect": "Una vez que elimines {{ name }}, ya no será visible para los miembros. ",
-      "canNotBeUndone": "Todos los miembros que compraron este pack no se verán afectados. "
+      "effect": "Una vez que elimines {{ name }}, ya no será visible para los clientes. ",
+      "canNotBeUndone": "Todos los clientes que compraron este Pack no se verán afectados. "
     },
     "actions": {
       "cancel": "Mantener",

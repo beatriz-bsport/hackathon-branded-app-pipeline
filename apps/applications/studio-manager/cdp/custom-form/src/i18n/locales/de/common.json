@@ -10,61 +10,60 @@
     },
     "addFormModal": {
       "title": "Erstelle neues Formular",
-      "description": "Benenne dein neues Formular, um loszulegen!",
       "input": {
-        "label": "Formularname",
+        "label": "Name",
         "placeholder": "Füge einen Formularnamen hinzu..."
       },
       "actions": {
-        "cancel": "Abbrechen",
+        "cancel": "Schließen",
         "create": "Erstellen"
       },
       "errors": {
-        "nameTooLong": "Der Name ist ungültig, die maximale Länge beträgt {{ maximalLength }} Zeichen.",
-        "nameTooShort": "Der Name ist ungültig, die Mindestlänge beträgt {{ minimalLength }} Zeichen.",
-        "nameRequired": "Der Name ist ungültig, du kannst keinen leeren Namen eingeben."
+        "nameTooLong": "Name darf maximal {{ maximalLength }} Zeichen lang sein",
+        "nameTooShort": "Name muss mindestens {{ minimalLength }} Zeichen lang sein",
+        "nameRequired": "Gib deinem Formular einen Namen, um fortzufahren"
       }
     },
     "archiveModal": {
       "actions": {
         "archive": "Archivieren",
-        "cancel": "Zurück"
+        "cancel": "Behalten"
       },
       "title": "Archivformular?",
-      "description": "Mitglieder werden <b>{{ name }}</b> nicht mehr sehen, aber du kannst darauf in deinem Archiv zugreifen."
+      "description": "Sobald du <b>{{ name }}</b> archivierst, ist es für Kund:innen nicht mehr sichtbar. \n\nDu kannst dieses Formular jederzeit aus deinem Archiv wiederherstellen. "
     },
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplizieren",
-        "cancel": "Zurück"
+        "cancel": "Schließen"
       },
       "title": "Formular duplizieren?",
       "description": {
         "verification": "Duplizieren <b>{{ name }}</b> ?",
-        "effect": "Du kannst <b>{{ name }}</b> danach bearbeiten."
+        "effect": "Du kannst <b>{{ name }}</b> danach bearbeiten"
       }
     }
   },
   "toasts": {
     "messageCreated": {
       "success": "Formular erstellt",
-      "error": "Fehler beim Erstellen deines Formulars"
+      "error": " Formular konnte nicht wiederhergestellt werden. Bitte versuche es nochmal."
     },
     "messageArchived": {
       "success": "Formular archiviert",
-      "error": "Fehler beim Archivieren deines Formulars"
+      "error": " Formular konnte nicht archiviert werden. Bitte versuche es erneut."
     },
     "messageRestored": {
       "success": "Formular wiederhergestellt",
-      "error": "Fehler beim Wiederherstellen deines Formulars"
+      "error": " Formular konnte nicht wiederhergestellt werden. Bitte versuche es nochmal."
     },
     "messageDuplicated": {
       "success": "Form dupliziert",
-      "error": "Fehler beim Duplizieren deines Formulars"
+      "error": " Das Formular konnte nicht dupliziert werden. Bitte versuche es erneut."
     },
     "messageUndone": {
-      "success": "Aktion rückgängig gemacht",
-      "error": "Fehler beim Rückgängigmachen der Aktion"
+      "success": "Änderung rückgängig gemacht",
+      "error": "Änderung konnte nicht rückgängig gemacht werden. Bitte versuche es erneut."
     },
     "actions": {
       "undo": "Rückgängig",
@@ -83,11 +82,11 @@
     "empty": {
       "activeList": {
         "title": "Noch keine Formulare zum Anzeigen",
-        "subtitle": "Erstelle dein erstes Formular, um Feedback von deinen Mitgliedern zu erhalten."
+        "subtitle": "Erstelle dein erstes Formular, um Feedback von deinen Kund:innen zu erhalten"
       },
       "archivedList": {
         "title": "Noch keine archivierten Formulare",
-        "subtitle": "Formulare, die hier verschoben wurden, können wiederhergestellt werden."
+        "subtitle": "Alle Formulare, die du archivierst, werden hier angezeigt. Du kannst sie jederzeit wiederherstellen. "
       },
       "search": {
         "title": "Keine Formulare gefunden",
@@ -101,5 +100,9 @@
       "search": "Suche nach einem Formular",
       "switchToArchived": "Archivierte Formulare"
     }
+  },
+  "list": {
+    "questions": "{{count}} Frage",
+    "questions_other": "{{count}} Fragen"
   }
 }

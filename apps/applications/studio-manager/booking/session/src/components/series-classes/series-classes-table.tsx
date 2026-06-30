@@ -1,5 +1,6 @@
 import { type UseQueryOptions, useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useHref } from "react-router";
 
 import {
   type Establishment,
@@ -28,6 +29,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 type SeriesClassesTableProps<TQueryKey extends readonly unknown[]> = {
   companyId: number;
+  onClearStatusFilter: () => void;
   status: StatusFilter | null;
   paginationNamespace: string;
   getQueryOptions: (
@@ -67,11 +69,17 @@ const combineSeriesClassesQueries = ([
 
 export const SeriesClassesTable = <TQueryKey extends readonly unknown[]>({
   companyId,
+  onClearStatusFilter,
   status,
   paginationNamespace,
   getQueryOptions,
 }: SeriesClassesTableProps<TQueryKey>) => {
   const { t, i18n } = useTranslation("sessionManagement");
+  const { t: tSeries } = useTranslation("series");
+  // Rows open in a new tab through window.open, so row data needs browser hrefs
+  // with the router basename already applied.
+  const appHref = useHref("/");
+  const appRootHref = useMemo(() => appHref.replace(/\/$/, ""), [appHref]);
 
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({ namespace: paginationNamespace });
@@ -112,9 +120,9 @@ export const SeriesClassesTable = <TQueryKey extends readonly unknown[]>({
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
+      showRowsPerPageSelector: true,
       disabled: isLoading,
       totalItems,
-      showRowsPerPageSelector: true,
       onPageSettingsChange: setPageSettings,
     }),
     [currentPage, currentPageSize, isLoading, totalItems, setPageSettings],
@@ -174,10 +182,10 @@ export const SeriesClassesTable = <TQueryKey extends readonly unknown[]>({
             teacherOverride: session.coach_override ? displayedTeacher : null,
           }),
           establishmentName: establishment?.title,
-          detailUrl: resolveBookingsManagementRevampPath(session.id),
+          detailUrl: `${appRootHref}${resolveBookingsManagementRevampPath(session.id)}`,
         };
       }),
-    [sessions, teachersById, establishmentsById],
+    [sessions, teachersById, establishmentsById, appRootHref],
   );
 
   return (
@@ -194,6 +202,16 @@ export const SeriesClassesTable = <TQueryKey extends readonly unknown[]>({
       emptyStateProps={{
         isEmpty: !isLoading && rows.length === 0,
         emptyConfig: { title: classTableLabels.empty },
+        isEmptySearch: !isLoading && status !== null && rows.length === 0,
+        emptySearchConfig: {
+          title: tSeries("seriesClassesTable.emptySearchState.title"),
+          subtitle: tSeries("seriesClassesTable.emptySearchState.subtitle"),
+          secondaryButtonConfig: {
+            label: tSeries("seriesClassesTable.emptySearchState.action"),
+            onClick: onClearStatusFilter,
+            iconLeft: "x-close",
+          },
+        },
       }}
     />
   );

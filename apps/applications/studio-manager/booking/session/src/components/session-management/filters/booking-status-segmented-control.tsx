@@ -26,6 +26,7 @@ export const BookingStatusSegmentedControl: FC = () => {
   return (
     <SegmentedControl
       id="booking-status-filter"
+      fullWidth
       options={[
         {
           label: t("bookingStatusFilter.booked"),

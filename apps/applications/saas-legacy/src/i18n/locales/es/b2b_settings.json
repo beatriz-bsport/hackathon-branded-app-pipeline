@@ -2,13 +2,18 @@
   "paymentMethods": {
     "stripeDomains": {
       "title": "Añade dominios para habilitar Apple Pay y Google Pay",
-      "subtitle": "Agrega hasta 10 URLs donde quieras habilitar pagos con billetera — ya sea dominios principales (example.com) o subdominios (studio.example.com).",
+      "subtitle": "Add up to 10 URLs to enable wallet payments on these domains. Write the domain address exactly how it appears in your browser, either: www.example.com, example.com or studio.example.com.",
       "infoMessage": "Una vez que añadas el dominio, no podrás editarlo.",
       "errorLoading": "Error al cargar dominios: {{message}}",
       "placeholder": "dominio.es",
       "saveTooltip": "Atención: Una vez añadidos, los dominios no se pueden editar",
       "addButton": "Añadir otro dominio",
-      "validationError": "La URL del dominio debe tener un formato válido, por ejemplo, domain.com"
+      "validationError": "La URL del dominio debe tener un formato válido, por ejemplo, domain.com",
+      "errors": {
+        "4005": "El número máximo de dominios de métodos de pago debe ser 15 o menos. Por favor, elimina un dominio antes de añadir uno nuevo.",
+        "4007": "Este dominio ya está registrado. Los dominios solo se pueden registrar una vez en todos los estudios. Cuando los dominios se comparten dentro de una franquicia, los pagos se seguirán realizando en este sitio.",
+        "default": "Ocurrió un error al registrar el dominio. Por favor, inténtalo de nuevo. "
+      }
     }
   }
 }

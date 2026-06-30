@@ -28,9 +28,6 @@
   "table": {
     "date": "Fecha",
     "amount": "Importe",
-    "gross": "Bruto",
-    "fee": "Comisión",
-    "total": "Total",
     "transactions": "Pagos",
     "id": "ID",
     "status": "Estado"
@@ -40,10 +37,10 @@
     "type": "Tipo",
     "paymentMethod": "Método de débito",
     "status": "Estado",
+    "gross": "Gross",
+    "fee": "Tarifas",
+    "total": "Suma",
     "amount": "Importe",
-    "gross": "Bruto",
-    "fee": "Comisión",
-    "total": "Total",
     "invoices": "Facturas"
   },
   "balanceTransaction": {
@@ -58,12 +55,13 @@
   },
   "summary": {
     "reconciliation": "Estado de conciliación",
-    "count": "Número",
+    "count": "Count",
     "payments": "Pagos",
     "refunds": "Reembolsos",
     "disputes": "Litigios",
     "directDebitOriginal": "Adeudo directo original",
     "directDebitReversal": "Reversión de domiciliación bancaria",
+    "directDebitFeeAdjustment": "Direct debit fee adjustment",
     "transfers": "Transferencias",
     "transferRefunds": "Reembolsos de transferencias",
     "adjustments": "Ajustes",

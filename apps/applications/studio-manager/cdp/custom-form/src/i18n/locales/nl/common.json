@@ -30,7 +30,7 @@
         "cancel": "Behouden"
       },
       "title": "Archief formulier?",
-      "description": "Leden zullen <b>{{ name }}</b> niet meer zien, maar je kunt er toegang toe krijgen vanuit je archief."
+      "description": "Zodra je <b>{{ name }}</b> archiveert, is het niet langer zichtbaar voor klanten.  \n\nJe kunt dit Formulier op elk moment herstellen vanuit je archief. "
     },
     "duplicateModal": {
       "actions": {
@@ -82,7 +82,7 @@
     "empty": {
       "activeList": {
         "title": "Nog geen formulieren om weer te geven",
-        "subtitle": "Maak je eerste formulier om feedback van je leden te krijgen."
+        "subtitle": "Maak je eerste formulier om feedback van je Klanten te krijgen."
       },
       "archivedList": {
         "title": "Nog geen gearchiveerde formulieren",

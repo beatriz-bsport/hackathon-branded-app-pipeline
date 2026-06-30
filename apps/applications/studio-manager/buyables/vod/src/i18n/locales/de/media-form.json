@@ -2,29 +2,29 @@
   "formFields": {
     "name": {
       "label": "Titel",
-      "placeholder": "Medientitel hinzufügen",
+      "placeholder": "Füge einen Titel für dieses On-Demand-Angebot hinzu",
       "errorMaxLength": "Titel darf max. {{maxLength}} Zeichen lang sein"
     },
     "description": {
       "label": "Beschreibung",
-      "placeholder": "Beschreibe deine Medien",
+      "placeholder": "Beschreibe dieses Angebot deinen Kund:innen",
       "errorMaxLength": "Die Beschreibung darf maximal {{maxLength}} Zeichen lang sein"
     },
     "credit_price": {
-      "errorInvalid": "Der Preis muss eine gültige, nicht negative Zahl sein",
-      "equivalentCredits": "Dieser Pass enthält {{ creditsDisplay }}"
+      "errorInvalid": "Der Preis muss eine gültige positive Zahl sein",
+      "equivalentCredits": "Dieses Angebot kostet in deinem Studio {{ creditsDisplay }}"
     },
     "manager_only": {
-      "label": "Ausgeblendet",
-      "helperText": "Dieses Medium kann nicht auf deiner Website oder in deiner App gekauft werden "
+      "label": "Unveröffentlicht",
+      "helperText": "Dieser Inhalt kann nicht auf deiner Website oder in deiner App gekauft werden."
     },
     "rental": {
-      "label": "Zur Miete verfügbar",
-      "helperText": "Kund:innen können dieses Video für eine bestimmte Anzahl von Tagen mieten"
+      "label": "Als Leihtitel verfügbar",
+      "helperText": "Kund:innen können dieses Video für eine bestimmte Anzahl von Tagen leihen"
     },
     "rental_days": {
       "label": "Mietdauer (Tage)",
-      "helperText": "Wie viele Tage Kund:innen nach dem Mieten auf das Video zugreifen können",
+      "helperText": "Anzahl der Tage, die das Video Kund:innen zur Verfügung steht",
       "errorInvalid": "Die Mietdauer muss mindestens {{min}} Tage betragen"
     },
     "cover": {
@@ -54,10 +54,10 @@
       "delete": "Löschen",
       "error": "Es ist ein Fehler aufgetreten. Bitte versuche es noch einmal. ",
       "defaults": {
-        "1": "Alle Ebenen",
-        "2": "Einsteiger",
+        "1": "Alle Levels",
+        "2": "Anfänger",
         "3": "Mittelstufe",
-        "4": "Erweiterte Optionen",
+        "4": "Fortgeschritten",
         "5": "Kein Level"
       }
     },
@@ -70,7 +70,7 @@
     }
   },
   "createModal": {
-    "title": "Medien erstellen",
+    "title": "On-Demand-Angebot erstellen",
     "buttons": {
       "create": "Erstellen",
       "cancel": "Schließen"
@@ -78,7 +78,7 @@
     "submitResponse": {
       "success": "Medien erstellt",
       "open": "Öffnen",
-      "error": "Medien konnten nicht erstellt werden. Versuche es erneut. "
+      "error": "Inhalt wurde nicht erstellt. Bitte versuche es nochmal. "
     }
   },
   "editModal": {
@@ -89,7 +89,7 @@
     },
     "submitResponse": {
       "success": "Deine Änderungen wurden gespeichert",
-      "error": "Medien konnten nicht aktualisiert werden. Versuche es noch einmal. "
+      "error": "Inhalt wurde nicht aktualisiert. Bitte versuche es nochmal. "
     }
   }
 }

@@ -12,7 +12,7 @@ import { REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS } from "../sub-filters/regist
 import type { TotalAppointmentsNumberFilterFormValue } from "../types";
 
 /**
- * Maps a hydrated private bookings API filter to the total appointments form value.
+ * Maps a fetched private bookings API filter to the total appointments form value.
  */
 export const mapTotalAppointmentsFilterToFormValue = (
   filter: PrivateBookingsFilter,

@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} plek over in de les",
         "hasEmptySpots_other": "{{ count }} plekken over in de les",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} leden op Wachtlijst",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} klanten op wachtlijst",
         "hasEmptySpotsForWaitlist_other": "{{ count }} plekken in afwachting op de wachtlijst"
       }
     }
@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Belangrijke statistieken",
-    "unavailable": "Statistieken zijn momenteel niet beschikbaar"
+    "unavailable": "Statistieken zijn momenteel niet beschikbaar",
+    "loading": "Gegevens laden",
+    "dataUnavailable": "Gegevens niet beschikbaar",
+    "metrics": {
+      "totalRevenue": "Totale omzet",
+      "totalBooking": "Totaal aantal reserveringen",
+      "totalAttendance": "Totaal aantal Aanwezigheid",
+      "totalOccupancy": "Totale bezettingsgraad"
+    }
   },
   "insightsPanel": {
     "title": "In één oogopslag inzicht",
-    "unavailable": "Inzichten zijn momenteel niet beschikbaar"
+    "unavailable": "Inzichten zijn momenteel niet beschikbaar",
+    "loading": "Inzichten-gegevens laden...",
+    "temporarilyUnavailable": "Inzichten zijn tijdelijk niet beschikbaar",
+    "errorHelp": "We werken eraan om dit op te lossen. Gebruik in de tussentijd Rapporten om je gegevens te controleren.",
+    "goToReports": "Ga naar rapporten"
   }
 }

@@ -3,27 +3,22 @@ import React, { memo, useCallback, useMemo } from "react";
 import {
   Body,
   Button,
-  SegmentedControl,
   Toggle,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { useAppointmentColumns } from "#src/components/AppointmentList/appointmentColumns";
 import { useSessionListColumns } from "#src/components/SessionList/columns";
+import { CalendarViewSetting } from "#src/components/shared/calendar-view-setting";
 import {
   sessionListCalendarViewChangedEvent,
   sessionListDisplayCancelledSessionClickedEvent,
   sessionListVisibleColumnsClickedEvent,
 } from "#src/events/session-list/events";
-import {
-  setCalendarView,
-  setShowCancelled,
-  toggleColumn,
-} from "#src/stores/calendar/actions";
+import { setShowCancelled, toggleColumn } from "#src/stores/calendar/actions";
 import {
   selectAppointmentDisplayedColumns,
   selectAppointmentShowCancelled,
-  selectCalendarView,
   selectSessionDisplayedColumns,
   selectSessionShowCancelled,
 } from "#src/stores/calendar/selectors";
@@ -31,7 +26,7 @@ import { useCalendarStore } from "#src/stores/calendar/store";
 import {
   AppointmentColumn,
   type CalendarDataTab,
-  CalendarView,
+  type CalendarView,
   SessionColumns,
 } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -92,13 +87,10 @@ const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
     [appointmentColumns],
   );
 
-  const onChangeCalendarView = useCallback((value: string) => {
-    if (value === CalendarView.DAILY || value === CalendarView.RANGE) {
-      setCalendarView(value as CalendarView);
-      analyticsTrackSafeEvent(sessionListCalendarViewChangedEvent, {
-        calendar_view: value,
-      });
-    }
+  const handleCalendarViewChange = useCallback((calendarView: CalendarView) => {
+    analyticsTrackSafeEvent(sessionListCalendarViewChangedEvent, {
+      calendar_view: calendarView,
+    });
   }, []);
 
   const handleToggleSessionColumn = useCallback(
@@ -131,8 +123,6 @@ const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
     [activeTab],
   );
 
-  const calendarView = useCalendarStore(selectCalendarView);
-
   const showCancelled = useCalendarStore(
     activeTab === "classes"
       ? selectSessionShowCancelled
@@ -143,26 +133,7 @@ const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
 
   return (
     <div className="flex flex-col gap-lg max-w-[260px] p-xs">
-      <div className="flex flex-col gap-xs">
-        <Body size="md" weight="weak">
-          {t("displaySettings.calendarView.label")}
-        </Body>
-        <SegmentedControl
-          id="calendar-view"
-          options={[
-            {
-              label: t("displaySettings.calendarView.options.daily"),
-              value: CalendarView.DAILY,
-            },
-            {
-              label: t("displaySettings.calendarView.options.range"),
-              value: CalendarView.RANGE,
-            },
-          ]}
-          onChangeValue={onChangeCalendarView}
-          value={calendarView}
-        />
-      </div>
+      <CalendarViewSetting onCalendarViewChange={handleCalendarViewChange} />
       {hasShowCancelledSessionsPermission && (
         <Toggle
           id="show-cancelled"

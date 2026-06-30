@@ -6,6 +6,7 @@ import {
   List,
   type ListItemProps,
   TextField,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { useDebounce } from "@bsport/use-debounce";
 
@@ -21,6 +22,7 @@ import { MemberCard } from "./member-card";
 
 export const MemberSelectionStep: FC = () => {
   const { t } = useTranslation("sessionManagement");
+  const isMobile = !useMatchMedia("lg");
   const listId = useId();
 
   const [searchInput, setSearchInput] = useState("");
@@ -123,17 +125,35 @@ export const MemberSelectionStep: FC = () => {
             autoFocus
           />
         </div>
-        <Button
-          kind="default"
-          iconLeft="user-plus-01"
-          label={t("bookingFlow.memberSelection.createProfile")}
-          intent="default"
-          size="md"
-          color="main"
-          onClick={() =>
-            window.open(LEGACY_URLS.ADD_MEMBER, "_blank", "noopener,noreferrer")
-          }
-        />
+        {(() => {
+          const createProfileProps = isMobile
+            ? ({
+                kind: "icon-button",
+                icon: "user-plus-01",
+                label: t("bookingFlow.memberSelection.createProfile"),
+              } as const)
+            : ({
+                kind: "default",
+                iconLeft: "user-plus-01",
+                label: t("bookingFlow.memberSelection.createProfile"),
+              } as const);
+
+          return (
+            <Button
+              {...createProfileProps}
+              intent="default"
+              size="md"
+              color="main"
+              onClick={() =>
+                window.open(
+                  LEGACY_URLS.ADD_MEMBER,
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
+            />
+          );
+        })()}
       </div>
       {selectedMemberId && member && (
         <MemberCard

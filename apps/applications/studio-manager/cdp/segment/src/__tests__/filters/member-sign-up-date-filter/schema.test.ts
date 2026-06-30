@@ -15,12 +15,16 @@ vi.mock("#src/utils/i18n", () => ({
 }));
 
 describe("memberSignUpDateFilterSchema", () => {
-  it("rejects an empty absolute sign-up date", () => {
+  it("accepts the default on-or-before-today sign-up date", () => {
     const value = createDefaultMemberSignUpDateFilter(1);
 
     const result = memberSignUpDateFilterSchema.safeParse(value);
 
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
+    expect(value.signUpDate.absolute.operator).toBe(
+      ABSOLUTE_DATE_OPERATORS.onOrBefore,
+    );
+    expect(value.signUpDate.absolute.fromDate).toBeTruthy();
   });
 
   it("accepts a valid absolute exact sign-up date", () => {

@@ -136,7 +136,7 @@
     "description": "Eliminar esta categoría eliminará permanentemente cualquier etiqueta asociada de {{ number }} Clientes",
     "alerts": {
       "tagInUse": {
-        "description": "Atención: eliminar esta categoría también eliminará las reglas de etiquetas relacionadas que aún están activas en flujos de trabajo condicionales, como Audience o Smartlists.",
+        "description": "Eliminar esta categoría también eliminará las reglas de etiquetas relacionadas que aún están activas en flujos de trabajo condicionales, como Journeys o Segmentos",
         "confirmCheckbox": {
           "label": "Marca para confirmar: ",
           "description": "Entiendo que eliminar esta categoría eliminará permanentemente las etiquetas asociadas y que esto puede afectar cualquier flujo de trabajo condicional en el que se utilicen.",
@@ -162,7 +162,7 @@
     "description": "Eliminar esta etiqueta la eliminará permanentemente de {{number}} clientes a los que está asignada.",
     "alerts": {
       "tagInUse": {
-        "description": "Atención: eliminar esta etiqueta también afectará cualquier flujo de trabajo condicional en el que se use (como Smartlists o Audience)",
+        "description": "Eliminar esta etiqueta también afectará a cualquier flujo de trabajo condicional en el que se utilice (como Segmentos o Journeys)",
         "confirmCheckbox": {
           "label": "Marca para confirmar:",
           "description": "Entiendo que eliminar esta etiqueta es un cambio permanente que puede afectar cualquier flujo de trabajo asociado.",

@@ -2,11 +2,23 @@ import { Button, Title, cx } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { ThreadListFilter } from "./thread-list-filter";
+import { ThreadListSearch } from "./thread-list-search";
+import type { ThreadFilter } from "./use-thread-filter";
+
 export type ThreadListHeaderProps = {
+  /** Currently active thread filter. */
+  filter: ThreadFilter;
+  /** Called with the next filter when the user changes it. */
+  onFilterChange: (next: ThreadFilter) => void;
   className?: string;
 };
 
-export function ThreadListHeader({ className }: ThreadListHeaderProps) {
+export function ThreadListHeader({
+  filter,
+  onFilterChange,
+  className,
+}: ThreadListHeaderProps) {
   const { t } = useTranslation("thread-list");
 
   return (
@@ -32,6 +44,19 @@ export function ThreadListHeader({ className }: ThreadListHeaderProps) {
           size="md"
           icon="settings-01"
           label={t("threadListHeader.settingsLabel")}
+        />
+      </div>
+
+      <div className="flex w-full items-center gap-2xs">
+        <ThreadListFilter value={filter} onChange={onFilterChange} />
+        <ThreadListSearch className="min-w-0 flex-1" />
+        <Button
+          kind="icon-button"
+          intent="flat"
+          color="default"
+          size="md"
+          icon="new-message"
+          label={t("threadListHeader.composeLabel")}
         />
       </div>
     </header>

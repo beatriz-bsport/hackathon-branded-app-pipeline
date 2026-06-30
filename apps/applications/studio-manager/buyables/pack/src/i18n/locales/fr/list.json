@@ -7,7 +7,7 @@
     "loading": "Chargement des packs...",
     "emptyList": {
       "title": "Aucun pack ajouté pour le moment",
-      "subtitle": "Ajoutez un Pack pour combiner vos produits et Passes en une seule offre. "
+      "subtitle": "Ajoutez un pack pour combiner vos produits de la boutique et passes en une seule offre"
     },
     "headers": {
       "name": "Nom",
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Supprimer le Pack ?",
     "description": {
-      "effect": "Une fois que vous supprimez {{ name }}, il ne sera plus visible pour les membres. ",
-      "canNotBeUndone": "Tous les Membres qui ont acheté ce pack ne seront pas affectés. "
+      "effect": "Une fois que vous supprimez {{ name }}, il ne sera plus visible pour les clients. ",
+      "canNotBeUndone": "Tous les clients qui ont acheté ce pack ne seront pas affectés. "
     },
     "actions": {
       "cancel": "Garder",

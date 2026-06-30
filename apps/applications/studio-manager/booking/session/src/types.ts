@@ -150,15 +150,9 @@ export type SeriesClassDraftFormData = SessionDateTimeFormValues &
 
 export type SeriesClassDraftFormSchema = ZodType<SeriesClassDraftFormData>;
 
-export type SeriesClassDraftOccurrence = {
-  id: string;
-  startDateTime: DateTime;
-};
-
 export type SeriesClassDraft = {
   id: string;
   data: SeriesClassDraftFormData;
-  occurrences: SeriesClassDraftOccurrence[];
 };
 
 export type SessionAggregatorWarningFormValues = {

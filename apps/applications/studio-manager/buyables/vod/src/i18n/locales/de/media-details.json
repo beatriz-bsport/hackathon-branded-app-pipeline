@@ -1,19 +1,19 @@
 {
-  "breadcrumbLabel": "Medien",
+  "breadcrumbLabel": "Inhalte",
   "ebook": {
     "download": "Herunterladen"
   },
-  "managerOnly": "Ausgeblendet",
+  "managerOnly": "Unveröffentlicht",
   "rentalDays": "",
   "rentalDays_one": "{{count}} Miettag",
   "rentalDays_other": "{{count}} Miettage",
   "panel": {
     "viewingTitle": "Aktivität",
     "uploadedAt": "Medien hochgeladen am {{date}}",
-    "totalViews": "Summe",
+    "totalViews": "Gesamt",
     "viewsLastWeek": "Letzten 7 Tage",
-    "distinctViewers": "Einmaliger Aufruf",
-    "viewersTitle": "Views",
+    "distinctViewers": "Einmalige Aufrufe",
+    "viewersTitle": "Aufrufe",
     "viewersEmpty": "Noch keine Views",
     "viewedAt": "Angesehen am {{date}}",
     "viewersCount": "{{count}} Elemente",

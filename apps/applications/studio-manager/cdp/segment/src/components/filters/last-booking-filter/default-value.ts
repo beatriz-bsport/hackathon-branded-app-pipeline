@@ -1,5 +1,7 @@
 import type { LastBookingFilterFormValue } from "./types";
 
+const DEFAULT_LAST_BOOKING_VALUE = 1;
+
 /**
  * Returns the default UI state for a brand-new last booking filter card.
  * Product requires the user to enter days explicitly — no default `value`.
@@ -10,5 +12,5 @@ export const createDefaultLastBookingFilter = (
   smartlistId: number,
 ): LastBookingFilterFormValue => ({
   smartlist: smartlistId,
-  value: null,
+  value: DEFAULT_LAST_BOOKING_VALUE,
 });

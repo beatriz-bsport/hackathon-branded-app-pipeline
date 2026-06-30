@@ -26,6 +26,7 @@ export const BookingOptionStatusSegmentedControl: FC = () => {
   return (
     <SegmentedControl
       id="booking-status-filter"
+      fullWidth
       options={[
         {
           label: t("bookingOptionStatusFilter.onWaitlist"),

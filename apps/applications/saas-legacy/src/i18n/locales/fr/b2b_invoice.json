@@ -134,8 +134,12 @@
         "title": "Certificat de l'appareil",
         "subtitle": "Utilisez ce numéro de série sur le portail TicketBAI de votre province. <0>Découvrez comment faire avec fiskaly</0>",
         "serial_caption": "Numéro de série du certificat de l'appareil (émis par bsport)",
+        "copy_serial": "Copy serial",
+        "copy_success": "Device certificate serial copied to clipboard",
         "gipuzkoa_notice": "Vous devez encore valider votre certificat d'appareil Fiskaly auprès de Gipuzkoa sur leur portail officiel. Vous disposez d'environ un mois pour le faire. Toutes les factures que vous émettez entre-temps restent légalement conformes.",
-        "registration_notice_description": "Utilisez le numéro de série ci-dessus sur le portail officiel TicketBAI de votre province pour enregistrer le certificat de votre appareil Fiskaly afin que bsport puisse commencer à soumettre vos factures éligibles à TicketBAI",
+        "gipuzkoa_pre_finalize_notice": "Click \"Complete setup\" to activate TicketBAI and start sending invoices. We'll provide a code to register on Gipuzkoa's official portal. After your first invoice is sent, you'll have about one month to complete this final step.",
+        "gipuzkoa_post_finalize_warning": "To complete your Gipuzkoa setup, copy this device certificate serial and register it on Gipuzkoa's official portal. You have about one month to do this. Invoices issued in the meantime remain legally compliant.",
+        "registration_notice_description": "If not already done, use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so your invoices are compliant with TicketBAI rules.",
         "complete_confirmation": "J'ai effectué l'enregistrement provincial de l'appareil requis pour mon territoire",
         "complete_cta": "Configuration complète"
       },
@@ -146,8 +150,8 @@
       },
       "active": {
         "success_message": "TicketBAI est actif. Les Factures et les Reçus éligibles seront déclarés conformément aux règles TicketBAI de votre province.",
-        "gipuzkoa_followup_title": "Vos factures sont déjà envoyées aux autorités fiscales",
-        "gipuzkoa_followup_description": "Vous devez encore valider votre appareil Fiskaly auprès de Gipuzkoa sur leur portail officiel. Vous disposez d'environ un mois pour le faire. Toutes les factures que vous émettez entre-temps restent légalement conformes."
+        "gipuzkoa_followup_title": "Your invoices are being sent to TicketBAI",
+        "gipuzkoa_followup_description": "Qualifying invoices and receipts are now reported to the tax authorities according to Gipuzkoa's TicketBAI rules."
       }
     },
     "sequentialNumbering": {

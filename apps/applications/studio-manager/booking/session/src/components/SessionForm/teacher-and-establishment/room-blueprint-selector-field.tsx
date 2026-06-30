@@ -91,6 +91,7 @@ export const RoomBlueprintSelectorField: FC<{
     >
       <Autocomplete
         items={roomBlueprintsItems}
+        fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-room-blueprint-selector`,
           label: t(
@@ -104,6 +105,10 @@ export const RoomBlueprintSelectorField: FC<{
           helperText: t(
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.helper",
           ),
+          className: "max-w-component-select",
+        }}
+        menuProps={{
+          className: "max-h-component-select overflow-y-auto",
         }}
         loadingProps={{ isLoading }}
         disabled={hasNoRoomBlueprints}

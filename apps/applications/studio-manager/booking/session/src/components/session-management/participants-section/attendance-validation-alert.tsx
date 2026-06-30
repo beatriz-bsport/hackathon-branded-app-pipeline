@@ -1,8 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { clsx } from "clsx";
 import { FC, useEffect, useState } from "react";
 
 import { bookingKeys } from "@bsport/api-book";
-import { Alert, Body } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Body,
+  Button,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
@@ -22,6 +28,8 @@ const COUNTDOWN_INTERVAL = 60000; // 1 minute
 export const AttendanceValidationAlert: FC<AttendanceValidationAlertProps> = ({
   sessionId,
 }) => {
+  const isMobile = !useMatchMedia("lg");
+
   const { t } = useTranslation("sessionManagement");
   const { data: session } = useRetrieveSession(sessionId);
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -74,15 +82,26 @@ export const AttendanceValidationAlert: FC<AttendanceValidationAlertProps> = ({
     const isReconfirm = !!session.date_roll_call_last_modified;
 
     return (
-      <Alert
-        status="warning"
-        customIcon="message-alert-square"
-        buttonLabel={t("attendanceAlert.confirmButton")}
-        onButtonClick={() => postRollCall({ sessionId })}
-      >
-        {isReconfirm
-          ? t("attendanceAlert.reconfirmMessage")
-          : t("attendanceAlert.confirmMessage")}
+      <Alert status="warning" customIcon="message-alert-square">
+        <div
+          className={clsx("flex", {
+            "flex-col items-start gap-sm": isMobile,
+            "flex-row items-center justify-between": !isMobile,
+          })}
+        >
+          <Body htmlVariant="p" size="md" weight="weak" color="inherit">
+            {isReconfirm
+              ? t("attendanceAlert.reconfirmMessage")
+              : t("attendanceAlert.confirmMessage")}
+          </Body>
+          <Button
+            label={t("attendanceAlert.confirmButton")}
+            intent="default"
+            color="main"
+            size="sm"
+            onClick={() => postRollCall({ sessionId })}
+          />
+        </div>
       </Alert>
     );
   }

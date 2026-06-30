@@ -1,4 +1,4 @@
-import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
+import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { useGroupActivitiesQuery } from "#src/api/use-group-activities-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
@@ -18,7 +18,7 @@ export const ActivitySubFilterSection = ({
   const { data: activityOptions } = useGroupActivitiesQuery();
 
   return (
-    <Card className="w-full flex flex-col gap-xs">
+    <div className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
           {activityLabel}
@@ -58,6 +58,6 @@ export const ActivitySubFilterSection = ({
             : undefined
         }
       />
-    </Card>
+    </div>
   );
 };

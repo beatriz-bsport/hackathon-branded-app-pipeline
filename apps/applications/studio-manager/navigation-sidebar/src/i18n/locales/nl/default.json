@@ -2,6 +2,7 @@
   "common": {
     "back": "Terug",
     "new": "Nieuw",
+    "beta": "Bèta",
     "search": "Zoek contacten"
   },
   "menus": {
@@ -12,21 +13,22 @@
       "tutorials": "Handleiding",
       "help": "Helpcentrum",
       "feedback": "Feedbackbord",
-      "centralAccount": "Centraal account",
+      "centralAccount": "Central Account",
       "logout": "Uitloggen"
     },
     "inbox": "Inbox",
     "notifications": "Meldingen",
-    "sellProducts": "Sell products",
+    "sellProducts": "Snelle Verkoop",
     "home": "Startpagina",
     "calendar": "Agenda",
     "schedule": "Rooster",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Lessen",
-      "activities": "Groepslessen",
-      "workshops": "Workshops",
-      "appointments": "Afspraken"
+    "services": {
+      "title": "Services",
+      "activities": "Activitieiten",
+      "appointments": "Afspraken",
+      "classes": "Lessen",
+      "workshops": "Workshops"
     },
     "memberships": {
       "title": "Leskaarten & Abonnementen",
@@ -46,9 +48,10 @@
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Meldingen",
+      "marketingNotifications": "Automatische Berichten",
       "emailTemplates": "Sjablonen",
       "smartlists": "Smartlists",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promoties",
       "customForms": "Aangepaste formulieren"
@@ -79,6 +82,7 @@
       "title": "Studio",
       "teachers": "Instructeurs",
       "establishments": "Vestigingen",
+      "venues": "Vestigingen",
       "substitutions": "Vervangingen"
     },
     "settings": {
@@ -90,7 +94,7 @@
       "personalization": "Personalisatie",
       "brandedApp": "Gepersonaliseerde app",
       "teacherView": "Instructeursweergave",
-      "memberForms": "Ledenformulieren",
+      "memberForms": "Client forms",
       "livestreaming": "Livestreaming",
       "transactionalNotifications": "Transactionele berichten",
       "payroll": "Payroll",
@@ -101,12 +105,14 @@
       "waitlist": "Wachtlijst",
       "webhook": "Webhook",
       "partnership": "Partnerschap",
+      "aggregators": "Aggregators",
       "activeCampaign": "ActiveCampaign",
       "referral": "Verwijzingen",
       "quicksale": "Kassasysteem",
-      "oldWebshop": "Webshop instellingen",
+      "oldWebshop": "Retail settings",
       "quickbooks": "QuickBooks",
       "bsportSubscription": "bsport abonnement",
+      "staff": "Medewerkers",
       "temporaryPassword": "Tijdelijk wachtwoord",
       "changeLanguage": "Taal wijzigen"
     }
@@ -236,7 +242,7 @@
         "title": "Geen afspraken om te voltooien",
         "description": "Al je afspraken hebben toegewezen leraren"
       },
-      "member": "Leden: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Datum: {{date}}"
     }
   }

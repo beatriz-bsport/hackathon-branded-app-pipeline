@@ -19,11 +19,10 @@ export const usePackData = (): UsePackDataResult => {
 
   const packs = useMemo<Pack[]>(
     () =>
-      RAW_PACKS.map(({ nameKey, descriptionKey, featureKeys, ...rest }) => ({
+      RAW_PACKS.map(({ nameKey, descriptionKey, ...rest }) => ({
         ...rest,
         name: t(nameKey),
         description: t(descriptionKey),
-        features: featureKeys.map((key) => t(key)),
       })),
     [t],
   );

@@ -23,7 +23,10 @@ import type { NumericComparatorFilterValue } from "#src/components/primitive-fil
 import { useRegisterSavedFilterDraft } from "#src/hooks/use-register-saved-filter-draft";
 import { useTranslation } from "#src/utils/i18n";
 
-import { isActivePassesComparatorType } from "../constants";
+import {
+  MIN_ACTIVE_PASSES_COMPARATOR_VALUE,
+  isActivePassesComparatorType,
+} from "../constants";
 import { mapActivePassesFilterToFormValue } from "../mappers/api-to-form-value";
 import { buildActivePassesFilterDirtyPatch } from "../mappers/build-dirty-patch";
 import { createActivePassesPayload } from "../mappers/form-value-to-create-payload";
@@ -203,6 +206,15 @@ export const ActivePassesFilterCard = ({
     ? String(errors.appointmentPassesSelector.selectedIds.message)
     : undefined;
 
+  const hasPassSelectionErrors = Boolean(
+    errors.paymentPacksSelector?.selectedIds ||
+      errors.paymentPacksSelector?.enabled ||
+      errors.appointmentPassesSelector?.selectedIds,
+  );
+  const activePassesRequirementErrorMessage = hasPassSelectionErrors
+    ? t("filters.27.validation.atLeastOnePassSelectedRequired")
+    : undefined;
+
   return (
     <Card className="w-full" padding="default">
       <div className="flex flex-col gap-sm">
@@ -226,6 +238,7 @@ export const ActivePassesFilterCard = ({
         <NumericComparatorFilter
           id={fieldIds.comparator}
           value={comparatorValue}
+          minValue={MIN_ACTIVE_PASSES_COMPARATOR_VALUE}
           suffix={t("filters.27.fields.countSuffix")}
           errors={{
             operator: errors.comparatorType?.message
@@ -245,10 +258,14 @@ export const ActivePassesFilterCard = ({
             methods.setValue("comparatorType", nextValue.operator, {
               shouldDirty: true,
             });
-            methods.setValue("comparatorValue", nextValue.firstValue ?? 0, {
-              shouldDirty: true,
-              shouldValidate: true,
-            });
+            methods.setValue(
+              "comparatorValue",
+              nextValue.firstValue ?? MIN_ACTIVE_PASSES_COMPARATOR_VALUE,
+              {
+                shouldDirty: true,
+                shouldValidate: true,
+              },
+            );
             methods.setValue(
               "comparatorValueSecond",
               nextValue.operator === NUMERIC_COMPARATOR_OPERATORS.between
@@ -279,9 +296,11 @@ export const ActivePassesFilterCard = ({
           options={passSearchOptions}
           value={watchedValue.paymentPacksSelector}
           onChange={(nextValue) => {
+            const shouldValidate =
+              nextValue.enabled && nextValue.selectedIds.length > 0;
             methods.setValue("paymentPacksSelector", nextValue, {
               shouldDirty: true,
-              shouldValidate: true,
+              shouldValidate,
             });
           }}
           disabled={isSaving || isDeleting}
@@ -299,9 +318,11 @@ export const ActivePassesFilterCard = ({
           options={appointmentPassSearchOptions}
           value={watchedValue.appointmentPassesSelector}
           onChange={(nextValue) => {
+            const shouldValidate =
+              nextValue.enabled && nextValue.selectedIds.length > 0;
             methods.setValue("appointmentPassesSelector", nextValue, {
               shouldDirty: true,
-              shouldValidate: true,
+              shouldValidate,
             });
           }}
           disabled={isSaving || isDeleting}
@@ -311,6 +332,12 @@ export const ActivePassesFilterCard = ({
           )}
           emptySelectionLabel={t("filters.27.appointmentPasses.emptySelection")}
         />
+
+        {activePassesRequirementErrorMessage ? (
+          <Body size="sm" color="critical">
+            {activePassesRequirementErrorMessage}
+          </Body>
+        ) : null}
 
         <FilterCardSaveButton
           isSavedFilter={isSavedFilter}

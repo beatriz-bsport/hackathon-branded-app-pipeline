@@ -2,6 +2,7 @@
   "common": {
     "back": "Zurück",
     "new": "Neu",
+    "beta": "beta",
     "search": "Kontakte suchen"
   },
   "menus": {
@@ -12,21 +13,22 @@
       "tutorials": "Tutorials",
       "help": "Hilfe",
       "feedback": "Feedback-Board",
-      "centralAccount": "Zentrales Konto",
+      "centralAccount": "Central Account",
       "logout": "Abmelden"
     },
     "inbox": "Posteingang",
     "notifications": "Benachrichtigungen",
-    "sellProducts": "Sell products",
+    "sellProducts": "Schnellverkauf",
     "home": "Start",
     "calendar": "Kalender",
     "schedule": "Wochenplan",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Kurse",
-      "activities": "Gruppenkurse",
-      "workshops": "Workshops",
-      "appointments": "Termine"
+    "services": {
+      "title": "Services",
+      "activities": "Aktivitäten",
+      "appointments": "Termin",
+      "classes": "Kurse",
+      "workshops": "Workshops"
     },
     "memberships": {
       "title": "Kurspässe & Mitgliedschaften",
@@ -41,13 +43,15 @@
       "giftcards": "Geschenkgutscheine",
       "videosAndEbooks": "On-Demand",
       "playlists": "Sammlungen",
+      "onDemand": "On-Demand",
       "orders": "Bestellungen"
     },
     "marketing": {
       "title": "Marketing",
-      "marketingNotifications": "Benachrichtigungen",
+      "marketingNotifications": "Auto-Messages",
       "emailTemplates": "Vorlagen",
       "smartlists": "Smartlists",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Werbeaktionen",
       "customForms": "Benutzerdefinierte Formulare"
@@ -78,6 +82,7 @@
       "title": "Studio",
       "teachers": "Lehrkräfte",
       "establishments": "Veranstaltungsorte",
+      "venues": "Veranstaltungsorte",
       "substitutions": "Vertretungen"
     },
     "settings": {
@@ -89,7 +94,7 @@
       "personalization": "Personalisierung",
       "brandedApp": "Personalisierte App",
       "teacherView": "Lehreransicht",
-      "memberForms": "Mitgliedsformulare",
+      "memberForms": "Client forms",
       "livestreaming": "Livestreaming",
       "transactionalNotifications": "Transaktions-Benachrichtigungen",
       "payroll": "Lohnabrechnung",
@@ -100,12 +105,14 @@
       "waitlist": "Warteliste",
       "webhook": "Webhook",
       "partnership": "Partnerschaft",
+      "aggregators": "Aggregatoren",
       "activeCampaign": "ActiveCampaign",
       "referral": "Empfehlungen",
       "quicksale": "POS",
-      "oldWebshop": "Webshop-Einstellungen",
+      "oldWebshop": "Retail settings",
       "quickbooks": "QuickBooks",
       "bsportSubscription": "bsport-Abonnement",
+      "staff": "Mitarbeiter",
       "temporaryPassword": "Vorläufiges Passwort",
       "changeLanguage": "Sprache ändern"
     }
@@ -235,7 +242,7 @@
         "title": "Keine unvollständige Termine",
         "description": "Alle deine Termine wurden einer Lehrkraft zugewiesen."
       },
-      "member": "Mitglied: {{userName}}",
+      "member": "Client: {{userName}}",
       "date": "Datum: {{date}}"
     }
   }

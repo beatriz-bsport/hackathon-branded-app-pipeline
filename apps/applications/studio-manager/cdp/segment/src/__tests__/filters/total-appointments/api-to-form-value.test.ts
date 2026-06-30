@@ -237,7 +237,7 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     expect(formValue.establishment.atHome).toBe(false);
   });
 
-  it("hydrates establishment sub-filter with empty establishments when only at home is active", () => {
+  it("maps establishment sub-filter with empty establishments when only at home is active from fetched API", () => {
     const filter = buildApiFilter({
       establishment_filter_active: true,
       select_all_establishments: false,

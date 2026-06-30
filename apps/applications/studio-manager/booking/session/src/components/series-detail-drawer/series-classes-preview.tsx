@@ -1,4 +1,5 @@
 import { type FC, useMemo } from "react";
+import { useHref } from "react-router";
 
 import type { Session, Teacher } from "@bsport/api-book";
 import {
@@ -10,8 +11,9 @@ import {
   Body,
   Button,
   Chip,
+  type GenericTableColumn,
   Icon,
-  List,
+  Table,
   Title,
 } from "@bsport/kaizen-primitive-core";
 
@@ -20,6 +22,10 @@ import {
   type SessionTimeStatus,
   getSessionTimeStatus,
 } from "#src/components/session-occurrence-table/get-session-time-status";
+import {
+  resolveBookingsManagementRevampPath,
+  resolveSeriesClassesPath,
+} from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const CLASS_PREVIEW_PAGE_SIZE = 10;
@@ -39,12 +45,20 @@ type SeriesDetailClassRowLabels = {
   statuses: Record<SessionTimeStatus, string>;
 };
 
-type SeriesDetailClassRowProps = {
-  id: string;
+type SeriesDetailClassTableRow = {
+  id: number;
+  available: boolean;
+  classDate: string;
+  classStartTime: string;
+  effectif: number;
+  onRowClick: () => void;
+  status: SessionTimeStatus;
+  teacherName: string;
+  validatedBookingCount: number;
+};
+
+type BuildSeriesDetailClassColumnsParams = {
   labels: SeriesDetailClassRowLabels;
-  locale: string;
-  sessionClass: Session;
-  teachersById: Record<string, Teacher>;
 };
 
 const formatClassDate = ({
@@ -78,74 +92,62 @@ const formatClassStartTime = ({
   return formatDateTimeFromDate(date, DATETIME_FORMATS.TIME_SIMPLE);
 };
 
-const SeriesDetailClassRow: FC<SeriesDetailClassRowProps> = ({
+const buildSeriesDetailClassColumns = ({
   labels,
-  locale,
-  sessionClass,
-  teachersById,
-}) => {
-  const displayedTeacherId = sessionClass.coach_override ?? sessionClass.coach;
-  const displayedTeacher = teachersById[displayedTeacherId];
-  const status = getSessionTimeStatus({
-    available: sessionClass.available,
-    dateStart: sessionClass.date_start,
-    durationMinute: sessionClass.duration_minute,
-    timeZone: sessionClass.timezone_name,
-  });
-  const classDate = formatClassDate({
-    dateStart: sessionClass.date_start,
-    locale,
-    timeZone: sessionClass.timezone_name,
-  });
-  const classStartTime = formatClassStartTime({
-    dateStart: sessionClass.date_start,
-    locale,
-    timeZone: sessionClass.timezone_name,
-  });
-
-  return (
-    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-sm border-b-stroke-thin border-b-stroke-divider px-md py-sm last:border-b-0">
+}: BuildSeriesDetailClassColumnsParams): GenericTableColumn<SeriesDetailClassTableRow>[] => [
+  {
+    header: "",
+    id: "class",
+    type: "custom",
+    colClassName: "w-full max-w-0",
+    render: (row) => (
       <div className="min-w-0">
         <Body
           htmlVariant="p"
           size="lg"
-          className={`truncate ${sessionClass.available ? "" : "line-through"}`}
-          color={sessionClass.available ? "default" : "weak"}
+          className={`truncate ${row.available ? "" : "line-through"}`}
+          color={row.available ? "default" : "weak"}
         >
-          {classDate} - {classStartTime}
+          {row.classDate} - {row.classStartTime}
         </Body>
         <Body htmlVariant="p" size="md" color="weak" className="truncate">
-          {displayedTeacher?.name ?? labels.missingTeacher}
+          {row.teacherName}
         </Body>
       </div>
-
+    ),
+  },
+  {
+    header: "",
+    id: "metadata",
+    type: "custom",
+    align: "end",
+    render: (row) => (
       <div className="flex shrink-0 items-center gap-xs">
         <div className="flex items-center gap-2xs rounded-sm border-stroke-thin border-stroke-default px-xs py-2xs text-onsurface-default">
           <Icon icon="users-01" size="sm" />
           <Body htmlVariant="span" size="sm">
-            {sessionClass.validated_booking_count}/{sessionClass.effectif}
+            {row.validatedBookingCount}/{row.effectif}
           </Body>
         </div>
         <Chip
-          label={labels.statuses[status]}
-          color={CLASS_STATUS_CHIP_COLORS[status]}
+          label={labels.statuses[row.status]}
+          color={CLASS_STATUS_CHIP_COLORS[row.status]}
           type="weak"
           size="lg"
         />
       </div>
-    </div>
-  );
-};
+    ),
+  },
+];
 
 type SeriesClassesPreviewProps = {
   classesPreviewPage: number;
   hasError: boolean;
   isRefreshing: boolean;
-  moreDetailsSessionId: number | null;
-  onMoreDetailsClick: () => void;
   onPageChange: (page: number) => void;
   onRetry: () => void;
   previewClasses: Session[];
+  seriesId: number;
   statusSummaryParts: string[];
   teachersById: Record<string, Teacher>;
   totalClasses: number;
@@ -155,17 +157,19 @@ export const SeriesClassesPreview: FC<SeriesClassesPreviewProps> = ({
   classesPreviewPage,
   hasError,
   isRefreshing,
-  moreDetailsSessionId,
-  onMoreDetailsClick,
   onPageChange,
   onRetry,
   previewClasses,
+  seriesId,
   statusSummaryParts,
   teachersById,
   totalClasses,
 }) => {
   const { t, i18n } = useTranslation("series");
   const locale = i18n.language;
+  const appHref = useHref("/");
+  const appRootHref = useMemo(() => appHref.replace(/\/$/, ""), [appHref]);
+  const seriesClassesHref = useHref(resolveSeriesClassesPath(seriesId));
 
   const rowLabels = useMemo(
     () => ({
@@ -180,16 +184,58 @@ export const SeriesClassesPreview: FC<SeriesClassesPreviewProps> = ({
     [t],
   );
 
-  const rows = useMemo(
+  const columns = useMemo(
     () =>
-      previewClasses.map((sessionClass) => ({
-        id: String(sessionClass.id),
+      buildSeriesDetailClassColumns({
         labels: rowLabels,
-        locale,
-        sessionClass,
-        teachersById,
-      })),
-    [locale, previewClasses, rowLabels, teachersById],
+      }),
+    [rowLabels],
+  );
+
+  const rows = useMemo<SeriesDetailClassTableRow[]>(
+    () =>
+      previewClasses.map((sessionClass) => {
+        const displayedTeacherId =
+          sessionClass.coach_override ?? sessionClass.coach;
+        const displayedTeacher = teachersById[displayedTeacherId];
+        const detailUrl = `${appRootHref}${resolveBookingsManagementRevampPath(
+          sessionClass.id,
+        )}`;
+
+        return {
+          id: sessionClass.id,
+          available: sessionClass.available,
+          classDate: formatClassDate({
+            dateStart: sessionClass.date_start,
+            locale,
+            timeZone: sessionClass.timezone_name,
+          }),
+          classStartTime: formatClassStartTime({
+            dateStart: sessionClass.date_start,
+            locale,
+            timeZone: sessionClass.timezone_name,
+          }),
+          effectif: sessionClass.effectif,
+          onRowClick: () => {
+            window.open(detailUrl, "_blank", "noopener,noreferrer");
+          },
+          status: getSessionTimeStatus({
+            available: sessionClass.available,
+            dateStart: sessionClass.date_start,
+            durationMinute: sessionClass.duration_minute,
+            timeZone: sessionClass.timezone_name,
+          }),
+          teacherName: displayedTeacher?.name ?? rowLabels.missingTeacher,
+          validatedBookingCount: sessionClass.validated_booking_count,
+        };
+      }),
+    [
+      appRootHref,
+      locale,
+      previewClasses,
+      rowLabels.missingTeacher,
+      teachersById,
+    ],
   );
 
   return (
@@ -220,8 +266,8 @@ export const SeriesClassesPreview: FC<SeriesClassesPreviewProps> = ({
           size="md"
           intent="flat"
           color="default"
-          disabled={moreDetailsSessionId === null}
-          onClick={onMoreDetailsClick}
+          href={seriesClassesHref}
+          target="_blank"
         />
       </div>
 
@@ -232,11 +278,13 @@ export const SeriesClassesPreview: FC<SeriesClassesPreviewProps> = ({
           {t("seriesDetailDrawer.classes.empty")}
         </Body>
       ) : (
-        <List
+        <Table
           id="series-detail-classes-preview"
-          className="rounded-sm"
-          items={rows}
-          ListItem={SeriesDetailClassRow}
+          className="overflow-hidden rounded-sm"
+          columns={columns}
+          hideHeader
+          rowHeight="lg"
+          rows={rows}
           loadingProps={{
             isLoading: isRefreshing,
             message: t("seriesDetailDrawer.classes.loading"),

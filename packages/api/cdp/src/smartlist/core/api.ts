@@ -40,7 +40,7 @@ export const fetchSmartlistDetailAPI = async (
   fetch: Fetch<Smartlist>,
   id: string,
 ): Promise<Smartlist> => {
-  const { data } = await fetch(`${SMARTLIST_API_V1}/group/${id}`);
+  const { data } = await fetch(`${SMARTLIST_API_V1}/group/${id}/`);
   return data;
 };
 

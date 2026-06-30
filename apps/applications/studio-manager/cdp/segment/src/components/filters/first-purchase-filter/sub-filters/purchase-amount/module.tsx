@@ -18,12 +18,16 @@ import {
   toNumericApiValue,
 } from "./utils";
 
+const DEFAULT_PURCHASE_AMOUNT_FIRST_VALUE = 1;
+const DEFAULT_PURCHASE_AMOUNT_SECOND_VALUE =
+  DEFAULT_PURCHASE_AMOUNT_FIRST_VALUE + 1;
+
 const PURCHASE_AMOUNT_INACTIVE_API_SLICE: Partial<CreateFirstPurchaseFilterPayload> =
   {
     value_payment_active: false,
     comparator_payment: SmartlistPaymentComparator.GTE,
-    value_payment: 0,
-    value_second_payment: 0,
+    value_payment: DEFAULT_PURCHASE_AMOUNT_FIRST_VALUE,
+    value_second_payment: DEFAULT_PURCHASE_AMOUNT_SECOND_VALUE,
   };
 
 const toPurchaseAmountApiSlice = (

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Membership } from '#src/libs/membership/types';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import { Convo } from './convo';
 import { Button, TextField } from '@material-ui/core';
@@ -16,6 +15,7 @@ import {
   fetchConversationLastActivity as fetchConversationLastActivityAction,
   createMessage as createMessageAction,
   fetchMessages as fetchMessagesAction,
+  resetConversationUnreadCount as resetConversationUnreadCountAction,
 } from '#src/libs/communication-v2/actions';
 import { getConsumerProfile } from '#src/libs/consumer-space/selectors';
 import {
@@ -31,7 +31,7 @@ import {
   getNewestMessageId as getNewestMessageIdSelector,
 } from '#src/libs/communication-v2/selectors';
 interface OwnProps {
-  membership: Membership;
+  companyId: number;
   queryParams?: { consumerspacecontext: ConsumerSpaceContextEnum };
 }
 
@@ -46,9 +46,9 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     fetchConversations,
     fetchMessages,
     fetchConversationLastActivity,
+    resetConversationUnreadCount,
     createConversation,
     createMessage,
-    membership,
     profile,
     conversation,
     isCreatingConversation,
@@ -59,7 +59,7 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     oldestPulledMessageId,
     newestMessageId,
   } = props;
-  const companyId = membership?.company;
+  const companyId = props.companyId;
 
   const [message, setMessage] = useState<string>('');
   const convoContainerRef = useRef<HTMLDivElement>(null);
@@ -76,9 +76,13 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (conversation?.uuid) {
-      fetchMessages(conversation.uuid, undefined);
+      fetchMessages(conversation.uuid, undefined, {
+        onSuccess: () => {
+          resetConversationUnreadCount();
+        },
+      });
     }
-  }, [conversation?.uuid, fetchMessages]);
+  }, [conversation?.uuid, fetchMessages, resetConversationUnreadCount]);
 
   // Scroll to the end each time the conversation pulls a new message
   useEffect(() => {
@@ -112,16 +116,25 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
       newestMessageId &&
       lastActivityMessageId > newestMessageId
     ) {
-      fetchMessages(conversation.uuid, {
-        message_id: newestMessageId,
-        direction: 'newer',
-      });
+      fetchMessages(
+        conversation.uuid,
+        {
+          message_id: newestMessageId,
+          direction: 'newer',
+        },
+        {
+          onSuccess: () => {
+            resetConversationUnreadCount();
+          },
+        },
+      );
     }
   }, [
     conversation?.uuid,
     lastActivityMessageId,
     newestMessageId,
     fetchMessages,
+    resetConversationUnreadCount,
   ]);
 
   const sendMessage = (newMessage: string) => {
@@ -190,6 +203,7 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
         },
         {
           onSuccess: () => {
+            resetConversationUnreadCount();
             // dont jump around when older messages load, keep the scroll position relative to the previously loaded messages
             requestAnimationFrame(() => {
               if (!convoContainerRef.current) {
@@ -288,6 +302,7 @@ const mapDispatchToProps = {
   fetchConversationLastActivity: fetchConversationLastActivityAction,
   createConversation: createConversationAction,
   createMessage: createMessageAction,
+  resetConversationUnreadCount: resetConversationUnreadCountAction,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

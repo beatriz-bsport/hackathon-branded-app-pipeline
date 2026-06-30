@@ -134,8 +134,12 @@
         "title": "Apparaatcertificaat",
         "subtitle": "Gebruik dit serienummer op het TicketBAI-portaal van je provincie. <0>Leer hoe je dit doet met fiskaly</0>",
         "serial_caption": "Serienummer apparaatcertificaat (uitgegeven door bsport)",
+        "copy_serial": "Copy serial",
+        "copy_success": "Device certificate serial copied to clipboard",
         "gipuzkoa_notice": "Je moet je Fiskaly-apparaatcertificaat nog valideren bij Gipuzkoa op hun officiële portaal. Je hebt hier ongeveer een maand de tijd voor. Alle facturen die je in de tussentijd uitgeeft, blijven wettelijk conform.",
-        "registration_notice_description": "Gebruik het bovenstaande serienummer op het officiële TicketBAI-portaal van je provincie om je Fiskaly-apparaatcertificaat te registreren, zodat bsport je in aanmerking komende facturen kan indienen bij TicketBAI",
+        "gipuzkoa_pre_finalize_notice": "Click \"Complete setup\" to activate TicketBAI and start sending invoices. We'll provide a code to register on Gipuzkoa's official portal. After your first invoice is sent, you'll have about one month to complete this final step.",
+        "gipuzkoa_post_finalize_warning": "To complete your Gipuzkoa setup, copy this device certificate serial and register it on Gipuzkoa's official portal. You have about one month to do this. Invoices issued in the meantime remain legally compliant.",
+        "registration_notice_description": "If not already done, use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so your invoices are compliant with TicketBAI rules.",
         "complete_confirmation": "Ik heb de vereiste provinciale apparaatregistratie voor mijn grondgebied voltooid",
         "complete_cta": "Volledige installatie"
       },
@@ -146,8 +150,8 @@
       },
       "active": {
         "success_message": "TicketBAI is actief. Facturen en bonnen die hiervoor in aanmerking komen, worden gerapporteerd volgens de TicketBAI-regels van jouw provincie",
-        "gipuzkoa_followup_title": "Je facturen worden al naar de belastingdienst gestuurd",
-        "gipuzkoa_followup_description": "Je moet je Fiskaly-apparaat nog valideren bij Gipuzkoa op hun officiële portaal. Je hebt hier ongeveer een maand de tijd voor. Alle facturen die je in de tussentijd uitgeeft, blijven wettelijk conform."
+        "gipuzkoa_followup_title": "Your invoices are being sent to TicketBAI",
+        "gipuzkoa_followup_description": "Qualifying invoices and receipts are now reported to the tax authorities according to Gipuzkoa's TicketBAI rules."
       }
     },
     "sequentialNumbering": {

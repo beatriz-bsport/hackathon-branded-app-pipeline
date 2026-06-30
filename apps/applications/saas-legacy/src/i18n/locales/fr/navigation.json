@@ -8,23 +8,45 @@
     "banner": "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration."
   },
   "stripeCompliance": {
-    "banner": "Stripe a besoin d'informations mises à jour avant le {{ date }}. Cliquez ici pour les vérifier.",
-    "bannerWithoutDate": "Stripe a besoin d'informations mises à jour. Cliquez ici pour les vérifier.",
+    "banner": "Vérification Stripe requise avant le {{ date }}.",
+    "bannerWithoutDate": "Stripe a besoin d'informations mises à jour.",
     "cta": {
       "company_settings": "Mettre à jour mes paramètres",
       "none": "Vérifier",
       "stripe_onboarding": "Mettre à jour mes informations sur Stripe"
     },
     "modal": {
+      "faqLink": "Besoin d'aide ?",
       "genericImpact": "Si la situation n'est pas résolue, les paiements et les virements peuvent être impactés.",
+      "requirements": {
+        "associatedPerson": "Représentant légal",
+        "bankAccountOwnershipDocument": "Justificatif du compte bancaire",
+        "beneficialOwnershipDocument": "Justificatif des bénéficiaires effectifs",
+        "businessProfile": "Profil de l'entreprise",
+        "businessType": "Type d'entreprise",
+        "companyAddress": "Adresse de l'entreprise",
+        "companyDetails": "Informations légales de l'entreprise",
+        "companyDirectorshipDeclaration": "Dirigeants de l'entreprise",
+        "companyDocuments": "Documents de l'entreprise",
+        "companyOwnershipDeclaration": "Actionnariat de l'entreprise",
+        "companyTaxId": "Numéro fiscal de l'entreprise",
+        "companyVerificationDocument": "Document de vérification de l'entreprise",
+        "externalAccount": "Coordonnées bancaires de versement (IBAN)",
+        "individualDetails": "Informations d'identité individuelle",
+        "other": "Informations de conformité supplémentaires",
+        "statementDescriptor": "Libellé de paiement sur relevé bancaire",
+        "stripeSupportReview": "Informations supplémentaires demandées par le support Stripe",
+        "title": "À mettre à jour :"
+      },
       "restricted": {
         "description": "Stripe a restreint votre compte. Veuillez mettre à jour les informations requises pour restaurer toutes les fonctionnalités de paiement.",
         "title": "Compte Stripe restreint"
       },
       "restrictedSoon": {
-        "description": "Stripe a besoin d'informations mises à jour avant le {{ date }} pour que votre compte reste conforme.",
-        "descriptionWithoutDate": "Stripe a besoin d'informations mises à jour pour que votre compte reste conforme.",
-        "title": "Mise à jour Stripe requise"
+        "description": "Stripe a besoin que vous mettiez à jour certaines informations avant le {{ date }} pour maintenir les paiements et virements.",
+        "descriptionWithoutDate": "Stripe a besoin que vous mettiez à jour certaines informations pour maintenir les paiements et virements.",
+        "title": "Vérification Stripe requise avant le {{ date }}",
+        "titleWithoutDate": "Vérification Stripe requise"
       }
     }
   },

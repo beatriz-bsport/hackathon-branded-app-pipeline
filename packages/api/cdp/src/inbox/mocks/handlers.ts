@@ -1,8 +1,10 @@
 import { HttpResponse, delay, http } from "msw";
 
+import { INBOX_CONVERSATION_SEARCH_API_URL } from "../constants";
 import type {
   RawInboxConversation,
   RawStudioManagerConversationsResponse,
+  RawStudioManagerConversationsSearchResponse,
   RawStudioManagerTimelineResponse,
   RawTimelineItem,
 } from "../types";
@@ -122,6 +124,101 @@ export const makeInboxHandlers = ({
 
     return HttpResponse.json(
       buildPage(dataset, { cursor, direction, limit, unread, escalated }),
+    );
+  }),
+];
+
+// --- Conversation search ---------------------------------------------------
+
+const INBOX_SEARCH_DEFAULT_PAGE_SIZE = 20;
+
+// Matches the dedicated `search` action on the conversation viewset, regardless
+// of the API base URL. Derived from the shared endpoint constant (with a `*`
+// base-URL prefix and trailing slash) so the mock route can't drift from the
+// fetcher's path. The `/search/` segment keeps it distinct from the list
+// collection pattern (`.../conversation/`) so the two handlers never overlap.
+// MSW ignores the query string when matching, so the `?q=…` appended by
+// `buildUrlParams` needs no wildcard here.
+export const INBOX_CONVERSATION_SEARCH_URL_PATTERN = `*/${INBOX_CONVERSATION_SEARCH_API_URL}/`;
+
+/**
+ * Page-number slice over the dataset, filtered by an intentionally minimal
+ * match: a single case-insensitive substring test on the participant name. The
+ * real backend does fuzzy trigram matching over name, email, and phone with
+ * relevance ordering; the mock emulates none of that — it only needs to drive
+ * the result/no-result/load-more UI states. Returns the DRF page shape.
+ */
+const buildSearchPage = (
+  dataset: RawInboxConversation[],
+  { query, page, pageSize }: { query: string; page: number; pageSize: number },
+): RawStudioManagerConversationsSearchResponse => {
+  const needle = query.trim().toLowerCase();
+  const matches = needle
+    ? dataset.filter((conversation) =>
+        conversation.participants.some((participant) =>
+          participant.name.toLowerCase().includes(needle),
+        ),
+      )
+    : [];
+
+  const start = (page - 1) * pageSize;
+  const results = matches.slice(start, start + pageSize);
+  const hasNextPage = matches.length > start + results.length;
+
+  return {
+    count: matches.length,
+    // Only truthiness is consumed app-side; a synthetic URL is enough.
+    next: hasNextPage
+      ? `?q=${encodeURIComponent(query)}&page=${page + 1}`
+      : null,
+    previous:
+      page > 1 ? `?q=${encodeURIComponent(query)}&page=${page - 1}` : null,
+    results,
+  };
+};
+
+type MakeInboxSearchHandlersOptions = {
+  /** Dataset to search/paginate over. Defaults to the full mock dataset. */
+  dataset?: RawInboxConversation[];
+  /** Artificial latency per request. See {@link MakeInboxHandlersOptions.delayMs}. */
+  delayMs?: number | "infinite";
+  /** Default page size when the request omits an explicit one. */
+  pageSize?: number;
+  /**
+   * Pages at or beyond this number respond with HTTP 500. `1` fails the first
+   * search; `2` serves page 1 and fails every later page — useful for the
+   * "next page failed" state. Defaults to never failing.
+   */
+  errorFromPage?: number;
+};
+
+/**
+ * Builds the MSW handler(s) for the conversation search endpoint. Serves the
+ * configured dataset page-by-page (page-number pagination) so search results
+ * and infinite scroll can be exercised independently of the list handler.
+ */
+export const makeInboxSearchHandlers = ({
+  dataset = mockInboxConversations,
+  delayMs = 400,
+  pageSize = INBOX_SEARCH_DEFAULT_PAGE_SIZE,
+  errorFromPage,
+}: MakeInboxSearchHandlersOptions = {}) => [
+  http.get(INBOX_CONVERSATION_SEARCH_URL_PATTERN, async ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get("q") ?? "";
+    const page = Number(url.searchParams.get("page") ?? "") || 1;
+
+    await delay(delayMs);
+
+    if (errorFromPage !== undefined && page >= errorFromPage) {
+      return HttpResponse.json(
+        { detail: "Internal server error" },
+        { status: 500 },
+      );
+    }
+
+    return HttpResponse.json(
+      buildSearchPage(dataset, { query, page, pageSize }),
     );
   }),
 ];

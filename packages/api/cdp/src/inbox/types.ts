@@ -111,6 +111,40 @@ export type FetchInboxConversationsParams = {
 };
 
 /**
+ * Raw response of the studio-manager conversation **search** endpoint
+ * (`…/conversation/search/?q=`). Unlike the cursor-based list
+ * ({@link RawStudioManagerConversationsResponse}), search uses DRF
+ * page-number pagination. The result rows reuse the same serializer as the
+ * list, so each entry is a {@link RawInboxConversation} and the list's
+ * normalizer can be reused unchanged.
+ */
+export type RawStudioManagerConversationsSearchResponse = {
+  /** Total number of matches across all pages. */
+  count: number;
+  /**
+   * URL of the next page, or `null` on the last page. Consumers use it only
+   * for truthiness (does another page exist) — it is never parsed.
+   */
+  next: string | null;
+  /** URL of the previous page, or `null` on the first page. */
+  previous: string | null;
+  results: RawInboxConversation[];
+};
+
+export type FetchInboxConversationsSearchParams = {
+  /** Fuzzy query matched against member name, email, and phone. */
+  q: string;
+  /** Page-number pagination (1-based). The backend default is page 1. */
+  page?: number;
+  /**
+   * Trigram distance cutoff. Without it the endpoint re-orders the studio's
+   * entire conversation set by relevance instead of returning real matches, so
+   * a value must always be sent (see the app-side named constant).
+   */
+  distance_threshold: number;
+};
+
+/**
  * Who authored a message, from the backend `timeline` contract. `member` is an
  * inbound message; `studio` is an outbound message from the business; `agent` is
  * an AI agent reply (typed for completeness — not yet mocked, folds to an

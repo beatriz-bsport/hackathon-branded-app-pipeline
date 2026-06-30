@@ -48,6 +48,7 @@ import {
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
   fetchAllPrivateSlots,
   isPrivatePassUsedInCombo,
+  duplicatePrivatePass as duplicatePrivatePassAction,
 } from '#src/libs/private-service/actions';
 import PrivatePassListItem from '#src/libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassForm, {
@@ -159,6 +160,7 @@ type PrivatePassOption = {
   label: string;
   onClick: () => void;
   onDelete: () => void;
+  onDuplicate?: () => void;
   onEdit: () => void;
   pass: PrivatePass;
   updatePrivatePass: (data: any, options?: OptionCallback) => void;
@@ -400,14 +402,25 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.openDeletePassDialog(pass.id);
 
   privatePassesOptionsFormatter =
-    (hasDeletePermission: boolean, hasEditPermission: boolean) =>
+    (
+      hasDeletePermission: boolean,
+      hasEditPermission: boolean,
+      hasCreatePermission: boolean,
+    ) =>
     (privatePasses: PrivatePass[]): PrivatePassOption[] =>
       privatePasses.map((privatePass) => {
+        const isSharedPass =
+          privatePass.template_instance ||
+          privatePass.linked_payment_pack_template_instance;
         return {
           label: privatePass.name,
           onClick: () => this.props.goToPass(privatePass.id),
           onDelete:
             hasDeletePermission && this.getDeletePassHandler(privatePass),
+          onDuplicate:
+            hasCreatePermission && !isSharedPass
+              ? () => this.props.onDuplicatePrivatePass(privatePass.id)
+              : null,
           onEdit: hasEditPermission && this.getOpenEditFormHandler(privatePass),
           pass: privatePass,
           updatePrivatePass: this.createOrUpdatePrivatePassWithNotifications,
@@ -589,6 +602,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                     optionsFormatter={this.privatePassesOptionsFormatter(
                       hasDeletePermission,
                       hasEditPermission,
+                      hasCreatePermission,
                     )}
                     placeholder={this.props.t('search')}
                     searchedObjectType="private_pass"
@@ -633,6 +647,9 @@ export class PrivatePassList extends React.Component<Props, State> {
                 filterManagerOnly={this.state.selectedDisponibility}
                 goToPass={this.props.goToPass}
                 itemsDraggable={hasEditPermission}
+                onDuplicatePass={
+                  hasCreatePermission && this.props.onDuplicatePrivatePass
+                }
                 onEditPass={hasEditPermission && this.OpenEditForm}
                 // @ts-expect-error
                 privatePassCategoryById={this.props.privatePassByCategory}
@@ -939,6 +956,7 @@ const mapDispatchToProps = {
   fetchResolvedGenericTags,
   fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
   updateMarketingNotification,
+  duplicatePrivatePass: duplicatePrivatePassAction,
 };
 
 // @ts-expect-error
@@ -1084,6 +1102,24 @@ const mapWithHandlers = {
           },
         },
       );
+    },
+  onDuplicatePrivatePass:
+    (props: OwnAndConnectedProps) => (privatePassId: number) => {
+      props.duplicatePrivatePass(privatePassId, {
+        onSuccess: () => {
+          props.fetchPrivatePassList({
+            ...(props.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          });
+          props.refreshOptions('private_pass', {
+            ...searchBarAdditionalParams,
+            ...(props.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          });
+        },
+      });
     },
 };
 

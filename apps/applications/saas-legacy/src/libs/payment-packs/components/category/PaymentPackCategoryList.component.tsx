@@ -38,6 +38,7 @@ type OwnProps = {
   paymentPackByCategory: Array<PaymentPackCategoryWithPacks>;
   onEdit?: (pp: PaymentPack) => void;
   onDelete?: (pp: PaymentPack) => void;
+  onDuplicate?: (ppId: number) => void;
   onClick: (ppId: number) => void;
   onRestore?: (ppId: number) => void;
   itemsDraggable: boolean;
@@ -281,6 +282,7 @@ export const PaymentPackListByCategory = memo((props: Props) => {
               itemsDraggable={props.itemsDraggable}
               onClick={props.onClick}
               onDelete={props.onDelete}
+              onDuplicate={props.onDuplicate}
               onEdit={props.onEdit}
               onRestore={props.onRestore}
               orderingOverride={frontendOrderingOverride}

@@ -28,6 +28,7 @@ import PrivatePassCategoryItemWithPrivatePasses, {
 type Props = {
   goToPass: (id: number) => void;
   setOpenDeletePassDialog: (id: number) => void;
+  onDuplicatePass?: (id: number) => void;
   updatePassOrder: (
     data: Array<{ id: number; ordering_in_category: number }>,
     options?: OptionCallback,
@@ -272,6 +273,7 @@ export const PrivatePassCategoryList = (props: Props) => {
               itemsDraggable={props.itemsDraggable}
               onClick={props.goToPass}
               onDelete={props.setOpenDeletePassDialog}
+              onDuplicate={props.onDuplicatePass}
               onEdit={props.onEditPass}
               orderingOverride={frontendOrderingOverride}
               privatePassCategory={category}

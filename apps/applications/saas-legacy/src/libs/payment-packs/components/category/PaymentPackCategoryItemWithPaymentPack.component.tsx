@@ -39,6 +39,7 @@ import { ManagerOnly } from '../PaymentPackFilterAndSortHeader.component';
 type OwnProps = {
   onEdit?: (pp: PaymentPack) => void;
   onDelete?: (pp: PaymentPack) => void;
+  onDuplicate?: (ppId: number) => void;
   onClick: (ppId: number) => void;
   onRestore?: (ppId: number) => void;
   itemsDraggable: boolean;
@@ -74,6 +75,7 @@ const ButtonWithConfirm = withConfirm(
 type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onEdit: (pp: PaymentPack) => void;
   onDelete: (pp: PaymentPack) => void;
+  onDuplicate: (ppId: number) => void;
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
   itemsDraggable: boolean;
@@ -87,6 +89,7 @@ type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
 type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onEdit?: () => void;
   onDelete?: () => void;
+  onDuplicate?: () => void;
   onClick: () => void;
   onRestore?: () => void;
   pack: PaymentPack;
@@ -120,6 +123,7 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
         listeners={listeners}
         onClick={props.onClick}
         onDelete={props.onDelete}
+        onDuplicate={props.onDuplicate}
         onEdit={props.onEdit}
         onRestore={props.onRestore}
         pack={pack}
@@ -196,6 +200,9 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
                     : null
                 }
                 onDelete={props.onDelete ? () => props.onDelete(pack) : null}
+                onDuplicate={
+                  props.onDuplicate ? () => props.onDuplicate(pack.id) : null
+                }
                 onEdit={props.onEdit ? () => props.onEdit(pack) : null}
                 onRestore={
                   props.onRestore ? () => props.onRestore(pack.id) : null

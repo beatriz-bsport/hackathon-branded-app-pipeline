@@ -79,6 +79,7 @@ import {
   createOrUpdatePrivatePass as createOrUpdatePrivatePassAPI,
   deletePrivatePass as deletePrivatePassAPI,
   restorePrivatePass as restorePrivatePassAPI,
+  duplicatePrivatePass as duplicatePrivatePassAPI,
   createCompatibleServicePass as createCompatibleServicePassAPI,
   deleteCompatibleServicePass as deleteCompatibleServicePassAPI,
   updateCompatibleServicePass as updateCompatibleServicePassAPI,
@@ -1627,6 +1628,26 @@ export function restorePrivatePass(id: number, options?: OptionCallback) {
       if (options?.onError) options.onError();
     }
     dispatch(privatePassCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function duplicatePrivatePass(
+  id: number,
+  options?: OptionCallback<PrivatePass>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await duplicatePrivatePassAPI(id);
+
+      if (options && options.onSuccess) {
+        dispatch(snackbarSuccess('privatePass.duplicate.success'));
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(snackbarError('privatePass.duplicate.error'));
+      console.error(err);
+      if (options && options.onError) options.onError(err);
+    }
   };
 }
 

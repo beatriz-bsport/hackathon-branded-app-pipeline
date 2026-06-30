@@ -377,6 +377,10 @@
       "fail": "Error while saving pass",
       "success": "Pass successfully saved"
     },
+    "duplicate": {
+      "error": "Error while duplicating pass",
+      "success": "Pass successfully duplicated"
+    },
     "compatibilitiesUpdate": {
       "fail": "Error while updating pass compatibilities"
     },
@@ -701,6 +705,10 @@
     "restore": {
       "error": "Unable to restore appointment pass",
       "success": "Appointment pass has been restored"
+    },
+    "duplicate": {
+      "error": "Unable to duplicate appointment pass",
+      "success": "Appointment pass has been duplicated"
     }
   },
   "metaActivity": {

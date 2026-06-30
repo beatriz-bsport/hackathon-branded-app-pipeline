@@ -38,6 +38,7 @@ import { MaterialStyleType } from '#src/utils/types';
 import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 type OwnProps = {
   pack: PaymentPack;
@@ -49,6 +50,7 @@ type OwnProps = {
   // Use this prop to disable all shared pass' specific behaviors.
   asStandardPass?: boolean;
   onDelete?: () => void;
+  onDuplicate?: () => void;
   selected?: boolean;
   showDuration?: boolean;
   onBook?: () => void;
@@ -209,6 +211,13 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
                 )}
                 <ListItemResponsiveAction
                   actions={[
+                    this.props.onDuplicate &&
+                      !hideModificationButton && {
+                        icon: FileCopyIcon,
+                        label: this.props.t('actions.duplicate'),
+                        color: 'primary',
+                        onClick: () => this.props.onDuplicate(),
+                      },
                     this.props.onEdit && {
                       icon: EditIcon,
                       label: this.props.t('actions.edit'),

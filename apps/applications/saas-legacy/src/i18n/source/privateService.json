@@ -688,6 +688,7 @@
       "days": "Valid for {{ duration_days }} day(s)"
     },
     "edit": "Edit",
+    "duplicate": "Duplicate",
     "disabledTitle": "Archived appointment passes",
     "detailTitles": {
       "name": "Benefit",

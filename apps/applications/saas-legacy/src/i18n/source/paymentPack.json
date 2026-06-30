@@ -443,6 +443,7 @@
   "actions": {
     "delete": "Archive",
     "edit": "Edit",
+    "duplicate": "Duplicate",
     "scaleCredit": "Mult / div credits",
     "massExtension": "Extend validity",
     "close": "Close"

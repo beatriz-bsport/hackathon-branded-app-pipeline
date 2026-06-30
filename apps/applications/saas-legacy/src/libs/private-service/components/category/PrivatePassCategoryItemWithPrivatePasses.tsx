@@ -35,6 +35,7 @@ import withConfirm from '../../../../hocs/with-confirm.hoc';
 type Props = {
   onEdit?: (privatePass: PrivatePass) => void;
   onDelete?: (privatePassId: number) => void;
+  onDuplicate?: (privatePassId: number) => void;
   onClick: (privatePassId: number) => void;
   privatePassCategory: PrivatePassCategoryWithPasses;
   setSelectedCategory: (category: PrivatePassCategory) => void;
@@ -65,6 +66,7 @@ const ButtonWithConfirm = withConfirm(
 type PackListProps = {
   onEdit?: (pp: PrivatePass) => void;
   onDelete?: (ppId: number) => void;
+  onDuplicate?: (ppId: number) => void;
   onClick: (ppId: number) => void;
   itemsDraggable?: boolean;
   privatePassCategory: PrivatePassCategoryWithPasses;
@@ -77,6 +79,7 @@ type PackListProps = {
 type PackListItemProps = {
   onEdit?: () => void;
   onDelete?: () => void;
+  onDuplicate?: () => void;
   onClick: () => void;
   ppass: PrivatePass;
   sortedItems: Array<PrivatePass>;
@@ -109,6 +112,7 @@ const SortablePrivatePassListItem = React.memo((props: PackListItemProps) => {
         listeners={listeners}
         onClick={props.onClick}
         onDelete={props.onDelete}
+        onDuplicate={props.onDuplicate}
         onEdit={props.onEdit}
         pass={ppass}
       />
@@ -178,6 +182,9 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
                   : null
               }
               onDelete={props.onDelete ? () => props.onDelete(ppass.id) : null}
+              onDuplicate={
+                props.onDuplicate ? () => props.onDuplicate(ppass.id) : null
+              }
               onEdit={props.onEdit ? () => props.onEdit(ppass) : null}
               ppass={ppass}
               sortedItems={ppasses}

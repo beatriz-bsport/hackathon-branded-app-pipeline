@@ -24,6 +24,7 @@ import type {
   PrivateConsumerPassExtensionCreate,
   PrivatePassTemplateAPI,
   ResourceSlotsByDate,
+  PrivatePass,
 } from './types';
 import type { PaginatedResponse } from '#src/state/types';
 import type { AssociatedEstablishment } from '#src/libs/establishment/types';
@@ -413,6 +414,12 @@ export const deletePrivatePass = (id: number) => {
 
 export const restorePrivatePass = (id: number) => {
   return putAuth(`${API_V1_URI}/private_service/private_pass/${id}/restore/`);
+};
+
+export const duplicatePrivatePass = (id: number) => {
+  return postAuth<PrivatePass>(
+    `${API_V1_URI}/private_service/private_pass/${id}/duplicate/`,
+  );
 };
 
 export const isPrivatePassUsedInCombo = (id: number) => {

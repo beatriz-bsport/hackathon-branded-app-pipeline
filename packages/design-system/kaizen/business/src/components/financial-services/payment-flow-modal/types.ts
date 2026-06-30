@@ -86,6 +86,7 @@ export type PaymentFlowModalBodyState = {
   amountToPay: string;
   isInvoiceAlreadyPaid: boolean;
   shouldShowMemberBalanceWarning: boolean;
+  shouldShowGiftCardInsufficientAlert: boolean;
   submitError: string | null;
   hasPositiveAccountBalance: boolean;
   isAccountBalanceEnough: boolean;

@@ -671,13 +671,6 @@ export const usePaymentFlowModalState = ({
     ) {
       return true;
     }
-    if (
-      selectedPaymentMethod.id ===
-        ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE &&
-      !selectedGiftCardId
-    ) {
-      return true;
-    }
 
     return false;
   }, [
@@ -695,7 +688,6 @@ export const usePaymentFlowModalState = ({
     isPartialEnabled,
     methods.formState.errors.partialAmountCts,
     selectedPaymentMethod,
-    selectedGiftCardId,
     terminalReaderId,
   ]);
 
@@ -904,6 +896,12 @@ export const usePaymentFlowModalState = ({
     hasPositiveAccountBalance &&
     !isAccountBalanceEnough;
 
+  const shouldShowGiftCardInsufficientAlert =
+    isGiftCardPaymentMethodSelected &&
+    selectedGiftCard !== null &&
+    Math.round(selectedGiftCard.availableAmount * 100) <
+      invoiceRemainingAmountCts;
+
   const handlePartialAmountFocus = () => {
     setIsPartialAmountFocused(true);
   };
@@ -1011,6 +1009,7 @@ export const usePaymentFlowModalState = ({
     amountToPay,
     isInvoiceAlreadyPaid,
     shouldShowMemberBalanceWarning,
+    shouldShowGiftCardInsufficientAlert,
     submitError: submitError ?? paymentClientSecretErrorMessage,
     hasPositiveAccountBalance,
     isAccountBalanceEnough,

@@ -165,7 +165,7 @@ export const executeConfirmPayment = async ({
       return;
     case ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE: {
       if (!selectedGiftCardId) {
-        throw new Error("Select a gift card first.");
+        throw new Error(PAYMENT_FLOW_ERROR_KEYS.missingGiftCard);
       }
       const selectedGiftCard = availableGiftCards.find(
         (giftCard) => giftCard.id === selectedGiftCardId,

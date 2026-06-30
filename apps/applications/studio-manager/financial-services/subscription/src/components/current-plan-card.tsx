@@ -1,6 +1,5 @@
 import type { FC } from "react";
 
-import { formatPriceWithCurrency } from "@bsport/currency";
 import { fromIsoString, toLocaleString } from "@bsport/datetime-manipulation";
 import { Body, Card, Chip, Title } from "@bsport/kaizen-primitive-core";
 
@@ -9,17 +8,10 @@ import { useTranslation } from "#src/utils/i18n";
 
 interface CurrentPlanCardProps {
   plan: Plan;
-  price: number;
-  currencySymbol: string;
   renewDate: string;
 }
 
-const CurrentPlanCard: FC<CurrentPlanCardProps> = ({
-  plan,
-  price,
-  currencySymbol,
-  renewDate,
-}) => {
+const CurrentPlanCard: FC<CurrentPlanCardProps> = ({ plan, renewDate }) => {
   const { t, i18n } = useTranslation("subscription");
 
   const formattedDate = toLocaleString({
@@ -44,16 +36,9 @@ const CurrentPlanCard: FC<CurrentPlanCardProps> = ({
           </Title>
         </div>
         <Body color="weak">{plan.tagline}</Body>
-        <div className="flex gap-sm items-end">
-          <Title htmlVariant="h3">
-            {t("plan.per-month", {
-              price: formatPriceWithCurrency(price, currencySymbol),
-            })}
-          </Title>
-          <Body size="sm" color="weak">
-            {t("plan.renews-on", { date: formattedDate })}
-          </Body>
-        </div>
+        <Body size="sm" color="weak">
+          {t("plan.renews-on", { date: formattedDate })}
+        </Body>
       </div>
     </Card>
   );

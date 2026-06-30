@@ -1,6 +1,5 @@
 import type { FC } from "react";
 
-import { formatPriceWithCurrency } from "@bsport/currency";
 import { Body, Button, Card, Icon, Title } from "@bsport/kaizen-primitive-core";
 
 import type { Plan } from "#src/types/plan";
@@ -9,17 +8,10 @@ import { openIntercomConversation } from "#src/utils/intercom";
 
 interface OtherPlanCardProps {
   plan: Plan;
-  price: number;
-  currencySymbol: string;
   learnMoreUrl?: string;
 }
 
-const OtherPlanCard: FC<OtherPlanCardProps> = ({
-  plan,
-  price,
-  currencySymbol,
-  learnMoreUrl,
-}) => {
+const OtherPlanCard: FC<OtherPlanCardProps> = ({ plan, learnMoreUrl }) => {
   const { t } = useTranslation("subscription");
 
   return (
@@ -30,11 +22,6 @@ const OtherPlanCard: FC<OtherPlanCardProps> = ({
             {plan.name}
           </Title>
         </div>
-        <Title htmlVariant="h4">
-          {t("plan.per-month", {
-            price: formatPriceWithCurrency(price, currencySymbol),
-          })}
-        </Title>
         <Body color="weak" size="sm">
           {plan.tagline}
         </Body>

@@ -5,7 +5,7 @@ import { ErrorFallback, Loader, Title } from "@bsport/kaizen-primitive-core";
 import FeatureComparisonTable from "#src/components/feature-comparison-table";
 import PlanOverviewSection from "#src/components/plan-overview-section";
 import { usePlanData } from "#src/hooks/use-plan-data";
-import { MARKETS, PlanKey } from "#src/types/plan";
+import { PlanKey } from "#src/types/plan";
 import { useTranslation } from "#src/utils/i18n";
 
 const PlanPage: FC = () => {
@@ -35,8 +35,7 @@ const PlanPage: FC = () => {
     );
   }
 
-  const { plans, features, currentPlanId, renewDate, marketId } = data;
-  const market = MARKETS[marketId];
+  const { plans, features, currentPlanId, renewDate } = data;
 
   const headers: Record<"feature" | PlanKey, string> = {
     feature: t("plan.columns.feature"),
@@ -52,7 +51,6 @@ const PlanPage: FC = () => {
         <PlanOverviewSection
           plans={plans}
           currentPlanId={currentPlanId}
-          market={market}
           renewDate={renewDate}
         />
       </section>

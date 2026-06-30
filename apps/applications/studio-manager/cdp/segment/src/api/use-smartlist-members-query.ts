@@ -5,6 +5,7 @@ import {
   smartlistMembersQueryOptions,
 } from "@bsport/api-cdp/smartlist";
 
+import { SMARTLIST_MEMBERS_LIST_DEFAULT_PAGE_SIZE } from "#src/components/smartlist-members-list/constants";
 import { fetch } from "#src/utils/fetch";
 
 /**
@@ -13,5 +14,10 @@ import { fetch } from "#src/utils/fetch";
 export const useSmartlistMembersQuery = (
   params: FetchSmartlistMembersParams,
 ) => {
-  return useQuery(smartlistMembersQueryOptions(fetch, params));
+  return useQuery(
+    smartlistMembersQueryOptions(fetch, {
+      ...params,
+      page_size: params.page_size ?? SMARTLIST_MEMBERS_LIST_DEFAULT_PAGE_SIZE,
+    }),
+  );
 };

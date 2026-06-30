@@ -17,6 +17,7 @@ import { ShortcutActionsButton } from "#src/components/session-management/action
 import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import {
   setSelectedBooking,
   setSelectedBookingOption,
@@ -45,6 +46,8 @@ export const NoShowBookingsTable: FC<{
 
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({ namespace: "no-show-bookings" });
+
+  const { data: session } = useRetrieveSession(sessionId);
 
   const {
     isLoading,
@@ -97,14 +100,15 @@ export const NoShowBookingsTable: FC<{
       type: "custom",
       align: "start",
       render: (row) => {
-        const spotName = listedInformation.includes(
-          BookingListedInformation.SPOT,
-        )
-          ? formatBookingSpotLabel(
-              row.spot_information,
-              t("participantDetails.spot"),
-            )
-          : null;
+        const spotName =
+          listedInformation.includes(BookingListedInformation.SPOT) &&
+          session.room_blueprint != null
+            ? formatBookingSpotLabel(
+                row.spot_information,
+                t("participantDetails.spot"),
+                t("participantDetails.noSpotAssigned"),
+              )
+            : null;
 
         const passName = listedInformation.includes(
           BookingListedInformation.PASS,
@@ -170,12 +174,15 @@ export const NoShowBookingsTable: FC<{
   ];
 
   const listItems: ListProps["items"] = searchedBookings.map((booking) => {
-    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
-      ? formatBookingSpotLabel(
-          booking.spot_information,
-          t("participantDetails.spot"),
-        )
-      : null;
+    const spotName =
+      listedInformation.includes(BookingListedInformation.SPOT) &&
+      session.room_blueprint != null
+        ? formatBookingSpotLabel(
+            booking.spot_information,
+            t("participantDetails.spot"),
+            t("participantDetails.noSpotAssigned"),
+          )
+        : null;
     const passName = listedInformation.includes(BookingListedInformation.PASS)
       ? booking.passData?.name
       : null;

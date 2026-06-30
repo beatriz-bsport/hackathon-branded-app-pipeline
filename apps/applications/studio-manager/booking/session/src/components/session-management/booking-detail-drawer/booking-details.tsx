@@ -22,7 +22,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-label.js";
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import {
   type SessionManagementModalParams,
   SessionManagementModalType,
@@ -36,6 +36,7 @@ import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { ShortcutActionsButton } from "../action-buttons/booking/shortcut-actions-button";
 import { BookingActionItemId } from "../action-buttons/booking/types";
+import { formatBookingSpotLabel } from "../participants-section/bookings-tables/booking-spot-label";
 import { Section } from "./section";
 
 const getLastCancellationStaffHistoryEntry = (
@@ -63,6 +64,8 @@ export const BookingDetails: FC<{
 }> = ({ selectedBooking, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
+
+  const { data: session } = useRetrieveSession(selectedBooking.offer);
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const { getCreditsDividedValue } = useCreditFactor(
@@ -206,15 +209,14 @@ export const BookingDetails: FC<{
           </Body>
         </Alert>
       )}
-      {!!selectedBooking.spot_information?.name && (
+      {session.room_blueprint != null && (
         <Section title={t("participantDetails.spot")}>
           <Body weight="weak" color="default">
-            {`${selectedBooking.spot_information?.name ?? ""} ${composeLabel(
-              selectedBooking.spot_information?.prefix,
-              selectedBooking.spot_information?.indexType,
-              null, // index is not used in this context
-              selectedBooking.spot_information?.suffix,
-            )}`}
+            {formatBookingSpotLabel(
+              selectedBooking.spot_information,
+              t("participantDetails.spot"),
+              t("participantDetails.noSpotAssigned"),
+            )}
           </Body>
         </Section>
       )}

@@ -5,6 +5,7 @@ import { composeLabel } from "#src/components/spot-selector/spot-canvas/spot-lab
 export const formatBookingSpotLabel = (
   spotInformation: SpotInformation | null | undefined,
   fallbackSpotName: string,
+  fallbackNoSpot: string,
 ) => {
   if (!spotInformation) {
     return "";
@@ -20,7 +21,7 @@ export const formatBookingSpotLabel = (
   ).trim();
 
   if (!spotName && !spotLabel) {
-    return "";
+    return fallbackNoSpot;
   }
 
   return [spotName || fallbackSpotName, spotLabel].filter(Boolean).join(" ");

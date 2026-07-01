@@ -179,8 +179,9 @@
     "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
   },
   "stripeCompliance": {
-    "banner": "Verificación de Stripe requerida antes del {{ date }}.",
-    "bannerWithoutDate": "Stripe necesita información actualizada.",
+    "bannerRestrictedSoon": "Verificación de Stripe requerida antes del {{ date }}.",
+    "bannerRestricted": "Cuenta de Stripe restringida. Actualiza tu información para restaurar toda la funcionalidad de pagos.",
+    "bannerRestrictedSoonWithoutDate": "Stripe necesita información actualizada.",
     "cta": {
       "company_settings": "Actualizar la configuración de mi empresa",
       "none": "Revisar",

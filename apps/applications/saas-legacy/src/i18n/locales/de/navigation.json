@@ -179,8 +179,9 @@
     "banner": "Klicken Sie hier, um Ihre Rechnungsstellung abzuschließen und Online-Zahlungen zu aktivieren."
   },
   "stripeCompliance": {
-    "banner": "Stripe-Verifizierung vor dem {{ date }} erforderlich.",
-    "bannerWithoutDate": "Stripe benötigt aktualisierte Informationen.",
+    "bannerRestrictedSoon": "Stripe-Verifizierung vor dem {{ date }} erforderlich.",
+    "bannerRestricted": "Stripe-Konto eingeschränkt. Aktualisiere deine Informationen, um die Zahlungsfunktionen vollständig wiederherzustellen.",
+    "bannerRestrictedSoonWithoutDate": "Stripe benötigt aktualisierte Informationen.",
     "cta": {
       "company_settings": "Meine Unternehmenseinstellungen aktualisieren",
       "none": "Prüfen",

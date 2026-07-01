@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Criar aula",
+      "confirm": "Criar",
+      "cancel": "Fechar",
+      "steps": {
+        "classSetup": "Configura a tua aula",
+        "bookingRules": "Adiciona regras de reserva"
+      },
+      "errors": {
+        "requiredField": "Este campo não pode estar vazio"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Tipo",
+      "groupActivity": {
+        "label": "Aula de grupo",
+        "helper": "Aulas com vários participantes que aparecem no horário semanal no teu site ou app"
+      },
+      "workshop": {
+        "label": "Workshop",
+        "helper": "Eventos destacados separadamente que podem ser únicos, recorrentes ou parte de um curso"
+      },
+      "name": {
+        "label": "Nome",
+        "placeholder": "Este nome será exibido aos clientes, por exemplo, Vinyasa Yoga",
+        "error": "Introduz um nome para esta aula"
+      },
+      "category": {
+        "label": "Categoria",
+        "placeholder": "Selecione uma categoria",
+        "helper": "A categoria selecionada será apresentada no teu website e na app.",
+        "error": "Seleciona uma categoria para esta aula"
+      },
+      "descriptionField": {
+        "label": "Descrição",
+        "placeholder": "Adiciona uma descrição da aula para os teus clientes",
+        "helper": "A descrição aplica-se a todas as Aulas por defeito. Atualiza para Aulas individuais quando agendas.",
+        "error": "Insere uma descrição para esta aula"
+      },
+      "image": {
+        "label": "Imagem de capa",
+        "description": "Esta imagem será mostrada aos teus clientes no teu site e app para esta aula",
+        "recommendation": "Recomendado: 1920 x 1080. Formato: JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Texto alternativo da imagem",
+        "placeholder": "Ex: um close-up de uma pessoa a fazer ioga",
+        "helper": "Ajuda os clientes com deficiência visual a compreender a imagem de capa. Não é visível no ecrã."
+      },
+      "color": {
+        "label": "Cor",
+        "placeholder": "Sem cor",
+        "description": "Faz com que esta aula se destaque no teu horário"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Abertura da Janela de Reservas",
+        "description": "Com que antecedência podem os clientes reservar esta aula"
+      },
+      "closing": {
+        "title": "Última reserva",
+        "description": "Até quando podem os clientes reservar antes da hora de início"
+      },
+      "cancellation": {
+        "title": "Política de cancelamento",
+        "description": "Define o limite para cancelamentos gratuitos antes do início desta aula"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Se a janela de reservas abrir 0 dias antes da aula, os clientes não conseguirão reservar.",
+        "lowFirstBookingUntil": "A Janela de reservas abre menos de 24 horas antes da Aula. Os Clientes podem não ter tempo suficiente para reservar.",
+        "highLastBooking": "A janela de reservas encerra mais de 2 horas antes da aula. Os clientes terão de reservar com bastante antecedência."
+      }
+    },
+    "customRestrictions": {
+      "title": "Personaliza as regras de reserva por smartlist",
+      "toggleLabel": "Aplica regras de reserva e cancelamento diferentes a Smartlists de Clientes específicos",
+      "ruleTitle": "Regra de reserva personalizada {{index}}",
+      "remove": "Remover",
+      "applyTo": "Aplicar regras a:",
+      "tagsPlaceholder": "Adicionar tags",
+      "addRule": "Adicionar uma regra",
+      "maxHint": "Podes adicionar até {{max}} regras personalizadas.",
+      "maxReached": "Já adicionaste {{max}} regras personalizadas.",
+      "errors": {
+        "tagsRequired": "Adiciona pelo menos 1 tag"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Cancelamento automático",
+      "toggleLabel": "Cancelar automaticamente sessões não ocupadas",
+      "minBookingsLabel": "Capacidade mínima",
+      "hoursBeforeStartLabel": "Tempo antes do início da Aula",
+      "minBookingsSuffix": "sítios",
+      "hoursBeforeStartSuffix": "horas",
+      "alert": "Os proprietários, administradores, professores e clientes que reservaram serão notificados automaticamente"
+    },
+    "timeInput": {
+      "days": "j",
+      "hours": "h",
+      "minutes": "min"
+    }
+  }
+}

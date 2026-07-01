@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Créer un cours",
+      "confirm": "Créer",
+      "cancel": "Fermer",
+      "steps": {
+        "classSetup": "Configurer votre cours",
+        "bookingRules": "Ajouter des règles de réservation"
+      },
+      "errors": {
+        "requiredField": "Ce champ ne peut pas être vide"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Type",
+      "groupActivity": {
+        "label": "Cours collectifs",
+        "helper": "Cours avec plusieurs participants qui s'affichent dans l'emploi du temps hebdomadaire sur votre site web ou application"
+      },
+      "workshop": {
+        "label": "Atelier",
+        "helper": "Événements mis en avant séparément, qui peuvent être ponctuels, récurrents ou faire partie d'une série"
+      },
+      "name": {
+        "label": "Nom",
+        "placeholder": "Ce nom s'affichera pour les clients, par exemple Vinyasa Yoga",
+        "error": "Saisissez un nom pour ce cours"
+      },
+      "category": {
+        "label": "Catégorie",
+        "placeholder": "Sélectionner une catégorie",
+        "helper": "La catégorie sélectionnée s'affichera sur votre site web et votre application",
+        "error": "Sélectionnez une catégorie pour ce Cours"
+      },
+      "descriptionField": {
+        "label": "Description",
+        "placeholder": "Ajoutez une description du cours pour vos clients",
+        "helper": "La description s'applique à tous les Cours par défaut. Mettez-la à jour pour les Cours individuels lors de la planification.",
+        "error": "Saisissez une description pour ce cours"
+      },
+      "image": {
+        "label": "Image de couverture",
+        "description": "Cette image sera affichée aux clients sur votre site web et votre application pour ce cours",
+        "recommendation": "Recommandé : 1920 x 1080. Format : JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Texte alternatif de l'image",
+        "placeholder": "Exemple : un gros plan d'une personne faisant du yoga",
+        "helper": "Aide les clients malvoyants à comprendre l'image de couverture. Non affiché à l'écran."
+      },
+      "color": {
+        "label": "Couleur",
+        "placeholder": "Aucune couleur",
+        "description": "Mettez ce cours en avant dans votre planning"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Ouverture de la période de réservation",
+        "description": "Combien de temps à l'avance les clients peuvent-ils réserver ce cours"
+      },
+      "closing": {
+        "title": "Dernière réservation",
+        "description": "Dernière réservation possible pour les clients avant le début du cours"
+      },
+      "cancellation": {
+        "title": "Politique d'annulation",
+        "description": "Définir la date limite d'annulation gratuite avant le début de ce cours"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Si la période de réservation s'ouvre 0 jour avant le cours, les clients ne pourront pas réserver.",
+        "lowFirstBookingUntil": "La Période de réservation ouvre moins de 24 heures avant le cours. Les clients risquent de ne pas avoir suffisamment de temps pour réserver.",
+        "highLastBooking": "La Période de réservation se termine plus de 2 heures avant le Cours. Les clients devront réserver bien à l'avance."
+      }
+    },
+    "customRestrictions": {
+      "title": "Personnaliser les règles de réservation par segment",
+      "toggleLabel": "Appliquer des règles de réservation et d'annulation différentes à des segments de clients spécifiques",
+      "ruleTitle": "Règle de réservation personnalisée {{index}}",
+      "remove": "Supprimer",
+      "applyTo": "Appliquer les règles à :",
+      "tagsPlaceholder": "Ajouter des tags",
+      "addRule": "Ajouter une règle",
+      "maxHint": "Vous pouvez ajouter jusqu'à {{max}} règles personnalisées.",
+      "maxReached": "Vous avez déjà ajouté {{max}} règles personnalisées.",
+      "errors": {
+        "tagsRequired": "Ajoutez au moins 1 tag"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Annulation automatique",
+      "toggleLabel": "Annuler les cours sous-réservés",
+      "minBookingsLabel": "Capacité minimale",
+      "hoursBeforeStartLabel": "Heure avant le début du Cours",
+      "minBookingsSuffix": "places",
+      "hoursBeforeStartSuffix": "heures",
+      "alert": "Les propriétaires, administrateurs, professeurs et clients ayant réservé seront automatiquement notifiés"
+    },
+    "timeInput": {
+      "days": "jour(s)",
+      "hours": "h",
+      "minutes": "min"
+    }
+  }
+}

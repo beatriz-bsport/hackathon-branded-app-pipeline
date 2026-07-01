@@ -1,0 +1,582 @@
+{
+  "email": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaña enviada",
+          "schedule": "Campaña programada"
+        },
+        "error": {
+          "sendFailed": "No se pudo enviar la campaña. Inténtalo de nuevo.",
+          "scheduleFailed": "No se pudo programar la campaña. Inténtalo de nuevo."
+        }
+      },
+      "title": "Campaña de Email",
+      "continueButtonLabel": "Crear",
+      "expectedRecipients": {
+        "label": "Destinatarios esperados",
+        "infoLabel": "Información sobre los destinatarios esperados",
+        "popover": {
+          "title": "¿Cómo se calcula este número?",
+          "intro": "Este número es una estimación basada en la configuración del Segmento y la entrega en el momento del cálculo. El número final de destinatarios puede cambiar antes de que se envíe la campaña.",
+          "listIntro": "Lo siguiente no está incluido en este cálculo:",
+          "exclusions": {
+            "noValidContact": {
+              "description": "Clientes sin un método de contacto válido",
+              "example": "(por ejemplo, sin dirección de email para campañas de email, sin número de teléfono para SMS)"
+            },
+            "optedOut": {
+              "description": "Clientes que han optado por no recibir comunicaciones de marketing (o que no han optado por recibirlas, según el tipo de campaña)",
+              "example": "(por ejemplo, sin dirección de email para campañas de email, sin número de teléfono para SMS)"
+            },
+            "invalidEmail": {
+              "description": "Direcciones de email no válidas o inalcanzables",
+              "example": "(por ejemplo, direcciones que no existen o no pueden recibir Email)"
+            },
+            "systemEmails": {
+              "description": "Emails generados por el sistema o de marcador de posición",
+              "example": "(ej. emails temporales creados por ClassPass)"
+            },
+            "smartlistChanges": {
+              "description": "Clientes que entren o salgan del segmento entre ahora y el envío de la campaña.",
+              "example": "(por ejemplo, algo ha cambiado en el cliente y ya no coincide con los filtros del segmento)"
+            }
+          }
+        }
+      },
+      "form": {
+        "emailType": {
+          "label": "Selecciona qué tipo de email enviar",
+          "options": {
+            "marketing": "Comunicaciones de marketing (ej. newsletter, promociones, descuentos, etc.)",
+            "informational": "Anuncios importantes (ej. recordatorios de clases, cambios de política, etc.)"
+          }
+        },
+        "emailTemplate": {
+          "selectEmailTemplateLabel": "Plantilla",
+          "selectEmailTemplatePlaceholder": "Buscar una plantilla...",
+          "emailTemplateSearching": "Buscando plantillas...",
+          "emailTemplateNoCategory": "Sin categoría",
+          "sendTestEmail": "Enviar email de prueba",
+          "editEmail": "Editar email",
+          "createTemplate": "Crear plantilla",
+          "noTemplatePreview": "Selecciona una plantilla para previsualizarla aquí",
+          "onTheFlyTemplateEditionBlockedWarning": "Las plantillas sobre la marcha no se pueden editar. Crea una nueva plantilla en el editor para verla aquí. "
+        },
+        "errors": {
+          "emailTypeRequired": "Selecciona el tipo de email a enviar",
+          "subjectRequired": "Introduce un asunto para este email",
+          "bodyRequired": "Introduce un cuerpo para este email",
+          "selectEmailTemplate": "Selecciona una plantilla"
+        },
+        "emailTypeSelector": {
+          "title": "Comunicación",
+          "textOnly": "Solo texto",
+          "emailTemplate": "Plantilla"
+        },
+        "textOnly": {
+          "subjectLabel": "Asunto",
+          "bodyLabel": "Cuerpo"
+        },
+        "emailTemplateEditor": {
+          "title": "Editor",
+          "confirmButtonLabel": "Guardar",
+          "cancelButtonLabel": "Cerrar",
+          "subjectLabel": "Asunto",
+          "cannotUseEmailEditorOnMobile": {
+            "description": "Abre el editor de email en tu ordenador para una mejor experiencia de edición",
+            "confirmButtonLabel": "OK"
+          },
+          "createNewTemplateModal": {
+            "title": "Crear nueva plantilla",
+            "description": "Nombra tu nueva plantilla y organízala en una categoría",
+            "templateTitleLabel": "Título",
+            "categoryLabel": "Categoría",
+            "noCategoryLabel": "Sin categoría",
+            "confirmButtonLabel": "Guardar",
+            "cancelButtonLabel": "Cerrar"
+          },
+          "saveActionModal": {
+            "title": "Guardar plantilla",
+            "description": "Elige cómo guardar esta plantilla",
+            "franchiseTemplateAlert": {
+              "description": "Las plantillas de franquicia solo se pueden actualizar desde la Cuenta Principal. "
+            },
+            "options": {
+              "overwriteExistingTemplate": {
+                "label": "Actualizar plantilla existente",
+                "helperText": "Esto actualizará la plantilla para futuras campañas",
+                "toast": {
+                  "success": "Cambios en la plantilla guardados",
+                  "failure": "No se pudieron guardar los cambios de la plantilla. Inténtalo de nuevo. "
+                }
+              },
+              "onTheFlyTemplate": {
+                "label": "Usa la plantilla solo para esta campaña",
+                "helperText": "Tus cambios no se guardarán en esta plantilla",
+                "toast": {
+                  "success": "Los cambios en la plantilla solo se aplicarán a esta campaña",
+                  "failure": "No se pudieron aplicar los cambios a la plantilla de email. Inténtalo de nuevo. "
+                }
+              },
+              "createNewTemplate": {
+                "label": "Guardar como nueva plantilla",
+                "helperText": "Crea una nueva plantilla a partir de tus cambios",
+                "toast": {
+                  "success": "Plantilla nueva guardada",
+                  "failure": "No se pudo crear la plantilla. Inténtalo de nuevo. "
+                }
+              }
+            },
+            "confirmButtonLabel": "Guardar",
+            "cancelButtonLabel": "Cerrar"
+          }
+        }
+      }
+    }
+  },
+  "generic": {
+    "creation": {
+      "delivery": {
+        "title": "Programación",
+        "label": "Enviar ahora o programar envío",
+        "sendNow": "Enviar ahora",
+        "scheduleForLater": "Programar para más tarde",
+        "dateLabel": "Fecha",
+        "timeLabel": "hora",
+        "warning": {
+          "nightTimeScheduled": "Este mensaje está programado para enviarse durante la noche. Para obtener mejores resultados, te recomendamos enviar los mensajes en horas pico durante el día. "
+        }
+      },
+      "form": {
+        "campaignName": {
+          "label": "Nombre"
+        },
+        "errors": {
+          "campaignNameRequired": "Introduce un nombre para esta campaña",
+          "errorMaxLength": "Introduce un nombre con menos de {{count}} caracteres",
+          "scheduledDateRequired": "Seleccionar una fecha",
+          "scheduledTimeRequired": "Selecciona una hora",
+          "scheduledDateInvalid": "Introduce una fecha válida",
+          "scheduledDateNotInPast": "Selecciona una fecha futura",
+          "scheduledAtLeast5Minutes": "Introduce una hora con más de 5 minutos a partir de ahora"
+        }
+      }
+    }
+  },
+  "push": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaña enviada",
+          "schedule": "Campaña programada"
+        },
+        "error": {
+          "sendFailed": "No se pudo enviar la campaña. Inténtalo de nuevo."
+        }
+      },
+      "title": "Campaña de notificaciones push",
+      "continueButtonLabel": "Crear",
+      "alertMessage": "Solo los clientes que hayan descargado la app de tu estudio y activado las notificaciones push recibirán esta notificación.",
+      "form": {
+        "errors": {
+          "campaignNameRequired": "Introduce un nombre para esta campaña",
+          "errorMaxLength": "Escribe un nombre de menos de {{count}} caracteres"
+        }
+      }
+    },
+    "edit": {
+      "toasts": {
+        "success": {
+          "sendNow": "Campaña programada enviada"
+        },
+        "error": {
+          "sendNowFailed": "No se pudo enviar la campaña programada. Inténtalo de nuevo."
+        }
+      }
+    }
+  },
+  "sms": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaña enviada",
+          "schedule": "Campaña programada"
+        },
+        "error": {
+          "sendFailed": "No se pudo enviar la campaña. Inténtalo de nuevo."
+        }
+      },
+      "title": "Campaña de SMS",
+      "continueButtonLabel": "Crear",
+      "expectedRecipients": {
+        "label": "Destinatarios esperados",
+        "infoLabel": "Información sobre los destinatarios esperados",
+        "popover": {
+          "title": "¿Cómo se calcula este número?",
+          "intro": "Este número es una estimación basada en la configuración del Segmento y la entrega en el momento del cálculo. El número final de destinatarios puede cambiar antes de que se envíe la campaña.",
+          "listIntro": "Lo siguiente no está incluido en este cálculo:",
+          "exclusions": {
+            "noValidPhone": {
+              "description": "Clientes sin número de teléfono",
+              "example": "Esto debe añadirse a su Perfil "
+            },
+            "optedOut": {
+              "description": "Clientes que han optado por no recibir comunicaciones de marketing (o que no han optado por recibirlas, según el tipo de campaña)",
+              "example": "ej. sin número de teléfono para recibir SMS"
+            },
+            "invalidPhone": {
+              "description": "Números de teléfono inválidos o inalcanzables",
+              "example": "p. ej. números de teléfono incorrectos o bloqueados "
+            },
+            "smartlistChanges": {
+              "description": "Los clientes pueden entrar o salir del segmento entre ahora y el envío de la campaña.",
+              "example": "(por ejemplo, algo ha cambiado en el cliente y ya no coincide con los filtros del segmento)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "communicationKind": {
+    "email": "Correo electrónico",
+    "sms": "SMS",
+    "push": "Empuje"
+  },
+  "recipientStatus": {
+    "bounced": "Error",
+    "unknown": "Desconocido",
+    "deferred": "Espera",
+    "dropped": "Rechazado",
+    "pending": "En proceso",
+    "delivered": "recibido",
+    "processed": "Procesado"
+  },
+  "campaignStatus": {
+    "scheduled": "Programado",
+    "delivered": "recibido",
+    "processing": "Enviando",
+    "failed": "Fallido",
+    "opened": "Número de aperturas",
+    "na": "N/A"
+  },
+  "popup": {
+    "creation": {
+      "title": "Campaña pop-up",
+      "continueButtonLabel": "Crear",
+      "alertMessage": "Solo los Clientes que hayan descargado la app de tu estudio recibirán esta notificación.",
+      "messageSectionTitle": "Comunicación",
+      "form": {
+        "campaignName": {
+          "label": "Nombre de la campaña"
+        },
+        "name": {
+          "label": "Título",
+          "required": "Esto es obligatorio",
+          "maxLength": "El título debe tener como máximo 200 caracteres"
+        },
+        "link": {
+          "label": "Enlace",
+          "buttonLabel": "Enlace de prueba",
+          "required": "Esto es obligatorio",
+          "maxLength": "El enlace debe tener como máximo 200 caracteres",
+          "invalidUrl": "Por favor, introduzca una URL válida"
+        },
+        "image": {
+          "uploadLabel": "Subir una imagen",
+          "dragAndDropLabel": "o arrástrelo y suéltelo aquí",
+          "fileTypes": "JPG, PNG, SVG",
+          "uploadInstructions": "Recomendado: 1280 x 720 píxeles, tamaño de archivo inferior a 2 MB",
+          "previewAlt": "Vista previa de la imagen emergente",
+          "required": "Se requiere una imagen"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Pop-up creado"
+        },
+        "error": {
+          "createFailed": "No se pudo crear el Segmento pop-up. Inténtalo de nuevo."
+        },
+        "processing": {
+          "creatingPopup": "Creando pop-up..."
+        }
+      }
+    },
+    "edit": {
+      "title": "Editar campaña popup",
+      "continueButtonLabel": "Crear",
+      "alertMessage": "Solo los Clientes que descargaron la app de tu estudio recibirán esta notificación",
+      "toasts": {
+        "success": {
+          "saved": "Cambios en el pop-up guardados"
+        },
+        "error": {
+          "editFailed": "No se pudieron guardar los cambios del pop-up de Segmento. Inténtalo de nuevo."
+        },
+        "processing": {
+          "editingPopup": "Guardando cambios del pop-up..."
+        }
+      }
+    }
+  },
+  "page": {
+    "campaignScheduled": {
+      "title": "Campañas programadas"
+    },
+    "sentCampaigns": {
+      "title": "Campañas enviadas"
+    }
+  },
+  "actions": {
+    "createCampaign": "Crear campaña",
+    "openPopUps": "Revisar pop-ups",
+    "generateReport": "Descargar el informe"
+  },
+  "campaignTypeSelector": {
+    "title": "Crear una nueva campaña",
+    "description": "Elige un canal para empezar",
+    "addOnChip": "Complemento",
+    "email": {
+      "title": "Correo electrónico",
+      "description": "Envía un mensaje de email dirigido a tu segmento"
+    },
+    "sms": {
+      "title": "SMS",
+      "description": "Envía mensajes SMS a tus clientes"
+    },
+    "push": {
+      "title": "Notificación Push",
+      "description": "Envía a tus clientes una notificación a través de la app de tu estudio"
+    },
+    "popup": {
+      "title": "Pop-up",
+      "description": "Mensaje que aparece cuando los clientes abren la app"
+    }
+  },
+  "upsellInterestConfirmationModal": {
+    "title": "¡Nos pondremos en contacto contigo!",
+    "heading": "Gracias por tu interés",
+    "description": "Tu gestor de cuentas se pondrá en contacto contigo en breve para explicarte los detalles y responder a cualquier pregunta.",
+    "okButton": "OK"
+  },
+  "communicationPackageUpsellModal": {
+    "title": "Desbloquea el paquete de comunicación",
+    "disclaimer": "Esta función es un complemento. Póngase en contacto con su gestor de cuentas para obtener más información.",
+    "buttons": {
+      "cancel": "Cerrar",
+      "getInTouch": "Ponte en contacto"
+    },
+    "toast": {
+      "requestFailed": "Algo salió mal. Inténtalo de nuevo o contacta con tu gestor de cuentas."
+    },
+    "sms": {
+      "heading": "SMS, email y notificaciones push, todo en un solo lugar",
+      "description": "Automatiza mensajes de bienvenida, recordatorios de reactivación, ofertas de fidelización y actualizaciones del centro, todo desde tu Back Office. Siempre el mensaje adecuado, en el momento perfecto."
+    },
+    "push": {
+      "heading": "SMS, email y notificaciones push — todo en un solo lugar",
+      "description": "Automatiza mensajes de bienvenida, recordatorios de reactivación, ofertas de fidelización y actualizaciones del centro, todo desde tu Back Office. Siempre el mensaje adecuado, en el momento perfecto."
+    },
+    "popup": {
+      "heading": "Activa las notificaciones en la app",
+      "description": "Conecta con tus clientes en tiempo real a través de tu app personalizada. Envía recordatorios oportunos, destaca actualizaciones clave y mantén tu estudio visible en su pantalla de inicio."
+    }
+  },
+  "generateReportModal": {
+    "title": "Descargar informe de campaña",
+    "description": "Establece un rango de fechas",
+    "toast": {
+      "pending": "Generando informe...",
+      "success": "Informe generado y listo para descargar",
+      "startReportGenerationFailed": "No se pudo generar el informe. Inténtalo de nuevo.",
+      "generationFailed": "No se pudo generar el informe. Inténtalo de nuevo.",
+      "downloadFailed": "No se pudo descargar el informe. Inténtalo de nuevo."
+    },
+    "buttons": {
+      "confirm": "Descargar",
+      "cancel": "Cerrar"
+    }
+  },
+  "table": {
+    "campaignRecipient": {
+      "recipientsList": {
+        "title": "Beneficiarios"
+      },
+      "emptyDate": "--",
+      "headers": {
+        "memberIdentity": "Cliente",
+        "lastOpened": "Última apertura",
+        "openCount": "Aperturas",
+        "clickCount": "Click",
+        "status": "Estado"
+      },
+      "emptyState": {
+        "description": "Sin destinatarios"
+      },
+      "loadingState": {
+        "description": "Cargando lista de destinatarios..."
+      },
+      "moreActions": {
+        "label": "Más acciones",
+        "navigateToMemberProfile": "Ir al perfil del cliente",
+        "copyEmail": "Copia correo",
+        "copyPhoneNumber": "Copiar número de teléfono",
+        "copyName": "Copiar nombre"
+      },
+      "copyContactInfo": {
+        "success": "Copiado al portapapeles",
+        "error": "No se pudo copiar al portapapeles. Inténtalo de nuevo."
+      }
+    },
+    "campaignScheduled": {
+      "deleteModal": {
+        "title": "¿Eliminar campaña programada?",
+        "description": "Esto eliminará esta campaña de forma permanente. El mensaje programado se cancelará y no se enviará a los destinatarios.",
+        "warning": "Atención: este cambio es permanente y no se puede deshacer.",
+        "cannotDeleteWithin5Min": "Es demasiado tarde para eliminar esta campaña. Está programada para enviarse en menos de 5 minutos.",
+        "buttons": {
+          "delete": "Eliminar",
+          "cancel": "Mantener"
+        }
+      },
+      "lockedModal": {
+        "title": "La campaña programada no se puede editar ni eliminar",
+        "description": "Es demasiado tarde para editar o eliminar esta campaña. Está programada para enviarse en menos de 5 minutos.",
+        "buttons": {
+          "close": "Cerrar",
+          "goBack": "Atrás"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Campaña programada eliminada"
+        },
+        "error": {
+          "deleteFailed": "No se pudo eliminar la campaña programada. Inténtalo de nuevo.",
+          "campaignNotFound": "Campaña programada no encontrada"
+        }
+      },
+      "recipientsList": {
+        "title": "Beneficiarios",
+        "description": "Esta lista muestra a los Clientes que actualmente coinciden con tu Segmento. Si el Segmento cambia antes de enviar, la lista final de beneficiarios se actualizará automáticamente."
+      },
+      "headers": {
+        "scheduledDate": "Programado",
+        "campaignName": "Campaña"
+      },
+      "moreActions": {
+        "label": "Más acciones",
+        "edit": "Modificar",
+        "delete": "Eliminar"
+      },
+      "emptyState": {
+        "description": "Aún no hay campañas programadas"
+      },
+      "loadingState": {
+        "description": "Cargando campañas programadas..."
+      }
+    },
+    "campaignSent": {
+      "headers": {
+        "sentDate": "Fecha de envío",
+        "campaignName": "Campaña",
+        "campaignAnalytics": "Analíticas"
+      },
+      "analytics": {
+        "recipients": "Beneficiarios",
+        "deliveryRate": "Tasa de entrega",
+        "openCount": "Aperturas",
+        "clickCount": "Click"
+      },
+      "moreActions": {
+        "label": "Más acciones",
+        "preview": "Vista previa"
+      },
+      "emptyState": {
+        "description": "Aún no se han enviado campañas"
+      },
+      "loadingState": {
+        "description": "Cargando campañas enviadas..."
+      }
+    },
+    "campaignSentRecipient": {
+      "emptyState": {
+        "title": "Ningún destinatario coincide con tus filtros",
+        "description": "Ajusta tus filtros para encontrar destinatarios que coincidan con tu segmento",
+        "reviewFilters": "Revisar filtros"
+      }
+    }
+  },
+  "campaignDetails": {
+    "metadataBanner": {
+      "noRecipients": "--",
+      "headers": {
+        "channel": "Canal",
+        "status": "Estado",
+        "scheduledDate": "Programado para",
+        "sentDate": "Enviado el",
+        "recipients": "Total de destinatarios"
+      },
+      "previewButton": "Ver mensaje",
+      "deleteButton": "Eliminar",
+      "contentPreview": {
+        "subject": "Asunto",
+        "dynamicContentWarning": "El contenido dinámico podría no aparecer en la vista previa"
+      }
+    },
+    "performance": {
+      "title": "Rendimiento",
+      "empty": "No hay datos de rendimiento disponibles",
+      "deliveryRate": {
+        "title": "Tasa de entrega",
+        "subtitle": "",
+        "subtitle_one": "{{count}} emails entregados",
+        "subtitle_other": "{{count}} emails entregados",
+        "subtitle_zero": "No se han entregado emails"
+      },
+      "openRate": {
+        "title": "Tasa de apertura",
+        "subtitle": "",
+        "subtitle_one": "{{count}} destinatarios abrieron el email",
+        "subtitle_other": "{{count}} destinatarios abrieron el email",
+        "subtitle_zero": "Ningún destinatario abrió el email"
+      },
+      "clickRate": {
+        "title": "Tasa de clics",
+        "subtitle": "",
+        "subtitle_one": "Al menos {{count}} destinatarios hicieron clic una vez",
+        "subtitle_other": "{{count}} destinatarios hicieron clic al menos una vez",
+        "subtitle_zero": "Ningún destinatario hizo clic ni una sola vez"
+      },
+      "unsubscribedRate": {
+        "title": "Tasa de bajas",
+        "subtitle": "",
+        "subtitle_one": "{{count}} se dio de baja de este email",
+        "subtitle_other": "{{count}} se dio de baja de este email",
+        "subtitle_zero": "Nadie se dio de baja de este email"
+      },
+      "clickPerformance": {
+        "empty": "No hay datos de rendimiento de clics disponibles",
+        "title": "clics",
+        "click": "",
+        "click_one": "{{count}} click",
+        "click_other": "{{count}} clics",
+        "click_zero": "Ningún click",
+        "showMore": "Mostrar {{count}} más",
+        "showMore_one": "Mostrar {{count}} más",
+        "showMore_other": "Mostrar {{count}} más",
+        "showLess": "Ver menos"
+      }
+    }
+  },
+  "prebuilt": {
+    "creation": {
+      "toasts": {
+        "error": {
+          "scheduleNotSupported": "Las campañas programadas para segmentos predefinidos estarán disponibles pronto. Aún puedes enviar esta campaña ahora."
+        }
+      }
+    }
+  }
+}

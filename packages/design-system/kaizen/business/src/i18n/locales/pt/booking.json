@@ -1,0 +1,7 @@
+{
+  "activitySelector": {
+    "label": "Aula",
+    "placeholder": "Procurar uma aula...",
+    "loadingMessage": "A carregar aulas..."
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "table": {
+    "headers": {
+      "createMedia": "Créer on-demand",
+      "name": "Nom",
+      "category": "Catégorie",
+      "format": "Format",
+      "availability": "Configurer mes studios",
+      "actions": "Actions"
+    },
+    "actions": {
+      "moreActions": "Plus d'options",
+      "duplicate": "Dupliquer",
+      "delete": "Supprimer",
+      "edit": "Modifier",
+      "upload": "Ajouter un média"
+    },
+    "values": {
+      "noCategory": "Sans catégorie",
+      "noFile": "Aucun média"
+    },
+    "loading": "Chargement des médias on-demand...",
+    "emptyList": {
+      "title": "Aucun média on-demand pour le moment",
+      "subtitle": "Le contenu On-demand apparaîtra ici une fois créé"
+    },
+    "tooltips": {
+      "format": {
+        "videoUploaded": "Lien vidéo ajouté",
+        "ebookUploaded": "eBook téléchargé",
+        "noFileUploaded": "Aucun fichier média ajouté"
+      },
+      "availability": {
+        "availableToMembers": "Disponible pour les adhérents sur l'application et le site web",
+        "unavailableToMembers": "Indisponible pour l'adhérent sur l'application et le site web",
+        "limitedTimeOnly": "Disponible pour une durée limitée seulement",
+        "unlimitedAccess": "Disponible en accès illimité"
+      }
+    }
+  },
+  "duplicateResponse": {
+    "success": "Média dupliqué",
+    "error": "Impossible de dupliquer le média. Veuillez réessayer. "
+  },
+  "deleteModal": {
+    "title": "Supprimer le média ?",
+    "description": "Une fois que vous aurez supprimé \"{{mediaName}}\", il ne sera plus visible pour les Adhérents.",
+    "descriptionWarning": "Ce changement est permanent.",
+    "buttons": {
+      "cancel": "Garder",
+      "delete": "Supprimer"
+    },
+    "submitResponse": {
+      "success": "On-demand media deleted",
+      "error": "Impossible de supprimer le média. Veuillez réessayer. "
+    },
+    "undoAction": {
+      "label": "Retour"
+    },
+    "undoResponse": {
+      "success": "Modification annulée"
+    }
+  },
+  "uploadModal": {
+    "title": "Ajouter un nouveau média",
+    "ebookTitle": "Uploader un ebook",
+    "buttons": {
+      "cancel": "Fermer",
+      "addMedia": "Ajouter",
+      "add": "Ajouter un média",
+      "upload": "Charger"
+    },
+    "source": {
+      "options": {
+        "youtube": {
+          "label": "Vidéo (YouTube)",
+          "helperText": "Ajouter un lien vers une vidéo YouTube"
+        },
+        "vimeo": {
+          "label": "Vidéo (Vimeo)",
+          "helperText": "Ajouter un lien vers une vidéo Vimeo"
+        },
+        "ebook": {
+          "label": "Ebook",
+          "helperText": "Téléchargez un eBook au format PDF, JPG ou PNG"
+        }
+      }
+    },
+    "details": {
+      "youtube": {
+        "placeholder": "Coller le lien vidéo YouTube"
+      },
+      "vimeo": {
+        "placeholder": "Coller le lien vidéo de Vimeo"
+      }
+    },
+    "fields": {
+      "url": {
+        "youtube": "Lien youtube",
+        "vimeo": "Lien vimeo"
+      },
+      "duration": "Durée",
+      "hours": {
+        "placeholder": "Heures"
+      },
+      "minutes": {
+        "placeholder": "Minutes"
+      },
+      "file": {
+        "uploadCta": "Choisir un fichier",
+        "dragAndDropCta": "Faites glisser et déposez un fichier ici",
+        "extensions": "JPG, PNG, PDF"
+      }
+    },
+    "validation": {
+      "sourceRequired": "Sélectionnez une source pour continuer",
+      "urlRequired": "Saisir une URL de vidéo",
+      "youtubeUrlInvalid": "Veuillez saisir une URL YouTube valide",
+      "vimeoUrlInvalid": "Veuillez saisir une URL Vimeo valide",
+      "durationRequired": "Veuillez saisir une durée supérieure à zéro.",
+      "fileRequired": "Sélectionnez un fichier à télécharger",
+      "fileTypeInvalid": "Seuls les fichiers PDF, JPG, JPEG et PNG sont compatibles"
+    },
+    "submitResponse": {
+      "success": "Média téléchargé avec succès",
+      "error": "Impossible de charger le média. Veuillez réessayer."
+    }
+  },
+  "error": {
+    "title": "Impossible de charger le média",
+    "description": "Veuillez réessayer. Si le problème persiste, actualisez la page.",
+    "retry": "Veuillez réessayer."
+  },
+  "search": {
+    "tooltip": "Rechercher des médias"
+  },
+  "filters": {
+    "label": "Filtrer",
+    "is": "est",
+    "category": {
+      "label": "Catégorie",
+      "searchPlaceholder": "Rechercher des catégories"
+    },
+    "level": {
+      "label": "Niveau"
+    },
+    "teacher": {
+      "label": "Professeur",
+      "searchPlaceholder": "Rechercher des professeurs"
+    },
+    "format": {
+      "label": "Format",
+      "video": "Vidéo",
+      "ebook": "Ebook"
+    },
+    "duration": {
+      "label": "Durée",
+      "lt15": "Moins de 15 min",
+      "15to30": "15 à 30 min",
+      "30to60": "30 à 60 min",
+      "gt60": "Plus de 60 min"
+    },
+    "emptySearch": {
+      "title": "Aucun résultat trouvé",
+      "subtitle": "Essayez d'ajuster votre recherche ou vos filtres",
+      "cta": "Effacer tous les filtres"
+    }
+  }
+}

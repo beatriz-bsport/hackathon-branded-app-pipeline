@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Crea una lezione",
+      "confirm": "Crea",
+      "cancel": "Chiudi",
+      "steps": {
+        "classSetup": "Configura la tua lezione",
+        "bookingRules": "Aggiungi regole di prenotazione"
+      },
+      "errors": {
+        "requiredField": "Questo campo non può essere vuoto"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Tipo",
+      "groupActivity": {
+        "label": "Lezione Di Gruppo",
+        "helper": "Lezioni con più partecipanti che vengono visualizzate nel palinsesto settimanale sul tuo sito web o app"
+      },
+      "workshop": {
+        "label": "Workshop",
+        "helper": "Eventi evidenziati separatamente che possono essere singoli, ricorrenti o parte di un corso"
+      },
+      "name": {
+        "label": "Nome",
+        "placeholder": "Questo nome verrà mostrato ai clienti, ad es. Vinyasa Yoga",
+        "error": "Inserisci un nome per questa lezione"
+      },
+      "category": {
+        "label": "Categoria",
+        "placeholder": "Seleziona una categoria",
+        "helper": "La categoria selezionata verrà visualizzata sul tuo sito web e sulla tua app",
+        "error": "Seleziona una categoria per questa lezione"
+      },
+      "descriptionField": {
+        "label": "Descrizione",
+        "placeholder": "Aggiungi una descrizione del corso per i tuoi clienti",
+        "helper": "La descrizione si applica a tutte le Lezioni per impostazione predefinita. Aggiornala per le singole Lezioni durante la programmazione.",
+        "error": "Inserisci una descrizione per questa lezione"
+      },
+      "image": {
+        "label": "Immagine di copertina",
+        "description": "Questa immagine sarà mostrata ai clienti sul tuo sito web e sull'app per questa lezione",
+        "recommendation": "Consigliato: 1920 x 1080. Formato: JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Testo alternativo immagine",
+        "placeholder": "Ad esempio, un primo piano di una persona che fa yoga",
+        "helper": "Aiuta i Clienti ipovedenti a capire l'immagine di copertina. Non mostrato sullo schermo."
+      },
+      "color": {
+        "label": "Colore",
+        "placeholder": "Nessun colore",
+        "description": "Fai risaltare questa Lezione nel tuo palinsesto"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Finestra di prenotazione apre",
+        "description": "Con quanto anticipo i clienti possono prenotare questa Lezione"
+      },
+      "closing": {
+        "title": "Ultima prenotazione",
+        "description": "Fino a quando i Clienti possono prenotare prima dell'inizio"
+      },
+      "cancellation": {
+        "title": "Politica di cancellazione",
+        "description": "Imposta il limite per le cancellazioni gratuite prima dell'inizio di questa lezione"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Se la finestra di prenotazione si apre 0 giorni prima della lezione, i clienti non potranno prenotare.",
+        "lowFirstBookingUntil": "La Finestra di prenotazione si apre meno di 24 ore prima della Lezione. I Clienti potrebbero non avere abbastanza tempo per prenotare.",
+        "highLastBooking": "La Finestra di prenotazione si chiude più di 2 ore prima della Lezione. I Clienti dovranno prenotare con largo anticipo."
+      }
+    },
+    "customRestrictions": {
+      "title": "Personalizza le regole di prenotazione per smartlist",
+      "toggleLabel": "Applica regole diverse di prenotazione e cancellazione a specifici segmenti di Clienti",
+      "ruleTitle": "Regola di prenotazione personalizzata {{index}}",
+      "remove": "Rimuovi",
+      "applyTo": "Applica le regole a:",
+      "tagsPlaceholder": "Aggiungi tag",
+      "addRule": "Aggiungere una regola",
+      "maxHint": "Puoi aggiungere fino a {{max}} regole personalizzate.",
+      "maxReached": "Hai già aggiunto {{max}} regole personalizzate.",
+      "errors": {
+        "tagsRequired": "Aggiungi almeno 1 tag"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Cancellazione automatica",
+      "toggleLabel": "Annulla automaticamente le lezioni con poche prenotazioni",
+      "minBookingsLabel": "Capacità minima",
+      "hoursBeforeStartLabel": "Tempo prima dell'inizio della Lezione",
+      "minBookingsSuffix": "posti",
+      "hoursBeforeStartSuffix": "ore",
+      "alert": "I proprietari, gli amministratori, gli insegnanti e i Clienti che hanno prenotato riceveranno una notifica automatica"
+    },
+    "timeInput": {
+      "days": "j",
+      "hours": "h",
+      "minutes": "min"
+    }
+  }
+}

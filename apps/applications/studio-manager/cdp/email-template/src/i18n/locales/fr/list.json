@@ -25,7 +25,7 @@
     "emptyPage": {
       "custom": {
         "title": "Vous n'avez pas encore créé de modèles personnalisés.",
-        "description": "Créez votre premier modèle personnalisé pour envoyer des emails personnalisés à vos membres."
+        "description": "Créez votre premier modèle personnalisé pour envoyer des emails personnalisés à vos clients"
       },
       "bsport": {
         "title": "Vous n'avez pas de modèle bsport disponible",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Créez un modèle personnalisé pour cette catégorie afin d'envoyer des emails personnalisés aux membres."
+      "description": "Créez un modèle personnalisé pour cette catégorie afin d'envoyer des e-mails personnalisés aux clients"
     },
     "noCategory": "Aucune catégorie ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "Modèles bsport",
       "title": "Modèles bsport",
-      "description": "Ces modèles préconçus sont prêts à l'emploi. Dupliquez le modèle, puis modifiez et envoyez la version copiée à vos membres. ",
+      "description": "Ces modèles préconçus sont prêts à l'emploi. Dupliquez le modèle, puis modifiez et envoyez la version copiée à vos clients. ",
       "quit": "Quitter"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Supprimer le modèle d'email ?",
-      "description": "Une fois que vous supprimez <b>{{emailTemplateTitle}}</b>, il ne sera plus visible pour les membres. Il sera également retiré de tous les emails transactionnels auxquels il est lié.",
+      "description": "Une fois que vous supprimez <b>{{emailTemplateTitle}}</b>, il ne sera plus visible pour les clients. Il sera également retiré de tous les Emails transactionnels auxquels il a été lié.",
       "confirmButton": "Supprimer",
       "cancelButton": "Garder",
       "onSuccess": {

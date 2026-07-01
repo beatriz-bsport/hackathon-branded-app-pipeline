@@ -1,40 +1,163 @@
 {
   "paymentMethods": {
     "label": "Métodos de pagamento aceites",
-    "helperText": "Choose at least one payment method",
+    "helperText": "Escolha pelo menos um",
     "options": {
       "onlinePayment": {
-        "label": "Online (default)",
-        "helperText": "Card or other online payments"
+        "label": "Online (predefinição)",
+        "helperText": "Cartão ou outros pagamentos online"
       },
       "inPerson": {
         "label": "Presencial",
-        "helperText": "Cash or cheque"
+        "helperText": "Dinheiro ou cheque"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+    "alertVisibilityHidden": "Este {{ buyable }} pode continuar a ser partilhado com clientes através de um link e pago online."
   },
   "visibilitySelector": {
     "optionVisible": {
       "label": "Listado",
-      "description": "This {{ buyable }} will be visible on the Member Area"
+      "description": "Este {{ buyable }} ficará visível na Área de Membro"
     },
     "optionHidden": {
       "label": "Não listado",
-      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+      "description": "Este {{ buyable }} não estará visível na Área de Membro, mas pode ser partilhado através de um link"
+    }
+  },
+  "visibilityRules": {
+    "label": "Opções avançadas",
+    "checkboxes": {
+      "recommended": {
+        "label": "Marcar como recomendado",
+        "helperText": "Permite que os seus Clientes vejam rapidamente quais ofertas são atualmente recomendadas"
+      },
+      "newMembersOnly": {
+        "label": "Disponível apenas para novos clientes",
+        "helperText": "Um Cliente é \"novo\" enquanto não tiver comprado um Artigo com valor superior a {{ minimalCurrency }}. Mesmo que compre um Artigo com 100% de desconto, isso continua a contar como compra."
+      },
+      "hideFromStaff": {
+        "label": "Ocultar do staff",
+        "helperText": "O staff não poderá ver nem comprar este {{ buyable }} "
+      }
     }
   },
   "tagsAfterPurchaseSelector": {
-    "placeholder": "Add tags",
-    "title": "Tag after purchase",
-    "description": "Add tags to identify which member bought this item."
+    "placeholder": "Adicionar tags",
+    "title": "Etiqueta após a compra",
+    "description": "Adicionar tags para identificar qual cliente comprou este artigo"
   },
   "copyPaymentLinkButton": {
     "toastSuccess": "Link copiado",
     "tooltip": "Copiar link de pagamento"
   },
+  "creditFactor": {
+    "fieldLabel": "Número de créditos",
+    "notPriceWarning": "Insira o preço em créditos, não o valor monetário",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} crédito",
+    "nbOfCredits_other": "{{ countDisplay }} créditos"
+  },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Limite",
+      "optionUnlimited": "Ilimitado"
+    },
+    "onDemandToggle": {
+      "label": "Ativar acesso on-demand",
+      "restrictToOnDemand": "Restringir acesso on-demand"
+    },
+    "guestBookingToggle": {
+      "label": "Permitir reserva para um convidado"
+    },
+    "teacherPayrollToggle": {
+      "label": "Incluído na folha de pagamento do professor",
+      "helperText": "As aulas são faturadas para o estúdio e incluídas na folha de pagamento dos professores."
+    },
+    "teacherPayRate": {
+      "label": "Taxa de pagamento do Professor incl. IVA",
+      "helperText": "Valor que o professor ganha por cada reserva",
+      "tooltip": "Esta taxa determina a Folha de pagamento do professor e aplica-se a todas as reservas feitas com este passe. Se deixada como '0', a taxa será calculada como o preço da subscrição dividido pelo número de reservas."
+    },
+    "maximumUsage": {
+      "label": "Definir uso máximo",
+      "helperText": "Controle o uso máximo permitido por dia, semana, mês ou compra por cliente",
+      "gridColumns": {
+        "maximumUsage": "Uso máximo",
+        "scope": "Âmbito"
+      },
+      "scopes": {
+        "day": "Dia",
+        "week": "Semana",
+        "month": "Mês",
+        "member": "Cliente"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Restringir reservas a um determinado horário",
+      "helperText": "Os Clientes só podem reservar nos horários selecionados",
+      "timePeriod": "Período",
+      "allDay": "Durante todo o dia",
+      "addMoreSchedule": "Adicionar mais horários",
+      "buttonLabels": {
+        "removeTimeSchedule": "Remover agendamento de período",
+        "removeTimeSlot": "Remover o horário",
+        "addTimeSlot": "Adicionar horário"
+      }
+    },
+    "penalty": {
+      "label": "Aplicar penalidade",
+      "helperText": "Multa para clientes com faltas frequentes ou cancelamentos tardios",
+      "daysSuffix": "",
+      "daysSuffix_one": "dia",
+      "daysSuffix_other": "dias",
+      "blockedDaysLabel": "Número de dias para bloquear",
+      "accountValueLabel": "Montante do depósito",
+      "penaltyKind": "Tipo de penalidade",
+      "kindOptions": {
+        "blockFor": "Bloquear por",
+        "chargeAccount": "Cobrar Saldo da conta para"
+      },
+      "lateCancellation": {
+        "title": "Cancelamento tardio",
+        "thresholdLabel": "Número de cancelamentos",
+        "windowDaysLabel": "Em dias"
+      },
+      "noShow": {
+        "title": "Não comparecimento frequente",
+        "thresholdLabel": "Número de ausências",
+        "windowDaysLabel": "Em dias",
+        "description": "Defina as regras de não comparecimento em <key1>Configurações > Personalização</key1>"
+      }
+    }
+  },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Pagamento integral ao professor",
+      "helperText": "Toda a receita de aulas privadas feitas com este passe é paga integralmente ao professor"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Compatível com Aulas Privadas",
+      "placeholder": "Procurar uma aula privada",
+      "loadingMessage": "A carregar Aulas Privadas…",
+      "list": {
+        "compatibleWithAll": "Compatível com todas as aulas",
+        "compatibleWith": "Compatível com: {{ slotNames }}",
+        "noSessionsAvailable": "Nenhuma aula disponível",
+        "removeAction": "Remover",
+        "editAction": "Editar Aulas compatíveis"
+      },
+      "editModal": {
+        "selectAll": "Selecionar tudo",
+        "helperText": "Os Clientes podem usar este passe apenas para as aulas selecionadas",
+        "noSessionsAlert": "Esta subscrição já não é compatível com as Aulas Privadas de {{ appointmentName }}.",
+        "cancel": "Fechar",
+        "save": "Guardar",
+        "emptyState": "Esta aula privada ainda não tem um horário."
+      }
+    }
+  },
   "itemAutocomplete": {
-    "openItemInNewTab": "Open item in new tab",
+    "openItemInNewTab": "Abrir artigo em nova aba",
     "credits": "{{count}} créditos",
     "credits_one": "{{count}} crédito",
     "credits_other": "{{count}} créditos",
@@ -42,12 +165,22 @@
     "items_one": "{{count}} item",
     "items_other": "{{count}} itens",
     "days": "",
-    "days_one": "{{count}} day",
-    "days_other": "{{count}} days",
+    "days_one": "{{count}} dias",
+    "days_other": "{{count}} dias",
     "unlimited": "Ilimitado",
     "custom": "Personalizado",
-    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "customAmountRange": "Personalizado: {{min}} - {{max}}",
     "hiddenChipLabel": "Oculto",
-    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+    "hiddenGiftcardTooltip": "Este cartão-presente não estará disponível para compra no site do cliente"
+  },
+  "billingPlanStatus": {
+    "valid": "Válido",
+    "paused": "Pausado",
+    "canceled": "Cancelado",
+    "ended": "Terminado"
+  },
+  "accessControlToggle": {
+    "label": "Conceder acesso ao estúdio",
+    "helperText": "Clientes com este passe podem destrancar as portas do estúdio. Para restringir os horários de acesso, defina regras de tempo na plataforma Kisi."
   }
 }

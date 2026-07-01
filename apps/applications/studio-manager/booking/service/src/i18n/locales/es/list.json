@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Clases"
+    },
+    "state": {
+      "loading": {
+        "message": "Cargando clases..."
+      },
+      "empty": {
+        "title": "Aún no hay clases",
+        "subtitle": "Crea clases y se mostrarán aquí",
+        "cta": "Crear clase"
+      },
+      "emptySearch": {
+        "title": "No se han encontrado resultados",
+        "subtitle": "Ninguna clase coincide con tus filtros. Intenta borrarlos para ver más resultados.",
+        "cta": "Borrar filtros"
+      }
+    },
+    "header": {
+      "services": "Servicios",
+      "classes": "Clases",
+      "archivedClasses": "Archivo",
+      "add": "Crear clase",
+      "information": {
+        "label": "Configuración de servicios",
+        "description": "Crea tus clases y citas aquí para programarlas desde la página de Calendario"
+      }
+    },
+    "filters": {
+      "label": "Filtros",
+      "is": "es",
+      "category": {
+        "label": "Categoría",
+        "searchPlaceholder": "Búsqueda"
+      },
+      "type": {
+        "label": "Tipo",
+        "groupActivity": "Clase grupal",
+        "workshop": "Talleres"
+      }
+    },
+    "addModal": {
+      "title": "Crear una clase",
+      "confirm": "Crear",
+      "cancel": "Cerrar",
+      "errors": {
+        "generic": "Algo salió mal. Inténtalo de nuevo o actualiza la página. ",
+        "requiredField": "Este campo no puede estar vacío"
+      }
+    },
+    "actions": {
+      "duplicate": "Duplicar",
+      "archive": "Archivar",
+      "unarchive": "Restaurar"
+    },
+    "toasts": {
+      "create": "{{className}} creado",
+      "createError": "No se pudo crear la clase. Inténtalo de nuevo.",
+      "edit": "{{className}} actualizado",
+      "editError": "No se pudo actualizar la clase. Inténtalo de nuevo."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Clase",
+          "category": "Categoría",
+          "type": "Tipo",
+          "nextClass": {
+            "name": "Próximas",
+            "noUpcomingSession": {
+              "tooltip": "No hay clases próximas"
+            }
+          },
+          "features": "Detalle de la reserva",
+          "actions": "Acciones"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Talleres",
+          "groupActivity": "Clase grupal"
+        },
+        "features": {
+          "notifications": {
+            "title": "Notificaciones activadas",
+            "popoverLabel": "Los clientes recibirán notificaciones de esta clase"
+          },
+          "livestream": {
+            "title": "Livestream activado",
+            "popoverLabel": "Integración con Zoom configurada para esta clase"
+          }
+        }
+      }
+    }
+  }
+}

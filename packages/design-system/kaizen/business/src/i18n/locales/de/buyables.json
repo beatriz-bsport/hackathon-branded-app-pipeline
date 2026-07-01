@@ -1,0 +1,186 @@
+{
+  "paymentMethods": {
+    "label": "Zugelassene Zahlungsmethoden",
+    "helperText": "Wähle mindestens eine aus",
+    "options": {
+      "onlinePayment": {
+        "label": "Online (Standard)",
+        "helperText": "Karten- oder andere Online-Zahlungen"
+      },
+      "inPerson": {
+        "label": "Persönlich",
+        "helperText": "Bargeld oder Scheck"
+      }
+    },
+    "alertVisibilityHidden": "Dieses {{ buyable }} kann weiterhin über einen Link mit Kund:innen geteilt und per Online-Zahlung bezahlt werden."
+  },
+  "visibilitySelector": {
+    "optionVisible": {
+      "label": "Veröffentlicht",
+      "description": "Dieses {{ buyable }} wird im Mitgliederbereich sichtbar sein"
+    },
+    "optionHidden": {
+      "label": "Ausgeblendet",
+      "description": "Dieses {{ buyable }} ist im Mitgliederbereich nicht sichtbar, kann aber über einen Link geteilt werden"
+    }
+  },
+  "visibilityRules": {
+    "label": "Erweiterte Optionen",
+    "checkboxes": {
+      "recommended": {
+        "label": "Als Empfehlung markieren",
+        "helperText": "Ermöglicht deinen Kund:innen, schnell zu sehen, welche Angebote aktuell empfohlen werden"
+      },
+      "newMembersOnly": {
+        "label": "Nur für Neukund:innen verfügbar",
+        "helperText": "Kund:innen sind „neu“, solange sie keinen Artikel im Wert von mehr als {{ minimalCurrency }} gekauft haben. Selbst wenn sie einen Artikel mit 100 % Rabatt kaufen, zählt dies als Kauf."
+      },
+      "hideFromStaff": {
+        "label": "Für Mitarbeitende ausgeblendet",
+        "helperText": "Mitarbeiter können dieses {{ buyable }} weder sehen noch kaufen. "
+      }
+    }
+  },
+  "tagsAfterPurchaseSelector": {
+    "placeholder": "Tags hinzufügen",
+    "title": "Tag nach dem Kauf",
+    "description": "Füge Tags hinzu, um zu identifizieren, welche:r Kund:in diesen Artikel gekauft hat"
+  },
+  "copyPaymentLinkButton": {
+    "toastSuccess": "Link kopiert",
+    "tooltip": "Zahlungslink kopieren"
+  },
+  "creditFactor": {
+    "fieldLabel": "Credits",
+    "notPriceWarning": "Gib den Preis in Credits ein, nicht den Geldwert",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} Credit",
+    "nbOfCredits_other": "{{ countDisplay }} Credits"
+  },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Begrenzt",
+      "optionUnlimited": "Unbegrenzt"
+    },
+    "onDemandToggle": {
+      "label": "On-Demand-Zugriff aktivieren",
+      "restrictToOnDemand": "On-Demand-Zugriff einschränken"
+    },
+    "guestBookingToggle": {
+      "label": "Gast-Buchung erlauben"
+    },
+    "teacherPayrollToggle": {
+      "label": "In der Lehrer-Honorarabrechnung enthalten",
+      "helperText": "Kurse werden dem Studio in Rechnung gestellt und sind in der Lehrerhonorarabrechnung enthalten"
+    },
+    "teacherPayRate": {
+      "label": "Lehrkraft-Auszahlungsrate inkl. MwSt.",
+      "helperText": "Betrag, den der/die Trainer/in pro Buchung verdient",
+      "tooltip": "Dieser Satz bestimmt die Lehrer-Honorarabrechnung und gilt für alle Buchungen, die mit diesem Pass getätigt werden. Wenn du ihn auf „0“ lässt, wird der Satz als Abopreis geteilt durch die Anzahl der Buchungen berechnet."
+    },
+    "maximumUsage": {
+      "label": "Lege die maximale Nutzung fest",
+      "helperText": "Kontrolliere die maximal zulässige Nutzung pro Tag, Woche, Monat oder Kauf pro Kund:in",
+      "gridColumns": {
+        "maximumUsage": "Maximale Nutzung",
+        "scope": "Umfang"
+      },
+      "scopes": {
+        "day": "Tag",
+        "week": "Woche",
+        "month": "Monat",
+        "member": "Kunde"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Buchung auf bestimmte Zeiten beschränken",
+      "helperText": "Kund:innen können nur während der ausgewählten Zeiten buchen",
+      "timePeriod": "Zeitraum",
+      "allDay": "Den ganzen Tag",
+      "addMoreSchedule": "Weitere Zeiten hinzufügen",
+      "buttonLabels": {
+        "removeTimeSchedule": "Zeitraumplan entfernen",
+        "removeTimeSlot": "Zeitfenster entfernen",
+        "addTimeSlot": "Zeitfenster hinzufügen"
+      }
+    },
+    "penalty": {
+      "label": "Strafe anwenden",
+      "helperText": "Strafgebühr für Kund:innen mit häufigem Nichterscheinen oder kurzfristigen Stornierungen",
+      "daysSuffix": "",
+      "daysSuffix_one": "Tag",
+      "daysSuffix_other": "Tage",
+      "blockedDaysLabel": "Anzahl der zu blockierenden Tage",
+      "accountValueLabel": "Betrag der Anzahlung",
+      "penaltyKind": "Art der Strafe",
+      "kindOptions": {
+        "blockFor": "Sperren für",
+        "chargeAccount": "Kontostand belasten für"
+      },
+      "lateCancellation": {
+        "title": "Stornierung nach Ablauf der Frist",
+        "thresholdLabel": "Anzahl der Absagen",
+        "windowDaysLabel": "Innerhalb von Tagen"
+      },
+      "noShow": {
+        "title": "Häufiges Nichterscheinen",
+        "thresholdLabel": "Anzahl der Abwesenheiten (No-Shows)",
+        "windowDaysLabel": "Innerhalb von Tagen",
+        "description": "Definiere No-Show-Regeln unter <key1>Einstellungen > Personalisierung</key1>"
+      }
+    }
+  },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Vollständige Zahlung an die Lehrkraft",
+      "helperText": "Alle Einnahmen aus Terminen, die mit diesem Pass gebucht werden, gehen vollständig an den Lehrer"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Kompatibel mit Terminen",
+      "placeholder": "Suche nach einem Termin",
+      "loadingMessage": "Termine werden geladen…",
+      "list": {
+        "compatibleWithAll": "Kompatibel mit allen Kursen",
+        "compatibleWith": "Kompatibel mit: {{ slotNames }}",
+        "noSessionsAvailable": "Keine Kurse verfügbar",
+        "removeAction": "Entfernen",
+        "editAction": "Kompatible Kurse bearbeiten"
+      },
+      "editModal": {
+        "selectAll": "Alles auswählen",
+        "helperText": "Diesen Pass kannst du nur für die ausgewählten Kurse nutzen",
+        "noSessionsAlert": "Dieses Abonnement ist nicht mehr mit {{ appointmentName }} Terminen kompatibel.",
+        "cancel": "Schließen",
+        "save": "Speichern",
+        "emptyState": "Dieser Termin hat noch kein Zeitfenster."
+      }
+    }
+  },
+  "itemAutocomplete": {
+    "openItemInNewTab": "Artikel in neuem Tab öffnen",
+    "credits": "{{count}} Credits",
+    "credits_one": "{{count}} Credit",
+    "credits_other": "{{count}} Credits",
+    "items": "{{count}} Elemente",
+    "items_one": "{{count}} Element",
+    "items_other": "{{count}} Elemente",
+    "days": "",
+    "days_one": "{{count}} Tag",
+    "days_other": "{{count}} Tage",
+    "unlimited": "Unbegrenzt",
+    "custom": "Benutzerdefiniert",
+    "customAmountRange": "Benutzerdefiniert: {{min}} - {{max}}",
+    "hiddenChipLabel": "Ausgeblendet",
+    "hiddenGiftcardTooltip": "Dieser Geschenkgutschein kann nicht auf der Kund:innen-Website gekauft werden"
+  },
+  "billingPlanStatus": {
+    "valid": "Gültig",
+    "paused": "Pausiert",
+    "canceled": "Storniert",
+    "ended": "Beendet"
+  },
+  "accessControlToggle": {
+    "label": "Studiozutritt gewähren",
+    "helperText": "Kund:innen mit diesem Pass können Studiotüren entriegeln. Um die Zugangszeiten einzuschränken, lege Zeitregeln in der Kisi-Plattform fest."
+  }
+}

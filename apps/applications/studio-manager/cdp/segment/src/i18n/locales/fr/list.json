@@ -1,32 +1,106 @@
 {
-  "title": "Smartlists",
-  "addSmartlist": "Créer une Smartlist",
-  "loading": "Chargement des Smartlists...",
-  "search": "Rechercher des Smartlists",
+  "title": "Segments",
+  "tabs": {
+    "prebuilt": "Prédéfinis",
+    "custom": "Personnalisée"
+  },
+  "prebuilt": {
+    "aiAssisted": "Optimisé par l'IA",
+    "segments": {
+      "customers": {
+        "title": "Clients",
+        "description": "Ciblez les Clients qui ont effectué au moins une transaction payante, qu'il s'agisse d'une carte, d'un abonnement ou même d'un café à l'accueil. Votre plus large portée pour les actualités et annonces de l'ensemble du studio."
+      },
+      "active_members": {
+        "title": "Clients actifs",
+        "description": "Engagez les clients qui possèdent actuellement une carte ou un abonnement actif. C'est votre base la plus fiable pour la rétention, les ventes additionnelles et pour fidéliser vos habitués."
+      },
+      "active_trials": {
+        "title": "Essais actifs",
+        "description": "Atteignez les clients bénéficiant actuellement d'une offre d'essai active dans le cadre d'une période d'essai et qui n'ont pas encore effectué de deuxième achat. Ce sont vos Prospects à plus fort potentiel — convertissez-les avant l'expiration de leur offre."
+      }
+    },
+    "columns": {
+      "name": "Nom",
+      "email": "Email",
+      "passName": "Carte",
+      "passValidityStartDate": "Dernier achat",
+      "lastVisitDate": "Dernière visite",
+      "offerExpiryDate": "Fin de validité",
+      "status": "Statut",
+      "dateJoined": "Date d'adhésion",
+      "lastPurchaseDate": "Dernier achat",
+      "currentLifecycleState": "Statut"
+    },
+    "enums": {
+      "activeTrialStatus": {
+        "attended": "Présenté",
+        "booked": "A réservé",
+        "purchased": "Acheté"
+      },
+      "customerLifecycleState": {
+        "archived": "Archivé",
+        "lead": "Prospect",
+        "active": "Actif",
+        "inactive": "Pas encore commencé",
+        "churned": "Désabonné"
+      }
+    },
+    "information": {
+      "label": "À propos des segments prédéfinis",
+      "title": "Trouvez instantanément vos audiences clés",
+      "description": "Les Segments prédéfinis sont des groupes créés automatiquement en fonction des comportements clients courants.",
+      "update": "Ils se mettent à jour au fil du temps selon des règles prédéfinies, de sorte que les Clients entrent ou sortent du Segment à mesure que leur activité évolue. Les Segments prédéfinis vous aident à cibler rapidement les audiences clés sans avoir à créer vous-même des filtres.",
+      "custom": "Pour des critères personnalisés ou une logique avancée, utilisez les segments personnalisés."
+    },
+    "details": {
+      "tabs": {
+        "segment": "Segment",
+        "campaigns": "Campagnes"
+      },
+      "segment": {
+        "loading": "Chargement du segment...",
+        "emptyState": {
+          "title": "Aucun adhérent trouvé",
+          "subtitle": "Ce segment prédéfini n'a pas encore de clients correspondants"
+        }
+      },
+      "segmentPlaceholder": "Les détails du Segment seront bientôt disponibles",
+      "campaignsPlaceholder": "Les campagnes seront bientôt disponibles",
+      "campaigns": {
+        "emptyState": {
+          "description": "Aucune campagne n'a encore été envoyée à ce segment prédéfini"
+        }
+      }
+    }
+  },
+  "addSmartlist": "Créer un segment",
+  "loading": "Chargement des segments...",
+  "search": "Rechercher des segments",
   "emptyState": {
-    "title": "Pas encore de Smartlists",
-    "subtitle": "Créez votre première Smartlist pour segmenter les Clients avec des tags, envoyer des messages ciblés et suivre l'engagement."
+    "title": "Aucun segment pour le moment",
+    "subtitle": "Créez votre premier segment pour regrouper les clients avec des tags, envoyer des messages ciblés et suivre l'engagement."
   },
   "emptySearch": {
-    "title": "Aucune Smartlist trouvée",
+    "title": "Aucun segment trouvé",
     "subtitle": "Essayez d'effacer les filtres pour voir plus de résultats",
     "clearFilters": "Effacer tous les filtres"
   },
   "duplicateModal": {
-    "title": "Dupliquer la Smartlist ?",
-    "description": "Vous pouvez modifier <b>{{name}}</b> après",
+    "title": "Dupliquer le segment ?",
+    "description": "Vous pourrez modifier <b>{{name}}</b> après.",
     "buttons": {
       "duplicate": "Dupliquer",
       "cancel": "Fermer"
     }
   },
   "deleteModal": {
-    "title": "Supprimer la Smartlist ?",
-    "description": "Une fois que vous supprimez <b>{{name}}</b>, tous les messages programmés ou le marquage automatique ne fonctionneront plus, mais les Membres précédemment marqués ne seront pas affectés.",
+    "title": "Supprimer le segment ?",
+    "description": "Une fois que vous aurez supprimé <b>{{name}}</b>, tous les messages programmés ou le marquage automatique ne fonctionneront plus. Les Clients précédemment marqué·e·s ne seront pas affecté·e·s.",
     "warning": "Attention : ce changement est permanent et ne peut pas être annulé",
-    "audienceWarning": "Les Smartlists utilisées dans les workflows Audience ne peuvent pas être supprimées. ",
-    "cannotBeDeleted": "Cette Smartlist est actuellement utilisée dans des workflows Audience et ne peut pas être supprimée sur cette page.",
-    "audienceCallToAction": "Pour supprimer cette Smartlist, allez à la page Audience et retirez-la des workflows associés.",
+    "audienceWarning": "Les Segments utilisés dans les Journeys ne peuvent pas être supprimés. ",
+    "cannotBeDeleted": "Ce segment est actuellement utilisé dans un Journey et ne peut pas être supprimé sur cette page.",
+    "audienceCallToAction": "Pour supprimer ce segment, accédez à Journeys et retirez-le des étapes de parcours associées",
     "buttons": {
       "delete": "Supprimer",
       "cancel": "Garder"
@@ -34,29 +108,29 @@
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist dupliquée",
+      "duplicated": "Segment dupliqué",
       "open": "Ouvrir",
-      "saved": "Smartlist mise à jour",
-      "deleted": "Smartlist supprimée",
-      "undo": "Annuler",
+      "saved": "Segment mis à jour",
+      "deleted": "Segment supprimé",
+      "undo": "Retour",
       "actionUndone": "Modification annulée"
     },
     "error": {
-      "duplicateFailed": "Quelque chose s'est mal passé lors de la duplication de la Smartlist. Veuillez réessayer. ",
-      "updateFailed": "La Smartlist n'a pas pu être mise à jour. Veuillez réessayer. ",
-      "createFailed": "La Smartlist n'a pas pu être créée. Veuillez réessayer. ",
-      "deleteFailed": "La Smartlist n'a pas pu être supprimée. Veuillez réessayer. ",
+      "duplicateFailed": "Le Segment n'a pas pu être dupliqué. Veuillez réessayer. ",
+      "updateFailed": "Le Segment n'a pas pu être mis à jour. Veuillez réessayer. ",
+      "createFailed": "Le Segment n'a pas pu être créé. Veuillez réessayer. ",
+      "deleteFailed": "Le Segment n'a pas pu être supprimé. Veuillez réessayer. ",
       "deleteError": {
-        "101000": "La Smartlist n'a pas pu être dupliquée. Veuillez réessayer.",
-        "101001": "La Smartlist n'a pas pu être supprimée car elle est actuellement utilisée dans des communications actives. Veuillez la retirer des communications ou contacter le support pour obtenir de l'aide. ",
-        "101002": "La Smartlist n'a pas pu être supprimée car elle est utilisée dans des workflows Audience actifs. Veuillez vous rendre sur la page Audience pour la retirer du workflow associé. "
+        "101000": "Le Segment n'a pas pu être supprimé. Veuillez réessayer.",
+        "101001": "Le Segment n'a pas pu être supprimé car il est actuellement utilisé dans des campagnes ou des Journeys actifs. Veuillez le retirer du Journey ou de la campagne, ou contacter le support pour obtenir de l'aide. ",
+        "101002": "Le Segment n'a pas pu être supprimé car il est utilisé dans des Journeys actifs. Rendez-vous sur la page Journeys pour le supprimer."
       }
     }
   },
   "inlineActions": {
-    "duplicate": "Dupliquer la Smartlist",
+    "duplicate": "Dupliquer le segment",
     "edit": "Modifier",
-    "delete": "Supprimer la Smartlist"
+    "delete": "Supprimer le segment"
   },
   "dropdownActions": {
     "duplicate": "Dupliquer",
@@ -64,7 +138,7 @@
     "delete": "Supprimer"
   },
   "createForm": {
-    "title": "Créer une Smartlist",
+    "title": "Créer un segment",
     "actions": {
       "create": "Créer",
       "cancel": "Fermer"
@@ -75,7 +149,7 @@
       "name": {
         "label": "Nom",
         "placeholder": "par exemple, clients ayant payé via Stripe",
-        "required": "Donnez un nom à votre Smartlist afin de pouvoir la retrouver plus tard",
+        "required": "Donnez un nom à votre segment afin de pouvoir le retrouver plus tard",
         "maxLength": "Le nom doit comporter moins de 200 caractères"
       },
       "description": {
@@ -84,11 +158,11 @@
       }
     },
     "actions": {
-      "save": "Valider",
+      "save": "Enregistrer",
       "cancel": "Fermer"
     },
     "title": {
-      "edit": "Modifier la Smartlist"
+      "edit": "Modifier le segment"
     }
   }
 }

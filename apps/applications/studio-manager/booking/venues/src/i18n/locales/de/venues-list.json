@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Veranstaltungsorte",
+  "tabs": {
+    "venues": "Veranstaltungsorte",
+    "locations": "Standorte"
+  },
+  "locations": {
+    "columns": {
+      "name": "Standort",
+      "venues": "Veranstaltungsorte"
+    },
+    "actions": {
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+    "emptyState": {
+      "title": "Noch keine Standorte",
+      "subtitle": "Gruppiere Veranstaltungsorte nach Standort. Sie erscheinen dann hier.",
+      "cta": "Standort hinzufügen",
+      "noResults": "Keine Standorte entsprechen deiner Suche"
+    },
+    "deleteModal": {
+      "title": "Standort löschen?",
+      "warningsTitle": "Das passiert, wenn du diesen Standort löschst:",
+      "confirm": "Löschen",
+      "cancel": "Behalten",
+      "alert": {
+        "blocking": "Dieser Standort kann nicht gelöscht werden, weil:",
+        "warning": "Das passiert, wenn du diesen Standort löschst:"
+      },
+      "preflightError": "Es konnte nicht überprüft werden, ob dieser Standort gelöscht werden kann. Versuche es noch einmal.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Tabs auf deiner Website sind so eingestellt, dass sie nur den Stundenplan dieses Standorts anzeigen. Aktualisiere sie, bevor du diesen Standort löschst."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Ein oder mehrere Mitarbeiter:innen nutzen diesen Standort für die Zugangskontrolle. Wenn du ihn löschst, ohne einen Ersatz zuzuweisen, verlieren sie die Zugangskontrolle.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} erhält nur Vertretungsanfragen für diesen Standort. Wenn du ihn löschst, erhält er Anfragen von allen Standorten.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} erhält nur Vertretungsanfragen für diesen Standort. Wenn du ihn löschst, erhält er Anfragen von allen Standorten.",
+        "hasRelatedAssociatedCoaches": "Einige Lehrkräfte erhalten Vertretungsanfragen nur für diesen Standort. Wenn du den Standort löschst, erhalten diese Lehrkräfte keine Vertretungsbenachrichtigungen mehr.",
+        "hasRelatedMarketplaceComponentConfigs": "Die für deine Kund:innen-Website eingerichteten Wochenplan- und Workshop-Tabs werden diesen Standort nicht mehr anzeigen.",
+        "hasRelatedMarketingNotifications": "Benachrichtigungen, die mit diesem Standort verknüpft sind, werden gelöscht."
+      },
+      "info": {
+        "reportsDefault": "Dieser Standort wird aus früheren Berichten gelöscht.",
+        "widgetsDefault": "Wochenplan- und Workshop-Widgets, die für diesen Standort konfiguriert sind, müssten manuell aktualisiert werden."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Noch keine Standorte",
+    "cta": "Erstelle deinen ersten Veranstaltungsort, um mit der Planung von Kursen und Terminen zu beginnen"
+  },
+  "search": {
+    "placeholder": "Standorte suchen",
+    "locationsPlaceholder": "Standorte suchen",
+    "emptyState": {
+      "title": "Keine Standorte gefunden",
+      "subtitle": "Versuche einen anderen Suchbegriff"
+    }
+  },
+  "filters": {
+    "selectField": "Filter",
+    "location": "Standort",
+    "city": "Stadt",
+    "noLocation": "Kein Standort",
+    "operators": {
+      "is": "ist"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Zum Standort hinzufügen",
+    "addTooltip": "Weise diesen Standort einem Standort zu, um dessen Benachrichtigungs- und Marketingeinstellungen zu übernehmen.",
+    "edit": "Standort bearbeiten"
+  },
+  "venueRow": {
+    "edit": "Bearbeiten",
+    "archive": "Archivieren"
+  },
+  "actions": {
+    "archive": "Archivierte Standorte",
+    "createLocation": "Standort erstellen",
+    "createLocationTooltip": "Füge einen Standort hinzu, um Veranstaltungsorte zu gruppieren und gemeinsames Marketing, Vertrieb und Reporting zu betreiben",
+    "createVenue": "Veranstaltungsort anlegen",
+    "createVenueTooltip": "Lege einen neuen Raum für Kurse und Termine an"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Veranstaltungsorte"
+    },
+    "actions": {
+      "archive": "Archivieren",
+      "configureWidget": "Widget einrichten"
+    },
+    "notFound": "Standort nicht gefunden",
+    "editor": {
+      "discard": {
+        "title": "Änderungen verwerfen?",
+        "description": "Deine ungespeicherten Änderungen gehen verloren.",
+        "confirm": "Änderungen verwerfen",
+        "keepEditing": "Weiter bearbeiten",
+        "toast": "Änderungen verworfen"
+      }
+    },
+    "spotScheduling": {
+      "title": "Platzauswahl",
+      "subtitle": "Füge einen Platzplan hinzu, damit deine Kund:innen bestimmte Plätze (z. B. Fahrräder, Matten, Reformer) buchen können.",
+      "createCta": "Erstellen",
+      "noSpots": "Noch keine Plätze eingerichtet",
+      "spotCount_one": "{{count}} Platz",
+      "spotCount_other": "{{count}} Plätze",
+      "empty": "Noch kein Platzplan",
+      "rowMenu": {
+        "label": "Platzplan öffnen",
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "deleteModal": {
+        "title": "Platzauswahl löschen?",
+        "description": "Du kannst diese Platzauswahl nicht wiederherstellen, wenn du sie löschst",
+        "confirm": "Löschen",
+        "cancel": "Behalten"
+      },
+      "untitledBlueprint": "Unbenannter Platzplan",
+      "toasts": {
+        "delete": "Platzauswahl gelöscht",
+        "deleteError": "Die Löschung einer Platzauswahl hat nicht geklappt. Bitte versuche es nochmal. ",
+        "createError": "Die Erstellung einer Platzauswahl hat nicht geklappt. Bitte versuche es nochmal. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Archivierte Standorte",
+    "breadcrumbs": {
+      "venues": "Veranstaltungsorte",
+      "archivedVenues": "Archivierte Standorte"
+    },
+    "sectionHeader": "Alle Standorte ({{count}})",
+    "emptyState": {
+      "title": "Noch keine Standorte archiviert",
+      "subtitle": "Alle hierher verschobenen Standorte können wiederhergestellt werden."
+    },
+    "venueRow": {
+      "unarchive": "Wiederherstellen"
+    }
+  },
+  "modal": {
+    "title": "Veranstaltungsort archivieren",
+    "confirm": "Archivieren",
+    "cancel": "Behalten",
+    "alert": {
+      "blocking": "Dieser Veranstaltungsort kann aus folgendem Grund nicht archiviert werden:",
+      "warning": "Das passiert, wenn du diesen Veranstaltungsort archivierst:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Dieser Veranstaltungsort hat anstehende Kurse. Bitte storniere oder lösche diese Kurse, bevor du den Veranstaltungsort archivierst.",
+      "hasUpcomingPrivateBookings": "Diese Veranstaltungsort hat anstehende Termine. Bitte storniere oder lösche diese Termine, bevor du den Veranstaltungsort archivierst.",
+      "hasExclusiveBillingGroup": "Dieser Veranstaltungsort ist mit einem Abrechnungsstandort verknüpft. Bitte aktualisiere oder lösche den Abrechnungsstandort, bevor du ihn archivierst.",
+      "exclusiveEstablishmentGroups": "Dieser Veranstaltungsort wird von den folgenden Standorten entfernt: {{names}}. Bitte aktualisiere diese Standorte, bevor du den Veranstaltungsort archivierst.",
+      "exclusivePaymentPacks": "Die folgenden Kurspässe sind nur an diesem Veranstaltungsort gültig: {{names}}. Bitte aktualisiere ihre Einschränkungen, bevor du den Veranstaltungsort archivierst.",
+      "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Tabs auf deiner Website sind so eingestellt, dass sie nur den Stundenplan dieses Standorts anzeigen. Aktualisiere sie, bevor du diesen Standort löschst.",
+      "isIntegratedInPartnership": "Dieser Standort ist mit einem oder mehreren Aggregatoren verknüpft. Aktualisiere diese Verbindungen, bevor du ihn archivierst."
+    },
+    "warnings": {
+      "title": "Das passiert, wenn du diesen Veranstaltungsort archivierst:",
+      "hasBillingGroup": "Dieser Veranstaltungsort gehört zum Abrechnungsstandort {{name}}.",
+      "exclusivePrivateServices": "Folgende Termine sind nur an diesem Veranstaltungsort verfügbar: {{names}}.",
+      "relatedPaymentPacks": "Diese Pässe {{names}} sind nur an diesem Standort nutzbar.",
+      "hasExclusiveStaffConfigurations": "Einige Mitarbeiter:innen sind nur diesem Veranstaltungsort zugewiesen.",
+      "hasRelatedStaffConfigurations": "Einige Mitarbeiter:innen haben Einstellungen, die mit diesem Standort verknüpft sind.",
+      "exclusiveCoachAvailabilitySlots": "Diese Lehrkräfte haben nur an diesem Veranstaltungsort freie Termine: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Einige Lehrkräfte haben an diesem Veranstaltungsort freie Termine.",
+      "exclusiveAssociatedCoaches": "Diese Lehrkräfte sind nur diesem Veranstaltungsort zugeordnet: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Einige Lehrkräfte sind diesem Veranstaltungsort zugeordnet.",
+      "hasRelatedAvailabilitySlots": "Einige freie Termine sind mit diesem Veranstaltungsort verknüpft.",
+      "hasRelatedMarketplaceComponentConfigs": "Ein oder mehrere Tabs auf deiner Website sind so eingestellt, dass sie nur den Wochenplan dieses Veranstaltungsorts anzeigen. ",
+      "hasRelatedZoomEstablishment": "Für diesen Veranstaltungsort wurde Zoom eingerichtet.",
+      "hasRelatedMarketingNotifications": "Einige Auto-Messages sind auf diesen Veranstaltungsort ausgerichtet."
+    },
+    "info": {
+      "noReports": "Der Veranstaltungsort wird nicht aus vergangenen Berichten gelöscht.",
+      "widgets": "Wochenplan- und Workshop-Widgets, die für diesen Standort konfiguriert sind, müssen manuell aktualisiert werden.",
+      "sessions": "Laufende Kurse und vergangene Buchungen sind davon nicht betroffen",
+      "appointments": "Vergangene Termine sind nicht betroffen"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Veranstaltungsort anlegen",
+    "editTitle": "Veranstaltungsort bearbeiten",
+    "createConfirm": "Anlegen",
+    "editConfirm": "Änderungen speichern",
+    "cancel": "Schließen",
+    "errors": {
+      "requiredField": "Dieses Feld darf nicht leer sein"
+    },
+    "cover": {
+      "label": "Bild",
+      "helper": "Wird Kund:innen in der App und auf der Website angezeigt. Querformat (16:9) – wird automatisch zugeschnitten."
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Gib einen Namen für den Veranstaltungsort ein"
+    },
+    "description": {
+      "label": "Beschreibung",
+      "placeholder": "Beschreibe den Standort ",
+      "helper": "Wird im Profil deines Studios in der App angezeigt. Beschreibe den Raum, die Atmosphäre oder was ihn einzigartig macht."
+    },
+    "address": {
+      "label": "Adresse",
+      "placeholder": "Suche nach einer Adresse"
+    },
+    "location": {
+      "label": "Standort",
+      "placeholder": "Standort auswählen"
+    },
+    "capacity": {
+      "label": "Raumkapazität",
+      "helper": "Die Anzahl der verfügbaren Plätze an diesem Veranstaltungsort. Gib 0 ein für eine unbegrenzte Anzahl."
+    },
+    "accessInformation": {
+      "label": "Informationen für Kund:innen",
+      "placeholder": "Erkläre deinen Kund:innen, wie sie diesen Veranstaltungsort erreichen können",
+      "helper": "Wird deinen Kund:innen nach der Buchung angezeigt (z. B. Zugangscode, Etage, Anweisungen)."
+    }
+  },
+  "toasts": {
+    "undo": "Rückgängig",
+    "archive": "Standort archiviert",
+    "archiveError": "Der Veranstaltungsort wurde nicht archiviert. Bitte versuche es nochmal. ",
+    "unarchive": "Veranstaltungsort wiederhergestellt",
+    "unarchiveError": "Der Veranstaltungsort wurde nicht wiederhergestellt. Bitte versuche es nochmal. ",
+    "addVenueToLocation": "\"{{venue}}\" zu \"{{location}}\" hinzugefügt",
+    "locationDelete": "Standort gelöscht",
+    "locationDeleteError": "Der Standort wurde nicht gelöscht. Bitte versuche es nochmal.",
+    "create": "Veranstaltungsort angelegt",
+    "createPartial": "Der Veranstaltungsort wurde erstellt, konnte aber dem ausgewählten Standort nicht zugewiesen werden. Bitte weise ihn manuell zu.",
+    "createError": "Der Veranstaltungsort wurde nicht angelegt. Bitte versuche es nochmal. ",
+    "update": "Veranstaltungsort aktualisiert",
+    "updateError": "Der Veranstaltungsort wurde nicht aktualisiert. Bitte versuche es nochmal. "
+  }
+}

@@ -1,0 +1,582 @@
+{
+  "email": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campagne verzonden",
+          "schedule": "Campagne ingepland"
+        },
+        "error": {
+          "sendFailed": "Campagne kon niet worden verzonden. Probeer het opnieuw.",
+          "scheduleFailed": "Campagne kon niet worden ingepland. Probeer het opnieuw."
+        }
+      },
+      "title": "Emailcampagne",
+      "continueButtonLabel": "Maken",
+      "expectedRecipients": {
+        "label": "Verwachte ontvangers",
+        "infoLabel": "Informatie over verwachte ontvangers",
+        "popover": {
+          "title": "Hoe wordt dit aantal berekend?",
+          "intro": "Dit aantal is een schatting op basis van de Smartlist- en bezorginstellingen op het moment van berekening. Het uiteindelijke aantal ontvangers kan veranderen voordat de campagne wordt verzonden.",
+          "listIntro": "De volgende zijn niet inbegrepen in deze berekening:",
+          "exclusions": {
+            "noValidContact": {
+              "description": "Klanten zonder geldige contactmethode",
+              "example": "(bijv. geen emailadres voor emailcampagnes, geen telefoonnummer voor sms)"
+            },
+            "optedOut": {
+              "description": "Klanten die zich hebben afgemeld voor marketingcommunicatie (of zich niet hebben aangemeld, afhankelijk van het campagnetype)",
+              "example": "(bijv. geen emailadres voor emailcampagnes, geen telefoonnummer voor sms)"
+            },
+            "invalidEmail": {
+              "description": "Ongeldige of onbereikbare emailadressen",
+              "example": "(bijv. adressen die niet bestaan of geen email kunnen ontvangen)"
+            },
+            "systemEmails": {
+              "description": "Door het systeem gegenereerde of tijdelijke Email",
+              "example": "(bijv. tijdelijke email aangemaakt door ClassPass)"
+            },
+            "smartlistChanges": {
+              "description": "Klanten die de Smartlist betreden of verlaten tussen nu en het moment dat de campagne wordt verzonden.",
+              "example": "(bijv. er is iets veranderd aan de klanten en deze voldoet niet meer aan de Smartlist filters)"
+            }
+          }
+        }
+      },
+      "form": {
+        "emailType": {
+          "label": "Kies welk type email je wilt versturen",
+          "options": {
+            "marketing": "Marketingcommunicatie (bijv. nieuwsbrief, promoties, kortingen, etc.)",
+            "informational": "Belangrijke mededelingen (bijv. herinneringen voor lessen, beleidswijzigingen, etc.)"
+          }
+        },
+        "emailTemplate": {
+          "selectEmailTemplateLabel": "Sjabloon",
+          "selectEmailTemplatePlaceholder": "Zoek een sjabloon...",
+          "emailTemplateSearching": "Sjablonen zoeken...",
+          "emailTemplateNoCategory": "Naamloze categorie",
+          "sendTestEmail": "Test email verzenden",
+          "editEmail": "Email bewerken",
+          "createTemplate": "Maak sjabloon aan",
+          "noTemplatePreview": "Selecteer een sjabloon om het hier te bekijken",
+          "onTheFlyTemplateEditionBlockedWarning": "On-the-fly Sjablonen kunnen niet worden bewerkt. Maak een nieuw sjabloon in de editor om deze hier te bekijken. "
+        },
+        "errors": {
+          "emailTypeRequired": "Selecteer welk type email je wilt versturen",
+          "subjectRequired": "Voer een onderwerp in voor deze email",
+          "bodyRequired": "Voer een berichttekst in voor deze email",
+          "selectEmailTemplate": "Selecteer een sjabloon"
+        },
+        "emailTypeSelector": {
+          "title": "Bericht",
+          "textOnly": "Alleen tekst",
+          "emailTemplate": "Sjabloon"
+        },
+        "textOnly": {
+          "subjectLabel": "Onderwerp",
+          "bodyLabel": "Body"
+        },
+        "emailTemplateEditor": {
+          "title": "Editor",
+          "confirmButtonLabel": "Opslaan",
+          "cancelButtonLabel": "Sluiten",
+          "subjectLabel": "Onderwerp",
+          "cannotUseEmailEditorOnMobile": {
+            "description": "Open de email editor op je desktop voor een betere bewerkingservaring",
+            "confirmButtonLabel": "OK"
+          },
+          "createNewTemplateModal": {
+            "title": "Nieuwe sjabloon maken",
+            "description": "Geef je nieuwe sjabloon een naam en organiseer het in een categorie",
+            "templateTitleLabel": "Titel",
+            "categoryLabel": "Categorie",
+            "noCategoryLabel": "Naamloze categorie",
+            "confirmButtonLabel": "Opslaan",
+            "cancelButtonLabel": "Sluiten"
+          },
+          "saveActionModal": {
+            "title": "Sjabloon opslaan",
+            "description": "Kies hoe je deze template wilt opslaan",
+            "franchiseTemplateAlert": {
+              "description": "Franchise sjablonen kunnen alleen worden bijgewerkt vanuit het Hoofdaccount. "
+            },
+            "options": {
+              "overwriteExistingTemplate": {
+                "label": "Bestaande sjabloon bijwerken",
+                "helperText": "Dit werkt het sjabloon bij voor toekomstige campagnes.",
+                "toast": {
+                  "success": "Templateswijzigingen opgeslagen",
+                  "failure": "Sjabloonwijzigingen konden niet worden opgeslagen. Probeer het opnieuw. "
+                }
+              },
+              "onTheFlyTemplate": {
+                "label": "Gebruik dit sjabloon alleen voor deze campagne",
+                "helperText": "Je wijzigingen worden niet opgeslagen in dit sjabloon",
+                "toast": {
+                  "success": "Wijzigingen in de template gelden alleen voor deze campagne",
+                  "failure": "Kon de wijzigingen in het email-sjabloon niet toepassen. Probeer het opnieuw. "
+                }
+              },
+              "createNewTemplate": {
+                "label": "Opslaan als nieuwe template",
+                "helperText": "Maak een nieuwe template van je wijzigingen",
+                "toast": {
+                  "success": "Nieuw sjabloon opgeslagen",
+                  "failure": "Kon geen nieuw sjabloon aanmaken. Probeer het opnieuw. "
+                }
+              }
+            },
+            "confirmButtonLabel": "Opslaan",
+            "cancelButtonLabel": "Sluiten"
+          }
+        }
+      }
+    }
+  },
+  "generic": {
+    "creation": {
+      "delivery": {
+        "title": "Timing",
+        "label": "Nu verzenden of bezorging plannen",
+        "sendNow": "Verzend nu",
+        "scheduleForLater": "Plan voor later",
+        "dateLabel": "Datum",
+        "timeLabel": "Uur",
+        "warning": {
+          "nightTimeScheduled": "Dit bericht wordt 's nachts verzonden. Voor betere resultaten raden we aan om berichten overdag tijdens piekuren te verzenden. "
+        }
+      },
+      "form": {
+        "campaignName": {
+          "label": "Naam"
+        },
+        "errors": {
+          "campaignNameRequired": "Voer een naam in voor deze campagne",
+          "errorMaxLength": "Voer een naam in korter dan {{count}} tekens",
+          "scheduledDateRequired": "Selecteer een datum",
+          "scheduledTimeRequired": "Selecteer een tijd",
+          "scheduledDateInvalid": "Voer een geldige datum in",
+          "scheduledDateNotInPast": "Selecteer een datum in de toekomst",
+          "scheduledAtLeast5Minutes": "Voer een tijd in die meer dan 5 minuten in de toekomst ligt"
+        }
+      }
+    }
+  },
+  "push": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campagne verzonden",
+          "schedule": "Campagne ingepland"
+        },
+        "error": {
+          "sendFailed": "Campagne kon niet worden verzonden. Probeer het opnieuw."
+        }
+      },
+      "title": "Pushnotificatiecampagne",
+      "continueButtonLabel": "Maken",
+      "alertMessage": "Alleen Klanten die je studio-app hebben gedownload en pushmeldingen hebben ingeschakeld, ontvangen deze melding.",
+      "form": {
+        "errors": {
+          "campaignNameRequired": "Voer een naam in voor deze campagne",
+          "errorMaxLength": "Voer een naam in korter dan {{count}} tekens"
+        }
+      }
+    },
+    "edit": {
+      "toasts": {
+        "success": {
+          "sendNow": "Geplande campagne verzonden"
+        },
+        "error": {
+          "sendNowFailed": "Geplande campagne kon niet worden verzonden. Probeer het opnieuw."
+        }
+      }
+    }
+  },
+  "sms": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campagne verzonden",
+          "schedule": "Campagne ingepland"
+        },
+        "error": {
+          "sendFailed": "Campagne kon niet worden verzonden. Probeer het opnieuw."
+        }
+      },
+      "title": "SMS-campagne",
+      "continueButtonLabel": "Maken",
+      "expectedRecipients": {
+        "label": "Verwachte ontvangers",
+        "infoLabel": "Informatie over verwachte ontvangers",
+        "popover": {
+          "title": "Hoe wordt dit aantal berekend?",
+          "intro": "Dit aantal is een schatting op basis van de Smartlist- en bezorginstellingen op het moment van berekening. Het uiteindelijke aantal ontvangers kan veranderen voordat de campagne wordt verzonden.",
+          "listIntro": "Het volgende is niet inbegrepen in deze berekening:",
+          "exclusions": {
+            "noValidPhone": {
+              "description": "Klanten zonder telefoonnummer",
+              "example": "Dit moet aan hun profiel worden toegevoegd "
+            },
+            "optedOut": {
+              "description": "Klanten die zich hebben afgemeld voor marketingcommunicatie (of zich niet hebben aangemeld, afhankelijk van het campagnetype)",
+              "example": "bijv. geen telefoonnummer om sms te ontvangen"
+            },
+            "invalidPhone": {
+              "description": "Ongeldige of onbereikbare telefoonnummers",
+              "example": "bijv. verkeerde of geblokkeerde telefoonnummers "
+            },
+            "smartlistChanges": {
+              "description": "Klanten kunnen de Smartlist betreden of verlaten tussen nu en het moment dat de campagne wordt verzonden.",
+              "example": "(bijv. er is iets veranderd aan de Klant en deze voldoet niet langer aan de Smartlist-filters)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "communicationKind": {
+    "email": "Email",
+    "sms": "Sms",
+    "push": "Push-notificatie"
+  },
+  "recipientStatus": {
+    "bounced": "Fout",
+    "unknown": "Onbekend",
+    "deferred": "Aan het wachten",
+    "dropped": "Geweigerd",
+    "pending": "Gepauzeerd",
+    "delivered": "Ontvangen",
+    "processed": "Verwerkt"
+  },
+  "campaignStatus": {
+    "scheduled": "Ingepland",
+    "delivered": "Ontvangen",
+    "processing": "Verzenden",
+    "failed": "Storing",
+    "opened": "Aantal openingen",
+    "na": "N/A"
+  },
+  "popup": {
+    "creation": {
+      "title": "Pop-up campagne",
+      "continueButtonLabel": "Maken",
+      "alertMessage": "Alleen klanten die je studio-app hebben gedownload, ontvangen deze melding.",
+      "messageSectionTitle": "Bericht",
+      "form": {
+        "campaignName": {
+          "label": "Campagne naam"
+        },
+        "name": {
+          "label": "Titel",
+          "required": "Dit is verplicht",
+          "maxLength": "Titel mag maximaal 200 tekens bevatten"
+        },
+        "link": {
+          "label": "Link",
+          "buttonLabel": "Testlink",
+          "required": "Dit is verplicht",
+          "maxLength": "Link mag maximaal 200 tekens bevatten",
+          "invalidUrl": "Voer een geldige URL in"
+        },
+        "image": {
+          "uploadLabel": "Afbeelding uploaden",
+          "dragAndDropLabel": "of sleep het hier naartoe",
+          "fileTypes": "JPG, PNG, SVG",
+          "uploadInstructions": "Aanbevolen: 1280 x 720 pixels, bestandsgrootte onder 2MB",
+          "previewAlt": "Pop-up voorbeeldafbeelding",
+          "required": "Een afbeelding is vereist"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Pop-up aangemaakt"
+        },
+        "error": {
+          "createFailed": "Smartlist-pop-up kon niet worden aangemaakt. Probeer het opnieuw."
+        },
+        "processing": {
+          "creatingPopup": "Pop-up aanmaken..."
+        }
+      }
+    },
+    "edit": {
+      "title": "Pop-upcampagne bewerken",
+      "continueButtonLabel": "Maken",
+      "alertMessage": "Alleen klanten die je studio-app hebben gedownload, ontvangen deze melding",
+      "toasts": {
+        "success": {
+          "saved": "Pop-upwijzigingen opgeslagen"
+        },
+        "error": {
+          "editFailed": "Smartlist pop-up wijzigingen konden niet worden opgeslagen. Probeer het opnieuw."
+        },
+        "processing": {
+          "editingPopup": "Pop-upwijzigingen opslaan..."
+        }
+      }
+    }
+  },
+  "page": {
+    "campaignScheduled": {
+      "title": "Geplande campagnes"
+    },
+    "sentCampaigns": {
+      "title": "Verzonden campagnes"
+    }
+  },
+  "actions": {
+    "createCampaign": "Campagne aanmaken",
+    "openPopUps": "Pop-ups beoordelen",
+    "generateReport": "Rapport downloaden"
+  },
+  "campaignTypeSelector": {
+    "title": "Nieuwe campagne aanmaken",
+    "description": "Kies een kanaal om te beginnen",
+    "addOnChip": "Aanvullende dienst",
+    "email": {
+      "title": "Email",
+      "description": "Stuur een gerichte email naar je Smartlists"
+    },
+    "sms": {
+      "title": "Sms",
+      "description": "Stuur sms-berichten naar je klanten"
+    },
+    "push": {
+      "title": "Push-notificatie",
+      "description": "Stuur je klanten een melding via je studio-app"
+    },
+    "popup": {
+      "title": "Pop-up",
+      "description": "Bericht verschijnt wanneer klanten de app openen"
+    }
+  },
+  "upsellInterestConfirmationModal": {
+    "title": "We nemen contact met je op!",
+    "heading": "Bedankt voor je interesse",
+    "description": "Je accountmanager neemt binnenkort contact met je op om de details te bespreken en al je vragen te beantwoorden.",
+    "okButton": "OK"
+  },
+  "communicationPackageUpsellModal": {
+    "title": "Ontgrendel het communicatiepakket",
+    "disclaimer": "Dit is een aanvullende dienst. Contacteer je account manager voor meer informatie.",
+    "buttons": {
+      "cancel": "Sluiten",
+      "getInTouch": "Neem contact op"
+    },
+    "toast": {
+      "requestFailed": "Er is iets misgegaan. Probeer het opnieuw of neem contact op met je accountmanager."
+    },
+    "sms": {
+      "heading": "SMS, email en push — alles op één plek",
+      "description": "Automatiseer welkomstberichten, re-engagement nudges, loyaliteitsaanbiedingen en studio-updates, allemaal vanuit je Back Office. Altijd de juiste boodschap, perfect getimed."
+    },
+    "push": {
+      "heading": "SMS, email en push — alles op één plek",
+      "description": "Automatiseer welkomstberichten, re-engagement nudges, loyaliteitsaanbiedingen en studio-updates, allemaal vanuit je Back Office. Altijd de juiste boodschap, perfect getimed."
+    },
+    "popup": {
+      "heading": "In-app meldingen inschakelen",
+      "description": "Maak in realtime contact met klanten via je eigen app. Stuur tijdige herinneringen, benadruk belangrijke updates en houd je studio zichtbaar op hun startscherm."
+    }
+  },
+  "generateReportModal": {
+    "title": "Campagnerapport downloaden",
+    "description": "Stel een datumbereik in",
+    "toast": {
+      "pending": "Rapport genereren...",
+      "success": "Rapport gegenereerd en download klaar",
+      "startReportGenerationFailed": "Rapport kon niet worden gegenereerd. Probeer opnieuw.",
+      "generationFailed": "Rapport kon niet worden gegenereerd. Probeer opnieuw.",
+      "downloadFailed": "Rapport kon niet worden gedownload. Probeer opnieuw."
+    },
+    "buttons": {
+      "confirm": "Download",
+      "cancel": "Sluiten"
+    }
+  },
+  "table": {
+    "campaignRecipient": {
+      "recipientsList": {
+        "title": "Ontvangers"
+      },
+      "emptyDate": "--",
+      "headers": {
+        "memberIdentity": "Klant",
+        "lastOpened": "Laatst geopend",
+        "openCount": "Opent",
+        "clickCount": "Aantal keer geklikt",
+        "status": "Status"
+      },
+      "emptyState": {
+        "description": "Geen ontvangers"
+      },
+      "loadingState": {
+        "description": "Lijst met ontvangers laden..."
+      },
+      "moreActions": {
+        "label": "Meer acties",
+        "navigateToMemberProfile": "Ga naar cliëntprofiel",
+        "copyEmail": "E-mail kopiëren",
+        "copyPhoneNumber": "Telefoonnummer kopiëren",
+        "copyName": "Naam kopiëren"
+      },
+      "copyContactInfo": {
+        "success": "Gekopieerd naar klembord",
+        "error": "Kopiëren naar klembord mislukt. Probeer het opnieuw."
+      }
+    },
+    "campaignScheduled": {
+      "deleteModal": {
+        "title": "Geplande campagne verwijderen?",
+        "description": "Hiermee wordt deze campagne permanent verwijderd. Het geplande bericht wordt geannuleerd en niet naar ontvangers verzonden.",
+        "warning": "Let op: deze wijziging is permanent en kan niet ongedaan worden gemaakt.",
+        "cannotDeleteWithin5Min": "Het is te laat om deze campagne te verwijderen. Deze staat gepland om binnen 5 minuten te worden verzonden.",
+        "buttons": {
+          "delete": "Verwijderen",
+          "cancel": "Behouden"
+        }
+      },
+      "lockedModal": {
+        "title": "Geplande campagne kan niet worden bewerkt of verwijderd",
+        "description": "Het is te laat om deze campagne te bewerken of te verwijderen. Deze wordt over minder dan 5 minuten verzonden.",
+        "buttons": {
+          "close": "Sluiten",
+          "goBack": "Terug"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Geplande campagne verwijderd"
+        },
+        "error": {
+          "deleteFailed": "Kon geplande campagne niet verwijderen. Probeer het opnieuw.",
+          "campaignNotFound": "Ingeplande campagne niet gevonden"
+        }
+      },
+      "recipientsList": {
+        "title": "Ontvangers",
+        "description": "Deze lijst toont Klanten die momenteel overeenkomen met je segment. Als het segment verandert voordat je verstuurt, wordt de uiteindelijke lijst met ontvangers automatisch bijgewerkt."
+      },
+      "headers": {
+        "scheduledDate": "Ingepland",
+        "campaignName": "Campagne"
+      },
+      "moreActions": {
+        "label": "Meer acties",
+        "edit": "Bewerken",
+        "delete": "Verwijderen"
+      },
+      "emptyState": {
+        "description": "Nog geen campagnes ingepland"
+      },
+      "loadingState": {
+        "description": "Geplande campagnes laden..."
+      }
+    },
+    "campaignSent": {
+      "headers": {
+        "sentDate": "Verzenddatum",
+        "campaignName": "Campagne",
+        "campaignAnalytics": "Analytics"
+      },
+      "analytics": {
+        "recipients": "Ontvangers",
+        "deliveryRate": "Bezorgingspercentage",
+        "openCount": "Openingen",
+        "clickCount": "Aantal keer geklikt"
+      },
+      "moreActions": {
+        "label": "Meer acties",
+        "preview": "Voorbeeld"
+      },
+      "emptyState": {
+        "description": "Nog geen campagnes verzonden"
+      },
+      "loadingState": {
+        "description": "Verzonden campagnes laden ..."
+      }
+    },
+    "campaignSentRecipient": {
+      "emptyState": {
+        "title": "Geen ontvangers komen overeen met je filters",
+        "description": "Pas je filters aan om ontvangers te vinden die overeenkomen met je smartlist",
+        "reviewFilters": "Filters bekijken"
+      }
+    }
+  },
+  "campaignDetails": {
+    "metadataBanner": {
+      "noRecipients": "--",
+      "headers": {
+        "channel": "Kanaal",
+        "status": "Status",
+        "scheduledDate": "Gepland op",
+        "sentDate": "Verzonden op",
+        "recipients": "Totaal aantal ontvangers"
+      },
+      "previewButton": "Bericht bekijken",
+      "deleteButton": "Verwijderen",
+      "contentPreview": {
+        "subject": "Onderwerp",
+        "dynamicContentWarning": "Dynamische content wordt mogelijk niet weergegeven in het voorbeeld."
+      }
+    },
+    "performance": {
+      "title": "Prestaties",
+      "empty": "Geen prestatiegegevens beschikbaar",
+      "deliveryRate": {
+        "title": "Bezorgingspercentage",
+        "subtitle": "",
+        "subtitle_one": "{{count}} email verzonden",
+        "subtitle_other": "{{count}} Email verzonden",
+        "subtitle_zero": "Geen e-mails bezorgd"
+      },
+      "openRate": {
+        "title": "Openingspercentage",
+        "subtitle": "",
+        "subtitle_one": "{{count}} ontvangers hebben de email geopend",
+        "subtitle_other": "{{count}} ontvangers hebben de email geopend",
+        "subtitle_zero": "Er hebben geen ontvangers de email geopend"
+      },
+      "clickRate": {
+        "title": "Klikfrequentie",
+        "subtitle": "",
+        "subtitle_one": "{{count}} ontvanger heeft minstens één keer geklikt",
+        "subtitle_other": "{{count}} ontvangers hebben minstens één keer geklikt",
+        "subtitle_zero": "Geen ontvangers hebben minstens één keer geklikt"
+      },
+      "unsubscribedRate": {
+        "title": "Uitschrijfpercentage",
+        "subtitle": "",
+        "subtitle_one": "{{count}} mensen hebben zich afgemeld voor deze email",
+        "subtitle_other": "{{count}} heeft zich afgemeld van deze email",
+        "subtitle_zero": "Niemand heeft zich afgemeld voor deze e-mail"
+      },
+      "clickPerformance": {
+        "empty": "Geen klikprestatiegegevens beschikbaar",
+        "title": "Aantal keer geklikt",
+        "click": "",
+        "click_one": "{{count}} klik",
+        "click_other": "{{count}} klikken",
+        "click_zero": "Er is nog geen informatie om weer te geven.",
+        "showMore": "Toon nog {{count}}",
+        "showMore_one": "Toon nog {{count}}",
+        "showMore_other": "Toon nog {{count}}",
+        "showLess": "Toon minder"
+      }
+    }
+  },
+  "prebuilt": {
+    "creation": {
+      "toasts": {
+        "error": {
+          "scheduleNotSupported": "Geplande campagnes voor vooraf ingestelde smartlists zijn binnenkort beschikbaar. Je kunt deze campagne nu nog steeds versturen."
+        }
+      }
+    }
+  }
+}

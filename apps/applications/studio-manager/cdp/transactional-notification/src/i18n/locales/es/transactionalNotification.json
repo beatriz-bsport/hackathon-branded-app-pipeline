@@ -15,7 +15,7 @@
       }
     },
     "categories": {
-      "member": "Registro de contactos",
+      "member": "Registro de clientes",
       "booking": "Reservas",
       "private_booking": "Citas",
       "recurrent_private_booking": "Citas recurrentes",
@@ -54,7 +54,7 @@
           "message": "Configura primero tu notificación push para activarla",
           "label": "Ayuda"
         },
-        "franchiseOwned": "Esta notificación es gestionada por la Cuenta Principal ",
+        "franchiseOwned": "Esta notificación es gestionada por la cuenta principal ",
         "setPushNotificationBeforeEnabling": "Configura primero tu notificación push para activarla"
       },
       "helper": {

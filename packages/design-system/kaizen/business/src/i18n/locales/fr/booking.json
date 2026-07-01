@@ -1,0 +1,7 @@
+{
+  "activitySelector": {
+    "label": "Cours",
+    "placeholder": "Rechercher un cours...",
+    "loadingMessage": "Chargement des cours..."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "description": "Un emplacement regroupe des Établissements pour le marketing, les ventes et le reporting partagés",
+  "create": {
+    "title": "Créer un lieu",
+    "submit": "Créer"
+  },
+  "edit": {
+    "title": "Modifier l'emplacement",
+    "submit": "Modifier l'emplacement"
+  },
+  "fields": {
+    "name": {
+      "label": "Nom",
+      "placeholder": "Ajouter un nom de lieu "
+    },
+    "venues": {
+      "label": "Établissements assignés",
+      "placeholder": "Rechercher des établissements..."
+    }
+  },
+  "errors": {
+    "required": "Ce champ ne peut pas être vide",
+    "venuesRequired": "Sélectionnez au moins un établissement"
+  },
+  "cancel": "Fermer",
+  "delete": "Supprimer la localisation",
+  "deleteModal": {
+    "title": "Supprimer la localisation ?",
+    "confirm": "Supprimer",
+    "cancel": "Garder",
+    "alert": {
+      "blocking": "Cette localisation ne peut pas être supprimée pour les raisons suivantes :"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Cette localisation est utilisée dans certains widgets de site web. Veuillez les mettre à jour avant l'archivage.",
+      "exclusiveCoaches": "Ces professeurs sont uniquement associés à cette localisation : {{names}}. Veuillez mettre à jour leurs paramètres avant de les supprimer."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Certains membres du personnel ont des paramètres liés à cet établissement.",
+      "hasRelatedMarketplaceConfigs": "Certains widgets de site web sont liés à cet emplacement.",
+      "hasRelatedMarketingNotifications": "Certains messages automatiques ciblent cet établissement.",
+      "relatedCoaches": "Certains professeurs sont associés à ce lieu."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Localisation créée",
+    "createError": "Impossible de créer la localisation. Veuillez réessayer. ",
+    "updateSuccess": "Localisation mise à jour",
+    "updateError": "Impossible de mettre à jour la localisation. Veuillez réessayer. ",
+    "deleteSuccess": "Localisation supprimée",
+    "deleteError": "Impossible de supprimer la localisation. Veuillez réessayer. "
+  }
+}

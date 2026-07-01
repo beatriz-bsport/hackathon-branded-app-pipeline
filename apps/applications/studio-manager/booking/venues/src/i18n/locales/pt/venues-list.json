@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Estabelecimentos",
+  "tabs": {
+    "venues": "Estabelecimentos",
+    "locations": "Localizações"
+  },
+  "locations": {
+    "columns": {
+      "name": "Localização",
+      "venues": "Estabelecimentos"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "emptyState": {
+      "title": "Nenhuma localização ainda",
+      "subtitle": "Agrupe os estabelecimentos por localização e eles aparecerão aqui",
+      "cta": "Adicionar localização",
+      "noResults": "Nenhum local corresponde à sua pesquisa"
+    },
+    "deleteModal": {
+      "title": "Eliminar localização?",
+      "warningsTitle": "Eliminar esta localização afetará o seguinte:",
+      "confirm": "Eliminar",
+      "cancel": "Manter",
+      "alert": {
+        "blocking": "Esta localização não pode ser eliminada porque:",
+        "warning": "Eliminar esta localização afetará o seguinte:"
+      },
+      "preflightError": "Não foi possível verificar se este local pode ser excluído. Tente novamente.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Uma ou mais abas do seu site estão configuradas para exibir apenas a agenda desta localização. Atualize-as antes de excluir esta localização."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Um ou mais membros do pessoal usam este local para controlo de acesso. Se você o excluir sem atribuir uma substituição, eles perderão o controlo de acesso.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} só recebe pedidos de substituição para este local. Ao excluí-lo, você enviará a ele pedidos de todos os locais.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} só recebe pedidos de substituição para este local. Ao excluí-lo, você enviará a ele pedidos de todos os locais.",
+        "hasRelatedAssociatedCoaches": "Alguns professores só recebem pedidos de substituição para este local. Ao excluí-lo, eles serão removidos das notificações de substituição.",
+        "hasRelatedMarketplaceComponentConfigs": "As abas de horários e de workshops configuradas no site do seu cliente não mostrarão mais este local.",
+        "hasRelatedMarketingNotifications": "As Notificações vinculadas a este local serão excluídas."
+      },
+      "info": {
+        "reportsDefault": "A localização será excluída dos relatórios anteriores.",
+        "widgetsDefault": "Os widgets de Horários e Workshops configurados para este local precisarão ser atualizados manualmente."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Ainda não há estabelecimentos",
+    "cta": "Crie seu primeiro estabelecimento para começar a agendar aulas e aulas privadas"
+  },
+  "search": {
+    "placeholder": "Pesquisar estabelecimentos",
+    "locationsPlaceholder": "Pesquisar localizações",
+    "emptyState": {
+      "title": "Nenhum estabelecimento encontrado",
+      "subtitle": "Tente um termo de pesquisa diferente"
+    }
+  },
+  "filters": {
+    "selectField": "Filtrar",
+    "location": "Localização",
+    "city": "Cidade",
+    "noLocation": "Sem localização",
+    "operators": {
+      "is": "é"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Adicionar à localização",
+    "addTooltip": "Atribua este estabelecimento a um local para aplicar as suas configurações de notificação e marketing.",
+    "edit": "Editar localização"
+  },
+  "venueRow": {
+    "edit": "Editar",
+    "archive": "Arquivar"
+  },
+  "actions": {
+    "archive": "Estabelecimentos arquivados",
+    "createLocation": "Criar local",
+    "createLocationTooltip": "Adicione um local para agrupar estabelecimentos para marketing, vendas e relatórios compartilhados",
+    "createVenue": "Criar estabelecimento",
+    "createVenueTooltip": "Crie um novo espaço para Aulas e Aulas Privadas"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Estabelecimentos"
+    },
+    "actions": {
+      "archive": "Arquivar",
+      "configureWidget": "Configurar widget"
+    },
+    "notFound": "Estabelecimento não encontrado",
+    "editor": {
+      "discard": {
+        "title": "Descartar alterações?",
+        "description": "Suas alterações não salvas serão perdidas.",
+        "confirm": "Descartar alterações",
+        "keepEditing": "Continuar a editar",
+        "toast": "Alterações descartadas"
+      }
+    },
+    "spotScheduling": {
+      "title": "Seleção De Sítio",
+      "subtitle": "Adicione um mapa de sitios para permitir que os clientes reservem sítios específicos (por exemplo, bicicletas, tapetes, reformers).",
+      "createCta": "Criar",
+      "noSpots": "Nenhum sítio configurado ainda",
+      "spotCount_one": "{{count}} lugar",
+      "spotCount_other": "{{count}} sítios",
+      "empty": "Nenhum mapa de sitios ainda",
+      "rowMenu": {
+        "label": "Abrir mapa de sitios",
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "deleteModal": {
+        "title": "Eliminar seleção de lugar?",
+        "description": "Excluir esta configuração de seleção de sítios não pode ser desfeita",
+        "confirm": "Eliminar",
+        "cancel": "Manter"
+      },
+      "untitledBlueprint": "Mapa de sítios sem título",
+      "toasts": {
+        "delete": "Seleção de Sítio eliminada",
+        "deleteError": "Não foi possível eliminar a seleção de sítio. Tente novamente. ",
+        "createError": "Não foi possível criar a seleção de sítios. Tente novamente. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Estabelecimentos arquivados",
+    "breadcrumbs": {
+      "venues": "Estabelecimentos",
+      "archivedVenues": "Estabelecimentos arquivados"
+    },
+    "sectionHeader": "Todos os estabelecimentos ({{count}})",
+    "emptyState": {
+      "title": "Nenhum estabelecimento arquivado ainda",
+      "subtitle": "Qualquer estabelecimento movido para cá pode ser restaurado"
+    },
+    "venueRow": {
+      "unarchive": "Recuperar"
+    }
+  },
+  "modal": {
+    "title": "Arquivar estabelecimento",
+    "confirm": "Arquivar",
+    "cancel": "Manter",
+    "alert": {
+      "blocking": "Este estabelecimento não pode ser arquivado devido ao seguinte:",
+      "warning": "Arquivar este estabelecimento afetará o seguinte:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Estes estabelecimentos têm aulas futuras. Cancele ou exclua-as antes de arquivar.",
+      "hasUpcomingPrivateBookings": "Este Estabelecimento tem Aulas privadas futuras. Cancele-as ou exclua-as antes de arquivar.",
+      "hasExclusiveBillingGroup": "Este estabelecimento está vinculado a um local de faturação. Atualize ou exclua o local de faturação antes de arquivar.",
+      "exclusiveEstablishmentGroups": "Este estabelecimento será removido das seguintes localizações: {{names}}. Atualize-as antes de arquivar.",
+      "exclusivePaymentPacks": "Os seguintes passes são válidos apenas neste estabelecimento: {{names}}. Atualize as restrições deles antes de arquivar.",
+      "hasExclusiveMarketplaceComponentConfigs": "Uma ou mais abas do seu site estão configuradas para exibir apenas a agenda desta localização. Atualize-as antes de excluir esta localização.",
+      "isIntegratedInPartnership": "Este Estabelecimento está vinculado a um ou mais Agregadores. Atualize essas conexões antes de arquivar."
+    },
+    "warnings": {
+      "title": "Arquivar este estabelecimento afetará o seguinte:",
+      "hasBillingGroup": "Este estabelecimento pertence ao local de faturação {{name}}.",
+      "exclusivePrivateServices": "Estes aulas privadas estão disponíveis apenas neste estabelecimento: {{names}}.",
+      "relatedPaymentPacks": "Estes passes {{names}} só podem ser usados neste estabelecimento.",
+      "hasExclusiveStaffConfigurations": "Alguns membros do pessoal estão atribuídos apenas a este estabelecimento.",
+      "hasRelatedStaffConfigurations": "Alguns membros do pessoal têm configurações vinculadas a este estabelecimento.",
+      "exclusiveCoachAvailabilitySlots": "Estes professores só têm horários disponíveis neste estabelecimento: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Alguns professores têm horários de disponibilidade nestes estabelecimentos.",
+      "exclusiveAssociatedCoaches": "Estes professores estão associados apenas a este estabelecimento: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Alguns professores estão associados a estes estabelecimentos.",
+      "hasRelatedAvailabilitySlots": "Alguns horários de disponibilidade estão vinculados a este estabelecimento.",
+      "hasRelatedMarketplaceComponentConfigs": "Uma ou mais abas do seu site estão configuradas para exibir apenas a agenda deste estabelecimento. ",
+      "hasRelatedZoomEstablishment": "Uma integração com o Zoom está configurada para este estabelecimento.",
+      "hasRelatedMarketingNotifications": "Algumas mensagens automáticas visam este estabelecimento."
+    },
+    "info": {
+      "noReports": "O Estabelecimento não será excluído de relatórios anteriores.",
+      "widgets": "Os widgets de Horários e workshops configurados para este local precisarão ser atualizados manualmente.",
+      "sessions": "As aulas em curso e as reservas anteriores não serão afetadas",
+      "appointments": "As Aulas Privadas anteriores não serão afetadas"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Criar estabelecimento",
+    "editTitle": "Editar estabelecimento",
+    "createConfirm": "Criar",
+    "editConfirm": "Guardar alterações",
+    "cancel": "Fechar",
+    "errors": {
+      "requiredField": "Este campo não pode estar vazio"
+    },
+    "cover": {
+      "label": "Imagem",
+      "helper": "Exibido para clientes no app e site. Paisagem (16:9) — cortado automaticamente."
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Adicione um nome para os estabelecimentos"
+    },
+    "description": {
+      "label": "Descrição",
+      "placeholder": "Descreva o estabelecimento ",
+      "helper": "Aparece no perfil do seu estúdio na app. Descreva o espaço, o ambiente ou o que o torna único."
+    },
+    "address": {
+      "label": "Endereço",
+      "placeholder": "Procurar um endereço"
+    },
+    "location": {
+      "label": "Localização",
+      "placeholder": "Selecionar um local"
+    },
+    "capacity": {
+      "label": "Capacidade da sala",
+      "helper": "O número de vagas disponíveis neste Estabelecimento. Digite 0 para ilimitado."
+    },
+    "accessInformation": {
+      "label": "Informações para clientes",
+      "placeholder": "Diga aos clientes como acessar este estabelecimento",
+      "helper": "Exibido aos seus clientes após a reserva (ex: código de entrada, andar, instruções)."
+    }
+  },
+  "toasts": {
+    "undo": "Desfazer",
+    "archive": "Estabelecimento arquivado",
+    "archiveError": "Não foi possível arquivar o estabelecimento. Tente novamente. ",
+    "unarchive": "Estabelecimento restaurado",
+    "unarchiveError": "Não foi possível restaurar o estabelecimento. Tente novamente. ",
+    "addVenueToLocation": "\"{{venue}}\" adicionado a \"{{location}}\"",
+    "locationDelete": "Localização excluída",
+    "locationDeleteError": "Não foi possível excluir o local. Tente novamente.",
+    "create": "Estabelecimento criado",
+    "createPartial": "Estabelecimento criado, mas não pôde ser atribuído ao local selecionado. Atribua-o manualmente.",
+    "createError": "Não foi possível criar o estabelecimento. Tente novamente. ",
+    "update": "Estabelecimentos atualizados",
+    "updateError": "Não foi possível atualizar o estabelecimento. Tente novamente. "
+  }
+}

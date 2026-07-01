@@ -12,12 +12,12 @@
     },
     "empty": {
       "title": "Derzeit keine Geschenkgutscheine",
-      "subtitle": "Erstellen Geschenkgutscheine, die Mitglieder mit Freunden und Familie teilen können."
+      "subtitle": "Erstelle Geschenkgutscheine, die Kund:innen mit Freund:innen und Familie teilen können"
     },
     "archiveModal": {
       "title": "Geschenkgutschein archivieren?",
       "description": {
-        "lineOne": "'{{ name }}' wird für Mitglieder nicht mehr sichtbar sein, aber aktuelle oder frühere Käufe werden nicht beeinträchtigt.",
+        "lineOne": "'{{ name }}' wird für Kund:innen nicht mehr sichtbar sein, aber aktuelle oder frühere Käufe werden nicht beeinträchtigt.",
         "lineTwo": "Du kannst diesen Geschenkgutschein jederzeit aus deinem Archiv wiederherstellen."
       },
       "buttons": {
@@ -93,7 +93,7 @@
   "imageUploadModal": {
     "title": "Bilderbibliothek",
     "uploadButton": "Bild hochladen",
-    "description": "Füge benutzerdefinierte Bilder zu deiner Bibliothek hinzu, damit deine Mitglieder ihre Geschenkgutscheine personalisieren können.",
+    "description": "Füge eigene Bilder zu deiner Bibliothek hinzu, damit deine Kund:innen ihren Geschenkgutschein personalisieren können",
     "selectImage": "Wähle ein Bild aus, um es in der Geschenkgutschein-Vorschau anzuzeigen.",
     "emptyList": "Derzeit keine eigenen Bilder"
   }

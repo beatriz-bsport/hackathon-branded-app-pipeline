@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Kurs erstellen",
+      "confirm": "Anlegen",
+      "cancel": "Schließen",
+      "steps": {
+        "classSetup": "Richte deine Klasse ein",
+        "bookingRules": "Buchungsregeln hinzufügen"
+      },
+      "errors": {
+        "requiredField": "Dieses Feld darf nicht leer sein"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Typ",
+      "groupActivity": {
+        "label": "Gruppenaktivität",
+        "helper": "Kurse mit mehreren Teilnehmer:innen, die im Wochenplan auf deiner Website oder in deiner App angezeigt werden"
+      },
+      "workshop": {
+        "label": "Workshop",
+        "helper": "Separat hervorgehobene Events, die einmalig, wiederkehrend oder Teil einer Serie sein können"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Dieser Name wird Kund:innen angezeigt, z. B. Vinyasa Yoga",
+        "error": "Gib dieser Klasse einen Namen"
+      },
+      "category": {
+        "label": "Kategorie",
+        "placeholder": "Kategorie auswählen",
+        "helper": "Die ausgewählte Kategorie wird auf deiner Website und in deiner App angezeigt",
+        "error": "Wähle eine Kategorie für diesen Kurs"
+      },
+      "descriptionField": {
+        "label": "Beschreibung",
+        "placeholder": "Füge eine Beschreibung des Kurses für deine Kund:innen hinzu",
+        "helper": "Die Beschreibung gilt standardmäßig für alle Kurse. Aktualisiere sie bei der Planung für einzelne Kurse.",
+        "error": "Gib eine Beschreibung für diese Klasse ein"
+      },
+      "image": {
+        "label": "Titelbild",
+        "description": "Dieses Bild wird Kund:innen auf deiner Website und in deiner App für diesen Kurs angezeigt",
+        "recommendation": "Empfohlen: 1920 x 1080. Format: JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Alternativtext des Bildes",
+        "placeholder": "Z. B. eine Nahaufnahme einer Person beim Yoga",
+        "helper": "Hilft sehbehinderten Kund:innen, das Titelbild zu verstehen. Wird nicht auf dem Bildschirm angezeigt."
+      },
+      "color": {
+        "label": "Farbe",
+        "placeholder": "Keine Farbe",
+        "description": "Lass diesen Kurs in deinem Stundenplan hervorstechen"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Buchungsfenster öffnet",
+        "description": "Wie weit im Voraus können Kund:innen diesen Kurs buchen?"
+      },
+      "closing": {
+        "title": "Letzte Buchung",
+        "description": "Wie kurz vor Beginn Kund:innen noch buchen können"
+      },
+      "cancellation": {
+        "title": "Stornierungsbedingungen",
+        "description": "Lege die Frist für kostenlose Stornierungen vor Beginn dieser Klasse fest"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Wenn das Buchungsfenster 0 Tage vor dem Kurs öffnet, können Kund:innen nicht buchen.",
+        "lowFirstBookingUntil": "Das Buchungsfenster öffnet sich weniger als 24 Stunden vor dem Kurs. Kund:innen haben möglicherweise nicht genug Zeit zum Buchen.",
+        "highLastBooking": "Das Buchungsfenster schließt mehr als 2 Stunden vor Kursbeginn. Kund:innen müssen weit im Voraus buchen."
+      }
+    },
+    "customRestrictions": {
+      "title": "Buchungsregeln pro Smartlist anpassen",
+      "toggleLabel": "Wende unterschiedliche Buchungs- und Stornierungsregeln auf bestimmte Kund:innen-Smartlists an",
+      "ruleTitle": "Benutzerdefinierte Buchungsregel {{index}}",
+      "remove": "Entfernen",
+      "applyTo": "Regeln anwenden auf:",
+      "tagsPlaceholder": "Tags hinzufügen",
+      "addRule": "Eine Regel hinzufügen",
+      "maxHint": "Du kannst bis zu {{max}} eigene Regeln hinzufügen.",
+      "maxReached": "Du hast bereits {{max}} benutzerdefinierte Regeln hinzugefügt.",
+      "errors": {
+        "tagsRequired": "Füge mindestens 1 Tag hinzu"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Automatische Stornierung",
+      "toggleLabel": "Storniere einen Kurs automatisch, wenn es nicht genug Buchungen gibt",
+      "minBookingsLabel": "Mindestkapazität",
+      "hoursBeforeStartLabel": "Zeit vor Kursbeginn",
+      "minBookingsSuffix": "Plätze",
+      "hoursBeforeStartSuffix": "Uhr",
+      "alert": "Inhaber:innen, Administrator:innen, Lehrer:innen und gebuchte Kund:innen werden automatisch benachrichtigt"
+    },
+    "timeInput": {
+      "days": "T",
+      "hours": "h",
+      "minutes": "Min."
+    }
+  }
+}

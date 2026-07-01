@@ -1,0 +1,11 @@
+{
+  "memberSelectorModal": {
+    "title": "Selecteer een klant",
+    "cancel": "Sluiten",
+    "selectMember": "Selecteer klant",
+    "searchPlaceholder": "Zoek klanten...",
+    "emptyState": "Kies een klant om een factuur aan te maken",
+    "emptySearch": "Geen klanten gevonden",
+    "loading": "Klanten laden..."
+  }
+}

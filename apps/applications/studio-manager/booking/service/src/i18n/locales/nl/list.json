@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Lessen"
+    },
+    "state": {
+      "loading": {
+        "message": "Lessen laden..."
+      },
+      "empty": {
+        "title": "Nog geen lessen",
+        "subtitle": "Maak lessen aan en ze verschijnen hier",
+        "cta": "Les aanmaken"
+      },
+      "emptySearch": {
+        "title": "Geen resultaten gevonden",
+        "subtitle": "Geen lessen komen overeen met je filters. Probeer ze te wissen om meer resultaten te zien.",
+        "cta": "Wis filters"
+      }
+    },
+    "header": {
+      "services": "Diensten",
+      "classes": "Lessen",
+      "archivedClasses": "Archiveren",
+      "add": "Klas aanmaken",
+      "information": {
+        "label": "Diensten instellen",
+        "description": "Maak hier je lessen en afspraken aan om ze in te plannen via de Agendapagina"
+      }
+    },
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "category": {
+        "label": "Categorie",
+        "searchPlaceholder": "Zoek"
+      },
+      "type": {
+        "label": "Kanalen",
+        "groupActivity": "Groepsactiviteit",
+        "workshop": "Workshops"
+      }
+    },
+    "addModal": {
+      "title": "Les aanmaken",
+      "confirm": "Maken",
+      "cancel": "Sluiten",
+      "errors": {
+        "generic": "Er is iets misgegaan. Probeer het opnieuw of ververs de pagina. ",
+        "requiredField": "Dit veld kan niet leeg zijn"
+      }
+    },
+    "actions": {
+      "duplicate": "Dupliceren",
+      "archive": "Archiveren",
+      "unarchive": "Herstellen"
+    },
+    "toasts": {
+      "create": "{{className}} aangemaakt",
+      "createError": "Kon de les niet aanmaken. Probeer het opnieuw.",
+      "edit": "{{className}} bijgewerkt",
+      "editError": "Klas kon niet worden bijgewerkt. Probeer het opnieuw."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Les",
+          "category": "Categorie",
+          "type": "Kanalen",
+          "nextClass": {
+            "name": "Aankomend",
+            "noUpcomingSession": {
+              "tooltip": "Geen aankomende les"
+            }
+          },
+          "features": "Details",
+          "actions": "Acties"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Workshops",
+          "groupActivity": "Groepsactiviteit"
+        },
+        "features": {
+          "notifications": {
+            "title": "Meldingen ingeschakeld",
+            "popoverLabel": "Klanten ontvangen meldingen van deze les"
+          },
+          "livestream": {
+            "title": "Livestream ingeschakeld",
+            "popoverLabel": "Zoom-integratie ingesteld voor deze Les"
+          }
+        }
+      }
+    }
+  }
+}

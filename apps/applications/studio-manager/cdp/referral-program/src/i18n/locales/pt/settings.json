@@ -2,7 +2,7 @@
   "title": "Indicações",
   "referralProgramHelper": {
     "title": "Ativar Indicações",
-    "description": "Configure um link de indicação para que seus Membros convidem outras pessoas para o seu estúdio. Ofereça um incentivo, defina um prazo para a indicação e forneça uma recompensa para o Membro que indicou.",
+    "description": "Cria um link de recomendação para os teus clientes convidarem outras pessoas para o teu estúdio. Oferece um incentivo, define um limite de tempo para a recomendação e dá uma recompensa ao cliente que indicou.",
     "button": {
       "activated": {
         "label": "Desativar",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Recompensa por indicar um membros",
+        "title": "Recompensa por indicar um cliente",
         "amountOff": {
-          "label": "Quanto você quer recompensar os membros"
+          "label": "Quanto queres recompensar o Cliente"
         },
         "maxReferringNumber": {
-          "label": "Uso máx. por membros",
+          "label": "Máx. de uso por cliente",
           "errors": {
             "tooSmall": "O número de usos deve estar entre 1 e 5",
             "tooBig": "Você não pode dar mais de 5 indicações",

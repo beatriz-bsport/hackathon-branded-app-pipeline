@@ -1,0 +1,11 @@
+{
+  "memberSelectorModal": {
+    "title": "Wähle eine:n Kund:in aus",
+    "cancel": "Schließen",
+    "selectMember": "Kund:innen auswählen",
+    "searchPlaceholder": "Kund:innen suchen...",
+    "emptyState": "Wähle eine:n Kund:in, um eine Rechnung zu erstellen",
+    "emptySearch": "Keine Kund:innen gefunden",
+    "loading": "Kund:innen werden geladen..."
+  }
+}

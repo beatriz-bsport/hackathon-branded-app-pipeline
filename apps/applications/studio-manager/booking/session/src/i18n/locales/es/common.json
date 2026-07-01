@@ -1,13 +1,13 @@
 {
   "session": {
     "tooltips": {
-      "recurring": "Recurring session",
-      "groupedSession": "Sesiones de grupo",
-      "online": "Online session",
-      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
+      "recurring": "La Clase es recurrente",
+      "groupedSession": "La Clase es parte de un Curso",
+      "online": "Clase online",
+      "hybrid": "La Clase es híbrida: tanto presencial como online"
     },
     "properties": {
-      "hybrid": "Hybrid"
+      "hybrid": "Híbrida"
     },
     "weekdays": {
       "1": "Lunes",
@@ -28,9 +28,18 @@
       "5": "No se muestra el nivel"
     }
   },
+  "aggregators": {
+    "name": {
+      "wellhub": "Wellhub",
+      "myclubs": "myClubs",
+      "classpass": "ClassPass",
+      "usc": "Urban Sports Club",
+      "wellpass": "Wellpass"
+    }
+  },
   "backgroundTask": {
-    "processing": "Processing...",
-    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "processing": "Procesando...",
+    "genericError": "Algo salió mal. Revisa tu conexión e intenta refrescar la página.",
     "timeoutError": "El servidor tardó mucho en responder. Intenta refrescar la página"
   }
 }

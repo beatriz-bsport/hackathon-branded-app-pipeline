@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Klas aanmaken",
+      "confirm": "Maken",
+      "cancel": "Sluiten",
+      "steps": {
+        "classSetup": "Stel je les in",
+        "bookingRules": "Boekingsregels toevoegen"
+      },
+      "errors": {
+        "requiredField": "Dit veld kan niet leeg zijn"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Type",
+      "groupActivity": {
+        "label": "Groepsactiviteit",
+        "helper": "Lessen met meerdere deelnemers die in het weekrooster op je website of app verschijnen"
+      },
+      "workshop": {
+        "label": "Workshops",
+        "helper": "Evenementen die apart worden uitgelicht en eenmalig, terugkerend of onderdeel van een reeks cursussen kunnen zijn"
+      },
+      "name": {
+        "label": "Naam",
+        "placeholder": "Deze naam wordt aan klanten getoond, bijv. Vinyasa Yoga",
+        "error": "Voer een naam in voor deze les"
+      },
+      "category": {
+        "label": "Categorie",
+        "placeholder": "Selecteer een categorie",
+        "helper": "Geselecteerde categorie wordt weergegeven op je website en in de app",
+        "error": "Kies een categorie voor deze les"
+      },
+      "descriptionField": {
+        "label": "Beschrijving",
+        "placeholder": "Voeg een beschrijving van de les toe voor je klanten",
+        "helper": "Beschrijving geldt standaard voor alle Lessen. Werk bij voor individuele Lessen bij het inplannen.",
+        "error": "Voer een beschrijving in voor deze les"
+      },
+      "image": {
+        "label": "Omslagafbeelding",
+        "description": "Deze afbeelding wordt aan Klanten getoond op je website en in de app voor deze Les",
+        "recommendation": "Aanbevolen: 1920 x 1080. Formaat: JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Afbeelding alt-tekst",
+        "placeholder": "Bijv. een close-up van iemand die yoga doet",
+        "helper": "Helpt slechtziende Klanten de omslagafbeelding te begrijpen. Niet zichtbaar op het scherm."
+      },
+      "color": {
+        "label": "Kleur",
+        "placeholder": "Geen kleur",
+        "description": "Laat deze les opvallen in je rooster"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Boekingsperiode opent",
+        "description": "Hoe ver van tevoren kunnen Klanten deze Les boeken"
+      },
+      "closing": {
+        "title": "Sluiting reserveringen",
+        "description": "Hoe kort voor aanvang klanten nog kunnen boeken"
+      },
+      "cancellation": {
+        "title": "Annuleringsbeleid",
+        "description": "Stel de uiterste termijn in voor gratis annuleringen voordat deze les begint"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Als de boekingsperiode 0 dagen voor de les opent, kunnen klanten niet boeken.",
+        "lowFirstBookingUntil": "De Boekingsperiode opent minder dan 24 uur voor de les. Klanten hebben dan mogelijk niet genoeg tijd om te boeken.",
+        "highLastBooking": "De boekingsperiode sluit meer dan 2 uur voor de les. Klanten moeten ruim van tevoren boeken."
+      }
+    },
+    "customRestrictions": {
+      "title": "Boekingsregels aanpassen per smartlist",
+      "toggleLabel": "Pas verschillende boekings- en annuleringsregels toe op specifieke Klant Smartlist",
+      "ruleTitle": "Aangepaste boekingsregel {{index}}",
+      "remove": "Verwijder",
+      "applyTo": "Regels toepassen op:",
+      "tagsPlaceholder": "Tags toevoegen",
+      "addRule": "Een regel toevoegen",
+      "maxHint": "Je kunt maximaal {{max}} aangepaste regels toevoegen.",
+      "maxReached": "Je hebt al {{max}} aangepaste regels toegevoegd.",
+      "errors": {
+        "tagsRequired": "Voeg minimaal 1 tag toe"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Automatische annulering",
+      "toggleLabel": "Automatisch ondergeboekte lessen annuleren",
+      "minBookingsLabel": "Minimale capaciteit",
+      "hoursBeforeStartLabel": "Tijd voordat de les begint",
+      "minBookingsSuffix": "plekken",
+      "hoursBeforeStartSuffix": "Uur",
+      "alert": "Eigenaren, beheerders, docenten en geboekte Klanten worden automatisch op de hoogte gebracht"
+    },
+    "timeInput": {
+      "days": "d",
+      "hours": "u",
+      "minutes": "min"
+    }
+  }
+}

@@ -7,7 +7,7 @@
     "loading": "Carregando pacotes...",
     "emptyList": {
       "title": "Nenhum pacote adicionado ainda",
-      "subtitle": "Adicione um Pacote para combinar seus produtos e Passes em uma única oferta. "
+      "subtitle": "Adiciona um pacote para combinar os teus produtos da loja e passes numa única oferta"
     },
     "headers": {
       "name": "Nome",
@@ -30,8 +30,8 @@
   "deleteModal": {
     "title": "Excluir Pacotes?",
     "description": {
-      "effect": "Assim que você deletar {{ name }}, ele não estará mais visível para os membros. ",
-      "canNotBeUndone": "Todos os Membros que compraram este pacote não serão afetados. "
+      "effect": "Assim que eliminares {{ name }}, deixará de ser visível para os clientes. ",
+      "canNotBeUndone": "Todos os clientes que compraram estes pacotes não serão afetados. "
     },
     "actions": {
       "cancel": "Manter",

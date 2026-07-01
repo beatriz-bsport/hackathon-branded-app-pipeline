@@ -1,40 +1,163 @@
 {
   "paymentMethods": {
     "label": "Geaccepteerde betaalmethoden",
-    "helperText": "Choose at least one payment method",
+    "helperText": "Kies er minstens één",
     "options": {
       "onlinePayment": {
-        "label": "Online (default)",
-        "helperText": "Card or other online payments"
+        "label": "Online (standaard)",
+        "helperText": "Kaart of andere online betalingen"
       },
       "inPerson": {
         "label": "Persoonlijk",
-        "helperText": "Cash or cheque"
+        "helperText": "Contant of cheque"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+    "alertVisibilityHidden": "Deze {{ buyable }} kan nog steeds met klanten worden gedeeld via een link en online worden betaald."
   },
   "visibilitySelector": {
     "optionVisible": {
-      "label": "Listed",
-      "description": "This {{ buyable }} will be visible on the Member Area"
+      "label": "Gepubliceerd",
+      "description": "Deze {{ buyable }} is zichtbaar in de Ledenruimte"
     },
     "optionHidden": {
       "label": "Niet vermeld",
-      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+      "description": "Deze {{ buyable }} is niet zichtbaar in de Ledenruimte, maar kan worden gedeeld via een link"
+    }
+  },
+  "visibilityRules": {
+    "label": "Geavanceerde opties",
+    "checkboxes": {
+      "recommended": {
+        "label": "Markeer als aanbevolen",
+        "helperText": "Hiermee kunnen je klanten snel zien welke aanbiedingen momenteel worden aanbevolen"
+      },
+      "newMembersOnly": {
+        "label": "Alleen beschikbaar voor nieuwe klanten",
+        "helperText": "Klanten zijn 'nieuw' zolang ze geen artikel hebben gekocht met een waarde van meer dan {{ minimalCurrency }}. Zelfs als ze een artikel kopen met 100% korting, telt dit nog steeds als een aankoop."
+      },
+      "hideFromStaff": {
+        "label": "Onzichtbaar voor het personeel",
+        "helperText": "Personeel kan deze {{ buyable }} niet bekijken of kopen "
+      }
     }
   },
   "tagsAfterPurchaseSelector": {
-    "placeholder": "Add tags",
+    "placeholder": "Tags toevoegen",
     "title": "Tags na aankoop",
-    "description": "Add tags to identify which member bought this item."
+    "description": "Voeg tags toe om te identificeren welke klant dit artikel heeft gekocht"
   },
   "copyPaymentLinkButton": {
     "toastSuccess": "Link gekopieerd",
     "tooltip": "Kopieer betalingslink"
   },
+  "creditFactor": {
+    "fieldLabel": "Price",
+    "notPriceWarning": "Voer de prijs in credits in, niet de geldwaarde",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} tegoed",
+    "nbOfCredits_other": "{{ countDisplay }} credits"
+  },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Beperkt",
+      "optionUnlimited": "Ongelimiteerd"
+    },
+    "onDemandToggle": {
+      "label": "On-demand toegang inschakelen",
+      "restrictToOnDemand": "Beperk on-demand toegang"
+    },
+    "guestBookingToggle": {
+      "label": "Boeking voor een gast toestaan"
+    },
+    "teacherPayrollToggle": {
+      "label": "Inbegrepen in de payroll van de docent",
+      "helperText": "Lessen worden gefactureerd aan de studio en zijn inbegrepen in de Payroll van de docent"
+    },
+    "teacherPayRate": {
+      "label": "Instructeurstarief incl. btw",
+      "helperText": "Bedrag dat de docent verdient per boeking",
+      "tooltip": "Dit tarief bepaalt de payroll van de docent en is van toepassing op alle boekingen die met deze pas zijn gemaakt. Als je dit op '0' laat staan, wordt het tarief berekend als abonnementsprijs gedeeld door het aantal boekingen."
+    },
+    "maximumUsage": {
+      "label": "Stel maximaal gebruik in",
+      "helperText": "beheer het maximale toegestane gebruik per dag, week, maand of aankoop per klant",
+      "gridColumns": {
+        "maximumUsage": "Maximaal gebruik",
+        "scope": "Bereik"
+      },
+      "scopes": {
+        "day": "Dag",
+        "week": "Week",
+        "month": "Maand",
+        "member": "Klant"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Beperk boeking tot bepaalde tijden",
+      "helperText": "Klanten kunnen alleen boeken tijdens de geselecteerde tijden",
+      "timePeriod": "Tijdsperiode",
+      "allDay": "Gehele dag",
+      "addMoreSchedule": "Meer schema's toevoegen",
+      "buttonLabels": {
+        "removeTimeSchedule": "Verwijder het tijdsperiodeschema",
+        "removeTimeSlot": "Tijdslot verwijderen",
+        "addTimeSlot": "Tijdslot toevoegen"
+      }
+    },
+    "penalty": {
+      "label": "Boete toepassen",
+      "helperText": "Boete voor klanten met frequente no-shows of late annuleringen",
+      "daysSuffix": "",
+      "daysSuffix_one": "dag",
+      "daysSuffix_other": "dagen",
+      "blockedDaysLabel": "Aantal te blokkeren dagen",
+      "accountValueLabel": "Boetebedrag",
+      "penaltyKind": "Type boete",
+      "kindOptions": {
+        "blockFor": "Blokkeer voor",
+        "chargeAccount": "Accounttegoed voor"
+      },
+      "lateCancellation": {
+        "title": "Te late annulering",
+        "thresholdLabel": "Aantal annuleringen",
+        "windowDaysLabel": "Binnen enkele dagen"
+      },
+      "noShow": {
+        "title": "Frequent no-show",
+        "thresholdLabel": "Aantal no-shows",
+        "windowDaysLabel": "Binnen dagen",
+        "description": "Definieer no-show regels in <key1>Instellingen > Personalisatie</key1>"
+      }
+    }
+  },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Volledige betaling aan docent",
+      "helperText": "Alle inkomsten uit afspraken die met deze pas zijn geboekt, worden volledig aan de docent betaald"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Compatibel met afspraken",
+      "placeholder": "Zoek een afspraak",
+      "loadingMessage": "Afspraken laden…",
+      "list": {
+        "compatibleWithAll": "Compatibel met alle lessen",
+        "compatibleWith": "Compatibel met: {{ slotNames }}",
+        "noSessionsAvailable": "Geen lessen beschikbaar",
+        "removeAction": "Verwijder",
+        "editAction": "Bewerk compatibele lessen"
+      },
+      "editModal": {
+        "selectAll": "Alles selecteren",
+        "helperText": "Klanten kunnen deze pas alleen gebruiken voor de geselecteerde lessen",
+        "noSessionsAlert": "Dit abonnement is niet langer compatibel met {{ appointmentName }} afspraken.",
+        "cancel": "Sluiten",
+        "save": "Opslaan",
+        "emptyState": "Deze afspraak heeft nog geen tijdslot."
+      }
+    }
+  },
   "itemAutocomplete": {
-    "openItemInNewTab": "Open item in new tab",
+    "openItemInNewTab": "Artikel openen in nieuw tabblad",
     "credits": "{{count}} credits",
     "credits_one": "{{count}} credit",
     "credits_other": "{{count}} credits",
@@ -46,8 +169,18 @@
     "days_other": "{{count}} dagen",
     "unlimited": "Ongelimiteerd",
     "custom": "Personalisatie",
-    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "customAmountRange": "Personalisatie: {{min}} - {{max}}",
     "hiddenChipLabel": "Verborgen",
-    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+    "hiddenGiftcardTooltip": "Deze cadeaubon is niet te koop via de website voor klanten"
+  },
+  "billingPlanStatus": {
+    "valid": "Geldig",
+    "paused": "Gepauzeerd",
+    "canceled": "Geannuleerd",
+    "ended": "Beëindigd"
+  },
+  "accessControlToggle": {
+    "label": "Toegang tot de studio verlenen",
+    "helperText": "Klanten met deze pas kunnen de deuren van de studio ontgrendelen. Om toegangstijden te beperken, stel je tijdregels in op het Kisi-platform."
   }
 }

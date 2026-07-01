@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Classi"
+    },
+    "state": {
+      "loading": {
+        "message": "Caricamento lezioni..."
+      },
+      "empty": {
+        "title": "Nessuna lezione ancora",
+        "subtitle": "Crea delle lezioni e verranno visualizzate qui",
+        "cta": "Crea una classe"
+      },
+      "emptySearch": {
+        "title": "Nessun risultato trovato",
+        "subtitle": "Nessuna lezione corrisponde ai tuoi filtri. Prova a cancellarli per vedere più risultati.",
+        "cta": "Cancella filtri"
+      }
+    },
+    "header": {
+      "services": "Servizi",
+      "classes": "Classi",
+      "archivedClasses": "Archivia",
+      "add": "Crea una classe",
+      "information": {
+        "label": "Configurazione dei servizi",
+        "description": "Crea qui le tue Lezioni e i tuoi Appuntamenti per programmarli dalla pagina Calendario"
+      }
+    },
+    "filters": {
+      "label": "Filtri",
+      "is": "è",
+      "category": {
+        "label": "Categoria",
+        "searchPlaceholder": "Ricerca"
+      },
+      "type": {
+        "label": "Tipo",
+        "groupActivity": "Lezione di gruppo",
+        "workshop": "Workshop"
+      }
+    },
+    "addModal": {
+      "title": "Crea una lezione",
+      "confirm": "Crea",
+      "cancel": "Chiudi",
+      "errors": {
+        "generic": "Qualcosa è andato storto. Riprova o aggiorna la pagina. ",
+        "requiredField": "Questo campo non può essere vuoto"
+      }
+    },
+    "actions": {
+      "duplicate": "Duplica",
+      "archive": "Archivia",
+      "unarchive": "Ripristina"
+    },
+    "toasts": {
+      "create": "{{className}} creato",
+      "createError": "Impossibile creare la lezione. Riprova.",
+      "edit": "{{className}} aggiornato",
+      "editError": "Impossibile aggiornare la lezione. Riprova."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Lezione",
+          "category": "Categoria",
+          "type": "Tipo",
+          "nextClass": {
+            "name": "Prossimi",
+            "noUpcomingSession": {
+              "tooltip": "Nessuna lezione in programma"
+            }
+          },
+          "features": "Dettagli della prenotazione",
+          "actions": "Azioni"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Workshop",
+          "groupActivity": "Lezione di gruppo"
+        },
+        "features": {
+          "notifications": {
+            "title": "Notifiche abilitate",
+            "popoverLabel": "I Clienti riceveranno notifiche da questa Lezione"
+          },
+          "livestream": {
+            "title": "Livestream abilitato",
+            "popoverLabel": "Integrazione Zoom configurata per questa lezione"
+          }
+        }
+      }
+    }
+  }
+}

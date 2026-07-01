@@ -9,28 +9,28 @@
     "segments": {
       "customers": {
         "title": "Customers",
-        "description": "This segment captures all individuals with at least one paid transaction. Target everyone who has ever paid the studio (a class pass, a subscription, or even a coffee at the front desk)."
+        "description": "Target clients who have made at least one paid transaction, whether a pass, a subscription, or even a coffee at the front desk. Your widest reach for studio-wide news and announcements."
       },
       "active_members": {
-        "title": "Active Clients",
-        "description": "This segment groups all clients currently active. (have an active pass). Following the lifecycle status definition."
+        "title": "Active clients",
+        "description": "Engage clients who currently have an active pass or subscription. Your most reliable base for retention, upsells, and keeping regulars coming back."
       },
       "active_trials": {
-        "title": "Trials (intro offer)",
-        "description": "Convert new clients before their trial window closes. This segment groups all clients currently on an active trial or intro pass who have not yet made a second purchase."
+        "title": "Active trials",
+        "description": "Reach clients currently on an active intro offer as part of a trial period who haven't made a second purchase yet. These are your highest-potential leads — convert them before their offer expires."
       }
     },
     "columns": {
       "name": "Name",
       "email": "Email",
-      "passName": "Pass name",
-      "passValidityStartDate": "Pass start date",
-      "lastVisitDate": "Last visit date",
-      "offerExpiryDate": "Offer expiry date",
+      "passName": "Pass",
+      "passValidityStartDate": "Last purchase",
+      "lastVisitDate": "Last visit",
+      "offerExpiryDate": "Expiry date",
       "status": "Status",
       "dateJoined": "Join date",
-      "lastPurchaseDate": "Last purchase date",
-      "currentLifecycleState": "Lifecycle state"
+      "lastPurchaseDate": "Last purchase",
+      "currentLifecycleState": "Status"
     },
     "enums": {
       "activeTrialStatus": {
@@ -47,9 +47,9 @@
       }
     },
     "information": {
-      "label": "About pre-built segments",
+      "label": "About prebuilt segments",
       "title": "Find key audiences instantly",
-      "description": "Pre-built segments are automatically created groups based on common client behaviors.",
+      "description": "Prebuilt segments are automatically created groups based on common client behaviors.",
       "update": "They update over time using predefined rules, so clients enter or leave the segment as their activity changes. Pre-built segments help you target key audiences quickly without needing to create filters yourself.",
       "custom": "For custom criteria or advanced logic, use custom segments."
     },
@@ -62,19 +62,19 @@
         "loading": "Loading segment...",
         "emptyState": {
           "title": "No clients found",
-          "subtitle": "This prebuilt segment has no matching clients yet."
+          "subtitle": "This prebuilt segment has no matching clients yet"
         }
       },
-      "segmentPlaceholder": "Segment details will be available soon.",
-      "campaignsPlaceholder": "Campaigns will be available soon.",
+      "segmentPlaceholder": "Segment details will be available soon",
+      "campaignsPlaceholder": "Campaigns will be available soon",
       "campaigns": {
         "emptyState": {
-          "description": "No campaigns have been sent to this pre-built segment yet."
+          "description": "No campaigns have been sent to this prebuilt segment yet"
         }
       }
     }
   },
-  "addSmartlist": "Create Segment",
+  "addSmartlist": "Create segment",
   "loading": "Loading segments...",
   "search": "Search segments",
   "emptyState": {
@@ -88,7 +88,7 @@
   },
   "duplicateModal": {
     "title": "Duplicate segment?",
-    "description": "You'll be able to edit <b>{{name}}</b> after it's duplicated.",
+    "description": "You'll be able to edit <b>{{name}}</b> after.",
     "buttons": {
       "duplicate": "Duplicate",
       "cancel": "Close"
@@ -97,10 +97,10 @@
   "deleteModal": {
     "title": "Delete segment?",
     "description": "Once you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will no longer run. Previously tagged clients won't be affected.",
-    "warning": "Heads up: this change is permanent and cannot be undone",
-    "audienceWarning": "Segments used in Audience workflows can't be deleted. ",
-    "cannotBeDeleted": "This segment is currently being used in Audience workflows and can't be deleted on this page.",
-    "audienceCallToAction": "To delete this segment, go to Audience and remove it from associated workflows.",
+    "warning": "This change is permanent and cannot be undone",
+    "audienceWarning": "Segments used in Journeys can't be deleted. ",
+    "cannotBeDeleted": "This segment is currently being used in a Journey and can't be deleted on this page.",
+    "audienceCallToAction": "To delete this segment, go to Journeys and remove it from associated Journey steps",
     "buttons": {
       "delete": "Delete",
       "cancel": "Keep"
@@ -116,14 +116,14 @@
       "actionUndone": "Change undone"
     },
     "error": {
-      "duplicateFailed": "Segment couldn't be duplicated. Please try again. ",
-      "updateFailed": "Segment couldn't be updated. Please try again. ",
-      "createFailed": "Segment couldn't be created. Please try again. ",
-      "deleteFailed": "Segment couldn't be deleted. Please try again. ",
+      "duplicateFailed": "Segment couldn't be duplicated. Try again. ",
+      "updateFailed": "Segment couldn't be updated. Try again. ",
+      "createFailed": "Segment couldn't be created. Try again. ",
+      "deleteFailed": "Segment couldn't be deleted. Try again. ",
       "deleteError": {
-        "101000": "Segment couldn't be deleted. Please try again.",
-        "101001": "Segment couldn't be deleted as it's currently used in active communications. Please remove it from communications, or contact support for help. ",
-        "101002": "Segment couldn't be deleted because it's being used in active Audience workflows. Please go to the Audience page to remove it from the associated workflow. "
+        "101000": "Segment couldn't be deleted. Try again.",
+        "101001": "Segment couldn't be deleted as it's currently used in active campaigns or Journeys. Remove it from either the Journey or campaign, or contact support for help. ",
+        "101002": "Segment couldn't be deleted because it's being used in active Journeys. Go to the Journey page to remove it."
       }
     }
   },
@@ -138,7 +138,7 @@
     "delete": "Delete"
   },
   "createForm": {
-    "title": "Create Segment",
+    "title": "Create segment",
     "actions": {
       "create": "Create",
       "cancel": "Close"

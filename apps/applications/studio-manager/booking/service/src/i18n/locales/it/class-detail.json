@@ -1,8 +1,87 @@
 {
   "classDetail": {
+    "loading": "Caricamento lezione...",
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Pacchetti compatibili"
+    },
+    "compatiblePasses": {
+      "loading": "Caricamento pass...",
+      "uncategorized": "Senza categoria",
+      "empty": {
+        "title": "Nessun pass compatibile ancora",
+        "description": "Configura i Pass lezioni compatibili con questa Lezione e appariranno qui",
+        "cta": "Vai ai pass"
+      },
+      "flags": {
+        "universal": "Universale",
+        "unlisted": "Non in elenco",
+        "staffRestricted": "Solo abbonamento ricorrente",
+        "newMembersOnly": "Solo nuovi clienti",
+        "tooltips": {
+          "universal": "Utilizzabile sia per le Lezioni che per gli Appuntamenti",
+          "unlisted": "Non viene visualizzato sul sito web o sull'app",
+          "staffRestricted": "Solo vendibile come parte di un abbonamento",
+          "newMembersOnly": "Acquistabile solo da clienti senza acquisti precedenti"
+        }
+      },
+      "filter": {
+        "operatorIs": "è",
+        "categories": "Categorie",
+        "properties": "Proprietà",
+        "selectField": "Seleziona filtro"
+      },
+      "search": {
+        "placeholder": "Cerca pass"
+      },
+      "noResults": {
+        "title": "Nessun pass corrisponde ai tuoi filtri",
+        "cta": "Ripristina filtri"
+      },
+      "panel": {
+        "previous": "Pass precedente",
+        "next": "Pass successivo",
+        "goToPass": "Vai al pass",
+        "properties": "Proprietà",
+        "credits": "Crediti",
+        "creditsCount": "{{count}} credito",
+        "creditsCount_other": "{{count}} crediti",
+        "creditsUnlimited": "Illimitato",
+        "compatibility": "Compatibilità",
+        "free": "Gratis",
+        "compatibilityAll": "Tutti i servizi - Tutte le sedi",
+        "compatibilityAllServices": "Tutti i servizi",
+        "compatibilityAllLocations": "Tutte le sedi",
+        "compatibilityCategories": "Categorie",
+        "compatibilityServices": "Servizi",
+        "compatibilityLocations": "Sedi",
+        "offPeakOnly": "Solo fasce orarie non di punta"
+      }
+    },
+    "editor": {
+      "toast": "Classe modificata",
+      "advanced": {
+        "title": "Avanzate"
+      },
+      "discard": {
+        "title": "Scartare le modifiche?",
+        "description": "Se esci ora, le tue modifiche non verranno salvate. ",
+        "confirm": "Scarta le modifiche",
+        "keepEditing": "Continua a modificare",
+        "toast": "Modifiche scartate"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Sessioni",
+        "archived": "Lezioni archiviate"
+      },
+      "actions": {
+        "archive": "Archivia",
+        "unarchive": "Ripristina",
+        "duplicate": "Duplica",
+        "scheduleSessions": "Programma le lezioni"
+      }
     }
   }
 }

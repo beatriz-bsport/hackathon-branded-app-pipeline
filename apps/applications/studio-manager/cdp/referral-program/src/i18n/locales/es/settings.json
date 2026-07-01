@@ -2,7 +2,7 @@
   "title": "Referidos",
   "referralProgramHelper": {
     "title": "Activar Referidos",
-    "description": "Configura un enlace de recomendación para que los Miembros inviten a otros a tu estudio. Ofrece un incentivo, establece un límite de tiempo para la recomendación y proporciona una recompensa al Miembro que refiere.",
+    "description": "Configura un enlace de referidos para que tus Clientes inviten a otros a tu estudio. Ofrece un incentivo, establece un límite de tiempo para el referido y proporciona una recompensa al Cliente que refiere.",
     "button": {
       "activated": {
         "label": "Desactivar",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Recompensa por referir a un Miembro",
+        "title": "Recompensa por referir a un cliente",
         "amountOff": {
-          "label": "¿Cuánto quieres recompensar a los miembros?"
+          "label": "Cuánto quieres recompensar al cliente"
         },
         "maxReferringNumber": {
-          "label": "Uso máx. por miembros",
+          "label": "Máx. uso por cliente",
           "errors": {
             "tooSmall": "El número de usos debe estar entre 1 y 5",
             "tooBig": "No puedes dar más de 5 referencias",
@@ -130,7 +130,7 @@
     },
     "deactivateReferralModal": {
       "title": "¿Desactivar las referencias?",
-      "description": "Guardaremos tu configuración para que puedas reactivar las referencias fácilmente en el futuro.",
+      "description": "Guardaremos tu configuración para que puedas reactivar los referidos fácilmente en el futuro.",
       "cancelButton": {
         "label": "Cerrar"
       },

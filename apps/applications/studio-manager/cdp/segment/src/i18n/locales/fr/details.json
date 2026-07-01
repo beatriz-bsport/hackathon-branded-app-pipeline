@@ -2,49 +2,86 @@
   "tabs": {
     "parameters": "Filtres",
     "campaigns": "Campagnes",
-    "automations": "Automations"
+    "automations": "Automatisations"
+  },
+  "filterDraftDiscardModal": {
+    "title": "Abandonner les modifications de filtre non enregistrées ?",
+    "description": "Vous avez des filtres non enregistrés. Si vous quittez maintenant, vos modifications seront perdues.",
+    "confirm": "Abandonner les modifications",
+    "cancel": "Continuer la modification"
   },
   "actions": {
-    "createAutomation": "Create automation",
+    "showResults": "Afficher les résultats",
+    "createAutomation": "Créer une automatisation",
     "createAutomationModal": {
-      "title": "Create a new automation",
-      "description": "Automations run once daily. Don’t want to wait? Use <audienceLink>Audience</audienceLink>",
-      "audienceLinkLabel": "Audience",
+      "title": "Créer une nouvelle automatisation",
+      "description": "Les automatisations s’exécutent une fois par jour. Vous ne voulez pas attendre ? Utilisez les <audienceLink>Journeys</audienceLink>",
+      "audienceLinkLabel": "Journeys",
       "automationType": {
-        "selectLabel": "Select the automation you want to create:",
+        "selectLabel": "Sélectionnez une automatisation à créer :",
         "automatedMessage": {
-          "title": "Automated Message",
-          "description": "Send messages once profiles enter or exit the defined filters"
+          "title": "Communication",
+          "description": "Envoyer des messages automatisés lorsque les profils entrent ou sortent des filtres définis"
         },
         "tagRule": {
-          "title": "Tag Rule",
-          "description": "Automatically tag users based on their actions"
+          "title": "Tag",
+          "description": "Appliquer automatiquement des tags aux clients en fonction de leurs actions"
         }
       },
       "messageChannel": {
-        "selectLabel": "Select your desired communication channel to get started:",
+        "selectLabel": "Sélectionnez un canal de communication pour commencer :",
         "email": {
           "title": "Email",
-          "description": "Send a targeted email message to your smartlist"
+          "description": "Envoyer un email ciblé à votre segment"
         },
         "sms": {
           "title": "SMS",
-          "description": "Send an SMS message to text your members"
+          "description": "Envoyer un message SMS ciblé à vos clients"
         },
         "push": {
           "title": "Notification push",
-          "description": "Send your members a notification via your studio app"
+          "description": "Envoyez une notification à vos clients via l'application de votre studio"
+        }
+      },
+      "tagRuleForm": {
+        "trigger": {
+          "label": "Évènement déclenchant la notification",
+          "options": {
+            "join": "Appliquer un tag lorsqu'un profil entre dans le segment",
+            "leave": "Appliquer un tag une fois qu'un Profil quitte le segment",
+            "present": "Appliquer le tag lorsqu'un profil entre dans le segment"
+          },
+          "descriptions": {
+            "enter": "Le tag est appliqué lorsque le profil entre dans le segment et est automatiquement supprimé lorsqu'il en sort.",
+            "leave": "Le tag est appliqué uniquement lorsque le profil quitte le Segment.",
+            "present": "Le tag est appliqué lorsque le profil entre dans le segment et est retiré automatiquement lorsqu'il en sort."
+          }
+        },
+        "tag": {
+          "label": "Sélectionner le tag",
+          "placeholder": "Ajouter un tag",
+          "loading": "Chargement des tags...",
+          "required": "Ajouter un tag"
+        },
+        "actions": {
+          "cancel": "Fermer",
+          "save": "Enregistrer"
         }
       }
     }
   },
   "automation": {
+    "infoTooltip": {
+      "label": "Fonctionnement des automatisations",
+      "title": "Fonctionnement des automatisations",
+      "body": "Les automatisations s'exécutent une fois toutes les 24 heures. Si un profil entre ou quitte les Segments après l'exécution de l'automatisation, le tag ou le message sera appliqué ou envoyé le lendemain."
+    },
     "messages": {
       "title": "Messages",
-      "description": "These messages send once profiles enter or exit the defined filters.",
-      "emptyState": "No automated messages yet",
+      "description": "Ces messages sont envoyés une fois que les Profils entrent ou sortent des filtres définis.",
+      "emptyState": "Aucun message automatisé pour le moment",
       "columns": {
-        "createdOn": "Created on",
+        "createdOn": "Créée le",
         "condition": "Condition",
         "analytics": "Analytique",
         "recipients": "Destinataires",
@@ -52,8 +89,8 @@
         "clicks": "Clics"
       },
       "conditions": {
-        "onJoin": "When member enters Smartlist",
-        "onLeave": "When member leaves Smartlist"
+        "onJoin": "Lorsqu'un client entre dans le segment",
+        "onLeave": "Lorsqu'un client quitte le segment"
       },
       "channels": {
         "email": "Email",
@@ -62,70 +99,73 @@
       },
       "actions": {
         "edit": "Modifier",
-        "delete": "Supprimer",
-        "export": "Récapitulatif"
+        "delete": "Supprimer"
       },
       "deleteModal": {
-        "title": "Delete automation?",
-        "description": "Any members who haven't received this message yet won't receive it.",
+        "title": "Supprimer l'automatisation ?",
+        "description": "Les Clients ne recevront plus ce message automatisé",
         "buttons": {
           "delete": "Supprimer",
-          "cancel": "Annuler"
+          "cancel": "Garder"
         }
       },
       "toasts": {
         "success": {
-          "deleted": "Automation message deleted",
-          "exported": "Campaign export downloaded"
+          "deleted": "Le message d'automatisation a été supprimé."
         },
         "error": {
-          "deleteFailed": "Automation couldn't be deleted. Please try again.",
-          "exportFailed": "Campaign export failed. Please try again."
-        },
-        "info": {
-          "exportPending": "Generating campaign export…"
+          "deleteFailed": "Impossible de supprimer l'automatisation. Veuillez réessayer."
         }
       }
     },
     "tagRules": {
-      "title": "Tag rules",
-      "description": "These tag rules apply or remove tags when profiles enter or exit the defined filters.",
-      "emptyState": "No tag rules yet",
+      "title": "Règles de Tags",
+      "description": "Ces règles de tags appliquent ou suppriment des tags lorsque les profils entrent ou sortent des filtres définis.",
+      "emptyState": "Aucune règle de tag pour le moment",
       "columns": {
-        "createdOn": "Created on",
+        "createdOn": "Créé",
         "condition": "Condition",
         "tag": "Tag"
       },
       "conditions": {
         "joins": {
-          "text": "Customer joins Smartlist"
+          "text": "Le Client entre dans le segment"
         },
         "present": {
-          "text": "Customer is present in Smartlist"
+          "text": "Le Client est dans le Segment"
         },
         "leaves": {
-          "text": "Customer leaves Smartlist"
+          "text": "Le Client quitte le Segment"
         }
       },
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer",
-        "menu": "Actions menu"
+        "menu": "Actions rapides"
       },
       "deleteModal": {
-        "title": "Delete tag rule?",
-        "description": "This tag rule for {{tagGroupName}} \"{{tagName}}\" will be permanently removed.",
+        "title": "Supprimer la règle de tag ?",
+        "description": "Cette règle de tag pour {{tagGroupName}} \"{{tagName}}\" sera supprimée définitivement. Cette action est irréversible. ",
         "buttons": {
           "delete": "Supprimer",
-          "cancel": "Annuler"
+          "cancel": "Conserver"
         }
+      },
+      "limitReachedModal": {
+        "title": "Débloquer plus de règles de tags",
+        "description": "Vous avez atteint la limite de 10 règles de tags pour vos segments. Ajoutez d'autres règles pour automatiser vos flux de travail et mieux cibler vos clients.",
+        "disclaimer": "Cette fonctionnalité est un service additionnel. Contactez votre Account Manager pour en savoir plus."
       },
       "toasts": {
         "success": {
-          "deleted": "Tag rule deleted"
+          "created": "Règle de tag créée",
+          "saved": "Règle de tag enregistrée",
+          "deleted": "Règle de Tags supprimée"
         },
         "error": {
-          "deleteFailed": "Tag rule couldn't be deleted. Please try again."
+          "createFailed": "Impossible de créer la règle de tag. Réessayez.",
+          "updateFailed": "Impossible de mettre à jour la règle de tag. Veuillez réessayer.",
+          "deleteFailed": "Impossible de supprimer la règle de tag. Veuillez réessayer."
         }
       }
     },
@@ -139,87 +179,302 @@
           "trigger": "Évènement déclenchant la notification"
         }
       },
-      "recipients": {
+      "sentMessages": {
+        "title": "Messages envoyés",
         "emptyTitle": "Nothing sent yet",
-        "emptyDescription": "Recipients who trigger the automation will appear here"
+        "emptyDescription": "Les destinataires qui déclenchent l'automatisation apparaîtront ici"
       }
     },
     "push": {
       "pageTitle": "Push Notification Campaign",
       "actions": {
-        "continue": "Continuer",
+        "continue": "Créer",
         "save": "Enregistrer"
       },
       "alert": {
-        "onlyAppMembers": "Only members who have downloaded your studio app will receive this notification."
+        "onlyAppMembers": "Seuls les clients ayant téléchargé l'application de votre studio recevront cette notification."
       },
       "sections": {
-        "delivery": "Delivery",
+        "delivery": "Déclencheur",
         "message": "Communication",
         "preview": "Aperçu"
       },
       "preview": {
-        "noContentMessage": "Fill in the title and content to see a preview"
+        "noContentMessage": "Ajoutez un titre et un message pour prévisualiser la notification push"
       },
       "form": {
         "automationName": {
-          "label": "Automation name",
-          "placeholder": "Spring Reset Yoga Series",
-          "required": "Add an automation name",
-          "maxLength": "Automation name must be under 150 characters"
+          "label": "Nom",
+          "placeholder": "Ajouter un titre ici",
+          "required": "Saisissez un nom pour cette automatisation",
+          "maxLength": "Le nom doit comporter moins de 150 caractères"
         },
         "condition": {
-          "label": "When should this automated message send",
+          "label": "Choisir un déclencheur pour cette automatisation",
           "options": {
-            "entry": "Entry to Smartlist",
-            "exit": "Exit from Smartlist"
+            "entry": "Entre dans le segment",
+            "exit": "Quitter le segment"
           }
         },
         "triggerLimit": {
-          "label": "How many times should this automation be triggered for the same person?",
+          "label": "Définir le nombre maximal de déclenchements de cette automatisation pour une même personne",
           "options": {
-            "noLimit": "No limit (default)",
-            "once": "1 time",
-            "twice": "2 times",
-            "threeTimes": "3 times"
+            "noLimit": "Aucune limite (par défaut)",
+            "once": "1 fois",
+            "twice": "2 fois",
+            "threeTimes": "3 fois"
           }
         },
         "title": {
           "label": "Titre",
           "placeholder": "",
-          "required": "Add a title",
-          "maxLength": "Title must be under 25 characters"
+          "required": "Saisir un titre pour cette automatisation",
+          "maxLength": "Le titre doit comporter moins de 25 caractères"
         },
         "message": {
-          "label": "Contenu",
+          "label": "Corps",
           "placeholder": "",
-          "required": "Add a message",
-          "maxLength": "Message must be under 200 characters"
+          "required": "Ajouter un message pour cette automatisation ",
+          "maxLength": "Le message doit comporter moins de 200 caractères"
         }
       },
       "toasts": {
         "success": {
-          "created": "Push automation created",
-          "saved": "Push automation saved"
+          "created": "Automatisation push créée",
+          "saved": "Automatisation enregistrée"
         },
         "error": {
-          "createFailed": "Push automation couldn't be created. Please try again.",
-          "updateFailed": "Push automation couldn't be updated. Please try again."
+          "createFailed": "Impossible de créer l'automatisation push. Veuillez réessayer.",
+          "updateFailed": "Impossible de mettre à jour l'automatisation push. Veuillez réessayer."
+        }
+      }
+    },
+    "sms": {
+      "pageTitle": "Campagne SMS",
+      "actions": {
+        "continue": "Créer",
+        "save": "Enregistrer"
+      },
+      "conflictAlert": "Une automatisation SMS existe déjà pour ce déclencheur. Retournez dans Automatisations pour gérer celle qui existe déjà.",
+      "sections": {
+        "delivery": "Déclencheur",
+        "message": "Communication"
+      },
+      "form": {
+        "automationName": {
+          "label": "Nom de l'automatisation",
+          "placeholder": "Ajoutez un nom à cette automatisation",
+          "required": "Saisissez un nom pour cette automatisation",
+          "maxLength": "Le nom de l'automatisation doit contenir moins de 150 caractères"
+        },
+        "condition": {
+          "label": "Définir un déclencheur pour ce SMS automatisé",
+          "options": {
+            "entry": "Entrer dans le segment",
+            "exit": "Quitter le segment"
+          }
+        },
+        "triggerLimit": {
+          "label": "Définir le nombre maximum de fois que cette automatisation peut être déclenchée pour la même personne",
+          "options": {
+            "noLimit": "Aucune limite (par défaut)",
+            "once": "1 fois",
+            "twice": "2 fois",
+            "threeTimes": "3 fois"
+          }
+        },
+        "message": {
+          "label": "Corps",
+          "placeholder": "",
+          "required": "Ajouter un corps pour cette automatisation SMS",
+          "maxLength": "Le corps du SMS doit contenir moins de 160 caractères"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Automatisation SMS créée",
+          "saved": "Automatisation des SMS enregistrée"
+        },
+        "error": {
+          "duplicate": "Une automatisation SMS existe déjà pour ce déclencheur.",
+          "createFailed": "Impossible de créer l'automatisation SMS. Veuillez réessayer.",
+          "updateFailed": "Impossible de créer l'automatisation SMS. Veuillez réessayer."
+        }
+      }
+    },
+    "email": {
+      "pageTitle": "Campagne Email",
+      "actions": {
+        "continue": "Créer",
+        "save": "Enregistrer"
+      },
+      "sections": {
+        "delivery": "Déclencheur"
+      },
+      "form": {
+        "automationName": {
+          "label": "Nom de l'automatisation",
+          "placeholder": "Ajouter un nom pour cette automatisation",
+          "required": "Ajouter un nom d'automatisation",
+          "maxLength": "Le nom de l'automatisation doit contenir moins de 150 caractères"
+        },
+        "condition": {
+          "label": "Définir le déclencheur de cet email automatisé ",
+          "options": {
+            "entry": "Entre dans le segment",
+            "exit": "Quitter le segment"
+          }
+        },
+        "triggerLimit": {
+          "label": "Définir le nombre maximal de déclenchements de cette automatisation pour une même personne",
+          "options": {
+            "noLimit": "Aucune limite (par défaut)",
+            "once": "1 fois",
+            "twice": "2 fois",
+            "threeTimes": "3 fois"
+          }
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Automatisation d'Email créée",
+          "saved": "Email automation saved"
+        },
+        "error": {
+          "createFailed": "Impossible de créer l'automatisation d'email. Veuillez réessayer.",
+          "updateFailed": "Impossible de mettre à jour l'automatisation des emails. Veuillez réessayer."
         }
       }
     }
   },
+  "generic": {
+    "pushNotification": {
+      "sections": {
+        "message": "Communication",
+        "preview": "Aperçu"
+      },
+      "preview": {
+        "noContentMessage": "Ajoutez un titre et un message pour prévisualiser la notification push"
+      },
+      "form": {
+        "title": {
+          "label": "Titre",
+          "placeholder": "",
+          "required": "Ajouter un titre",
+          "maxLength": "Le titre doit comporter moins de 25 caractères"
+        },
+        "message": {
+          "label": "Corps",
+          "placeholder": "",
+          "required": "Ajouter un message",
+          "maxLength": "Le message doit comporter moins de 200 caractères"
+        }
+      }
+    },
+    "smsContent": {
+      "sections": {
+        "message": "Communication",
+        "preview": "Aperçu"
+      },
+      "preview": {
+        "noContentMessage": "Ajouter un message pour prévisualiser le SMS"
+      },
+      "form": {
+        "message": {
+          "label": "Corps",
+          "placeholder": "",
+          "required": "Saisissez le contenu du corps de ce SMS",
+          "segmentCount": "",
+          "segmentCount_one": "{{count}} segment SMS",
+          "segmentCount_other": "{{count}} Segments SMS",
+          "moreThanOneSegment": "Ce message sera envoyé en {{count}} segments SMS en raison d'une limite de 160 caractères par Segment. L'ajout de variables peut affecter le nombre de caractères. "
+        }
+      }
+    }
+  },
+  "filters": {
+    "date": {
+      "label": "Date",
+      "fixedHint": "Les filtres pour les dates fixes ne se mettront pas à jour automatiquement",
+      "types": {
+        "fixed": "Corrigé",
+        "relative": "Relatif"
+      },
+      "operators": {
+        "absolute": {
+          "onOrBefore": "Le ou avant le",
+          "onOrAfter": "Le ou après le",
+          "exactlyOn": "Exactement le",
+          "between": "Dans l'intervalle"
+        },
+        "relative": {
+          "pastLabel": "Passé",
+          "futureLabel": "Futur",
+          "pastMoreThan": "Il y a plus de ... jours",
+          "pastExactly": "Il y a exactement ... jours",
+          "pastBetween": "Entre ... et ... jours",
+          "futureMoreThan": "Plus de ... jours à partir de maintenant",
+          "futureExactly": "Dans exactement ... jours",
+          "futureBetween": "D'ici ... à ... jours"
+        }
+      },
+      "fields": {
+        "and": "Et",
+        "days": "",
+        "days_one": "jour",
+        "days_other": "jours",
+        "daysAgo": "",
+        "daysAgo_one": "Il y a un jour",
+        "daysAgo_other": "Jours",
+        "daysFromNow": "",
+        "daysFromNow_one": "Jour à partir de maintenant",
+        "daysFromNow_other": "Jours à venir"
+      },
+      "alerts": {
+        "onAndBefore": "Le {{date}} et toutes les dates antérieures à celle-ci",
+        "on": "Le {{date}}",
+        "onAndAfter": "Le {{date}} et toutes les dates ultérieures",
+        "fromTo": "De {{earliestDate}} à {{latestDate}}"
+      }
+    },
+    "numericComparator": {
+      "defaultSuffix": "Total des cours",
+      "operators": {
+        "equal": "Exactement égal à",
+        "between": "Dans l'intervalle",
+        "lowerOrEqual": "Inférieur ou égal à",
+        "greaterOrEqual": "Supérieur ou égal à"
+      },
+      "fields": {
+        "and": "Et"
+      }
+    }
+  },
+  "membersTable": {
+    "loading": "Chargement des adhérents...",
+    "columns": {
+      "name": "Nom",
+      "email": "Email",
+      "balance": "Solde",
+      "joinDate": "Date d'adhésion"
+    },
+    "emptyState": {
+      "title": "Aucun adhérent trouvé",
+      "subtitle": "Essayez de modifier vos filtres pour élargir ou affiner ce segment",
+      "updateFilters": "Mettre à jour les filtres"
+    }
+  },
   "error": {
     "notFound": {
-      "title": "Smartlist not found",
+      "title": "Segment introuvable",
       "subtitle": "",
-      "description": "The smartlist you're looking for doesn't exist or may have been deleted.",
-      "backToListLabel": "Back to smartlists"
+      "description": "Le segment que vous recherchez n'existe pas ou a peut-être été supprimé.",
+      "backToListLabel": "Retour aux segments"
     },
     "serverError": {
-      "title": "Something went wrong",
+      "title": "Une erreur est survenue",
       "subtitle": "",
-      "description": "We couldn't load this smartlist. Please try again.",
+      "description": "Ce segment n'a pas pu être chargé. Veuillez réessayer.",
       "retryLabel": "Veuillez réessayer."
     }
   }

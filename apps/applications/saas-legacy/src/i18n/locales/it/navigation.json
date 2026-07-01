@@ -179,8 +179,9 @@
     "banner": "Se non hai completato l'impostazione della contabilizzazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
   },
   "stripeCompliance": {
-    "banner": "Verifica Stripe richiesta entro il {{ date }}.",
-    "bannerWithoutDate": "Stripe richiede informazioni aggiornate.",
+    "bannerRestrictedSoon": "Verifica Stripe richiesta entro il {{ date }}.",
+    "bannerRestricted": "Account Stripe limitato. Aggiorna le tue informazioni per ripristinare tutte le funzionalità di pagamento.",
+    "bannerRestrictedSoonWithoutDate": "Stripe richiede informazioni aggiornate.",
     "cta": {
       "company_settings": "Aggiorna le impostazioni della mia azienda",
       "none": "Verifica",

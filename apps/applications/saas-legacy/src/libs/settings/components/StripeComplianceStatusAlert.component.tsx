@@ -106,6 +106,13 @@ export const StripeComplianceStatusModal: React.FC<
     complianceStatus.status === 'restricted' ? 'restricted' : 'restrictedSoon';
   const date = complianceStatus.restricted_on || complianceStatus.due_date;
   const formattedDate = date ? formatAsDatetimeAdapted(date, 'DDD') : null;
+  const formattedShortDate = date
+    ? formatAsDatetimeAdapted(date, 'LLLL d')
+    : null;
+  const titleKey =
+    translationStatus === 'restrictedSoon' && !formattedShortDate
+      ? 'stripeCompliance.modal.restrictedSoon.titleWithoutDate'
+      : `stripeCompliance.modal.${translationStatus}.title`;
   const descriptionKey =
     translationStatus === 'restrictedSoon' && !formattedDate
       ? 'stripeCompliance.modal.restrictedSoon.descriptionWithoutDate'
@@ -141,13 +148,14 @@ export const StripeComplianceStatusModal: React.FC<
   return (
     <>
       <Typography className={classes.title} variant="h5">
-        {t(`stripeCompliance.modal.${translationStatus}.title`)}
+        {t(titleKey, {
+          date: formattedShortDate,
+        })}
       </Typography>
       <Typography className={classes.content}>
-        {t(descriptionKey, { date: formattedDate })}
-      </Typography>
-      <Typography className={classes.content}>
-        {t('stripeCompliance.modal.genericImpact')}
+        {t(descriptionKey, {
+          date: formattedDate,
+        })}
       </Typography>
       {requirementGroupKeys.length > 0 && (
         <>
@@ -213,6 +221,12 @@ export const StripeComplianceStatusBanner: React.FC<
   const formattedDate = complianceStatus.due_date
     ? formatAsDatetimeAdapted(complianceStatus.due_date, 'DDD')
     : null;
+  const bannerTranslationKey =
+    complianceStatus.status === 'restricted'
+      ? 'stripeCompliance.bannerRestricted'
+      : formattedDate
+      ? 'stripeCompliance.bannerRestrictedSoon'
+      : 'stripeCompliance.bannerRestrictedSoonWithoutDate';
 
   return (
     <div className={classes.bannerContainer}>
@@ -220,12 +234,9 @@ export const StripeComplianceStatusBanner: React.FC<
         <div className={classes.bannerText}>
           <WarningIcon fontSize="small" />
           <Typography align="left" variant="caption">
-            {t(
-              formattedDate
-                ? 'stripeCompliance.banner'
-                : 'stripeCompliance.bannerWithoutDate',
-              { date: formattedDate },
-            )}
+            {t(bannerTranslationKey, {
+              date: formattedDate,
+            })}
           </Typography>
         </div>
       </ButtonBase>

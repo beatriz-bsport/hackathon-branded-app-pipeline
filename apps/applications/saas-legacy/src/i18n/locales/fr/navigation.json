@@ -8,8 +8,9 @@
     "banner": "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration."
   },
   "stripeCompliance": {
-    "banner": "Vérification Stripe requise avant le {{ date }}.",
-    "bannerWithoutDate": "Stripe a besoin d'informations mises à jour.",
+    "bannerRestrictedSoon": "Vérification Stripe requise avant le {{ date }}.",
+    "bannerRestricted": "Compte Stripe restreint. Mettez à jour vos informations pour restaurer toutes les fonctionnalités de paiement.",
+    "bannerRestrictedSoonWithoutDate": "Stripe a besoin d'informations mises à jour.",
     "cta": {
       "company_settings": "Mettre à jour mes paramètres",
       "none": "Vérifier",

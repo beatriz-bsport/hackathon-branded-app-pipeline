@@ -179,8 +179,9 @@
     "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
   },
   "stripeCompliance": {
-    "banner": "Stripe-verificatie vereist voor {{ date }}.",
-    "bannerWithoutDate": "Stripe heeft bijgewerkte informatie nodig.",
+    "bannerRestrictedSoon": "Stripe-verificatie vereist voor {{ date }}.",
+    "bannerRestricted": "Stripe-account beperkt. Werk je gegevens bij om alle betaalfuncties te herstellen.",
+    "bannerRestrictedSoonWithoutDate": "Stripe heeft bijgewerkte informatie nodig.",
     "cta": {
       "company_settings": "Mijn bedrijfsinstellingen bijwerken",
       "none": "Controleren",

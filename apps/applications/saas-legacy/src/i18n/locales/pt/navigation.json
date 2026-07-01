@@ -133,8 +133,9 @@
     "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
   },
   "stripeCompliance": {
-    "banner": "Verificação Stripe necessária antes de {{ date }}.",
-    "bannerWithoutDate": "A Stripe precisa de informações atualizadas.",
+    "bannerRestrictedSoon": "Verificação Stripe necessária antes de {{ date }}.",
+    "bannerRestricted": "Conta Stripe restringida. Atualize as suas informações para restaurar todas as funcionalidades de pagamento.",
+    "bannerRestrictedSoonWithoutDate": "A Stripe precisa de informações atualizadas.",
     "cta": {
       "company_settings": "Atualizar as definições da minha empresa",
       "none": "Rever",

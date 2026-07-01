@@ -746,9 +746,6 @@ export class Backoffice extends Component<Props, State> {
   checkStripeComplianceStatus = () => {
     switch (this.props.stripeComplianceStatus?.status) {
       case 'restricted':
-        this.setState({ need_stripe_compliance_status_dialog: true });
-        return;
-
       case 'restricted_soon':
         if (
           !this.props.lastStripeConfigurationWarningDate ||
@@ -768,10 +765,16 @@ export class Backoffice extends Component<Props, State> {
   openStripeComplianceStatusModal = () => {
     this.setState(
       { need_stripe_compliance_status_dialog: true },
-      this.props.stripeComplianceStatus?.status === 'restricted_soon'
+      ['restricted', 'restricted_soon'].includes(
+        this.props.stripeComplianceStatus?.status,
+      )
         ? this.props.stampLastStripeAccountConfigurationWarningDate
         : undefined,
     );
+  };
+
+  closeStripeComplianceStatusModal = () => {
+    this.setState({ need_stripe_compliance_status_dialog: false });
   };
 
   openStripeConfigurationModal = () => {
@@ -838,17 +841,16 @@ export class Backoffice extends Component<Props, State> {
     !!this.props.stripeComplianceStatus &&
     this.props.stripeComplianceStatus.status !== 'not_configured';
 
-  shouldBlockBackofficeToConfigureStripe = () => {
-    if (this.shouldUseStripeComplianceStatusAlert()) {
-      return this.props.stripeComplianceStatus?.status === 'restricted';
-    }
-
-    return this.props.stripeAccountStatus?.action === BLOCK_BACKOFFICE;
-  };
+  shouldBlockBackofficeToConfigureStripe = () =>
+    !this.shouldUseStripeComplianceStatusAlert() &&
+    this.props.stripeAccountStatus?.action === BLOCK_BACKOFFICE;
 
   shouldShowStripeComplianceStatusBanner = () =>
     this.shouldUseStripeComplianceStatusAlert() &&
-    this.props.stripeComplianceStatus?.status === 'restricted_soon';
+    !this.state.need_stripe_compliance_status_dialog &&
+    ['restricted', 'restricted_soon'].includes(
+      this.props.stripeComplianceStatus?.status,
+    );
 
   handleStripeComplianceStatusCta = () => {
     const cta = this.props.stripeComplianceStatus?.cta;
@@ -1159,15 +1161,7 @@ export class Backoffice extends Component<Props, State> {
             }
           >
             <StripeComplianceStatusModal
-              cancel={
-                stripeComplianceStatus.status === 'restricted_soon'
-                  ? () => {
-                      this.setState({
-                        need_stripe_compliance_status_dialog: false,
-                      });
-                    }
-                  : undefined
-              }
+              cancel={this.closeStripeComplianceStatusModal}
               complianceStatus={stripeComplianceStatus}
               goNext={this.handleStripeComplianceStatusCta}
             />

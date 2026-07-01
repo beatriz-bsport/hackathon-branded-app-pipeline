@@ -182,8 +182,9 @@
     "banner": "Click here to complete your billing set up and to activate online payments."
   },
   "stripeCompliance": {
-    "banner": "Stripe verification required before {{ date }}.",
-    "bannerWithoutDate": "Stripe needs updated information.",
+    "bannerRestrictedSoon": "Stripe verification required before {{ date }}.",
+    "bannerRestricted": "Stripe account restricted. Update your information to restore full payment functionality.",
+    "bannerRestrictedSoonWithoutDate": "Stripe needs updated information.",
     "cta": {
       "company_settings": "Update my company settings",
       "none": "Review",

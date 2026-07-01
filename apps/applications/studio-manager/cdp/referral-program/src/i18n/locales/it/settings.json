@@ -2,7 +2,7 @@
   "title": "Segnalazioni",
   "referralProgramHelper": {
     "title": "Attiva i referral",
-    "description": "Imposta un link di riferimento per i tuoi membri per invitare altri nel tuo studio. Offri un incentivo, stabilisci un limite di tempo per il riferimento e fornisci una ricompensa al membro che ha fatto il riferimento.",
+    "description": "Crea un link di referral per i tuoi clienti, in modo che possano invitare altri nel tuo studio. Offri un incentivo, imposta un limite di tempo per il referral e prevedi un premio per il cliente che lo ha segnalato.",
     "button": {
       "activated": {
         "label": "Disattiva",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Ricompensa per aver segnalato un membri",
+        "title": "Premio per la Referral di un cliente",
         "amountOff": {
-          "label": "Quanto vuoi premiare il membri"
+          "label": "Quanto vuoi premiare il cliente?"
         },
         "maxReferringNumber": {
-          "label": "Uso max. per membro",
+          "label": "Max. utilizzi per Cliente",
           "errors": {
             "tooSmall": "Il numero di utilizzi deve essere compreso tra 1 e 5",
             "tooBig": "Non puoi dare più di 5 referenze",

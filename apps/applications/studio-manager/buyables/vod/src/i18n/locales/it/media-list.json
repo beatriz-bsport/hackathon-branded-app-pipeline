@@ -1,0 +1,169 @@
+{
+  "table": {
+    "headers": {
+      "createMedia": "Crea on-demand",
+      "name": "Nome",
+      "category": "Categoria",
+      "format": "Formato",
+      "availability": "Allestire i miei studi",
+      "actions": "Azioni"
+    },
+    "actions": {
+      "moreActions": "Altre azioni",
+      "duplicate": "Duplica",
+      "delete": "Elimina",
+      "edit": "Modifica",
+      "upload": "Aggiungi media"
+    },
+    "values": {
+      "noCategory": "Nessuna categoria",
+      "noFile": "Nessun contenuto multimediale"
+    },
+    "loading": "Caricamento media on-demand...",
+    "emptyList": {
+      "title": "Ancora nessun contenuto on-demand",
+      "subtitle": "I media On-demand appariranno qui una volta creati."
+    },
+    "tooltips": {
+      "format": {
+        "videoUploaded": "Link video aggiunto",
+        "ebookUploaded": "eBook caricato",
+        "noFileUploaded": "Nessun file multimediale aggiunto"
+      },
+      "availability": {
+        "availableToMembers": "Disponibile per i clienti sull'app e sul sito web",
+        "unavailableToMembers": "Non disponibile ai clienti sull'app e sul sito web",
+        "limitedTimeOnly": "Disponibile solo per un periodo limitato",
+        "unlimitedAccess": "Disponibile con accesso illimitato"
+      }
+    }
+  },
+  "duplicateResponse": {
+    "success": "Media duplicato",
+    "error": "Impossibile duplicare il contenuto multimediale. Riprova. "
+  },
+  "deleteModal": {
+    "title": "Eliminare il contenuto multimediale?",
+    "description": "Una volta eliminato \"{{mediaName}}\", non sarà più visibile ai clienti.",
+    "descriptionWarning": "Questa modifica è permanente.",
+    "buttons": {
+      "cancel": "Mantieni",
+      "delete": "Elimina"
+    },
+    "submitResponse": {
+      "success": "On-demand media eliminati",
+      "error": "Impossibile eliminare il contenuto multimediale. Riprova. "
+    },
+    "undoAction": {
+      "label": "Indietro"
+    },
+    "undoResponse": {
+      "success": "Cambiamento annullato"
+    }
+  },
+  "uploadModal": {
+    "title": "Aggiungi nuovi media",
+    "ebookTitle": "Carica un ebook",
+    "buttons": {
+      "cancel": "Chiudi",
+      "addMedia": "Aggiungi",
+      "add": "Aggiungi media",
+      "upload": "Carica"
+    },
+    "source": {
+      "options": {
+        "youtube": {
+          "label": "Video (YouTube)",
+          "helperText": "Aggiungi un link a un video di YouTube"
+        },
+        "vimeo": {
+          "label": "Video (Vimeo)",
+          "helperText": "Aggiungi un link a un video Vimeo"
+        },
+        "ebook": {
+          "label": "Ebook",
+          "helperText": "Carica un eBook in formato PDF, JPG o PNG"
+        }
+      }
+    },
+    "details": {
+      "youtube": {
+        "placeholder": "Incolla il link del video da YouTube"
+      },
+      "vimeo": {
+        "placeholder": "Incolla il link del video da Vimeo"
+      }
+    },
+    "fields": {
+      "url": {
+        "youtube": "Link Youtube",
+        "vimeo": "Link Vimeo"
+      },
+      "duration": "Durata",
+      "hours": {
+        "placeholder": "Ore"
+      },
+      "minutes": {
+        "placeholder": "Minuti"
+      },
+      "file": {
+        "uploadCta": "Scegli file",
+        "dragAndDropCta": "Trascina e rilascia un file qui",
+        "extensions": "JPG, PNG, PDF"
+      }
+    },
+    "validation": {
+      "sourceRequired": "Seleziona una fonte per continuare",
+      "urlRequired": "Inserisci l'URL di un video",
+      "youtubeUrlInvalid": "Inserisci un URL YouTube valido",
+      "vimeoUrlInvalid": "Inserisci un URL Vimeo valido",
+      "durationRequired": "Inserisci una durata maggiore di zero.",
+      "fileRequired": "Seleziona un file da caricare",
+      "fileTypeInvalid": "Sono compatibili solo i file PDF, JPG, JPEG e PNG"
+    },
+    "submitResponse": {
+      "success": "Media caricato con successo",
+      "error": "Impossibile caricare il contenuto multimediale. Riprova."
+    }
+  },
+  "error": {
+    "title": "Impossibile caricare il contenuto multimediale",
+    "description": "Riprova. Se il problema persiste, aggiorna la pagina.",
+    "retry": "Riprova"
+  },
+  "search": {
+    "tooltip": "Cerca media"
+  },
+  "filters": {
+    "label": "Filtrare",
+    "is": "è",
+    "category": {
+      "label": "Categoria",
+      "searchPlaceholder": "Cerca categorie"
+    },
+    "level": {
+      "label": "Livello"
+    },
+    "teacher": {
+      "label": "Insegnante",
+      "searchPlaceholder": "Cerca insegnanti"
+    },
+    "format": {
+      "label": "Formato",
+      "video": "Video",
+      "ebook": "Ebook"
+    },
+    "duration": {
+      "label": "Durata",
+      "lt15": "Meno di 15 min",
+      "15to30": "15-30 min",
+      "30to60": "30-60 min",
+      "gt60": "Oltre 60 min"
+    },
+    "emptySearch": {
+      "title": "Nessun risultato trovato",
+      "subtitle": "Prova a modificare la ricerca o i filtri",
+      "cta": "Cancella filtri"
+    }
+  }
+}

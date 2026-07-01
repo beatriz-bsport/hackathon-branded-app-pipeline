@@ -5,7 +5,7 @@
   },
   "actions": {
     "addMember": "Crear perfil",
-    "importLeads": "Importar prospectos",
+    "importLeads": "Importar leads",
     "download": "Descargar"
   },
   "memberTable": {
@@ -16,7 +16,7 @@
     "emptyList": {
       "activeMode": {
         "title": "No hay perfiles aún",
-        "subtitle": "Añadir perfiles de contacto o importa Leads para comenzar"
+        "subtitle": "Añade perfiles de clientes o importa leads para comenzar"
       },
       "archivedMode": {
         "title": "No hay perfiles archivados"
@@ -50,7 +50,7 @@
         "effect": "Puedes restaurar este perfil en cualquier momento desde tu archivo."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Antes de archivar este perfil, te recomendamos que primero liquides el saldo de la cuenta del perfil. Esto se debe a una de las siguientes razones: ",
+        "adviseRegularization": "Antes de archivar este Perfil, te recomendamos que primero liquides el saldo de la cuenta del cliente. Esto se debe a una de las siguientes razones: ",
         "items": {
           "negativeBalance": "Saldo de cuenta negativo",
           "unpaidInvoices": "Una o más facturas impagas",
@@ -93,12 +93,12 @@
     }
   },
   "importLeadsModal": {
-    "title": "Importar clientes potenciales",
-    "description": "Sube un archivo CSV para importar tus clientes potenciales en bsport Back Office",
+    "title": "Importar leads",
+    "description": "Sube un archivo CSV para importar tus leads",
     "moreHelpSection": "¿Necesitas ayuda con esto? <key>Visit our Help Center</key>",
     "uploadFile": {
       "extensionCSVOnly": "Archivo CSV solamente",
-      "workInProgress": "Importando clientes potenciales ...",
+      "workInProgress": "Importando leads...",
       "wipDoNotRefresh": "Por favor, no actualices ni abandones esta página",
       "errors": {
         "wrongNumberOfColumns": {

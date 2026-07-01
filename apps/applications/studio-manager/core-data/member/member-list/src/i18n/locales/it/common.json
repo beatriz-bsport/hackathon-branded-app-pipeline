@@ -50,7 +50,7 @@
         "effect": "Puoi ripristinare questo profilo in qualsiasi momento dal tuo archivio."
       },
       "alertIrregularity": {
-        "adviseRegularization": "Prima di archiviare questo profilo, ti consigliamo di saldare prima il saldo del conto del profilo. Questo è dovuto a uno dei seguenti motivi: ",
+        "adviseRegularization": "Prima di archiviare questo Profilo, ti consigliamo di saldare prima il Saldo dell’account del Cliente. Questo è dovuto a uno dei seguenti motivi: ",
         "items": {
           "negativeBalance": "Saldo del conto negativo",
           "unpaidInvoices": "Una o più fatture non pagate",

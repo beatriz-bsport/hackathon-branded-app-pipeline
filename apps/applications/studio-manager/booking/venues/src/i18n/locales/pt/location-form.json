@@ -1,0 +1,53 @@
+{
+  "description": "Um local agrupa estabelecimentos para marketing, vendas e relatórios compartilhados",
+  "create": {
+    "title": "Criar localização",
+    "submit": "Criar"
+  },
+  "edit": {
+    "title": "Editar localização",
+    "submit": "Editar localização"
+  },
+  "fields": {
+    "name": {
+      "label": "Nome",
+      "placeholder": "Adicione um nome de localização "
+    },
+    "venues": {
+      "label": "Estabelecimentos atribuídos",
+      "placeholder": "Pesquisar estabelecimentos..."
+    }
+  },
+  "errors": {
+    "required": "Este campo não pode estar vazio",
+    "venuesRequired": "Selecione pelo menos um estabelecimento"
+  },
+  "cancel": "Fechar",
+  "delete": "Eliminar localização",
+  "deleteModal": {
+    "title": "Eliminar localização?",
+    "confirm": "Eliminar",
+    "cancel": "Manter",
+    "alert": {
+      "blocking": "Esta localização não pode ser eliminada devido ao seguinte:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Esta localização é usada em alguns widgets do site. Atualize-os antes de arquivar.",
+      "exclusiveCoaches": "Estes professores estão associados apenas a esta localização: {{names}}. Atualize as configurações deles antes de eliminar."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Alguns Membros do pessoal têm configurações vinculadas a este local.",
+      "hasRelatedMarketplaceConfigs": "Alguns widgets do site estão vinculados a esta localização.",
+      "hasRelatedMarketingNotifications": "Algumas mensagens automáticas visam esta localização.",
+      "relatedCoaches": "Alguns professores estão associados a esta localização."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Localização criada",
+    "createError": "Não foi possível criar o local. Tente novamente. ",
+    "updateSuccess": "Localização atualizada",
+    "updateError": "Não foi possível atualizar o local. Tente novamente. ",
+    "deleteSuccess": "Localização excluída",
+    "deleteError": "Não foi possível excluir o local. Tente novamente. "
+  }
+}

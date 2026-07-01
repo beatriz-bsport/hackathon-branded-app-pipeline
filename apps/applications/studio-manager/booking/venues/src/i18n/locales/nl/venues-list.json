@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Vestigingen",
+  "tabs": {
+    "venues": "Vestigingen",
+    "locations": "Locaties"
+  },
+  "locations": {
+    "columns": {
+      "name": "Locatie",
+      "venues": "Vestigingen"
+    },
+    "actions": {
+      "edit": "Bewerken",
+      "delete": "Verwijderen"
+    },
+    "emptyState": {
+      "title": "Nog geen locaties",
+      "subtitle": "Groepeer vestigingen per locatie en ze verschijnen hier",
+      "cta": "Locatie toevoegen",
+      "noResults": "Geen locaties gevonden die overeenkomen met je zoekopdracht"
+    },
+    "deleteModal": {
+      "title": "Locatie verwijderen?",
+      "warningsTitle": "Het verwijderen van deze locatie heeft de volgende gevolgen:",
+      "confirm": "Verwijderen",
+      "cancel": "Behouden",
+      "alert": {
+        "blocking": "Deze locatie kan niet worden verwijderd, want:",
+        "warning": "Het verwijderen van deze locatie heeft de volgende gevolgen:"
+      },
+      "preflightError": "Kon niet controleren of deze locatie verwijderd kan worden. Probeer het opnieuw.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Eén of meer tabbladen op je website zijn ingesteld om alleen het rooster van deze locatie weer te geven. Werk ze bij voordat je deze locatie verwijdert."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Eén of meer medewerkers gebruiken deze locatie voor toegangscontrole. Als je deze verwijdert zonder een vervanging toe te wijzen, verliezen ze de toegangscontrole.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} ontvangt alleen vervangingsverzoeken voor deze locatie. Als je dit verwijdert, ontvangen ze verzoeken van alle locaties.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} ontvangt alleen vervangingsverzoeken voor deze locatie. Als je deze verwijdert, ontvangen ze verzoeken van alle locaties.",
+        "hasRelatedAssociatedCoaches": "Sommige docenten ontvangen alleen vervangingsverzoeken voor deze locatie. Als je deze verwijdert, ontvangen ze geen meldingen meer voor vervangingen.",
+        "hasRelatedMarketplaceComponentConfigs": "De tabbladen voor het rooster en de workshops die zijn ingesteld voor je klantenwebsite, tonen deze locatie niet langer.",
+        "hasRelatedMarketingNotifications": "Meldingen die aan deze locatie zijn gekoppeld, worden verwijderd."
+      },
+      "info": {
+        "reportsDefault": "De locatie wordt verwijderd uit eerdere rapporten.",
+        "widgetsDefault": "Je moet rooster- en workshopwidgets voor deze locatie handmatig bijwerken."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Nog geen vestigingen",
+    "cta": "Maak je eerste vestiging aan om lessen en afspraken in te plannen"
+  },
+  "search": {
+    "placeholder": "Zoek vestigingen",
+    "locationsPlaceholder": "Zoek locaties",
+    "emptyState": {
+      "title": "Geen vestigingen gevonden",
+      "subtitle": "Probeer een andere zoekterm"
+    }
+  },
+  "filters": {
+    "selectField": "Filter",
+    "location": "Locatie",
+    "city": "Stad",
+    "noLocation": "Geen locatie",
+    "operators": {
+      "is": "is"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Toevoegen aan vestiging",
+    "addTooltip": "Wijs deze vestiging toe aan een locatie om de meldings- en marketinginstellingen toe te passen.",
+    "edit": "Locatie bewerken"
+  },
+  "venueRow": {
+    "edit": "Bewerken",
+    "archive": "Archiveren"
+  },
+  "actions": {
+    "archive": "Gearchiveerde vestigingen",
+    "createLocation": "Locatie aanmaken",
+    "createLocationTooltip": "Voeg een locatie toe om vestigingen te groeperen voor gedeelde marketing, verkoop en rapportage",
+    "createVenue": "Vestiging aanmaken",
+    "createVenueTooltip": "Creëer een nieuwe ruimte voor lessen en afspraken"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Vestigingen"
+    },
+    "actions": {
+      "archive": "Archiveren",
+      "configureWidget": "Widget instellen"
+    },
+    "notFound": "Vestiging niet gevonden",
+    "editor": {
+      "discard": {
+        "title": "Wijzigingen weggooien?",
+        "description": "Je niet opgeslagen wijzigingen gaan verloren.",
+        "confirm": "Wijzigingen weggooien",
+        "keepEditing": "Verder bewerken",
+        "toast": "Wijzigingen weggegooid"
+      }
+    },
+    "spotScheduling": {
+      "title": "Plekvoorkeur",
+      "subtitle": "Voeg een plekindeling toe zodat klanten specifieke plekken (bijv. fietsen, matten, reformers) kunnen boeken.",
+      "createCta": "Maken",
+      "noSpots": "Nog geen plekken ingesteld",
+      "spotCount_one": "{{count}} plaats",
+      "spotCount_other": "{{count}} plekken",
+      "empty": "Nog geen plekindeling",
+      "rowMenu": {
+        "label": "Indeling open plekken",
+        "edit": "Bewerken",
+        "delete": "Verwijderen"
+      },
+      "deleteModal": {
+        "title": "Wil je de plaatsselectie verwijderen?",
+        "description": "Het verwijderen van deze plekselectie kan niet ongedaan worden",
+        "confirm": "Verwijderen",
+        "cancel": "Behouden"
+      },
+      "untitledBlueprint": "Naamloze plekindeling",
+      "toasts": {
+        "delete": "Plekvoorkeur verwijderd",
+        "deleteError": "Kon de plekselectie niet verwijderen. Probeer het opnieuw. ",
+        "createError": "Kon geen plekselectie aanmaken. Probeer het opnieuw. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Gearchiveerde vestigingen",
+    "breadcrumbs": {
+      "venues": "Vestigingen",
+      "archivedVenues": "Gearchiveerde vestigingen"
+    },
+    "sectionHeader": "Alle vestigingen ({{count}})",
+    "emptyState": {
+      "title": "Nog geen vestigingen gearchiveerd",
+      "subtitle": "Alle vestigingen die hierheen zijn verplaatst, kunnen worden hersteld."
+    },
+    "venueRow": {
+      "unarchive": "Herstellen"
+    }
+  },
+  "modal": {
+    "title": "Vestigingen archiveren",
+    "confirm": "Archiveren",
+    "cancel": "Behouden",
+    "alert": {
+      "blocking": "Deze vestiging kan niet worden gearchiveerd om de volgende redenen:",
+      "warning": "Het archiveren van deze vestiging heeft de volgende gevolgen:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Deze vestiging heeft aankomende lessen. Annuleer of verwijder deze voordat je archiveert.",
+      "hasUpcomingPrivateBookings": "Deze vestigingen heeft aankomende afspraken. Annuleer of verwijder deze voordat je archiveert.",
+      "hasExclusiveBillingGroup": "Deze vestigingenn is gekoppeld aan een facturatielocatie. Werk de facturatielocatie bij of verwijder deze voordat je archiveert.",
+      "exclusiveEstablishmentGroups": "Deze vestiging wordt verwijderd uit de volgende locaties: {{names}}. Werk ze bij voordat je archiveert.",
+      "exclusivePaymentPacks": "De volgende passen zijn alleen geldig op deze vestigingenn: {{names}}. Werk de beperkingen bij voordat je ze archiveert.",
+      "hasExclusiveMarketplaceComponentConfigs": "Eén of meer tabbladen op je website zijn ingesteld om alleen het rooster van deze locatie weer te geven. Werk ze bij voordat je deze locatie verwijdert.",
+      "isIntegratedInPartnership": "Deze vestiging is gekoppeld aan een of meer aggregators. Werk deze koppelingen bij voordat je archiveert."
+    },
+    "warnings": {
+      "title": "Het archiveren van deze vestiging heeft de volgende gevolgen:",
+      "hasBillingGroup": "Deze vestiging behoort tot facturatielocatie {{name}}.",
+      "exclusivePrivateServices": "Deze afspraken zijn alleen beschikbaar op deze vestiging: {{names}}.",
+      "relatedPaymentPacks": "Deze passen {{names}} zijn alleen bruikbaar op deze vestiging.",
+      "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn alleen aan deze vestiging toegewezen.",
+      "hasRelatedStaffConfigurations": "Sommige medewerkers hebben instellingen die aan deze Vestiging zijn gekoppeld.",
+      "exclusiveCoachAvailabilitySlots": "Deze docenten hebben alleen beschikbaarheid op deze vestigingenn: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Sommige docenten hebben beschikbare slots op deze vestigingenn.",
+      "exclusiveAssociatedCoaches": "Deze docenten zijn alleen gekoppeld aan deze vestiging: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Sommige docenten zijn aan deze vestiging gekoppeld.",
+      "hasRelatedAvailabilitySlots": "Sommige beschikbaarheidssloten zijn gekoppeld aan deze vestiging.",
+      "hasRelatedMarketplaceComponentConfigs": "Een of meer tabbladen op je website zijn ingesteld om alleen het rooster van deze vestiging weer te geven. ",
+      "hasRelatedZoomEstablishment": "Een Zoom-integratie is ingesteld voor deze vestiging.",
+      "hasRelatedMarketingNotifications": "Sommige automatische berichten zijn gericht op deze vestiging."
+    },
+    "info": {
+      "noReports": "De vestiging wordt niet verwijderd uit eerdere rapporten.",
+      "widgets": "Rooster- en workshopwidgets die voor deze locatie geconfigureerd zijn, moeten handmatig worden bijgewerkt.",
+      "sessions": "Lopende lessen en eerdere boekingen worden niet beïnvloed",
+      "appointments": "Afspraken uit het verleden worden niet beïnvloed"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Vestiging aanmaken",
+    "editTitle": "Vestiging bewerken",
+    "createConfirm": "Maken",
+    "editConfirm": "Wijzigingen opslaan",
+    "cancel": "Sluiten",
+    "errors": {
+      "requiredField": "Dit veld kan niet leeg zijn"
+    },
+    "cover": {
+      "label": "Afbeelding",
+      "helper": "Wordt getoond aan klanten in de app en op de website. Liggend (16:9) — automatisch bijgesneden."
+    },
+    "name": {
+      "label": "Naam",
+      "placeholder": "Voeg een vestigingsnaam toe"
+    },
+    "description": {
+      "label": "Beschrijving",
+      "placeholder": "Beschrijf de vestiging ",
+      "helper": "Wordt getoond op het profiel van je studio in de app. Beschrijf de ruimte, sfeer of wat het uniek maakt."
+    },
+    "address": {
+      "label": "Adres",
+      "placeholder": "Zoek een adres"
+    },
+    "location": {
+      "label": "Locatie",
+      "placeholder": "Selecteer een locatie"
+    },
+    "capacity": {
+      "label": "Maximale capaciteit",
+      "helper": "Het aantal beschikbare plekken op deze vestigingen. Voer 0 in voor onbeperkt."
+    },
+    "accessInformation": {
+      "label": "Informatie voor klanten",
+      "placeholder": "Vertel klanten hoe ze toegang krijgen tot deze vestiging",
+      "helper": "Wordt aan je klanten getoond nadat ze hebben geboekt (bijv. toegangscode, verdieping, instructies)."
+    }
+  },
+  "toasts": {
+    "undo": "Terug",
+    "archive": "Vestiging gearchiveerd",
+    "archiveError": "Vestiging kon niet worden gearchiveerd. Probeer het opnieuw. ",
+    "unarchive": "Vestiging hersteld",
+    "unarchiveError": "Vestiging kon niet worden hersteld. Probeer het opnieuw. ",
+    "addVenueToLocation": "\"{{venue}}\" toegevoegd aan \"{{location}}\"",
+    "locationDelete": "Locatie verwijderd",
+    "locationDeleteError": "Locatie kon niet worden verwijderd. Probeer het opnieuw.",
+    "create": "Vestiging aangemaakt",
+    "createPartial": "Vestiging aangemaakt, maar kon niet worden toegewezen aan de geselecteerde vestiging. Wijs deze handmatig toe.",
+    "createError": "Kon de vestiging niet aanmaken. Probeer het opnieuw. ",
+    "update": "Vestiging bijgewerkt",
+    "updateError": "Vestiging kon niet worden bijgewerkt. Probeer het opnieuw. "
+  }
+}

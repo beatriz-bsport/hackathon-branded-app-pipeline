@@ -64,15 +64,15 @@
     "datePlaceholder": "DD.MM.YYYY",
     "shortcuts": {
       "today": "Heute",
-      "last4weeks": "Last 4 weeks",
+      "last4weeks": "Letzte 4 Wochen",
       "lastWeek": "Letzten 7 Tage",
       "lastQuarter": "Drei letzten Monate",
-      "monthToDate": "Month to date",
-      "yearToDate": "Year to date",
-      "nextWeek": "Next 7 days",
+      "monthToDate": "Aktueller Monat bis heute",
+      "yearToDate": "Seit Jahresbeginn",
+      "nextWeek": "Nächste 7 Tage",
       "nextMonth": "Nächster Monat",
-      "nextQuarter": "Next 3 months",
-      "nextYear": "Next year"
+      "nextQuarter": "Nächste 3 Monate",
+      "nextYear": "Nächstes Jahr"
     }
   },
   "modal": {
@@ -153,6 +153,8 @@
     "clear": "Löschen"
   },
   "actions": {
-    "more": "Weitere Optionen"
+    "more": "Weitere Optionen",
+    "selectAll": "Alle auswählen",
+    "selectNone": "Keine Auswahl"
   }
 }

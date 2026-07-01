@@ -2,7 +2,7 @@
   "title": "Parrainages",
   "referralProgramHelper": {
     "title": "Activer les parrainages",
-    "description": "Configurez un lien de parrainage pour que vos membres invitent d'autres personnes à votre studio. Offrez une incitation, fixez une limite de temps pour le parrainage et fournissez une récompense au membre parrain.",
+    "description": "Mettez en place un lien de parrainage pour que vos Adhérents puissent inviter d'autres personnes à votre studio. Offrez une incitation, fixez une limite de temps pour le parrainage et récompensez l'Adhérent parrain.",
     "button": {
       "activated": {
         "label": "Désactiver",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Récompense pour parrainer un membres",
+        "title": "Récompense pour le parrainage d'un adhérent",
         "amountOff": {
-          "label": "Combien souhaitez-vous récompenser les membres"
+          "label": "Montant de la récompense Adhérent souhaitée"
         },
         "maxReferringNumber": {
-          "label": "Utilisation max. par membres",
+          "label": "Utilisation max. par Adhérent",
           "errors": {
             "tooSmall": "Le nombre d'utilisations doit être compris entre 1 et 5",
             "tooBig": "Vous ne pouvez pas donner plus de 5 parrainages",

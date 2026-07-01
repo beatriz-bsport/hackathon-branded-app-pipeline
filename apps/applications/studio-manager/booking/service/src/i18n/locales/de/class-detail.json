@@ -1,8 +1,87 @@
 {
   "classDetail": {
+    "loading": "Kurs wird geladen…",
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Kompatible Pässe"
+    },
+    "compatiblePasses": {
+      "loading": "Pässe werden geladen...",
+      "uncategorized": "Unkategorisiert",
+      "empty": {
+        "title": "Noch keine kompatiblen Pässe",
+        "description": "Richte Kurspässe ein, die mit diesem Kurs kompatibel sind, und sie werden hier angezeigt",
+        "cta": "Zu den Pässen"
+      },
+      "flags": {
+        "universal": "Universal",
+        "unlisted": "Ausgeblendet",
+        "staffRestricted": "Nur Abo",
+        "newMembersOnly": "Nur für Neukund:innen",
+        "tooltips": {
+          "universal": "Kann sowohl für Kurse als auch für Termine genutzt werden",
+          "unlisted": "Wird nicht auf der Website oder in der App angezeigt",
+          "staffRestricted": "Kann nur als Teil eines Abonnements verkauft werden",
+          "newMembersOnly": "Kann nur von Kund:innen ohne vorherige Käufe erworben werden"
+        }
+      },
+      "filter": {
+        "operatorIs": "ist",
+        "categories": "Kategorien",
+        "properties": "Eigenschaften",
+        "selectField": "Filter auswählen"
+      },
+      "search": {
+        "placeholder": "Pässe suchen"
+      },
+      "noResults": {
+        "title": "Keine Pässe entsprechen deinen Filtern.",
+        "cta": "Alle Filter löschen"
+      },
+      "panel": {
+        "previous": "Vorheriger Pass",
+        "next": "Nächster Pass",
+        "goToPass": "Zum Pass",
+        "properties": "Eigenschaften",
+        "credits": "Credits",
+        "creditsCount": "{{count}} Credit",
+        "creditsCount_other": "{{count}} Credits",
+        "creditsUnlimited": "Unbegrenzt",
+        "compatibility": "Kompatibilität",
+        "free": "Gratis",
+        "compatibilityAll": "Alle Leistungen - Alle Standorte",
+        "compatibilityAllServices": "Alle Leistungen",
+        "compatibilityAllLocations": "Alle Standorte",
+        "compatibilityCategories": "Kategorien",
+        "compatibilityServices": "Leistungen",
+        "compatibilityLocations": "Standorte",
+        "offPeakOnly": "Nur außerhalb der Stoßzeiten"
+      }
+    },
+    "editor": {
+      "toast": "Kurs bearbeitet",
+      "advanced": {
+        "title": "Erweiterte Optionen"
+      },
+      "discard": {
+        "title": "Änderungen verwerfen?",
+        "description": "Wenn du jetzt gehst, werden deine Änderungen nicht gespeichert. ",
+        "confirm": "Änderungen verwerfen",
+        "keepEditing": "Weiter bearbeiten",
+        "toast": "Änderungen verworfen"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Kurse",
+        "archived": "Archivierte Kurse"
+      },
+      "actions": {
+        "archive": "Archivieren",
+        "unarchive": "Wiederherstellen",
+        "duplicate": "Duplizieren",
+        "scheduleSessions": "Kurse planen"
+      }
     }
   }
 }

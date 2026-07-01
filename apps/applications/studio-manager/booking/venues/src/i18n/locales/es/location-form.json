@@ -1,0 +1,53 @@
+{
+  "description": "Una ubicación agrupa los centros para marketing, ventas e informes compartidos",
+  "create": {
+    "title": "Crear ubicación",
+    "submit": "Crear"
+  },
+  "edit": {
+    "title": "Editar ubicación",
+    "submit": "Editar ubicación"
+  },
+  "fields": {
+    "name": {
+      "label": "Nombre",
+      "placeholder": "Añade un nombre de ubicación "
+    },
+    "venues": {
+      "label": "Centros asignados",
+      "placeholder": "Buscar centros..."
+    }
+  },
+  "errors": {
+    "required": "Este campo no puede estar vacío",
+    "venuesRequired": "Selecciona al menos un centro"
+  },
+  "cancel": "Cerrar",
+  "delete": "Eliminar ubicación",
+  "deleteModal": {
+    "title": "¿Eliminar ubicación?",
+    "confirm": "Eliminar",
+    "cancel": "Mantener",
+    "alert": {
+      "blocking": "Esta ubicación no se puede eliminar por lo siguiente:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "Esta ubicación se utiliza en algunos widgets del sitio web. Actualízalos antes de archivarlos.",
+      "exclusiveCoaches": "Estos profesores solo están asociados a esta ubicación: {{names}}. Actualiza su configuración antes de eliminarlos."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Algunos empleados tienen ajustes vinculados a esta ubicación.",
+      "hasRelatedMarketplaceConfigs": "Algunos widgets del sitio web están vinculados a esta ubicación.",
+      "hasRelatedMarketingNotifications": "Algunos mensajes automáticos están dirigidos a esta ubicación.",
+      "relatedCoaches": "Algunos profesores están asociados con esta ubicación."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Ubicación creada",
+    "createError": "No se pudo crear la ubicación. Inténtalo de nuevo. ",
+    "updateSuccess": "Ubicación actualizada",
+    "updateError": "No se pudo actualizar la ubicación. Inténtalo de nuevo. ",
+    "deleteSuccess": "Ubicación eliminada",
+    "deleteError": "No se pudo eliminar la ubicación. Inténtalo de nuevo. "
+  }
+}

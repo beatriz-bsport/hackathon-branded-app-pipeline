@@ -25,7 +25,7 @@
     "emptyPage": {
       "custom": {
         "title": "Je hebt nog geen aangepaste sjablonen gemaakt.",
-        "description": "Maken je eerste aangepaste sjabloon om gepersonaliseerde emails naar je leden te sturen."
+        "description": "Maak je eerste aangepaste sjabloon om gepersonaliseerde email naar je klanten te sturen"
       },
       "bsport": {
         "title": "Je hebt geen bsport-sjabloon beschikbaar",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Maak een aangepaste sjabloon voor deze categorie om gepersonaliseerde emails naar leden te sturen."
+      "description": "Maak een aangepaste sjabloon voor deze categorie om gepersonaliseerde emails naar klanten te sturen"
     },
     "noCategory": "Geen categorie ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "bsport sjablonen",
       "title": "bsport sjablonen",
-      "description": "Deze kant-en-klare sjablonen zijn klaar voor gebruik. Dupliceer de sjabloon, bewerk deze en stuur de gekopieerde versie naar je leden. ",
+      "description": "Deze kant-en-klare sjablonen zijn klaar voor gebruik. Dupliceer het sjabloon, bewerk deze en stuur de gekopieerde versie naar je klanten. ",
       "quit": "Stoppen"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Verwijder emailsjabloon?",
-      "description": "Zodra je <b>{{emailTemplateTitle}}</b> verwijdert, is het niet langer zichtbaar voor leden. Het wordt ook verwijderd uit alle transactionele email waaraan het is gekoppeld.",
+      "description": "Als je <b>{{emailTemplateTitle}}</b> verwijdert, is het niet langer zichtbaar voor klanten. Het wordt ook verwijderd uit alle transactionele Email waaraan het is gekoppeld.",
       "confirmButton": "Verwijderen",
       "cancelButton": "Behouden",
       "onSuccess": {

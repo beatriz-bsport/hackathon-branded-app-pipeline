@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Etablissements",
+  "tabs": {
+    "venues": "Etablissements",
+    "locations": "Localisations"
+  },
+  "locations": {
+    "columns": {
+      "name": "Localisation",
+      "venues": "Etablissements"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "emptyState": {
+      "title": "Aucune localisation pour le moment",
+      "subtitle": "Regroupez les Établissements par lieu et ils apparaîtront ici",
+      "cta": "Ajouter un établissement",
+      "noResults": "Aucun lieu ne correspond à votre recherche"
+    },
+    "deleteModal": {
+      "title": "Supprimer la localisation ?",
+      "warningsTitle": "La suppression de cet établissement aura les conséquences suivantes :",
+      "confirm": "Supprimer",
+      "cancel": "Garder",
+      "alert": {
+        "blocking": "Cet emplacement ne peut pas être supprimé car :",
+        "warning": "La suppression de ce lieu aura les conséquences suivantes :"
+      },
+      "preflightError": "Impossible de vérifier si cet emplacement peut être supprimé. Veuillez réessayer.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de votre site web sont configurés pour afficher uniquement l'emploi du temps de ce lieu. Veuillez les mettre à jour avant de supprimer ce lieu."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Un ou plusieurs membres du personnel utilisent cet emplacement pour le contrôle d'accès. Si vous le supprimez sans attribuer de remplacement, ils perdront le contrôle d'accès.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} ne reçoit des demandes de remplacement que pour ce lieu. La suppression de celui-ci lui enverra des demandes de tous les lieux.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} ne reçoit des demandes de remplacement que pour ce lieu. En le supprimant, vous lui enverrez des demandes de tous les lieux.",
+        "hasRelatedAssociatedCoaches": "Certains professeurs ne reçoivent des demandes de remplacement que pour ce lieu. La suppression de ce lieu les retirera des notifications de remplacement.",
+        "hasRelatedMarketplaceComponentConfigs": "Les onglets planning et ateliers configurés pour le site web de votre Adhérent n'afficheront plus cette localisation.",
+        "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées."
+      },
+      "info": {
+        "reportsDefault": "La localisation sera supprimée des rapports antérieurs.",
+        "widgetsDefault": "Les widgets d'emploi du temps et d'ateliers configurés pour cette localisation devront être mis à jour manuellement."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Aucun établissement pour le moment",
+    "cta": "Créez votre premier établissement pour commencer à planifier des cours et des rendez-vous"
+  },
+  "search": {
+    "placeholder": "Rechercher des établissements",
+    "locationsPlaceholder": "Rechercher des lieux",
+    "emptyState": {
+      "title": "Aucun établissement trouvé",
+      "subtitle": "Essayez un terme de recherche différent"
+    }
+  },
+  "filters": {
+    "selectField": "Filtrer",
+    "location": "Localisation",
+    "city": "Ville",
+    "noLocation": "Aucune localisation",
+    "operators": {
+      "is": "est"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Ajouter à l'établissement",
+    "addTooltip": "Attribuez cet établissement à un lieu pour appliquer ses paramètres de notification et de marketing.",
+    "edit": "Modifier la localisation"
+  },
+  "venueRow": {
+    "edit": "Modifier",
+    "archive": "Archiver"
+  },
+  "actions": {
+    "archive": "Établissements archivés",
+    "createLocation": "Créer un établissement",
+    "createLocationTooltip": "Ajoutez un lieu pour regrouper les Établissements à des fins de marketing, de vente et de reporting partagés",
+    "createVenue": "Créer un établissement",
+    "createVenueTooltip": "Créez un nouvel espace pour les cours et les rendez-vous"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Etablissements"
+    },
+    "actions": {
+      "archive": "Archiver",
+      "configureWidget": "Configurer le widget"
+    },
+    "notFound": "Établissement introuvable",
+    "editor": {
+      "discard": {
+        "title": "Abandonner les modifications ?",
+        "description": "Vos modifications non enregistrées seront perdues.",
+        "confirm": "Abandonner les modifications",
+        "keepEditing": "Continuer la modification",
+        "toast": "Modifications abandonnées"
+      }
+    },
+    "spotScheduling": {
+      "title": "Sélection De Place",
+      "subtitle": "Ajoutez un Plan des places pour permettre aux Adhérents de réserver des Places spécifiques (par exemple, vélos, tapis, reformers).",
+      "createCta": "Créer",
+      "noSpots": "Aucune place n'a encore été configurée",
+      "spotCount_one": "{{count}} place",
+      "spotCount_other": "{{count}} places",
+      "empty": "Aucun Plan des places défini",
+      "rowMenu": {
+        "label": "Ouvrir le Plan des places",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "deleteModal": {
+        "title": "Supprimer la sélection de places ?",
+        "description": "La suppression de cette configuration de sélection de places est irréversible",
+        "confirm": "Supprimer",
+        "cancel": "Garder"
+      },
+      "untitledBlueprint": "Plan des places sans titre",
+      "toasts": {
+        "delete": "Sélection de place supprimée",
+        "deleteError": "Impossible de supprimer la sélection de place. Veuillez réessayer. ",
+        "createError": "Impossible de créer la sélection de places. Veuillez réessayer. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Établissements archivés",
+    "breadcrumbs": {
+      "venues": "Etablissements",
+      "archivedVenues": "Établissements archivés"
+    },
+    "sectionHeader": "Tous les établissements ({{count}})",
+    "emptyState": {
+      "title": "Aucun établissement archivé pour le moment",
+      "subtitle": "Tous les établissements déplacés ici peuvent être restaurés"
+    },
+    "venueRow": {
+      "unarchive": "Restaurer"
+    }
+  },
+  "modal": {
+    "title": "Archiver les établissements",
+    "confirm": "Archiver",
+    "cancel": "Garder",
+    "alert": {
+      "blocking": "Ce établissement ne peut pas être archivé pour les raisons suivantes :",
+      "warning": "L'archivage de cet Établissement aura les conséquences suivantes :"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Cet établissement a des Cours à venir. Annulez-les ou supprimez-les avant d'archiver.",
+      "hasUpcomingPrivateBookings": "Cet établissement a des rendez-vous à venir. Annulez-les ou supprimez-les avant de l'archiver.",
+      "hasExclusiveBillingGroup": "Cet établissement est lié à un site de facturation. Veuillez mettre à jour ou supprimer le site de facturation avant l'archivage.",
+      "exclusiveEstablishmentGroups": "Ce établissement sera supprimé des emplacements suivants : {{names}}. Veuillez les mettre à jour avant l'archivage.",
+      "exclusivePaymentPacks": "Les pass suivants ne sont valides que dans cet établissement : {{names}}. Veuillez mettre à jour leurs restrictions avant de les archiver.",
+      "hasExclusiveMarketplaceComponentConfigs": "Un ou plusieurs onglets de votre site web sont configurés pour afficher uniquement l'emploi du temps de ce lieu. Veuillez les mettre à jour avant de supprimer ce lieu.",
+      "isIntegratedInPartnership": "Cet établissement est lié à un ou plusieurs agrégateurs. Veuillez mettre à jour ces connexions avant d'archiver."
+    },
+    "warnings": {
+      "title": "L'archivage de cet établissement aura les conséquences suivantes :",
+      "hasBillingGroup": "Ce établissement appartient au site de facturation {{name}}.",
+      "exclusivePrivateServices": "Ces rendez-vous sont uniquement disponibles dans cet établissement : {{names}}.",
+      "relatedPaymentPacks": "Ces pass {{names}} sont utilisables uniquement dans cet établissement.",
+      "hasExclusiveStaffConfigurations": "Certains membres du personnel sont uniquement affectés à cet établissement.",
+      "hasRelatedStaffConfigurations": "Certains membres du personnel ont des paramètres liés à cet établissement.",
+      "exclusiveCoachAvailabilitySlots": "Ces enseignant·e·s n'ont que des créneaux de disponibilité dans cet établissement : {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Certains professeurs ont des créneaux de disponibilité dans cet établissement.",
+      "exclusiveAssociatedCoaches": "Ces professeurs sont uniquement associés à cet établissement : {{names}}.",
+      "hasRelatedAssociatedCoaches": "Certains professeurs sont associés à cet établissement.",
+      "hasRelatedAvailabilitySlots": "Certains créneaux de disponibilité sont liés à cet établissement.",
+      "hasRelatedMarketplaceComponentConfigs": "Un ou plusieurs onglets de votre site web sont configurés pour afficher uniquement le planning de cet établissement. ",
+      "hasRelatedZoomEstablishment": "Une intégration Zoom est configurée pour cet établissement.",
+      "hasRelatedMarketingNotifications": "Certains messages automatiques ciblent cet établissement."
+    },
+    "info": {
+      "noReports": "L'établissement ne sera pas supprimé des rapports passés.",
+      "widgets": "Les widgets d'emploi du temps et d'ateliers configurés pour cet emplacement devront être mis à jour manuellement.",
+      "sessions": "Les Cours actuels et les réservations passées ne seront pas affectées.",
+      "appointments": "Les rendez-vous passés ne seront pas affectés"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Créer un établissement",
+    "editTitle": "Modifier l'établissement",
+    "createConfirm": "Créer",
+    "editConfirm": "Enregistrer les modifications",
+    "cancel": "Fermer",
+    "errors": {
+      "requiredField": "Ce champ ne peut pas être vide"
+    },
+    "cover": {
+      "label": "Image",
+      "helper": "Affiché aux adhérents sur l'application et le site web. Format paysage (16:9) — recadré automatiquement."
+    },
+    "name": {
+      "label": "Nom",
+      "placeholder": "Ajouter un nom d'établissement"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Décrivez l'établissement ",
+      "helper": "Affiché sur le profil de votre studio dans l'application. Décrivez l'espace, l'ambiance ou ce qui le rend unique."
+    },
+    "address": {
+      "label": "Adresse",
+      "placeholder": "Rechercher une adresse"
+    },
+    "location": {
+      "label": "Localisation",
+      "placeholder": "Sélectionnez une localisation"
+    },
+    "capacity": {
+      "label": "Capacité de la salle",
+      "helper": "Le nombre de places disponibles dans cet établissement. Saisissez 0 pour un nombre illimité."
+    },
+    "accessInformation": {
+      "label": "Informations pour les clients",
+      "placeholder": "Indiquez aux adhérents comment accéder à cet établissement",
+      "helper": "Affiché à vos adhérents après leur réservation (par exemple, code d'entrée, étage, instructions)."
+    }
+  },
+  "toasts": {
+    "undo": "Retour",
+    "archive": "Établissement archivé",
+    "archiveError": "Impossible d'archiver l'établissement. Veuillez réessayer. ",
+    "unarchive": "Établissements restaurés",
+    "unarchiveError": "Impossible de restaurer l'établissement. Veuillez réessayer. ",
+    "addVenueToLocation": "\"{{venue}}\" ajouté à \"{{location}}\"",
+    "locationDelete": "Localisation supprimée",
+    "locationDeleteError": "Impossible de supprimer la localisation. Veuillez réessayer.",
+    "create": "Établissement créé",
+    "createPartial": "Établissements créés, mais n'ont pas pu être attribués à l'emplacement sélectionné. Veuillez les attribuer manuellement.",
+    "createError": "Impossible de créer les établissements. Veuillez réessayer. ",
+    "update": "Établissement mis à jour",
+    "updateError": "Impossible de mettre à jour l'établissement. Veuillez réessayer. "
+  }
+}

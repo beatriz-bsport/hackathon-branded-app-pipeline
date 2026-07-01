@@ -1,8 +1,87 @@
 {
   "classDetail": {
+    "loading": "A carregar aulas...",
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Passes compatíveis"
+    },
+    "compatiblePasses": {
+      "loading": "A carregar passes...",
+      "uncategorized": "Não categorizado",
+      "empty": {
+        "title": "Nenhum passe compatível ainda",
+        "description": "Configura Passes de aulas compatíveis com esta aula e eles aparecerão aqui",
+        "cta": "Ir para passes"
+      },
+      "flags": {
+        "universal": "Universal",
+        "unlisted": "Não listado",
+        "staffRestricted": "Apenas por subscrição",
+        "newMembersOnly": "Apenas novos Clientes",
+        "tooltips": {
+          "universal": "Pode ser usado para Aulas e Aulas Privadas",
+          "unlisted": "Não será exibido no site ou na app",
+          "staffRestricted": "Só pode ser vendido como parte de uma subscrição",
+          "newMembersOnly": "Só pode ser comprado por clientes sem compras anteriores"
+        }
+      },
+      "filter": {
+        "operatorIs": "é",
+        "categories": "Categorias",
+        "properties": "Propriedades",
+        "selectField": "Selecionar filtro"
+      },
+      "search": {
+        "placeholder": "Procurar passes"
+      },
+      "noResults": {
+        "title": "Nenhum passe corresponde aos teus filtros",
+        "cta": "Limpar filtros"
+      },
+      "panel": {
+        "previous": "Passe anterior",
+        "next": "Passe seguinte",
+        "goToPass": "Ir para o passe",
+        "properties": "Propriedades",
+        "credits": "Número de créditos",
+        "creditsCount": "{{count}} crédito",
+        "creditsCount_other": "{{count}} créditos",
+        "creditsUnlimited": "Ilimitado",
+        "compatibility": "Compatibilidade",
+        "free": "Gratuito",
+        "compatibilityAll": "Todos os serviços - Todas as localizações",
+        "compatibilityAllServices": "Todos os serviços",
+        "compatibilityAllLocations": "Todas as localizações",
+        "compatibilityCategories": "Categorias",
+        "compatibilityServices": "Serviços",
+        "compatibilityLocations": "Localizações",
+        "offPeakOnly": "Apenas fora de pico"
+      }
+    },
+    "editor": {
+      "toast": "Aula editada",
+      "advanced": {
+        "title": "Avançado"
+      },
+      "discard": {
+        "title": "Descartar alterações?",
+        "description": "Se saíres agora, as tuas alterações não serão guardadas. ",
+        "confirm": "Descartar alterações",
+        "keepEditing": "Continuar a editar",
+        "toast": "Alterações descartadas"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Sessões",
+        "archived": "Aulas arquivadas"
+      },
+      "actions": {
+        "archive": "Arquivar",
+        "unarchive": "Recuperar",
+        "duplicate": "Duplicar",
+        "scheduleSessions": "Agendar aulas"
+      }
     }
   }
 }

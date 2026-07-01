@@ -1,8 +1,87 @@
 {
   "classDetail": {
+    "loading": "Chargement du cours...",
     "tabs": {
       "editor": "Éditeur",
       "compatiblePasses": "Cartes compatibles"
+    },
+    "compatiblePasses": {
+      "loading": "Chargement des cartes...",
+      "uncategorized": "Non classé",
+      "empty": {
+        "title": "Aucune carte de cours compatible pour le moment",
+        "description": "Configurez des cartes compatibles avec ce cours et elles apparaîtront ici",
+        "cta": "Accéder aux cartes"
+      },
+      "flags": {
+        "universal": "Universel",
+        "unlisted": "Non publié",
+        "staffRestricted": "Abonnement uniquement",
+        "newMembersOnly": "Nouveaux clients uniquement",
+        "tooltips": {
+          "universal": "Peut être utilisé pour les Cours et les rendez-vous",
+          "unlisted": "Ne s'affichera pas sur le site web ou l'application",
+          "staffRestricted": "Peut être vendu uniquement dans le cadre d'un abonnement",
+          "newMembersOnly": "Peut être acheté uniquement par les clients n'ayant pas effectué d'achats précédents"
+        }
+      },
+      "filter": {
+        "operatorIs": "est",
+        "categories": "Catégories",
+        "properties": "Propriétés",
+        "selectField": "Sélectionner un filtre"
+      },
+      "search": {
+        "placeholder": "Rechercher des cartes"
+      },
+      "noResults": {
+        "title": "Aucune carte ne correspond à vos filtres",
+        "cta": "Effacer tous les filtres"
+      },
+      "panel": {
+        "previous": "Carte précédente",
+        "next": "Carte suivante",
+        "goToPass": "Aller à la passe",
+        "properties": "Propriétés",
+        "credits": "Crédits",
+        "creditsCount": "{{count}} crédit",
+        "creditsCount_other": "{{count}} crédits",
+        "creditsUnlimited": "Illimité",
+        "compatibility": "Compatibilité",
+        "free": "Gratuit",
+        "compatibilityAll": "Tous les Services - Toutes les Localisations",
+        "compatibilityAllServices": "Tous les services",
+        "compatibilityAllLocations": "Tous les lieux",
+        "compatibilityCategories": "Catégories",
+        "compatibilityServices": "Services",
+        "compatibilityLocations": "Localisations",
+        "offPeakOnly": "Heures creuses uniquement"
+      }
+    },
+    "editor": {
+      "toast": "Cours modifié",
+      "advanced": {
+        "title": "Options avancées"
+      },
+      "discard": {
+        "title": "Abandonner les modifications ?",
+        "description": "Si vous quittez maintenant, vos modifications ne seront pas enregistrées. ",
+        "confirm": "Abandonner les modifications",
+        "keepEditing": "Continuer la modification",
+        "toast": "Modifications abandonnées"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Séances",
+        "archived": "Cours archivés"
+      },
+      "actions": {
+        "archive": "Archiver",
+        "unarchive": "Restaurer",
+        "duplicate": "Dupliquer",
+        "scheduleSessions": "Planifier les Cours"
+      }
     }
   }
 }

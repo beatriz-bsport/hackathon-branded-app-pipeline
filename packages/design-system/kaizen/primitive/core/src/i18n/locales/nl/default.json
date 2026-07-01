@@ -64,15 +64,15 @@
     "datePlaceholder": "DD-MM-YYYY",
     "shortcuts": {
       "today": "Vandaag",
-      "last4weeks": "Last 4 weeks",
+      "last4weeks": "Afgelopen 4 weken",
       "lastWeek": "Aantal weergaven in de afgelopen 7 dagen",
       "lastQuarter": "Afgelopen 3 maanden",
-      "monthToDate": "Month to date",
-      "yearToDate": "Year to date",
-      "nextWeek": "Next 7 days",
+      "monthToDate": "Maand tot heden",
+      "yearToDate": "Jaar tot nu toe",
+      "nextWeek": "Volgende 7 dagen",
       "nextMonth": "Volgende maand",
-      "nextQuarter": "Next 3 months",
-      "nextYear": "Next year"
+      "nextQuarter": "Volgende 3 maanden",
+      "nextYear": "Volgend jaar"
     }
   },
   "modal": {
@@ -153,6 +153,8 @@
     "clear": "Verwijderen"
   },
   "actions": {
-    "more": "Meer acties"
+    "more": "Meer acties",
+    "selectAll": "Alles selecteren",
+    "selectNone": "Selecteer geen"
   }
 }

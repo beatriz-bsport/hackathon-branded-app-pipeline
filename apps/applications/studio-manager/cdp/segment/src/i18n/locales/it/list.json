@@ -1,32 +1,106 @@
 {
-  "title": "Smartlist",
-  "addSmartlist": "Crea Smartlist",
-  "loading": "Caricamento delle Smartlist...",
+  "title": "Smartlists",
+  "tabs": {
+    "prebuilt": "Predefiniti",
+    "custom": "Personalizzazione"
+  },
+  "prebuilt": {
+    "aiAssisted": "Basato sull'IA",
+    "segments": {
+      "customers": {
+        "title": "Acquirenti",
+        "description": "Indirizza i Clienti che hanno effettuato almeno una transazione a pagamento, che sia un Pass, un abbonamento o anche un caffè alla reception. La tua più ampia portata per notizie e annunci a livello di studio."
+      },
+      "active_members": {
+        "title": "Clienti attivi",
+        "description": "Coinvolgi i Clienti che hanno un abbonamento o un Pass attivo. Sono la tua base più affidabile per la fidelizzazione, gli upsell e per far tornare i clienti abituali."
+      },
+      "active_trials": {
+        "title": "Test attivi",
+        "description": "Raggiungi i Clienti che hanno un'offerta introduttiva attiva come parte di un periodo di prova e che non hanno ancora effettuato un secondo acquisto. Sono i tuoi Lead con il potenziale più alto: convertili prima che la loro offerta scada."
+      }
+    },
+    "columns": {
+      "name": "Nome",
+      "email": "Email",
+      "passName": "Pass",
+      "passValidityStartDate": "Ultimo acquisto",
+      "lastVisitDate": "Ultima visita",
+      "offerExpiryDate": "Data di scadenza",
+      "status": "Status",
+      "dateJoined": "Data di iscrizione",
+      "lastPurchaseDate": "Ultimo acquisto",
+      "currentLifecycleState": "Status"
+    },
+    "enums": {
+      "activeTrialStatus": {
+        "attended": "Ha partecipato",
+        "booked": "Hai prenotato",
+        "purchased": "Acquistato"
+      },
+      "customerLifecycleState": {
+        "archived": "Archiviato",
+        "lead": "Lead",
+        "active": "Attiva",
+        "inactive": "Non ancora iniziato",
+        "churned": "Abbandonato"
+      }
+    },
+    "information": {
+      "label": "Informazioni sulle smartlist predefinite",
+      "title": "Trova subito i tuoi pubblici chiave",
+      "description": "Le smartlist predefinite sono gruppi creati automaticamente in base ai comportamenti comuni dei clienti.",
+      "update": "Si aggiornano nel tempo utilizzando regole predefinite, così i clienti entrano o escono dalla smartlist in base ai cambiamenti della loro attività. Le smartlist predefinite ti aiutano a raggiungere rapidamente il pubblico chiave senza dover creare filtri manualmente.",
+      "custom": "Per criteri personalizzati o logiche avanzate, usa le smartlist personalizzate."
+    },
+    "details": {
+      "tabs": {
+        "segment": "Smartlists",
+        "campaigns": "Campagne"
+      },
+      "segment": {
+        "loading": "Caricamento segmento...",
+        "emptyState": {
+          "title": "Nessun cliente trovato",
+          "subtitle": "Questo Smartlist predefinito non ha ancora clienti corrispondenti"
+        }
+      },
+      "segmentPlaceholder": "I dettagli delle Smartlists saranno disponibili a breve",
+      "campaignsPlaceholder": "Le campagne saranno disponibili a breve",
+      "campaigns": {
+        "emptyState": {
+          "description": "Nessuna campagna è stata ancora inviata a questa Smartlist predefinita"
+        }
+      }
+    }
+  },
+  "addSmartlist": "Crea smartlist",
+  "loading": "Caricamento Smartlists...",
   "search": "Cerca Smartlists",
   "emptyState": {
-    "title": "Ancora nessuna Smartlist",
-    "subtitle": "Crea la tua prima Smartlist per segmentare i Clienti con tag, inviare messaggi mirati e monitorare il coinvolgimento."
+    "title": "Nessuna Smartlists ancora",
+    "subtitle": "Crea la tua prima smartlist per raggruppare i Clienti con tag, inviare messaggi mirati e monitorare il coinvolgimento."
   },
   "emptySearch": {
-    "title": "Nessuna Smartlist trovata",
+    "title": "Nessuna smartlist trovata",
     "subtitle": "Prova a cancellare i filtri per vedere più risultati",
     "clearFilters": "Ripristina filtri"
   },
   "duplicateModal": {
-    "title": "Duplicare Smartlist?",
-    "description": "Puoi modificare <b>{{name}}</b> dopo",
+    "title": "Duplicare la smartlist?",
+    "description": "Potrai modificare <b>{{name}}</b> dopo.",
     "buttons": {
       "duplicate": "Duplica",
       "cancel": "Chiudi"
     }
   },
   "deleteModal": {
-    "title": "Eliminare Smartlist?",
-    "description": "Una volta che elimini <b>{{name}}</b>, tutti i messaggi programmati o i tag automatici non verranno più eseguiti, ma i Membri precedentemente taggati non saranno influenzati.",
+    "title": "Eliminare la smartlist?",
+    "description": "Una volta che elimini <b>{{name}}</b>, tutti i messaggi programmati o i tag automatici non verranno più eseguiti. I Clienti precedentemente taggati non saranno influenzati.",
     "warning": "Attenzione: questa modifica è permanente e non può essere annullata",
-    "audienceWarning": "Le Smartlists utilizzate nei flussi di lavoro dell'Audience non possono essere eliminate. ",
-    "cannotBeDeleted": "Questa Smartlist è attualmente utilizzata nei flussi di lavoro dell'Audience e non può essere eliminata in questa pagina.",
-    "audienceCallToAction": "Per eliminare questa Smartlist, vai alla pagina Audience e rimuovila dai flussi di lavoro associati.",
+    "audienceWarning": "Le Smartlist utilizzate nei Journeys non possono essere eliminate. ",
+    "cannotBeDeleted": "Questa Smartlist è attualmente utilizzata in un Journey e non può essere eliminata da questa pagina.",
+    "audienceCallToAction": "Per eliminare questo segmento, vai su Journeys e rimuovilo dai passaggi del percorso associati",
     "buttons": {
       "delete": "Elimina",
       "cancel": "Mantieni"
@@ -34,7 +108,7 @@
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist duplicata",
+      "duplicated": "Segmento duplicato",
       "open": "Aperta",
       "saved": "Smartlist aggiornata",
       "deleted": "Smartlist eliminata",
@@ -42,21 +116,21 @@
       "actionUndone": "Cambiamento annullato"
     },
     "error": {
-      "duplicateFailed": "Impossibile duplicare la Smartlist. Per favore riprova. ",
-      "updateFailed": "La Smartlist non può essere aggiornata. Per favore riprova. ",
-      "createFailed": "La Smartlist non è stata creata. Per favore riprova. ",
-      "deleteFailed": "Impossibile eliminare la Smartlist. Per favore riprova. ",
+      "duplicateFailed": "Impossibile duplicare la Smartlist. Riprova. ",
+      "updateFailed": "Impossibile aggiornare la Smartlist. Riprova. ",
+      "createFailed": "Impossibile creare il segmento. Riprova. ",
+      "deleteFailed": "Impossibile eliminare la Smartlist. Riprova. ",
       "deleteError": {
-        "101000": "Impossibile duplicare la Smartlist. Per favore riprova.",
-        "101001": "La Smartlist non può essere eliminata perché è attualmente utilizzata in comunicazioni attive. Rimuovila dalle comunicazioni o contatta il supporto per assistenza. ",
-        "101002": "La Smartlist non può essere eliminata perché è utilizzata in flussi di lavoro attivi dell'Audience. Vai alla pagina Audience per eliminarla dal flusso di lavoro associato. "
+        "101000": "Impossibile eliminare la Smartlist. Riprova.",
+        "101001": "Non puoi eliminare la Smartlist perché è attualmente utilizzata in campagne o Journeys attivi. Rimuovila dal Journey o dalla campagna, oppure contatta il supporto per assistenza. ",
+        "101002": "La Smartlist non può essere eliminata perché è utilizzata in Journeys attivi. Vai alla pagina Journeys per rimuoverla."
       }
     }
   },
   "inlineActions": {
-    "duplicate": "Duplica Smartlist",
+    "duplicate": "Duplica smartlist",
     "edit": "Modifica",
-    "delete": "Elimina Smartlist"
+    "delete": "Elimina smartlist"
   },
   "dropdownActions": {
     "duplicate": "Duplica",
@@ -64,7 +138,7 @@
     "delete": "Elimina"
   },
   "createForm": {
-    "title": "Crea Smartlist",
+    "title": "Crea smartlist",
     "actions": {
       "create": "Crea",
       "cancel": "Chiudi"
@@ -75,7 +149,7 @@
       "name": {
         "label": "Nome",
         "placeholder": "ad es. Clienti che hanno pagato tramite Stripe",
-        "required": "Dai un nome alla tua Smartlist in modo da poterla trovare in seguito",
+        "required": "Dai un nome alla tua smartlist in modo da poterla trovare in seguito",
         "maxLength": "Il nome deve essere inferiore a 200 caratteri"
       },
       "description": {
@@ -88,7 +162,7 @@
       "cancel": "Chiudi"
     },
     "title": {
-      "edit": "Modifica Smartlist"
+      "edit": "Modifica smartlist"
     }
   }
 }

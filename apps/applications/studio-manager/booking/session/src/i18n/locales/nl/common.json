@@ -1,13 +1,13 @@
 {
   "session": {
     "tooltips": {
-      "recurring": "Recurring session",
-      "groupedSession": "Groepsessies",
-      "online": "Online session",
-      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
+      "recurring": "Les herhaalt zich",
+      "groupedSession": "Les is onderdeel van een cursus",
+      "online": "Les is online",
+      "hybrid": "De Les is hybride: zowel fysiek als online"
     },
     "properties": {
-      "hybrid": "Hybrid"
+      "hybrid": "Hybride"
     },
     "weekdays": {
       "1": "Maandag",
@@ -28,9 +28,18 @@
       "5": "Zonder niveau"
     }
   },
+  "aggregators": {
+    "name": {
+      "wellhub": "Wellhub",
+      "myclubs": "myClubs",
+      "classpass": "ClassPass",
+      "usc": "Urban Sports Club",
+      "wellpass": "Wellpass"
+    }
+  },
   "backgroundTask": {
-    "processing": "Processing...",
-    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "processing": "Bezig met verwerken...",
+    "genericError": "Er is iets misgegaan. Controleer je verbinding en probeer de pagina te vernieuwen.",
     "timeoutError": "Server reageert niet. Ververs de pagina alsjeblieft"
   }
 }

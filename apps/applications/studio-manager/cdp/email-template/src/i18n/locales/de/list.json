@@ -25,7 +25,7 @@
     "emptyPage": {
       "custom": {
         "title": "Du hast noch keine benutzerdefinierten Vorlagen erstellt",
-        "description": "Erstelle deine erste benutzerdefinierte Vorlage, um personalisierte E-Mails an deine Mitglieder zu senden."
+        "description": "Erstelle deine erste benutzerdefinierte Vorlage, um personalisierte E-Mails an deine Kund:innen zu senden"
       },
       "bsport": {
         "title": "Du hast keine bsport-Vorlage verfügbar.",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Erstelle eine benutzerdefinierte Vorlage für diese Kategorie, um personalisierte E-Mails an Mitglieder zu senden."
+      "description": "Erstelle eine benutzerdefinierte Vorlage für diese Kategorie, um personalisierte E-Mails an Kund:innen zu senden"
     },
     "noCategory": "Keine Kategorie ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "bsport Vorlagen",
       "title": "bsport Vorlagen",
-      "description": "Diese vorgefertigten Vorlagen sind einsatzbereit. Dupliziere die Vorlage, bearbeite sie und sende die kopierte Version an deine Mitglieder. ",
+      "description": "Diese vorgefertigten Vorlagen sind einsatzbereit. Dupliziere die Vorlage, bearbeite sie und sende die kopierte Version an deine Kund:innen. ",
       "quit": "Beenden"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "E-Mail-Vorlage löschen?",
-      "description": "Sobald du <b>{{emailTemplateTitle}}</b> löschst, wird es für Mitglieder nicht mehr sichtbar sein. Es wird auch aus allen verknüpften Transaktions-E-Mails entfernt.",
+      "description": "Sobald du <b>{{emailTemplateTitle}}</b> löschst, ist es für Kund:innen nicht mehr sichtbar. Es wird auch aus allen Transaktions-E-Mails entfernt, mit denen es verknüpft war.",
       "confirmButton": "Löschen",
       "cancelButton": "Behalten",
       "onSuccess": {

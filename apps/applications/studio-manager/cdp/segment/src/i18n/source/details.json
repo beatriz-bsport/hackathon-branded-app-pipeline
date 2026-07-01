@@ -15,21 +15,21 @@
     "createAutomation": "Create automation",
     "createAutomationModal": {
       "title": "Create a new automation",
-      "description": "Automations run once daily. Don’t want to wait? Use <audienceLink>Audience</audienceLink>",
-      "audienceLinkLabel": "Audience",
+      "description": "Automations run once daily. Don’t want to wait? Use <audienceLink>Journeys</audienceLink>",
+      "audienceLinkLabel": "Journeys",
       "automationType": {
-        "selectLabel": "Select the automation you want to create:",
+        "selectLabel": "Select an automation to create:",
         "automatedMessage": {
-          "title": "Automated Message",
-          "description": "Send messages once profiles enter or exit the defined filters"
+          "title": "Message",
+          "description": "Send automated messages once profiles enter or exit the defined filters"
         },
         "tagRule": {
-          "title": "Tag Rule",
-          "description": "Automatically tag clients based on their actions"
+          "title": "Tag",
+          "description": "Automatically apply tags to clients based on their actions"
         }
       },
       "messageChannel": {
-        "selectLabel": "Select your desired communication channel to get started:",
+        "selectLabel": "Select a communication channel to get started:",
         "email": {
           "title": "Email",
           "description": "Send a targeted email message to your segment"
@@ -39,7 +39,7 @@
           "description": "Send a targeted SMS message to your clients"
         },
         "push": {
-          "title": "Push Notification",
+          "title": "Push notification",
           "description": "Send your clients a notification via your studio app"
         }
       },
@@ -49,7 +49,7 @@
           "options": {
             "join": "Apply a tag when a profile enters the segment",
             "leave": "Apply a tag once when a profile leaves the segment",
-            "present": "Apply the tag while a profile matches the segment"
+            "present": "Apply the tag when a profile enters the segment"
           },
           "descriptions": {
             "enter": "The tag is applied when the profile enters the segment and removed automatically when they leave.",
@@ -64,7 +64,7 @@
           "required": "Add a tag"
         },
         "actions": {
-          "cancel": "Cancel",
+          "cancel": "Close",
           "save": "Save"
         }
       }
@@ -74,7 +74,7 @@
     "infoTooltip": {
       "label": "How automations work",
       "title": "How automations work",
-      "body": "Automations run once every 24 hours. If a profile enters or leaves the segment after the automation runs, the tag will be applied or the message will be sent the next day."
+      "body": "Automations run once every 24 hours. If a profile enters or leaves the segment after the automation runs, the tag or the message will be applied or sent the next day."
     },
     "messages": {
       "title": "Messages",
@@ -103,10 +103,10 @@
       },
       "deleteModal": {
         "title": "Delete automation?",
-        "description": "Any clients who haven't received this message yet won't receive it.",
+        "description": "Clients will no longer receive this automated message",
         "buttons": {
           "delete": "Delete",
-          "cancel": "Cancel"
+          "cancel": "Keep"
         }
       },
       "toasts": {
@@ -114,7 +114,7 @@
           "deleted": "Automation message deleted"
         },
         "error": {
-          "deleteFailed": "Automation couldn't be deleted. Please try again."
+          "deleteFailed": "Couldn't delete automation. Try again."
         }
       }
     },
@@ -123,7 +123,7 @@
       "description": "These tag rules apply or remove tags when profiles enter or exit the defined filters.",
       "emptyState": "No tag rules yet",
       "columns": {
-        "createdOn": "Created on",
+        "createdOn": "Created",
         "condition": "Condition",
         "tag": "Tag"
       },
@@ -141,14 +141,14 @@
       "actions": {
         "edit": "Edit",
         "delete": "Delete",
-        "menu": "Actions menu"
+        "menu": "Quick actions"
       },
       "deleteModal": {
         "title": "Delete tag rule?",
-        "description": "This tag rule for {{tagGroupName}} \"{{tagName}}\" will be permanently removed.",
+        "description": "This tag rule for {{tagGroupName}} \"{{tagName}}\" will be permanently removed. This action can't be undone. ",
         "buttons": {
           "delete": "Delete",
-          "cancel": "Cancel"
+          "cancel": "Keep"
         }
       },
       "limitReachedModal": {
@@ -163,9 +163,9 @@
           "deleted": "Tag rule deleted"
         },
         "error": {
-          "createFailed": "Tag rule couldn't be created. Please try again.",
-          "updateFailed": "Tag rule couldn't be updated. Please try again.",
-          "deleteFailed": "Tag rule couldn't be deleted. Please try again."
+          "createFailed": "Couldn't create tag rule. Try again.",
+          "updateFailed": "Couldn't update tag rule. Try again.",
+          "deleteFailed": "Couldn't delete tag rule. Try again."
         }
       }
     },
@@ -186,38 +186,38 @@
       }
     },
     "push": {
-      "pageTitle": "Push Notification Campaign",
+      "pageTitle": "Push notification campaign",
       "actions": {
-        "continue": "Continue",
+        "continue": "Create",
         "save": "Save"
       },
       "alert": {
         "onlyAppMembers": "Only clients who have downloaded your studio app will receive this notification."
       },
       "sections": {
-        "delivery": "Delivery",
+        "delivery": "Trigger",
         "message": "Message",
         "preview": "Preview"
       },
       "preview": {
-        "noContentMessage": "Fill in the title and content to see a preview"
+        "noContentMessage": "Add a title and message to preview the push notification"
       },
       "form": {
         "automationName": {
-          "label": "Automation name",
-          "placeholder": "Spring Reset Yoga Series",
-          "required": "Add an automation name",
-          "maxLength": "Automation name must be under 150 characters"
+          "label": "Name",
+          "placeholder": "Add a title here",
+          "required": "Enter a name for this automation",
+          "maxLength": "Name must be under 150 characters"
         },
         "condition": {
-          "label": "When should this automated message send",
+          "label": "Choose a trigger for this automation",
           "options": {
-            "entry": "Entry to segment",
-            "exit": "Exit from segment"
+            "entry": "Enters segment",
+            "exit": "Exits segment"
           }
         },
         "triggerLimit": {
-          "label": "How many times should this automation be triggered for the same person?",
+          "label": "Set the maximum number of times this automation can be triggered for the same person",
           "options": {
             "noLimit": "No limit (default)",
             "once": "1 time",
@@ -228,13 +228,13 @@
         "title": {
           "label": "Title",
           "placeholder": "",
-          "required": "Add a title",
+          "required": "Enter a title for this automation",
           "maxLength": "Title must be under 25 characters"
         },
         "message": {
-          "label": "Content",
+          "label": "Body",
           "placeholder": "",
-          "required": "Add a message",
+          "required": "Add a body message for this automation ",
           "maxLength": "Message must be under 200 characters"
         }
       },
@@ -244,38 +244,38 @@
           "saved": "Push automation saved"
         },
         "error": {
-          "createFailed": "Push automation couldn't be created. Please try again.",
-          "updateFailed": "Push automation couldn't be updated. Please try again."
+          "createFailed": "Couldn't create push automation. Try again.",
+          "updateFailed": "Couldn't update push automation. Try again."
         }
       }
     },
     "sms": {
       "pageTitle": "SMS Campaign",
       "actions": {
-        "continue": "Continue",
+        "continue": "Create",
         "save": "Save"
       },
-      "conflictAlert": "An enabled SMS automation already exists for this trigger. Go back to Automations to manage the existing one.",
+      "conflictAlert": "An SMS automation already exists for this trigger. Go back to Automations to manage the existing one.",
       "sections": {
-        "delivery": "Delivery",
+        "delivery": "Trigger",
         "message": "Message"
       },
       "form": {
         "automationName": {
           "label": "Automation name",
-          "placeholder": "Spring Reset Yoga Series",
-          "required": "Add an automation name",
+          "placeholder": "Add a name for this automation",
+          "required": "Enter a name for this automation",
           "maxLength": "Automation name must be under 150 characters"
         },
         "condition": {
-          "label": "When should this automated message send",
+          "label": "Define a trigger for this automated SMS",
           "options": {
-            "entry": "Entry to segment",
-            "exit": "Exit from segment"
+            "entry": "Enters segment",
+            "exit": "Exits segment"
           }
         },
         "triggerLimit": {
-          "label": "How many times should this automation be triggered for the same person?",
+          "label": "Set the maximum number of times this automation can be triggered for the same person",
           "options": {
             "noLimit": "No limit (default)",
             "once": "1 time",
@@ -284,9 +284,9 @@
           }
         },
         "message": {
-          "label": "SMS body",
+          "label": "Body",
           "placeholder": "",
-          "required": "Add an SMS body",
+          "required": "Add a body for this SMS automation",
           "maxLength": "SMS body must be under 160 characters"
         }
       },
@@ -296,37 +296,37 @@
           "saved": "SMS automation saved"
         },
         "error": {
-          "duplicate": "An enabled SMS automation already exists for this trigger.",
-          "createFailed": "SMS automation couldn't be created. Please try again.",
-          "updateFailed": "SMS automation couldn't be updated. Please try again."
+          "duplicate": "An SMS automation already exists for this trigger.",
+          "createFailed": "Couldn't create SMS automation. Try again.",
+          "updateFailed": "Couldn't create SMS automation. Try again."
         }
       }
     },
     "email": {
-      "pageTitle": "Email Campaign",
+      "pageTitle": "Email campaign",
       "actions": {
-        "continue": "Continue",
+        "continue": "Create",
         "save": "Save"
       },
       "sections": {
-        "delivery": "Delivery"
+        "delivery": "Trigger"
       },
       "form": {
         "automationName": {
           "label": "Automation name",
-          "placeholder": "Spring Reset Yoga Series",
+          "placeholder": "Add a name for this automation",
           "required": "Add an automation name",
           "maxLength": "Automation name must be under 150 characters"
         },
         "condition": {
-          "label": "When should this automated message send",
+          "label": "Define the trigger for this automated email ",
           "options": {
-            "entry": "Entry to segment",
-            "exit": "Exit from segment"
+            "entry": "Enters segment",
+            "exit": "Exits segment"
           }
         },
         "triggerLimit": {
-          "label": "How many times should this automation be triggered for the same person?",
+          "label": "Set the maximum number of times this automation can be triggered for the same person",
           "options": {
             "noLimit": "No limit (default)",
             "once": "1 time",
@@ -341,8 +341,8 @@
           "saved": "Email automation saved"
         },
         "error": {
-          "createFailed": "Email automation couldn't be created. Please try again.",
-          "updateFailed": "Email automation couldn't be updated. Please try again."
+          "createFailed": "Couldn't create email automation. Try again.",
+          "updateFailed": "Couldn't update email automation. Try again."
         }
       }
     }
@@ -354,7 +354,7 @@
         "preview": "Preview"
       },
       "preview": {
-        "noContentMessage": "Fill in the title and content to see a preview"
+        "noContentMessage": "Add a title and message to preview the push notification"
       },
       "form": {
         "title": {
@@ -364,7 +364,7 @@
           "maxLength": "Title must be under 25 characters"
         },
         "message": {
-          "label": "Content",
+          "label": "Body",
           "placeholder": "",
           "required": "Add a message",
           "maxLength": "Message must be under 200 characters"
@@ -377,17 +377,17 @@
         "preview": "Preview"
       },
       "preview": {
-        "noContentMessage": "Fill in the content to see a preview"
+        "noContentMessage": "Add a message to preview the SMS"
       },
       "form": {
         "message": {
-          "label": "SMS body",
+          "label": "Body",
           "placeholder": "",
-          "required": "Add SMS content",
+          "required": "Enter body content for this SMS",
           "segmentCount": "",
           "segmentCount_one": "{{count}} SMS segment",
           "segmentCount_other": "{{count}} SMS segments",
-          "moreThanOneSegment": "This message will be sent in {{count}} SMS segments as there is a limit of 160 characters per segment. Be mindful of the character count when adding variables."
+          "moreThanOneSegment": "This message will be sent in {{count}} SMS segments due to a limit  of 160 characters per segment. Adding variables can affect character count. "
         }
       }
     }
@@ -460,7 +460,7 @@
     },
     "emptyState": {
       "title": "No clients found",
-      "subtitle": "Try updating your filters to broaden or refine this segment.",
+      "subtitle": "Try updating your filters to broaden or refine this segment",
       "updateFilters": "Update filters"
     }
   },
@@ -474,7 +474,7 @@
     "serverError": {
       "title": "Something went wrong",
       "subtitle": "",
-      "description": "We couldn't load this segment. Please try again.",
+      "description": "This segment couldn't be loaded. Try again.",
       "retryLabel": "Retry"
     }
   }

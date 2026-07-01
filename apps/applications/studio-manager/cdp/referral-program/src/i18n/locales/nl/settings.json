@@ -2,7 +2,7 @@
   "title": "Verwijzingen",
   "referralProgramHelper": {
     "title": "Activeer verwijzingen",
-    "description": "Stel een verwijzingslink in voor je leden om anderen naar je studio uit te nodigen. Bied een stimulans, stel een tijdslimiet voor de verwijzing in en geef een beloning aan het verwijzende lid.",
+    "description": "Stel een verwijzingslink in waarmee je Klanten anderen kunnen uitnodigen voor je studio. Bied een stimulans, stel een tijdslimiet in voor de verwijzing en geef een beloning aan de verwijzende Klant.",
     "button": {
       "activated": {
         "label": "Deactiveren",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Beloning voor het doorverwijzen van een leden",
+        "title": "Beloning voor het doorverwijzen van een klant",
         "amountOff": {
-          "label": "Hoeveel je de leden wilt belonen"
+          "label": "Hoeveel je de Klant wilt belonen"
         },
         "maxReferringNumber": {
-          "label": "Max. gebruik per lid",
+          "label": "Maximaal gebruik per klanten",
           "errors": {
             "tooSmall": "Het aantal keren dat je het kunt gebruiken moet tussen 1 en 5 liggen.",
             "tooBig": "Je kunt niet meer dan 5 verwijzingen geven",

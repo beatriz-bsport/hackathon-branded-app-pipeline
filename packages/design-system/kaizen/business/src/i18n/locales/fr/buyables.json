@@ -1,40 +1,163 @@
 {
   "paymentMethods": {
     "label": "Moyens de paiement autorisés",
-    "helperText": "Choose at least one payment method",
+    "helperText": "Choisissez au moins un",
     "options": {
       "onlinePayment": {
-        "label": "Online (default)",
-        "helperText": "Card or other online payments"
+        "label": "En ligne (par défaut)",
+        "helperText": "Paiement par carte ou autres paiements en ligne"
       },
       "inPerson": {
         "label": "En présentiel",
-        "helperText": "Cash or cheque"
+        "helperText": "Espèces ou chèque"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+    "alertVisibilityHidden": "Ce {{ buyable }} peut toujours être partagé avec les Adhérents via un lien et payé en ligne."
   },
   "visibilitySelector": {
     "optionVisible": {
-      "label": "Listed",
-      "description": "This {{ buyable }} will be visible on the Member Area"
+      "label": "Publié",
+      "description": "Ce {{ buyable }} sera visible sur l'Espace Membre"
     },
     "optionHidden": {
       "label": "Non répertorié",
-      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+      "description": "Ce {{ buyable }} ne sera pas visible sur l'Espace Membre, mais pourra être partagé via un lien"
+    }
+  },
+  "visibilityRules": {
+    "label": "Options avancées",
+    "checkboxes": {
+      "recommended": {
+        "label": "Marquer comme recommandé",
+        "helperText": "Permet à vos adhérents de voir rapidement quelles offres sont actuellement recommandées"
+      },
+      "newMembersOnly": {
+        "label": "Uniquement disponible pour les nouveaux adhérents",
+        "helperText": "Les Adhérents sont considérés comme « nouveaux » tant qu'ils n'ont pas acheté un article d'une valeur supérieure à {{ minimalCurrency }}. Même s'ils achètent un article avec une remise de 100 %, cela compte toujours comme un achat."
+      },
+      "hideFromStaff": {
+        "label": "Invisible pour le personnel",
+        "helperText": "Le Personnel ne pourra ni consulter ni acheter ce {{ buyable }} "
+      }
     }
   },
   "tagsAfterPurchaseSelector": {
-    "placeholder": "Add tags",
+    "placeholder": "Ajouter des tags",
     "title": "Tag après l'achat",
-    "description": "Add tags to identify which member bought this item."
+    "description": "Ajouter des tags pour identifier l'adhérent qui a acheté cet article"
   },
   "copyPaymentLinkButton": {
     "toastSuccess": "Lien copié",
     "tooltip": "Copier le lien de paiement"
   },
+  "creditFactor": {
+    "fieldLabel": "Crédits",
+    "notPriceWarning": "Saisissez le prix en crédits, et non la valeur monétaire",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} crédit",
+    "nbOfCredits_other": "{{ countDisplay }} crédits"
+  },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Limité",
+      "optionUnlimited": "Illimité"
+    },
+    "onDemandToggle": {
+      "label": "Activer l'accès on-demand",
+      "restrictToOnDemand": "Restreindre l'accès on-demand"
+    },
+    "guestBookingToggle": {
+      "label": "Autoriser la Réservation pour un invité"
+    },
+    "teacherPayrollToggle": {
+      "label": "Inclus dans la rémunération des professeurs",
+      "helperText": "Les cours sont facturés au studio et inclus dans la Rémunération des professeurs"
+    },
+    "teacherPayRate": {
+      "label": "Taux de rémunération du Professeur TTC",
+      "helperText": "Montant gagné par le professeur pour chaque réservation",
+      "tooltip": "Ce taux détermine la Rémunération des professeurs et s'applique à toutes les réservations effectuées avec ce pass. S'il est laissé à '0', le taux sera calculé comme le prix de l'abonnement divisé par le nombre de réservations."
+    },
+    "maximumUsage": {
+      "label": "Définir l'utilisation maximale",
+      "helperText": "Contrôlez l'utilisation maximale autorisée par jour, semaine, mois ou achat par adhérent",
+      "gridColumns": {
+        "maximumUsage": "Utilisation maximale",
+        "scope": "Portée"
+      },
+      "scopes": {
+        "day": "Jour",
+        "week": "Semaine",
+        "month": "Mois",
+        "member": "Client"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Restreindre les réservations à certains horaires",
+      "helperText": "Les Adhérents ne peuvent réserver que pendant les heures sélectionnées",
+      "timePeriod": "Période",
+      "allDay": "Toute la journée",
+      "addMoreSchedule": "Ajouter plus d'horaires",
+      "buttonLabels": {
+        "removeTimeSchedule": "Supprimer la période de planification",
+        "removeTimeSlot": "Supprimer le créneau horaire",
+        "addTimeSlot": "Ajouter un créneau horaire"
+      }
+    },
+    "penalty": {
+      "label": "Appliquer une pénalité",
+      "helperText": "Pénalité pour les adhérents en cas d'absences fréquentes ou d'annulations tardives",
+      "daysSuffix": "",
+      "daysSuffix_one": "jour",
+      "daysSuffix_other": "jours",
+      "blockedDaysLabel": "Nombre de jours à bloquer",
+      "accountValueLabel": "Montant de l’acompte",
+      "penaltyKind": "Type de pénalité",
+      "kindOptions": {
+        "blockFor": "Bloquer pour",
+        "chargeAccount": "Débiter le Solde du compte pour"
+      },
+      "lateCancellation": {
+        "title": "Annulation tardive",
+        "thresholdLabel": "Nombre d’annulations",
+        "windowDaysLabel": "Dans les jours"
+      },
+      "noShow": {
+        "title": "Absences fréquentes",
+        "thresholdLabel": "Nombre d'absences (no show)",
+        "windowDaysLabel": "Dans les jours",
+        "description": "Définissez les règles de non-présentation dans <key1>Paramètres > Personnalisation</key1>"
+      }
+    }
+  },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Paiement entièrement reversé au professeur",
+      "helperText": "Tous les revenus des rendez-vous réservés avec ce pass sont intégralement versés à l'enseignant"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Compatible avec les rendez-vous",
+      "placeholder": "Rechercher un rendez-vous",
+      "loadingMessage": "Chargement des rendez-vous…",
+      "list": {
+        "compatibleWithAll": "Compatible avec tous les Cours",
+        "compatibleWith": "Compatible avec : {{ slotNames }}",
+        "noSessionsAvailable": "Aucun cours disponible",
+        "removeAction": "Supprimer",
+        "editAction": "Modifier les cours compatibles"
+      },
+      "editModal": {
+        "selectAll": "Tout sélectionner",
+        "helperText": "Les adhérents peuvent utiliser ce pass uniquement pour les cours sélectionnés",
+        "noSessionsAlert": "Cet abonnement n'est plus compatible avec les rendez-vous {{ appointmentName }}.",
+        "cancel": "Fermer",
+        "save": "Enregistrer",
+        "emptyState": "Ce rendez-vous n'a pas encore de créneau horaire."
+      }
+    }
+  },
   "itemAutocomplete": {
-    "openItemInNewTab": "Open item in new tab",
+    "openItemInNewTab": "Ouvrir l'article dans un nouvel onglet",
     "credits": "{{count}} crédits",
     "credits_one": "{{count}} crédit",
     "credits_other": "{{count}} crédits",
@@ -46,8 +169,18 @@
     "days_other": "{{count}} jours",
     "unlimited": "Illimité",
     "custom": "Personnalisée",
-    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "customAmountRange": "Personnalisée : {{min}} - {{max}}",
     "hiddenChipLabel": "Caché",
-    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+    "hiddenGiftcardTooltip": "Cette carte cadeaux ne sera pas disponible à l'achat sur le site adhérent."
+  },
+  "billingPlanStatus": {
+    "valid": "Valide",
+    "paused": "En pause",
+    "canceled": "Annulée",
+    "ended": "Terminé"
+  },
+  "accessControlToggle": {
+    "label": "Accorde l'accès au studio",
+    "helperText": "Les adhérents disposant de ce pass peuvent déverrouiller les portes du studio. Pour restreindre les heures d'accès, définissez des règles horaires dans la plateforme Kisi."
   }
 }

@@ -1,8 +1,87 @@
 {
   "classDetail": {
+    "loading": "Les laden...",
     "tabs": {
       "editor": "Editor",
-      "compatiblePasses": "Beschikbare leskaarten"
+      "compatiblePasses": "Beschikbare kaarten"
+    },
+    "compatiblePasses": {
+      "loading": "Passen laden...",
+      "uncategorized": "Ongecategoriseerd",
+      "empty": {
+        "title": "Nog geen compatibele kaarten",
+        "description": "Stel leskaarten in die compatibel zijn met deze les en ze verschijnen hier",
+        "cta": "Ga naar kaarten"
+      },
+      "flags": {
+        "universal": "Universeel",
+        "unlisted": "Niet vermeld",
+        "staffRestricted": "Alleen abonnement",
+        "newMembersOnly": "Alleen voor nieuwe klanten",
+        "tooltips": {
+          "universal": "Kan worden gebruikt voor zowel lessen als afspraken",
+          "unlisted": "Wordt niet weergegeven op de website of in de app",
+          "staffRestricted": "Kan alleen als onderdeel van een abonnement worden verkocht.",
+          "newMembersOnly": "Kan alleen worden gekocht door Klanten zonder eerdere aankopen"
+        }
+      },
+      "filter": {
+        "operatorIs": "is",
+        "categories": "Categorieën",
+        "properties": "Eigenschappen",
+        "selectField": "Selecteer filter"
+      },
+      "search": {
+        "placeholder": "Zoek kaarten"
+      },
+      "noResults": {
+        "title": "Geen kaarten gevonden die aan je filters voldoen",
+        "cta": "Wis filters"
+      },
+      "panel": {
+        "previous": "Vorige pas",
+        "next": "Volgende kaart",
+        "goToPass": "Ga naar pas",
+        "properties": "Eigenschappen",
+        "credits": "Credits",
+        "creditsCount": "{{count}} credit",
+        "creditsCount_other": "{{count}} credits",
+        "creditsUnlimited": "Ongelimiteerd",
+        "compatibility": "Compatibiliteit",
+        "free": "Gratis",
+        "compatibilityAll": "Alle diensten - Alle locaties",
+        "compatibilityAllServices": "Alle diensten",
+        "compatibilityAllLocations": "Alle locaties",
+        "compatibilityCategories": "Categorieën",
+        "compatibilityServices": "Diensten",
+        "compatibilityLocations": "Locaties",
+        "offPeakOnly": "Alleen daluren"
+      }
+    },
+    "editor": {
+      "toast": "Klas bewerkt",
+      "advanced": {
+        "title": "Geavanceerd"
+      },
+      "discard": {
+        "title": "Wijzigingen weggooien?",
+        "description": "Als je nu weggaat, worden je wijzigingen niet opgeslagen. ",
+        "confirm": "Wijzigingen weggooien",
+        "keepEditing": "Verder bewerken",
+        "toast": "Wijzigingen weggegooid"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Sessies",
+        "archived": "Gearchiveerde lessen"
+      },
+      "actions": {
+        "archive": "Archiveren",
+        "unarchive": "Herstellen",
+        "duplicate": "Dupliceren",
+        "scheduleSessions": "Rooster lessen"
+      }
     }
   }
 }

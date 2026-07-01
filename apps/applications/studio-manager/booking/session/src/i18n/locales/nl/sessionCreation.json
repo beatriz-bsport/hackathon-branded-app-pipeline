@@ -1,139 +1,173 @@
 {
   "addSessionModal": {
-    "title": "Set up a session",
+    "title": "Les toevoegen",
     "steps": {
       "chooseActivity": {
-        "label": "Choose activity",
-        "description": "Search or select an activity for the session, such as Group Activity or a Workshop.",
-        "loadingActivities": "Loading activities...",
+        "label": "Kies les",
+        "description": "Zoek alle lessen, of selecteer een groepsles of een workshop",
+        "loadingActivities": "Lessen laden...",
         "search": {
           "placeholder": "Zoek"
         },
         "table": {
           "columns": {
-            "activity": "Activiteit",
+            "activity": "Les",
             "type": "Kanalen",
-            "features": "Features"
+            "features": "Details"
           },
           "type": {
-            "groupActivity": "Groepsactiviteit",
+            "groupActivity": "Groepsles",
             "workshop": "Workshops"
           },
           "emptyState": {
-            "title": "Nog geen groepsactiviteiten",
-            "body": "Add a Group Activity or Workshop to your studio before creating a session."
+            "title": "Nog geen groepslessen",
+            "body": "Kies een les om deze aan de kalender toe te voegen"
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Livestream is enabled for this activity"
+              "popoverLabel": "Deze Les heeft livestream ingeschakeld"
             },
             "notifications": {
-              "popoverLabel": "Notifications are configured for this activity"
+              "popoverLabel": "Meldingen voor deze les zijn ingeschakeld"
             }
           }
         }
       },
       "configureSession": {
-        "label": "Configure session",
-        "nameAndDescription": "Name and description",
-        "nameAndDescriptionHelperText": "These fields are inherited from the parent activity. Toggle customization to override with session-specific values.",
+        "label": "Instellen",
+        "nameAndDescription": "Details",
+        "nameAndDescriptionHelperText": "Titel en beschrijving zijn afkomstig van de les",
         "details": {
           "title": "Details",
-          "sessionName": "Sessie",
+          "sessionName": "Titel",
           "description": "Beschrijving",
           "overrideToggle": {
-            "label": "Customize name and description for this session",
-            "helperText": "By default, values are inherited from the activity."
+            "label": "Pas de naam en beschrijving voor deze les aan",
+            "helperText": "Standaard gebruikt de les de titel en beschrijving van de geselecteerde les."
           },
           "visibilitySelector": {
-            "title": "Choose whether this session will be visible on the Member Area",
+            "title": "Maak deze les beschikbaar voor klanten op je website of app",
             "options": {
               "visible": {
-                "label": "Listed",
-                "description": "Offering will be visible on the Member Area"
+                "label": "Gepubliceerd",
+                "description": "Deze les is te koop via je website of app"
               },
               "hidden": {
-                "label": "Niet vermeld",
-                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
+                "label": "Niet gepubliceerd",
+                "description": "Deze les is te koop via je website of app, maar kan ook worden gedeeld via een link"
               }
             }
           }
         },
         "settings": {
-          "title": "Instellingen",
-          "effectif": "Total spots in class",
-          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
-          "waitlist": "Spots on Waitlist",
+          "title": "Reservering",
+          "effectif": "Totaal aantal plekken in de les",
+          "exceedsRoomCapacity": "Het aantal plekken overschrijdt de capaciteit van de vestiging",
+          "differsFromRoomCapacity": "Het aantal plekken is anders dan de capaciteit van de vestigingenn ({{capacity}} plekken)",
+          "waitlist": "Plekken op wachtlijst",
           "credits": {
             "label": "Credits",
-            "helperText": "Number of credits required to book the session",
-            "decimalHelperText": "This session will cost {{credits}} credits",
-            "warning": "Double-check: you’re entering credits, not a price."
+            "helperText": "Aantal benodigde credits voor boeking",
+            "decimalHelperText": "Deze les kost Klanten het equivalent van {{credits}} credits ",
+            "warning": "Let op: dit is de prijs in credits, niet de geldwaarde"
           },
           "partnership": {
-            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "toggle": "Te boeken voor klanten van ClassPass, Urban Sports Club, Wellpass, Wellhub en myClubs",
+            "noEstablishment": "Kies eerst een vestigingenn om de beschikbaarheid voor Aggregators aan te passen",
+            "cappingStrategy": {
+              "label": "Limiet aantal plekken",
+              "UNLIMITED": {
+                "label": "Onbeperkt aantal plekken",
+                "helperText": "Alle plekken kunnen via Aggregators worden geboekt (gecombineerd over alle)",
+                "singleAggregatorHelperText": "Alle plekken kunnen via de Aggregators worden geboekt"
+              },
+              "COMBINED": {
+                "label": "Beperkt aantal plekken (gecombineerd)",
+                "helperText": "Stel een maximum aantal plekken in voor alle Aggregators samen",
+                "singleAggregatorLabel": "Beperkt aantal plekken",
+                "singleAggregatorHelperText": "Stel een maximum aantal plekken in voor de gekoppelde Aggregators"
+              },
+              "PER_PARTNER": {
+                "label": "Beperk boekingen per aggregator",
+                "helperText": "Stel individuele limieten en boekingsperiodes in voor elke aggregator"
+              }
+            },
             "capacity": {
-              "label": "Allocated spots",
-              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
-              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+              "label": "Plekken beschikbaar voor Aggregators",
+              "error": "Het aantal toegewezen plekken voor Aggregators mag niet meer zijn dan het totaal aantal beschikbare plekken in de les",
+              "classpassInfo": "ClassPass heeft een eigen aparte limiet die niet is inbegrepen in dit maximum"
             },
             "wellhub": {
-              "label": "Your available products on Wellhub",
-              "placeholder": "Select a Wellhub product...",
+              "label": "Jouw beschikbare producten op Wellhub",
+              "placeholder": "Selecteer een Wellhub-product...",
               "helperText": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
-              "error": "Wellhub product is required"
+              "error": "Wellhub-producten toevoegen"
+            },
+            "perPartner": {
+              "table": {
+                "columns": {
+                  "partner": "Aggregator",
+                  "spots": "Plekken"
+                }
+              }
+            },
+            "enabledAggregators": {
+              "label": "Gekoppelde aggregators",
+              "error": "Selecteer minimaal één aggregator"
             }
           },
           "level": {
             "label": "Niveau",
-            "byDefault": "By default",
+            "byDefault": "Voorinstellingen",
             "custom": "Personalisatie",
-            "create": "Create a new level",
-            "add": "Add level",
+            "create": "Maak een nieuw niveau",
+            "add": "Niveau toevoegen",
             "nameLabel": "Naam",
             "colorLabel": "Kleur",
             "confirmCreate": "Maak",
             "cancel": "Sluiten",
-            "edit": "Edit level",
+            "edit": "Bewerk niveau",
             "save": "Opslaan",
-            "deleteTitle": "Delete level?",
-            "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
+            "deleteTitle": "Niveau verwijderen?",
+            "deleteMessage": "Bestaande lessen behouden dit niveau, maar het is niet beschikbaar voor nieuwe lessen.",
             "delete": "Verwijderen"
           },
           "hybrid": {
-            "label": "This session is hybrid (both on-site and online)",
-            "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+            "label": "De les is hybride (zowel fysiek als online)",
+            "info": "Hiermee maak je een online les met een limiet van 100 deelnemers. Zodra deze is aangemaakt, kun je de broadcastlink, het lidmaatschap en de prijs bewerken. "
           },
           "teacherAndEstablishment": {
-            "title": "Teacher and establishment",
+            "title": "Instructeur & vestiging",
             "teacher": {
               "label": "Instructeur",
-              "placeholder": "Add a teacher..."
+              "placeholder": "Een instructeur toevoegen..."
             },
             "payroll": {
               "label": "Payroll-regel",
-              "placeholder": "Choose a rule..."
+              "placeholder": "Kies een regel...",
+              "overrideLabel": "Payrollregel overschrijven",
+              "overrideDescription": "Indien ingeschakeld, overschrijft deze regel de standaard payroll-regel van de docent. Bij vervangingen geldt deze regel voor de invallende docent."
             },
             "establishment": {
               "label": "Vestiging",
-              "placeholder": "Choose an establishment..."
+              "placeholder": "Kies een vestiging..."
             },
             "spotScheduling": {
-              "label": "Spot Scheduling",
-              "placeholder": "Choose an option...",
-              "helper": "Allow your students to book a spot in the room in advance",
-              "error": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden"
+              "label": "Plekvoorkeur",
+              "placeholder": "Kies een optie...",
+              "helper": "Klanten vooraf een plek in de zaal laten reserveren",
+              "error": "Er moet een Plekindeling worden geselecteerd voor Lessen die met Spivi zijn gesynchroniseerd"
             },
-            "syncOnSpivi": "Automatically send the session details to Spivi"
+            "syncOnSpivi": "Stuur de lesdetails automatisch naar Spivi"
           },
           "broadcast": {
             "label": "Link naar de livestream",
-            "helperText": "The link will be generated automatically for Zoom by bsport",
-            "error": "The link is invalid. It should start with http:// or https:// and not contain any whitespace."
+            "helperText": "De link wordt automatisch gegenereerd voor Zoom",
+            "error": "Link must start with http:// or https:// and not contain any whitespace"
           }
         },
         "timeAndDate": {
-          "title": "Tijd en datum",
+          "title": "Rooster",
           "date": "Datum",
           "time": "Uur",
           "duration": {
@@ -143,15 +177,15 @@
             "day": "dag"
           },
           "recurrence": {
-            "toggle": "This session is recurrent",
+            "toggle": "Deze Les is terugkerend",
             "typeSelector": {
               "label": "Interval",
               "weekly": "Incassering: wekelijks",
-              "custom": "Custom..."
+              "custom": "Aangepast..."
             },
             "weekdaysSelector": {
-              "label": "Repeat on",
-              "placeholder": "Choose recurring days..."
+              "label": "Herhalen op",
+              "placeholder": "Kies terugkerende dagen..."
             },
             "endDate": "Einddatum",
             "unit": {
@@ -159,70 +193,71 @@
               "weeks": "Weken",
               "months": "Maanden"
             },
-            "interval": "Dit abonnement wordt ieder(e)",
+            "interval": "Herhaalt elke",
             "pattern": {
-              "label": "Rule",
+              "label": "Regel",
               "position": {
-                "1": "first",
-                "2": "second",
-                "3": "third",
-                "4": "fourth",
+                "1": "eerste",
+                "2": "tweede",
+                "3": "derde",
+                "4": "4e",
                 "-1": "Terug",
-                "nthWeekdayLabel": "Monthly on the {{position}} {{weekday}}",
-                "dayOfMonthLabel": "Monthly on day {{day}}"
+                "nthWeekdayLabel": "Maandelijks op de {{position}} {{weekday}}",
+                "dayOfMonthLabel": "Maandelijks op dag {{day}}"
               },
-              "nthWeekday": "Nth weekday"
+              "nthWeekday": "N-de weekdag"
             },
-            "info": "Er wordt {{count}} sessie aangemaakt",
-            "info_other": "Er worden {{count}} sessies aangemaakt",
-            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
+            "info": "Er wordt {{count}} les aangemaakt",
+            "info_other": "Er worden {{count}} lessen aangemaakt",
+            "warning": "Pas je instellingen aan om Terugkerende sessies aan te maken. Alleen de eerste les wordt aangemaakt. "
           },
           "errors": {
-            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
-            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
-            "durationNull": "Duration must be greater than 0 minutes.",
-            "recurrenceType": "Please select a recurrence type",
-            "recurrenceEndDate": "Please select an end date",
-            "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
-            "recurrenceWeekdays": "Please select at least one day of the week",
-            "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
-            "recurrenceInterval": "Please specify how often to repeat the session",
-            "recurrencePattern": "Please select a monthly recurrence pattern"
+            "invalidDate": "Voer een geldige datum in in het formaat DD/MM/JJJJ",
+            "dateTooFar": "Lessen kunnen niet meer dan 3 jaar van tevoren worden ingepland",
+            "durationNull": "Duur moet langer zijn dan 0 minuten",
+            "recurrenceType": "Kies een type Terugkerende sessie",
+            "recurrenceEndDate": "Selecteer een einddatum",
+            "recurrenceEndDateBeforeStartDate": "Einddatum moet na de startdatum liggen",
+            "recurrenceWeekdays": "Selecteer minimaal één dag van de week",
+            "recurrenceUnit": "Selecteer een interval (dagen, weken of maanden)",
+            "recurrenceInterval": "Kies hoe vaak je de les wilt herhalen",
+            "recurrencePattern": "Selecteer een maandelijks interval"
           },
-          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
+          "pastSessionWarning": "De geselecteerde datum en tijd liggen in het verleden. Deze Les wordt aangemaakt met een startdatum die al is verstreken.",
+          "wellhubWarning": "Lessen die via Wellhub worden gedeeld, worden automatisch ingekort tot maximaal 200 minuten.",
+          "uscWarning": "Je integratie met de Urban Sports Club is verbonden. Lessen die 2 dagen of langer duren, verschijnen daar niet."
         }
       },
       "advancedOptions": {
-        "label": "Advanced options",
+        "label": "Geavanceerde opties",
         "bookForAGuest": {
-          "title": "Booking for a guest",
-          "fieldLabel": "De reservering voor een gast autoriseren"
+          "title": "Gastreservering",
+          "fieldLabel": "Laat klanten hun credits gebruiken om gasten toe te voegen aan hun boekingen "
         },
         "tags": {
           "title": "Tags",
-          "subTitle": "Use tags to make this session available only to certain segments of your member base.",
-          "addTags": "Add tags",
-          "whiteListTagsLabel": "Authorised members",
-          "blackListTagsLabel": "Unauthorised members"
+          "subTitle": "Gebruik tags om deze lessen alleen beschikbaar te maken voor bepaalde smartlists in je klantenbestand",
+          "addTags": "Tags toevoegen",
+          "whiteListTagsLabel": "Geautoriseerde klanten",
+          "blackListTagsLabel": "Niet-geautoriseerde klanten"
         }
       }
     },
     "buttons": {
       "cancel": "Sluiten",
       "back": "Terug",
-      "createSession": "Sessies toevoegen",
+      "createSession": "Les toevoegen",
       "open": "Open"
     },
     "toasts": {
-      "sessionCreated_one": "Session created",
-      "sessionCreated_other": "Sessions created"
+      "sessionCreated_one": "Les toegevoegd",
+      "sessionCreated_other": "Lessen toegevoegd"
     },
     "errors": {
-      "requiredField": "Dit veld is verplicht",
-      "levelNameTooLong": "Level name cannot exceed 50 characters",
-      "generic": "An error occurred. Please try again.",
-      "create": "An error occurred while creating the session. Please try again later."
+      "requiredField": "Dit veld kan niet leeg zijn",
+      "levelNameTooLong": "Niveaunaam mag maximaal 50 tekens bevatten",
+      "generic": "Er is iets misgegaan. Probeer het opnieuw of ververs de pagina.",
+      "create": "Kon klas niet toevoegen. Probeer het later opnieuw. "
     }
   }
 }

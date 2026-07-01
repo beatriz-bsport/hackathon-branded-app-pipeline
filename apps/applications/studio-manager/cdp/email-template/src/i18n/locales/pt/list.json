@@ -25,7 +25,7 @@
     "emptyPage": {
       "custom": {
         "title": "Você ainda não criou nenhum modelo personalizado!",
-        "description": "Criar seu primeiro modelo personalizado para enviar e-mails personalizados aos seus membros"
+        "description": "Cria o teu primeiro modelo personalizado para enviar e-mails personalizados aos teus clientes"
       },
       "bsport": {
         "title": "Você não tem nenhum modelo bsport disponível",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Crie um Modelos personalizado para esta categoria e envie e-mails personalizados para os Membro."
+      "description": "Cria um modelo personalizado para esta categoria para enviar e-mails personalizados aos clientes"
     },
     "noCategory": "Sem Categoria ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "modelos bsport",
       "title": "modelos bsport",
-      "description": "Esses modelos pré-fabricados estão prontos para uso. Duplique o modelo, depois edite e envie a versão copiada para seus membros. ",
+      "description": "Estes modelos pré-criados estão prontos a usar. Duplica o Modelo, edita e envia a versão copiada aos teus Clientes. ",
       "quit": "Sair"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Excluir modelo de e-mail?",
-      "description": "Uma vez que você eliminar <b>{{emailTemplateTitle}}</b>, ele não estará mais visível para os membros. Também será removido de quaisquer e-mails transacionais aos quais esteja vinculado.",
+      "description": "Depois de eliminares <b>{{emailTemplateTitle}}</b>, este deixará de estar visível para os clientes. Também será removido de quaisquer e-mails transacionais aos quais tenha sido associado.",
       "confirmButton": "Excluir",
       "cancelButton": "Manter",
       "onSuccess": {

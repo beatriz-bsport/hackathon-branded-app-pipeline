@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Cours"
+    },
+    "state": {
+      "loading": {
+        "message": "Chargement des cours..."
+      },
+      "empty": {
+        "title": "Aucun cours pour le moment",
+        "subtitle": "Créez des Cours et ils s'afficheront ici",
+        "cta": "Créer un cours"
+      },
+      "emptySearch": {
+        "title": "Aucun résultat trouvé",
+        "subtitle": "Aucun cours ne correspond à vos filtres. Essayez de les effacer pour voir plus de résultats.",
+        "cta": "Effacer tous les filtres"
+      }
+    },
+    "header": {
+      "services": "Services",
+      "classes": "Cours",
+      "archivedClasses": "Archiver",
+      "add": "Créer un cours",
+      "information": {
+        "label": "Configuration des services",
+        "description": "Créez vos cours et rendez-vous ici pour les planifier depuis la page Calendrier"
+      }
+    },
+    "filters": {
+      "label": "Filtres",
+      "is": "est",
+      "category": {
+        "label": "Catégorie",
+        "searchPlaceholder": "Chercher (recherche en anglais)"
+      },
+      "type": {
+        "label": "Type de paiement",
+        "groupActivity": "Cours collectifs",
+        "workshop": "Atelier"
+      }
+    },
+    "addModal": {
+      "title": "Créer un cours",
+      "confirm": "Créer",
+      "cancel": "Fermer",
+      "errors": {
+        "generic": "Une erreur est survenue. Veuillez réessayer ou actualiser la page. ",
+        "requiredField": "Ce champ ne peut pas être vide"
+      }
+    },
+    "actions": {
+      "duplicate": "Dupliquer",
+      "archive": "Archiver",
+      "unarchive": "Restaurer"
+    },
+    "toasts": {
+      "create": "{{className}} créé",
+      "createError": "Impossible de créer le cours. Veuillez réessayer.",
+      "edit": "{{className}} mis à jour",
+      "editError": "Impossible de mettre à jour le cours. Veuillez réessayer."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Cours",
+          "category": "Catégorie",
+          "type": "Type de paiement",
+          "nextClass": {
+            "name": "À venir",
+            "noUpcomingSession": {
+              "tooltip": "Aucun cours à venir"
+            }
+          },
+          "features": "Détails réservation",
+          "actions": "Actions"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Atelier",
+          "groupActivity": "Cours collectif"
+        },
+        "features": {
+          "notifications": {
+            "title": "Notifications activées",
+            "popoverLabel": "Les Clients recevront des notifications de ce Cours"
+          },
+          "livestream": {
+            "title": "Diffusion en direct activée",
+            "popoverLabel": "Intégration Zoom configurée pour ce cours"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "pageTitle": "Centros",
+  "tabs": {
+    "venues": "Centros",
+    "locations": "Ubicaciones"
+  },
+  "locations": {
+    "columns": {
+      "name": "Ubicación",
+      "venues": "Centros"
+    },
+    "actions": {
+      "edit": "Modificar",
+      "delete": "Eliminar"
+    },
+    "emptyState": {
+      "title": "Aún no hay ubicaciones",
+      "subtitle": "Agrupa los centros por ubicación y aparecerán aquí",
+      "cta": "Añadir ubicación",
+      "noResults": "Ninguna ubicación coincide con tu búsqueda"
+    },
+    "deleteModal": {
+      "title": "¿Eliminar ubicación?",
+      "warningsTitle": "Eliminar esta ubicación afectará a lo siguiente:",
+      "confirm": "Eliminar",
+      "cancel": "Mantener",
+      "alert": {
+        "blocking": "Esta ubicación no se puede eliminar porque:",
+        "warning": "Eliminar esta ubicación afectará a lo siguiente:"
+      },
+      "preflightError": "No se pudo verificar si esta ubicación se puede eliminar. Inténtalo de nuevo.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "Una o más pestañas de tu sitio web están configuradas para mostrar solo el horario de esta ubicación. Actualízalas antes de eliminar esta ubicación."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "Uno o más empleados usan esta ubicación para el control de acceso. Si la eliminas sin asignar un reemplazo, perderán el control de acceso.",
+        "exclusiveAssociatedCoaches_one": "{{coach_name}} solo recibe solicitudes de sustitución para esta ubicación. Si la eliminas, le llegarán solicitudes de todas las ubicaciones.",
+        "exclusiveAssociatedCoaches_other": "{{coach_name}} solo recibe solicitudes de sustitución para esta ubicación. Si la eliminas, le llegarán solicitudes de todas las ubicaciones.",
+        "hasRelatedAssociatedCoaches": "Algunos profesores solo reciben solicitudes de sustitución para esta ubicación. Si la eliminas, dejarán de recibir notificaciones de sustitución.",
+        "hasRelatedMarketplaceComponentConfigs": "Las pestañas de horarios y talleres configuradas para el sitio web de tu Cliente ya no mostrarán esta ubicación.",
+        "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán."
+      },
+      "info": {
+        "reportsDefault": "La ubicación se eliminará de los informes anteriores.",
+        "widgetsDefault": "Los widgets de Horario y talleres configurados para esta ubicación deberán actualizarse manualmente."
+      }
+    }
+  },
+  "emptyState": {
+    "title": "Aún no hay centros",
+    "cta": "Crea tu primer centro para empezar a programar clases y citas"
+  },
+  "search": {
+    "placeholder": "Buscar centros",
+    "locationsPlaceholder": "Buscar ubicaciones",
+    "emptyState": {
+      "title": "No se encontraron centros",
+      "subtitle": "Prueba con otro término de búsqueda"
+    }
+  },
+  "filters": {
+    "selectField": "Filtrar",
+    "location": "Ubicación",
+    "city": "Ciudad",
+    "noLocation": "Sin ubicación",
+    "operators": {
+      "is": "es"
+    }
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Añadir a la ubicación",
+    "addTooltip": "Asigna este centro a una ubicación para aplicar sus ajustes de notificación y marketing.",
+    "edit": "Editar ubicación"
+  },
+  "venueRow": {
+    "edit": "Modificar",
+    "archive": "Archivar"
+  },
+  "actions": {
+    "archive": "Centros archivados",
+    "createLocation": "Crear ubicación",
+    "createLocationTooltip": "Añade una ubicación para agrupar Centros y compartir marketing, ventas e informes",
+    "createVenue": "Crear centro",
+    "createVenueTooltip": "Crea un nuevo espacio para Clases y Citas"
+  },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Centros"
+    },
+    "actions": {
+      "archive": "Archivar",
+      "configureWidget": "Configurar el widget"
+    },
+    "notFound": "Centro no encontrado",
+    "editor": {
+      "discard": {
+        "title": "¿Descartar cambios?",
+        "description": "Tus cambios no guardados se perderán.",
+        "confirm": "Descartar cambios",
+        "keepEditing": "Seguir editando",
+        "toast": "Cambios descartados"
+      }
+    },
+    "spotScheduling": {
+      "title": "Selección de sitio",
+      "subtitle": "Añade un mapa de sitios para permitir que los clientes reserven sitios específicos (por ejemplo, bicicletas, colchonetas, reformers).",
+      "createCta": "Crear",
+      "noSpots": "Aún no hay sitios configurados",
+      "spotCount_one": "{{count}} sitio",
+      "spotCount_other": "{{count}} sitios",
+      "empty": "Aún no hay mapa de sitios",
+      "rowMenu": {
+        "label": "Abrir mapa de sitios",
+        "edit": "Modificar",
+        "delete": "Eliminar"
+      },
+      "deleteModal": {
+        "title": "¿Eliminar selección de sitio?",
+        "description": "Eliminar esta configuración de selección de sitios no se puede deshacer",
+        "confirm": "Eliminar",
+        "cancel": "Mantener"
+      },
+      "untitledBlueprint": "Mapa de sitios sin título",
+      "toasts": {
+        "delete": "Selección de sitio eliminada",
+        "deleteError": "No se pudo eliminar la selección de sitios. Inténtalo de nuevo. ",
+        "createError": "No se pudo crear la selección de sitios. Inténtalo de nuevo. "
+      }
+    }
+  },
+  "archived": {
+    "pageTitle": "Centros archivados",
+    "breadcrumbs": {
+      "venues": "Establecimientos",
+      "archivedVenues": "Centros archivados"
+    },
+    "sectionHeader": "Todos los Centros ({{count}})",
+    "emptyState": {
+      "title": "Aún no hay Centros archivados",
+      "subtitle": "Cualquier centro movido aquí puede ser restaurado"
+    },
+    "venueRow": {
+      "unarchive": "Restaurar"
+    }
+  },
+  "modal": {
+    "title": "Archivar centro",
+    "confirm": "Archivar",
+    "cancel": "Mantener",
+    "alert": {
+      "blocking": "Este centro no se puede archivar por lo siguiente:",
+      "warning": "Archivar este centro afectará a lo siguiente:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Este centro tiene clases próximas. Cancélalas o elimínalas antes de archivarlo.",
+      "hasUpcomingPrivateBookings": "Este centro tiene citas próximas. Cancélalas o elimínalas antes de archivarlo.",
+      "hasExclusiveBillingGroup": "Este centro está vinculado a una ubicación de facturación. Actualiza o elimina la ubicación de facturación antes de archivarlo.",
+      "exclusiveEstablishmentGroups": "Este centro se eliminará de las siguientes ubicaciones: {{names}}. Actualízalas antes de archivarlas.",
+      "exclusivePaymentPacks": "Los siguientes pases solo son válidos en este centro: {{names}}. Actualiza sus restricciones antes de archivarlos.",
+      "hasExclusiveMarketplaceComponentConfigs": "Una o más pestañas de tu sitio web están configuradas para mostrar solo el horario de esta ubicación. Actualízalas antes de eliminar esta ubicación.",
+      "isIntegratedInPartnership": "Este centro está vinculado a uno o más agregadores. Actualiza estas conexiones antes de archivarlo."
+    },
+    "warnings": {
+      "title": "Archivar este centro afectará a lo siguiente:",
+      "hasBillingGroup": "Este centro pertenece a la ubicación de facturación {{name}}.",
+      "exclusivePrivateServices": "Estas Citas solo están disponibles en este Centro: {{names}}.",
+      "relatedPaymentPacks": "Estos pases {{names}} solo se pueden usar en este centro.",
+      "hasExclusiveStaffConfigurations": "Algunos empleados solo están asignados a este centro.",
+      "hasRelatedStaffConfigurations": "Algunos empleados tienen ajustes vinculados a este centro.",
+      "exclusiveCoachAvailabilitySlots": "Estos profesores solo tienen disponibilidad en este centro: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Algunos profesores tienen franjas horarias disponibles en este centro.",
+      "exclusiveAssociatedCoaches": "Estos profesores solo están asociados con este centro: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Algunos profesores están asociados con este centro.",
+      "hasRelatedAvailabilitySlots": "Algunas franjas horarias de disponibilidad están vinculadas a estos centros.",
+      "hasRelatedMarketplaceComponentConfigs": "Una o más pestañas de tu sitio web están configuradas para mostrar solo el horario de este centro. ",
+      "hasRelatedZoomEstablishment": "Hay una integración de Zoom configurada para este centro.",
+      "hasRelatedMarketingNotifications": "Algunos mensajes automáticos están dirigidos a este centro."
+    },
+    "info": {
+      "noReports": "El centro no se eliminará de los informes anteriores.",
+      "widgets": "Los widgets de Horario y talleres configurados para esta ubicación deberán actualizarse manualmente.",
+      "sessions": "Las Clases en curso y las reservas pasadas no se verán afectadas",
+      "appointments": "Las citas pasadas no se verán afectadas"
+    }
+  },
+  "venueModal": {
+    "createTitle": "Crear centro",
+    "editTitle": "Editar centro",
+    "createConfirm": "Crear",
+    "editConfirm": "Guardar cambios",
+    "cancel": "Cerrar",
+    "errors": {
+      "requiredField": "Este campo no puede estar vacío"
+    },
+    "cover": {
+      "label": "Imagen",
+      "helper": "Se muestra a los clientes en la app y la web. Horizontal (16:9) — se recorta automáticamente."
+    },
+    "name": {
+      "label": "Nombre",
+      "placeholder": "Añade un nombre de centros"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe el centro ",
+      "helper": "Se muestra en el perfil de tu estudio en la app. Describe el espacio, el ambiente o lo que lo hace único."
+    },
+    "address": {
+      "label": "Dirección",
+      "placeholder": "Buscar una dirección"
+    },
+    "location": {
+      "label": "Ubicación",
+      "placeholder": "Seleccione una ubicación"
+    },
+    "capacity": {
+      "label": "Capacidad de la sala",
+      "helper": "El número de sitios disponibles en este centro. Introduce 0 para ilimitado."
+    },
+    "accessInformation": {
+      "label": "Información para clientes",
+      "placeholder": "Indica a tus clientes cómo acceder a este centro",
+      "helper": "Se muestra a tus clientes después de que reserven (por ejemplo, código de entrada, planta, instrucciones)."
+    }
+  },
+  "toasts": {
+    "undo": "Revertir",
+    "archive": "Centro archivado",
+    "archiveError": "No se pudo archivar el centro. Inténtalo de nuevo. ",
+    "unarchive": "Centro restaurado",
+    "unarchiveError": "No se pudo restaurar el centro. Inténtalo de nuevo. ",
+    "addVenueToLocation": "\"{{venue}}\" añadido a \"{{location}}\"",
+    "locationDelete": "Ubicación eliminada",
+    "locationDeleteError": "No se pudo eliminar la ubicación. Inténtalo de nuevo.",
+    "create": "Centro creado",
+    "createPartial": "Centro creado, pero no se pudo asignar a la ubicación seleccionada. Asígnalo manualmente.",
+    "createError": "No se pudo crear el centro. Inténtalo de nuevo. ",
+    "update": "Centro actualizado",
+    "updateError": "No se pudo actualizar el centro. Inténtalo de nuevo. "
+  }
+}

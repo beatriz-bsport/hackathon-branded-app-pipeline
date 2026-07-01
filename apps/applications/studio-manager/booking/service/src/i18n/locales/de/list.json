@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Kurse"
+    },
+    "state": {
+      "loading": {
+        "message": "Kurse werden geladen..."
+      },
+      "empty": {
+        "title": "Noch keine Kurse",
+        "subtitle": "Erstelle Kurse, damit sie hier angezeigt werden",
+        "cta": "Kurs erstellen"
+      },
+      "emptySearch": {
+        "title": "Keine Ergebnisse gefunden",
+        "subtitle": "Keine Kurse entsprechen deinen Filtern. Versuche, sie zu löschen, um mehr Ergebnisse zu sehen.",
+        "cta": "Alle Filter löschen"
+      }
+    },
+    "header": {
+      "services": "Leistungen",
+      "classes": "Kurse",
+      "archivedClasses": "Archiv",
+      "add": "Kurs erstellen",
+      "information": {
+        "label": "Leistungen einrichten",
+        "description": "Erstelle hier deine Kurse und Termine, um sie über die Kalenderseite zu planen"
+      }
+    },
+    "filters": {
+      "label": "Filter",
+      "is": "ist",
+      "category": {
+        "label": "Kategorie",
+        "searchPlaceholder": "Suchen"
+      },
+      "type": {
+        "label": "Zahlungsart",
+        "groupActivity": "Gruppenaktivität",
+        "workshop": "Workshop"
+      }
+    },
+    "addModal": {
+      "title": "Kurs erstellen",
+      "confirm": "Erstellen",
+      "cancel": "Schließen",
+      "errors": {
+        "generic": "Es ist ein Fehler aufgetreten. Versuche es erneut oder aktualisiere die Seite. ",
+        "requiredField": "Dieses Feld darf nicht leer sein"
+      }
+    },
+    "actions": {
+      "duplicate": "Duplizieren",
+      "archive": "Archivieren",
+      "unarchive": "Wiederherstellen"
+    },
+    "toasts": {
+      "create": "{{className}} erstellt",
+      "createError": "Konnte den Kurs nicht erstellen. Versuch es noch einmal.",
+      "edit": "{{className}} aktualisiert",
+      "editError": "Kurs konnte nicht aktualisiert werden. Versuche es noch einmal."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Kurs",
+          "category": "Kategorie",
+          "type": "Zahlungsart",
+          "nextClass": {
+            "name": "Bevorstehend",
+            "noUpcomingSession": {
+              "tooltip": "Keine bevorstehenden Kurse"
+            }
+          },
+          "features": "Details der Buchung",
+          "actions": "Aktionen"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Workshop",
+          "groupActivity": "Gruppenaktivität"
+        },
+        "features": {
+          "notifications": {
+            "title": "Benachrichtigungen aktiviert",
+            "popoverLabel": "Kund:innen erhalten Benachrichtigungen zu diesem Kurs"
+          },
+          "livestream": {
+            "title": "Livestream aktiviert",
+            "popoverLabel": "Zoom-Integration für diese Kurse eingerichtet"
+          }
+        }
+      }
+    }
+  }
+}

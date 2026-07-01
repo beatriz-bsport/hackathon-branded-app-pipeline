@@ -1,32 +1,106 @@
 {
-  "title": "Smarlists",
-  "addSmartlist": "Maak Smartlist aan",
-  "loading": "Bezig met laden van Smartlists...",
-  "search": "Zoek Smartlists",
+  "title": "Smartlists",
+  "tabs": {
+    "prebuilt": "Voorgedefinieerd",
+    "custom": "Personalisatie"
+  },
+  "prebuilt": {
+    "aiAssisted": "AI-gestuurd",
+    "segments": {
+      "customers": {
+        "title": "Kopers",
+        "description": "Richt je op Klanten die minstens één betaalde transactie hebben gedaan, of het nu een kaart, een abonnement of zelfs een kopje koffie aan de balie was. Je breedste bereik voor nieuws en aankondigingen voor de hele studio."
+      },
+      "active_members": {
+        "title": "Actieve Klanten",
+        "description": "Betrek Klanten die momenteel een actieve kaart of abonnement hebben. Dit is je meest betrouwbare basis voor klantenbinding, extra verkopen en om vaste klanten terug te laten komen."
+      },
+      "active_trials": {
+        "title": "Actieve proefperiodes",
+        "description": "Bereik Klanten die momenteel een actief introductieaanbod hebben als onderdeel van een proefperiode en nog geen tweede aankoop hebben gedaan. Dit zijn je Leads met het hoogste potentieel — converteer ze voordat hun aanbod verloopt."
+      }
+    },
+    "columns": {
+      "name": "Naam",
+      "email": "Email",
+      "passName": "Leskaart",
+      "passValidityStartDate": "Laatste aankoop",
+      "lastVisitDate": "Laatste bezoek",
+      "offerExpiryDate": "Vervaldatum",
+      "status": "Status",
+      "dateJoined": "Lid sinds",
+      "lastPurchaseDate": "Laatste aankoop",
+      "currentLifecycleState": "Status"
+    },
+    "enums": {
+      "activeTrialStatus": {
+        "attended": "Aanwezig",
+        "booked": "Gereserveerd",
+        "purchased": "Aangekocht"
+      },
+      "customerLifecycleState": {
+        "archived": "Gearchiveerd",
+        "lead": "Lead",
+        "active": "Actief",
+        "inactive": "Inactief",
+        "churned": "Afgehaakt"
+      }
+    },
+    "information": {
+      "label": "Over vooraf ingestelde smartlists",
+      "title": "Vind direct je belangrijkste doelgroepen",
+      "description": "Vooraf ingestelde Smartlists zijn automatisch aangemaakte groepen op basis van veelvoorkomend Klantgedrag.",
+      "update": "Ze worden in de loop van de tijd bijgewerkt aan de hand van vooraf gedefinieerde regels, zodat Klanten de Smartlist betreden of verlaten naarmate hun activiteit verandert. Vooraf ingestelde Smartlists helpen je snel belangrijke doelgroepen te bereiken zonder zelf filters te hoeven maken.",
+      "custom": "Gebruik aangepaste smartlists voor specifieke criteria of geavanceerde logica."
+    },
+    "details": {
+      "tabs": {
+        "segment": "Smartlist",
+        "campaigns": "Campagnes"
+      },
+      "segment": {
+        "loading": "Smartlist laden...",
+        "emptyState": {
+          "title": "Geen klanten gevonden",
+          "subtitle": "Dit vooraf ingestelde Smartlists hebben nog geen overeenkomende Klanten"
+        }
+      },
+      "segmentPlaceholder": "Smartlistdetails zijn binnenkort beschikbaar.",
+      "campaignsPlaceholder": "Campagnes zijn binnenkort beschikbaar",
+      "campaigns": {
+        "emptyState": {
+          "description": "Er zijn nog geen campagnes naar deze vooraf ingestelde smartlist verzonden"
+        }
+      }
+    }
+  },
+  "addSmartlist": "Smartlist aanmaken",
+  "loading": "Smartlists laden...",
+  "search": "Smartlists zoeken",
   "emptyState": {
-    "title": "Nog geen Smartlists",
-    "subtitle": "Maak je eerste Smartlist om klanten te segmenteren met tags, gerichte berichten te sturen en betrokkenheid te volgen."
+    "title": "Nog geen smartlist",
+    "subtitle": "Maak je eerste smartlist om Klanten te groeperen met tags, gerichte berichten te sturen en betrokkenheid te volgen."
   },
   "emptySearch": {
-    "title": "Geen Smartlists gevonden",
+    "title": "Geen smartlist gevonden",
     "subtitle": "Probeer filters te wissen om meer resultaten te zien",
     "clearFilters": "Wis filters"
   },
   "duplicateModal": {
-    "title": "Smartlist dupliceren?",
-    "description": "Je kunt <b>{{name}}</b> bewerken nadat",
+    "title": "Segment dupliceren?",
+    "description": "Je kunt <b>{{name}}</b> daarna bewerken.",
     "buttons": {
       "duplicate": "Dupliceren",
       "cancel": "Sluiten"
     }
   },
   "deleteModal": {
-    "title": "Verwijder Smartlist?",
-    "description": "Zodra je <b>{{name}}</b> verwijdert, zullen geplande berichten of automatische tagging niet meer worden uitgevoerd, maar eerder getagde Leden worden niet beïnvloed.",
+    "title": "Segment verwijderen?",
+    "description": "Zodra je <b>{{name}}</b> verwijdert, worden geplande berichten of automatische tagging niet meer uitgevoerd. Eerder getagde Klanten worden niet beïnvloed.",
     "warning": "Let op: deze wijziging is permanent en kan niet ongedaan worden gemaakt",
-    "audienceWarning": "Smartlists die in Audience-workflows worden gebruikt, kunnen niet worden verwijderd. ",
-    "cannotBeDeleted": "Deze Smartlist wordt momenteel gebruikt in Audience-workflows en kan niet op deze pagina worden verwijderd.",
-    "audienceCallToAction": "Om deze Smartlist te verwijderen, ga naar de Audience-pagina en verwijder deze uit de bijbehorende workflows.",
+    "audienceWarning": "Smartlists die in Journeys worden gebruikt, kunnen niet worden verwijderd. ",
+    "cannotBeDeleted": "Deze smartlist wordt momenteel gebruikt in een Journey en kan niet op deze pagina worden verwijderd.",
+    "audienceCallToAction": "Om deze smartlist te verwijderen, ga je naar Journeys en verwijder je het uit de gekoppelde Journey-stappen",
     "buttons": {
       "delete": "Verwijderen",
       "cancel": "Behouden"
@@ -34,29 +108,29 @@
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist gedupliceerd",
+      "duplicated": "Smartlists gedupliceerd",
       "open": "Open",
       "saved": "Smartlist bijgewerkt",
-      "deleted": "Smartlist verwijderd",
+      "deleted": "Smartlists verwijderd",
       "undo": "Terug",
       "actionUndone": "Wijziging ongedaan gemaakt"
     },
     "error": {
-      "duplicateFailed": "Er is iets misgegaan bij het dupliceren van de Smartlist. Probeer het opnieuw. ",
-      "updateFailed": "De Smartlist kon niet worden bijgewerkt. Probeer het opnieuw. ",
-      "createFailed": "Er is iets misgegaan bij het aanmaken van de Smartlist. Probeer het opnieuw. ",
-      "deleteFailed": "De Smartlist kon niet worden verwijderd. Probeer het opnieuw. ",
+      "duplicateFailed": "Smartlists kon niet worden gedupliceerd. Probeer het opnieuw. ",
+      "updateFailed": "Smartlists kon niet worden bijgewerkt. Probeer het opnieuw. ",
+      "createFailed": "Smartlist kon niet worden aangemaakt. Probeer het opnieuw. ",
+      "deleteFailed": "Smartlist kon niet worden verwijderd. Probeer het opnieuw. ",
       "deleteError": {
-        "101000": "Er is iets misgegaan bij het dupliceren van de Smartlist. Probeer het opnieuw.",
-        "101001": "Smartlist kan niet worden verwijderd omdat deze momenteel wordt gebruikt in actieve communicatie. Verwijder het uit de communicatie of neem contact op met de ondersteuning voor hulp. ",
-        "101002": "Smartlist kan niet worden verwijderd omdat deze wordt gebruikt in actieve Audience-workflows. Ga naar de Audience-pagina om het uit de bijbehorende workflow te verwijderen. "
+        "101000": "Smartlist kon niet worden verwijderd. Probeer het opnieuw.",
+        "101001": "Smartlist kon niet worden verwijderd omdat het momenteel wordt gebruikt in actieve campagnes of Journeys. Verwijder het uit de Journey of campagne, of neem contact op met support voor hulp. ",
+        "101002": "Segment kon niet worden verwijderd omdat het wordt gebruikt in actieve Journeys. Ga naar de Journey-pagina om het te verwijderen."
       }
     }
   },
   "inlineActions": {
-    "duplicate": "Dupliceer Smartlist",
+    "duplicate": "Dupliceer segment",
     "edit": "Bewerken",
-    "delete": "Verwijder Smartlist"
+    "delete": "Segment verwijderen"
   },
   "dropdownActions": {
     "duplicate": "Dupliceren",
@@ -64,7 +138,7 @@
     "delete": "Verwijderen"
   },
   "createForm": {
-    "title": "Maak Smartlist aan",
+    "title": "Smartlist maken",
     "actions": {
       "create": "Maken",
       "cancel": "Sluiten"
@@ -75,7 +149,7 @@
       "name": {
         "label": "Naam",
         "placeholder": "bijv. Klanten die via Stripe hebben betaald",
-        "required": "Geef je Smartlist een naam zodat je deze later kunt terugvinden",
+        "required": "Geef je Smartlist een naam zodat je het later kunt terugvinden",
         "maxLength": "Naam moet minder dan 200 tekens bevatten"
       },
       "description": {
@@ -88,7 +162,7 @@
       "cancel": "Sluiten"
     },
     "title": {
-      "edit": "Bewerk Smartlist"
+      "edit": "Segment bewerken"
     }
   }
 }

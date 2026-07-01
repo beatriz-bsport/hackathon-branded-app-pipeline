@@ -1,0 +1,106 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Crear una clase",
+      "confirm": "Crear",
+      "cancel": "Cerrar",
+      "steps": {
+        "classSetup": "Configura tu clase",
+        "bookingRules": "Añadir reglas de reserva"
+      },
+      "errors": {
+        "requiredField": "Este campo no puede estar vacío"
+      }
+    },
+    "basicInfo": {
+      "typeQuestion": "Tipo",
+      "groupActivity": {
+        "label": "Clase grupal",
+        "helper": "Clases con múltiples participantes que se muestran en el horario semanal de tu sitio web o app"
+      },
+      "workshop": {
+        "label": "Talleres",
+        "helper": "Eventos destacados por separado que pueden ser únicos, recurrentes o parte de un curso"
+      },
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Este nombre se mostrará a los clientes, por ejemplo, Vinyasa Yoga",
+        "error": "Introduce un nombre para esta clase"
+      },
+      "category": {
+        "label": "Categoría",
+        "placeholder": "Selecciona una categoría",
+        "helper": "La categoría seleccionada se mostrará en tu sitio web y aplicación",
+        "error": "Selecciona una categoría para esta Clase"
+      },
+      "descriptionField": {
+        "label": "Description",
+        "placeholder": "Añade una descripción de la Clase para tus clientes",
+        "helper": "La descripción se aplica a todas las Clases por defecto. Actualízala para Clases individuales al programar.",
+        "error": "Introduce una descripción para esta clase"
+      },
+      "image": {
+        "label": "Imagen de portada",
+        "description": "Esta imagen se mostrará a tus clientes en tu sitio web y app para esta clase",
+        "recommendation": "Recomendado: 1920 x 1080. Formato: JPG (Full HD)"
+      },
+      "altText": {
+        "label": "Texto alternativo de la imagen",
+        "placeholder": "Ej. un primer plano de una persona haciendo yoga",
+        "helper": "Ayuda a los clientes con discapacidad visual a entender la imagen de portada. No se muestra en pantalla."
+      },
+      "color": {
+        "label": "Color",
+        "placeholder": "Ningún color",
+        "description": "Haz que esta clase destaque en tu horario"
+      }
+    },
+    "bookingWindow": {
+      "opening": {
+        "title": "Periodo de reserva abre",
+        "description": "¿Con cuánta antelación pueden reservar esta Clase los Clientes?"
+      },
+      "closing": {
+        "title": "Cierre del periodo de reserva",
+        "description": "Hasta qué momento antes del inicio pueden reservar los clientes"
+      },
+      "cancellation": {
+        "title": "Política de cancelación",
+        "description": "Establece el límite para las cancelaciones gratuitas antes de que empiece esta clase"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Si el Periodo de reserva se abre 0 días antes de la Clase, los Clientes no podrán reservar.",
+        "lowFirstBookingUntil": "El periodo de reserva se abre menos de 24 horas antes de la clase. Es posible que los clientes no tengan tiempo suficiente para reservar.",
+        "highLastBooking": "El periodo de reserva cierra más de 2 horas antes de la clase. Los clientes deberán reservar con bastante antelación."
+      }
+    },
+    "customRestrictions": {
+      "title": "Personaliza las reglas de reserva por segmento",
+      "toggleLabel": "Aplica diferentes reglas de reserva y cancelación a segmentos de clientes específicos",
+      "ruleTitle": "Regla de reserva personalizada {{index}}",
+      "remove": "Eliminar",
+      "applyTo": "Aplicar reglas a:",
+      "tagsPlaceholder": "Añadir etiquetas",
+      "addRule": "Añadir una regla",
+      "maxHint": "Puedes añadir hasta {{max}} reglas personalizadas.",
+      "maxReached": "Has añadido {{max}} reglas personalizadas.",
+      "errors": {
+        "tagsRequired": "Añade al menos 1 etiqueta"
+      }
+    },
+    "automaticCancellation": {
+      "title": "Cancelación automática",
+      "toggleLabel": "Cancelar automáticamente las clases no reservadas",
+      "minBookingsLabel": "Capacidad mínima",
+      "hoursBeforeStartLabel": "Tiempo antes de que empiece la clase",
+      "minBookingsSuffix": "sitios",
+      "hoursBeforeStartSuffix": "horas",
+      "alert": "Los propietarios, administradores, profesores y clientes que hayan reservado serán notificados automáticamente"
+    },
+    "timeInput": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "min"
+    }
+  }
+}

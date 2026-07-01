@@ -1,0 +1,11 @@
+{
+  "memberSelectorModal": {
+    "title": "Selecciona un cliente",
+    "cancel": "Cerrar",
+    "selectMember": "Seleccionar cliente",
+    "searchPlaceholder": "Buscar clientes...",
+    "emptyState": "Elige un cliente para crear una factura",
+    "emptySearch": "No se encontraron clientes",
+    "loading": "Cargando clientes..."
+  }
+}

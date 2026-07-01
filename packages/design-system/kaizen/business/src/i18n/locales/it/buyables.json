@@ -1,40 +1,163 @@
 {
   "paymentMethods": {
     "label": "Metodi di pagamento accettati",
-    "helperText": "Choose at least one payment method",
+    "helperText": "Scegli almeno uno",
     "options": {
       "onlinePayment": {
-        "label": "Online (default)",
-        "helperText": "Card or other online payments"
+        "label": "Online (predefinito)",
+        "helperText": "Pagamento con carta o altri metodi online"
       },
       "inPerson": {
         "label": "Di persona",
-        "helperText": "Cash or cheque"
+        "helperText": "Contanti o assegno"
       }
     },
-    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+    "alertVisibilityHidden": "Questo {{ buyable }} può comunque essere condiviso con i clienti tramite un link e pagato online."
   },
   "visibilitySelector": {
     "optionVisible": {
-      "label": "Listed",
-      "description": "This {{ buyable }} will be visible on the Member Area"
+      "label": "Pubblicato",
+      "description": "Questo {{ buyable }} sarà visibile nell'Area Membri"
     },
     "optionHidden": {
       "label": "Non in elenco",
-      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+      "description": "Questo {{ buyable }} non sarà visibile nell'Area Membri, ma potrà essere condiviso tramite link"
+    }
+  },
+  "visibilityRules": {
+    "label": "Opzioni avanzate",
+    "checkboxes": {
+      "recommended": {
+        "label": "Indica come consigliato",
+        "helperText": "Permette ai tuoi clienti di vedere rapidamente quali offerte sono attualmente consigliate"
+      },
+      "newMembersOnly": {
+        "label": "Disponibile solo per i nuovi clienti",
+        "helperText": "I clienti sono \"nuovi\" finché non acquistano un articolo con un valore superiore a {{ minimalCurrency }}. Anche se acquistano un articolo con uno sconto del 100%, questo conta comunque come un acquisto."
+      },
+      "hideFromStaff": {
+        "label": "Non visibile allo staff",
+        "helperText": "Lo Staff non potrà visualizzare o acquistare questo {{ buyable }} "
+      }
     }
   },
   "tagsAfterPurchaseSelector": {
-    "placeholder": "Add tags",
-    "title": "Tag after purchase",
-    "description": "Add tags to identify which member bought this item."
+    "placeholder": "Aggiungi tag",
+    "title": "Tag dopo l'acquisto",
+    "description": "Aggiungi tag per identificare quale cliente ha acquistato questo articolo"
   },
   "copyPaymentLinkButton": {
     "toastSuccess": "Link copiato",
     "tooltip": "Copia il link di pagamento"
   },
+  "creditFactor": {
+    "fieldLabel": "Crediti",
+    "notPriceWarning": "Inserisci il prezzo in crediti, non il valore monetario",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} crediti",
+    "nbOfCredits_other": "{{ countDisplay }} crediti"
+  },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Limitato",
+      "optionUnlimited": "Illimitato"
+    },
+    "onDemandToggle": {
+      "label": "Abilita l'accesso on-demand",
+      "restrictToOnDemand": "Limitare l'accesso on-demand"
+    },
+    "guestBookingToggle": {
+      "label": "Consenti Aggiungi un ospite"
+    },
+    "teacherPayrollToggle": {
+      "label": "Incluso nelle buste paga degli insegnanti",
+      "helperText": "Le classi vengono fatturate allo studio e incluse nelle buste paga degli insegnanti"
+    },
+    "teacherPayRate": {
+      "label": "Tariffa oraria istruttore incl. IVA",
+      "helperText": "Guadagno dell'insegnante per ogni prenotazione",
+      "tooltip": "Questa tariffa determina le buste paga dell'insegnante e si applica a tutte le prenotazioni effettuate con questo abbonamento. Se lasciata a '0', la tariffa verrà calcolata dividendo il prezzo dell'abbonamento per il numero di prenotazioni."
+    },
+    "maximumUsage": {
+      "label": "Imposta utilizzo massimo",
+      "helperText": "Controlla l'utilizzo massimo consentito al giorno, settimana, mese o per acquisto per Cliente",
+      "gridColumns": {
+        "maximumUsage": "Utilizzo massimo",
+        "scope": "Ambito"
+      },
+      "scopes": {
+        "day": "Giorno",
+        "week": "Settimana",
+        "month": "Mese",
+        "member": "Cliente"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Limita le prenotazioni a orari specifici",
+      "helperText": "i Clienti possono prenotare solo negli orari selezionati",
+      "timePeriod": "Periodo di tempo",
+      "allDay": "Tutto il giorno",
+      "addMoreSchedule": "Aggiungi più orari",
+      "buttonLabels": {
+        "removeTimeSchedule": "Rimuovi periodo di tempo dal programma",
+        "removeTimeSlot": "Rimuovi fascia oraria",
+        "addTimeSlot": "Aggiungi fascia oraria"
+      }
+    },
+    "penalty": {
+      "label": "Applica la penalità",
+      "helperText": "Penalità per i clienti con frequenti assenze o cancellazioni tardive",
+      "daysSuffix": "",
+      "daysSuffix_one": "giorno",
+      "daysSuffix_other": "giorni",
+      "blockedDaysLabel": "Numero di giorni da bloccare",
+      "accountValueLabel": "Importo del deposito",
+      "penaltyKind": "Tipo di penale",
+      "kindOptions": {
+        "blockFor": "Blocca per",
+        "chargeAccount": "Addebita il saldo dell’account per"
+      },
+      "lateCancellation": {
+        "title": "Cancellazione tardiva",
+        "thresholdLabel": "Numero di cancellazioni",
+        "windowDaysLabel": "Entro pochi giorni"
+      },
+      "noShow": {
+        "title": "No-show frequenti",
+        "thresholdLabel": "Numero di assenze (no show)",
+        "windowDaysLabel": "Entro pochi giorni",
+        "description": "Definisci le regole di no-show in <key1>Impostazioni > Personalizzazione</key1>"
+      }
+    }
+  },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Pagamento interamente all'insegnante",
+      "helperText": "Tutti i ricavi degli Appuntamenti prenotati con questo pass vengono pagati interamente all'insegnante"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Compatibile con gli appuntamenti",
+      "placeholder": "Cerca un appuntamento",
+      "loadingMessage": "Caricamento appuntamenti…",
+      "list": {
+        "compatibleWithAll": "Compatibile con tutte le Classi",
+        "compatibleWith": "Compatibile con: {{ slotNames }}",
+        "noSessionsAvailable": "Nessuna classe disponibile",
+        "removeAction": "Rimuovi",
+        "editAction": "Modifica le Classi compatibili"
+      },
+      "editModal": {
+        "selectAll": "Seleziona tutto",
+        "helperText": "I Clienti possono usare questo pass solo per le Classi selezionate",
+        "noSessionsAlert": "Questo abbonamento non è più compatibile con gli appuntamenti {{ appointmentName }}.",
+        "cancel": "Chiudi",
+        "save": "Salva",
+        "emptyState": "Questo appuntamento non ha ancora una fascia oraria."
+      }
+    }
+  },
   "itemAutocomplete": {
-    "openItemInNewTab": "Open item in new tab",
+    "openItemInNewTab": "Apri l'articolo in una nuova scheda",
     "credits": "{{count}} crediti",
     "credits_one": "{{count}} credito",
     "credits_other": "{{count}} crediti",
@@ -46,8 +169,18 @@
     "days_other": "{{count}} giorni",
     "unlimited": "Illimitato",
     "custom": "Personalizzazione",
-    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "customAmountRange": "Personalizzato: {{min}} - {{max}}",
     "hiddenChipLabel": "Nascosto",
-    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+    "hiddenGiftcardTooltip": "Questo buono regalo non sarà disponibile per l'acquisto sul sito web del cliente"
+  },
+  "billingPlanStatus": {
+    "valid": "Valido",
+    "paused": "Messo in pausa",
+    "canceled": "Annullato",
+    "ended": "Terminato"
+  },
+  "accessControlToggle": {
+    "label": "Concedi l'accesso allo studio",
+    "helperText": "I clienti con questo pass possono sbloccare le porte dello studio. Per limitare gli orari di accesso, imposta le regole orarie nella piattaforma Kisi."
   }
 }

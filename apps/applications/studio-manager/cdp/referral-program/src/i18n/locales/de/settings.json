@@ -2,7 +2,7 @@
   "title": "Empfehlungen",
   "referralProgramHelper": {
     "title": "Aktiviere Empfehlungen",
-    "description": "Richte einen Empfehlungslink ein, damit deine Mitglieder andere in dein Studio einladen können. Biete einen Anreiz, setze eine Frist für die Empfehlung und belohne das Mitglied, das die Empfehlung ausspricht.",
+    "description": "Richte einen Empfehlungslink ein, damit deine Kund:innen andere in dein Studio einladen können. Biete einen Anreiz, setze ein Zeitlimit für die Empfehlung und belohne die werbende Kund:in.",
     "button": {
       "activated": {
         "label": "Deaktivieren",
@@ -37,12 +37,12 @@
         }
       },
       "referringReward": {
-        "title": "Belohnung für die Empfehlung eines Mitglieds",
+        "title": "Belohnung für die Empfehlung eines:einer Kund:in",
         "amountOff": {
-          "label": "Wie viel du das Mitglied belohnen möchtest"
+          "label": "Wie viel du den:die Kund:in belohnen möchtest"
         },
         "maxReferringNumber": {
-          "label": "Max. Nutzung pro Mitglied",
+          "label": "Max. Nutzung pro Kund:in",
           "errors": {
             "tooSmall": "Die Anzahl der Verwendungen muss zwischen 1 und 5 liegen.",
             "tooBig": "Du kannst nicht mehr als 5 Empfehlungen geben",

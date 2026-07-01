@@ -4,7 +4,7 @@
       "name": "Sammlungen",
       "createCollection": "Sammlung erstellen",
       "videosCount": "Videos",
-      "actions": "Aktionen"
+      "actions": "Optionen"
     },
     "videosCountLabel": "",
     "videosCountLabel_one": "{{count}} Medien",
@@ -35,15 +35,15 @@
       "error": "Die Sammlung konnte nicht gelöscht werden. Versuch es noch einmal. "
     },
     "undoAction": {
-      "label": "Änderung rückgängig machen"
+      "label": "Änderung verwerfen"
     },
     "undoResponse": {
-      "success": "Änderung rückgängig gemacht"
+      "success": "Änderung verworfen"
     }
   },
   "error": {
     "title": "Sammlungen konnten nicht geladen werden",
     "description": "Versuch es noch einmal. Wenn das Problem weiterhin besteht, aktualisiere die Seite.",
-    "retry": "Noch ein Mal versuchen"
+    "retry": "Nochmal versuchen"
   }
 }

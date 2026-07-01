@@ -1,139 +1,173 @@
 {
   "addSessionModal": {
-    "title": "Set up a session",
+    "title": "Añadir clase",
     "steps": {
       "chooseActivity": {
-        "label": "Choose activity",
-        "description": "Search or select an activity for the session, such as Group Activity or a Workshop.",
-        "loadingActivities": "Loading activities...",
+        "label": "Elige tu clase",
+        "description": "Busca todas las Clases, o selecciona una Clase grupal o un Taller",
+        "loadingActivities": "Cargando clases...",
         "search": {
           "placeholder": "Búsqueda"
         },
         "table": {
           "columns": {
-            "activity": "Actividad",
+            "activity": "Clase",
             "type": "Tipo",
-            "features": "Características"
+            "features": "Detalle de la reserva"
           },
           "type": {
-            "groupActivity": "Group Activity",
+            "groupActivity": "Clase grupal",
             "workshop": "Talleres"
           },
           "emptyState": {
-            "title": "Aún no hay actividades de grupo",
-            "body": "Add a Group Activity or Workshop to your studio before creating a session."
+            "title": "Aún no hay Clases grupales",
+            "body": "Elige una clase para añadirla al calendario"
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Livestream is enabled for this activity"
+              "popoverLabel": "Esta clase tiene transmisión en vivo"
             },
             "notifications": {
-              "popoverLabel": "Notifications are configured for this activity"
+              "popoverLabel": "Esta clase tiene las notificaciones activadas"
             }
           }
         }
       },
       "configureSession": {
-        "label": "Configure session",
-        "nameAndDescription": "Name and description",
-        "nameAndDescriptionHelperText": "These fields are inherited from the parent activity. Toggle customization to override with session-specific values.",
+        "label": "Configuración",
+        "nameAndDescription": "Detalle de la reserva",
+        "nameAndDescriptionHelperText": "El título y la descripción se toman de las clases",
         "details": {
           "title": "Detalle de la reserva",
-          "sessionName": "Nombre de la sesión",
+          "sessionName": "Título",
           "description": "Description",
           "overrideToggle": {
-            "label": "Customize name and description for this session",
-            "helperText": "By default, values are inherited from the activity."
+            "label": "Personaliza el nombre y la descripción de esta clase",
+            "helperText": "Por defecto, la clase usa el título y la descripción de la clase seleccionada"
           },
           "visibilitySelector": {
-            "title": "Choose whether this session will be visible on the Member Area",
+            "title": "Haz que esta Clase esté disponible para los Clientes en tu sitio web o app",
             "options": {
               "visible": {
-                "label": "Listado",
-                "description": "Offering will be visible on the Member Area"
+                "label": "Publicado",
+                "description": "Esta clase estará disponible para comprar en tu sitio web o app"
               },
               "hidden": {
-                "label": "No listado",
-                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
+                "label": "No publicado",
+                "description": "Estas clases están disponibles para comprar en tu sitio web o en la app, pero se pueden compartir a través de un enlace"
               }
             }
           }
         },
         "settings": {
-          "title": "Parámetros",
-          "effectif": "Total spots in class",
-          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
-          "waitlist": "Spots on Waitlist",
+          "title": "Reserva",
+          "effectif": "Total de sitios en clases",
+          "exceedsRoomCapacity": "El número de sitios excede la capacidad del centro",
+          "differsFromRoomCapacity": "El número de sitios es diferente de la capacidad del Centro ({{capacity}} sitios)",
+          "waitlist": "Sitios en lista de espera",
           "credits": {
             "label": "Número de créditos",
-            "helperText": "Number of credits required to book the session",
-            "decimalHelperText": "This session will cost {{credits}} credits",
-            "warning": "Double-check: you’re entering credits, not a price."
+            "helperText": "Número de créditos necesarios para reservar",
+            "decimalHelperText": "Esta clase costará a los clientes el equivalente a {{credits}} créditos ",
+            "warning": "Atención: este es el precio en créditos, no el valor monetario"
           },
           "partnership": {
-            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "toggle": "Disponible para reservar para clientes de ClassPass, Urban Sports Club, Wellpass, Wellhub y myClubs",
+            "noEstablishment": "Elige primero un centro para personalizar la disponibilidad para los Agregadores",
+            "cappingStrategy": {
+              "label": "Límite de sitios",
+              "UNLIMITED": {
+                "label": "Sitios ilimitados",
+                "helperText": "Todos los sitios se pueden reservar a través de Agregadores (combinados entre todos)",
+                "singleAggregatorHelperText": "Todos los sitios se pueden reservar a través del agregador"
+              },
+              "COMBINED": {
+                "label": "Sitios limitados (combinados)",
+                "helperText": "Establece un número máximo de sitios para todos los Agregadores combinados",
+                "singleAggregatorLabel": "Sitios limitados",
+                "singleAggregatorHelperText": "Establece un número máximo de sitios para el agregador conectado"
+              },
+              "PER_PARTNER": {
+                "label": "Limita las reservas por agregadores",
+                "helperText": "Establece límites individuales y periodos de reserva para cada agregador"
+              }
+            },
             "capacity": {
-              "label": "Allocated spots",
-              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
-              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+              "label": "Sitios disponibles para Agregadores",
+              "error": "El número de Sitios asignados para Agregadores no debe ser mayor que el total disponible en la Clase",
+              "classpassInfo": "ClassPass tiene su propio límite independiente que no está incluido en este tope"
             },
             "wellhub": {
-              "label": "Your available products on Wellhub",
-              "placeholder": "Select a Wellhub product...",
+              "label": "Tus Productos disponibles en Wellhub",
+              "placeholder": "Selecciona un producto Wellhub...",
               "helperText": "Estos productos son ofrecidos por su estudio en la plataforma Wellhub. Vaya a la sección «Asociación» en el Portal de Socios de su cuenta Wellhub para obtener más información.",
-              "error": "Wellhub product is required"
+              "error": "Añadir productos Wellhub"
+            },
+            "perPartner": {
+              "table": {
+                "columns": {
+                  "partner": "Agregador",
+                  "spots": "Sitios"
+                }
+              }
+            },
+            "enabledAggregators": {
+              "label": "Agregadores conectados",
+              "error": "Selecciona al menos un agregador"
             }
           },
           "level": {
             "label": "Nivel",
-            "byDefault": "By default",
+            "byDefault": "Preajustes",
             "custom": "Personalizado",
-            "create": "Create a new level",
-            "add": "Add level",
+            "create": "Crear un nuevo nivel",
+            "add": "Añadir nivel",
             "nameLabel": "Nombre",
             "colorLabel": "Color",
             "confirmCreate": "Crear",
-            "cancel": "Cancelar",
-            "edit": "Edit level",
+            "cancel": "Cerrar",
+            "edit": "Editar nivel",
             "save": "Guardar",
-            "deleteTitle": "Delete level?",
-            "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
+            "deleteTitle": "¿Eliminar nivel?",
+            "deleteMessage": "Las clases existentes mantendrán este nivel, pero no estará disponible para las nuevas clases.",
             "delete": "Eliminar"
           },
           "hybrid": {
-            "label": "This session is hybrid (both on-site and online)",
-            "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+            "label": "La Clase es híbrida (presencial y online)",
+            "info": "Esto creará una Clase online con un límite de 100 participantes. Una vez creada, podrás editar el enlace de la transmisión, la membresía y el precio. "
           },
           "teacherAndEstablishment": {
-            "title": "Teacher and establishment",
+            "title": "Profesores y centro",
             "teacher": {
               "label": "Profesor",
-              "placeholder": "Add a teacher..."
+              "placeholder": "Añadir un profesor..."
             },
             "payroll": {
               "label": "Regla de remuneración",
-              "placeholder": "Choose a rule..."
+              "placeholder": "Elige una regla...",
+              "overrideLabel": "Anular regla de nóminas",
+              "overrideDescription": "Cuando está activada, esta regla anula la regla de nóminas predeterminada del profesor. Para las sustituciones, se aplica al profesor sustituto en su lugar."
             },
             "establishment": {
-              "label": "Lugar",
-              "placeholder": "Choose an establishment..."
+              "label": "Centro",
+              "placeholder": "Elige un centro..."
             },
             "spotScheduling": {
-              "label": "Plano del establecimiento",
-              "placeholder": "Choose an option...",
-              "helper": "Allow your students to book a spot in the room in advance",
-              "error": "Debe seleccionarse un plano de la sala para las sesiones sincronizadas con Spivi"
+              "label": "Selección De Sitio",
+              "placeholder": "Elige una opción...",
+              "helper": "Permite a los clientes reservar un sitio en la sala con antelación",
+              "error": "Selecciona un mapa de sitios para las clases sincronizadas con Spivi"
             },
-            "syncOnSpivi": "Automatically send the session details to Spivi"
+            "syncOnSpivi": "Envía automáticamente los detalles de la Clase a Spivi"
           },
           "broadcast": {
             "label": "Enlace a la retransmisión en directo",
-            "helperText": "The link will be generated automatically for Zoom by bsport",
-            "error": "The link is invalid. It should start with http:// or https:// and not contain any whitespace."
+            "helperText": "El enlace se generará automáticamente para Zoom",
+            "error": "El enlace debe empezar por http:// o https:// y no contener espacios en blanco"
           }
         },
         "timeAndDate": {
-          "title": "Fecha y hora",
+          "title": "Programación",
           "date": "Fecha",
           "time": "hora",
           "duration": {
@@ -143,15 +177,15 @@
             "day": "día"
           },
           "recurrence": {
-            "toggle": "This session is recurrent",
+            "toggle": "Esta clase es recurrente",
             "typeSelector": {
               "label": "Recurrencia",
               "weekly": "Cada semana",
-              "custom": "Custom..."
+              "custom": "Personalizado..."
             },
             "weekdaysSelector": {
-              "label": "Repeat on",
-              "placeholder": "Choose recurring days..."
+              "label": "Se repite en",
+              "placeholder": "Elige los días recurrentes..."
             },
             "endDate": "Fecha de finalización (inclusive)",
             "unit": {
@@ -159,70 +193,71 @@
               "weeks": "Semanas",
               "months": "Meses"
             },
-            "interval": "Repetir todos los",
+            "interval": "Se repite cada",
             "pattern": {
-              "label": "Rule",
+              "label": "Regla",
               "position": {
-                "1": "first",
-                "2": "second",
-                "3": "third",
-                "4": "fourth",
+                "1": "primero",
+                "2": "segundo",
+                "3": "3ro",
+                "4": "4",
                 "-1": "último",
-                "nthWeekdayLabel": "Monthly on the {{position}} {{weekday}}",
-                "dayOfMonthLabel": "Monthly on day {{day}}"
+                "nthWeekdayLabel": "Mensual el {{position}} {{weekday}}",
+                "dayOfMonthLabel": "Mensual el día {{day}}"
               },
-              "nthWeekday": "Nth weekday"
+              "nthWeekday": "Día de la semana N"
             },
-            "info": "{{count}} sesión será creada",
-            "info_other": "{{count}} sesiones serán creadas",
-            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
+            "info": "Se creará {{count}} clase",
+            "info_other": "{{count}} clases serán creadas",
+            "warning": "Ajusta tu configuración para crear Sesiones recurrentes. Solo se creará la Clase inicial. "
           },
           "errors": {
-            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
-            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
-            "durationNull": "Duration must be greater than 0 minutes.",
-            "recurrenceType": "Please select a recurrence type",
-            "recurrenceEndDate": "Please select an end date",
-            "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
-            "recurrenceWeekdays": "Please select at least one day of the week",
-            "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
-            "recurrenceInterval": "Please specify how often to repeat the session",
-            "recurrencePattern": "Please select a monthly recurrence pattern"
+            "invalidDate": "Introduce una fecha válida en formato DD/MM/YYYY",
+            "dateTooFar": "Las Clases no se pueden programar con más de 3 años de antelación",
+            "durationNull": "La duración debe ser superior a 0 minutos",
+            "recurrenceType": "Selecciona un tipo de Sesiones recurrentes",
+            "recurrenceEndDate": "Selecciona una fecha de finalización",
+            "recurrenceEndDateBeforeStartDate": "La fecha de fin debe ser posterior a la fecha de inicio",
+            "recurrenceWeekdays": "Selecciona al menos un día de la semana",
+            "recurrenceUnit": "Selecciona un intervalo (días, semanas o meses)",
+            "recurrenceInterval": "Elige la frecuencia con la que se repiten las clases",
+            "recurrencePattern": "Selecciona un intervalo mensual"
           },
-          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
+          "pastSessionWarning": "La fecha y hora seleccionadas ya han pasado. Esta Clase se creará con una fecha de inicio que ya ha transcurrido.",
+          "wellhubWarning": "Las Clases compartidas a través de Wellhub se acortarán automáticamente a un máximo de 200 minutos.",
+          "uscWarning": "Tu integración con Urban Sports Club está conectada. Las Clase de 2 o más días no aparecerán allí."
         }
       },
       "advancedOptions": {
-        "label": "Advanced options",
+        "label": "Opciones avanzadas",
         "bookForAGuest": {
-          "title": "Booking for a guest",
-          "fieldLabel": "Permitir reservar para invitados"
+          "title": "Reserva para invitados",
+          "fieldLabel": "Permite a tus clientes usar sus créditos para añadir invitados a sus reservas "
         },
         "tags": {
           "title": "Etiquetas",
-          "subTitle": "Use tags to make this session available only to certain segments of your member base.",
-          "addTags": "Add tags",
-          "whiteListTagsLabel": "Authorised members",
-          "blackListTagsLabel": "Unauthorised members"
+          "subTitle": "Usa etiquetas para que esta Clase esté disponible solo para ciertos Segmentos de tu base de Clientes",
+          "addTags": "Añadir etiquetas",
+          "whiteListTagsLabel": "Clientes autorizados",
+          "blackListTagsLabel": "Clientes no autorizados"
         }
       }
     },
     "buttons": {
-      "cancel": "Cancelar",
+      "cancel": "Cerrar",
       "back": "Atrás",
-      "createSession": "Crear una sesión",
+      "createSession": "Añadir clase",
       "open": "Abrir"
     },
     "toasts": {
-      "sessionCreated_one": "Session created",
-      "sessionCreated_other": "Sessions created"
+      "sessionCreated_one": "Clase añadida",
+      "sessionCreated_other": "Clases añadidas"
     },
     "errors": {
-      "requiredField": "Este campo es obligatorio",
-      "levelNameTooLong": "Level name cannot exceed 50 characters",
-      "generic": "An error occurred. Please try again.",
-      "create": "An error occurred while creating the session. Please try again later."
+      "requiredField": "Este campo no puede estar vacío",
+      "levelNameTooLong": "El nombre del nivel debe tener un máximo de 50 caracteres",
+      "generic": "Algo salió mal. Inténtalo de nuevo o actualiza la página.",
+      "create": "No se pudo añadir la clase. Inténtalo de nuevo más tarde. "
     }
   }
 }

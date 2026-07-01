@@ -1,0 +1,98 @@
+{
+  "list": {
+    "tabs": {
+      "classes": "Aulas"
+    },
+    "state": {
+      "loading": {
+        "message": "A carregar aulas..."
+      },
+      "empty": {
+        "title": "Ainda sem aulas",
+        "subtitle": "Cria aulas e elas serão exibidas aqui",
+        "cta": "Criar aula"
+      },
+      "emptySearch": {
+        "title": "Nenhum resultado encontrado",
+        "subtitle": "Não há aulas que correspondam aos teus filtros. Tenta limpá-los para veres mais resultados.",
+        "cta": "Limpar filtros"
+      }
+    },
+    "header": {
+      "services": "Serviços",
+      "classes": "Aulas",
+      "archivedClasses": "Arquivar",
+      "add": "Criar aula",
+      "information": {
+        "label": "Configurar serviço",
+        "description": "Cria as tuas Aulas e Aulas Privadas aqui para as agendares a partir da página Calendário"
+      }
+    },
+    "filters": {
+      "label": "Filtros",
+      "is": "é",
+      "category": {
+        "label": "Categoria",
+        "searchPlaceholder": "Pesquisar"
+      },
+      "type": {
+        "label": "Tipo",
+        "groupActivity": "Aula De Grupo",
+        "workshop": "Workshop"
+      }
+    },
+    "addModal": {
+      "title": "Criar aula",
+      "confirm": "Criar",
+      "cancel": "Fechar",
+      "errors": {
+        "generic": "Algo correu mal. Tenta novamente ou atualiza a página. ",
+        "requiredField": "Este campo não pode estar vazio"
+      }
+    },
+    "actions": {
+      "duplicate": "Duplicar",
+      "archive": "Arquivar",
+      "unarchive": "Recuperar"
+    },
+    "toasts": {
+      "create": "{{className}} criada",
+      "createError": "Não foi possível criar a aula. Tenta novamente.",
+      "edit": "{{className}} atualizado",
+      "editError": "Não foi possível atualizar a aula. Tenta novamente."
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Aula",
+          "category": "Categoria",
+          "type": "Tipo",
+          "nextClass": {
+            "name": "Próximas",
+            "noUpcomingSession": {
+              "tooltip": "Sem aulas futuras"
+            }
+          },
+          "features": "Detalhes",
+          "actions": "Ações"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Workshop",
+          "groupActivity": "Aula de grupo"
+        },
+        "features": {
+          "notifications": {
+            "title": "Notificação ativada",
+            "popoverLabel": "Os Clientes receberão notificações desta aula"
+          },
+          "livestream": {
+            "title": "Transmissão em direto ativada",
+            "popoverLabel": "Integração Zoom configurada para esta aula"
+          }
+        }
+      }
+    }
+  }
+}

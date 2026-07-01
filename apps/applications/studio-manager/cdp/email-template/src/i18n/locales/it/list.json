@@ -1,1 +1,198 @@
-{}
+{
+  "pages": {
+    "active": "Modelli email",
+    "archived": "Modelli email archiviati"
+  },
+  "tabs": {
+    "customTemplates": "Personalizzazione",
+    "masterTemplates": "Franchise",
+    "bsportTemplates": "bsport"
+  },
+  "filters": {
+    "filterButton": {
+      "label": "Filtro"
+    },
+    "displayButton": {
+      "label": "Visualizza"
+    },
+    "status": "Status"
+  },
+  "search": {
+    "tooltip": "Trova un modello"
+  },
+  "templateList": {
+    "loading": "Caricamento dei modelli email...",
+    "emptyPage": {
+      "custom": {
+        "title": "Non hai ancora creato alcun modello personalizzato",
+        "description": "Crea il tuo primo modello personalizzato per inviare emails personalizzate ai tuoi clienti"
+      },
+      "bsport": {
+        "title": "Non hai alcun modello bsport disponibile",
+        "description": "Questa è una lista di modelli forniti da bsport, contatta il tuo Account Manager per qualsiasi aiuto."
+      },
+      "master": {
+        "title": "Non hai ancora modelli centrali",
+        "description": "Questa è una lista di Modelli email gestiti dal tuo franchisor, contattali in caso di domande."
+      },
+      "search": {
+        "title": "Nessun modello corrisponde alla tua ricerca",
+        "description": "Non ci sono modelli che corrispondono attualmente ai tuoi filtri di ricerca."
+      }
+    },
+    "emptyCategory": {
+      "description": "Crea un modello personalizzato per questa categoria per inviare Email personalizzate ai Clienti"
+    },
+    "noCategory": "Nessuna Categoria ({{emailTemplateCount}})"
+  },
+  "activeList": {
+    "actions": {
+      "addCategory": "Aggiungi categoria",
+      "addTemplate": "Crea modello email",
+      "delete": "Elimina",
+      "duplicate": "Duplica",
+      "preview": "Anteprima",
+      "rename": "Rinomina",
+      "undo": {
+        "success": "Cambiamento annullato",
+        "error": "La modifica non può essere annullata. Riprova."
+      }
+    },
+    "hover": {
+      "preview": "Anteprima modello email",
+      "duplicate": "Duplica modello email",
+      "delete": "Elimina modello email",
+      "moreActions": "Altre azioni"
+    },
+    "dropdownActions": {
+      "preview": "Anteprima",
+      "duplicate": "Duplica",
+      "delete": "Rimuovi"
+    },
+    "bsportTemplateInfo": {
+      "label": "bsport modelli email",
+      "title": "bsport modelli email",
+      "description": "Questi modelli predefiniti sono pronti all'uso. Duplica il modello, poi modificalo e invia la versione copiata ai tuoi clienti. ",
+      "quit": "Esci"
+    },
+    "createTemplateModal": {
+      "title": "Crea un nuovo modello email",
+      "description": "Dai un nome al tuo modello per iniziare",
+      "confirmButton": "Crea",
+      "cancelButton": "Chiudi",
+      "textInput": {
+        "label": "Nome del modello",
+        "placeholder": "Dai un nome al tuo modello"
+      },
+      "onSuccess": {
+        "title": "Modello email creato",
+        "action": "Apri"
+      },
+      "onFailure": {
+        "title": " Impossibile creare il modello. Riprova."
+      },
+      "errors": {
+        "name": "Il nome del modello non è valido. Prova un nome diverso. "
+      }
+    },
+    "previewEmailTemplateModal": {
+      "confirmButton": "Modifica",
+      "cancelButton": "Chiudi"
+    },
+    "duplicateTemplateModal": {
+      "title": "Duplicare il modello email?",
+      "description": "Puoi modificare <b>{{emailTemplateTitle}}</b> dopo",
+      "duplicateEmailTitle": "{{emailTemplateTitle}} - Copia",
+      "confirmButton": "Duplica",
+      "cancelButton": "Chiudi",
+      "onSuccess": {
+        "title": "Modello email duplicato",
+        "action": "Apri"
+      },
+      "onFailure": {
+        "title": "Impossibile duplicare il modello. Per favore riprova."
+      }
+    },
+    "deleteTemplateModal": {
+      "title": "Eliminare il modello email?",
+      "description": "Una volta che elimini <b>{{emailTemplateTitle}}</b>, non sarà più visibile ai clienti. Verrà anche rimosso da tutte le Email transazionali a cui è stato collegato.",
+      "confirmButton": "Elimina",
+      "cancelButton": "Mantieni",
+      "onSuccess": {
+        "title": "Modello email eliminato",
+        "action": "Annulla"
+      },
+      "onFailure": {
+        "title": "Non è stato possibile eliminare il modello. Si prega di riprovare."
+      }
+    },
+    "createCategoryModal": {
+      "title": "Aggiungi una nuova categoria",
+      "textInput": {
+        "label": "Nome della categoria",
+        "placeholder": "Dai un nome alla tua categoria"
+      },
+      "confirmButton": "Aggiungi",
+      "cancelButton": "Chiudi",
+      "onSuccess": {
+        "title": "Categoria registrata correttamente"
+      },
+      "onFailure": {
+        "title": " La categoria non può essere aggiunta. Riprova."
+      },
+      "errors": {
+        "name": "Il nome della categoria non è valido. Prova un altro nome. "
+      }
+    },
+    "renameCategoryModal": {
+      "title": "Rinomina categoria?",
+      "textInput": {
+        "label": "Nome della categoria",
+        "placeholder": "Dai un nome alla tua categoria"
+      },
+      "confirmButton": "Rinomina",
+      "cancelButton": "Chiudi",
+      "onSuccess": {
+        "title": "Categoria rinominata",
+        "action": "Annulla"
+      },
+      "onFailure": {
+        "title": " La categoria non può essere rinominata. Per favore riprova."
+      }
+    },
+    "deleteCategoryModal": {
+      "title": "Eliminare categoria?",
+      "description": "Una volta che elimini <b>{{categoryName}}</b>, non sarà più visibile. Tutti i Modelli Email organizzati sotto questa categoria saranno ora senza categoria. ",
+      "confirmButton": "Elimina",
+      "cancelButton": "Mantieni",
+      "onSuccess": {
+        "title": "Categoria eliminata",
+        "action": "Annulla"
+      },
+      "onFailure": {
+        "title": " La categoria non può essere eliminata. Riprova."
+      }
+    },
+    "restoreEmailTemplateAction": {
+      "onFailure": {
+        "title": " Il modello non può essere ripristinato. Per favore riprova."
+      }
+    },
+    "renameTemplateModal": {
+      "title": "Rinomina il modello email?",
+      "textInput": {
+        "label": "Nome",
+        "placeholder": "Dai un nome al tuo modello per continuare"
+      },
+      "confirmButton": "Rinomina",
+      "cancelButton": "Chiudi",
+      "onSuccess": {
+        "title": "Modello email rinominato",
+        "action": "Annulla"
+      },
+      "onFailure": {
+        "title": " Il modello non può essere rinominato. Per favore riprova."
+      }
+    }
+  }
+}

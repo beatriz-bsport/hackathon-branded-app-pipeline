@@ -18,14 +18,14 @@
     "status": "Estado"
   },
   "search": {
-    "tooltip": "Buscar un template"
+    "tooltip": "Buscar una plantilla"
   },
   "templateList": {
     "loading": "Cargando plantillas de correo...",
     "emptyPage": {
       "custom": {
         "title": "Aún no has creado ninguna plantilla personalizada",
-        "description": "Crea tu primera plantilla personalizada para enviar correos electrónicos personalizados a tus miembros"
+        "description": "Crea tu primera plantilla personalizada para enviar correos electrónicos personalizados a tus clientes"
       },
       "bsport": {
         "title": "No tienes ninguna plantilla de bsport disponible",
@@ -41,7 +41,7 @@
       }
     },
     "emptyCategory": {
-      "description": "Crea una plantilla personalizada para esta categoría y envía correos personalizados a los Miembro."
+      "description": "Crea una plantilla personalizada para esta categoría y envía correos Email personalizados a tus clientes"
     },
     "noCategory": "Sin categoría ({{emailTemplateCount}})"
   },
@@ -72,7 +72,7 @@
     "bsportTemplateInfo": {
       "label": "plantillas de bsport",
       "title": "plantillas de bsport",
-      "description": "Estas plantillas predefinidas están listas para usar. Duplica la plantilla, luego edita y envía la versión copiada a tus miembros. ",
+      "description": "Estas plantillas predefinidas están listas para usar. Duplica la plantilla, luego edita y envía la versión copiada a tus clientes. ",
       "quit": "Salir"
     },
     "createTemplateModal": {
@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "¿Eliminar plantilla de correo?",
-      "description": "Una vez que elimines <b>{{emailTemplateTitle}}</b>, ya no será visible para los miembros. También se eliminará de cualquier correo transaccional al que esté vinculado.",
+      "description": "Una vez que elimines <b>{{emailTemplateTitle}}</b>, ya no será visible para los clientes. También se eliminará de cualquier correo transaccional al que esté vinculado.",
       "confirmButton": "Eliminar",
       "cancelButton": "Mantener",
       "onSuccess": {

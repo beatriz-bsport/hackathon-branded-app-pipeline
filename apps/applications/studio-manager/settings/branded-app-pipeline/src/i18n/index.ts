@@ -29,4 +29,4 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 
 export const i18nNamespacePrefix =
   __BRANDED_APP_PIPELINE__.__I18N_NAMESPACE_PREFIX__;
-export const i18nNamespaces: string[] = ["model-list"];
+export const i18nNamespaces: string[] = ["common"];

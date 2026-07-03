@@ -1,0 +1,180 @@
+{
+  "pageTitle": "Branded App Pipeline",
+  "pageSubtitle": "Track your progress toward launching your branded fitness app, phase by phase.",
+  "focusCard": {
+    "title": "Next important step",
+    "cta": "Go to step",
+    "allDone": "All set! You're ready to launch.",
+    "greatProgress": "Great progress! Keep going."
+  },
+  "appDetails": {
+    "sectionTitle": "App details",
+    "appName": {
+      "label": "App name",
+      "placeholder": "e.g., My Fitness Studio",
+      "counterSuffix": "Apple limit: 30 characters max",
+      "uniqueWarningTitle": "Must be unique",
+      "uniqueWarningDetail": "on both App Store AND Google Play. Cannot use \"free\", \"best\", \"#1\", competitor names, or Apple/Google trademarks."
+    },
+    "duns": {
+      "label": "DUNS number",
+      "placeholder": "9 digits (e.g., 123456789)",
+      "timelineNote": "~30 days to receive — or ~5 days with the expedited option (~€30)",
+      "invalid": "DUNS must be exactly 9 digits",
+      "valid": "Valid DUNS format"
+    },
+    "dunsDate": {
+      "label": "DUNS submission date",
+      "expectedReady": "Expected ready: {{date}}",
+      "daysRemaining": "{{count}} day remaining",
+      "daysRemaining_other": "{{count}} days remaining"
+    },
+    "googlePlay": {
+      "label": "Google Play link (optional)",
+      "placeholder": "https://play.google.com/store/apps/details?id=..."
+    },
+    "appStore": {
+      "label": "App Store link (optional)",
+      "placeholder": "https://apps.apple.com/..."
+    },
+    "invalidUrl": "Enter a valid URL"
+  },
+  "appleOrgWarning": {
+    "bannerTitle": "Critical rule",
+    "bannerBody": "Apple Developer Program must be enrolled as an Organization account type. Individual accounts cannot be converted later and add 4 weeks + €99. If Apple creates an Individual account by mistake, we have an escalation process — but it adds ~4 weeks.",
+    "learnMore": "Learn more",
+    "modalTitle": "Apple Developer Program account type",
+    "mustBeOrg": "Account type MUST be \"Organization\"",
+    "reason1": "Why: Individual accounts cannot publish under a business name or grant bsport admin access",
+    "reason2": "Apple creates Individual by mistake: sometimes Apple's system creates an Individual account instead of Organization — this is on Apple's side, not the client's",
+    "reason3": "Cannot be converted easily: if this happens, the client must request an account type migration, which takes ~4 additional weeks",
+    "reason4": "Manual selection: some clients accidentally select \"Individual\" during enrollment — the tutorial video specifically warns about this (watch 2:00–2:50)",
+    "actionLabel": "Action:",
+    "actionDetail": "When you enroll in Apple Developer Program during the BACC call, double-check that you're selecting \"Organization\" and that the account confirmation email shows \"Organization\" type.",
+    "close": "Close"
+  },
+  "owners": {
+    "you": "You",
+    "bsport": "bsport",
+    "thirdParty": "Third-party"
+  },
+  "parallelNote": "Runs in parallel with other tracks",
+  "timelineLabel": "Timeline:",
+  "video": {
+    "toggle": "Watch: {{label}}",
+    "comingSoon": "Coming soon"
+  },
+  "phases": {
+    "1": {
+      "title": "Preparation & DUNS",
+      "duration": "1-2 weeks"
+    },
+    "2": {
+      "title": "Onboarding calls & planning",
+      "duration": "Week 2-3"
+    },
+    "3": {
+      "title": "Google setup (parallel track)",
+      "duration": "< 2 hours active work"
+    },
+    "4": {
+      "title": "Apple setup (parallel track)",
+      "duration": "1-4 weeks"
+    },
+    "5": {
+      "title": "Store submission & launch",
+      "duration": "1-2 weeks"
+    },
+    "6": {
+      "title": "Post-launch",
+      "duration": "Ongoing"
+    }
+  },
+  "items": {
+    "p1_1": {
+      "title": "Brand identity form",
+      "note": "Complete brand details, colors, logo"
+    },
+    "p1_2": {
+      "title": "Back office setup",
+      "note": "Configure activities, classes, pricing, payment"
+    },
+    "p1_3": {
+      "title": "Request DUNS number",
+      "note": "~30 days processing. Expedite option available (~€30 → ~5 days)",
+      "video": "How to request your DUNS number"
+    },
+    "p2_1": {
+      "title": "First onboarding call",
+      "note": "General intro with onboarding specialist"
+    },
+    "p2_2": {
+      "title": "BACC intro call",
+      "note": "Scheduled immediately after the onboarding call. DUNS status determines the call agenda. Once DUNS is confirmed, GDA and ADP kick off in parallel with the Google and Apple setup steps below.",
+      "video": "BACC intro call overview"
+    },
+    "p2_3": {
+      "title": "Second BACC check-in",
+      "note": "Progress review while GDA/ADP steps are underway (not sequential)",
+      "timeline": "1 week later"
+    },
+    "p3_1": {
+      "title": "Google Developer Account (GDA) creation",
+      "note": "Create the client's GDA during the BACC call once DUNS is confirmed",
+      "timeline": "Minutes",
+      "video": "Google Developer Account setup"
+    },
+    "p3_2": {
+      "title": "GDA verification",
+      "note": "If identity is already verified: same call. If not: verification call + up to 48h Google review",
+      "timeline": "< 2 hours, or +48h for verification",
+      "video": "Verifying your Google account"
+    },
+    "p3_3": {
+      "title": "Google Play Fastlane setup",
+      "note": "Service account for automatic Android updates. Can be done in the same call as verification",
+      "timeline": "Same call as verification",
+      "video": "Setting up Google Play Fastlane"
+    },
+    "p4_1": {
+      "title": "Apple Developer Program enrollment",
+      "note": "MUST be Organization type (not Individual). If Apple creates an Individual account by mistake, the escalation process adds ~4 weeks. Watch the enrollment tutorial (2:00–2:50 covers this).",
+      "timeline": "1-4 weeks (Apple review)",
+      "video": "Apple Developer Program enrollment (watch 2:00–2:50 for the account type warning)"
+    },
+    "p4_2": {
+      "title": "Verify account type",
+      "note": "Check the confirmation email: it must say \"Organization\". If it says Individual, contact bsport immediately for escalation"
+    },
+    "p4_3": {
+      "title": "Add bsport as admin",
+      "note": "Grant bsport admin access to your Apple Developer Program account",
+      "video": "Adding bsport as admin on Apple Developer"
+    },
+    "p4_4": {
+      "title": "Setup API credentials & DSA agreement",
+      "note": "API keys and Developer Sales Agreement. Done once bsport has admin access",
+      "video": "API credentials & DSA agreement setup"
+    },
+    "p5_1": {
+      "title": "App submitted to Google Play",
+      "note": "Typically reviewed in 1-7 days"
+    },
+    "p5_2": {
+      "title": "App submitted to App Store",
+      "note": "Typically reviewed in 1-2 days (sometimes longer for first-time submissions)"
+    },
+    "p5_3": {
+      "title": "Apps go live",
+      "note": "Both stores approve → apps published. Download links shared with you"
+    },
+    "p6_1": {
+      "title": "Monitor performance",
+      "note": "Track user feedback, ratings, installations"
+    },
+    "p6_2": {
+      "title": "Updates & support",
+      "note": "We handle updates to keep your app running smoothly"
+    }
+  }
+}

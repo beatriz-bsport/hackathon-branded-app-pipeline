@@ -525,6 +525,11 @@ export const useNavigationElements = ({
           ...navigationUrls.settings_marketplace,
         },
         {
+          id: "brandedAppPipeline",
+          label: t("menus.settings.brandedApp"),
+          ...navigationUrls.settings_brandedApp,
+        },
+        {
           id: "widgets",
           label: t("menus.settings.widgets"),
           ...flaggedNavigationUrl({
@@ -553,11 +558,11 @@ export const useNavigationElements = ({
           label: t("menus.settings.personalization"),
           ...navigationUrls.settings_personalization,
         },
-        {
-          id: "brandedApp",
-          label: t("menus.settings.brandedApp"),
-          ...navigationUrls.settings_mobilePersonalization,
-        },
+        // {
+        //   id: "brandedApp",
+        //   label: t("menus.settings.brandedApp"),
+        //   ...navigationUrls.settings_mobilePersonalization,
+        // },
         {
           id: "teacherView",
           label: t("menus.settings.teacherView"),

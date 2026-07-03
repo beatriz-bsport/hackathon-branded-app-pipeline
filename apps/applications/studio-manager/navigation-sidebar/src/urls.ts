@@ -114,6 +114,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_permissions: `${SETTINGS_URL}/permissions`,
   settings_staff: `${SETTINGS_URL}/permissions/staff`,
   settings_permission: `${SETTINGS_URL}/permissions/role`,
+  settings_brandedApp: `${SETTINGS_URL}/branded-app-pipeline`,
   tag: "/tag",
   establishment: "/venues",
 } as const satisfies Partial<Urls>;
@@ -146,6 +147,7 @@ export const REVAMP_URLS_PRODUCTION = {
   settings_staff: REVAMP_URLS_DEVELOPMENT.settings_staff,
   settings_permission: REVAMP_URLS_DEVELOPMENT.settings_permission,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
+  settings_brandedApp: `${SETTINGS_URL}/branded-app-pipeline`,
   tag: "/tag",
   teacher: "/teacher",
   establishment: REVAMP_URLS_DEVELOPMENT.establishment,
@@ -156,6 +158,7 @@ const REVAMP_ONLY_KEYS: Array<string> = [
   "onDemand",
   "settings_permissions",
   "subscriptionFinance",
+  "settings_brandedApp",
 ] satisfies Array<keyof Urls>;
 
 export const LEGACY_DEFAULT_PAGE = LEGACY_URLS.calendar;

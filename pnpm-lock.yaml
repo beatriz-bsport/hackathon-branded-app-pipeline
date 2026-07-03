@@ -3327,6 +3327,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../packages/utils/sm-backbone
+      '@bsport/sm-branded-app-pipeline':
+        specifier: workspace:*
+        version: link:../settings/branded-app-pipeline
       '@bsport/sm-contract':
         specifier: workspace:*
         version: link:../buyables/contract

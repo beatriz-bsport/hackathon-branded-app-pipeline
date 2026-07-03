@@ -1,13 +1,10 @@
 {
-  "name": "@bsport/sm-venues",
+  "name": "@bsport/sm-branded-app-pipeline",
   "version": "0.0.0",
   "private": true,
-  "description": "Studio manager venues management",
-  "author": "Pierre Mouchan <pierre.mouchan@gmail.com>",
+  "description": "Application for Studio Managers to manage the Branded App Pipeline",
+  "author": "Beatriz Abad <beatriz.abad@bsport.io>",
   "type": "module",
-  "imports": {
-    "#src/*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./build/lib.es.d.ts",
@@ -27,18 +24,13 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {},
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",
-    "@bsport/config-vitest": "workspace:*",
     "@tanstack/react-query-devtools": "^5.90.12",
-    "@types/leaflet": "^1.9.0",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
@@ -46,29 +38,18 @@
     "vite": "^5.4.11"
   },
   "peerDependencies": {
-    "@bsport/api-book": "workspace:*",
     "@bsport/fetch": "workspace:*",
-    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
-    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
-    "@bsport/use-debounce": "workspace:*",
-    "@bsport/use-pagination-query-params": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
-    "leaflet": "^1.9.0",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-leaflet": "^5.0.0",
-    "react-router": "^7.2.0",
-    "zod": "^3.25.64"
+    "react-router": "^7.2.0"
   },
   "federation": {
-    "devPort": 4451,
-    "exposes": {
-      "./App": "./src/App"
-    },
+    "devPort": 4452,
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,
